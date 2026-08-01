@@ -1,0 +1,42 @@
+# Ignore everything by default, then allow repository source and published files.
+*
+!*/
+
+# LaTeX sources and published outputs
+!*.tex
+!*.sty
+!*.cls
+!*.bib
+!*.pdf
+!*.png
+
+# Repository documentation and configuration
+!*.md
+!*.yml
+!*.yaml
+!*.toml
+!*.json
+!*.xml
+!*.py
+!*.sh
+!*.ps1
+!*.otf
+!*.ttf
+
+# Extensionless repository files
+!.gitignore
+!.gitattributes
+!.githooks/pre-commit
+!LICENSE
+
+# Never publish generated build directories or local state, even when they
+# contain otherwise allowed file types.
+*.run.xml
+.build/
+__pycache__/
+.vscode/
+.idea/
+_minted-*/
+.DS_Store
+Thumbs.db
+desktop.ini
