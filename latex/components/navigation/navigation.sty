@@ -1,0 +1,32 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/08/01 v0.1.0 PDF navigation]
+
+\RequirePackage{xurl}
+\RequirePackage{hyperref}
+\RequirePackage{bookmark}
+\RequirePackage[nameinlink,noabbrev]{cleveref}
+
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=unipd-accent,
+  citecolor=unipd-accent,
+  urlcolor=unipd-accent,
+  pdfborder={0 0 0},
+  bookmarksopen=true,
+  bookmarksnumbered=true
+}
+\urlstyle{same}
+
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={\unipdmetadata{course} -- \unipdmetadata{document-type}},
+    pdfauthor={\unipdmetadata{author}},
+    pdfsubject={\unipdmetadata{degree}},
+    pdfkeywords={\unipdmetadata{course}, \unipdmetadata{repository}}
+  }%
+}
+
+\NewDocumentCommand{\coursehref}{mm}{\href{#1}{\textcolor{unipd-accent}{#2}}}
+
+\endinput

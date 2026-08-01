@@ -1,0 +1,96 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Algorithms]
+
+\RequirePackage[linesnumbered,algochapter]{algorithm2e}
+
+\SetAlgorithmName{Algoritmo}{Algoritmi}{Elenco degli algoritmi}
+\SetAlgoCaptionSeparator{}
+\newcommand{\unipdalgocaptionlayout}[1]{\hspace*{-24pt}#1}
+\SetAlgoCaptionLayout{unipdalgocaptionlayout}
+\SetAlCapFnt{\normalsize\unipdsanssemibold}
+\SetAlCapNameFnt{\normalsize\unipdsanssemibold}
+\SetAlCapHSkip{0pt}
+\newcommand{\unipdalgofont}{\normalfont\ttfamily\fontsize{9.5pt}{12pt}\selectfont}
+\SetAlFnt{\unipdalgofont}
+\newcommand{\unipdalgokeyword}[1]{{\bfseries\color{unipd-primary}#1}}
+\SetKwSty{unipdalgokeyword}
+\SetArgSty{texttt}
+\SetAlgoNlRelativeSize{0}
+\SetNlSkip{9pt}
+\SetNlSty{texttt}{\color{unipd-muted!75!black}}{}
+\SetAlgoVlined
+\renewcommand{\Hlne}{}
+\renewcommand{\algocf@Vline}[1]{%
+  \strut\par\nointerlineskip
+  \algocf@push{\skiprule}%
+  \hbox{{\color{black!20}\vrule width 0.4pt}%
+    \vtop{\algocf@push{\skiptext}%
+      \vtop{\algocf@addskiptotal #1}\Hlne}}\vskip\skiphlne
+  \algocf@pop{\skiprule}%
+  \nointerlineskip
+}
+\renewcommand{\algocf@Vsline}[1]{%
+  \strut\par\nointerlineskip
+  \algocf@bblockcode
+  \algocf@push{\skiprule}%
+  \hbox{{\color{black!20}\vrule width 0.4pt}%
+    \vtop{\algocf@push{\skiptext}%
+      \vtop{\algocf@addskiptotal #1}}}%
+  \algocf@pop{\skiprule}%
+  \algocf@eblockcode
+}
+\DontPrintSemicolon
+\renewcommand{\fnum@algocf}{%
+  \AlCapSty{\AlCapFnt\algorithmcfname\nobreakspace\thealgocf{\rmfamily:}\kern0.6em}%
+}
+\renewcommand{\algocf@resetfnum}{%
+  \renewcommand{\fnum@algocf}{%
+    \AlCapSty{\AlCapFnt\algorithmcfname\nobreakspace\thealgocf{\rmfamily:}\kern0.6em}%
+  }%
+}
+
+\patchcmd{\algocf@makecaption}
+  {\hbox to\hsize{\hfil\box\@tempboxa\hfil}}
+  {\hbox to\hsize{\box\@tempboxa\hfil}}
+  {}{}
+\def\algocf@style@unipd{\renewcommand{\algocf@style}{unipd}}
+\def\@algocf@pre@unipd{\noindent\begin{lrbox}{\algocf@algoframe}}
+\def\@algocf@post@unipd{%
+  \end{lrbox}%
+  \begin{tcolorbox}[
+    enhanced,
+    width=\linewidth,
+    sharp corners,
+    boxrule=0.4pt,
+    colback=unipd-code-bg,
+    colframe=unipd-rule,
+    left=0pt,
+    right=-0.8pt,
+    boxsep=0pt,
+    top=3pt,
+    bottom=3pt
+  ]
+    \usebox{\algocf@algoframe}%
+  \end{tcolorbox}%
+}
+\def\@algocf@capt@unipd{above}
+\RestyleAlgo{unipd}
+\AtBeginEnvironment{algorithm}{%
+  \setcounter{AlgoLine}{0}%
+  \IncMargin{2em}%
+}
+
+\SetKwInput{KwInput}{Dati}
+\SetKwInput{KwOutput}{Risultato}
+\let\unipd@KwOutput\KwOutput
+\renewcommand{\KwOutput}[1]{\unipd@KwOutput{#1}\BlankLine}
+\SetKw{Return}{restituisci}
+\SetKw{KwTo}{a}
+\SetKw{KwAnd}{e}
+\SetKw{KwOr}{o}
+\SetKwFor{For}{per}{fai}{fine}
+\SetKwFor{While}{finché}{fai}{fine}
+\SetKwIF{If}{ElseIf}{Else}{se}{allora}{altrimenti se}{altrimenti}{fine}
+\SetKwProg{Function}{Funzione}{:}{fine}
+
+\endinput

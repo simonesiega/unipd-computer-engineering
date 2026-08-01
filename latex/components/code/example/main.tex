@@ -1,0 +1,31 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Codice e terminale}
+
+Il \cref{lst:python-sum} implementa il checksum a otto bit usato per verificare l'integrità di un frame.
+
+\begin{code}[language=Python,caption={Calcolo del checksum di un frame},label={lst:python-sum}]
+def checksum(frame: bytes) -> int:
+    # Il complemento limita il risultato a otto bit.
+    return (-sum(frame)) & 0xFF
+
+payload = bytes([0x31, 0x7A, 0x04])
+print(f"Checksum: 0x{checksum(payload):02X}")
+\end{code}
+
+L'esecuzione produce il byte di controllo in notazione esadecimale.
+
+\begin{terminal}[caption={Compilazione ed esecuzione},label={lst:terminal-run}]
+$ python3 checksum.py
+Checksum: 0x51
+\end{terminal}
+
+Il risultato è riportato nel \cref{lst:terminal-run}.
+\end{document}

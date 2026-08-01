@@ -1,0 +1,59 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Ambienti didattici}
+
+\begin{definition}[Numero pari]\label{def:even}
+Un intero $n$ è pari se esiste $k\in\Z$ tale che $n=2k$.
+\end{definition}
+
+\begin{theorem}[Somma di numeri pari]\label{thm:sum}
+La somma di due numeri pari è pari.
+\end{theorem}
+
+\begin{proof}
+Se $a=2h$ e $b=2k$, allora $a+b=2(h+k)$.
+\end{proof}
+
+\begin{proposition}\label{prop:product}
+Il prodotto di un numero pari per un intero è pari.
+\end{proposition}
+
+\begin{lemma}\label{lem:multiple}
+Ogni intero della forma $2k$ è divisibile per due.
+\end{lemma}
+
+\begin{corollary}\label{cor:double}
+Il doppio di ogni intero è pari.
+\end{corollary}
+
+\begin{example}\label{ex:even}
+La somma di $8$ e $14$ è $22$.
+\end{example}
+
+\begin{remark}\label{rem:numbering}
+Ogni ambiente numerato può ricevere un titolo e un'etichetta.
+\end{remark}
+
+\begin{important}[Idea da ricordare]\label{imp:idea}
+Le informazioni centrali possono essere evidenziate con moderazione.
+\end{important}
+
+\begin{warning}[Ipotesi necessarie]\label{warn:hypothesis}
+Prima di applicare un risultato occorre verificarne le ipotesi.
+\end{warning}
+
+\begin{exercise}\label{exe:sum}
+Dimostrare che la somma di quattro numeri pari è pari.
+\end{exercise}
+
+\begin{solution}\label{sol:sum}
+Si applica due volte il \cref{thm:sum}.
+\end{solution}
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass{../../../unipd-notes}
+\unipdsetup{course = {Fondamenti di Ingegneria Informatica},short-course = {Fondamenti di Ingegneria},document-type = {Appunti delle lezioni}}
+\begin{document}
+\chapter{Diagrammi tecnici}
+\listoffigures
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[unipd/diagram,node distance=16mm]
+ \node[unipd/graph node] (a) {$A$}; \node[unipd/graph node,right=of a] (b) {$B$};
+ \node[unipd/graph node emphasized,right=of b] (c) {$C$};
+ \draw[unipd/weighted edge] (a)--node[unipd/edge label,above]{$2$}(b);
+ \draw[unipd/weighted edge] (b)--node[unipd/edge label,above]{$5$}(c);
+ \draw[unipd/optional edge,bend right=28] (a) to node[unipd/edge label,below]{$8$}(c);
+\end{tikzpicture}
+\caption{Grafo orientato pesato di una piccola rete}\label{fig:diagram-graph}\figuresource{elaborazione propria}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[unipd/diagram,node distance=20mm]
+ \node[unipd/automaton initial] (q0) {$q_0$};
+ \node[unipd/automaton accepting,right=of q0] (q1) {$q_1$};
+ \path[unipd/automaton transition] (q0) edge node[unipd/transition label,above]{$1$}(q1)
+   (q0) edge[loop above] node[unipd/transition label]{$0$}(q0)
+   (q1) edge[loop above] node[unipd/transition label]{$0,1$}(q1);
+\end{tikzpicture}
+\caption{Automa che riconosce le parole contenenti almeno un uno}\label{fig:diagram-automaton}\figuresource{elaborazione propria}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{circuitikz}[unipd/circuit]
+ \draw (0,0) to[V,l=$V_s$] (0,3)
+   to[R,l=$R_1$,i>^=$i$] (2.2,3)
+   to[L,l=$L$] (4.4,3)
+   -- (5.4,3);
+ \draw (5.4,3) to[C,l_=$C$,v^>=$v_o$] (5.4,0);
+ \draw (5.4,3) -- (7.4,3) to[R,l=$R_L$] (7.4,0) -- (0,0);
+ \draw (5.4,0) node[ground] {};
+ \node[unipd/circuit node] at (5.4,3) {};
+\end{circuitikz}
+\caption{Filtro RLC del secondo ordine con carico resistivo}\label{fig:diagram-circuit}\figuresource{elaborazione propria}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[unipd/diagram,node distance=9mm]
+ \node[unipd/flow start] (s) {Inizio}; \node[unipd/flow process,below=of s] (p) {Leggi il dato};
+ \node[unipd/flow decision,below=of p] (d) {Valido?}; \node[unipd/flow end,below=of d] (e) {Fine};
+ \draw[unipd/flow arrow] (s)--(p); \draw[unipd/flow arrow] (p)--(d);
+ \draw[unipd/flow arrow] (d)--node[unipd/edge label,right]{sì}(e);
+ \draw[unipd/flow arrow] (d.east)--++(12mm,0)|-node[unipd/edge label,pos=.25,right]{no}(p.east);
+\end{tikzpicture}
+\caption{Flusso di validazione di un dato in ingresso}\label{fig:diagram-flow}\figuresource{elaborazione propria}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[unipd/diagram,node distance=13mm]
+ \node[unipd/architecture user] (client) {Client};
+ \node[unipd/architecture service,right=of client] (api) {API};
+ \node[unipd/architecture database,right=of api] (db) {DB};
+ \draw[unipd/architecture connection] (client)--(api); \draw[unipd/architecture data flow] (api)--(db);
+\end{tikzpicture}
+\caption{Architettura essenziale di un servizio applicativo}\label{fig:diagram-architecture}\figuresource{elaborazione propria}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[unipd/diagram,node distance=17mm]
+ \node[unipd/uml class] (user) {Utente\nodepart{second}- nome: String\nodepart{third}+ accedi(): Boolean};
+ \node[unipd/uml class,right=of user] (student) {Studente\nodepart{second}- matricola: String\nodepart{third}+ iscrivi(): void};
+ \draw[unipd/uml inheritance] (student)--(user);
+\end{tikzpicture}
+\caption{Diagramma UML delle classi utente e studente}\label{fig:diagram-uml}\figuresource{elaborazione propria}
+\end{figure}
+
+Le \cref{fig:diagram-graph,fig:diagram-automaton,fig:diagram-circuit,fig:diagram-flow,fig:diagram-architecture,fig:diagram-uml} usano il normale contatore delle figure.
+\end{document}

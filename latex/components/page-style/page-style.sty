@@ -1,0 +1,34 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Page style]
+
+\RequirePackage{geometry}
+\RequirePackage{scrlayer-scrpage}
+
+\geometry{
+  a4paper,
+  top=27mm,
+  bottom=28mm,
+  left=20mm,
+  right=20mm,
+  headheight=15pt,
+  headsep=8mm,
+  footskip=12mm
+}
+
+\clearpairofpagestyles
+\automark[section]{chapter}
+\ihead[\unipdheadcourse]{\unipdheadcourse}
+\ohead[]{\headmark}
+\ifoot[\unipdmetadata{repository}]{\unipdmetadata{repository}}
+\ofoot[\pagemark]{\pagemark}
+
+\setkomafont{pageheadfoot}{\normalfont\sffamily\small\color{black}}
+\setkomafont{pagehead}{\normalfont\sffamily\small\color{unipd-accent}}
+\setkomafont{pagefoot}{\normalfont\sffamily\small\color{black!60}}
+\setkomafont{pagenumber}{\normalfont\sffamily\bfseries\color{black}}
+\KOMAoptions{headsepline=0.4pt,plainheadsepline=false}
+\pagestyle{scrheadings}
+
+\raggedbottom
+
+\endinput

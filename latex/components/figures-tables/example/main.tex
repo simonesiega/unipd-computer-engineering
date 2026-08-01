@@ -1,0 +1,43 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Figure e tabelle}
+
+\begin{figure}[htbp]
+  \centering
+  \fcolorbox{unipd-rule}{unipd-soft}{%
+    \parbox[c][32mm][c]{0.68\textwidth}{\centering\sffamily
+      Fotografia della scheda di sviluppo\\[2mm]
+      \footnotesize STM32 Nucleo utilizzata in laboratorio}%
+  }
+  \caption{Scheda di sviluppo impiegata nelle esercitazioni}
+  \label{fig:control-loop}
+  \figuresource{elaborazione propria}
+\end{figure}
+
+La \cref{fig:control-loop} identifica l'hardware di riferimento per le prove di acquisizione analogica.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Parametri elettrici misurati sul convertitore analogico-digitale}
+  \label{tab:measurements}
+  \begin{tabularx}{0.72\textwidth}{LCC}
+    \toprule
+    Grandezza & Valore & Unità \\
+    \midrule
+    Tensione di riferimento & $3.30$ & \si{\volt} \\
+    Corrente assorbita & $18.4$ & \si{\milli\ampere} \\
+    Frequenza di campionamento & $10.0$ & \si{\kilo\hertz} \\
+    \bottomrule
+  \end{tabularx}
+  \tablesource{misure raccolte durante l'esercitazione di laboratorio}
+\end{table}
+
+I valori della \cref{tab:measurements} sono stati acquisiti con alimentazione USB e carico nominale.
+\end{document}

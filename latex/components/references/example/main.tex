@@ -1,0 +1,66 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Comunicazione tra processi}
+\section{Buffer produttore--consumatore}\label{sec:elements}
+
+\begin{theorem}\label{thm:identity}
+Se gli accessi al buffer sono protetti da mutua esclusione, il numero di elementi rimane compreso tra zero e la capacità $N$.
+\end{theorem}
+
+\begin{equation}\label{eq:identity}
+  0 \leq n_{\mathrm{buffer}} \leq N
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[node distance=16mm]
+    \node[draw=unipd-primary,rounded corners] (source) {Produttore};
+    \node[draw=unipd-primary,rounded corners,right=of source] (target) {Consumatore};
+    \draw[draw=unipd-accent,-{Latex},thick] (source) -- (target);
+  \end{tikzpicture}
+  \caption{Flusso dei dati attraverso il buffer condiviso}
+  \label{fig:reference}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Stato dei semafori del buffer}
+  \label{tab:types}
+  \begin{tabular}{ll}
+    \toprule
+    Semaforo & Valore iniziale \\
+    \midrule
+    \texttt{mutex} & $1$ \\
+    \texttt{empty} & $N$ \\
+    \texttt{full} & $0$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{code}[language=Python,caption={Verifica della disponibilità del buffer},label={lst:identity}]
+def can_consume(items):
+    return items > 0
+\end{code}
+
+\begin{algorithm}[htbp]
+  \caption{Prelievo di un elemento dal buffer}
+  \label{alg:identity}
+  \KwInput{Un buffer condiviso non vuoto}
+  \KwOutput{L'elemento più vecchio}
+  attendi(\texttt{full})\;
+  attendi(\texttt{mutex})\;
+  $x\gets$ rimuovi elemento\;
+  segnala(\texttt{mutex})\;
+  segnala(\texttt{empty})\;
+  \Return{$x$}\;
+\end{algorithm}
+
+L'invariante del \cref{thm:identity}, espresso nell'\cref{eq:identity}, impedisce overflow e underflow. La \cref{fig:reference} riassume il flusso, mentre la \cref{tab:types}, il \cref{lst:identity} e l'\cref{alg:identity} descrivono inizializzazione e prelievo.
+\end{document}

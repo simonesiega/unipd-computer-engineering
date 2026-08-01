@@ -1,0 +1,40 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Notazione matematica}
+
+Una formula in linea, come $f(x)=x^2$, mantiene la stessa tipografia delle formule isolate.
+
+\section{Equazioni e matrici}
+\begin{equation}\label{eq:quadratic}
+  x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\end{equation}
+La \cref{eq:quadratic} è numerata automaticamente. Un calcolo allineato usa
+\begin{align}
+  (x+1)^2 &= x^2+2x+1,\\
+  (x-1)^2 &= x^2-2x+1.
+\end{align}
+
+Siano
+\[
+  \vect{x}=\begin{bmatrix}x_1\\x_2\end{bmatrix},\qquad
+  \mat{A}=\begin{bmatrix}1&2\\0&1\end{bmatrix},\qquad
+  \mat{A}\transpose\vect{x}=\vect{b}.
+\]
+
+\section{Insiemi, probabilità e unità}
+La funzione $\functionmap{g}{\R^2}{\R}$ è definita su
+$\set{\vect{x}\in\R^2 \suchthat \norm*{\vect{x}}\leq 1}$.
+In probabilità si scrive
+\[
+  \Prob\left(A\given B\right)=\frac{\Prob(A\cap B)}{\Prob(B)},
+  \qquad \Expected[X],\quad \Var(X),\quad \Cov(X,Y).
+\]
+Le unità seguono una forma uniforme: $g=\qty{9.81}{\metre\per\second\squared}$ e $R=\qty{4.7}{\kilo\ohm}$.
+\end{document}

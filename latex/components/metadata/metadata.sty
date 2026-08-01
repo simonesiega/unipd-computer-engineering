@@ -1,0 +1,71 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Course metadata]
+
+\RequirePackage{xparse}
+
+\ExplSyntaxOn
+\prop_new:N \g_unipd_metadata_prop
+
+\cs_new_protected:Npn \unipd_metadata_set:nn #1#2
+  { \prop_gput:Nnn \g_unipd_metadata_prop {#1} {#2} }
+
+\clist_map_inline:nn
+  {
+    course, short-course, professor, academic-year, degree-year, semester,
+    document-type, date, version
+  }
+  { \unipd_metadata_set:nn {#1} {} }
+
+\unipd_metadata_set:nn { university } { Università~degli~Studi~di~Padova }
+\unipd_metadata_set:nn { degree } { Corso~di~laurea~triennale~in~Ingegneria~informatica }
+\unipd_metadata_set:nn { author } { Simone~Siega }
+\unipd_metadata_set:nn { repository } { Computer~Engineering~—~UniPD }
+\unipd_metadata_set:nn { license } { CC~BY-SA~4.0 }
+\unipd_metadata_set:nn { unofficial-notice }
+  { Materiale~didattico~non~ufficiale,~non~approvato~né~pubblicato~dall'Università~degli~Studi~di~Padova. }
+\unipd_metadata_set:nn { date } { \today }
+
+\keys_define:nn { unipd/metadata }
+  {
+    course          .code:n = \unipd_metadata_set:nn { course } {#1},
+    short-course    .code:n = \unipd_metadata_set:nn { short-course } {#1},
+    professor       .code:n = \unipd_metadata_set:nn { professor } {#1},
+    academic-year   .code:n = \unipd_metadata_set:nn { academic-year } {#1},
+    degree-year     .code:n = \unipd_metadata_set:nn { degree-year } {#1},
+    semester        .code:n = \unipd_metadata_set:nn { semester } {#1},
+    document-type   .code:n = \unipd_metadata_set:nn { document-type } {#1},
+    author          .code:n = \unipd_metadata_set:nn { author } {#1},
+    date            .code:n = \unipd_metadata_set:nn { date } {#1},
+    version         .code:n = \unipd_metadata_set:nn { version } {#1},
+    university      .code:n = \unipd_metadata_set:nn { university } {#1},
+    degree          .code:n = \unipd_metadata_set:nn { degree } {#1},
+    repository      .code:n = \unipd_metadata_set:nn { repository } {#1},
+    license         .code:n = \unipd_metadata_set:nn { license } {#1},
+    unofficial-notice .code:n =
+      \unipd_metadata_set:nn { unofficial-notice } {#1}
+  }
+
+\NewDocumentCommand{\unipdsetup}{m}
+  { \keys_set:nn { unipd/metadata } {#1} }
+
+\NewExpandableDocumentCommand{\unipdmetadata}{m}
+  { \prop_item:Nn \g_unipd_metadata_prop {#1} }
+
+\NewDocumentCommand{\unipdifmetadata}{m +m +m}
+  {
+    \tl_if_blank:eTF
+      { \prop_item:Nn \g_unipd_metadata_prop {#1} }
+      {#3}
+      {#2}
+  }
+
+\NewExpandableDocumentCommand{\unipdheadcourse}{}
+  {
+    \tl_if_blank:eTF
+      { \prop_item:Nn \g_unipd_metadata_prop { short-course } }
+      { \prop_item:Nn \g_unipd_metadata_prop { course } }
+      { \prop_item:Nn \g_unipd_metadata_prop { short-course } }
+  }
+\ExplSyntaxOff
+
+\endinput

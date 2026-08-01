@@ -1,0 +1,52 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Mathematics]
+
+\RequirePackage{mathtools}
+\RequirePackage{unicode-math}
+\RequirePackage{siunitx}
+
+\setmathfont{LibertinusMath-Regular.otf}[Path=\unipdlibertinusfontpath]
+\sisetup{
+  locale=IT,
+  per-mode=symbol,
+  range-phrase={\,--\,},
+  range-units=single,
+  list-final-separator={ e },
+  detect-all
+}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\NewDocumentCommand{\vect}{m}{\symbf{#1}}
+\NewDocumentCommand{\mat}{m}{\symbf{#1}}
+\NewDocumentCommand{\set}{m}{\left\{#1\right\}}
+\NewDocumentCommand{\functionmap}{mmm}{#1\colon #2\longrightarrow #3}
+\NewDocumentCommand{\given}{}{\,\middle|\,}
+\NewDocumentCommand{\suchthat}{}{\,\middle|\,}
+\NewDocumentCommand{\diff}{}{\mathop{}\!\mathrm{d}}
+\NewDocumentCommand{\transpose}{}{^{\mathsf{T}}}
+
+\NewDocumentCommand{\N}{}{\mathbb{N}}
+\NewDocumentCommand{\Z}{}{\mathbb{Z}}
+\NewDocumentCommand{\Q}{}{\mathbb{Q}}
+\NewDocumentCommand{\R}{}{\mathbb{R}}
+\NewDocumentCommand{\C}{}{\mathbb{C}}
+\NewDocumentCommand{\Prob}{}{\mathbb{P}}
+\NewDocumentCommand{\Expected}{}{\mathbb{E}}
+\NewDocumentCommand{\exponential}{}{\mathrm{e}}
+\NewDocumentCommand{\imaginaryunit}{}{\mathrm{i}}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\numberwithin{equation}{chapter}
+
+\endinput

@@ -1,0 +1,66 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Code listings]
+
+\RequirePackage{listings}
+\RequirePackage{upquote}
+
+\renewcommand{\lstlistingname}{Listato}
+\renewcommand{\lstlistlistingname}{Elenco dei listati}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break,case,const,continue,default,delete,do,else,export,false,for,function,if,import,in,let,new,null,return,switch,true,typeof,var,while},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinestyle{unipd-code}{
+  basicstyle=\ttfamily\fontsize{9.5pt}{12pt}\selectfont,
+  keywordstyle=\bfseries\color{unipd-primary},
+  commentstyle=\itshape\color{unipd-muted!80!black},
+  stringstyle=\color{unipd-warning},
+  numbers=left,
+  numberstyle=\ttfamily\color{unipd-muted!75!black},
+  stepnumber=1,
+  firstnumber=1,
+  numbersep=7pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{unipd-rule},
+  backgroundcolor=\color{unipd-code-bg},
+  xleftmargin=2.5em,
+  xrightmargin=0.5em,
+  framexleftmargin=2em,
+  captionpos=b,
+  aboveskip=0.8em,
+  belowskip=0.8em,
+  literate=
+    {à}{{\`a}}1 {è}{{\`e}}1 {é}{{\'e}}1 {ì}{{\`i}}1
+    {ò}{{\`o}}1 {ù}{{\`u}}1 {À}{{\`A}}1 {È}{{\`E}}1
+    {É}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+}
+
+\lstdefinestyle{unipd-terminal}{
+  style=unipd-code,
+  language={},
+  keywordstyle=\color{unipd-primary},
+  commentstyle=\color{unipd-muted!80!black},
+  stringstyle=\color{unipd-primary}
+}
+
+\lstnewenvironment{code}[1][]
+  {\lstset{style=unipd-code,#1}}
+  {}
+\lstnewenvironment{terminal}[1][]
+  {\lstset{style=unipd-terminal,#1}}
+  {}
+
+\endinput

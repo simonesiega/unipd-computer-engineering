@@ -1,0 +1,58 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Course cover]
+
+\NewDocumentCommand{\unipdcoverfield}{mm}{%
+  \unipdifmetadata{#2}{%
+    \par\noindent
+    {\small\sffamily\color{unipd-muted}#1\par}
+    {\normalsize\unipdmetadata{#2}\par}
+    \vspace{0.55em}%
+  }{}%
+}
+
+\NewDocumentCommand{\makecoursecover}{}{%
+  \hypersetup{pageanchor=false}%
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+
+    {\sffamily\small\color{unipd-muted}\unipdmetadata{university}\par}
+    \vspace{0.35em}
+    {\sffamily\normalsize\unipdmetadata{degree}\par}
+
+    \vspace{1.8cm}
+    {\color{unipd-accent}\rule{0.18\textwidth}{1.2pt}\par}
+    \vspace{1.1cm}
+
+    \unipdifmetadata{document-type}{%
+      {\sffamily\large\color{unipd-accent}\unipdmetadata{document-type}\par}
+      \vspace{0.7em}
+    }{}
+    {\sffamily\bfseries\fontsize{24pt}{29pt}\selectfont\color{unipd-primary}\unipdmetadata{course}\par}
+
+    \vspace{1.6cm}
+    \begin{minipage}{0.74\textwidth}
+      \unipdcoverfield{Docente}{professor}
+      \unipdcoverfield{Anno accademico}{academic-year}
+      \unipdcoverfield{Anno di corso}{degree-year}
+      \unipdcoverfield{Semestre}{semester}
+      \unipdcoverfield{Autore}{author}
+      \unipdcoverfield{Data}{date}
+      \unipdcoverfield{Versione}{version}
+    \end{minipage}
+
+    \vfill
+    \begin{minipage}{0.84\textwidth}
+      \centering
+      {\footnotesize\color{unipd-muted!85!black}\unipdmetadata{unofficial-notice}\par}
+      \vspace{0.45em}
+      {\footnotesize\color{unipd-muted}
+        Opera distribuita con licenza \unipdmetadata{license}.\par}
+    \end{minipage}
+  \end{titlepage}
+  \clearpage
+  \hypersetup{pageanchor=true}%
+  \pagenumbering{roman}
+}
+
+\endinput

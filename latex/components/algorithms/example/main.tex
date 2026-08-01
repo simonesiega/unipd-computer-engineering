@@ -1,0 +1,38 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Algoritmi di ricerca e accumulazione}
+
+\begin{algorithm}[htbp]
+  \caption{Ricerca lineare}
+  \label{alg:linear-search}
+  \KwInput{Una sequenza $a_1,\dots,a_n$ e un valore $x$}
+  \KwOutput{La posizione di $x$, oppure $\bot$}
+  \For{$i\gets 1$ \KwTo $n$}{
+    \If{$a_i=x$}{
+      \Return{$i$}\;
+    }
+  }
+  \Return{$\bot$}\;
+\end{algorithm}
+
+Nel caso peggiore, l'\cref{alg:linear-search} confronta la chiave con tutti gli $n$ elementi e richiede tempo $\Theta(n)$.
+
+\begin{algorithm}[htbp]
+  \caption{Checksum additivo a otto bit}
+  \label{alg:additive-checksum}
+  \KwInput{Un frame di byte $b_1,\dots,b_n$}
+  \KwOutput{Il byte di controllo $c$}
+  $s\gets 0$\;
+  \For{$i\gets 1$ \KwTo $n$}{
+    $s\gets (s+b_i)\bmod 256$\;
+  }
+  \Return{$(-s)\bmod 256$}\;
+\end{algorithm}
+\end{document}

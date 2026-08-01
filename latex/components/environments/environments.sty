@@ -1,0 +1,79 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Educational environments]
+
+\RequirePackage{amsthm}
+\RequirePackage[most]{tcolorbox}
+
+\newtheoremstyle{unipd-plain}
+  {0.6em}{0.6em}{\itshape}{}%
+  {\sffamily\bfseries\color{black}}{.}{0.5em}{}
+\newtheoremstyle{unipd-definition}
+  {0.6em}{0.6em}{\normalfont}{}%
+  {\sffamily\bfseries\color{black}}{.}{0.5em}{}
+\newtheoremstyle{unipd-remark}
+  {0.6em}{0.6em}{\normalfont}{}%
+  {\sffamily\bfseries\color{black}}{.}{0.5em}{}
+\newtheoremstyle{unipd-warning}
+  {0.6em}{0.6em}{\normalfont}{}%
+  {\sffamily\bfseries}{.}{0.5em}%
+  {\thmname{\color{unipd-warning}#1}%
+   \thmnumber{\color{unipd-warning}\nobreakspace#2}%
+   \thmnote{\color{black}\nobreakspace(#3)}}
+
+\theoremstyle{unipd-plain}
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{proposition}{Proposizione}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollario}[chapter]
+
+\theoremstyle{unipd-definition}
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{example}{Esempio}[chapter]
+\newtheorem{important}{Importante}[chapter]
+\newtheorem{exercise}{Esercizio}[chapter]
+\newtheorem{solution}{Soluzione}[chapter]
+
+\theoremstyle{unipd-remark}
+\newtheorem{remark}{Osservazione}[chapter]
+
+\theoremstyle{unipd-warning}
+\newtheorem{warning}{Attenzione}[chapter]
+
+\tcbset{
+  unipd statement/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    boxrule=0pt,
+    leftrule=2pt,
+    colback=unipd-soft,
+    colframe=unipd-accent,
+    left=9pt,
+    right=9pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=0.8em,
+    after skip=0.8em
+  },
+  unipd callout/.style={
+    unipd statement,
+    colframe=unipd-warning,
+    colback=unipd-code-bg
+  }
+}
+
+\tcolorboxenvironment{definition}{unipd statement}
+\tcolorboxenvironment{theorem}{unipd statement}
+\tcolorboxenvironment{proposition}{unipd statement}
+\tcolorboxenvironment{lemma}{unipd statement}
+\tcolorboxenvironment{corollary}{unipd statement}
+\tcolorboxenvironment{example}{unipd statement}
+\tcolorboxenvironment{remark}{unipd statement}
+\tcolorboxenvironment{important}{unipd statement}
+\tcolorboxenvironment{warning}{unipd callout}
+\tcolorboxenvironment{exercise}{unipd statement}
+\tcolorboxenvironment{solution}{unipd statement}
+
+\renewcommand{\proofname}{Dimostrazione}
+
+\endinput

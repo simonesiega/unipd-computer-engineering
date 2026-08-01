@@ -1,0 +1,61 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Typography]
+
+\RequirePackage[italian]{babel}
+\RequirePackage{fontspec}
+\RequirePackage{microtype}
+\RequirePackage{csquotes}
+\RequirePackage{xcolor}
+
+\definecolor{unipd-primary}{HTML}{27364A}
+\definecolor{unipd-accent}{HTML}{3E6B78}
+\definecolor{unipd-muted}{HTML}{64707D}
+\definecolor{unipd-rule}{HTML}{CBD2D9}
+\definecolor{unipd-soft}{HTML}{F4F6F7}
+\definecolor{unipd-warning}{HTML}{9A5B13}
+\definecolor{unipd-code-bg}{HTML}{F6F7F8}
+
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont{LibertinusSerif-Regular.otf}[
+  Path=\unipdlibertinusfontpath,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldFont=LibertinusSerif-Bold.otf,
+  BoldItalicFont=LibertinusSerif-SemiboldItalic.otf,
+  Numbers={Lining,Proportional}
+]
+\newfontfamily\unipdserifsemibold{LibertinusSerif-Semibold.otf}[
+  Path=\unipdlibertinusfontpath,
+  ItalicFont=LibertinusSerif-SemiboldItalic.otf
+]
+\setsansfont{SourceSans3-Regular.otf}[
+  Path=\unipdsourcefontpath,
+  ItalicFont=SourceSans3-It.otf,
+  BoldFont=SourceSans3-Bold.otf,
+  BoldItalicFont=SourceSans3-Bold.otf,
+  Numbers={Lining,Proportional}
+]
+\newfontfamily\unipdsanssemibold{SourceSans3-Semibold.otf}[
+  Path=\unipdsourcefontpath
+]
+\setmonofont{IBMPlexMono-Regular.otf}[
+  Path=\unipdmonofontpath,
+  Renderer=HarfBuzz,
+  ItalicFont=IBMPlexMono-Italic.otf,
+  BoldFont=IBMPlexMono-Bold.otf,
+  BoldItalicFont=IBMPlexMono-Bold.otf,
+  Scale=MatchLowercase
+]
+\newfontfamily\unipdmonomedium{IBMPlexMono-Medium.otf}[
+  Path=\unipdmonofontpath,
+  Renderer=HarfBuzz
+]
+
+\frenchspacing
+\linespread{1.05}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em plus 0.15em minus 0.10em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\endinput

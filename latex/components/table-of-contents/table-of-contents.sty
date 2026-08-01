@@ -1,0 +1,32 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Table of contents]
+
+\addto\captionsitalian{\renewcommand*{\contentsname}{Indice dei contenuti}}
+\setkomafont{chapterentry}{\sffamily\bfseries\color{black}}
+\setkomafont{chapterentrypagenumber}{\sffamily\bfseries\color{black}}
+\DeclareTOCStyleEntry[
+  entryformat=\sffamily\bfseries\color{black},
+  pagenumberformat=\sffamily\bfseries\color{black},
+  linefill={\begingroup\color{black!25}\TOCLineLeaderFill\endgroup}
+]{tocline}{chapter}
+\DeclareTOCStyleEntry[
+  entryformat=\color{black},
+  pagenumberformat=\color{black},
+  linefill={\begingroup\color{black!25}\TOCLineLeaderFill\endgroup}
+]{tocline}{section}
+\DeclareTOCStyleEntry[
+  entryformat=\color{black},
+  pagenumberformat=\color{black},
+  linefill={\begingroup\color{black!25}\TOCLineLeaderFill\endgroup}
+]{tocline}{subsection}
+
+\NewDocumentCommand{\makecoursetableofcontents}{}{%
+  \pagenumbering{roman}%
+  \hypersetup{linkcolor=black}%
+  \tableofcontents
+  \hypersetup{linkcolor=unipd-accent}%
+  \clearpage
+  \pagenumbering{arabic}
+}
+
+\endinput

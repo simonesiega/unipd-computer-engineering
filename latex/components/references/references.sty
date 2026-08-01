@@ -1,0 +1,66 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 References and optional bibliography]
+
+\ifunipdbibliography
+  \RequirePackage[
+    backend=biber,
+    style=authoryear,
+    sorting=nyt,
+    giveninits=true,
+    maxbibnames=99
+  ]{biblatex}
+\fi
+
+\crefname{chapter}{capitolo}{capitoli}
+\Crefname{chapter}{Capitolo}{Capitoli}
+\crefname{section}{sezione}{sezioni}
+\Crefname{section}{Sezione}{Sezioni}
+\crefname{subsection}{sottosezione}{sottosezioni}
+\Crefname{subsection}{Sottosezione}{Sottosezioni}
+\crefname{equation}{equazione}{equazioni}
+\Crefname{equation}{Equazione}{Equazioni}
+\crefname{figure}{figura}{figure}
+\Crefname{figure}{Figura}{Figure}
+\crefname{table}{tabella}{tabelle}
+\Crefname{table}{Tabella}{Tabelle}
+\crefname{lstlisting}{listato}{listati}
+\Crefname{lstlisting}{Listato}{Listati}
+\crefname{listing}{listato}{listati}
+\Crefname{listing}{Listato}{Listati}
+\crefname{algocf}{algoritmo}{algoritmi}
+\Crefname{algocf}{Algoritmo}{Algoritmi}
+\crefname{algorithm}{algoritmo}{algoritmi}
+\Crefname{algorithm}{Algoritmo}{Algoritmi}
+\crefname{definition}{definizione}{definizioni}
+\Crefname{definition}{Definizione}{Definizioni}
+\crefname{theorem}{teorema}{teoremi}
+\Crefname{theorem}{Teorema}{Teoremi}
+\crefname{proposition}{proposizione}{proposizioni}
+\Crefname{proposition}{Proposizione}{Proposizioni}
+\crefname{lemma}{lemma}{lemmi}
+\Crefname{lemma}{Lemma}{Lemmi}
+\crefname{corollary}{corollario}{corollari}
+\Crefname{corollary}{Corollario}{Corollari}
+\crefname{example}{esempio}{esempi}
+\Crefname{example}{Esempio}{Esempi}
+\crefname{remark}{osservazione}{osservazioni}
+\Crefname{remark}{Osservazione}{Osservazioni}
+\crefname{important}{riquadro importante}{riquadri importanti}
+\Crefname{important}{Riquadro importante}{Riquadri importanti}
+\crefname{warning}{avvertenza}{avvertenze}
+\Crefname{warning}{Avvertenza}{Avvertenze}
+\crefname{exercise}{esercizio}{esercizi}
+\Crefname{exercise}{Esercizio}{Esercizi}
+\crefname{solution}{soluzione}{soluzioni}
+\Crefname{solution}{Soluzione}{Soluzioni}
+
+\ifunipdbibliography
+  \DefineBibliographyStrings{italian}{bibliography={Bibliografia}}
+  \NewDocumentCommand{\printcoursebibliography}{}{%
+    \printbibliography[heading=bibintoc,title={Bibliografia}]%
+  }
+\else
+  \NewDocumentCommand{\printcoursebibliography}{}{}
+\fi
+
+\endinput

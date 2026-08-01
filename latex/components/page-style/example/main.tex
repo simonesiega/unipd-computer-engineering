@@ -1,0 +1,26 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter{Gerarchia di memoria}
+
+La memoria di un calcolatore è organizzata in livelli che offrono compromessi diversi tra capacità, costo e tempo di accesso. I livelli più vicini alla CPU sono rapidi e di dimensione ridotta.
+
+\section{Principio di località}
+
+La località temporale descrive la tendenza a riutilizzare dati acceduti di recente; la località spaziale riguarda invece gli indirizzi vicini.
+
+\newpage
+\section{Memoria cache}\label{sec:header-target}
+
+Una cache conserva copie dei blocchi usati più frequentemente. Il tempo medio di accesso dipende dall'hit time, dal miss rate e dalla miss penalty; il principio discusso nella \cref{sec:header-target} si applica a più livelli.
+
+\subsection{Politiche di sostituzione}
+
+Le politiche LRU, FIFO e casuale determinano quale linea rimuovere quando un insieme è pieno.
+\end{document}

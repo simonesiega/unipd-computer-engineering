@@ -1,0 +1,35 @@
+\documentclass{../../../unipd-notes}
+
+\unipdsetup{
+  course = {Fondamenti di Ingegneria Informatica},
+  short-course = {Fondamenti di Ingegneria},
+  document-type = {Appunti delle lezioni}
+}
+
+\begin{document}
+\chapter*{Rappresentazione binaria dell'informazione}
+
+Un calcolatore rappresenta dati e istruzioni mediante sequenze di bit. Con $n$ bit si possono codificare $2^n$ configurazioni distinte; l'interpretazione assegnata a ciascuna configurazione dipende dal tipo del dato e dal formato adottato.
+
+La notazione \emph{complemento a due} consente di rappresentare numeri interi con segno. Il bit più significativo assume peso negativo e l'intervallo rappresentabile è \textbf{$[-2^{n-1},2^{n-1}-1]$}. Identificatori tecnici come \texttt{uint32\_t}, la funzione \texttt{decodeInstruction()} e il percorso \texttt{/dev/ttyUSB0} sono composti con carattere monospaziato.
+
+\section*{Procedura di conversione}
+Per convertire un intero negativo in complemento a due si applicano i seguenti passaggi.
+
+\begin{itemize}
+  \item fissare la lunghezza della parola;
+  \item rappresentare il valore assoluto in binario;
+  \item complementare i bit e aggiungere uno.
+\end{itemize}
+
+\begin{enumerate}
+  \item scrivere $13_{10}=00001101_2$ su otto bit;
+  \item invertire i bit ottenendo $11110010_2$;
+  \item sommare uno: $-13_{10}=11110011_2$.
+\end{enumerate}
+
+\section*{Osservazione}
+\begin{displayquote}
+L'estensione del segno replica il bit più significativo e conserva il valore dell'intero rappresentato.
+\end{displayquote}
+\end{document}

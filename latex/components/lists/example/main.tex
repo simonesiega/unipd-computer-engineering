@@ -1,0 +1,28 @@
+\documentclass{../../../unipd-notes}
+\unipdsetup{course = {Fondamenti di Ingegneria Informatica},short-course = {Fondamenti di Ingegneria},document-type = {Appunti delle lezioni}}
+\begin{document}
+\chapter{Elenchi}
+\section{Puntati e numerati}
+\begin{itemize}
+  \item unità aritmetico-logica per l'esecuzione delle operazioni;
+  \item unità di controllo, composta da:
+    \begin{itemize}
+      \item registro dell'istruzione corrente;
+      \item logica di decodifica e segnali di controllo.
+    \end{itemize}
+\end{itemize}
+\begin{enumerate}
+  \item prelevare l'istruzione dalla memoria;
+  \item decodificare l'opcode e gli operandi;
+  \item eseguire l'operazione e aggiornare lo stato.
+\end{enumerate}
+\section{Descrizioni e passi}
+\begin{description}
+  \item[Bit] Una cifra binaria.
+  \item[Byte] Una sequenza di otto bit.
+\end{description}
+\begin{steps}
+  \item Tradurre l'indirizzo virtuale mediante la tabella delle pagine.
+  \item Accedere al frame fisico e verificare i permessi.
+\end{steps}
+\end{document}
