@@ -8,6 +8,9 @@
 \renewcommand*{\glossarysection}[2][]{\chapter*{#2}\addcontentsline{toc}{chapter}{#2}}
 \newglossarystyle{unipd-long}{%
   \setglossarystyle{long}%
+  \renewenvironment{theglossary}%
+    {\setlength{\LTpre}{0pt}\begin{longtable}{lp{\glsdescwidth}}}%
+    {\end{longtable}}%
   \renewcommand*{\glsgroupskip}{}%
 }
 \setglossarystyle{unipd-long}

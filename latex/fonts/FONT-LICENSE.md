@@ -12,7 +12,7 @@ Bundled release: 7.051.
 
 Applies to the files under [`Libertinus/`](Libertinus/).
 
-> Copyright © 2012-2024 The Libertinus Project Authors,  
+> Copyright © 2012-2024 The Libertinus Project Authors,
 > with Reserved Font Name "Linux Libertine", "Biolinum", "STIX Fonts".
 
 Project: <https://github.com/alerque/libertinus>

@@ -18,6 +18,7 @@
 !*.json
 !*.xml
 !*.py
+!.github/requirements-ci.txt
 !*.sh
 !*.ps1
 !*.otf

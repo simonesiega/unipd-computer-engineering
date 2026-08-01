@@ -11,10 +11,12 @@
 \setkomafont{subsection}{\unipdsanssemibold\fontsize{14pt}{17pt}\selectfont}
 \setkomafont{subsubsection}{\unipdsanssemibold\fontsize{11.5pt}{14pt}\selectfont}
 \renewcommand*{\chapterformat}{\thechapter\autodot\enskip}
-\RedeclareSectionCommand[beforeskip=0pt,afterskip=0.8\baselineskip]{chapter}
-\RedeclareSectionCommand[beforeskip=1.5\baselineskip,afterskip=0.55\baselineskip]{section}
-\RedeclareSectionCommand[beforeskip=1.1\baselineskip,afterskip=0.4\baselineskip]{subsection}
-\RedeclareSectionCommand[beforeskip=0.9\baselineskip,afterskip=0.3\baselineskip]{subsubsection}
+
+\newcommand*{\unipdheadingafterskip}{0.35\baselineskip}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=\unipdheadingafterskip]{chapter}
+\RedeclareSectionCommand[beforeskip=1.5\baselineskip,afterskip=\unipdheadingafterskip]{section}
+\RedeclareSectionCommand[beforeskip=1.1\baselineskip,afterskip=\unipdheadingafterskip]{subsection}
+\RedeclareSectionCommand[beforeskip=0.9\baselineskip,afterskip=\unipdheadingafterskip]{subsubsection}
 
 \addto\captionsitalian{\renewcommand*{\appendixname}{Appendice}}
 \NewDocumentCommand{\courseappendices}{}{\clearpage\appendix}

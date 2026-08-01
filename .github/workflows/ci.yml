@@ -1,0 +1,87 @@
+name: LaTeX CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+
+      - name: Install pre-commit
+        run: >
+          python -m pip install
+          --disable-pip-version-check
+          -r .github/requirements-ci.txt
+
+      - name: Run all checks
+        run: pre-commit run --all-files --show-diff-on-failure
+
+  build:
+    name: Compile every document
+    needs: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Build and verify all generated files
+        uses: xu-cheng/texlive-action@22c04326a5d855880f9d39bb955138bf11c6df80 # v3
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
+          run: >
+            python3 latex/tools/build.py
+            --all
+            --keep-going
+            --check-generated
+
+      - name: Upload LaTeX logs after a failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: latex-logs-${{ github.sha }}
+          path: |
+            .build/**/*.log
+            .build/**/*.blg
+          if-no-files-found: warn
+          retention-days: 7
+          include-hidden-files: true
+
+      - name: Upload compiled PDFs
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: latex-pdfs-${{ github.sha }}
+          path: |
+            1/*/main.pdf
+            2/*/main.pdf
+            3/*/main.pdf
+            latex/components/*/example/main.pdf
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0

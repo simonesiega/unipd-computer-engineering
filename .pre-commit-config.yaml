@@ -1,0 +1,28 @@
+minimum_pre_commit_version: "3.7.0"
+default_install_hook_types: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=10240]
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: '\.(?:otf|ttf|pdf|png)$'
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: '\.(?:otf|ttf|pdf|png)$'
+      - id: trailing-whitespace
+        exclude: '\.(?:otf|ttf|pdf|png)$'
+
+  - repo: local
+    hooks:
+      - id: latex-repository-check
+        name: validate LaTeX repository
+        entry: python latex/tools/check_repository.py
+        language: python
+        pass_filenames: false
+        files: '(^[123]/|^latex/|^\.github/workflows/|^\.pre-commit-config\.yaml$)'
