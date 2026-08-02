@@ -75,7 +75,7 @@ Choose the directory corresponding to your degree year:
 | Second year | [`2/`](2/) |
 | Third year | [`3/`](3/) |
 
-Inside each course directory, open or download `main.pdf` to access the latest compiled notes. The LaTeX sources and supporting files are available alongside the PDF.
+Inside each course directory, open or download `main.pdf` to access the latest compiled notes. The LaTeX sources and supporting files are available alongside the PDF. Per-course changelogs under [`CHANGELOG/`](CHANGELOG/) record every committed file change, grouped by date and linked to the corresponding commit.
 
 ## Exams covered
 

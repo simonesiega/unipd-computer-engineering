@@ -28,6 +28,7 @@
 !.gitignore
 !.gitattributes
 !.githooks/pre-commit
+!.gitkeep
 !LICENSE
 !LICENSE-MIT
 

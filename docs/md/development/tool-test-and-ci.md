@@ -2,7 +2,7 @@
 
 [← Documentation](../README.md) · [Architecture](architecture.md) · [Build system](build-system.md) · [Building documents](../getting-started/building-documents.md)
 
-The repository uses three complementary validation layers: direct repository checks, pre-commit hooks, and the `LaTeX CI` GitHub Actions workflow. Compilation and generated-file verification remain responsibilities of the build system.
+The repository uses three complementary validation layers: direct repository checks, pre-commit hooks, and the `LaTeX CI` GitHub Actions workflow. Compilation and generated-file verification remain responsibilities of the build system. A separate `Course changelogs` workflow publishes a weekly recap of per-course Git histories.
 
 ## Local validation
 
@@ -42,12 +42,13 @@ Here, pip's `-r` option installs from the requirements file, `--all-files` check
 
 ## Python tool tests
 
-Tests for all Python tools are organized by responsibility under `latex/tools/test/`:
+Tests for the repository’s Python tools are organized by responsibility under `latex/tools/test/`:
 
 | Test file | Tool covered | Behavior covered |
 |---|---|---|
 | `test_course_creation.py` | `create_course.py` | Slug generation, academic years, generated layout and metadata, duplicate detection, and argument-domain validation |
 | `test_build_selection.py` | `build.py` | Document discovery and affected-document selection for course, shared, and unrelated changes |
+| `test_changelog_generation.py` | `generate_changelog.py` | History parsing, per-course file changes, renames, dates, commits, and empty-directory placeholders |
 | `test_repository_validation.py` | `check_repository.py` | Course entry-point structure and LaTeX source-hygiene errors |
 
 Run the complete test suite from the repository root.
@@ -66,7 +67,7 @@ py -m unittest discover -s latex/tools/test -p 'test_*.py'
 
 `discover` enables test discovery, `-s latex/tools/test` selects its starting directory, and `-p 'test_*.py'` selects test filenames.
 
-Run one focused test file by passing its path directly. Replace the filename with either of the other files listed above when needed.
+Run one focused test file by passing its path directly. Replace the filename with any of the other test files listed above when needed.
 
 Linux or macOS:
 
@@ -113,7 +114,7 @@ The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite w
 | LaTeX sources | `.tex`, `.sty`, `.cls`, and `.bib` files are valid UTF-8 |
 | Source hygiene | No tabs, trailing whitespace, or unresolved merge-conflict markers |
 
-The validator ignores `.git/` and `.build/`. Empty degree-year directories are not required because Git does not preserve empty directories.
+The validator ignores `.git/` and `.build/`. Empty directory structure is preserved through tracked `.gitkeep` placeholders, but their presence is not required by the validator.
 
 ## Workflow triggers
 
@@ -128,6 +129,8 @@ The validator ignores `.git/` and `.build/`. Empty degree-year directories are n
 The workflow has read-only repository permissions. Checkout credentials are not persisted.
 
 Only one run for the same workflow and Git reference remains active. A newer run cancels an older in-progress run for that reference.
+
+`.github/workflows/changelog.yml` runs every Sunday at 00:00 UTC and on manual dispatch. Scheduled runs use the default branch. The workflow has write access only to repository contents, checks out complete history, generates course changelogs, and creates one recap commit only when generated files changed. Ordinary pushes do not run this workflow, so several commits made during the week are consolidated into one changelog update. If the default branch changes while the workflow is running, it fetches and resets to the latest version, regenerates the changelogs, and retries the commit and push, for up to three attempts.
 
 ## Quality job
 
@@ -193,6 +196,24 @@ When compilation fails, the workflow instead attempts to upload:
 The failure artifact is named `latex-logs-<commit-sha>` and retained for 7 days.
 
 A quality-job failure does not produce LaTeX logs because the build job never starts.
+
+## Generated course changelogs
+
+`generate_changelog.py` reads commits affecting `1/`, `2/`, and `3/`. For each course it writes:
+
+```text
+CHANGELOG/<year>/<course>.md
+```
+
+Each generated file groups changes by commit date and records the linked commit, its message, and every added, modified, deleted, copied, or renamed course file. Histories are rebuilt from Git rather than appended, so they remain deterministic and retain deleted-course history. Renames between courses appear in both histories.
+
+The generator also creates tracked `.gitkeep` placeholders for the source years, `CHANGELOG/`, and its three year directories. This is necessary because Git does not store empty directories. Run it locally with:
+
+```bash
+python3 latex/tools/generate_changelog.py
+```
+
+Generated changelogs must not be edited by hand; the weekly workflow replaces their contents.
 
 ## Generated-file verification
 
