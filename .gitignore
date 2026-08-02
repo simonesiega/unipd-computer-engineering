@@ -29,6 +29,7 @@
 !.gitattributes
 !.githooks/pre-commit
 !LICENSE
+!LICENSE-MIT
 
 # Never publish generated build directories or local state, even when they
 # contain otherwise allowed file types.

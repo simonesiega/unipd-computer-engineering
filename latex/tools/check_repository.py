@@ -95,8 +95,12 @@ def main() -> int:
     # Validate course directories for each year, checking for the presence of main.tex and validating its content.
     for year in YEARS:
         year_directory = root / year
+        # Git does not preserve empty directories. A year directory becomes
+        # mandatory only when the repository contains at least one course in it.
+        if not year_directory.exists():
+            continue
         if not year_directory.is_dir():
-            errors.append(f"{year}/: missing course-year directory")
+            errors.append(f"{year}: expected a course-year directory")
             continue
         course_directories = sorted(path for path in year_directory.iterdir() if path.is_dir())
         for course_directory in course_directories:
