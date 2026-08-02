@@ -1,0 +1,65 @@
+<p align="center">
+  <img src="../assets/unipd.png" alt="University of Padua" width="320" />
+</p>
+
+# UniPD Computer Engineering Documentation
+
+[← Project README](../../README.md) · [Browse the notes](../../README.md#browse-the-notes) · [Contributing](../../CONTRIBUTING.md)
+
+This documentation is organized by task. The project README introduces the archive and provides access to the notes; the guides below explain how to create, write, build, and maintain them.
+
+## Start here
+
+- **Reading the notes?** Browse the degree-year directories from the [project README](../../README.md#browse-the-notes).
+- **Setting up the repository?** Start with [Installation](getting-started/installation.md).
+- **Adding a course?** Follow [Creating a course](getting-started/creating-a-course.md), then read [Writing notes](user-guide/writing-notes.md).
+- **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
+- **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation and CI](development/validation-and-ci.md).
+
+## Getting started
+
+| Guide | Use it when |
+|---|---|
+| [Installation](getting-started/installation.md) | Installing the required tools and verifying a local build. |
+| [Creating a course](getting-started/creating-a-course.md) | Adding a new course directory and its initial `main.tex`. |
+| [Building documents](getting-started/building-documents.md) | Compiling notes, refreshing generated files, and validating changes. |
+
+## Writing notes
+
+| Guide | Covers |
+|---|---|
+| [Course structure](user-guide/course-structure.md) | Course directories, sections, assets, generated files, and source organization. |
+| [Writing notes](user-guide/writing-notes.md) | Language, headings, mathematics, examples, exercises, citations, and visual content. |
+| [Metadata](user-guide/metadata.md) | Course, author, academic-year, document, and revision information. |
+
+## LaTeX reference
+
+| Guide | Covers |
+|---|---|
+| [Document class](reference/unipd-notes-class.md) | The `unipd-notes` class, document setup, and public commands. |
+| [Components](../../latex/components/README.md) | Shared packages, responsibilities, examples, and extension rules. |
+| [Fonts](../../latex/fonts/README.md) | Bundled families, typographic roles, configuration, and licensing. |
+
+## Repository development
+
+| Guide | Covers |
+|---|---|
+| [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
+| [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
+| [Validation and CI](development/validation-and-ci.md) | Repository checks, affected-document builds, GitHub Actions, and artifacts. |
+
+## Project policies
+
+| Guide | Covers |
+|---|---|
+| [Contributing](../../CONTRIBUTING.md) | Contribution paths, quality standards, licensing, pull requests, and review checks. |
+| [Security](../../SECURITY.md) | Private vulnerability reporting and the distinction between security and content errors. |
+| [License](../../README.md#license) | Licensing for academic materials, software, documentation, fonts, and third-party assets. |
+
+## Documentation conventions
+
+- Commands are shown from the repository root unless stated otherwise.
+- Linux and macOS use `python3`; Windows PowerShell uses `py`.
+- Keep internal repository links relative.
+- Link to the authoritative guide instead of repeating detailed procedures.
+- Do not manually edit generated course README sections.

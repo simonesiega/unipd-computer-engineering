@@ -52,16 +52,28 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      - name: Collect changed files
+        id: changes
+        shell: bash
+        run: |
+          BASE="${{ github.event.pull_request.base.sha || github.event.before }}"
+          mkdir -p .build
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            echo "mode=all" >> "$GITHUB_OUTPUT"
+          else
+            git diff --name-only --diff-filter=ACMRD "$BASE" HEAD -- > .build/changed-files.txt
+            echo "mode=changed" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build affected documents
         uses: xu-cheng/texlive-action@22c04326a5d855880f9d39bb955138bf11c6df80 # v3
         with:
           docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
           run: |
-            BASE="${{ github.event.pull_request.base.sha || github.event.before }}"
-            if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            if [ "${{ steps.changes.outputs.mode }}" = "all" ]; then
               python3 latex/tools/build.py --all --keep-going
             else
-              python3 latex/tools/build.py --changed-from "$BASE" --keep-going
+              python3 latex/tools/build.py --changed-file-list .build/changed-files.txt --keep-going
             fi
 
       - name: Upload LaTeX logs after a failure

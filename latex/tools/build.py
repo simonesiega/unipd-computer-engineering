@@ -54,10 +54,18 @@ def changed_files(root: Path, base: str, head: str) -> list[Path]:
         ["git", "diff", "--name-only", "--diff-filter=ACMRD", base, head, "--"],
         cwd=root,
         check=True,
-        capture_output=True,
+        stdout=subprocess.PIPE,
         text=True,
     )
     return [Path(line) for line in result.stdout.splitlines() if line]
+
+
+def read_changed_files(root: Path, filename: str) -> list[Path]:
+    # Read repository-relative changed paths prepared by CI outside the TeX container.
+    path = Path(filename)
+    if not path.is_absolute():
+        path = root / path
+    return [Path(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
 
 
 def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
@@ -403,6 +411,11 @@ def parse_arguments() -> argparse.Namespace:
         help="End revision used with --changed-from (default: HEAD)",
     )
     parser.add_argument(
+        "--changed-file-list",
+        metavar="FILE",
+        help="Build documents affected by repository-relative paths listed in FILE",
+    )
+    parser.add_argument(
         "--no-compile",
         action="store_true",
         help="Reuse an existing PDF and generated .toc data",
@@ -441,15 +454,26 @@ def main() -> int:
         raise ValueError("--check-generated cannot be combined with --no-readme")
 
     selection_modes = sum(
-        (bool(arguments.all), bool(arguments.changed_from), bool(arguments.targets))
+        (
+            bool(arguments.all),
+            bool(arguments.changed_from),
+            bool(arguments.changed_file_list),
+            bool(arguments.targets),
+        )
     )
     if selection_modes != 1:
-        raise ValueError("Use exactly one of explicit targets, --all, or --changed-from")
+        raise ValueError(
+            "Use exactly one of explicit targets, --all, --changed-from, "
+            "or --changed-file-list"
+        )
 
     if arguments.all:
         documents = discover_documents(root)
-    elif arguments.changed_from:
-        paths = changed_files(root, arguments.changed_from, arguments.changed_to)
+    elif arguments.changed_from or arguments.changed_file_list:
+        if arguments.changed_from:
+            paths = changed_files(root, arguments.changed_from, arguments.changed_to)
+        else:
+            paths = read_changed_files(root, arguments.changed_file_list)
         documents = affected_documents(root, paths)
         if not documents:
             print("No changed files affect a LaTeX document.", flush=True)
