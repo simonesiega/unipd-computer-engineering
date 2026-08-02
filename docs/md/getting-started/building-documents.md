@@ -13,7 +13,7 @@ Run every command from the repository root.
 | Build one course | `python3 latex/tools/build.py 1/course-name` | `py latex/tools/build.py 1/course-name` |
 | Build one component example | `python3 latex/tools/build.py latex/components/diagrams/example` | `py latex/tools/build.py latex/components/diagrams/example` |
 | Build multiple targets | `python3 latex/tools/build.py 1/course-a 1/course-b` | `py latex/tools/build.py 1/course-a 1/course-b` |
-| Build the complete archive | `python3 latex/tools/build.py --all --keep-going` | `py latex/tools/build.py --all --keep-going` |
+| Build all documents | `python3 latex/tools/build.py --all --keep-going` | `py latex/tools/build.py --all --keep-going` |
 
 Replace the example paths with the directories or `main.tex` files you want to build.
 
@@ -35,7 +35,7 @@ Build only documents affected by changes since another Git revision:
 | Linux or macOS | `python3 latex/tools/build.py --changed-from origin/main --keep-going` |
 | Windows PowerShell | `py latex/tools/build.py --changed-from origin/main --keep-going` |
 
-Course-local changes build that course, component-example changes build that example, and shared LaTeX or build-system changes build the complete archive. Documentation-only changes do not compile a document.
+Course-local changes build that course, component-example changes build that example, and shared LaTeX or build-system changes build all documents. Documentation-only changes do not compile a document.
 
 ## Validate changes
 

@@ -1,4 +1,4 @@
-# UniPD Computer Engineering Installation Guide
+# Installation
 
 [← Documentation](../README.md) · [Creating a course](creating-a-course.md) · [Building documents](building-documents.md)
 
@@ -14,12 +14,15 @@ This guide covers the tools and repository setup required to build the notes loc
 | Python | 3.10+ and available on `PATH` | Run build and validation scripts |
 | LuaLaTeX | Available on `PATH` | Compile the notes |
 | `latexmk` | Available on `PATH` | Manage LaTeX builds |
+| Biber | Available on `PATH` when using a bibliography | Process bibliography data |
 
-Install LuaLaTeX and `latexmk` through a TeX distribution:
+Install LuaLaTeX, `latexmk`, and Biber through a TeX distribution:
 
 - **Windows:** TeX Live or MiKTeX
 - **macOS:** MacTeX
 - **Linux:** TeX Live
+
+When using MiKTeX, `latexmk` may also require a Perl interpreter.
 
 Minimal TeX installations may not include every required package. A complete TeX installation is the easiest supported setup.
 
@@ -44,6 +47,8 @@ py --version
 lualatex --version
 latexmk --version
 ```
+
+For courses using bibliography support, also confirm that `biber --version` succeeds.
 
 ## Clone the repository
 
@@ -72,7 +77,7 @@ py latex/tools/build.py latex/components/diagrams/example
 
 A successful build publishes `main.pdf` inside the example directory and stores temporary files under `.build/`.
 
-To verify the complete archive, run:
+To verify all courses and component examples, run:
 
 Linux or macOS:
 
