@@ -166,7 +166,17 @@ Update covered-exam counts and tables only after maintainer approval.
 
 ## Getting help and reporting problems
 
-For contribution questions, proposed changes, and content errors, open a public [issue](https://github.com/simonesiega/unipd-computer-engineering/issues). A draft pull request is also welcome when you want feedback on work already in progress.
+Search the [existing issues](https://github.com/simonesiega/unipd-computer-engineering/issues) first, then use the form that best matches the request:
+
+| Request | Form |
+|---|---|
+| Inaccurate, unclear, incomplete, or outdated notes | [Report a content error](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=content-error.yml) |
+| A new course archive | [Submit a course proposal](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=course-proposal.yml) |
+| A reproducible local build, validation, generated-file, or CI failure | [Report a build problem](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=build-problem.yml) |
+
+For a request that does not fit these forms, start a [general issue](https://github.com/simonesiega/unipd-computer-engineering/issues/new). A draft pull request is also welcome when you want feedback on work already in progress.
+
+Include precise paths and locations in content reports. Build reports should contain reproduction steps, environment details, and sanitized logs. Course proposals should link to the official public course page and explain the planned scope and redistribution rights.
 
 Security vulnerabilities must not be reported publicly. Submit them through [GitHub Private Vulnerability Reporting](https://github.com/simonesiega/unipd-computer-engineering/security/advisories/new) and follow [`SECURITY.md`](SECURITY.md).
 
@@ -197,6 +207,8 @@ fix(programming): correct pointer ownership example
 docs: clarify how students can add course notes
 latex(diagrams): improve automata edge labels
 ```
+
+GitHub automatically loads [the pull-request template](.github/PULL_REQUEST_TEMPLATE.md). Complete every applicable section; if a validation item does not apply, state why.
 
 The pull-request description should:
 

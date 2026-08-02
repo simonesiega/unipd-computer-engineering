@@ -1,0 +1,90 @@
+name: Build problem
+description: Report a reproducible failure in the build tools, validation checks, or CI.
+title: "[Build problem]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include enough detail to reproduce the failure. For security vulnerabilities, use private vulnerability reporting instead of this public form.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Local LaTeX build
+        - Repository validation
+        - Generated files
+        - GitHub Actions / CI
+        - Installation or dependencies
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: target
+    attributes:
+      label: Build target or workflow
+      description: Name the course path, component example, command, or workflow job that fails.
+      placeholder: e.g. 1/course-name or LaTeX CI / Compile affected documents
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include the operating system, Python version, TeX distribution/version, and installation method when relevant.
+      placeholder: |
+        OS: Ubuntu 24.04
+        Python: 3.13
+        TeX: TeX Live 2026
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact commands and smallest sequence that consistently causes the problem.
+      placeholder: |
+        1. Check out ...
+        2. Run `python3 latex/tools/build.py ...`
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output or logs
+      description: Paste the relevant complete error. Remove credentials, tokens, personal paths, and other sensitive data.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Explain what you expected to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add links to failing CI runs, the first affected commit, or attempted fixes.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I followed the installation and building guides and searched for duplicate issues.
+          required: true
+        - label: I removed secrets, private data, and sensitive paths from the report.
+          required: true

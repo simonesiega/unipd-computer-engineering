@@ -1,0 +1,62 @@
+name: Content error
+description: Report an inaccurate, unclear, incomplete, or outdated part of the study material.
+title: "[Content error]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve the notes. Please identify the material precisely and include a reliable source when possible.
+
+  - type: input
+    id: course
+    attributes:
+      label: Course
+      description: Name of the course containing the problem.
+      placeholder: e.g. Analisi Matematica 1
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Give the repository path and, if applicable, the chapter, section, equation, or PDF page.
+      placeholder: e.g. 1/analisi-1/sections/limits.tex, section 2.3, PDF page 18
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+      description: Explain why the content is inaccurate, unclear, incomplete, or outdated.
+      placeholder: Quote only the minimum text needed to identify the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction
+      description: Describe the expected content or propose a correction, if you know one.
+    validations:
+      required: false
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Link or cite textbooks, official course material, or other reliable references supporting the report.
+      placeholder: Include edition and page or section numbers where possible.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the existing issues and did not find a duplicate.
+          required: true
+        - label: This report does not include confidential, restricted, or active-assessment material.
+          required: true

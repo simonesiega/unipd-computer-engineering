@@ -14,6 +14,7 @@ This documentation is organized by task. The project README introduces the archi
 - **Setting up the repository?** Start with [Installation](getting-started/installation.md).
 - **Adding a course?** Follow [Creating a course](getting-started/creating-a-course.md), then read [Writing notes](user-guide/writing-notes.md).
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
+- **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#getting-help-and-reporting-problems).
 - **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation and CI](development/validation-and-ci.md).
 
 ## Getting started
@@ -52,7 +53,7 @@ This documentation is organized by task. The project README introduces the archi
 
 | Guide | Covers |
 |---|---|
-| [Contributing](../../CONTRIBUTING.md) | Contribution paths, quality standards, licensing, pull requests, and review checks. |
+| [Contributing](../../CONTRIBUTING.md) | Contribution paths, issue forms, quality standards, licensing, pull requests, and review checks. |
 | [Security](../../SECURITY.md) | Private vulnerability reporting and the distinction between security and content errors. |
 | [License](../../README.md#license) | Licensing for academic materials, software, documentation, fonts, and third-party assets. |
 

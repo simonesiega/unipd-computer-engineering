@@ -1,0 +1,95 @@
+name: Course proposal
+description: Propose adding a new course and coordinate its scope before starting substantial work.
+title: "[Course proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Open a proposal before adding a course. Do not upload copyrighted or access-restricted teaching material without permission.
+
+  - type: input
+    id: course
+    attributes:
+      label: Course name
+      description: Use the official course name.
+      placeholder: e.g. Fondamenti di Informatica
+    validations:
+      required: true
+
+  - type: input
+    id: programme
+    attributes:
+      label: Degree programme and academic year
+      description: Identify the programme/catalogue and the academic year in which the course is offered.
+      placeholder: e.g. Computer Engineering, 2026/2027
+    validations:
+      required: true
+
+  - type: dropdown
+    id: degree-year
+    attributes:
+      label: Degree year
+      options:
+        - First year
+        - Second year
+        - Third year
+        - Other or not yet known
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Teaching language
+      options:
+        - Italian
+        - English
+        - Other or not yet known
+    validations:
+      required: true
+
+  - type: input
+    id: official-page
+    attributes:
+      label: Official course page
+      description: Link to the public University of Padua catalogue or syllabus page.
+      placeholder: https://...
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope
+      description: Summarize the topics and material that the initial course archive would cover.
+    validations:
+      required: true
+
+  - type: textarea
+    id: contribution
+    attributes:
+      label: Contribution plan
+      description: Explain what you can contribute, its current state, and whether you want help from others.
+      placeholder: I can contribute original notes for ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and redistribution rights
+      description: Identify planned sources and confirm that contributed files are original or legally redistributable.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing courses, issues, and pull requests for this proposal.
+          required: true
+        - label: I have read the creating-a-course guide and the contribution rules.
+          required: true
+        - label: I will not contribute confidential, restricted, or unlawfully copied material.
+          required: true
