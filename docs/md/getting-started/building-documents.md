@@ -57,15 +57,33 @@ Verify that every committed PDF and generated course README is current:
 
 `--check-generated` builds under `.build/` and fails when committed generated files are missing or stale without replacing them.
 
-## Useful options
+## Complete build command reference
 
-| Option | Purpose |
+Exactly one selection mode must be provided: explicit `TARGET` values, `--all`, `--changed-from`, or `--changed-file-list`.
+
+| Argument or option | Value | Purpose |
+|---|---|---|
+| `TARGET` | Directory or `main.tex` path | Build one or more explicitly listed documents |
+| `--all` | None | Discover and build every course and component example |
+| `--changed-from` | Git revision | Build documents affected by changes from the revision to `HEAD` |
+| `--changed-to` | Git revision | Change the end revision used with `--changed-from`; defaults to `HEAD` |
+| `--changed-file-list` | File path | Build documents affected by repository-relative paths read from a file |
+| `--no-compile` | None | Reuse an existing PDF and available `.toc` data instead of running LaTeX |
+| `--no-readme` | None | Do not create or update generated course README content |
+| `--clean` | None | Remove `.build/` after a successful run |
+| `--keep-going` | None | Process every selected document and report all failures at the end |
+| `--check-generated` | None | Compare built PDFs and README content with committed generated files |
+| `-h`, `--help` | None | Print the command reference and exit |
+
+`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. `--changed-to` applies only to `--changed-from`.
+
+Display the built-in reference with:
+
+| Platform | Command |
 |---|---|
-| `--keep-going` | Build every selected target and report all failures at the end |
-| `--check-generated` | Verify committed PDFs and generated README sections |
-| `--no-readme` | Compile without updating course README files |
-| `--clean` | Remove `.build/` after a successful run |
+| Linux or macOS | `python3 latex/tools/build.py --help` |
+| Windows PowerShell | `py latex/tools/build.py --help` |
 
 Always review affected PDFs visually before opening a pull request.
 
-For automated checks and affected-document selection in GitHub Actions, see [Validation and CI](../development/validation-and-ci.md).
+For automated checks and affected-document selection in GitHub Actions, see [Validation, Tests, and CI](../development/tool-test-and-ci.md).

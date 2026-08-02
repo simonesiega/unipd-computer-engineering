@@ -8,59 +8,67 @@ This guide covers the minimum steps required to add a course to the archive. Not
 
 Check that the course is not already present under `1/`, `2/`, or `3/`.
 
-Open an issue before adding a new course so its name, degree year, and scope can be agreed upon.
+External contributors should open an issue before adding a new course so that its name, degree year, and scope can be agreed upon. The repository maintainer may create courses directly.
 
-## Create the course directory
+## Create the course
 
-Place the course directly inside its degree-year directory:
+Run the course-creation tool from the repository root. On Linux or macOS:
+
+```bash
+python3 latex/tools/create_course.py \
+  --year 1 \
+  --course "Analisi Matematica 1" \
+  --short-course "Analisi 1" \
+  --professor "Name" \
+  --semester 1
+```
+
+On Windows PowerShell:
+
+```powershell
+py latex/tools/create_course.py `
+  --year 1 `
+  --course "Analisi Matematica 1" `
+  --short-course "Analisi 1" `
+  --professor "Name" `
+  --semester 1
+```
+
+The command requires the following five metadata options:
+
+| Option | Accepted value | Purpose |
+|---|---|---|
+| `--year` | `1`, `2`, or `3` | Degree year; also determines the generated academic year |
+| `--course` | Non-empty text | Official course name; also used to derive the directory name |
+| `--short-course` | Non-empty text | Short title used in running page elements |
+| `--professor` | Non-empty text | Professor associated with this edition of the course |
+| `--semester` | `1` or `2` | Teaching semester |
+
+Display the complete CLI reference with `python3 latex/tools/create_course.py --help` on Linux or macOS, or `py latex/tools/create_course.py --help` on Windows.
+
+The tool converts the official course name to a lowercase ASCII kebab-case directory name. For example, `Probabilità e Statistica` becomes `probabilita-e-statistica`. It rejects a course with the same generated name anywhere in the archive, validates metadata before writing files, escapes LaTeX-sensitive characters, and removes a partially created course if writing fails.
+
+For the example above it creates:
 
 ```text
-<year>/<course-name>/
+1/analisi-matematica-1/
 ├── main.tex
-├── sections/    # optional
-└── assets/      # optional
+├── sections/
+├── assets/
+└── README.md
 ```
 
-`<year>` must be `1`, `2`, or `3`. Use lowercase kebab-case for `<course-name>`, for example:
+The generated `main.tex` uses the supplied metadata and the academic year associated with this degree archive:
 
-```text
-1/fondamenti-di-informatica/
-```
+| Degree year | Academic year |
+|---:|---|
+| 1 | `2026--2027` |
+| 2 | `2027--2028` |
+| 3 | `2028--2029` |
 
-Only `main.tex` is required initially. Use `sections/` for substantial topics and `assets/` for images, diagrams, data, and supporting files.
+After a successful run, the command prints the created repository-relative path, selected academic year, and next build command. Invalid values and duplicate directories produce an error and a non-zero exit status.
 
-## Create `main.tex`
-
-Use the shared document class and the official course information:
-
-```latex
-\documentclass{unipd-notes}
-
-\unipdsetup{
-  course = {Official Course Name},
-  short-course = {Short Name},
-  professor = {Prof. Name},
-  academic-year = {2026--2027},
-  degree-year = {1},
-  semester = {1},
-  document-type = {Appunti delle lezioni},
-  author = {Your Name},
-  date = {\today},
-  version = {0.1.0}
-}
-
-\begin{document}
-\makecoursecover
-\makecoursetableofcontents
-
-\chapter{Introduction}
-
-Add the course content here.
-
-\end{document}
-```
-
-Write the notes in the language in which the course is taught. For larger documents, move chapters or sections into separate files and include them from `main.tex`.
+Replace the `author = {Your Name}` placeholder before publishing the notes. Write the notes in the language in which the course is taught. For larger documents, move chapters or sections into separate files and include them from `main.tex`.
 
 See [Metadata](../user-guide/metadata.md), [Course structure](../user-guide/course-structure.md), and [Writing notes](../user-guide/writing-notes.md) before expanding the document.
 

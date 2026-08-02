@@ -34,12 +34,12 @@ class TocEntry:
 
 
 def repository_root() -> Path:
-    # Return the absolute path to the repository root directory.
+    """Return the absolute path to the repository root directory."""
     return Path(__file__).resolve().parents[2]
 
 
 def discover_documents(root: Path) -> list[Path]:
-    # Discover every main.tex file in the repository document roots.
+    """Discover every main.tex file in the repository document roots."""
     documents: list[Path] = []
     for relative_root in DOCUMENT_ROOTS:
         search_root = root / relative_root
@@ -49,7 +49,7 @@ def discover_documents(root: Path) -> list[Path]:
 
 
 def changed_files(root: Path, base: str, head: str) -> list[Path]:
-    # Return repository-relative paths changed between two Git revisions.
+    """Return repository-relative paths changed between two Git revisions."""
     result = subprocess.run(
         ["git", "diff", "--name-only", "--diff-filter=ACMRD", base, head, "--"],
         cwd=root,
@@ -61,16 +61,17 @@ def changed_files(root: Path, base: str, head: str) -> list[Path]:
 
 
 def read_changed_files(root: Path, filename: str) -> list[Path]:
-    # Read repository-relative changed paths prepared by CI outside the TeX container.
+    """Read repository-relative changed paths prepared outside the TeX container."""
     path = Path(filename)
     if not path.is_absolute():
         path = root / path
-    return [Path(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
+    return [
+        Path(line) for line in path.read_text(encoding="utf-8").splitlines() if line
+    ]
 
 
 def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
-    # Map changed files to documents that may depend on them.
-    all_documents = discover_documents(root)
+    """Map changed files to documents that may depend on them."""
     affected: set[Path] = set()
 
     for path in paths:
@@ -93,7 +94,7 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
             )
         )
         if shared_latex:
-            return all_documents
+            return discover_documents(root)
 
         # Any file in a course directory can be an input to that course.
         if len(parts) >= 2 and parts[0] in {"1", "2", "3"}:
@@ -108,7 +109,9 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
             and parts[:2] == ("latex", "components")
             and parts[3] == "example"
         ):
-            document = (root / parts[0] / parts[1] / parts[2] / "example" / "main.tex").resolve()
+            document = (
+                root / parts[0] / parts[1] / parts[2] / "example" / "main.tex"
+            ).resolve()
             if document.is_file():
                 affected.add(document)
 
@@ -116,7 +119,7 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
 
 
 def resolve_document(root: Path, value: str) -> Path:
-    # Resolve a user-provided path to an absolute main.tex file path.
+    """Resolve a user-provided path to an absolute main.tex file path."""
     path = Path(value)
     if not path.is_absolute():
         path = root / path
@@ -129,16 +132,16 @@ def resolve_document(root: Path, value: str) -> Path:
 
 
 def build_directory(root: Path, document: Path) -> Path:
-    # Return the absolute path to the .build directory for a given document.
+    """Return the absolute .build directory for a document."""
     relative_directory = document.parent.relative_to(root)
     return root / ".build" / relative_directory
 
 
-def compile_document(root: Path, document: Path, publish: bool = True) -> tuple[Path, Path]:
-    # Compile a main.tex document with latexmk and return the built PDF and .toc file paths.
+def compile_document(
+    root: Path, document: Path, publish: bool = True
+) -> tuple[Path, Path]:
+    """Compile a document and return its built PDF and table-of-contents paths."""
     latexmk = shutil.which("latexmk")
-
-    # If latexmk is not found, raise an error.
     if latexmk is None:
         raise RuntimeError("latexmk was not found in PATH")
 
@@ -156,9 +159,10 @@ def compile_document(root: Path, document: Path, publish: bool = True) -> tuple[
         f"-outdir={output_directory}",
         "main.tex",
     ]
-    environment = dict(os.environ)
-    latex_search_path = str(root / "latex") + os.pathsep
-    environment["TEXINPUTS"] = latex_search_path + environment.get("TEXINPUTS", "")
+    environment = os.environ.copy()
+    environment["TEXINPUTS"] = (
+        str(root / "latex") + os.pathsep + environment.get("TEXINPUTS", "")
+    )
     environment["SOURCE_DATE_EPOCH"] = SOURCE_DATE_EPOCH
     environment["FORCE_SOURCE_DATE"] = "1"
     environment["TZ"] = "UTC"
@@ -167,11 +171,9 @@ def compile_document(root: Path, document: Path, publish: bool = True) -> tuple[
     built_pdf = output_directory / "main.pdf"
     toc_file = output_directory / "main.toc"
 
-    # If the compilation did not produce the expected PDF, raise an error.
     if not built_pdf.is_file():
         raise RuntimeError(f"Compilation did not produce {built_pdf}")
 
-    # If publish is True, copy the built PDF to the document's parent directory.
     if publish:
         final_pdf = document.parent / "main.pdf"
         temporary_pdf = final_pdf.with_suffix(".pdf.tmp")
@@ -180,13 +182,11 @@ def compile_document(root: Path, document: Path, publish: bool = True) -> tuple[
             os.replace(temporary_pdf, final_pdf)
         finally:
             temporary_pdf.unlink(missing_ok=True)
-        if not final_pdf.is_file():
-            raise RuntimeError(f"Unable to place {final_pdf}")
     return built_pdf, toc_file
 
 
 def parse_group(text: str, position: int) -> tuple[str, int]:
-    # Parse a braced LaTeX argument from text starting at position and return the argument and the new position.
+    """Parse a braced LaTeX argument and return it with the new position."""
     while position < len(text) and text[position].isspace():
         position += 1
     if position >= len(text) or text[position] != "{":
@@ -209,7 +209,7 @@ def parse_group(text: str, position: int) -> tuple[str, int]:
 
 
 def strip_latex(text: str) -> str:
-    # Strip LaTeX commands and formatting from text, returning plain text.
+    """Strip LaTeX commands and formatting from text."""
     text = text.replace("\\protect", "")
     text = re.sub(r"\\numberline\s*\{([^{}]*)\}", r"\1 ", text)
     for _ in range(4):
@@ -236,7 +236,7 @@ def strip_latex(text: str) -> str:
 
 
 def parse_toc(toc_file: Path) -> list[TocEntry]:
-    # Parse a LaTeX .toc file and return a list of TocEntry objects representing the table of contents.
+    """Parse a LaTeX table-of-contents file."""
     if not toc_file.is_file():
         return []
 
@@ -263,7 +263,7 @@ def parse_toc(toc_file: Path) -> list[TocEntry]:
 
 
 def render_generated_markdown(entries: list[TocEntry]) -> str:
-    # Render a list of TocEntry objects as a Markdown string for inclusion in a README.
+    """Render table-of-contents entries as README Markdown."""
     lines = [
         "[Apri il PDF compilato](main.pdf)",
         "",
@@ -280,7 +280,7 @@ def render_generated_markdown(entries: list[TocEntry]) -> str:
 
 
 def is_component_example(root: Path, document: Path) -> bool:
-    # Determine if a document is a component example based on its path structure.
+    """Return whether a document is a component example."""
     relative = document.relative_to(root)
     return (
         len(relative.parts) == 5
@@ -290,7 +290,7 @@ def is_component_example(root: Path, document: Path) -> bool:
 
 
 def generated_readme_content(directory: Path, generated_markdown: str) -> str:
-    # Generate the content for the README.md file by inserting generated_markdown between START_MARKER and END_MARKER.
+    """Insert generated Markdown between the course README markers."""
     readme = directory / "README.md"
     if readme.exists():
         content = readme.read_text(encoding="utf-8")
@@ -317,7 +317,7 @@ def generated_readme_content(directory: Path, generated_markdown: str) -> str:
 
 
 def update_readme(directory: Path, generated_markdown: str) -> None:
-    # Update the README.md file in the specified directory with the generated_markdown content.
+    """Update a course README with generated Markdown."""
     content = generated_readme_content(directory, generated_markdown)
     readme = directory / "README.md"
     temporary_readme = directory / ".README.md.tmp"
@@ -329,7 +329,7 @@ def update_readme(directory: Path, generated_markdown: str) -> None:
 
 
 def generated_file_error(generated: Path, committed: Path) -> str | None:
-    # Check if the generated file matches the committed file and return an error message if not.
+    """Return an error when a generated file differs from its committed file."""
     if not committed.is_file():
         return f"Generated file is not committed: {committed}"
     if generated.read_bytes() != committed.read_bytes():
@@ -344,13 +344,14 @@ def process_document(
     readme_enabled: bool,
     check_generated: bool,
 ) -> None:
-    # Process a single document: compile it, update README, and check for generated file consistency.
+    """Compile one document, update its README, and verify generated files."""
     relative = document.relative_to(root)
     print(f"==> {relative}", flush=True)
 
-    # Compile the document if enabled, otherwise use existing PDF and .toc files.
     if compile_enabled:
-        pdf_file, toc_file = compile_document(root, document, publish=not check_generated)
+        pdf_file, toc_file = compile_document(
+            root, document, publish=not check_generated
+        )
     else:
         pdf_file = document.parent / "main.pdf"
         toc_file = build_directory(root, document) / "main.toc"
@@ -359,34 +360,31 @@ def process_document(
             if local_toc.exists():
                 toc_file = local_toc
 
-    # Check for generated file consistency if requested.
     generated_errors: list[str] = []
     if check_generated:
         pdf_error = generated_file_error(pdf_file, document.parent / "main.pdf")
         if pdf_error:
             generated_errors.append(pdf_error)
 
-    # Update the README file if enabled, and check for consistency if requested.
     if readme_enabled:
         if not pdf_file.is_file():
             raise FileNotFoundError(f"Compiled PDF was not found: {pdf_file}")
-        component_example = is_component_example(root, document)
-        if not component_example:
+        if not is_component_example(root, document):
             entries = parse_toc(toc_file)
             markdown = render_generated_markdown(entries)
             if check_generated:
                 expected_readme = generated_readme_content(document.parent, markdown)
                 committed_readme = document.parent / "README.md"
-                if not committed_readme.is_file() or committed_readme.read_text(
-                    encoding="utf-8"
-                ) != expected_readme:
+                if (
+                    not committed_readme.is_file()
+                    or committed_readme.read_text(encoding="utf-8") != expected_readme
+                ):
                     generated_errors.append(
                         f"Generated README content is stale: {committed_readme}"
                     )
             else:
                 update_readme(document.parent, markdown)
 
-    # If there were any generated file errors, raise a RuntimeError with details.
     if generated_errors:
         details = "\n    ".join(generated_errors)
         raise RuntimeError(
@@ -395,10 +393,14 @@ def process_document(
 
 
 def parse_arguments() -> argparse.Namespace:
-    # Parse command-line arguments and return the parsed namespace.
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("targets", nargs="*", help="Document directories or main.tex files")
-    parser.add_argument("--all", action="store_true", help="Discover every repository document")
+    parser.add_argument(
+        "targets", nargs="*", help="Document directories or main.tex files"
+    )
+    parser.add_argument(
+        "--all", action="store_true", help="Discover every repository document"
+    )
     parser.add_argument(
         "--changed-from",
         metavar="REVISION",
@@ -444,7 +446,7 @@ def parse_arguments() -> argparse.Namespace:
 
 
 def main() -> int:
-    # Main entry point for the build script: parse arguments, discover documents, and process each document.
+    """Select and process requested documents."""
     arguments = parse_arguments()
     root = repository_root()
 
@@ -498,14 +500,21 @@ def main() -> int:
                 readme_enabled=not arguments.no_readme,
                 check_generated=arguments.check_generated,
             )
-        except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as error:
+        except (
+            OSError,
+            RuntimeError,
+            ValueError,
+            subprocess.CalledProcessError,
+        ) as error:
             if not arguments.keep_going:
                 raise
             failures.append((document.relative_to(root), error))
             print(f"error: {document.relative_to(root)}: {error}", file=sys.stderr)
 
     if failures:
-        print(f"Failed {len(failures)} of {len(documents)} document(s):", file=sys.stderr)
+        print(
+            f"Failed {len(failures)} of {len(documents)} document(s):", file=sys.stderr
+        )
         for document, error in failures:
             print(f"  - {document}: {error}", file=sys.stderr)
         return 1
@@ -516,7 +525,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    # Run the main function and handle exceptions, exiting with an appropriate status code.
     try:
         sys.exit(main())
     except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as error:

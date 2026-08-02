@@ -15,7 +15,7 @@ This documentation is organized by task. The project README introduces the archi
 - **Adding a course?** Follow [Creating a course](getting-started/creating-a-course.md), then read [Writing notes](user-guide/writing-notes.md).
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
 - **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#getting-help-and-reporting-problems).
-- **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation and CI](development/validation-and-ci.md).
+- **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation, Tests, and CI](development/tool-test-and-ci.md).
 
 ## Getting started
 
@@ -47,7 +47,7 @@ This documentation is organized by task. The project README introduces the archi
 |---|---|
 | [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
 | [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
-| [Validation and CI](development/validation-and-ci.md) | Repository checks, affected-document builds, GitHub Actions, and artifacts. |
+| [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document builds, GitHub Actions, and artifacts. |
 
 ## Project policies
 

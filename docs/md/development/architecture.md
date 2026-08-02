@@ -1,6 +1,6 @@
 # Repository Architecture
 
-[← Documentation](../README.md) · [Course structure](../user-guide/course-structure.md) · [Document class](../reference/unipd-notes-class.md) · [Build system](build-system.md) · [Validation and CI](validation-and-ci.md)
+[← Documentation](../README.md) · [Course structure](../user-guide/course-structure.md) · [Document class](../reference/unipd-notes-class.md) · [Build system](build-system.md) · [Validation, Tests, and CI](tool-test-and-ci.md)
 
 The repository combines course-specific archives with one shared LaTeX system and a small set of Python tools. Course sources and assets remain separated, while common presentation, compilation, validation, and automation are centralized.
 
@@ -28,7 +28,7 @@ Repository validation runs separately from compilation. Pre-commit executes stru
 | Shared typesetting | `latex/unipd-notes.cls` | Common document defaults and component loading |
 | LaTeX components | `latex/components/` | Focused packages with isolated examples |
 | Fonts | `latex/fonts/` | Bundled typefaces, configuration, and licenses |
-| Build and validation | `latex/tools/` | Document discovery, compilation, generated files, and repository checks |
+| Course creation, build, and validation | `latex/tools/` | Course scaffolding, document discovery, compilation, generated files, and repository checks |
 | Documentation | `docs/md/` | User, reference, and development guides |
 | Automation | `.github/`, `.pre-commit-config.yaml` | Continuous integration, dependency updates, and local quality checks |
 
@@ -47,6 +47,12 @@ The build system also treats each `latex/components/<component>/example/main.tex
 All documents use the shared `unipd-notes` class. The class loads the component stack, and the components provide metadata, typography, mathematics, educational environments, figures, code, navigation, references, and document structure.
 
 Course files may depend on the shared LaTeX system. Shared components must not depend on a particular course.
+
+## Course creation
+
+`create_course.py` creates the standard course layout from validated command-line metadata. It derives an ASCII kebab-case directory name, prevents duplicate course directories across degree years, and maps degree years `1` through `3` to the archive's `2026--2029` academic-year sequence. The generated course contains an initial `main.tex`, `README.md`, and empty `sections/` and `assets/` directories.
+
+The contributor-facing command and options are documented in [Creating a course](../getting-started/creating-a-course.md). Python unit tests live under `latex/tools/test/`, with separate files covering course creation, build selection, and repository validation. Test commands and coverage are documented in [Validation, Tests, and CI](tool-test-and-ci.md).
 
 ## Build flow
 
@@ -85,4 +91,4 @@ Pre-commit combines that repository-specific validation with general file checks
 
 The CI workflow performs a complete build for an initial or manual run. For ordinary pushes and pull requests, it collects changed paths and compiles only the affected documents. PDFs produced under `.build/` are uploaded as workflow artifacts, and failed LaTeX logs are retained temporarily.
 
-See [Validation and CI](validation-and-ci.md) for workflow behavior and [Building documents](../getting-started/building-documents.md) for the contributor-facing commands.
+See [Validation, Tests, and CI](tool-test-and-ci.md) for workflow behavior and [Building documents](../getting-started/building-documents.md) for the contributor-facing commands.

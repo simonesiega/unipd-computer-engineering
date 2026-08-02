@@ -1,6 +1,6 @@
 # Build System
 
-[← Documentation](../README.md) · [Architecture](architecture.md) · [Building documents](../getting-started/building-documents.md) · [Validation and CI](validation-and-ci.md)
+[← Documentation](../README.md) · [Architecture](architecture.md) · [Building documents](../getting-started/building-documents.md) · [Validation, Tests, and CI](tool-test-and-ci.md)
 
 The repository build system is implemented by `latex/tools/build.py`. It discovers LaTeX documents, selects the required targets, compiles them in isolated output directories, publishes generated files, and detects stale committed outputs.
 
@@ -125,4 +125,4 @@ The build fails when either file is missing or stale.
 
 Without `--keep-going`, the first build error stops execution. With it, failures are collected, printed with their document paths, and returned through a non-zero exit status.
 
-See [Building documents](../getting-started/building-documents.md) for contributor-facing commands and [Validation and CI](validation-and-ci.md) for automation behavior.
+See [Building documents](../getting-started/building-documents.md) for contributor-facing commands and [Validation, Tests, and CI](tool-test-and-ci.md) for automation behavior.

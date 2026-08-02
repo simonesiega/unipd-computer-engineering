@@ -76,7 +76,7 @@ Choose the path closest to your change and follow the linked guide.
 | Modify the document class | [Document class](docs/md/reference/unipd-notes-class.md) |
 | Modify shared components | [LaTeX components](latex/components/README.md) |
 | Modify bundled fonts | [LaTeX fonts](latex/fonts/README.md) |
-| Change repository infrastructure | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation and CI](docs/md/development/validation-and-ci.md) |
+| Change repository infrastructure | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) |
 
 Before editing an existing course, review its current content, notation, terminology, structure, open issues, and pull requests. Preserve existing conventions unless the purpose of the contribution is to improve them.
 

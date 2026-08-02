@@ -14,12 +14,12 @@ CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
 
 
 def repository_root() -> Path:
-    # Return the root directory of the repository, which is two levels above this script's location.
+    """Return the repository root."""
     return Path(__file__).resolve().parents[2]
 
 
 def validate_source(path: Path, root: Path) -> list[str]:
-    # Validate a LaTeX source file for common issues such as merge conflict markers, tab characters, and trailing whitespace.
+    """Validate a LaTeX source for encoding and source-hygiene errors."""
     relative = path.relative_to(root)
     try:
         content = path.read_text(encoding="utf-8")
@@ -38,7 +38,7 @@ def validate_source(path: Path, root: Path) -> list[str]:
 
 
 def validate_course(main_file: Path, root: Path) -> list[str]:
-    # Validate a course's main.tex file to ensure it is located in the correct directory structure and contains the necessary LaTeX document structure.
+    """Validate a course entry point and its document structure."""
     relative = main_file.relative_to(root)
     errors: list[str] = []
     if len(relative.parts) != 3 or relative.parts[0] not in YEARS:
@@ -47,7 +47,7 @@ def validate_course(main_file: Path, root: Path) -> list[str]:
         )
         return errors
 
-    content = main_file.read_text(encoding="utf-8")
+    content = main_file.read_text(encoding="utf-8", errors="replace")
     if "\\documentclass" not in content:
         errors.append(f"{relative}: does not declare a document class")
     if "\\begin{document}" not in content or "\\end{document}" not in content:
@@ -56,13 +56,15 @@ def validate_course(main_file: Path, root: Path) -> list[str]:
 
 
 def validate_components(root: Path) -> list[str]:
-    # Validate the components directory to ensure each component has the required .sty file and example directory with main.tex and main.pdf.
+    """Validate component packages and their required examples."""
     components_directory = root / COMPONENTS_DIRECTORY
     errors: list[str] = []
     if not components_directory.is_dir():
         return [f"{COMPONENTS_DIRECTORY}/: missing components directory"]
 
-    for component in sorted(path for path in components_directory.iterdir() if path.is_dir()):
+    for component in sorted(
+        path for path in components_directory.iterdir() if path.is_dir()
+    ):
         relative = component.relative_to(root)
         package = component / f"{component.name}.sty"
         example = component / "example"
@@ -76,10 +78,14 @@ def validate_components(root: Path) -> list[str]:
             expected_example_files = {example / "main.tex", example / "main.pdf"}
             for expected in sorted(expected_example_files):
                 if not expected.is_file():
-                    errors.append(f"{expected.relative_to(root)}: missing required file")
+                    errors.append(
+                        f"{expected.relative_to(root)}: missing required file"
+                    )
             for path in sorted(example.iterdir()):
                 if path not in expected_example_files:
-                    errors.append(f"{path.relative_to(root)}: unexpected component example entry")
+                    errors.append(
+                        f"{path.relative_to(root)}: unexpected component example entry"
+                    )
 
         for path in sorted(component.iterdir()):
             if path not in required_paths:
@@ -88,11 +94,10 @@ def validate_components(root: Path) -> list[str]:
 
 
 def main() -> int:
-    # Validate the repository's LaTeX sources and course directory layout, returning an exit code indicating success or failure.
+    """Validate repository LaTeX sources and directory layouts."""
     root = repository_root()
     errors: list[str] = []
 
-    # Validate course directories for each year, checking for the presence of main.tex and validating its content.
     for year in YEARS:
         year_directory = root / year
         # Git does not preserve empty directories. A year directory becomes
@@ -102,7 +107,9 @@ def main() -> int:
         if not year_directory.is_dir():
             errors.append(f"{year}: expected a course-year directory")
             continue
-        course_directories = sorted(path for path in year_directory.iterdir() if path.is_dir())
+        course_directories = sorted(
+            path for path in year_directory.iterdir() if path.is_dir()
+        )
         for course_directory in course_directories:
             main_file = course_directory / "main.tex"
             if not main_file.is_file():
@@ -112,19 +119,25 @@ def main() -> int:
                 continue
             errors.extend(validate_course(main_file, root))
 
-        expected_main_files = {directory / "main.tex" for directory in course_directories}
+        expected_main_files = {
+            directory / "main.tex" for directory in course_directories
+        }
         for main_file in sorted(year_directory.rglob("main.tex")):
             if main_file not in expected_main_files:
                 errors.extend(validate_course(main_file, root))
 
     errors.extend(validate_components(root))
 
-    # Validate all LaTeX source files in the repository, excluding .git and .build directories, for common issues.
-    for path in root.rglob("*"):
-        if ".git" in path.parts or ".build" in path.parts:
-            continue
-        if path.is_file() and path.suffix.lower() in SOURCE_SUFFIXES:
-            errors.extend(validate_source(path, root))
+    source_files = sorted(
+        path
+        for path in root.rglob("*")
+        if path.is_file()
+        and path.suffix.lower() in SOURCE_SUFFIXES
+        and ".git" not in path.parts
+        and ".build" not in path.parts
+    )
+    for path in source_files:
+        errors.extend(validate_source(path, root))
 
     if errors:
         print("Repository validation failed:", file=sys.stderr)
@@ -133,18 +146,11 @@ def main() -> int:
         return 1
 
     course_count = sum(1 for year in YEARS for _ in (root / year).glob("*/main.tex"))
-    source_count = sum(
-        1
-        for path in root.rglob("*")
-        if path.is_file()
-        and path.suffix.lower() in SOURCE_SUFFIXES
-        and ".build" not in path.parts
-        and ".git" not in path.parts
+    print(
+        f"Validated {len(source_files)} LaTeX source files and {course_count} courses."
     )
-    print(f"Validated {source_count} LaTeX source files and {course_count} courses.")
     return 0
 
 
 if __name__ == "__main__":
-    # Run the main function and handle exceptions, exiting with an appropriate status code.
     sys.exit(main())

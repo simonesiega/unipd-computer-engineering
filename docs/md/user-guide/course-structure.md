@@ -6,6 +6,8 @@ This guide defines how course files are organized. All course-specific sources a
 
 ## Standard layout
 
+To generate this structure automatically, follow the [Creating a course](../getting-started/creating-a-course.md) guide, which explains how to use `create_course.py` and configure the required course metadata.
+
 ```text
 <year>/<course-name>/
 ├── main.tex              # required source entry point

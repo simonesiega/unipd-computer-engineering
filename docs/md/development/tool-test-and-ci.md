@@ -1,4 +1,4 @@
-# Validation and CI
+# Validation, Tests, and CI
 
 [← Documentation](../README.md) · [Architecture](architecture.md) · [Build system](build-system.md) · [Building documents](../getting-started/building-documents.md)
 
@@ -20,6 +20,8 @@ Windows PowerShell:
 py latex/tools/check_repository.py
 ```
 
+`check_repository.py` has no command-line options; it always validates the complete repository.
+
 To reproduce the complete CI quality job, install the pinned CI dependency and run every pre-commit hook:
 
 Linux or macOS:
@@ -36,7 +38,49 @@ py -m pip install -r .github/requirements-ci.txt
 pre-commit run --all-files --show-diff-on-failure
 ```
 
-The CI requirements currently pin `pre-commit` to version `4.3.0`.
+Here, pip's `-r` option installs from the requirements file, `--all-files` checks the complete repository instead of only changed files, and `--show-diff-on-failure` prints modifications made by a failing hook. The CI requirements currently pin `pre-commit` to version `4.3.0`.
+
+## Python tool tests
+
+Tests for all Python tools are organized by responsibility under `latex/tools/test/`:
+
+| Test file | Tool covered | Behavior covered |
+|---|---|---|
+| `test_course_creation.py` | `create_course.py` | Slug generation, academic years, generated layout and metadata, duplicate detection, and argument-domain validation |
+| `test_build_selection.py` | `build.py` | Document discovery and affected-document selection for course, shared, and unrelated changes |
+| `test_repository_validation.py` | `check_repository.py` | Course entry-point structure and LaTeX source-hygiene errors |
+
+Run the complete test suite from the repository root.
+
+Linux or macOS:
+
+```bash
+python3 -m unittest discover -s latex/tools/test -p 'test_*.py'
+```
+
+Windows PowerShell:
+
+```powershell
+py -m unittest discover -s latex/tools/test -p 'test_*.py'
+```
+
+`discover` enables test discovery, `-s latex/tools/test` selects its starting directory, and `-p 'test_*.py'` selects test filenames.
+
+Run one focused test file by passing its path directly. Replace the filename with either of the other files listed above when needed.
+
+Linux or macOS:
+
+```bash
+python3 latex/tools/test/test_course_creation.py
+```
+
+Windows PowerShell:
+
+```powershell
+py latex/tools/test/test_course_creation.py
+```
+
+The tests use only the Python standard library. Temporary repositories are created for file-system tests and removed automatically; the working repository is not modified.
 
 ## Pre-commit checks
 
@@ -54,7 +98,7 @@ The pre-commit configuration requires version `3.7.0` or newer and runs these ge
 
 Font, PDF, and PNG files are excluded from text-only fixes where appropriate.
 
-The local `latex-repository-check` hook runs `latex/tools/check_repository.py` for changes under the course directories, `latex/`, workflow files, or the pre-commit configuration. It receives no individual filenames and validates the repository as a whole.
+The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite when a Python tool, tool test, or the pre-commit configuration changes. The `latex-repository-check` hook runs `latex/tools/check_repository.py` for changes under the course directories, `latex/`, workflow files, or the pre-commit configuration. Both hooks receive no individual filenames; the test hook runs the complete tool suite, and the repository hook validates the repository as a whole.
 
 ## Repository-specific checks
 
@@ -94,6 +138,8 @@ The `Quality` job:
 3. installs Python 3.13;
 4. installs dependencies from `.github/requirements-ci.txt`;
 5. runs `pre-commit run --all-files --show-diff-on-failure`.
+
+Because the pre-commit configuration includes the `course-tool-tests` hook, this job also runs the complete Python tool test suite.
 
 Its timeout is 10 minutes.
 
