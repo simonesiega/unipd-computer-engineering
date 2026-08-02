@@ -174,6 +174,8 @@ Security vulnerabilities must not be reported publicly. Submit them through [Git
 
 Before opening a pull request, follow [Building documents](docs/md/getting-started/building-documents.md) and complete the applicable items in the review checklist below.
 
+CI compiles only documents affected by a commit. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, or build tool compile the complete archive because they may affect every document. Manually dispatched CI runs also compile the complete archive.
+
 ## Pull requests
 
 Keep each pull request focused on one course or one coherent repository change.

@@ -48,6 +48,65 @@ def discover_documents(root: Path) -> list[Path]:
     return sorted(path.resolve() for path in documents)
 
 
+def changed_files(root: Path, base: str, head: str) -> list[Path]:
+    # Return repository-relative paths changed between two Git revisions.
+    result = subprocess.run(
+        ["git", "diff", "--name-only", "--diff-filter=ACMRD", base, head, "--"],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return [Path(line) for line in result.stdout.splitlines() if line]
+
+
+def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
+    # Map changed files to documents that may depend on them.
+    all_documents = discover_documents(root)
+    affected: set[Path] = set()
+
+    for path in paths:
+        parts = path.parts
+
+        # The class, component packages, fonts, and build tool are shared by all
+        # documents, so a change to any of them requires a complete build.
+        shared_latex = (
+            path == Path("latex/unipd-notes.cls")
+            or path == Path("latex/tools/build.py")
+            or (
+                len(parts) >= 3
+                and parts[:2] == ("latex", "components")
+                and path.suffix == ".sty"
+            )
+            or (
+                len(parts) >= 3
+                and parts[:2] == ("latex", "fonts")
+                and path.suffix.lower() in {".otf", ".ttf"}
+            )
+        )
+        if shared_latex:
+            return all_documents
+
+        # Any file in a course directory can be an input to that course.
+        if len(parts) >= 2 and parts[0] in {"1", "2", "3"}:
+            document = (root / parts[0] / parts[1] / "main.tex").resolve()
+            if document.is_file():
+                affected.add(document)
+            continue
+
+        # Component example changes affect only that component's example.
+        if (
+            len(parts) >= 4
+            and parts[:2] == ("latex", "components")
+            and parts[3] == "example"
+        ):
+            document = (root / parts[0] / parts[1] / parts[2] / "example" / "main.tex").resolve()
+            if document.is_file():
+                affected.add(document)
+
+    return sorted(affected)
+
+
 def resolve_document(root: Path, value: str) -> Path:
     # Resolve a user-provided path to an absolute main.tex file path.
     path = Path(value)
@@ -333,6 +392,17 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("targets", nargs="*", help="Document directories or main.tex files")
     parser.add_argument("--all", action="store_true", help="Discover every repository document")
     parser.add_argument(
+        "--changed-from",
+        metavar="REVISION",
+        help="Build documents affected by files changed since this Git revision",
+    )
+    parser.add_argument(
+        "--changed-to",
+        metavar="REVISION",
+        default="HEAD",
+        help="End revision used with --changed-from (default: HEAD)",
+    )
+    parser.add_argument(
         "--no-compile",
         action="store_true",
         help="Reuse an existing PDF and generated .toc data",
@@ -370,13 +440,25 @@ def main() -> int:
     if arguments.check_generated and arguments.no_readme:
         raise ValueError("--check-generated cannot be combined with --no-readme")
 
+    selection_modes = sum(
+        (bool(arguments.all), bool(arguments.changed_from), bool(arguments.targets))
+    )
+    if selection_modes != 1:
+        raise ValueError("Use exactly one of explicit targets, --all, or --changed-from")
+
     if arguments.all:
-        if arguments.targets:
-            raise ValueError("Use either --all or explicit targets, not both")
         documents = discover_documents(root)
+    elif arguments.changed_from:
+        paths = changed_files(root, arguments.changed_from, arguments.changed_to)
+        documents = affected_documents(root, paths)
+        if not documents:
+            print("No changed files affect a LaTeX document.", flush=True)
+            return 0
+        print(
+            f"Selected {len(documents)} affected document(s) "
+            f"from {len(paths)} changed file(s)."
+        )
     else:
-        if not arguments.targets:
-            raise ValueError("Provide a target or use --all")
         documents = [resolve_document(root, value) for value in arguments.targets]
 
     if not documents:

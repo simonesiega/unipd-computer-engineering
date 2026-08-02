@@ -40,7 +40,7 @@ jobs:
         run: pre-commit run --all-files --show-diff-on-failure
 
   build:
-    name: Compile every document
+    name: Compile affected documents
     needs: quality
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -50,16 +50,19 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+          fetch-depth: 0
 
-      - name: Build and verify all generated files
+      - name: Build affected documents
         uses: xu-cheng/texlive-action@22c04326a5d855880f9d39bb955138bf11c6df80 # v3
         with:
           docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
-          run: >
-            python3 latex/tools/build.py
-            --all
-            --keep-going
-            --check-generated
+          run: |
+            BASE="${{ github.event.pull_request.base.sha || github.event.before }}"
+            if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+              python3 latex/tools/build.py --all --keep-going
+            else
+              python3 latex/tools/build.py --changed-from "$BASE" --keep-going
+            fi
 
       - name: Upload LaTeX logs after a failure
         if: ${{ failure() }}
@@ -77,11 +80,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: latex-pdfs-${{ github.sha }}
-          path: |
-            1/*/main.pdf
-            2/*/main.pdf
-            3/*/main.pdf
-            latex/components/*/example/main.pdf
-          if-no-files-found: error
+          path: .build/**/main.pdf
+          if-no-files-found: warn
           retention-days: 14
           compression-level: 0
