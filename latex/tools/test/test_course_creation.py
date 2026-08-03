@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from create_course import Course, academic_year, create_course, kebab_case
+from create_course import Course, academic_year, create_course, escape_latex, kebab_case
 
 
 class CourseCreationTests(unittest.TestCase):
@@ -19,6 +19,24 @@ class CourseCreationTests(unittest.TestCase):
         self.assertEqual(
             kebab_case("Probabilità e Statistica"), "probabilita-e-statistica"
         )
+
+    def test_latex_metadata_characters_are_escaped(self) -> None:
+        replacements = {
+            "\\": r"\textbackslash{}",
+            "{": r"\{",
+            "}": r"\}",
+            "$": r"\$",
+            "&": r"\&",
+            "#": r"\#",
+            "%": r"\%",
+            "_": r"\_",
+            "~": r"\textasciitilde{}",
+            "^": r"\textasciicircum{}",
+        }
+        for character, escaped in replacements.items():
+            with self.subTest(character=character):
+                self.assertEqual(escape_latex(character), escaped)
+        self.assertEqual(escape_latex("Probabilità"), "Probabilità")
 
     def test_academic_year_follows_degree_year(self) -> None:
         self.assertEqual(academic_year(1), "2026--2027")

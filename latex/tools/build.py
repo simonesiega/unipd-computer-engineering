@@ -389,9 +389,9 @@ def process_document(
     else:
         pdf_file = document.parent / "main.pdf"
         toc_file = build_directory(root, document) / "main.toc"
-        if not toc_file.exists():
+        if not toc_file.is_file():
             local_toc = document.parent / "main.toc"
-            if local_toc.exists():
+            if local_toc.is_file():
                 toc_file = local_toc
 
     generated_errors: list[str] = []
@@ -404,6 +404,11 @@ def process_document(
         if not pdf_file.is_file():
             raise FileNotFoundError(f"Compiled PDF was not found: {pdf_file}")
         if not is_component_example(root, document):
+            if not toc_file.is_file():
+                raise FileNotFoundError(
+                    "Table of contents was not found for README generation: "
+                    f"{toc_file}. Build the document first or use --no-readme."
+                )
             entries = parse_toc(toc_file)
             markdown = render_generated_markdown(entries, document_language(document))
             if check_generated:

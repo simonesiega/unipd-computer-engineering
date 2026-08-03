@@ -38,7 +38,7 @@ py -m pip install -r .github/requirements-ci.txt
 pre-commit run --all-files --show-diff-on-failure
 ```
 
-Here, pip's `-r` option installs from the requirements file, `--all-files` checks the complete repository instead of only changed files, and `--show-diff-on-failure` prints modifications made by a failing hook. The CI requirements currently pin `pre-commit` to version `4.3.0`.
+Here, pip's `-r` option installs from the requirements file, `--all-files` checks the complete repository instead of only changed files, and `--show-diff-on-failure` prints modifications made by a failing hook. The CI requirements pin `pre-commit`, Coverage.py, Ruff, and mypy so local and hosted checks use the same Python tooling versions.
 
 ## Python tool tests
 
@@ -46,10 +46,10 @@ Tests for the repository’s Python tools are organized by responsibility under 
 
 | Test file | Tool covered | Behavior covered |
 |---|---|---|
-| `test_course_creation.py` | `create_course.py` | Slug generation, academic years, generated layout and metadata, duplicate detection, and argument-domain validation |
-| `test_build_selection.py` | `build.py` | Document discovery, affected-document selection, and localized integration README generation |
-| `test_changelog_generation.py` | `generate_changelog.py` | History parsing, per-course file changes, renames, dates, commits, and empty-directory placeholders |
-| `test_repository_validation.py` | `check_repository.py` | Course entry-point structure, complete integration-project files, and LaTeX source-hygiene errors |
+| `test_course_creation.py` | `create_course.py` | Slug generation, metadata escaping, academic years, generated layout and metadata, duplicate detection, and argument-domain validation |
+| `test_build_selection.py` | `build.py` | Document discovery, every affected-path category, TOC parsing, generated-output comparison, localized integration README generation, and missing-TOC safety |
+| `test_changelog_generation.py` | `generate_changelog.py` | Complete-history enforcement, history parsing, per-course file changes, renames, dates, commits, and empty-directory placeholders |
+| `test_repository_validation.py` | `check_repository.py` | Course, component, and integration layouts; Markdown links; and LaTeX source-hygiene errors |
 
 Run the complete test suite from the repository root.
 
@@ -81,7 +81,7 @@ Windows PowerShell:
 py latex/tools/test/test_course_creation.py
 ```
 
-The tests use only the Python standard library. Temporary repositories are created for file-system tests and removed automatically; the working repository is not modified.
+The test cases use only the Python standard library. CI invokes them through `latex/tools/run_tool_tests.py`, which uses Coverage.py to report statement and branch coverage and enforces a 60% repository-wide minimum. Temporary repositories are created for file-system tests and removed automatically; the working repository is not modified.
 
 ## Pre-commit checks
 
@@ -96,10 +96,15 @@ The pre-commit configuration requires version `3.7.0` or newer and runs these ge
 | End of file | Ensure text files end with a newline |
 | Line endings | Normalize text files to LF |
 | Trailing whitespace | Remove trailing spaces |
+| Actionlint | Validate GitHub Actions syntax and expressions |
+| Ruff | Lint Python tools and tests |
+| mypy | Type-check Python tools and tests |
+| Tool tests and coverage | Run unit tests with statement and branch coverage reporting |
+| Markdown links | Reject missing repository-relative documentation targets |
 
 Font, PDF, and PNG files are excluded from text-only fixes where appropriate.
 
-The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite when a Python tool, tool test, or the pre-commit configuration changes. The `latex-repository-check` hook runs `latex/tools/check_repository.py` for changes under the course directories, `latex/`, workflow files, or the pre-commit configuration. Both hooks receive no individual filenames; the test hook runs the complete tool suite, and the repository hook validates the repository as a whole.
+The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite with coverage when a Python tool, tool test, or the pre-commit configuration changes. Separate hooks run Ruff and mypy for Python files, while Actionlint validates workflow files. The `latex-repository-check` hook runs `latex/tools/check_repository.py` for course, LaTeX, documentation, workflow, Markdown, or pre-commit changes. Hooks that validate repository-wide relationships receive no individual filenames.
 
 ## Repository-specific checks
 
@@ -111,9 +116,10 @@ The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite w
 | Course documents | `main.tex` declares a document class and contains a complete document environment |
 | Components | Each component contains `<component>.sty` and `example/` |
 | Component examples | Each `example/` contains exactly `main.tex` and `main.pdf` |
-| Integration examples | Each directory under `latex/integration/` contains exactly `main.tex` and `main.pdf` |
+| Integration examples | Each directory under `latex/integration/` contains exactly `main.tex`, `main.pdf`, and a localized `README.md` |
 | LaTeX sources | `.tex`, `.sty`, `.cls`, and `.bib` files are valid UTF-8 |
 | Source hygiene | No tabs, trailing whitespace, or unresolved merge-conflict markers |
+| Markdown links | Repository-relative link targets exist |
 
 The validator ignores `.git/` and `.build/`. Empty directory structure is preserved through tracked `.gitkeep` placeholders, but their presence is not required by the validator.
 
@@ -143,7 +149,7 @@ The `Quality` job:
 4. installs dependencies from `.github/requirements-ci.txt`;
 5. runs `pre-commit run --all-files --show-diff-on-failure`.
 
-Because the pre-commit configuration includes the `course-tool-tests` hook, this job also runs the complete Python tool test suite.
+The pre-commit configuration also runs the complete Python tool test suite with coverage, Ruff, mypy, Actionlint, Markdown link validation, and repository-specific structural checks.
 
 Its timeout is 10 minutes.
 
@@ -164,7 +170,7 @@ It then runs inside a pinned TeX Live container.
 For an initial push or a manual workflow run:
 
 ```bash
-python3 latex/tools/build.py --all --keep-going
+python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
 For an ordinary pull request or push:
@@ -172,10 +178,11 @@ For an ordinary pull request or push:
 ```bash
 python3 latex/tools/build.py \
   --changed-file-list .build/changed-files.txt \
-  --keep-going
+  --keep-going \
+  --check-generated
 ```
 
-The mapping from changed paths to documents is implemented by `build.py` and documented in [Build system](build-system.md).
+The mapping from changed paths to documents is implemented by `build.py` and documented in [Build system](build-system.md). Both modes use `--check-generated`, so CI fails when a selected document's committed PDF or generated README section is missing or stale.
 
 ## Artifacts
 
@@ -214,13 +221,15 @@ The generator also creates tracked `.gitkeep` placeholders for the source years,
 python3 latex/tools/generate_changelog.py
 ```
 
+The generator checks `git rev-parse --is-shallow-repository` before reading commits and refuses to run when the local history is shallow. Fetch the complete history with `git fetch --unshallow` before generating changelogs.
+
 Generated changelogs must not be edited by hand; the weekly workflow replaces their contents.
 
 ## Generated-file verification
 
-The current workflow compiles affected documents but does not compare the resulting files with the committed `main.pdf` and generated course or integration README sections.
+The workflow uses `--check-generated` to compare compiled outputs with the committed `main.pdf` and generated course or integration README sections. It checks every document for an initial or manual run and the affected documents for ordinary pushes and pull requests.
 
-Run this check locally before contributing:
+Run the same check locally before contributing:
 
 Linux or macOS:
 

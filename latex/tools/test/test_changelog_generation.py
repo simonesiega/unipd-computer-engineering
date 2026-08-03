@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -73,6 +74,16 @@ class ChangelogGenerationTests(unittest.TestCase):
             cwd=root,
             env=environment,
             check=True,
+        )
+
+    def test_shallow_repository_is_rejected_before_reading_history(self) -> None:
+        root = Path("repository")
+        with patch("generate_changelog.run_git", return_value="true\n") as git:
+            with self.assertRaisesRegex(ValueError, "shallow repository"):
+                read_history(root)
+
+        git.assert_called_once_with(
+            root, "rev-parse", "--is-shallow-repository"
         )
 
     def test_history_is_split_by_course_and_includes_every_changed_file(self) -> None:

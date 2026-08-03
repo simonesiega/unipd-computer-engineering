@@ -75,13 +75,17 @@ The comprehensive [`english`](../integration/english/) and [`italian`](../integr
 
 ## Component responsibilities
 
-Each component has one specific responsibility and should not duplicate functionality provided by another component.
+Each component has a clearly defined responsibility and should not duplicate functionality provided by another component.
 
-Shared definitions such as fonts and colors belong to `typography`, document information and translated labels belong to `metadata`, and page layout belongs to `page-style`. Components must retrieve language-dependent text with `\unipdtranslate` rather than hard-code Italian or English labels.
+Shared definitions such as fonts and colors belong to `typography`, while document information and translated labels belong to `metadata`. Page layout is handled by `page-style`. Components must retrieve language-dependent text through `\unipdtranslate` rather than hard-code Italian or English labels.
 
-`figures-tables` manages figures and tables, including floats, captions, numbering, labels, reference integration, and source notes. `diagrams` provides TikZ and CircuitikZ styles for technical diagrams, which continue to use the standard figure infrastructure from `figures-tables`.
+`figures-tables` provides the shared infrastructure for figures and tables, including floats, captions, numbering, labels, cross-references, and source notes. `diagrams` builds on this infrastructure by providing TikZ and CircuitikZ styles for technical diagrams.
 
-Therefore, `diagrams` depends on `figures-tables`, while `figures-tables` can be used independently.
+As a result, `diagrams` depends on `figures-tables`, while `figures-tables` can be used independently.
+
+The `algorithms` component customizes `algorithm2e` exclusively through its documented public commands and styles, avoiding dependencies on private implementation details that could change between package versions.
+
+The `code` component provides explicit `listings` mappings for Italian and other commonly used Western European characters, as well as typographic quotation marks, dashes, and ellipses. Its isolated example includes representative multilingual source text to verify that these mappings work correctly.
 
 ## Component requirements
 

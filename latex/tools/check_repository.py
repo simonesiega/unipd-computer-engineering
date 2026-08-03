@@ -6,6 +6,7 @@ from __future__ import annotations
 import re
 import sys
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 YEARS = ("1", "2", "3")
 SOURCE_SUFFIXES = (".tex", ".sty", ".cls", ".bib")
@@ -13,6 +14,7 @@ COMPONENTS_DIRECTORY = "latex/components"
 INTEGRATION_DIRECTORY = "latex/integration"
 INTEGRATION_EXAMPLES = ("english", "italian")
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
+MARKDOWN_LINK = re.compile(r"!?\[[^]]*\]\((?:<([^>]+)>|([^\s)]+))")
 
 
 def repository_root() -> Path:
@@ -36,6 +38,23 @@ def validate_source(path: Path, root: Path) -> list[str]:
     for number, line in enumerate(content.splitlines(), start=1):
         if line.rstrip() != line:
             errors.append(f"{relative}:{number}: trailing whitespace")
+    return errors
+
+
+def validate_markdown_links(path: Path, root: Path) -> list[str]:
+    """Report repository-relative Markdown links whose targets do not exist."""
+    content = path.read_text(encoding="utf-8")
+    errors: list[str] = []
+    for match in MARKDOWN_LINK.finditer(content):
+        target = unquote(match.group(1) or match.group(2))
+        parsed = urlparse(target)
+        if parsed.scheme or parsed.netloc or not parsed.path:
+            continue
+        destination = (path.parent / parsed.path).resolve()
+        if not destination.exists():
+            line = content.count("\n", 0, match.start()) + 1
+            relative = path.relative_to(root)
+            errors.append(f"{relative}:{line}: broken Markdown link: {target}")
     return errors
 
 
@@ -179,6 +198,14 @@ def main() -> int:
     )
     for path in source_files:
         errors.extend(validate_source(path, root))
+
+    markdown_files = sorted(
+        path
+        for path in root.rglob("*.md")
+        if ".git" not in path.parts and ".build" not in path.parts
+    )
+    for path in markdown_files:
+        errors.extend(validate_markdown_links(path, root))
 
     if errors:
         print("Repository validation failed:", file=sys.stderr)

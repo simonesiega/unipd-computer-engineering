@@ -71,9 +71,9 @@ jobs:
           docker_image: ghcr.io/xu-cheng/texlive-alpine@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
           run: |
             if [ "${{ steps.changes.outputs.mode }}" = "all" ]; then
-              python3 latex/tools/build.py --all --keep-going
+              python3 latex/tools/build.py --all --keep-going --check-generated
             else
-              python3 latex/tools/build.py --changed-file-list .build/changed-files.txt --keep-going
+              python3 latex/tools/build.py --changed-file-list .build/changed-files.txt --keep-going --check-generated
             fi
 
       - name: Upload LaTeX logs after a failure

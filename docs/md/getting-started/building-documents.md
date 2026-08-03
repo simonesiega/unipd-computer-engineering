@@ -69,14 +69,14 @@ Exactly one selection mode must be provided: explicit `TARGET` values, `--all`, 
 | `--changed-from` | Git revision | Build documents affected by changes from the revision to `HEAD` |
 | `--changed-to` | Git revision | Change the end revision used with `--changed-from`; defaults to `HEAD` |
 | `--changed-file-list` | File path | Build documents affected by repository-relative paths read from a file |
-| `--no-compile` | None | Reuse an existing PDF and available `.toc` data instead of running LaTeX |
+| `--no-compile` | None | Reuse an existing PDF and `.toc` data instead of running LaTeX; fail before README generation if the `.toc` is unavailable |
 | `--no-readme` | None | Do not create or update generated README content |
 | `--clean` | None | Remove `.build/` after a successful run |
 | `--keep-going` | None | Process every selected document and report all failures at the end |
 | `--check-generated` | None | Compare built PDFs and README content with committed generated files |
 | `-h`, `--help` | None | Print the command reference and exit |
 
-`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. `--changed-to` applies only to `--changed-from`.
+`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. When using `--no-compile`, the build requires an existing `.toc` file to update a README; use `--no-readme` to reuse only the PDF. `--changed-to` applies only to `--changed-from`.
 
 Display the built-in reference with:
 

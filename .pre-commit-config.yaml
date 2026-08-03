@@ -18,17 +18,35 @@ repos:
       - id: trailing-whitespace
         exclude: '\.(?:otf|ttf|pdf|png)$'
 
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+
   - repo: local
     hooks:
       - id: course-tool-tests
-        name: test course tools
-        entry: python -m unittest discover -s latex/tools/test -p test_*.py
+        name: test course tools with coverage
+        entry: python latex/tools/run_tool_tests.py
         language: python
+        additional_dependencies: [coverage==7.10.3]
         pass_filenames: false
         files: '(^latex/tools/.*\.py$|^\.pre-commit-config\.yaml$)'
+      - id: python-lint
+        name: lint Python tools
+        entry: ruff check
+        language: python
+        additional_dependencies: [ruff==0.12.7]
+        types: [python]
+      - id: python-types
+        name: type-check Python tools
+        entry: mypy
+        language: python
+        additional_dependencies: [coverage==7.10.3, mypy==1.17.1]
+        types: [python]
       - id: latex-repository-check
-        name: validate LaTeX repository
+        name: validate LaTeX repository and Markdown links
         entry: python latex/tools/check_repository.py
         language: python
         pass_filenames: false
-        files: '(^[123]/|^latex/|^\.github/workflows/|^\.pre-commit-config\.yaml$)'
+        files: '(^[123]/|^latex/|^docs/|\.md$|^\.github/workflows/|^\.pre-commit-config\.yaml$)'

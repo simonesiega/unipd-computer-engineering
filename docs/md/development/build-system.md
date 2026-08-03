@@ -107,6 +107,8 @@ When a README does not exist, the script creates one using the document director
 
 Component examples do not receive generated README content. The integration projects receive English or Italian content according to their document class option.
 
+With `--no-compile`, README generation reuses `main.toc` from the mirrored `.build/` directory or, as a fallback, from the document directory. If neither file exists, the build fails before changing the README instead of replacing its index with an empty table of contents. Use `--no-readme` when intentionally reusing only an existing PDF.
+
 ## Generated-file verification
 
 With `--check-generated`, compilation still occurs under `.build/`, but committed files are not replaced. The script compares:
@@ -122,7 +124,7 @@ The build fails when either file is missing or stale.
 
 | Option | Behavior |
 |---|---|
-| `--no-compile` | Reuse an existing PDF and available `.toc` data |
+| `--no-compile` | Reuse an existing PDF and existing `.toc` data; fail before README generation when the `.toc` is missing |
 | `--no-readme` | Compile without creating or updating generated README files |
 | `--keep-going` | Process every selected document and report all failures afterward |
 | `--clean` | Remove the repository-level `.build/` directory after a successful run |

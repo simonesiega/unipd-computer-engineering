@@ -93,8 +93,21 @@ def parse_history(output: str) -> list[Commit]:
     return commits
 
 
+def ensure_complete_history(root: Path) -> None:
+    """Reject repositories whose available Git history is incomplete."""
+    shallow = run_git(root, "rev-parse", "--is-shallow-repository").strip()
+    if shallow == "true":
+        raise ValueError(
+            "Cannot generate changelogs from a shallow repository; "
+            "fetch complete history with 'git fetch --unshallow' first"
+        )
+    if shallow != "false":
+        raise ValueError(f"Unexpected Git shallow-repository status: {shallow!r}")
+
+
 def read_history(root: Path) -> list[Commit]:
     """Read every commit that changed a degree-year archive."""
+    ensure_complete_history(root)
     output = run_git(
         root,
         "log",

@@ -10,8 +10,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from check_repository import (
+    validate_components,
     validate_course,
     validate_integration_examples,
+    validate_markdown_links,
     validate_source,
 )
 
@@ -43,6 +45,22 @@ class RepositoryValidationTests(unittest.TestCase):
             errors = validate_course(invalid, root)
             self.assertTrue(any("document class" in error for error in errors))
             self.assertTrue(any("document environment" in error for error in errors))
+
+    def test_component_validation_requires_exact_package_and_example_layout(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            component = root / "latex" / "components" / "code"
+            example = component / "example"
+            example.mkdir(parents=True)
+            (component / "code.sty").write_text("package\n", encoding="utf-8")
+            (example / "main.tex").write_text("source\n", encoding="utf-8")
+            (example / "main.pdf").write_bytes(b"pdf")
+
+            self.assertEqual(validate_components(root), [])
+
+            (example / "main.log").write_text("temporary\n", encoding="utf-8")
+            errors = validate_components(root)
+            self.assertTrue(any("unexpected component example" in error for error in errors))
 
     def test_integration_projects_require_source_pdf_and_readme(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -76,6 +94,26 @@ class RepositoryValidationTests(unittest.TestCase):
             self.assertTrue(
                 any("unexpected integration entry" in error for error in errors)
             )
+
+    def test_markdown_link_validation_reports_missing_local_targets(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            docs = root / "docs"
+            docs.mkdir()
+            (docs / "target.md").write_text("# Target\n", encoding="utf-8")
+            page = docs / "page.md"
+            page.write_text(
+                "[Valid](target.md#section)\n"
+                "[External](https://example.com)\n"
+                "[Missing](missing.md)\n",
+                encoding="utf-8",
+            )
+
+            errors = validate_markdown_links(page, root)
+
+            self.assertEqual(len(errors), 1)
+            self.assertIn("page.md:3", errors[0])
+            self.assertIn("missing.md", errors[0])
 
     def test_source_hygiene_errors_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
