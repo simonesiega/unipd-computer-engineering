@@ -18,7 +18,7 @@ Run every command from the repository root.
 
 Replace the example paths with the directories or `main.tex` files you want to build.
 
-For a course, a successful build publishes `main.pdf` and refreshes the generated section of its `README.md`. Component and integration examples publish only their `main.pdf`. Temporary files are stored under `.build/`.
+For a course or integration project, a successful build publishes `main.pdf` and refreshes the generated section of its localized `README.md`. Component examples publish only their `main.pdf`. Temporary files are stored under `.build/`.
 
 Do not manually edit content between:
 
@@ -47,9 +47,9 @@ Check repository structure and source conventions:
 | Linux or macOS | `python3 latex/tools/check_repository.py` |
 | Windows PowerShell | `py latex/tools/check_repository.py` |
 
-The validation checks course and component structure, UTF-8 source files, tabs, trailing whitespace, and unresolved merge-conflict markers.
+The validation checks course, component, and complete integration-project structure, UTF-8 source files, tabs, trailing whitespace, and unresolved merge-conflict markers.
 
-Verify that every committed PDF and generated course README is current:
+Verify that every committed PDF and generated course or integration README is current:
 
 | Platform | Command |
 |---|---|
@@ -65,12 +65,12 @@ Exactly one selection mode must be provided: explicit `TARGET` values, `--all`, 
 | Argument or option | Value | Purpose |
 |---|---|---|
 | `TARGET` | Directory or `main.tex` path | Build one or more explicitly listed documents |
-| `--all` | None | Discover and build every course and component example |
+| `--all` | None | Discover and build every course, component example, and integration project |
 | `--changed-from` | Git revision | Build documents affected by changes from the revision to `HEAD` |
 | `--changed-to` | Git revision | Change the end revision used with `--changed-from`; defaults to `HEAD` |
 | `--changed-file-list` | File path | Build documents affected by repository-relative paths read from a file |
 | `--no-compile` | None | Reuse an existing PDF and available `.toc` data instead of running LaTeX |
-| `--no-readme` | None | Do not create or update generated course README content |
+| `--no-readme` | None | Do not create or update generated README content |
 | `--clean` | None | Remove `.build/` after a successful run |
 | `--keep-going` | None | Process every selected document and report all failures at the end |
 | `--check-generated` | None | Compare built PDFs and README content with committed generated files |

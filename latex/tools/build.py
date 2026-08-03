@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile repository documents and refresh course READMEs."""
+"""Compile repository documents and refresh generated READMEs."""
 
 from __future__ import annotations
 
@@ -313,24 +313,18 @@ def render_generated_markdown(
     return "\n".join(lines)
 
 
-def is_repository_example(root: Path, document: Path) -> bool:
-    """Return whether a document is a component or integration example."""
+def is_component_example(root: Path, document: Path) -> bool:
+    """Return whether a document is a component example without a README."""
     relative = document.relative_to(root)
-    component_example = (
+    return (
         len(relative.parts) == 5
         and relative.parts[:2] == ("latex", "components")
         and relative.parts[-2:] == ("example", "main.tex")
     )
-    integration_example = (
-        len(relative.parts) == 4
-        and relative.parts[:2] == ("latex", "integration")
-        and relative.name == "main.tex"
-    )
-    return component_example or integration_example
 
 
 def generated_readme_content(directory: Path, generated_markdown: str) -> str:
-    """Insert generated Markdown between the course README markers."""
+    """Insert generated Markdown between README markers."""
     readme = directory / "README.md"
     if readme.exists():
         content = readme.read_text(encoding="utf-8")
@@ -357,7 +351,7 @@ def generated_readme_content(directory: Path, generated_markdown: str) -> str:
 
 
 def update_readme(directory: Path, generated_markdown: str) -> None:
-    """Update a course README with generated Markdown."""
+    """Update a document README with generated Markdown."""
     content = generated_readme_content(directory, generated_markdown)
     readme = directory / "README.md"
     temporary_readme = directory / ".README.md.tmp"
@@ -409,7 +403,7 @@ def process_document(
     if readme_enabled:
         if not pdf_file.is_file():
             raise FileNotFoundError(f"Compiled PDF was not found: {pdf_file}")
-        if not is_repository_example(root, document):
+        if not is_component_example(root, document):
             entries = parse_toc(toc_file)
             markdown = render_generated_markdown(entries, document_language(document))
             if check_generated:
@@ -465,7 +459,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--no-readme",
         action="store_true",
-        help="Compile without updating README files",
+        help="Compile without updating generated README files",
     )
     parser.add_argument(
         "--clean",

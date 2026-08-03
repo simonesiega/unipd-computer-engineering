@@ -175,8 +175,10 @@ def create_course(root: Path, course: Course) -> Path:
     course_directory.parent.mkdir(exist_ok=True)
     course_directory.mkdir()
     try:
-        (course_directory / "sections").mkdir()
-        (course_directory / "assets").mkdir()
+        for directory_name in ("sections", "assets"):
+            scaffold_directory = course_directory / directory_name
+            scaffold_directory.mkdir()
+            (scaffold_directory / ".gitkeep").write_text("", encoding="utf-8")
         (course_directory / "main.tex").write_text(
             render_main(course), encoding="utf-8", newline="\n"
         )

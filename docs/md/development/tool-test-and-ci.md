@@ -47,9 +47,9 @@ Tests for the repository’s Python tools are organized by responsibility under 
 | Test file | Tool covered | Behavior covered |
 |---|---|---|
 | `test_course_creation.py` | `create_course.py` | Slug generation, academic years, generated layout and metadata, duplicate detection, and argument-domain validation |
-| `test_build_selection.py` | `build.py` | Document discovery and affected-document selection for course, shared, and unrelated changes |
+| `test_build_selection.py` | `build.py` | Document discovery, affected-document selection, and localized integration README generation |
 | `test_changelog_generation.py` | `generate_changelog.py` | History parsing, per-course file changes, renames, dates, commits, and empty-directory placeholders |
-| `test_repository_validation.py` | `check_repository.py` | Course entry-point structure and LaTeX source-hygiene errors |
+| `test_repository_validation.py` | `check_repository.py` | Course entry-point structure, complete integration-project files, and LaTeX source-hygiene errors |
 
 Run the complete test suite from the repository root.
 
@@ -218,7 +218,7 @@ Generated changelogs must not be edited by hand; the weekly workflow replaces th
 
 ## Generated-file verification
 
-The current workflow compiles affected documents but does not compare the resulting files with the committed `main.pdf` and generated course README sections.
+The current workflow compiles affected documents but does not compare the resulting files with the committed `main.pdf` and generated course or integration README sections.
 
 Run this check locally before contributing:
 

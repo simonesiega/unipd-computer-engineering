@@ -60,9 +60,13 @@ For the example above it creates:
 1/analisi-matematica-1/
 ├── main.tex
 ├── sections/
+│   └── .gitkeep
 ├── assets/
+│   └── .gitkeep
 └── README.md
 ```
+
+The empty `.gitkeep` files ensure that Git preserves `sections/` and `assets/` until course content is added.
 
 The generated `main.tex` uses the supplied metadata and the academic year associated with this degree archive:
 
@@ -76,9 +80,9 @@ After a successful run, the command prints the created repository-relative path,
 
 The publication date is written literally into the generated source. Update it whenever publishing a new edition; do not replace it with `\today`, because reproducible builds intentionally use a fixed TeX clock.
 
-The selected language is written as the `italian` or `english` class option. It localizes the generated document type, initial chapter, README text, and shared LaTeX labels. 
+The selected language is written as the `italian` or `english` class option. It localizes the generated document type, initial chapter, README text, and shared LaTeX labels.
 
-Replace the `author = {Your Name}` placeholder before publishing the notes. 
+Replace the `author = {Your Name}` placeholder before publishing the notes.
 
 Write the notes in the selected language. For larger documents, move chapters or sections into separate files and include them from `main.tex`.
 

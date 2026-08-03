@@ -44,7 +44,7 @@ class RepositoryValidationTests(unittest.TestCase):
             self.assertTrue(any("document class" in error for error in errors))
             self.assertTrue(any("document environment" in error for error in errors))
 
-    def test_integration_examples_require_source_and_pdf_only(self) -> None:
+    def test_integration_projects_require_source_pdf_and_readme(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             integration = root / "latex" / "integration"
@@ -61,12 +61,14 @@ class RepositoryValidationTests(unittest.TestCase):
             )
 
             (english / "main.pdf").write_bytes(b"pdf")
+            (english / "README.md").write_text("# English\n", encoding="utf-8")
             italian = integration / "italian"
             italian.mkdir()
             (italian / "main.tex").write_text(
                 "\\documentclass[italian]{unipd-notes}\n", encoding="utf-8"
             )
             (italian / "main.pdf").write_bytes(b"pdf")
+            (italian / "README.md").write_text("# Italiano\n", encoding="utf-8")
             self.assertEqual(validate_integration_examples(root), [])
 
             (english / "main.log").write_text("log\n", encoding="utf-8")

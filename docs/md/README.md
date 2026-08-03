@@ -63,4 +63,4 @@ This documentation is organized by task. The project README introduces the archi
 - Linux and macOS use `python3`; Windows PowerShell uses `py`.
 - Keep internal repository links relative.
 - Link to the authoritative guide instead of repeating detailed procedures.
-- Do not manually edit generated course README sections.
+- Do not manually edit generated course or integration README sections.

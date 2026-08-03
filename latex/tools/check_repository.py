@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the repository's LaTeX sources and course directory layout."""
+"""Validate the repository's LaTeX sources and document layouts."""
 
 from __future__ import annotations
 
@@ -96,7 +96,7 @@ def validate_components(root: Path) -> list[str]:
 
 
 def validate_integration_examples(root: Path) -> list[str]:
-    """Validate integration examples and their published PDFs."""
+    """Validate complete integration projects and their generated files."""
     integration_directory = root / INTEGRATION_DIRECTORY
     if not integration_directory.is_dir():
         return [f"{INTEGRATION_DIRECTORY}/: missing integration directory"]
@@ -111,7 +111,7 @@ def validate_integration_examples(root: Path) -> list[str]:
             errors.append(f"{relative}/: missing integration example")
             continue
         main_file = example / "main.tex"
-        expected_files = {main_file, example / "main.pdf"}
+        expected_files = {main_file, example / "main.pdf", example / "README.md"}
         for expected in sorted(expected_files):
             if not expected.is_file():
                 errors.append(f"{expected.relative_to(root)}: missing required file")

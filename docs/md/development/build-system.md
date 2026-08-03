@@ -40,7 +40,7 @@ Exactly one selection mode is required:
 | Mode | Selection |
 |---|---|
 | Explicit targets | One or more directories or `main.tex` files |
-| `--all` | Every discovered course and component example |
+| `--all` | Every discovered course, component example, and integration project |
 | `--changed-from REVISION` | Documents affected by a Git diff from `REVISION` to `HEAD` |
 | `--changed-file-list FILE` | Documents affected by repository-relative paths listed in a file |
 
@@ -92,9 +92,9 @@ These values reduce environment-dependent differences between local and CI build
 
 After a successful compilation, `main.pdf` and `main.toc` remain under `.build/`. In a normal build, the PDF is copied atomically beside the source `main.tex`.
 
-## Generated course README
+## Generated README
 
-For course documents, the script parses `main.toc` and converts table-of-contents entries for parts, chapters, sections, subsections, and subsubsections into Markdown. Generated headings and links use the `italian` or `english` language selected by the document class.
+For course documents and integration projects, the script parses `main.toc` and converts table-of-contents entries for parts, chapters, sections, subsections, and subsubsections into Markdown. Generated headings and links use the `italian` or `english` language selected by the document class.
 
 The generated block contains a link to `main.pdf` and the document contents with page numbers. It is inserted between:
 
@@ -103,16 +103,16 @@ The generated block contains a link to `main.pdf` and the document contents with
 <!-- GENERATED:END -->
 ```
 
-When a course README does not exist, the script creates one using the course directory name as its heading. Existing content outside the markers is preserved.
+When a README does not exist, the script creates one using the document directory name as its heading. Existing content outside the markers is preserved.
 
-Component and integration examples do not receive generated README content.
+Component examples do not receive generated README content. The integration projects receive English or Italian content according to their document class option.
 
 ## Generated-file verification
 
 With `--check-generated`, compilation still occurs under `.build/`, but committed files are not replaced. The script compares:
 
 - the newly built PDF with the committed `main.pdf`;
-- the expected generated README content with the committed course `README.md`.
+- the expected generated README content with the committed course or integration `README.md`.
 
 The build fails when either file is missing or stale.
 
@@ -123,7 +123,7 @@ The build fails when either file is missing or stale.
 | Option | Behavior |
 |---|---|
 | `--no-compile` | Reuse an existing PDF and available `.toc` data |
-| `--no-readme` | Compile without creating or updating course README files |
+| `--no-readme` | Compile without creating or updating generated README files |
 | `--keep-going` | Process every selected document and report all failures afterward |
 | `--clean` | Remove the repository-level `.build/` directory after a successful run |
 | `--check-generated` | Verify committed PDFs and generated README sections |

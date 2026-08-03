@@ -23,7 +23,7 @@
 
 - [ ] Affected documents compile successfully.
 - [ ] Affected PDFs were reviewed visually.
-- [ ] Generated PDFs and course README sections are current.
+- [ ] Generated PDFs and course or integration README sections are current.
 - [ ] Relevant repository and pre-commit checks pass.
 
 ## Sources, licensing, and integrity

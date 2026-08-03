@@ -14,6 +14,7 @@ from build import (
     affected_documents,
     discover_documents,
     document_language,
+    process_document,
     render_generated_markdown,
 )
 
@@ -94,6 +95,46 @@ class BuildSelectionTests(unittest.TestCase):
                 "- Nessuna voce numerata.",
                 render_generated_markdown([], "italian"),
             )
+
+    def test_integration_build_generates_localized_readme(self) -> None:
+        cases = (
+            ("english", "Open the compiled PDF", "Table of contents", "Introduction"),
+            (
+                "italian",
+                "Apri il PDF compilato",
+                "Indice dei contenuti",
+                "Introduzione",
+            ),
+        )
+        for language, pdf_label, contents_label, chapter in cases:
+            with tempfile.TemporaryDirectory() as tmp, self.subTest(language=language):
+                root = Path(tmp)
+                document = self.create_document(root, f"latex/integration/{language}")
+                document.write_text(
+                    f"\\documentclass[{language}]{{unipd-notes}}\n",
+                    encoding="utf-8",
+                )
+                (document.parent / "main.pdf").write_bytes(b"pdf")
+                toc = root / f".build/latex/integration/{language}/main.toc"
+                toc.parent.mkdir(parents=True)
+                toc.write_text(
+                    f"\\contentsline {{chapter}}"
+                    f"{{\\numberline {{1}}{chapter}}}{{1}}{{chapter.1}}%\n",
+                    encoding="utf-8",
+                )
+
+                process_document(
+                    root,
+                    document,
+                    compile_enabled=False,
+                    readme_enabled=True,
+                    check_generated=False,
+                )
+
+                readme = (document.parent / "README.md").read_text(encoding="utf-8")
+                self.assertIn(f"[{pdf_label}](main.pdf)", readme)
+                self.assertIn(f"## {contents_label}", readme)
+                self.assertIn(f"{chapter} — p. 1", readme)
 
     def test_integration_change_selects_its_document(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

@@ -14,11 +14,13 @@ To generate this structure automatically, follow the [Creating a course](../gett
 ├── main.pdf              # generated and committed
 ├── README.md             # contains a generated contents section
 ├── sections/             # optional course content
+│   └── .gitkeep          # preserves the initially empty directory
 ├── assets/               # optional images, diagrams, and data
+│   └── .gitkeep          # preserves the initially empty directory
 └── references.bib        # optional bibliography
 ```
 
-`<year>` must be `1`, `2`, or `3`, and `<course-name>` must use lowercase kebab-case. Course directories must be direct children of their degree-year directory.
+`<year>` must be `1`, `2`, or `3`, and `<course-name>` must use lowercase kebab-case. Course directories must be direct children of their degree-year directory. The course creation tool adds empty `.gitkeep` files so that Git retains `sections/` and `assets/` before they contain course files.
 
 ## File responsibilities
 

@@ -14,9 +14,9 @@ Integration examples ────────┤
 Shared class and components ─┤                    │
 Bundled fonts ───────────────┘                    ├─> main.pdf
                                                   └─> main.toc
-                                                        │
-                         course directory <─────────────┤
-                         main.pdf + generated README ───┘
+                                                         │
+                                                         ├────────> course or integration directory
+                                                         └─> main.pdf + generated README
 ```
 
 Repository validation runs separately from compilation. Pre-commit executes structural and source checks, while GitHub Actions coordinates quality checks and affected-document builds.
@@ -52,7 +52,7 @@ Course files may depend on the shared LaTeX system. Shared components must not d
 
 ## Course creation
 
-`create_course.py` creates the standard course layout from validated command-line metadata. It derives an ASCII kebab-case directory name, prevents duplicate course directories across degree years, and maps degree years `1` through `3` to the archive's `2026--2029` academic-year sequence. The generated course contains an initial `main.tex`, `README.md`, and empty `sections/` and `assets/` directories.
+`create_course.py` creates the standard course layout from validated command-line metadata. It derives an ASCII kebab-case directory name, prevents duplicate course directories across degree years, and maps degree years `1` through `3` to the archive's `2026--2029` academic-year sequence. The generated course contains an initial `main.tex`, `README.md`, and `sections/` and `assets/` directories with tracked `.gitkeep` placeholders.
 
 The contributor-facing command and options are documented in [Creating a course](../getting-started/creating-a-course.md). Python unit tests live under `latex/tools/test/`, with separate files covering course creation, build selection, changelog generation, and repository validation. Test commands and coverage are documented in [Validation, Tests, and CI](tool-test-and-ci.md).
 
@@ -66,9 +66,9 @@ For each selected document, the build tool:
 4. makes the repository's `latex/` directory available through `TEXINPUTS`;
 5. reads the generated table of contents;
 6. publishes `main.pdf` beside the source;
-7. updates the generated section of a course `README.md`.
+7. updates the generated section of a course or integration `README.md`.
 
-Component and integration examples publish their PDF but do not receive generated README contents.
+Component examples publish their PDF but do not receive generated README contents.
 
 The `--check-generated` mode compares newly built outputs with committed files without replacing them. Detailed commands and selection modes are documented in [Build system](build-system.md).
 
