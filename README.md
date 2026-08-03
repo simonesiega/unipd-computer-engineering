@@ -47,6 +47,7 @@
 
 ## Contents
 
+- [Notes preview](#notes-preview)
 - [Overview](#overview)
 - [Browse the notes](#browse-the-notes)
 - [Exams covered](#exams-covered)
@@ -57,9 +58,21 @@
 - [License](#license)
 - [Contributors](#contributors)
 
+## Notes preview
+
+<p align="center">
+  <img
+    src="docs/assets/notes/computer-engineering-notes-preview.png"
+    alt="Preview of an Italian Computer Engineering note about embedded rack monitoring"
+    width="760"
+  />
+</p>
+
+The preview shows a representative page from the archive, demonstrating the shared layout for headings, text, diagrams, equations, cross-references, source notes, and code listings.
+
 ## Overview
 
-This repository is a long-term academic archive for students in the three-year bachelor's degree in Computer Engineering at the University of Padua.
+This repository is a long-term academic archive for the three-year Bachelor's degree programme in Computer Engineering at the University of Padua.
 
 It collects notes, summaries, diagrams, exercises, references, and other study material produced throughout the degree. Courses are organized by degree year and use a shared LaTeX system to keep their structure, typography, metadata, and compiled PDFs consistent.
 

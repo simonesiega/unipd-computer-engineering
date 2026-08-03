@@ -40,10 +40,11 @@ repos:
         types: [python]
       - id: python-types
         name: type-check Python tools
-        entry: mypy
+        entry: mypy latex/tools
         language: python
         additional_dependencies: [coverage==7.10.3, mypy==1.17.1]
-        types: [python]
+        pass_filenames: false
+        files: '(^latex/tools/.*\.py$|^mypy\.ini$|^\.pre-commit-config\.yaml$)'
       - id: latex-repository-check
         name: validate LaTeX repository and Markdown links
         entry: python latex/tools/check_repository.py
