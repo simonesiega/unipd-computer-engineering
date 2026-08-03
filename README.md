@@ -53,6 +53,7 @@
 - [Exams covered](#exams-covered)
 - [Quick start](#quick-start)
 - [Documentation](#documentation)
+- [AI-assisted development](#ai-assisted-development)
 - [Contributing](#contributing)
 - [Academic disclaimer](#academic-disclaimer)
 - [License](#license)
@@ -130,6 +131,26 @@ The [documentation hub](docs/md/README.md) is the main reference for using, buil
 | LaTeX reference | [Document class](docs/md/reference/unipd-notes-class.md) · [Components](latex/components/README.md) · [Fonts](latex/fonts/README.md) |
 | Repository internals | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) |
 | Project policies | [Contributing](CONTRIBUTING.md) · [Report a problem](CONTRIBUTING.md#getting-help-and-reporting-problems) · [Security](SECURITY.md) |
+
+## AI-assisted development
+
+This repository may use AI-assisted tools to help write, review, build, test, and maintain course material and supporting infrastructure. AI output is never treated as authoritative by itself: every contribution remains subject to human review for accuracy, clarity, originality, citations, licensing, academic integrity, and consistency with the surrounding material.
+
+Repository-specific instructions for compatible AI coding agents are stored in [`AGENTS.md`](AGENTS.md) and [`.agents/skills/`](.agents/skills/).
+
+`AGENTS.md` defines the shared rules and routes each task to the most appropriate skill, while each `SKILL.md` contains a focused workflow for one area of the project.
+
+| File | Responsibility |
+|---|---|
+| [`AGENTS.md`](AGENTS.md) | Defines repository-wide rules, protected generated content, academic and licensing constraints, skill routing, normal workflows, and completion reporting. |
+| [`.agents/skills/unipd-note-writing/SKILL.md`](.agents/skills/unipd-note-writing/SKILL.md) | Writes and reviews course-specific prose, mathematics, examples, exercises, solutions, references, code explanations, and diagrams stored with course sources. |
+| [`.agents/skills/unipd-latex-component-development/SKILL.md`](.agents/skills/unipd-latex-component-development/SKILL.md) | Develops the shared document class, LaTeX components, component examples, fonts, public interfaces, dependencies, and related documentation. |
+| [`.agents/skills/unipd-python-tool-development/SKILL.md`](.agents/skills/unipd-python-tool-development/SKILL.md) | Develops, fixes, reviews, and tests Python repository tools while preserving the standard-library `unittest` architecture and deterministic isolated tests. |
+| [`.agents/skills/unipd-latex-build/SKILL.md`](.agents/skills/unipd-latex-build/SKILL.md) | Selects and compiles affected documents, diagnoses LaTeX failures, and regenerates PDFs and other build-owned outputs. |
+| [`.agents/skills/unipd-pdf-review/SKILL.md`](.agents/skills/unipd-pdf-review/SKILL.md) | Visually reviews generated PDFs for layout, readability, navigation, clipping, overlap, page-break, and rendering problems. |
+| [`.agents/skills/unipd-repository-validation/SKILL.md`](.agents/skills/unipd-repository-validation/SKILL.md) | Runs and diagnoses repository validation, pre-commit checks, structural rules, source hygiene, YAML, encoding, whitespace, and line-ending failures. |
+
+These files guide AI-assisted work but do not replace the project documentation, validation tools, contribution requirements, or maintainer review. Contributors remain responsible for every submitted change and must disclose uncertainty, skipped checks, unavailable tools, and material that still requires verification.
 
 ## Contributing
 
