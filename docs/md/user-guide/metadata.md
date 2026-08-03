@@ -20,7 +20,7 @@ Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{docu
   semester = {1},
   document-type = {Appunti delle lezioni},
   author = {Your Name},
-  date = {\today},
+  date = {3 agosto 2026},
   version = {0.1.0}
 }
 ```
@@ -39,12 +39,12 @@ Use the official course title and accurate information for the specific edition 
 | `semester` | Semester or teaching period |
 | `document-type` | Type of material, such as `Appunti delle lezioni` |
 | `author` | Author or authors of the notes |
-| `date` | Document date; defaults to `\today` |
+| `date` | Explicit publication date stored in the document source |
 | `version` | Revision identifier, starting from `0.1.0` for new notes |
 
 Set `author` explicitly. Its shared default is the repository maintainer and would incorrectly attribute notes created by another contributor.
 
-`short-course`, `professor`, `semester`, and `version` may be omitted when they are unknown or not applicable. `date` defaults to `\today`; set `date = {}` explicitly to hide it. Blank optional fields are not displayed on the cover.
+`short-course`, `professor`, `semester`, and `version` may be omitted when they are unknown or not applicable. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. It has no automatic default because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 

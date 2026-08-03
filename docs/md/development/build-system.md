@@ -83,7 +83,7 @@ The build environment:
 - enables `FORCE_SOURCE_DATE`;
 - sets the timezone to UTC.
 
-These values reduce environment-dependent differences between local and CI builds.
+These values reduce environment-dependent differences between local and CI builds. Because they also fix TeX's clock, documents must store their publication date explicitly in `main.tex` rather than use `\today`.
 
 After a successful compilation, `main.pdf` and `main.toc` remain under `.build/`. In a normal build, the PDF is copied atomically beside the source `main.tex`.
 

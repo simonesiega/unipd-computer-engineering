@@ -23,6 +23,7 @@ class Course:
     short_name: str
     professor: str
     semester: int
+    document_date: str
 
 
 def repository_root() -> Path:
@@ -87,7 +88,7 @@ def render_main(course: Course) -> str:
   semester = {{{course.semester}}},
   document-type = {{Appunti delle lezioni}},
   author = {{Your Name}},
-  date = {{\\today}},
+  date = {{{escape_latex(course.document_date)}}},
   version = {{0.1.0}}
 }}
 
@@ -188,6 +189,12 @@ def parse_arguments() -> argparse.Namespace:
         required=True,
         help="Teaching semester",
     )
+    parser.add_argument(
+        "--date",
+        type=non_empty,
+        required=True,
+        help="Explicit document publication date",
+    )
     return parser.parse_args()
 
 
@@ -200,6 +207,7 @@ def main() -> int:
         short_name=arguments.short_course,
         professor=arguments.professor,
         semester=arguments.semester,
+        document_date=arguments.date,
     )
     root = repository_root()
     course_directory = create_course(root, course)

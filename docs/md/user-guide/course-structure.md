@@ -56,9 +56,11 @@ Use lowercase kebab-case, descriptive names, and two-digit numeric prefixes when
 
 ## Assets
 
-Use descriptive filenames and keep each asset close to the course that uses it. Create subdirectories under `assets/` only when they improve navigation.
+Use descriptive filenames and store each asset within the course that uses it. Create subdirectories under `assets/` only when they make the directory easier to navigate.
 
-Document the source and license of third-party material. Prefer original diagrams and figures whenever possible.
+Assets may use any format appropriate for the course, including SVG images, JPEG files, CSV datasets, Jupyter notebooks, Draw.io diagrams, and domain-specific data files.
+
+Document the source and license of all third-party material. Whenever possible, prefer original diagrams, figures, and datasets.
 
 ## Generated files
 

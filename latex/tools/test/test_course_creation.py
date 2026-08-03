@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -27,7 +28,14 @@ class CourseCreationTests(unittest.TestCase):
     def test_standard_layout_and_metadata_are_created(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            course = Course(1, "Analisi Matematica 1", "Analisi 1", "Name", 1)
+            course = Course(
+                1,
+                "Analisi Matematica 1",
+                "Analisi 1",
+                "Name",
+                1,
+                "3 agosto 2026",
+            )
 
             directory = create_course(root, course)
 
@@ -39,26 +47,72 @@ class CourseCreationTests(unittest.TestCase):
             main = (directory / "main.tex").read_text(encoding="utf-8")
             self.assertIn("academic-year = {2026--2027}", main)
             self.assertIn("degree-year = {1}", main)
+            self.assertIn("date = {3 agosto 2026}", main)
+            self.assertNotIn(r"\today", main)
 
     def test_duplicate_slug_is_rejected_across_years(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             create_course(
-                root, Course(1, "Analisi Matematica 1", "Analisi 1", "Name", 1)
+                root,
+                Course(
+                    1,
+                    "Analisi Matematica 1",
+                    "Analisi 1",
+                    "Name",
+                    1,
+                    "3 agosto 2026",
+                ),
             )
 
             with self.assertRaises(FileExistsError):
                 create_course(
-                    root, Course(2, "Analisi Matematica 1", "Analisi 1", "Name", 1)
+                    root,
+                    Course(
+                        2,
+                        "Analisi Matematica 1",
+                        "Analisi 1",
+                        "Name",
+                        1,
+                        "3 agosto 2026",
+                    ),
                 )
 
-    def test_invalid_year_and_semester_are_rejected(self) -> None:
+    def test_invalid_course_values_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             with self.assertRaises(ValueError):
-                create_course(root, Course(4, "Course", "Course", "Name", 1))
+                create_course(
+                    root, Course(4, "Course", "Course", "Name", 1, "3 agosto 2026")
+                )
             with self.assertRaises(ValueError):
-                create_course(root, Course(1, "Course", "Course", "Name", 3))
+                create_course(
+                    root, Course(1, "Course", "Course", "Name", 3, "3 agosto 2026")
+                )
+
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).resolve().parents[1] / "create_course.py"),
+                "--year",
+                "1",
+                "--course",
+                "Course",
+                "--short-course",
+                "Course",
+                "--professor",
+                "Name",
+                "--semester",
+                "1",
+                "--date",
+                " ",
+            ],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("argument --date: value must not be empty", result.stderr)
 
 
 if __name__ == "__main__":

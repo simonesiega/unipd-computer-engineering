@@ -1,45 +1,84 @@
-# Ignore everything by default, then allow repository source and published files.
-*
-!*/
+# Repository build output and tool caches
+/.build/
+/.ruff_cache/
+/.pytest_cache/
+/.mypy_cache/
+**/.ipynb_checkpoints/
+/.coverage
+/htmlcov/
+**/__pycache__/
+*.py[cod]
 
-# LaTeX sources and published outputs
-!*.tex
-!*.sty
-!*.cls
-!*.bib
-!*.pdf
-!*.png
+# Local Python environments
+/.venv/
+/venv/
 
-# Repository documentation and configuration
-!*.md
-!*.yml
-!*.yaml
-!*.toml
-!*.json
-!*.xml
-!*.py
-!.github/requirements-ci.txt
-!*.sh
-!*.ps1
-!*.otf
-!*.ttf
-
-# Extensionless repository files
-!.gitignore
-!.gitattributes
-!.githooks/pre-commit
-!.gitkeep
-!LICENSE
-!LICENSE-MIT
-
-# Never publish generated build directories or local state, even when they
-# contain otherwise allowed file types.
+# LaTeX artifacts produced by compiling any source file outside the build tool.
+# Source .tex files and published .pdf files remain tracked.
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.cb
+*.cb2
+*.dvi
+*.fdb_latexmk
+*.fls
+*.fmt
+*.fot
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.idx
+*.ilg
+*.ind
+*.ist
+*.loa
+*.lof
+*.lol
+*.lot
+*.log
+*.listing
+*.lzo
+*.lzs
+*.maf
+*.mtc
+*.mtc0
+*.nav
+*.nlo
+*.nls
+*.out
+*.pdfsync
+*.pyg
+*.pygtex
 *.run.xml
-.build/
-__pycache__/
+*.slg
+*.slo
+*.sls
+*.snm
+*.spl
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.thm
+*.toc
+*.upa
+*.upb
+*.vrb
+*.xdv
+*-blx.aux
+*-blx.bib
+*-converted-to.*
+_minted-*/
+
+# Editor and operating-system state
 .vscode/
 .idea/
-_minted-*/
 .DS_Store
 Thumbs.db
 desktop.ini
