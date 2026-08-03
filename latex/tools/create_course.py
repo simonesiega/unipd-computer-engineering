@@ -14,6 +14,25 @@ from pathlib import Path
 DEGREE_START_YEAR = 2026
 VALID_YEARS = (1, 2, 3)
 VALID_SEMESTERS = (1, 2)
+VALID_LANGUAGES = ("italian", "english")
+SCAFFOLD_LABELS = {
+    "italian": {
+        "document_type": "Appunti delle lezioni",
+        "introduction": "Introduzione",
+        "placeholder": "Aggiungere qui i contenuti del corso.",
+        "readme_placeholder": (
+            "I contenuti generati del corso appariranno qui dopo la prima build."
+        ),
+    },
+    "english": {
+        "document_type": "Lecture notes",
+        "introduction": "Introduction",
+        "placeholder": "Add the course content here.",
+        "readme_placeholder": (
+            "The generated course contents will appear here after the first build."
+        ),
+    },
+}
 
 
 @dataclass(frozen=True)
@@ -24,6 +43,7 @@ class Course:
     professor: str
     semester: int
     document_date: str
+    language: str
 
 
 def repository_root() -> Path:
@@ -77,7 +97,8 @@ def escape_latex(value: str) -> str:
 
 def render_main(course: Course) -> str:
     """Render the initial main.tex for a course."""
-    return f"""\\documentclass{{unipd-notes}}
+    labels = SCAFFOLD_LABELS[course.language]
+    return f"""\\documentclass[{course.language}]{{unipd-notes}}
 
 \\unipdsetup{{
   course = {{{escape_latex(course.name)}}},
@@ -86,7 +107,7 @@ def render_main(course: Course) -> str:
   academic-year = {{{academic_year(course.year)}}},
   degree-year = {{{course.year}}},
   semester = {{{course.semester}}},
-  document-type = {{Appunti delle lezioni}},
+  document-type = {{{labels["document_type"]}}},
   author = {{Your Name}},
   date = {{{escape_latex(course.document_date)}}},
   version = {{0.1.0}}
@@ -96,20 +117,21 @@ def render_main(course: Course) -> str:
 \\makecoursecover
 \\makecoursetableofcontents
 
-\\chapter{{Introduction}}
+\\chapter{{{labels["introduction"]}}}
 
-Add the course content here.
+{labels["placeholder"]}
 
 \\end{{document}}
 """
 
 
-def render_readme(course_name: str) -> str:
-    """Render the initial course README."""
-    return f"""# {course_name}
+def render_readme(course: Course) -> str:
+    """Render the localized initial course README."""
+    placeholder = SCAFFOLD_LABELS[course.language]["readme_placeholder"]
+    return f"""# {course.name}
 
 <!-- GENERATED:START -->
-The generated course contents will appear here after the first build.
+{placeholder}
 <!-- GENERATED:END -->
 """
 
@@ -134,6 +156,8 @@ def create_course(root: Path, course: Course) -> Path:
         raise ValueError(
             f"Semester must be one of: {', '.join(map(str, VALID_SEMESTERS))}"
         )
+    if course.language not in VALID_LANGUAGES:
+        raise ValueError(f"Language must be one of: {', '.join(VALID_LANGUAGES)}")
 
     slug = kebab_case(course.name)
     duplicate = duplicate_directory(root, slug)
@@ -157,7 +181,7 @@ def create_course(root: Path, course: Course) -> Path:
             render_main(course), encoding="utf-8", newline="\n"
         )
         (course_directory / "README.md").write_text(
-            render_readme(course.name), encoding="utf-8", newline="\n"
+            render_readme(course), encoding="utf-8", newline="\n"
         )
     except OSError:
         # Never leave a partially generated course in the repository.
@@ -195,6 +219,12 @@ def parse_arguments() -> argparse.Namespace:
         required=True,
         help="Explicit document publication date",
     )
+    parser.add_argument(
+        "--language",
+        choices=VALID_LANGUAGES,
+        required=True,
+        help="Document language",
+    )
     return parser.parse_args()
 
 
@@ -208,6 +238,7 @@ def main() -> int:
         professor=arguments.professor,
         semester=arguments.semester,
         document_date=arguments.date,
+        language=arguments.language,
     )
     root = repository_root()
     course_directory = create_course(root, course)

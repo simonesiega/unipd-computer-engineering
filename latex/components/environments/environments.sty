@@ -21,23 +21,23 @@
    \thmnote{\color{black}\nobreakspace(#3)}}
 
 \theoremstyle{unipd-plain}
-\newtheorem{theorem}{Teorema}[chapter]
-\newtheorem{proposition}{Proposizione}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollario}[chapter]
+\newtheorem{theorem}{\unipdtranslate{theorem}}[chapter]
+\newtheorem{proposition}{\unipdtranslate{proposition}}[chapter]
+\newtheorem{lemma}{\unipdtranslate{lemma}}[chapter]
+\newtheorem{corollary}{\unipdtranslate{corollary}}[chapter]
 
 \theoremstyle{unipd-definition}
-\newtheorem{definition}{Definizione}[chapter]
-\newtheorem{example}{Esempio}[chapter]
-\newtheorem{important}{Importante}[chapter]
-\newtheorem{exercise}{Esercizio}[chapter]
-\newtheorem{solution}{Soluzione}[chapter]
+\newtheorem{definition}{\unipdtranslate{definition}}[chapter]
+\newtheorem{example}{\unipdtranslate{example}}[chapter]
+\newtheorem{important}{\unipdtranslate{important}}[chapter]
+\newtheorem{exercise}{\unipdtranslate{exercise}}[chapter]
+\newtheorem{solution}{\unipdtranslate{solution}}[chapter]
 
 \theoremstyle{unipd-remark}
-\newtheorem{remark}{Osservazione}[chapter]
+\newtheorem{remark}{\unipdtranslate{remark}}[chapter]
 
 \theoremstyle{unipd-warning}
-\newtheorem{warning}{Attenzione}[chapter]
+\newtheorem{warning}{\unipdtranslate{warning}}[chapter]
 
 \tcbset{
   unipd statement/.style={
@@ -74,6 +74,9 @@
 \tcolorboxenvironment{exercise}{unipd statement}
 \tcolorboxenvironment{solution}{unipd statement}
 
-\renewcommand{\proofname}{Dimostrazione}
+\addto\captionsitalian{%
+  \renewcommand{\proofname}{\unipdtranslate{proof}}}
+\addto\captionsenglish{%
+  \renewcommand{\proofname}{\unipdtranslate{proof}}}
 
 \endinput

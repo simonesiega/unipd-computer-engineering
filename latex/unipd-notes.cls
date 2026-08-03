@@ -13,10 +13,20 @@
 \fi
 
 \newif\ifunipdbibliography
+\newif\ifunipdenglish
 \unipdbibliographyfalse
+\unipdenglishfalse
 \DeclareOption{bibliography}{\unipdbibliographytrue}
+\DeclareOption{italian}{\unipdenglishfalse}
+\DeclareOption{english}{\unipdenglishtrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
 \ProcessOptions\relax
+
+\ifunipdenglish
+  \newcommand*{\unipdlanguage}{english}
+\else
+  \newcommand*{\unipdlanguage}{italian}
+\fi
 
 \LoadClass[
   11pt,

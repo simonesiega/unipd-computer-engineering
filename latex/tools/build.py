@@ -15,7 +15,7 @@ from pathlib import Path
 
 START_MARKER = "<!-- GENERATED:START -->"
 END_MARKER = "<!-- GENERATED:END -->"
-DOCUMENT_ROOTS = ("1", "2", "3", "latex/components")
+DOCUMENT_ROOTS = ("1", "2", "3", "latex/components", "latex/integration")
 SOURCE_DATE_EPOCH = "1785542400"
 LEVEL_DEPTH = {
     "part": 0,
@@ -24,6 +24,21 @@ LEVEL_DEPTH = {
     "subsection": 2,
     "subsubsection": 3,
 }
+README_LABELS = {
+    "italian": {
+        "pdf": "Apri il PDF compilato",
+        "contents": "Indice dei contenuti",
+        "empty": "Nessuna voce numerata.",
+        "page": "p.",
+    },
+    "english": {
+        "pdf": "Open the compiled PDF",
+        "contents": "Table of contents",
+        "empty": "No numbered entries.",
+        "page": "p.",
+    },
+}
+DOCUMENT_CLASS_PATTERN = re.compile(r"\\documentclass\s*(?:\[([^]]*)\])?\s*\{")
 
 
 @dataclass(frozen=True)
@@ -103,7 +118,7 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
                 affected.add(document)
             continue
 
-        # Component example changes affect only that component's example.
+        # Example changes affect only the corresponding example document.
         if (
             len(parts) >= 4
             and parts[:2] == ("latex", "components")
@@ -112,6 +127,12 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
             document = (
                 root / parts[0] / parts[1] / parts[2] / "example" / "main.tex"
             ).resolve()
+            if document.is_file():
+                affected.add(document)
+            continue
+
+        if len(parts) >= 3 and parts[:2] == ("latex", "integration"):
+            document = (root / parts[0] / parts[1] / parts[2] / "main.tex").resolve()
             if document.is_file():
                 affected.add(document)
 
@@ -262,31 +283,50 @@ def parse_toc(toc_file: Path) -> list[TocEntry]:
     return entries
 
 
-def render_generated_markdown(entries: list[TocEntry]) -> str:
-    """Render table-of-contents entries as README Markdown."""
+def document_language(document: Path) -> str:
+    """Return the language selected by a document class option."""
+    source = document.read_text(encoding="utf-8", errors="replace")
+    match = DOCUMENT_CLASS_PATTERN.search(source)
+    if match is None or match.group(1) is None:
+        return "italian"
+    options = {option.strip() for option in match.group(1).split(",")}
+    return "english" if "english" in options else "italian"
+
+
+def render_generated_markdown(
+    entries: list[TocEntry], language: str = "italian"
+) -> str:
+    """Render table-of-contents entries as localized README Markdown."""
+    labels = README_LABELS[language]
     lines = [
-        "[Apri il PDF compilato](main.pdf)",
+        f"[{labels['pdf']}](main.pdf)",
         "",
-        "## Indice dei contenuti",
+        f"## {labels['contents']}",
     ]
     if not entries:
-        lines.append("- No numbered entries.")
+        lines.append(f"- {labels['empty']}")
     else:
         for entry in entries:
             indentation = "  " * LEVEL_DEPTH[entry.level]
-            page = f" — p. {entry.page}" if entry.page else ""
+            page = f" — {labels['page']} {entry.page}" if entry.page else ""
             lines.append(f"{indentation}- {entry.title}{page}")
     return "\n".join(lines)
 
 
-def is_component_example(root: Path, document: Path) -> bool:
-    """Return whether a document is a component example."""
+def is_repository_example(root: Path, document: Path) -> bool:
+    """Return whether a document is a component or integration example."""
     relative = document.relative_to(root)
-    return (
+    component_example = (
         len(relative.parts) == 5
         and relative.parts[:2] == ("latex", "components")
         and relative.parts[-2:] == ("example", "main.tex")
     )
+    integration_example = (
+        len(relative.parts) == 4
+        and relative.parts[:2] == ("latex", "integration")
+        and relative.name == "main.tex"
+    )
+    return component_example or integration_example
 
 
 def generated_readme_content(directory: Path, generated_markdown: str) -> str:
@@ -369,9 +409,9 @@ def process_document(
     if readme_enabled:
         if not pdf_file.is_file():
             raise FileNotFoundError(f"Compiled PDF was not found: {pdf_file}")
-        if not is_component_example(root, document):
+        if not is_repository_example(root, document):
             entries = parse_toc(toc_file)
-            markdown = render_generated_markdown(entries)
+            markdown = render_generated_markdown(entries, document_language(document))
             if check_generated:
                 expected_readme = generated_readme_content(document.parent, markdown)
                 committed_readme = document.parent / "README.md"
@@ -505,18 +545,21 @@ def main() -> int:
             RuntimeError,
             ValueError,
             subprocess.CalledProcessError,
-        ) as error:
+        ) as caught_error:
             if not arguments.keep_going:
                 raise
-            failures.append((document.relative_to(root), error))
-            print(f"error: {document.relative_to(root)}: {error}", file=sys.stderr)
+            failures.append((document.relative_to(root), caught_error))
+            print(
+                f"error: {document.relative_to(root)}: {caught_error}",
+                file=sys.stderr,
+            )
 
     if failures:
         print(
             f"Failed {len(failures)} of {len(documents)} document(s):", file=sys.stderr
         )
-        for document, error in failures:
-            print(f"  - {document}: {error}", file=sys.stderr)
+        for document, failure in failures:
+            print(f"  - {document}: {failure}", file=sys.stderr)
         return 1
     if arguments.clean:
         shutil.rmtree(root / ".build", ignore_errors=True)

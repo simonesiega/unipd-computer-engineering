@@ -77,7 +77,7 @@ py latex/tools/build.py latex/components/diagrams/example
 
 A successful build publishes `main.pdf` inside the example directory and stores temporary files under `.build/`.
 
-To verify all courses and component examples, run:
+To verify all courses, component examples, and integration examples, run:
 
 Linux or macOS:
 

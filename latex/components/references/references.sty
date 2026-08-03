@@ -11,53 +11,43 @@
   ]{biblatex}
 \fi
 
-\crefname{chapter}{capitolo}{capitoli}
-\Crefname{chapter}{Capitolo}{Capitoli}
-\crefname{section}{sezione}{sezioni}
-\Crefname{section}{Sezione}{Sezioni}
-\crefname{subsection}{sottosezione}{sottosezioni}
-\Crefname{subsection}{Sottosezione}{Sottosezioni}
-\crefname{equation}{equazione}{equazioni}
-\Crefname{equation}{Equazione}{Equazioni}
-\crefname{figure}{figura}{figure}
-\Crefname{figure}{Figura}{Figure}
-\crefname{table}{tabella}{tabelle}
-\Crefname{table}{Tabella}{Tabelle}
-\crefname{lstlisting}{listato}{listati}
-\Crefname{lstlisting}{Listato}{Listati}
-\crefname{listing}{listato}{listati}
-\Crefname{listing}{Listato}{Listati}
-\crefname{algocf}{algoritmo}{algoritmi}
-\Crefname{algocf}{Algoritmo}{Algoritmi}
-\crefname{algorithm}{algoritmo}{algoritmi}
-\Crefname{algorithm}{Algoritmo}{Algoritmi}
-\crefname{definition}{definizione}{definizioni}
-\Crefname{definition}{Definizione}{Definizioni}
-\crefname{theorem}{teorema}{teoremi}
-\Crefname{theorem}{Teorema}{Teoremi}
-\crefname{proposition}{proposizione}{proposizioni}
-\Crefname{proposition}{Proposizione}{Proposizioni}
-\crefname{lemma}{lemma}{lemmi}
-\Crefname{lemma}{Lemma}{Lemmi}
-\crefname{corollary}{corollario}{corollari}
-\Crefname{corollary}{Corollario}{Corollari}
-\crefname{example}{esempio}{esempi}
-\Crefname{example}{Esempio}{Esempi}
-\crefname{remark}{osservazione}{osservazioni}
-\Crefname{remark}{Osservazione}{Osservazioni}
-\crefname{important}{riquadro importante}{riquadri importanti}
-\Crefname{important}{Riquadro importante}{Riquadri importanti}
-\crefname{warning}{avvertenza}{avvertenze}
-\Crefname{warning}{Avvertenza}{Avvertenze}
-\crefname{exercise}{esercizio}{esercizi}
-\Crefname{exercise}{Esercizio}{Esercizi}
-\crefname{solution}{soluzione}{soluzioni}
-\Crefname{solution}{Soluzione}{Soluzioni}
+\newcommand*{\unipdcrefnames}[3]{%
+  \crefname{#1}
+    {\unipdtranslate{#2-lower}}
+    {\unipdtranslate{#3-lower}}%
+  \Crefname{#1}
+    {\unipdtranslate{#2-upper}}
+    {\unipdtranslate{#3-upper}}%
+}
+\unipdcrefnames{chapter}{chapter}{chapters}
+\unipdcrefnames{section}{section}{sections}
+\unipdcrefnames{subsection}{subsection}{subsections}
+\unipdcrefnames{equation}{equation}{equations}
+\unipdcrefnames{figure}{figure}{figures}
+\unipdcrefnames{table}{table}{tables}
+\unipdcrefnames{lstlisting}{listing}{listings}
+\unipdcrefnames{listing}{listing}{listings}
+\unipdcrefnames{algocf}{algorithm}{algorithms}
+\unipdcrefnames{algorithm}{algorithm}{algorithms}
+\unipdcrefnames{definition}{definition}{definitions}
+\unipdcrefnames{theorem}{theorem}{theorems}
+\unipdcrefnames{proposition}{proposition}{propositions}
+\unipdcrefnames{lemma}{lemma}{lemmas}
+\unipdcrefnames{corollary}{corollary}{corollaries}
+\unipdcrefnames{example}{example}{examples}
+\unipdcrefnames{remark}{remark}{remarks}
+\unipdcrefnames{important}{important}{importants}
+\unipdcrefnames{warning}{warning}{warnings}
+\unipdcrefnames{exercise}{exercise}{exercises}
+\unipdcrefnames{solution}{solution}{solutions}
 
 \ifunipdbibliography
-  \DefineBibliographyStrings{italian}{bibliography={Bibliografia}}
+  \DefineBibliographyStrings{italian}
+    {bibliography={\unipdtranslate{bibliography}}}
+  \DefineBibliographyStrings{english}
+    {bibliography={\unipdtranslate{bibliography}}}
   \NewDocumentCommand{\printcoursebibliography}{}{%
-    \printbibliography[heading=bibintoc,title={Bibliografia}]%
+    \printbibliography[heading=bibintoc,title={\unipdtranslate{bibliography}}]%
   }
 \else
   \NewDocumentCommand{\printcoursebibliography}{}{}

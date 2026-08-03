@@ -9,7 +9,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from build import affected_documents, discover_documents
+from build import (
+    TocEntry,
+    affected_documents,
+    discover_documents,
+    document_language,
+    render_generated_markdown,
+)
 
 
 class BuildSelectionTests(unittest.TestCase):
@@ -25,8 +31,11 @@ class BuildSelectionTests(unittest.TestCase):
             root = Path(temporary_directory)
             course = self.create_document(root, "1/course")
             example = self.create_document(root, "latex/components/code/example")
+            integration = self.create_document(root, "latex/integration/english")
 
-            self.assertEqual(discover_documents(root), sorted([course, example]))
+            self.assertEqual(
+                discover_documents(root), sorted([course, example, integration])
+            )
 
     def test_course_change_selects_only_that_course(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -54,6 +63,48 @@ class BuildSelectionTests(unittest.TestCase):
             self.create_document(root, "1/course")
 
             self.assertEqual(affected_documents(root, [Path("README.md")]), [])
+
+    def test_generated_readme_uses_document_language(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            document = Path(temporary_directory) / "main.tex"
+            document.write_text(
+                "\\documentclass[bibliography,english]{unipd-notes}\n",
+                encoding="utf-8",
+            )
+            entries = [TocEntry("chapter", "Introduction", "1")]
+
+            language = document_language(document)
+            markdown = render_generated_markdown(entries, language)
+
+            self.assertEqual(language, "english")
+            self.assertIn("[Open the compiled PDF](main.pdf)", markdown)
+            self.assertIn("## Table of contents", markdown)
+            self.assertIn("Introduction — p. 1", markdown)
+
+            italian = render_generated_markdown(entries, "italian")
+            self.assertIn("[Apri il PDF compilato](main.pdf)", italian)
+            self.assertIn("## Indice dei contenuti", italian)
+            self.assertIn("Introduction — p. 1", italian)
+
+            self.assertIn(
+                "- No numbered entries.",
+                render_generated_markdown([], "english"),
+            )
+            self.assertIn(
+                "- Nessuna voce numerata.",
+                render_generated_markdown([], "italian"),
+            )
+
+    def test_integration_change_selects_its_document(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            integration = self.create_document(root, "latex/integration/english")
+
+            affected = affected_documents(
+                root, [Path("latex/integration/english/main.tex")]
+            )
+
+            self.assertEqual(affected, [integration])
 
 
 if __name__ == "__main__":

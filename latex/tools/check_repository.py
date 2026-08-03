@@ -10,6 +10,8 @@ from pathlib import Path
 YEARS = ("1", "2", "3")
 SOURCE_SUFFIXES = (".tex", ".sty", ".cls", ".bib")
 COMPONENTS_DIRECTORY = "latex/components"
+INTEGRATION_DIRECTORY = "latex/integration"
+INTEGRATION_EXAMPLES = ("english", "italian")
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
 
 
@@ -93,6 +95,44 @@ def validate_components(root: Path) -> list[str]:
     return errors
 
 
+def validate_integration_examples(root: Path) -> list[str]:
+    """Validate integration examples and their published PDFs."""
+    integration_directory = root / INTEGRATION_DIRECTORY
+    if not integration_directory.is_dir():
+        return [f"{INTEGRATION_DIRECTORY}/: missing integration directory"]
+
+    errors: list[str] = []
+    expected_examples = {
+        integration_directory / language for language in INTEGRATION_EXAMPLES
+    }
+    for example in sorted(expected_examples):
+        relative = example.relative_to(root)
+        if not example.is_dir():
+            errors.append(f"{relative}/: missing integration example")
+            continue
+        main_file = example / "main.tex"
+        expected_files = {main_file, example / "main.pdf"}
+        for expected in sorted(expected_files):
+            if not expected.is_file():
+                errors.append(f"{expected.relative_to(root)}: missing required file")
+        if main_file.is_file():
+            source = main_file.read_text(encoding="utf-8", errors="replace")
+            language = example.name
+            class_pattern = rf"\\documentclass\[[^]]*\b{language}\b[^]]*\]"
+            if re.search(class_pattern, source) is None:
+                errors.append(
+                    f"{main_file.relative_to(root)}: must select the {language} class option"
+                )
+        for path in sorted(example.iterdir()):
+            if path not in expected_files:
+                errors.append(f"{path.relative_to(root)}: unexpected integration entry")
+
+    for path in sorted(integration_directory.iterdir()):
+        if path not in expected_examples:
+            errors.append(f"{path.relative_to(root)}: unexpected integration entry")
+    return errors
+
+
 def main() -> int:
     """Validate repository LaTeX sources and directory layouts."""
     root = repository_root()
@@ -127,6 +167,7 @@ def main() -> int:
                 errors.extend(validate_course(main_file, root))
 
     errors.extend(validate_components(root))
+    errors.extend(validate_integration_examples(root))
 
     source_files = sorted(
         path

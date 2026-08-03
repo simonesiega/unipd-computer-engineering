@@ -1,0 +1,191 @@
+\documentclass[italian]{../../unipd-notes}
+
+\unipdsetup{
+  course = {Progettazione di Sistemi Concorrenti},
+  short-course = {Sistemi Concorrenti},
+  professor = {Prof.ssa Ada Lovelace},
+  academic-year = {2026--2027},
+  degree-year = {1},
+  semester = {1},
+  document-type = {Appunti ed esercitazioni di laboratorio},
+  author = {Simone Siega},
+  date = {3 agosto 2026},
+  version = {1.0.0}
+}
+
+\makeatletter
+\newcommand{\printintegrationlists}{%
+  \clearpage
+  \chapter*{Elenchi del documento}%
+  \addcontentsline{toc}{chapter}{Elenchi del documento}%
+  \section*{\listfigurename}\@starttoc{lof}\medskip
+  \section*{\listtablename}\@starttoc{lot}\medskip
+  \section*{\listalgorithmcfname}\@starttoc{loa}\medskip
+  \section*{\lstlistlistingname}\@starttoc{lol}%
+}
+\makeatother
+
+\begin{document}
+\makecoursefrontmatter
+
+\chapter{Modello di un buffer limitato}
+
+Un buffer limitato separa la velocità dei produttori da quella dei consumatori senza consentire una crescita incontrollata della memoria. Il modello adottato contiene al massimo $N$ elementi, protegge le transizioni di stato con un mutex e usa due semafori contatori per rappresentare le posizioni occupate e quelle libere. La stessa struttura compare nelle code di rete, nei driver e nelle pipeline di elaborazione.
+
+\begin{definition}
+Lo stato del buffer è la tripla $(h,t,n)$: $h$ indica la prossima posizione da leggere, $t$ la prossima posizione da scrivere e $n$ il numero di elementi presenti. Gli indici sono calcolati modulo la capacità $N$.
+\end{definition}
+
+\begin{theorem}\label{thm:bounds}
+Se il contatore parte da $n=0$ ed è modificato soltanto mentre il mutex è acquisito, ogni esecuzione conserva l'invariante
+\[
+  0 \leq n \leq N.
+\]
+\end{theorem}
+\begin{proof}
+Un inserimento può iniziare solo dopo aver riservato una posizione libera; vale quindi $n<N$ e l'aggiornamento produce $n+1\leq N$. Una rimozione richiede invece un elemento disponibile, parte da $n>0$ e produce $n-1\geq0$. Il mutex ordina totalmente gli aggiornamenti e permette di concludere per induzione sul numero di operazioni.
+\end{proof}
+
+Sulla macchina di laboratorio la sezione critica non contesa richiede \qty{1.5}{\micro\second}; tre misure del risveglio di un thread sono \numlist{8.2;8.7;9.1}\unit{\micro\second}. Conviene quindi preparare i dati fuori dal mutex e limitare la regione protetta all'aggiornamento degli indici e del contatore.
+
+\begin{theorem}\label{thm:fifo}
+Se l'inserimento scrive nella posizione $t$ prima di incrementarla e la rimozione legge la posizione $h$ prima di avanzare, gli elementi sono restituiti in ordine FIFO.
+\end{theorem}
+\begin{proof}
+Entrambi gli indici avanzano di una posizione modulo $N$. Una cella non può essere riutilizzata prima della sua lettura, perché il \cref{thm:bounds} impedisce al produttore di superare il consumatore. Le rimozioni visitano pertanto le celle nello stesso ordine in cui sono state riempite.
+\end{proof}
+
+Le proprietà di sicurezza non garantiscono da sole il progresso. Uno scheduler non equo può rimandare indefinitamente un thread pronto; la latenza reale dipende quindi anche dall'implementazione dei semafori e dalle politiche del sistema operativo.
+
+\chapter{Architettura e misure sperimentali}
+
+La \cref{fig:architecture} riassume il percorso dei dati. I produttori completano il parsing prima di entrare nella sezione critica; i consumatori liberano la posizione occupata prima di elaborare il messaggio. Il buffer assume la proprietà dell'elemento al termine dell'inserimento e la trasferisce nuovamente alla rimozione.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=16mm]
+    \node[draw=unipd-primary,rounded corners] (producer) {Produttori};
+    \node[draw=unipd-accent,rounded corners,right=of producer] (buffer) {Buffer limitato};
+    \node[draw=unipd-primary,rounded corners,right=of buffer] (consumer) {Consumatori};
+    \draw[draw=unipd-accent,-{Latex},thick] (producer) -- node[above]{messaggi} (buffer);
+    \draw[draw=unipd-accent,-{Latex},thick] (buffer) -- node[above]{messaggi} (consumer);
+  \end{tikzpicture}
+  \caption{Trasferimento della proprietà attraverso il buffer}\label{fig:architecture}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=1.3cm,y=0.7cm]
+    \draw[->] (0,0) -- (7,0) node[right]{tempo};
+    \draw[fill=unipd-soft,draw=unipd-accent] (0.4,0.3) rectangle (2.2,0.9);
+    \draw[fill=unipd-accent!20,draw=unipd-accent] (2.2,0.3) rectangle (3.0,0.9);
+    \draw[fill=unipd-soft,draw=unipd-accent] (3.0,0.3) rectangle (5.7,0.9);
+    \node[anchor=base] at (1.3,0.5) {preparazione};
+    \node[anchor=base] at (2.6,0.5) {mutex};
+    \node[anchor=base] at (4.35,0.5) {elaborazione};
+  \end{tikzpicture}
+  \caption{Collocazione della sezione critica in una transazione}\label{fig:timeline}
+\end{figure}
+
+Il benchmark elabora un milione di messaggi dopo una fase di riscaldamento. Ogni risultato è la mediana di sette esecuzioni e il throughput conta le rimozioni completate, non i tentativi di inserimento. La \cref{tab:throughput} evidenzia il compromesso tra capacità utile e costo della sincronizzazione.
+
+\begin{table}[H]
+  \centering
+  \caption{Prestazioni al variare della capacità del buffer}\label{tab:throughput}
+  \begin{tabular}{rrr}
+    \toprule
+    Capacità & Throughput (messaggi/s) & Latenza al 99° percentile \\
+    \midrule
+    1 & 79000 & \qty{44}{\micro\second} \\
+    16 & 236000 & \qty{20}{\micro\second} \\
+    64 & 251000 & \qty{21}{\micro\second} \\
+    256 & 249000 & \qty{29}{\micro\second} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Transizioni di stato delle operazioni}\label{tab:transitions}
+  \begin{tabularx}{\textwidth}{lLL}
+    \toprule
+    Operazione & Precondizione & Modifica atomica dello stato \\
+    \midrule
+    Inserimento & $n<N$ & $a[t]\gets x$, $t\gets(t+1)\bmod N$, $n\gets n+1$ \\
+    Rimozione & $n>0$ & $x\gets a[h]$, $h\gets(h+1)\bmod N$, $n\gets n-1$ \\
+    Ispezione & Mutex acquisito & Lettura di $(h,t,n)$ senza modifiche \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{code}[language=Python,caption={Inserimento con controllo esplicito},label={lst:insert}]
+def enqueue(queue, item):
+    with queue.mutex:
+        if queue.count == queue.capacity:
+            raise BufferError("buffer pieno")
+        queue.data[queue.tail] = item
+        queue.tail = (queue.tail + 1) % queue.capacity
+        queue.count += 1
+\end{code}
+
+\chapter{Scheduling e verifica}
+
+Un inserimento bloccante riserva prima una posizione libera e acquisisce poi il mutex. Invertire le due operazioni può causare un deadlock: il produttore conserverebbe il mutex in attesa di un consumatore che necessita dello stesso mutex. La rimozione usata nei test è riportata nel \cref{lst:remove}.
+
+\begin{code}[language=Python,caption={Rimozione con controllo esplicito},label={lst:remove}]
+def dequeue(queue):
+    with queue.mutex:
+        if queue.count == 0:
+            raise BufferError("buffer vuoto")
+        item = queue.data[queue.head]
+        queue.head = (queue.head + 1) % queue.capacity
+        queue.count -= 1
+        return item
+\end{code}
+
+I controlli nei \cref{lst:insert,lst:remove} trasformano una violazione dell'invariante in un errore immediato. Il codice di produzione attende normalmente un semaforo, ma le asserzioni sul contatore restano utili per individuare segnali errati e accessi eseguiti senza lock. L'\cref{alg:insert} adotta l'ordine di acquisizione sicuro.
+
+\begin{algorithm}[H]
+  \caption{Inserimento bloccante}\label{alg:insert}
+  \KwInput{Una coda $q$ e un elemento $x$}
+  \KwOutput{La coda aggiornata}
+  attendi($q.libere$)\;
+  acquisisci($q.mutex$)\;
+  $q.dati[q.coda]\gets x$\;
+  $q.coda\gets(q.coda+1)\bmod q.capacita$\;
+  rilascia($q.mutex$)\;
+  segnala($q.usate$)\;
+  \Return{$q$}\;
+\end{algorithm}
+
+La procedura nell'\cref{alg:validate} non modifica lo stato. Può essere eseguita dopo ogni operazione casuale di un test basato su modello, confrontando la coda reale con una semplice sequenza di riferimento.
+
+\begin{algorithm}[H]
+  \caption{Validazione dello stato della coda}\label{alg:validate}
+  \KwInput{Lo stato di una coda $q$}
+  \KwOutput{Vero se e solo se lo stato è valido}
+  \If{$q.conteggio<0$ \KwOr $q.conteggio>q.capacita$}{
+    \Return{falso}\;
+  }
+  \For{$i\gets 1$ \KwTo $q.conteggio$}{
+    controlla l'elemento in $(q.testa+i-1)\bmod q.capacita$\;
+  }
+  \Return{vero}\;
+\end{algorithm}
+
+I riferimenti singolari minuscoli sono \cref{thm:bounds}, \cref{fig:architecture}, \cref{tab:throughput}, \cref{lst:insert} e \cref{alg:insert}. Le forme singolari maiuscole sono \Cref{thm:bounds}, \Cref{fig:architecture}, \Cref{tab:throughput}, \Cref{lst:insert} e \Cref{alg:insert}.
+
+Le forme plurali minuscole sono \cref{thm:bounds,thm:fifo}, \cref{fig:architecture,fig:timeline}, \cref{tab:throughput,tab:transitions}, \cref{lst:insert,lst:remove} e \cref{alg:insert,alg:validate}. Le forme plurali maiuscole sono \Cref{thm:bounds,thm:fifo}, \Cref{fig:architecture,fig:timeline}, \Cref{tab:throughput,tab:transitions}, \Cref{lst:insert,lst:remove} e \Cref{alg:insert,alg:validate}.
+
+\printintegrationlists
+
+\courseappendices
+\chapter{Lista di controllo per il laboratorio}
+
+Prima delle misure, compilare il programma con le ottimizzazioni attive ma senza eliminare le asserzioni. È opportuno fissare l'affinità dei thread quando si confrontano strategie diverse, annotare il modello del processore e la versione del sistema operativo, e mantenere invariato il carico di ingresso. Una fase iniziale non misurata stabilizza cache e frequenza della CPU.
+
+Dopo ogni operazione si deve verificare $0\leq n\leq N$ e confrontare la sequenza rimossa con il modello di riferimento. Le capacità $1$, $2$ e un valore non potenza di due sono casi particolarmente efficaci: il primo espone errori di ordinamento, mentre gli altri sollecitano il riavvolgimento degli indici.
+
+La relazione finale riporta revisione del sorgente, opzioni del compilatore, numero di ripetizioni, metodo di aggregazione e osservazioni grezze. Throughput e latenza devono rimanere distinti; gli outlier vanno spiegati, non eliminati senza motivazione. In questo modo l'esperimento resta riproducibile e le conclusioni sono legate all'implementazione effettivamente misurata.
+
+\end{document}

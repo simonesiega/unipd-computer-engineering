@@ -1,0 +1,191 @@
+\documentclass[english]{../../unipd-notes}
+
+\unipdsetup{
+  course = {Concurrent Systems Engineering},
+  short-course = {Concurrent Systems},
+  professor = {Prof. Ada Lovelace},
+  academic-year = {2026--2027},
+  degree-year = {1},
+  semester = {1},
+  document-type = {Lecture notes and laboratory handbook},
+  author = {Simone Siega},
+  date = {3 August 2026},
+  version = {1.0.0}
+}
+
+\makeatletter
+\newcommand{\printintegrationlists}{%
+  \clearpage
+  \chapter*{Document lists}%
+  \addcontentsline{toc}{chapter}{Document lists}%
+  \section*{\listfigurename}\@starttoc{lof}\medskip
+  \section*{\listtablename}\@starttoc{lot}\medskip
+  \section*{\listalgorithmcfname}\@starttoc{loa}\medskip
+  \section*{\lstlistlistingname}\@starttoc{lol}%
+}
+\makeatother
+
+\begin{document}
+\makecoursefrontmatter
+
+\chapter{A bounded-buffer model}
+
+A bounded buffer decouples producers from consumers without allowing memory usage to grow indefinitely. The implementation considered here stores at most $N$ elements and protects every state transition with one mutex. Two counting semaphores record the number of occupied and free positions. This small model is representative of network queues, device drivers, and streaming applications.
+
+\begin{definition}
+A buffer state is a triple $(h,t,n)$, where $h$ is the next position to read, $t$ is the next position to write, and $n$ is the number of stored elements. Indices are interpreted modulo the capacity $N$.
+\end{definition}
+
+\begin{theorem}\label{thm:bounds}
+Every execution that initializes $n=0$ and updates the counter while holding the mutex preserves
+\[
+  0 \leq n \leq N.
+\]
+\end{theorem}
+\begin{proof}
+An insertion is enabled only when a free-position permit has been acquired, so it starts with $n<N$ and changes the counter to $n+1\leq N$. A removal similarly requires an occupied-position permit, starts with $n>0$, and changes the counter to $n-1\geq0$. Mutual exclusion serializes these updates; induction over the execution therefore proves the invariant.
+\end{proof}
+
+On the laboratory machine, an uncontended critical section takes \qty{1.5}{\micro\second}, while the measured wake-up samples are \numlist{8.2;8.7;9.1}\unit{\micro\second}. These values suggest keeping data preparation outside the mutex and limiting the protected region to index and counter updates.
+
+\begin{theorem}\label{thm:fifo}
+If insertion writes at $t$ before advancing $t$, and removal reads at $h$ before advancing $h$, the buffer returns elements in first-in, first-out order.
+\end{theorem}
+\begin{proof}
+Both indices advance by one modulo $N$. A position cannot be reused until its element has been removed because \cref{thm:bounds} prevents the producer from overtaking the consumer. Consequently, removal visits occupied positions in the same order in which insertion filled them.
+\end{proof}
+
+The safety properties do not by themselves guarantee progress: an unfair scheduler may postpone a ready thread indefinitely. In practice, the semaphore implementation and the operating-system scheduler determine whether waiting threads receive service with acceptable latency.
+
+\chapter{Architecture and measurements}
+
+\Cref{fig:architecture} shows the data path. Producers perform expensive parsing before entering the critical section; consumers release the occupied slot before processing the item. The ownership rule is simple: the queue owns an item from the successful insertion until the corresponding removal returns it.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=16mm]
+    \node[draw=unipd-primary,rounded corners] (producer) {Producers};
+    \node[draw=unipd-accent,rounded corners,right=of producer] (buffer) {Bounded buffer};
+    \node[draw=unipd-primary,rounded corners,right=of buffer] (consumer) {Consumers};
+    \draw[draw=unipd-accent,-{Latex},thick] (producer) -- node[above]{items} (buffer);
+    \draw[draw=unipd-accent,-{Latex},thick] (buffer) -- node[above]{items} (consumer);
+  \end{tikzpicture}
+  \caption{Ownership transfer through the bounded buffer}\label{fig:architecture}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=1.3cm,y=0.7cm]
+    \draw[->] (0,0) -- (7,0) node[right]{time};
+    \draw[fill=unipd-soft,draw=unipd-accent] (0.4,0.3) rectangle (2.2,0.9);
+    \draw[fill=unipd-accent!20,draw=unipd-accent] (2.2,0.3) rectangle (3.0,0.9);
+    \draw[fill=unipd-soft,draw=unipd-accent] (3.0,0.3) rectangle (5.7,0.9);
+    \node[anchor=base] at (1.3,0.5) {prepare};
+    \node[anchor=base] at (2.6,0.5) {lock};
+    \node[anchor=base] at (4.35,0.5) {process};
+  \end{tikzpicture}
+  \caption{Critical-section placement in one transaction}\label{fig:timeline}
+\end{figure}
+
+The experiment uses a fixed workload of one million messages after a warm-up interval. Each reported value is the median of seven runs, and throughput is computed from completed removals rather than attempted insertions. \Cref{tab:throughput} separates useful capacity from synchronization overhead.
+
+\begin{table}[H]
+  \centering
+  \caption{Throughput as the buffer capacity changes}\label{tab:throughput}
+  \begin{tabular}{rrr}
+    \toprule
+    Capacity & Throughput (messages/s) & 99th-percentile latency \\
+    \midrule
+    1 & 82000 & \qty{41}{\micro\second} \\
+    16 & 241000 & \qty{18}{\micro\second} \\
+    64 & 255000 & \qty{19}{\micro\second} \\
+    256 & 254000 & \qty{27}{\micro\second} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{State transitions of the queue operations}\label{tab:transitions}
+  \begin{tabularx}{\textwidth}{lLL}
+    \toprule
+    Operation & Precondition & Atomic state change \\
+    \midrule
+    Insert & $n<N$ & $a[t]\gets x$, $t\gets(t+1)\bmod N$, $n\gets n+1$ \\
+    Remove & $n>0$ & $x\gets a[h]$, $h\gets(h+1)\bmod N$, $n\gets n-1$ \\
+    Inspect & Mutex held & Read $(h,t,n)$ without modification \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{code}[language=Python,caption={A checked insertion operation},label={lst:insert}]
+def insert(queue, item):
+    with queue.mutex:
+        if queue.count == queue.capacity:
+            raise BufferError("buffer is full")
+        queue.data[queue.tail] = item
+        queue.tail = (queue.tail + 1) % queue.capacity
+        queue.count += 1
+\end{code}
+
+\chapter{Scheduling and verification}
+
+A blocking insertion first reserves one free position and then acquires the mutex. Reversing these operations can deadlock: a producer may hold the mutex while waiting for a consumer that needs the same mutex to remove an item. The removal operation used by the test harness is shown in \cref{lst:remove}.
+
+\begin{code}[language=Python,caption={A checked removal operation},label={lst:remove}]
+def remove(queue):
+    with queue.mutex:
+        if queue.count == 0:
+            raise BufferError("buffer is empty")
+        item = queue.data[queue.head]
+        queue.head = (queue.head + 1) % queue.capacity
+        queue.count -= 1
+        return item
+\end{code}
+
+The checks in \cref{lst:insert,lst:remove} turn invariant violations into immediate failures during testing. Production code normally waits on a semaphore, but assertions around the internal counter still detect incorrect signaling and accidental unlocked access. \Cref{alg:insert} uses the safe acquisition order.
+
+\begin{algorithm}[H]
+  \caption{Blocking insertion}\label{alg:insert}
+  \KwInput{A queue $q$ and an item $x$}
+  \KwOutput{The updated queue}
+  wait($q.free$)\;
+  lock($q.mutex$)\;
+  $q.data[q.tail]\gets x$\;
+  $q.tail\gets(q.tail+1)\bmod q.capacity$\;
+  unlock($q.mutex$)\;
+  signal($q.used$)\;
+  \Return{$q$}\;
+\end{algorithm}
+
+The validation pass in \cref{alg:validate} is intentionally read-only. It can run after each randomized operation in a model-based test, comparing the implementation state with a simple reference sequence.
+
+\begin{algorithm}[H]
+  \caption{Queue-state validation}\label{alg:validate}
+  \KwInput{A queue state $q$}
+  \KwOutput{True exactly when the state is valid}
+  \If{$q.count<0$ \KwOr $q.count>q.capacity$}{
+    \Return{false}\;
+  }
+  \For{$i\gets 1$ \KwTo $q.count$}{
+    check the element at $(q.head+i-1)\bmod q.capacity$\;
+  }
+  \Return{true}\;
+\end{algorithm}
+
+Lowercase singular references are demonstrated by \cref{thm:bounds}, \cref{fig:architecture}, \cref{tab:throughput}, \cref{lst:insert}, and \cref{alg:insert}. Capitalized singular forms are \Cref{thm:bounds}, \Cref{fig:architecture}, \Cref{tab:throughput}, \Cref{lst:insert}, and \Cref{alg:insert}.
+
+Lowercase plural forms are \cref{thm:bounds,thm:fifo}, \cref{fig:architecture,fig:timeline}, \cref{tab:throughput,tab:transitions}, \cref{lst:insert,lst:remove}, and \cref{alg:insert,alg:validate}. Capitalized plural forms are \Cref{thm:bounds,thm:fifo}, \Cref{fig:architecture,fig:timeline}, \Cref{tab:throughput,tab:transitions}, \Cref{lst:insert,lst:remove}, and \Cref{alg:insert,alg:validate}.
+
+\printintegrationlists
+
+\courseappendices
+\chapter{Laboratory checklist}
+
+Before collecting measurements, build the program with optimization enabled but assertions retained. Pin worker threads when comparing synchronization strategies, record the processor model and operating-system version, and keep the input workload identical. Run a warm-up phase to populate caches and stabilize dynamic frequency scaling.
+
+For each operation, verify the invariant $0\leq n\leq N$, compare the removed sequence with the reference model, and execute tests with capacities $1$, $2$, and a non-power-of-two value. Capacity one exposes ordering mistakes; wraparound-heavy tests expose incorrect index arithmetic.
+
+A complete report includes the source revision, compiler flags, number of repetitions, aggregation method, and raw observations. It distinguishes throughput from latency and explains outliers rather than deleting them silently. These practices make the experiment reproducible and keep performance conclusions tied to the implementation that produced them.
+
+\end{document}

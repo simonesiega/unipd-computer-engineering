@@ -16,7 +16,20 @@ The repository build tool adds `latex/` to the LaTeX search path, so course file
 
 LuaLaTeX is required. Compilation with another TeX engine stops with an error.
 
-## Class option
+## Class options
+
+### Language
+
+Select the language of every course explicitly:
+
+```latex
+\documentclass[italian]{unipd-notes}
+\documentclass[english]{unipd-notes}
+```
+
+Italian remains the default for compatibility when neither option is present. The language option configures Babel, `siunitx`, theorem and algorithm names, cross-references, glossary and contents headings, cover fields, revision history, and other shared labels. Course prose and user-supplied metadata must use the same language.
+
+### Bibliography
 
 Enable bibliography support with:
 
@@ -39,7 +52,7 @@ The option enables the bibliography features provided by the references componen
 
 Bibliography builds require Biber, which `latexmk` runs automatically. Courses without a bibliography should omit the option.
 
-Other class options are forwarded to the underlying `scrreprt` class. Avoid overriding the shared defaults unless the change is necessary and consistent with the rest of the archive.
+The language and bibliography options may be combined, for example `\documentclass[english,bibliography]{unipd-notes}`. Other class options are forwarded to the underlying `scrreprt` class. Avoid overriding the shared defaults unless the change is necessary and consistent with the rest of the archive.
 
 ## Base document
 
@@ -74,7 +87,7 @@ See the [component reference](../../../latex/components/README.md) for responsib
 ## Typical document
 
 ```latex
-\documentclass{unipd-notes}
+\documentclass[english]{unipd-notes}
 
 \unipdsetup{
   course = {Official Course Name},
@@ -82,7 +95,8 @@ See the [component reference](../../../latex/components/README.md) for responsib
   academic-year = {2026--2027},
   degree-year = {1},
   semester = {1},
-  document-type = {Appunti delle lezioni},
+  document-type = {Lecture notes},
+  date = {3 August 2026},
   version = {0.1.0}
 }
 

@@ -19,8 +19,8 @@
 \NewDocumentCommand{\newcourseacronym}{mmm}{\newacronym{#1}{#2}{#3}}
 \NewDocumentCommand{\newcourseterm}{mmm}{\newglossaryentry{#1}{name={#2},description={#3}}}
 \NewDocumentCommand{\printcourseglossary}{}{%
-  \printnoidxglossary[title={Glossario}]%
-  \printnoidxglossary[type=\acronymtype,title={Acronimi}]%
+  \printnoidxglossary[title={\unipdtranslate{glossary}}]%
+  \printnoidxglossary[type=\acronymtype,title={\unipdtranslate{acronyms}}]%
 }
 
 \endinput

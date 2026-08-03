@@ -12,12 +12,13 @@ Run every command from the repository root.
 |---|---|---|
 | Build one course | `python3 latex/tools/build.py 1/course-name` | `py latex/tools/build.py 1/course-name` |
 | Build one component example | `python3 latex/tools/build.py latex/components/diagrams/example` | `py latex/tools/build.py latex/components/diagrams/example` |
+| Build an integration example | `python3 latex/tools/build.py latex/integration/english` | `py latex/tools/build.py latex/integration/english` |
 | Build multiple targets | `python3 latex/tools/build.py 1/course-a 1/course-b` | `py latex/tools/build.py 1/course-a 1/course-b` |
 | Build all documents | `python3 latex/tools/build.py --all --keep-going` | `py latex/tools/build.py --all --keep-going` |
 
 Replace the example paths with the directories or `main.tex` files you want to build.
 
-For a course, a successful build publishes `main.pdf` and refreshes the generated section of its `README.md`. Component examples publish only their `main.pdf`. Temporary files are stored under `.build/`.
+For a course, a successful build publishes `main.pdf` and refreshes the generated section of its `README.md`. Component and integration examples publish only their `main.pdf`. Temporary files are stored under `.build/`.
 
 Do not manually edit content between:
 

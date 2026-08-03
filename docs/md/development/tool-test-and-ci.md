@@ -111,6 +111,7 @@ The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite w
 | Course documents | `main.tex` declares a document class and contains a complete document environment |
 | Components | Each component contains `<component>.sty` and `example/` |
 | Component examples | Each `example/` contains exactly `main.tex` and `main.pdf` |
+| Integration examples | Each directory under `latex/integration/` contains exactly `main.tex` and `main.pdf` |
 | LaTeX sources | `.tex`, `.sty`, `.cls`, and `.bib` files are valid UTF-8 |
 | Source hygiene | No tabs, trailing whitespace, or unresolved merge-conflict markers |
 

@@ -9,7 +9,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from check_repository import validate_course, validate_source
+from check_repository import (
+    validate_course,
+    validate_integration_examples,
+    validate_source,
+)
 
 
 class RepositoryValidationTests(unittest.TestCase):
@@ -39,6 +43,37 @@ class RepositoryValidationTests(unittest.TestCase):
             errors = validate_course(invalid, root)
             self.assertTrue(any("document class" in error for error in errors))
             self.assertTrue(any("document environment" in error for error in errors))
+
+    def test_integration_examples_require_source_and_pdf_only(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            integration = root / "latex" / "integration"
+            english = integration / "english"
+            english.mkdir(parents=True)
+            (english / "main.tex").write_text(
+                "\\documentclass[english]{unipd-notes}\n", encoding="utf-8"
+            )
+
+            errors = validate_integration_examples(root)
+            self.assertTrue(any("missing required file" in error for error in errors))
+            self.assertTrue(
+                any("missing integration example" in error for error in errors)
+            )
+
+            (english / "main.pdf").write_bytes(b"pdf")
+            italian = integration / "italian"
+            italian.mkdir()
+            (italian / "main.tex").write_text(
+                "\\documentclass[italian]{unipd-notes}\n", encoding="utf-8"
+            )
+            (italian / "main.pdf").write_bytes(b"pdf")
+            self.assertEqual(validate_integration_examples(root), [])
+
+            (english / "main.log").write_text("log\n", encoding="utf-8")
+            errors = validate_integration_examples(root)
+            self.assertTrue(
+                any("unexpected integration entry" in error for error in errors)
+            )
 
     def test_source_hygiene_errors_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

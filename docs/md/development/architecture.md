@@ -9,6 +9,7 @@ The repository combines course-specific archives with one shared LaTeX system an
 ```text
 Course sources ──────────────┐
 Component examples ──────────┤
+Integration examples ────────┤
                              ├─> build.py ─> .build/<document>/
 Shared class and components ─┤                    │
 Bundled fonts ───────────────┘                    ├─> main.pdf
@@ -27,6 +28,7 @@ Repository validation runs separately from compilation. Pre-commit executes stru
 | Course archives | `1/`, `2/`, `3/` | Course-specific sources, assets, references, compiled PDFs, and generated README contents |
 | Shared typesetting | `latex/unipd-notes.cls` | Common document defaults and component loading |
 | LaTeX components | `latex/components/` | Focused packages with isolated examples |
+| Integration examples | `latex/integration/` | End-to-end verification across shared components |
 | Fonts | `latex/fonts/` | Bundled typefaces, configuration, and licenses |
 | Course creation, build, validation, and changelogs | `latex/tools/` | Course scaffolding, document discovery, compilation, generated files, repository checks, and per-course Git histories |
 | Documentation | `docs/md/` | User, reference, and development guides |
@@ -42,7 +44,7 @@ Every course entry point is located at:
 <year>/<course-name>/main.tex
 ```
 
-The build system also treats each `latex/components/<component>/example/main.tex` as an independent document.
+The build system also treats each `latex/components/<component>/example/main.tex` and `latex/integration/<example>/main.tex` as an independent document. The mirrored Italian and English localization examples exercise translated behavior across component boundaries.
 
 All documents use the shared `unipd-notes` class. The class loads the component stack, and the components provide metadata, typography, mathematics, educational environments, figures, code, navigation, references, and document structure.
 
@@ -66,7 +68,7 @@ For each selected document, the build tool:
 6. publishes `main.pdf` beside the source;
 7. updates the generated section of a course `README.md`.
 
-Component examples publish their PDF but do not receive generated README contents.
+Component and integration examples publish their PDF but do not receive generated README contents.
 
 The `--check-generated` mode compares newly built outputs with committed files without replacing them. Detailed commands and selection modes are documented in [Build system](build-system.md).
 
@@ -85,7 +87,7 @@ New shared paths must be added to the affected-document mapping so that changes 
 
 ## Validation and automation
 
-`check_repository.py` validates the required course and component layouts and checks LaTeX sources for UTF-8, unresolved conflict markers, tabs, and trailing whitespace.
+`check_repository.py` validates the required course, component, and integration-example layouts and checks LaTeX sources for UTF-8, unresolved conflict markers, tabs, and trailing whitespace.
 
 Pre-commit combines that repository-specific validation with general file checks. In GitHub Actions, the quality job runs first; the build job runs only after it succeeds.
 

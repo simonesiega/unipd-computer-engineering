@@ -24,7 +24,7 @@ No additional files belong inside a component directory.
 
 | Component | Purpose | Package | Example source | Example PDF |
 |---|---|---|---|---|
-| **Algorithms** | Italian pseudocode, algorithm numbering, line numbering, input and output declarations, captions, labels, and presentation. | [`algorithms.sty`](algorithms/algorithms.sty) | [`main.tex`](algorithms/example/main.tex) | [`main.pdf`](algorithms/example/main.pdf) |
+| **Algorithms** | Localized pseudocode, algorithm numbering, line numbering, input and output declarations, captions, labels, and presentation. | [`algorithms.sty`](algorithms/algorithms.sty) | [`main.tex`](algorithms/example/main.tex) | [`main.pdf`](algorithms/example/main.pdf) |
 | **Code** | Source-code listings and terminal sessions with syntax highlighting, line numbering, captions, labels, and consistent monospace typography. | [`code.sty`](code/code.sty) | [`main.tex`](code/example/main.tex) | [`main.pdf`](code/example/main.pdf) |
 | **Cover** | Course-note cover generated from the shared academic and document metadata. | [`cover.sty`](cover/cover.sty) | [`main.tex`](cover/example/main.tex) | [`main.pdf`](cover/example/main.pdf) |
 | **Diagrams** | Reusable TikZ and CircuitikZ styles for graphs, automata, circuits, flowcharts, software architecture, and UML diagrams. | [`diagrams.sty`](diagrams/diagrams.sty) | [`main.tex`](diagrams/example/main.tex) | [`main.pdf`](diagrams/example/main.pdf) |
@@ -35,7 +35,7 @@ No additional files belong inside a component directory.
 | **Glossary** | Course terminology and acronyms with consistent definitions, grouping, and presentation. | [`glossary.sty`](glossary/glossary.sty) | [`main.tex`](glossary/example/main.tex) | [`main.pdf`](glossary/example/main.pdf) |
 | **Lists** | Bulleted, numbered, descriptive, nested, and procedural lists with consistent spacing and indentation. | [`lists.sty`](lists/lists.sty) | [`main.tex`](lists/example/main.tex) | [`main.pdf`](lists/example/main.pdf) |
 | **Mathematics** | Mathematical fonts, symbols, operators, equation behavior, and helpers for vectors, matrices, sets, and probability. | [`mathematics.sty`](mathematics/mathematics.sty) | [`main.tex`](mathematics/example/main.tex) | [`main.pdf`](mathematics/example/main.pdf) |
-| **Metadata** | Central configuration of course, university, academic year, author, date, version, and document information. | [`metadata.sty`](metadata/metadata.sty) | [`main.tex`](metadata/example/main.tex) | [`main.pdf`](metadata/example/main.pdf) |
+| **Metadata** | Central configuration of course and document information, language-dependent defaults, and shared translations. | [`metadata.sty`](metadata/metadata.sty) | [`main.tex`](metadata/example/main.tex) | [`main.pdf`](metadata/example/main.pdf) |
 | **Navigation** | PDF hyperlinks, URLs, bookmarks, link appearance, and navigation behavior. | [`navigation.sty`](navigation/navigation.sty) | [`main.tex`](navigation/example/main.tex) | [`main.pdf`](navigation/example/main.pdf) |
 | **Page style** | A4 page geometry, margins, running headers, footers, and page-number presentation. | [`page-style.sty`](page-style/page-style.sty) | [`main.tex`](page-style/example/main.tex) | [`main.pdf`](page-style/example/main.pdf) |
 | **References** | Intelligent cross-references, labels, reference formatting, and optional bibliography management. | [`references.sty`](references/references.sty) | [`main.tex`](references/example/main.tex) | [`main.pdf`](references/example/main.pdf) |
@@ -49,10 +49,11 @@ The components are loaded centrally by [`unipd-notes.cls`](../unipd-notes.cls) i
 A document enables the complete system with:
 
 ```latex
-\documentclass{unipd-notes}
+\documentclass[italian]{unipd-notes}
+\documentclass[english]{unipd-notes}
 ```
 
-Course documents should normally load the class rather than importing individual component packages directly.
+Course documents should normally load the class rather than importing individual component packages directly. The language option localizes all shared component labels.
 
 LuaLaTeX is required to compile the class and every component example.
 
@@ -70,11 +71,13 @@ To compile a single component example, pass its directory to the same tool:
 python3 latex/tools/build.py latex/components/diagrams/example
 ```
 
+The comprehensive [`english`](../integration/english/) and [`italian`](../integration/italian/) integration examples verify localization across components, including statements, algorithms, listings, document lists, quantities, cross-references, and appendices.
+
 ## Component responsibilities
 
 Each component has one specific responsibility and should not duplicate functionality provided by another component.
 
-Shared definitions such as fonts and colors belong to `typography`, document information belongs to `metadata`, and page layout belongs to `page-style`.
+Shared definitions such as fonts and colors belong to `typography`, document information and translated labels belong to `metadata`, and page layout belongs to `page-style`. Components must retrieve language-dependent text with `\unipdtranslate` rather than hard-code Italian or English labels.
 
 `figures-tables` manages figures and tables, including floats, captions, numbering, labels, reference integration, and source notes. `diagrams` provides TikZ and CircuitikZ styles for technical diagrams, which continue to use the standard figure infrastructure from `figures-tables`.
 
@@ -102,7 +105,7 @@ Each `example/main.tex` is both documentation and a visual test.
 An example should:
 
 - demonstrate the component's important public features;
-- use realistic Italian Computer Engineering content;
+- use realistic Computer Engineering content in its selected language;
 - remain focused on that component;
 - use the shared document style where appropriate;
 - include numbering, labels, captions, or references when relevant;

@@ -2,6 +2,7 @@
 \ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Figures and tables]
 
 \RequirePackage{graphicx}
+\RequirePackage{float}
 \RequirePackage{booktabs}
 \RequirePackage{tabularx}
 \RequirePackage{array}
@@ -21,7 +22,7 @@
 \NewDocumentCommand{\includeasset}{O{}m}{\includegraphics[#1]{assets/#2}}
 \NewDocumentCommand{\sourceattribution}{m}{%
   \par\smallskip
-  {\footnotesize\itshape\color{unipd-muted}Fonte: #1.\par}%
+  {\footnotesize\itshape\color{unipd-muted}\unipdtranslate{source}: #1.\par}%
 }
 \NewDocumentCommand{\figuresource}{m}{\sourceattribution{#1}}
 \NewDocumentCommand{\tablesource}{m}{\sourceattribution{#1}}

@@ -9,7 +9,7 @@ This guide documents the course and document information configured through `\un
 Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{document}`:
 
 ```latex
-\documentclass{unipd-notes}
+\documentclass[italian]{unipd-notes}
 
 \unipdsetup{
   course = {Fondamenti di Ingegneria Informatica},
@@ -25,7 +25,7 @@ Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{docu
 }
 ```
 
-Use the official course title and accurate information for the specific edition of the notes.
+Use the official course title and accurate information for the specific edition of the notes. Select `italian` or `english` as a document-class option; shared labels and language-dependent defaults follow that selection.
 
 ## Course-specific fields
 
@@ -37,7 +37,7 @@ Use the official course title and accurate information for the specific edition 
 | `academic-year` | Academic year in `YYYY--YYYY` form |
 | `degree-year` | Degree year: `1`, `2`, or `3` |
 | `semester` | Semester or teaching period |
-| `document-type` | Type of material, such as `Appunti delle lezioni` |
+| `document-type` | Type of material, such as `Appunti delle lezioni` or `Lecture notes` |
 | `author` | Author or authors of the notes |
 | `date` | Explicit publication date stored in the document source |
 | `version` | Revision identifier, starting from `0.1.0` for new notes |
@@ -48,15 +48,15 @@ Set `author` explicitly. Its shared default is the repository maintainer and wou
 
 ## Shared defaults
 
-The metadata system already defines:
+The metadata system defines language-dependent institutional defaults:
 
-| Field | Default |
-|---|---|
-| `university` | Università degli Studi di Padova |
-| `degree` | Corso di laurea triennale in Ingegneria informatica |
-| `repository` | Computer Engineering — UniPD |
-| `license` | CC BY-SA 4.0 |
-| `unofficial-notice` | Materiale didattico non ufficiale, non approvato né pubblicato dall'Università degli Studi di Padova. |
+| Field | Italian | English |
+|---|---|---|
+| `university` | Università degli Studi di Padova | University of Padua |
+| `degree` | Corso di laurea triennale in Ingegneria informatica | Bachelor's Degree in Computer Engineering |
+| `repository` | Computer Engineering — UniPD | Computer Engineering — UniPD |
+| `license` | CC BY-SA 4.0 | CC BY-SA 4.0 |
+| `unofficial-notice` | Materiale didattico non ufficiale, non approvato né pubblicato dall'Università degli Studi di Padova. | Unofficial teaching material, not approved or published by the University of Padua. |
 
 These values keep every course consistent. Override them only when the document genuinely requires different information.
 

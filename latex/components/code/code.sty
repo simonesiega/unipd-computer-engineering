@@ -4,8 +4,11 @@
 \RequirePackage{listings}
 \RequirePackage{upquote}
 
-\renewcommand{\lstlistingname}{Listato}
-\renewcommand{\lstlistlistingname}{Elenco dei listati}
+\newcommand*{\unipdlistingcaptions}{%
+  \renewcommand{\lstlistingname}{\unipdtranslate{listing}}%
+  \renewcommand{\lstlistlistingname}{\unipdtranslate{list-of-listings}}}
+\addto\captionsitalian{\unipdlistingcaptions}
+\addto\captionsenglish{\unipdlistingcaptions}
 
 \lstdefinelanguage{JavaScript}{
   keywords={break,case,const,continue,default,delete,do,else,export,false,for,function,if,import,in,let,new,null,return,switch,true,typeof,var,while},

@@ -54,8 +54,7 @@ def run_git(root: Path, *arguments: str) -> str:
         ("git", "-c", "core.quotepath=false", *arguments),
         cwd=root,
         check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
         encoding="utf-8",
     )
@@ -148,7 +147,7 @@ def markdown_code(value: str) -> str:
 def display_path(path: str, course: tuple[str, str]) -> str:
     """Return a path relative to *course* whenever it belongs to that course."""
     prefix = f"{course[0]}/{course[1]}/"
-    return path[len(prefix) :] if path.startswith(prefix) else path
+    return path.removeprefix(prefix)
 
 
 def render_change(change: FileChange, course: tuple[str, str]) -> str:

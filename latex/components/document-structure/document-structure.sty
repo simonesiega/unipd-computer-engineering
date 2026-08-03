@@ -18,7 +18,10 @@
 \RedeclareSectionCommand[beforeskip=1.1\baselineskip,afterskip=\unipdheadingafterskip]{subsection}
 \RedeclareSectionCommand[beforeskip=0.9\baselineskip,afterskip=\unipdheadingafterskip]{subsubsection}
 
-\addto\captionsitalian{\renewcommand*{\appendixname}{Appendice}}
+\addto\captionsitalian{%
+  \renewcommand*{\appendixname}{\unipdtranslate{appendix}}}
+\addto\captionsenglish{%
+  \renewcommand*{\appendixname}{\unipdtranslate{appendix}}}
 \NewDocumentCommand{\courseappendices}{}{\clearpage\appendix}
 
 \endinput

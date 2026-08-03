@@ -1,7 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Typography]
 
-\RequirePackage[italian]{babel}
+\ifunipdenglish
+  \RequirePackage[main=english,italian]{babel}
+\else
+  \RequirePackage[main=italian,english]{babel}
+\fi
 \RequirePackage{fontspec}
 \RequirePackage{microtype}
 \RequirePackage{csquotes}

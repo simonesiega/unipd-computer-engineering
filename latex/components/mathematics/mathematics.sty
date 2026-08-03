@@ -6,12 +6,16 @@
 \RequirePackage{siunitx}
 
 \setmathfont{LibertinusMath-Regular.otf}[Path=\unipdlibertinusfontpath]
+\ifunipdenglish
+  \sisetup{locale=US}
+\else
+  \sisetup{locale=IT}
+\fi
 \sisetup{
-  locale=IT,
   per-mode=symbol,
+  list-final-separator={\unipdtranslate{list-final-separator}},
   range-phrase={\,--\,},
   range-units=single,
-  list-final-separator={ e },
   detect-all
 }
 

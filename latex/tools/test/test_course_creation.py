@@ -35,6 +35,7 @@ class CourseCreationTests(unittest.TestCase):
                 "Name",
                 1,
                 "3 agosto 2026",
+                "italian",
             )
 
             directory = create_course(root, course)
@@ -45,10 +46,39 @@ class CourseCreationTests(unittest.TestCase):
             self.assertTrue((directory / "sections").is_dir())
             self.assertTrue((directory / "assets").is_dir())
             main = (directory / "main.tex").read_text(encoding="utf-8")
+            readme = (directory / "README.md").read_text(encoding="utf-8")
+            self.assertIn(r"\documentclass[italian]{unipd-notes}", main)
             self.assertIn("academic-year = {2026--2027}", main)
             self.assertIn("degree-year = {1}", main)
             self.assertIn("date = {3 agosto 2026}", main)
             self.assertNotIn(r"\today", main)
+            self.assertIn("document-type = {Appunti delle lezioni}", main)
+            self.assertIn(r"\chapter{Introduzione}", main)
+            self.assertIn("Aggiungere qui i contenuti del corso.", main)
+            self.assertIn("contenuti generati del corso", readme)
+
+    def test_english_course_scaffold_is_localized(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            course = Course(
+                1,
+                "Computer Architecture",
+                "Architecture",
+                "Name",
+                1,
+                "3 August 2026",
+                "english",
+            )
+
+            directory = create_course(root, course)
+            main = (directory / "main.tex").read_text(encoding="utf-8")
+            readme = (directory / "README.md").read_text(encoding="utf-8")
+
+            self.assertIn(r"\documentclass[english]{unipd-notes}", main)
+            self.assertIn("document-type = {Lecture notes}", main)
+            self.assertIn(r"\chapter{Introduction}", main)
+            self.assertIn("Add the course content here.", main)
+            self.assertIn("generated course contents", readme)
 
     def test_duplicate_slug_is_rejected_across_years(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -62,6 +92,7 @@ class CourseCreationTests(unittest.TestCase):
                     "Name",
                     1,
                     "3 agosto 2026",
+                    "italian",
                 ),
             )
 
@@ -75,6 +106,7 @@ class CourseCreationTests(unittest.TestCase):
                         "Name",
                         1,
                         "3 agosto 2026",
+                        "italian",
                     ),
                 )
 
@@ -83,11 +115,42 @@ class CourseCreationTests(unittest.TestCase):
             root = Path(temporary_directory)
             with self.assertRaises(ValueError):
                 create_course(
-                    root, Course(4, "Course", "Course", "Name", 1, "3 agosto 2026")
+                    root,
+                    Course(
+                        4,
+                        "Course",
+                        "Course",
+                        "Name",
+                        1,
+                        "3 agosto 2026",
+                        "italian",
+                    ),
                 )
             with self.assertRaises(ValueError):
                 create_course(
-                    root, Course(1, "Course", "Course", "Name", 3, "3 agosto 2026")
+                    root,
+                    Course(
+                        1,
+                        "Course",
+                        "Course",
+                        "Name",
+                        3,
+                        "3 agosto 2026",
+                        "italian",
+                    ),
+                )
+            with self.assertRaises(ValueError):
+                create_course(
+                    root,
+                    Course(
+                        1,
+                        "Course",
+                        "Course",
+                        "Name",
+                        1,
+                        "3 agosto 2026",
+                        "german",
+                    ),
                 )
 
         result = subprocess.run(
@@ -106,6 +169,8 @@ class CourseCreationTests(unittest.TestCase):
                 "1",
                 "--date",
                 " ",
+                "--language",
+                "italian",
             ],
             capture_output=True,
             check=False,
@@ -113,6 +178,34 @@ class CourseCreationTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 2)
         self.assertIn("argument --date: value must not be empty", result.stderr)
+
+        for invalid_language in ("", "german"):
+            with self.subTest(language=invalid_language):
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(Path(__file__).resolve().parents[1] / "create_course.py"),
+                        "--year",
+                        "1",
+                        "--course",
+                        "Course",
+                        "--short-course",
+                        "Course",
+                        "--professor",
+                        "Name",
+                        "--semester",
+                        "1",
+                        "--date",
+                        "3 August 2026",
+                        "--language",
+                        invalid_language,
+                    ],
+                    capture_output=True,
+                    check=False,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("argument --language: invalid choice", result.stderr)
 
 
 if __name__ == "__main__":

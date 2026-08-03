@@ -1,7 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Table of contents]
 
-\addto\captionsitalian{\renewcommand*{\contentsname}{Indice dei contenuti}}
+\addto\captionsitalian{%
+  \renewcommand*{\contentsname}{\unipdtranslate{contents}}}
+\addto\captionsenglish{%
+  \renewcommand*{\contentsname}{\unipdtranslate{contents}}}
 \setkomafont{chapterentry}{\sffamily\bfseries\color{black}}
 \setkomafont{chapterentrypagenumber}{\sffamily\bfseries\color{black}}
 \DeclareTOCStyleEntry[

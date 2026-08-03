@@ -13,6 +13,7 @@ The build system searches these document roots:
 2/
 3/
 latex/components/
+latex/integration/
 ```
 
 Every discovered `main.tex` is treated as an independent document. A user-supplied target may be either a document directory or its `main.tex` file.
@@ -25,6 +26,9 @@ Build output mirrors the document path under `.build/`:
 
 latex/components/code/example/main.tex
 └── .build/latex/components/code/example/
+
+latex/integration/english/main.tex
+└── .build/latex/integration/english/
 ```
 
 The output directory for a document is removed and recreated before compilation.
@@ -52,6 +56,7 @@ Changed paths are mapped conservatively:
 |---|---|
 | File inside `1/<course>/`, `2/<course>/`, or `3/<course>/` | That course |
 | File inside a component's `example/` directory | That component example |
+| File inside `latex/integration/<example>/` | That integration example |
 | `latex/unipd-notes.cls` | Every document |
 | Component `.sty` file | Every document |
 | Bundled `.otf` or `.ttf` font | Every document |
@@ -89,7 +94,7 @@ After a successful compilation, `main.pdf` and `main.toc` remain under `.build/`
 
 ## Generated course README
 
-For course documents, the script parses `main.toc` and converts table-of-contents entries for parts, chapters, sections, subsections, and subsubsections into Markdown.
+For course documents, the script parses `main.toc` and converts table-of-contents entries for parts, chapters, sections, subsections, and subsubsections into Markdown. Generated headings and links use the `italian` or `english` language selected by the document class.
 
 The generated block contains a link to `main.pdf` and the document contents with page numbers. It is inserted between:
 
@@ -100,7 +105,7 @@ The generated block contains a link to `main.pdf` and the document contents with
 
 When a course README does not exist, the script creates one using the course directory name as its heading. Existing content outside the markers is preserved.
 
-Component examples do not receive generated README content.
+Component and integration examples do not receive generated README content.
 
 ## Generated-file verification
 

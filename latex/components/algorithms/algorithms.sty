@@ -3,7 +3,10 @@
 
 \RequirePackage[linesnumbered,algochapter]{algorithm2e}
 
-\SetAlgorithmName{Algoritmo}{Algoritmi}{Elenco degli algoritmi}
+\SetAlgorithmName
+  {\unipdtranslate{algorithm}}
+  {\unipdtranslate{algorithms}}
+  {\unipdtranslate{list-of-algorithms}}
 \SetAlgoCaptionSeparator{}
 \newcommand{\unipdalgocaptionlayout}[1]{\hspace*{-24pt}#1}
 \SetAlgoCaptionLayout{unipdalgocaptionlayout}
@@ -80,17 +83,31 @@
   \IncMargin{2em}%
 }
 
-\SetKwInput{KwInput}{Dati}
-\SetKwInput{KwOutput}{Risultato}
+\SetKwInput{KwInput}{\unipdtranslate{input}}
+\SetKwInput{KwOutput}{\unipdtranslate{output}}
 \let\unipd@KwOutput\KwOutput
 \renewcommand{\KwOutput}[1]{\unipd@KwOutput{#1}\BlankLine}
-\SetKw{Return}{restituisci}
-\SetKw{KwTo}{a}
-\SetKw{KwAnd}{e}
-\SetKw{KwOr}{o}
-\SetKwFor{For}{per}{fai}{fine}
-\SetKwFor{While}{finché}{fai}{fine}
-\SetKwIF{If}{ElseIf}{Else}{se}{allora}{altrimenti se}{altrimenti}{fine}
-\SetKwProg{Function}{Funzione}{:}{fine}
+\SetKw{Return}{\unipdtranslate{return}}
+\SetKw{KwTo}{\unipdtranslate{to}}
+\SetKw{KwAnd}{\unipdtranslate{and}}
+\SetKw{KwOr}{\unipdtranslate{or}}
+\SetKwFor{For}
+  {\unipdtranslate{for}}
+  {\unipdtranslate{do}}
+  {\unipdtranslate{end}}
+\SetKwFor{While}
+  {\unipdtranslate{while}}
+  {\unipdtranslate{do}}
+  {\unipdtranslate{end}}
+\SetKwIF{If}{ElseIf}{Else}
+  {\unipdtranslate{if}}
+  {\unipdtranslate{then}}
+  {\unipdtranslate{else-if}}
+  {\unipdtranslate{else}}
+  {\unipdtranslate{end}}
+\SetKwProg{Function}
+  {\unipdtranslate{function}}
+  {:}
+  {\unipdtranslate{end}}
 
 \endinput

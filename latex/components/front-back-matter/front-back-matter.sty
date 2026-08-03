@@ -4,18 +4,21 @@
 \RequirePackage{needspace}
 
 \NewDocumentEnvironment{coursepreface}{}{%
-  \clearpage\chapter*{Prefazione}\addcontentsline{toc}{chapter}{Prefazione}%
+  \clearpage
+  \chapter*{\unipdtranslate{preface}}%
+  \addcontentsline{toc}{chapter}{\unipdtranslate{preface}}%
 }{}
 
 \NewDocumentEnvironment{revisionhistory}{}{%
   \par\addvspace{2\baselineskip}%
   \Needspace{9\baselineskip}%
   \phantomsection
-  {\usekomafont{chapter}Cronologia delle revisioni\par}%
+  {\usekomafont{chapter}\unipdtranslate{revision-history}\par}%
   \nobreak\vspace{0.8\baselineskip}%
-  \addcontentsline{toc}{chapter}{Cronologia delle revisioni}%
+  \addcontentsline{toc}{chapter}{\unipdtranslate{revision-history}}%
   \begin{tabular}{@{}l l p{0.62\linewidth}@{}}\toprule
-  Versione & Data & Modifiche \\\midrule
+  \unipdtranslate{version} & \unipdtranslate{date} &
+  \unipdtranslate{changes} \\\midrule
 }{%
   \bottomrule\end{tabular}
 }

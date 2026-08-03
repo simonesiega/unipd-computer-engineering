@@ -21,7 +21,8 @@ python3 latex/tools/create_course.py \
   --short-course "Analisi 1" \
   --professor "Name" \
   --semester 1 \
-  --date "3 agosto 2026"
+  --date "3 agosto 2026" \
+  --language italian
 ```
 
 On Windows PowerShell:
@@ -33,10 +34,11 @@ py latex/tools/create_course.py `
   --short-course "Analisi 1" `
   --professor "Name" `
   --semester 1 `
-  --date "3 agosto 2026"
+  --date "3 agosto 2026" `
+  --language italian
 ```
 
-The command requires the following six metadata options:
+The command requires the following seven metadata options:
 
 | Option | Accepted value | Purpose |
 |---|---|---|
@@ -46,6 +48,7 @@ The command requires the following six metadata options:
 | `--professor` | Non-empty text | Professor associated with this edition of the course |
 | `--semester` | `1` or `2` | Teaching semester |
 | `--date` | Non-empty text | Explicit publication date stored in `main.tex` |
+| `--language` | `italian` or `english` | Language used by the document and generated files |
 
 Display the complete CLI reference with `python3 latex/tools/create_course.py --help` on Linux or macOS, or `py latex/tools/create_course.py --help` on Windows.
 
@@ -73,7 +76,11 @@ After a successful run, the command prints the created repository-relative path,
 
 The publication date is written literally into the generated source. Update it whenever publishing a new edition; do not replace it with `\today`, because reproducible builds intentionally use a fixed TeX clock.
 
-Replace the `author = {Your Name}` placeholder before publishing the notes. Write the notes in the language in which the course is taught. For larger documents, move chapters or sections into separate files and include them from `main.tex`.
+The selected language is written as the `italian` or `english` class option. It localizes the generated document type, initial chapter, README text, and shared LaTeX labels. 
+
+Replace the `author = {Your Name}` placeholder before publishing the notes. 
+
+Write the notes in the selected language. For larger documents, move chapters or sections into separate files and include them from `main.tex`.
 
 See [Metadata](../user-guide/metadata.md), [Course structure](../user-guide/course-structure.md), and [Writing notes](../user-guide/writing-notes.md) before expanding the document.
 
