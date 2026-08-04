@@ -116,7 +116,7 @@ Current covered exams:
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|
-| — | — | _No releases published yet_ | — |
+| [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) | 2026-08-04 | Latest compiled notes | — |
 <!-- RELEASE-CATALOG:END -->
 
 ## Quick start
