@@ -13,8 +13,8 @@ on:
         description: Snapshot release title
         required: true
         type: string
-      release_description:
-        description: Optional Markdown placed before the generated notes index
+      release_description_file:
+        description: Optional repository-relative Markdown description file
         required: false
         type: string
 
@@ -106,6 +106,43 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Prepare release description
+        shell: bash
+        env:
+          RELEASE_DESCRIPTION_FILE: ${{ inputs.release_description_file || '' }}
+        run: |
+          set -euo pipefail
+          mkdir -p .build
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          root = Path.cwd().resolve()
+          filename = os.environ["RELEASE_DESCRIPTION_FILE"].strip()
+          description = ""
+          if filename:
+              requested = Path(filename)
+              if requested.is_absolute():
+                  raise SystemExit(
+                      "The release description file path must be repository-relative."
+                  )
+              candidate = (root / requested).resolve()
+              try:
+                  candidate.relative_to(root)
+              except ValueError as error:
+                  raise SystemExit(
+                      "The release description file must remain inside the repository."
+                  ) from error
+              if not candidate.is_file():
+                  raise SystemExit(
+                      f"Release description file does not exist: {filename}"
+                  )
+              description = candidate.read_text(encoding="utf-8")
+          (root / ".build/release-description.md").write_text(
+              description, encoding="utf-8", newline="\n"
+          )
+          PY
+
       - name: Pull canonical TeX Live image
         run: docker compose pull texlive
 
@@ -131,18 +168,16 @@ jobs:
       - name: Package release assets
         shell: bash
         env:
-          RELEASE_DESCRIPTION: ${{ inputs.release_description || '' }}
           RELEASE_TITLE: ${{ github.event_name == 'push' && 'Latest compiled notes' || inputs.release_title }}
         run: |
           set -euo pipefail
-          mkdir -p .build
-          printf '%s' "$RELEASE_DESCRIPTION" > .build/release-description.md
           RELEASE_TIMESTAMP="$(git show -s --format=%cI "$GITHUB_SHA")"
-          python3 latex/tools/package_notes.py \
-            --source-commit "$GITHUB_SHA" \
-            --release-timestamp "$RELEASE_TIMESTAMP" \
-            --release-title "$RELEASE_TITLE" \
-            --description-file .build/release-description.md
+          docker compose run --rm --no-deps texlive \
+            python3 latex/tools/package_notes.py \
+              --source-commit "$GITHUB_SHA" \
+              --release-timestamp "$RELEASE_TIMESTAMP" \
+              --release-title "$RELEASE_TITLE" \
+              --description-file .build/release-description.md
 
       - name: Validate packaged release
         shell: bash
@@ -172,6 +207,16 @@ jobs:
       contents: write
 
     steps:
+      - name: Check out publication source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+
       - name: Download validated release package
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
@@ -265,3 +310,50 @@ jobs:
             -f body="$(cat "$NOTES_FILE")" >/dev/null
 
           echo "Published $TAG from $GITHUB_SHA with ${#expected_assets[@]} assets."
+
+      - name: Update README release catalogue
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          TARGET_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          mkdir -p .build
+          gh api --paginate --slurp \
+            "repos/$REPOSITORY/releases?per_page=100" \
+            > .build/releases.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            git fetch --no-tags origin \
+              "+refs/heads/$TARGET_BRANCH:refs/remotes/origin/$TARGET_BRANCH"
+            git reset --hard "origin/$TARGET_BRANCH"
+            python3 latex/tools/update_release_catalog.py \
+              --releases-json .build/releases.json
+
+            if git diff --quiet -- README.md; then
+              echo "README release catalogue is already current."
+              exit 0
+            fi
+
+            git add -- README.md
+            git commit -m "docs(releases): update published notes catalogue [skip ci]"
+            if git push origin "HEAD:$TARGET_BRANCH"; then
+              CATALOG_SHA="$(git rev-parse HEAD)"
+              if gh api "repos/$REPOSITORY/git/ref/tags/notes-latest" \
+                >/dev/null 2>&1; then
+                gh api --method PATCH \
+                  "repos/$REPOSITORY/git/refs/tags/notes-latest" \
+                  -f sha="$CATALOG_SHA" -F force=true >/dev/null
+              fi
+              echo "Published README release catalogue at $CATALOG_SHA."
+              exit 0
+            fi
+            echo "The branch advanced; retrying catalogue update ($attempt/3)."
+          done
+
+          echo "Could not update the README release catalogue after three attempts." >&2
+          exit 1

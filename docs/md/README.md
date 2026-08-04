@@ -16,6 +16,7 @@ This documentation is organized by task. The project README introduces the archi
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
 - **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#getting-help-and-reporting-problems).
 - **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation, Tests, and CI](development/tool-test-and-ci.md).
+- **Publishing a semester snapshot?** Start from the [release description example](release/example.md) and follow the manual-release procedure in [Validation, Tests, and CI](development/tool-test-and-ci.md#immutable-manual-snapshots).
 
 ## Getting started
 
@@ -49,6 +50,7 @@ This documentation is organized by task. The project README introduces the archi
 | [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
 | [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
 | [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document artifacts, rolling releases, and immutable snapshots. |
+| [Release description questionnaire](release/example.md) | Prompts and placeholders to complete for a semester snapshot introduction. |
 
 ## Project policies
 

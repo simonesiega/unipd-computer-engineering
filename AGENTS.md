@@ -20,6 +20,7 @@ This repository archives University of Padua Computer Engineering note sources, 
 Do not manually edit:
 
 - content between `<!-- GENERATED:START -->` and `<!-- GENERATED:END -->`;
+- the README catalogue between `<!-- RELEASE-CATALOG:START -->` and `<!-- RELEASE-CATALOG:END -->`;
 - files under `CHANGELOG/`;
 - compiled PDFs or other generated outputs.
 

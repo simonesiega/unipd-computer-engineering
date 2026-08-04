@@ -151,6 +151,8 @@ Do not manually edit content between generated markers:
 ```html
 <!-- GENERATED:START -->
 <!-- GENERATED:END -->
+<!-- RELEASE-CATALOG:START -->
+<!-- RELEASE-CATALOG:END -->
 ```
 
 Edit course-owned LaTeX sources, figures, bibliography files, and README content outside the generated markers. A course build keeps its PDF under `.build/<year>/<course>/main.pdf` and refreshes the generated README section. Generated course PDFs under `1/`, `2/`, and `3/` are ignored build outputs and must not be added to Git. Component and integration example PDFs remain tracked fixtures and are regenerated through the pinned Docker Compose environment when affected.
@@ -201,7 +203,7 @@ Pushes to `main` run all quality checks, compile the complete archive, package c
 
 The rolling release is automatic after a successful push to `main`; it is titled **Latest compiled notes**, its tag is moved to that `main` commit, and stale assets are removed. Re-running the same commit is idempotent.
 
-For an immutable end-of-semester snapshot, open **Actions → Publish compiled notes → Run workflow**, then provide a new release tag, title, and optional Markdown description. Tags such as `2026-2027-semester-1` are recommended. The workflow compiles and packages the complete archive with the same code as the rolling release and fails if either the requested tag or release already exists. Never reuse or overwrite a snapshot tag.
+For an immutable end-of-semester snapshot, open **Actions → Publish compiled notes → Run workflow**, then provide a new release tag and title. For an optional release description, copy the questionnaire-style [`docs/md/release/example.md`](docs/md/release/example.md), answer each prompt, replace every bracketed placeholder, remove sections that do not apply, commit the new `.md` file, and provide its repository-relative path through `release_description_file`. Tags such as `2026-2027-semester-1` are recommended. Publishing the snapshot explicitly approves every included PDF as a covered exam, so do not create it while any included notes are incomplete or unreviewed. The workflow compiles and packages the complete archive, fails if either the requested tag or release already exists, and then regenerates the README coverage and release tables from published GitHub Releases. Never reuse or overwrite a snapshot tag.
 
 For packaging failures, inspect the named missing course PDF, duplicate asset name, manifest, or checksum error in **Compile and package complete archive**. For publication failures, inspect the `gh` command output and any draft release left intentionally to prevent partial assets from appearing successful. A failed snapshot draft must be inspected and explicitly deleted before retrying the same tag; published snapshots must never be deleted merely to replace their contents. No repository secret is required because publication uses the workflow token.
 

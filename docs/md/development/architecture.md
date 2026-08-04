@@ -90,7 +90,9 @@ The publisher temporarily drafts the rolling release while replacing assets, rem
 
 <https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest>
 
-A manual dispatch uses the same complete build and package. It requires a unique tag and title, accepts an optional description, records the source commit in generated metadata and release notes, and creates a draft before uploading. Existing snapshot tags or releases are rejected and are never overwritten.
+A manual dispatch uses the same complete build and package. It requires a unique tag and title, accepts an optional committed Markdown description file based on [`docs/md/release/example.md`](../release/example.md), records the source commit in generated metadata and release notes, and creates a draft before uploading. Existing snapshot tags or releases are rejected and are never overwritten. Publishing an immutable snapshot is the maintainer's explicit approval that every included PDF represents a covered exam.
+
+After any rolling or snapshot publication, `update_release_catalog.py` reads all published releases through the GitHub API. It excludes drafts, treats unique PDFs from immutable snapshots as covered exams, and regenerates the README counts, covered-course table, and release inventory. The workflow commits only `README.md` with `[skip ci]`, retries when `main` advances, and moves `notes-latest` to the resulting catalogue-only commit so the rolling tag still identifies current `main`. The immutable snapshot tag remains fixed at the source commit used to build its assets.
 
 ## Change boundaries
 
@@ -102,7 +104,7 @@ A manual dispatch uses the same complete build and package. It requires a unique
 | Bundled font | Every document |
 | Canonical build environment or build workflow | Every document |
 | Build tool | Every document |
-| Release packaging tool | Tool tests and release packaging; no duplicate shell packaging implementation |
+| Release packaging or catalogue tool | Tool tests, release packaging, or generated README release metadata; no duplicate workflow implementation |
 | Documentation or policy only | No LaTeX document unless it changes a shared build workflow |
 
 New shared compilation paths must be added to the affected-document mapping. Release asset discovery and metadata generation must remain in `package_notes.py`, not be reimplemented in workflow shell.

@@ -32,6 +32,7 @@ Tests use standard-library `unittest`, temporary directories and repositories, d
 | `test_course_creation.py` | Course slug, metadata, scaffold, duplicate, and argument validation |
 | `test_build_selection.py` | Discovery, affected paths, TOC/README behavior, generated state, and rolling-release course links |
 | `test_notes_packaging.py` | Asset/slug naming, collisions, manifests, checksums, ordering, missing PDFs, invalid paths, and empty archives |
+| `test_release_catalog.py` | Release parsing, immutable-snapshot coverage, deduplication, ordering, README tables, and empty release history |
 | `test_gitignore.py` | Specific course `main.pdf` ignore rules without globally ignoring PDFs |
 | `test_changelog_generation.py` | Complete Git history, per-course changes, renames, dates, and placeholders |
 | `test_repository_validation.py` | Layouts, Markdown links, source hygiene, and tracked generated-course-PDF rejection |
@@ -123,9 +124,13 @@ Run **Publish compiled notes** manually and provide:
 
 - `release_tag`, such as `2026-2027-semester-1`;
 - `release_title`;
-- optional `release_description` in Markdown.
+- optional `release_description_file`, a repository-relative path to a committed Markdown file.
+
+Copy the [snapshot description questionnaire](../release/example.md), answer each prompt, replace every bracketed placeholder, and remove sections that do not apply before publishing. The file input supports paragraphs, lists, links, and other structured release notes that GitHub's single-line `workflow_dispatch` fields cannot represent directly. The workflow validates that the path is relative, remains inside the checked-out repository, and identifies an existing file before copying it into release staging.
 
 Preflight rejects unsafe identifiers, the reserved `notes-latest` tag, blank titles, and any existing matching tag or release. The workflow then performs the same quality checks, complete build, packaging, metadata validation, and checksums as the rolling release. It creates a new draft at the dispatch source commit, uploads assets, and publishes it. Generated release notes and `manifest.json` include the source SHA. Existing snapshots are never edited, moved, or overwritten.
+
+Publishing an immutable snapshot explicitly marks every PDF in that snapshot as maintainer-approved and covered. Do not publish a snapshot containing incomplete or unreviewed notes. Rolling `notes-latest` assets never establish covered status by themselves.
 
 If a snapshot upload fails, its draft intentionally remains non-public so partial assets are not presented as complete. Inspect it and the job output; if retrying the same requested tag is appropriate, the maintainer must explicitly delete only that failed draft and tag first. Never replace an already published snapshot.
 
@@ -149,5 +154,11 @@ Examples include `1-calculus-1.pdf`, `1-linear-algebra.pdf`, and `2-algorithms-a
 - **Rolling publication:** inspect the draft, stale-asset deletion, tag update, and final API call. A rerun is safe after correcting the cause.
 - **Snapshot publication:** an existing tag/release is a deliberate hard failure; do not bypass it or overwrite a published snapshot.
 - **Accidentally tracked course PDF:** run `git rm --cached -- <year>/<course>/main.pdf`; keep any desired local build under `.build/` and do not rewrite history.
+
+## Generated README release catalogue
+
+After publishing, the write-scoped job downloads all published release metadata with the GitHub API and runs `update_release_catalog.py`. Drafts are ignored. The tool deduplicates course asset names across immutable snapshots, counts covered exams by degree year, links each covered course to its newest immutable asset, and lists every published release with all matching course PDFs. It atomically replaces only the content between `<!-- RELEASE-CATALOG:START -->` and `<!-- RELEASE-CATALOG:END -->` in the root README.
+
+When the catalogue changes, the workflow commits `README.md` as `github-actions[bot]` with `[skip ci]` and retries up to three times if `main` advances. The workflow token does not start another publication run for that bot commit. It therefore moves `notes-latest` to the catalogue commit after a successful push; course sources are unchanged, while the immutable semester tag remains attached to the build source commit.
 
 The weekly `Course changelogs` workflow remains separate. It reads complete history, regenerates protected `CHANGELOG/<year>/<course>.md` files, and creates one recap commit only when content changes.

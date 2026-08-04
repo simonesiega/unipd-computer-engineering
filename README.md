@@ -51,6 +51,7 @@
 - [Overview](#overview)
 - [Browse the notes](#browse-the-notes)
 - [Exams covered](#exams-covered)
+- [Releases](#releases)
 - [Quick start](#quick-start)
 - [Documentation](#documentation)
 - [AI-assisted development](#ai-assisted-development)
@@ -95,8 +96,9 @@ The degree-year directories contain the LaTeX sources and supporting files neede
 
 ## Exams covered
 
-The archive is updated as new material is written, reviewed, and completed. An exam is considered **covered** only when its intended notes are sufficiently complete, have been reviewed, and have been approved by the repository maintainer.
+The archive is updated as new material is written, reviewed, and completed. An exam is considered **covered** only when its intended notes are sufficiently complete, have been reviewed, and have been approved by the repository maintainer. Publishing an immutable semester snapshot explicitly approves every PDF included in that snapshot; the tables below are generated from published GitHub Releases and must not be edited manually.
 
+<!-- RELEASE-CATALOG:START -->
 | Degree year | Exams covered |
 |---|---:|
 | First year | 0 |
@@ -109,6 +111,13 @@ Current covered exams:
 | Year | Exam | Course archive | Compiled notes |
 |---:|---|---|---|
 | — | _No exams covered yet_ | — | — |
+
+## Releases
+
+| Release | Date | Title | PDFs |
+|---|---|---|---|
+| — | — | _No releases published yet_ | — |
+<!-- RELEASE-CATALOG:END -->
 
 ## Quick start
 
