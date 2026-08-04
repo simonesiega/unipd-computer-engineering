@@ -90,7 +90,7 @@ Before contributing notes:
 - read the affected section from a student’s perspective;
 - verify terminology, notation, examples, and solutions;
 - check citations and third-party licenses;
-- compile and visually inspect the PDF;
-- commit the updated generated files.
+- compile in the [canonical Docker environment](../getting-started/docker.md) and visually inspect the PDF;
+- run the generated-file check and commit the updated outputs.
 
 Continue with [Metadata](metadata.md) for document information or [Building documents](../getting-started/building-documents.md) for compilation and validation.

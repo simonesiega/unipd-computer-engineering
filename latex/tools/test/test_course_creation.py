@@ -10,7 +10,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from create_course import Course, academic_year, create_course, escape_latex, kebab_case
+from create_course import (
+    Course,
+    academic_year,
+    canonical_build_command,
+    create_course,
+    escape_latex,
+    kebab_case,
+)
 
 
 class CourseCreationTests(unittest.TestCase):
@@ -42,6 +49,13 @@ class CourseCreationTests(unittest.TestCase):
         self.assertEqual(academic_year(1), "2026--2027")
         self.assertEqual(academic_year(2), "2027--2028")
         self.assertEqual(academic_year(3), "2028--2029")
+
+    def test_next_build_command_uses_the_canonical_environment(self) -> None:
+        self.assertEqual(
+            canonical_build_command(Path("1/analisi-matematica-1")),
+            "docker compose run --rm texlive python3 latex/tools/build.py "
+            "1/analisi-matematica-1",
+        )
 
     def test_standard_layout_and_metadata_are_created(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

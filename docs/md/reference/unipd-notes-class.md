@@ -117,6 +117,6 @@ See [Metadata](../user-guide/metadata.md) for every `\unipdsetup` field and [Wri
 
 Add shared behavior to the component responsible for that concern. Create a new component only when the feature has a distinct responsibility and cannot reasonably belong to an existing one.
 
-Preserve component load order and compatibility across every course and example. Changes to the class or a component package affect all documents and require a full build.
+Preserve component load order and compatibility across every course and example. Changes to the class or a component package affect all documents and require a full [canonical Docker build](../getting-started/docker.md) and generated-file check.
 
 Do not use or redefine the class's internal path commands in course documents.

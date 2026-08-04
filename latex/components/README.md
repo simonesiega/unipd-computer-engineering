@@ -59,16 +59,16 @@ LuaLaTeX is required to compile the class and every component example.
 
 ## Building the examples
 
-From the repository root, compile all documents and regenerate their published PDFs with:
+Use the [canonical Docker environment](../../docs/md/getting-started/docker.md) for generated PDFs. From the repository root, compile all documents with:
 
 ```bash
-python3 latex/tools/build.py --all
+docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going
 ```
 
 To compile a single component example, pass its directory to the same tool:
 
 ```bash
-python3 latex/tools/build.py latex/components/diagrams/example
+docker compose run --rm texlive python3 latex/tools/build.py latex/components/diagrams/example
 ```
 
 The comprehensive [`english`](../integration/english/) and [`italian`](../integration/italian/) integration examples verify localization across components, including statements, algorithms, listings, document lists, quantities, cross-references, and appendices.
@@ -127,7 +127,7 @@ When adding a component or changing an existing one:
 4. register the component in [`unipd-notes.cls`](../unipd-notes.cls) at the correct dependency position;
 5. update this README when the component catalogue or responsibility boundaries change;
 6. compile the component example;
-7. compile the complete demonstration document;
+7. compile both integration examples;
 8. regenerate the affected `main.pdf` files;
 9. review the PDFs visually before committing.
 

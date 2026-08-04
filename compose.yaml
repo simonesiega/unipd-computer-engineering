@@ -1,0 +1,16 @@
+services:
+  texlive:
+    image: ghcr.io/xu-cheng/texlive-alpine:latest@sha256:11383430b9a3e48c0b79339f34d8092f942f897d91ab3749d4899d06731fea7f
+    platform: linux/amd64
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    entrypoint: []
+    init: true
+    network_mode: none
+    environment:
+      HOME: /tmp
+      TEXMFVAR: /tmp/texmf-var
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: /workspace

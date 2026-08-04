@@ -77,6 +77,6 @@ The build tool creates or updates the generated section of `README.md` from the 
 
 Manual course information may be written outside those markers.
 
-Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`. When source changes affect the document, commit the updated `main.pdf` and generated README section with the same change.
+Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`. When source changes affect the document, regenerate `main.pdf` and the README section in the [canonical Docker environment](../getting-started/docker.md), then commit them with the same change.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) for build and validation commands.

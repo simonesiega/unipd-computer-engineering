@@ -38,7 +38,7 @@ py -m pip install -r .github/requirements-ci.txt
 pre-commit run --all-files --show-diff-on-failure
 ```
 
-Here, pip's `-r` option installs from the requirements file, `--all-files` checks the complete repository instead of only changed files, and `--show-diff-on-failure` prints modifications made by a failing hook. The CI requirements pin `pre-commit`, Coverage.py, Ruff, and mypy so local and hosted checks use the same Python tooling versions.
+Here, pip's `-r` option installs the pinned pre-commit runner, `--all-files` checks the complete repository instead of only changed files, and `--show-diff-on-failure` prints modifications made by a failing hook. `.pre-commit-config.yaml` pins Coverage.py, Ruff, and mypy inside their hook environments, so local and hosted checks use the same versions without duplicating those pins in the CI requirements. Dependabot monitors the CI requirement, pre-commit hooks, GitHub Actions, and Docker Compose image.
 
 ## Python tool tests
 
@@ -112,7 +112,7 @@ The local `course-tool-tests` hook runs the complete `latex/tools/test/` suite w
 
 | Area | Checks |
 |---|---|
-| Courses | Entry points are direct `<year>/<course>/main.tex` files under `1/`, `2/`, or `3/` |
+| Courses | Entry points are direct `<year>/<course>/main.tex` files under `1/`, `2/`, or `3/`, with lowercase kebab-case course names |
 | Course documents | `main.tex` declares a document class and contains a complete document environment |
 | Components | Each component contains `<component>.sty` and `example/` |
 | Component examples | Each `example/` contains exactly `main.tex` and `main.pdf` |
@@ -159,34 +159,36 @@ The build job depends on `Quality`. When quality validation fails, compilation i
 
 `Compile affected documents` runs on Ubuntu 24.04 with a 45-minute timeout.
 
-The job checks out the complete Git history, determines the comparison base, and writes changed repository paths to:
+The job checks out the complete Git history and determines the comparison base. If the event has no usable base commit, it safely falls back to a complete build. Otherwise, it writes changed repository paths to:
 
 ```text
 .build/changed-files.txt
 ```
 
-It then runs inside a pinned TeX Live container.
+It explicitly pulls and then runs the `texlive` service from the repository's [`compose.yaml`](../../../compose.yaml). The service pins its TeX Live image by digest, uses the fixed `/workspace` path and `linux/amd64` platform, and has no runtime network access. It is also the canonical local PDF build environment.
 
 For an initial push or a manual workflow run:
 
 ```bash
-python3 latex/tools/build.py --all --keep-going --check-generated
+docker compose run --rm --no-deps texlive \
+  python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
 For an ordinary pull request or push:
 
 ```bash
-python3 latex/tools/build.py \
-  --changed-file-list .build/changed-files.txt \
-  --keep-going \
-  --check-generated
+docker compose run --rm --no-deps texlive \
+  python3 latex/tools/build.py \
+    --changed-file-list .build/changed-files.txt \
+    --keep-going \
+    --check-generated
 ```
 
 The mapping from changed paths to documents is implemented by `build.py` and documented in [Build system](build-system.md). Both modes use `--check-generated`, so CI fails when a selected document's committed PDF or generated README section is missing or stale.
 
 ## Artifacts
 
-After the build step, the workflow attempts to upload:
+After a successful build step, the workflow attempts to upload:
 
 ```text
 .build/**/main.pdf
@@ -229,19 +231,14 @@ Generated changelogs must not be edited by hand; the weekly workflow replaces th
 
 The workflow uses `--check-generated` to compare compiled outputs with the committed `main.pdf` and generated course or integration README sections. It checks every document for an initial or manual run and the affected documents for ordinary pushes and pull requests.
 
-Run the same check locally before contributing:
-
-Linux or macOS:
+Run the same check locally in the canonical environment before contributing:
 
 ```bash
-python3 latex/tools/build.py --all --keep-going --check-generated
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
-Windows PowerShell:
-
-```powershell
-py latex/tools/build.py --all --keep-going --check-generated
-```
+The comparison is byte for byte. `SOURCE_DATE_EPOCH` removes time-dependent variation but cannot make different LuaLaTeX or package versions identical, so a native TeX installation is not suitable for final generated-file verification.
 
 A successful normal build may update generated files in the working tree. Commit those updates with the source changes they represent.
 
@@ -249,6 +246,6 @@ A successful normal build may update generated files in the working tree. Commit
 
 For a `Quality` failure, open the failing pre-commit step and run the reported hook locally. Some hooks modify files automatically; review and commit those changes before pushing again.
 
-For a compilation failure, open the failed document in the job log and download the `latex-logs-<commit-sha>` artifact when available. Reproduce the affected build locally, fix the first meaningful LaTeX error, and rebuild the document.
+For a compilation failure, open the failed document in the job log and download the `latex-logs-<commit-sha>` artifact when available. Reproduce the affected build through the `texlive` Compose service, fix the first meaningful LaTeX error, and rebuild the document.
 
 After pushing a correction, GitHub starts a new workflow run. To retry an unchanged run, open it under the repository's **Actions** tab and use **Re-run jobs**.

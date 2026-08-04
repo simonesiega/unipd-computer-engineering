@@ -9,27 +9,30 @@ description: Select and compile affected UniPD LaTeX documents with latex/tools/
 
 Inspect changed files and choose the smallest correct build scope. Consult the build documentation only when selection is unclear.
 
-Run commands from the repository root using the available Python launcher.
+Run commands from the repository root through the canonical Docker Compose service.
 
 One course:
 
 ```bash
-python3 latex/tools/build.py <year>/<course-name>
+docker compose run --rm texlive \
+  python3 latex/tools/build.py <year>/<course-name>
 ```
 
 One component example:
 
 ```bash
-python3 latex/tools/build.py latex/components/<component>/example
+docker compose run --rm texlive \
+  python3 latex/tools/build.py latex/components/<component>/example
 ```
 
 Repository-wide dependency change:
 
 ```bash
-python3 latex/tools/build.py --all --keep-going
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --all --keep-going
 ```
 
-Repository-wide changes include the class, shared component packages, bundled fonts, and build-tool behavior. Do not build everything for an isolated course edit without reason.
+Repository-wide changes include the canonical Compose environment, CI build workflow, class, shared component packages, bundled fonts, and build-tool behavior. Do not build everything for an isolated course edit without reason.
 
 Use the repository build tool instead of calling `latexmk` or LuaLaTeX directly, except when diagnosing the build tool itself.
 
@@ -63,7 +66,8 @@ Treat these as build outputs; never repair them manually.
 When requested or appropriate for a release-level change:
 
 ```bash
-python3 latex/tools/build.py --all --keep-going --check-generated
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
 ## Review

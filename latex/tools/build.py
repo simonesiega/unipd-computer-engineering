@@ -92,10 +92,12 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
     for path in paths:
         parts = path.parts
 
-        # The class, component packages, fonts, and build tool are shared by all
-        # documents, so a change to any of them requires a complete build.
+        # The canonical environment, class, component packages, fonts, and build
+        # tool are shared by all documents, so changes require a complete build.
         shared_latex = (
-            path == Path("latex/unipd-notes.cls")
+            path == Path("compose.yaml")
+            or path == Path(".github/workflows/ci.yml")
+            or path == Path("latex/unipd-notes.cls")
             or path == Path("latex/tools/build.py")
             or (
                 len(parts) >= 3
@@ -427,7 +429,8 @@ def process_document(
     if generated_errors:
         details = "\n    ".join(generated_errors)
         raise RuntimeError(
-            f"Generated outputs do not match. Run build.py for this document:\n    {details}"
+            "Generated outputs do not match. Regenerate this document with a "
+            f"normal canonical build:\n    {details}"
         )
 
 

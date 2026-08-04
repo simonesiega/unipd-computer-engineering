@@ -1,6 +1,6 @@
 # Building Documents
 
-[← Documentation](../README.md) · [Installation](installation.md) · [Creating a course](creating-a-course.md)
+[← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md)
 
 This guide covers local compilation, generated files, and the checks to run before contributing. Install the required tools first by following the [installation guide](installation.md).
 
@@ -8,13 +8,15 @@ Run every command from the repository root.
 
 ## Build documents
 
-| Task | Linux or macOS | Windows PowerShell |
-|---|---|---|
-| Build one course | `python3 latex/tools/build.py 1/course-name` | `py latex/tools/build.py 1/course-name` |
-| Build one component example | `python3 latex/tools/build.py latex/components/diagrams/example` | `py latex/tools/build.py latex/components/diagrams/example` |
-| Build an integration example | `python3 latex/tools/build.py latex/integration/english` | `py latex/tools/build.py latex/integration/english` |
-| Build multiple targets | `python3 latex/tools/build.py 1/course-a 1/course-b` | `py latex/tools/build.py 1/course-a 1/course-b` |
-| Build all documents | `python3 latex/tools/build.py --all --keep-going` | `py latex/tools/build.py --all --keep-going` |
+Use the canonical Docker Compose environment for PDFs that will be committed. It uses the same pinned TeX Live image as CI on every platform. Initial setup, platform notes, and troubleshooting are documented in [Docker builds](docker.md).
+
+| Task | Command |
+|---|---|
+| Build one course | `docker compose run --rm texlive python3 latex/tools/build.py 1/course-name` |
+| Build one component example | `docker compose run --rm texlive python3 latex/tools/build.py latex/components/diagrams/example` |
+| Build an integration example | `docker compose run --rm texlive python3 latex/tools/build.py latex/integration/english` |
+| Build multiple targets | `docker compose run --rm texlive python3 latex/tools/build.py 1/course-a 1/course-b` |
+| Build all documents | `docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going` |
 
 Replace the example paths with the directories or `main.tex` files you want to build.
 
@@ -27,16 +29,17 @@ Do not manually edit content between:
 <!-- GENERATED:END -->
 ```
 
+A native TeX installation may be used for quick previews. Replace `docker compose run --rm texlive python3` with `python3` on Linux or macOS, or `py` on Windows. Native TeX output is not guaranteed to match CI byte for byte; regenerate files to be committed with Docker Compose.
+
 ## Build changed documents
 
 Build only documents affected by changes since another Git revision:
 
-| Platform | Command |
-|---|---|
-| Linux or macOS | `python3 latex/tools/build.py --changed-from origin/main --keep-going` |
-| Windows PowerShell | `py latex/tools/build.py --changed-from origin/main --keep-going` |
+```bash
+docker compose run --rm texlive python3 latex/tools/build.py --changed-from origin/main --keep-going
+```
 
-Course-local changes build that course, component-example changes build that example, and shared LaTeX or build-system changes build all documents. Documentation-only changes do not compile a document.
+Course-local changes build that course, and component-example changes build that example. Changes to shared LaTeX, the canonical environment, the CI build workflow, or the build tool build all documents. Documentation-only changes do not compile a document.
 
 ## Validate changes
 
@@ -49,14 +52,13 @@ Check repository structure and source conventions:
 
 The validation checks course, component, and complete integration-project structure, UTF-8 source files, tabs, trailing whitespace, and unresolved merge-conflict markers.
 
-Verify that every committed PDF and generated course or integration README is current:
+Verify in the canonical environment that every committed PDF and generated course or integration README is current:
 
-| Platform | Command |
-|---|---|
-| Linux or macOS | `python3 latex/tools/build.py --all --keep-going --check-generated` |
-| Windows PowerShell | `py latex/tools/build.py --all --keep-going --check-generated` |
+```bash
+docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going --check-generated
+```
 
-`--check-generated` builds under `.build/` and fails when committed generated files are missing or stale without replacing them.
+`--check-generated` builds under `.build/` and fails when committed generated files are missing or stale without replacing them. PDF comparison is byte for byte, which is why this check and final PDF regeneration must use the pinned container.
 
 ## Complete build command reference
 
@@ -80,10 +82,9 @@ Exactly one selection mode must be provided: explicit `TARGET` values, `--all`, 
 
 Display the built-in reference with:
 
-| Platform | Command |
-|---|---|
-| Linux or macOS | `python3 latex/tools/build.py --help` |
-| Windows PowerShell | `py latex/tools/build.py --help` |
+```bash
+docker compose run --rm texlive python3 latex/tools/build.py --help
+```
 
 Always review affected PDFs visually before opening a pull request.
 

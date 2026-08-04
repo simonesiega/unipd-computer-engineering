@@ -21,9 +21,9 @@
 
 <!-- List the exact commands run and their results. Use "Not applicable" with a reason where appropriate. -->
 
-- [ ] Affected documents compile successfully.
+- [ ] Affected documents compile successfully in the canonical Docker environment.
 - [ ] Affected PDFs were reviewed visually.
-- [ ] Generated PDFs and course or integration README sections are current.
+- [ ] Generated PDFs and course or integration README sections pass `--check-generated`.
 - [ ] Relevant repository and pre-commit checks pass.
 
 ## Sources, licensing, and integrity

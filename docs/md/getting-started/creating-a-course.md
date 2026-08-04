@@ -1,6 +1,6 @@
 # Creating a Course
 
-[← Documentation](../README.md) · [Installation](installation.md) · [Building documents](building-documents.md)
+[← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md) · [Building documents](building-documents.md)
 
 This guide covers the minimum steps required to add a course to the archive. Note-writing conventions, metadata details, and build options belong to their dedicated guides.
 
@@ -90,21 +90,11 @@ See [Metadata](../user-guide/metadata.md), [Course structure](../user-guide/cour
 
 ## Build the course
 
-Run the build command from the repository root.
-
-Linux or macOS:
+Run the canonical build from the repository root, replacing `1/course-name` with the directory you created:
 
 ```bash
-python3 latex/tools/build.py 1/course-name
+docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
 ```
-
-Windows PowerShell:
-
-```powershell
-py latex/tools/build.py 1/course-name
-```
-
-Replace `1/course-name` with the course directory you created.
 
 A successful build publishes `main.pdf` and creates or updates the generated section of the course `README.md`. Do not manually edit content between the generated markers.
 

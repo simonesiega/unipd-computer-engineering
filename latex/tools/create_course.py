@@ -78,6 +78,14 @@ def academic_year(degree_year: int) -> str:
     return f"{start}--{start + 1}"
 
 
+def canonical_build_command(course_directory: Path) -> str:
+    """Return the canonical Docker command for building a course."""
+    return (
+        "docker compose run --rm texlive python3 latex/tools/build.py "
+        f"{course_directory.as_posix()}"
+    )
+
+
 def escape_latex(value: str) -> str:
     """Escape user-provided text for use in a LaTeX metadata value."""
     replacements = {
@@ -247,7 +255,7 @@ def main() -> int:
     relative = course_directory.relative_to(root)
     print(f"Created course: {relative}")
     print(f"Academic year: {academic_year(course.year)}")
-    print(f"Next step: python3 latex/tools/build.py {relative.as_posix()}")
+    print(f"Next step: {canonical_build_command(relative)}")
     return 0
 
 

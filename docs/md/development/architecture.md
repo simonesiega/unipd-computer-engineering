@@ -31,6 +31,7 @@ Repository validation runs separately from compilation. Pre-commit executes stru
 | Integration examples | `latex/integration/` | End-to-end verification across shared components |
 | Fonts | `latex/fonts/` | Bundled typefaces, configuration, and licenses |
 | Course creation, build, validation, and changelogs | `latex/tools/` | Course scaffolding, document discovery, compilation, generated files, repository checks, and per-course Git histories |
+| Canonical build environment | `compose.yaml` | Pinned TeX Live runtime shared by local release builds and CI |
 | Documentation | `docs/md/` | User, reference, and development guides |
 | Automation | `.github/`, `.pre-commit-config.yaml` | Continuous integration, scheduled changelog generation, dependency updates, and local quality checks |
 
@@ -80,6 +81,7 @@ The `--check-generated` mode compares newly built outputs with committed files w
 | File inside one component example | That example |
 | Shared class or component package | Every document |
 | Bundled font | Every document |
+| Canonical build environment or CI build workflow | Every document |
 | Build tool | Every document |
 | Documentation or policy only | No LaTeX document |
 
@@ -91,8 +93,8 @@ New shared paths must be added to the affected-document mapping so that changes 
 
 Pre-commit combines that repository-specific validation with general file checks, Python tests and coverage, Ruff, mypy, and Actionlint. In GitHub Actions, the quality job runs first; the build job runs only after it succeeds.
 
-The CI workflow performs a complete build for an initial or manual run. For ordinary pushes and pull requests, it collects changed paths and compiles only the affected documents. Every CI build uses `--check-generated` to reject missing or stale committed PDFs and generated README sections. PDFs produced under `.build/` are uploaded as workflow artifacts, and failed LaTeX logs are retained temporarily.
+The CI workflow performs a complete build for an initial or manual run. For ordinary pushes and pull requests, it collects changed paths and compiles only the affected documents. Compilation uses the pinned `texlive` service from the root `compose.yaml`, which is also the canonical local environment. Every CI build uses `--check-generated` to reject missing or stale committed PDFs and generated README sections. PDFs produced under `.build/` are uploaded as workflow artifacts, and failed LaTeX logs are retained temporarily.
 
 A separate weekly workflow runs `generate_changelog.py` with complete Git history. Every Sunday at 00:00 UTC, it rebuilds each `CHANGELOG/<year>/<course>.md` from commits affecting that course and creates one recap commit when generated files changed. It can also be started manually. Local generation rejects shallow repositories so incomplete history cannot replace complete changelogs.
 
-See [Validation, Tests, and CI](tool-test-and-ci.md) for workflow behavior and [Building documents](../getting-started/building-documents.md) for the contributor-facing commands.
+See [Docker builds](../getting-started/docker.md) for the canonical runtime, [Validation, Tests, and CI](tool-test-and-ci.md) for workflow behavior, and [Building documents](../getting-started/building-documents.md) for contributor-facing commands.

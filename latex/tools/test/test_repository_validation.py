@@ -46,6 +46,16 @@ class RepositoryValidationTests(unittest.TestCase):
             self.assertTrue(any("document class" in error for error in errors))
             self.assertTrue(any("document environment" in error for error in errors))
 
+            uppercase = root / "3" / "Invalid Course" / "main.tex"
+            uppercase.parent.mkdir(parents=True)
+            uppercase.write_text(
+                "\\documentclass{unipd-notes}\n"
+                "\\begin{document}\n\\end{document}\n",
+                encoding="utf-8",
+            )
+            errors = validate_course(uppercase, root)
+            self.assertTrue(any("lowercase kebab-case" in error for error in errors))
+
     def test_component_validation_requires_exact_package_and_example_layout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

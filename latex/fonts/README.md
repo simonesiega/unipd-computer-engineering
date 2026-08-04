@@ -96,13 +96,13 @@ Do not install or reference system-local substitutes, because they can change li
 
 ## Building and validation
 
-From the repository root, compile all documents and verify the bundled fonts with:
+From the repository root, compile all documents in the [canonical Docker environment](../../docs/md/getting-started/docker.md) and verify the bundled fonts with:
 
 ```bash
-python3 latex/tools/build.py --all
+docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going
 ```
 
-A successful validation must not report missing fonts, substituted font families, missing mathematical glyphs, or compilation errors.
+A successful validation must not report missing fonts, substituted font families, missing mathematical glyphs, or compilation errors. Regenerated PDFs must also pass the canonical `--check-generated` check.
 
 ## Changing the font system
 
@@ -112,7 +112,7 @@ When adding, replacing, renaming, or removing a font file:
 2. update [`typography.sty`](../components/typography/typography.sty) or [`mathematics.sty`](../components/mathematics/mathematics.sty);
 3. update the catalogue and directory tree in this README;
 4. compile every component example;
-5. compile the complete demonstration document;
+5. compile both integration examples;
 6. inspect line wrapping, page breaks, captions, code, and mathematics visually;
 7. regenerate all affected PDFs before committing.
 

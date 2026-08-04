@@ -57,6 +57,7 @@ Changed paths are mapped conservatively:
 | File inside `1/<course>/`, `2/<course>/`, or `3/<course>/` | That course |
 | File inside a component's `example/` directory | That component example |
 | File inside `latex/integration/<example>/` | That integration example |
+| `compose.yaml` or `.github/workflows/ci.yml` | Every document |
 | `latex/unipd-notes.cls` | Every document |
 | Component `.sty` file | Every document |
 | Bundled `.otf` or `.ttf` font | Every document |
@@ -88,7 +89,7 @@ The build environment:
 - enables `FORCE_SOURCE_DATE`;
 - sets the timezone to UTC.
 
-These values reduce environment-dependent differences between local and CI builds. Because they also fix TeX's clock, documents must store their publication date explicitly in `main.tex` rather than use `\today`.
+These values reduce environment-dependent differences, but they cannot make different LuaLaTeX or package versions produce identical PDF bytes. Final generated files must therefore be built through the pinned `texlive` service in the root `compose.yaml`, which CI also uses. Because the variables fix TeX's clock, documents must store their publication date explicitly in `main.tex` rather than use `\today`.
 
 After a successful compilation, `main.pdf` and `main.toc` remain under `.build/`. In a normal build, the PDF is copied atomically beside the source `main.tex`.
 
@@ -132,4 +133,4 @@ The build fails when either file is missing or stale.
 
 Without `--keep-going`, the first build error stops execution. With it, failures are collected, printed with their document paths, and returned through a non-zero exit status.
 
-See [Building documents](../getting-started/building-documents.md) for contributor-facing commands and [Validation, Tests, and CI](tool-test-and-ci.md) for automation behavior.
+See [Docker builds](../getting-started/docker.md) for the canonical runtime, [Building documents](../getting-started/building-documents.md) for contributor-facing commands, and [Validation, Tests, and CI](tool-test-and-ci.md) for automation behavior.

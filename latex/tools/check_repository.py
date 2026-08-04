@@ -14,6 +14,7 @@ COMPONENTS_DIRECTORY = "latex/components"
 INTEGRATION_DIRECTORY = "latex/integration"
 INTEGRATION_EXAMPLES = ("english", "italian")
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
+COURSE_DIRECTORY_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MARKDOWN_LINK = re.compile(r"!?\[[^]]*\]\((?:<([^>]+)>|([^\s)]+))")
 
 
@@ -67,6 +68,11 @@ def validate_course(main_file: Path, root: Path) -> list[str]:
             f"{relative}: course entry points must be located at <year>/<course>/main.tex"
         )
         return errors
+
+    if COURSE_DIRECTORY_NAME.fullmatch(relative.parts[1]) is None:
+        errors.append(
+            f"{relative}: course directory names must use lowercase kebab-case"
+        )
 
     content = main_file.read_text(encoding="utf-8", errors="replace")
     if "\\documentclass" not in content:

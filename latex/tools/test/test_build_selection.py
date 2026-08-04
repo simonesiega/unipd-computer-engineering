@@ -52,6 +52,8 @@ class BuildSelectionTests(unittest.TestCase):
 
     def test_shared_changes_select_every_document(self) -> None:
         shared_paths = (
+            Path("compose.yaml"),
+            Path(".github/workflows/ci.yml"),
             Path("latex/tools/build.py"),
             Path("latex/unipd-notes.cls"),
             Path("latex/components/code/code.sty"),

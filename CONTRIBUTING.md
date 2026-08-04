@@ -72,6 +72,7 @@ Choose the path closest to your change and follow the linked guide.
 | Add a new course | [Creating a course](docs/md/getting-started/creating-a-course.md) |
 | Reorganize a course | [Course structure](docs/md/user-guide/course-structure.md) |
 | Update course or document metadata | [Metadata](docs/md/user-guide/metadata.md) |
+| Set up canonical PDF builds | [Docker builds](docs/md/getting-started/docker.md) |
 | Build and validate documents | [Building documents](docs/md/getting-started/building-documents.md) |
 | Modify the document class | [Document class](docs/md/reference/unipd-notes-class.md) |
 | Modify shared components | [LaTeX components](latex/components/README.md) |
@@ -152,7 +153,7 @@ Do not manually edit content between generated markers:
 <!-- GENERATED:END -->
 ```
 
-When source changes affect a compiled document, include the updated PDF and generated README section in the same pull request.
+When source changes affect a compiled document, include the updated PDF and generated README section in the same pull request. Regenerate committed PDFs through the pinned Docker Compose environment used by CI; native TeX distributions can produce different bytes even when their output is visually identical.
 
 Shared LaTeX, build-tool, font, or CI changes may affect multiple courses and examples. Keep them focused, preserve compatibility, update the relevant documentation, and follow the complete validation workflow.
 
@@ -182,9 +183,9 @@ Security vulnerabilities must not be reported publicly. Submit them through [Git
 
 ## Validation
 
-Before opening a pull request, follow [Building documents](docs/md/getting-started/building-documents.md) and complete the applicable items in the review checklist below.
+Before opening a pull request, follow [Docker builds](docs/md/getting-started/docker.md) and [Building documents](docs/md/getting-started/building-documents.md), then complete the applicable items in the review checklist below.
 
-CI compiles only documents affected by a commit. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, or build tool compile the complete archive because they may affect every document. Manually dispatched CI runs also compile the complete archive.
+CI compiles only documents affected by a commit. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, canonical Compose environment, CI build workflow, or build tool compile the complete archive because they may affect every document. Manually dispatched CI runs also compile the complete archive.
 
 ## Pull requests
 
@@ -247,9 +248,9 @@ Before opening a pull request, confirm that:
 - [ ] sources, attribution, and third-party licenses are documented;
 - [ ] the course language, terminology, notation, and structure are consistent;
 - [ ] source files follow the documented repository conventions;
-- [ ] affected documents compile successfully;
+- [ ] affected documents compile successfully in the canonical Docker environment;
 - [ ] affected PDFs have been reviewed visually;
-- [ ] generated PDFs and README sections are current;
+- [ ] generated PDFs and README sections pass the canonical `--check-generated` check;
 - [ ] the relevant validation checks pass;
 - [ ] the pull-request description explains the change and validation;
 - [ ] covered-exam status changes only after maintainer approval.

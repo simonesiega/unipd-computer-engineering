@@ -89,7 +89,7 @@ Choose the directory corresponding to your degree year:
 | Second year | [`2/`](2/) |
 | Third year | [`3/`](3/) |
 
-Inside each course directory, open or download `main.pdf` to access the latest compiled notes. The LaTeX sources and supporting files are available alongside the PDF. Per-course changelogs under [`CHANGELOG/`](CHANGELOG/) record every committed file change, grouped by date and linked to the corresponding commit.
+Inside each course directory, open or download `main.pdf` to access the latest compiled notes. The LaTeX sources and supporting files are available alongside the PDF. Weekly generated changelogs under [`CHANGELOG/`](CHANGELOG/) record committed course-file changes, grouped by date and linked to the corresponding commit.
 
 ## Exams covered
 
@@ -110,15 +110,15 @@ Current covered exams:
 
 ## Quick start
 
-Clone the repository, then build a course by passing its directory to the build script. Replace `1/course-name` with the course path you want to build.
+Clone the repository, then build a course in the pinned TeX Live environment used by CI. Replace `1/course-name` with the course path you want to build.
 
 ```bash
 git clone https://github.com/simonesiega/unipd-computer-engineering.git
 cd unipd-computer-engineering
-python3 latex/tools/build.py 1/course-name
+docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
 ```
 
-Building requires Python, `latexmk`, and LuaLaTeX. See the [installation guide](docs/md/getting-started/installation.md) for setup instructions and [building documents](docs/md/getting-started/building-documents.md) for the complete workflow.
+The canonical build requires Docker Compose. Native TeX installations remain useful for previews, but PDFs to be committed must be regenerated in the pinned container. See [Installation](docs/md/getting-started/installation.md) for prerequisites, [Docker builds](docs/md/getting-started/docker.md) for container setup and troubleshooting, and [Building documents](docs/md/getting-started/building-documents.md) for build options.
 
 ## Documentation
 
@@ -126,7 +126,7 @@ The [documentation hub](docs/md/README.md) is the main reference for using, buil
 
 | Area | Guides |
 |---|---|
-| Getting started | [Installation](docs/md/getting-started/installation.md) · [Creating a course](docs/md/getting-started/creating-a-course.md) · [Building documents](docs/md/getting-started/building-documents.md) |
+| Getting started | [Installation](docs/md/getting-started/installation.md) · [Docker builds](docs/md/getting-started/docker.md) · [Creating a course](docs/md/getting-started/creating-a-course.md) · [Building documents](docs/md/getting-started/building-documents.md) |
 | Writing notes | [Course structure](docs/md/user-guide/course-structure.md) · [Writing notes](docs/md/user-guide/writing-notes.md) · [Metadata](docs/md/user-guide/metadata.md) |
 | LaTeX reference | [Document class](docs/md/reference/unipd-notes-class.md) · [Components](latex/components/README.md) · [Fonts](latex/fonts/README.md) |
 | Repository internals | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) |
