@@ -1,8 +1,6 @@
-name: LaTeX CI
+name: Pull request validation
 
 on:
-  push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -55,15 +53,18 @@ jobs:
       - name: Collect changed files
         id: changes
         shell: bash
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || '' }}
         run: |
-          BASE="${{ github.event.pull_request.base.sha || github.event.before }}"
+          set -euo pipefail
           mkdir -p .build
           if [ -z "$BASE" ] \
             || [ "$BASE" = "0000000000000000000000000000000000000000" ] \
             || ! git cat-file -e "${BASE}^{commit}" 2>/dev/null; then
             echo "mode=all" >> "$GITHUB_OUTPUT"
           else
-            git diff --name-only --diff-filter=ACMRD "$BASE" HEAD -- > .build/changed-files.txt
+            git diff --name-only --diff-filter=ACMRD "$BASE" HEAD -- \
+              > .build/changed-files.txt
             echo "mode=changed" >> "$GITHUB_OUTPUT"
           fi
 
@@ -73,6 +74,7 @@ jobs:
       - name: Build affected documents
         shell: bash
         run: |
+          set -euo pipefail
           if [ "${{ steps.changes.outputs.mode }}" = "all" ]; then
             docker compose run --rm --no-deps texlive \
               python3 latex/tools/build.py --all --keep-going --check-generated
@@ -96,7 +98,7 @@ jobs:
           retention-days: 7
           include-hidden-files: true
 
-      - name: Upload compiled PDFs
+      - name: Upload compiled PDFs for review
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: latex-pdfs-${{ github.sha }}

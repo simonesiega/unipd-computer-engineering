@@ -1,0 +1,267 @@
+name: Publish compiled notes
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Immutable snapshot tag (for example, 2026-2027-semester-1)
+        required: true
+        type: string
+      release_title:
+        description: Snapshot release title
+        required: true
+        type: string
+      release_description:
+        description: Optional Markdown placed before the generated notes index
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-release-publication
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    name: Validate release request
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Reject an existing or unsafe snapshot identifier
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          RELEASE_TITLE: ${{ inputs.release_title }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$RELEASE_TAG" =~ ^[0-9A-Za-z][0-9A-Za-z._-]*$ ]]; then
+            echo "Snapshot tags must use letters, digits, dots, underscores, or hyphens." >&2
+            exit 1
+          fi
+          if [ "$RELEASE_TAG" = "notes-latest" ]; then
+            echo "notes-latest is reserved for the rolling release." >&2
+            exit 1
+          fi
+          if [ -z "${RELEASE_TITLE//[[:space:]]/}" ]; then
+            echo "Snapshot release title must not be empty." >&2
+            exit 1
+          fi
+          if gh release view "$RELEASE_TAG" --repo "$REPOSITORY" >/dev/null 2>&1; then
+            echo "Snapshot release already exists and will not be overwritten: $RELEASE_TAG" >&2
+            exit 1
+          fi
+          if gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Snapshot tag already exists and will not be overwritten: $RELEASE_TAG" >&2
+            exit 1
+          fi
+
+  quality:
+    name: Quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+
+      - name: Install pre-commit
+        run: >
+          python -m pip install
+          --disable-pip-version-check
+          -r .github/requirements-ci.txt
+
+      - name: Run all checks
+        run: pre-commit run --all-files --show-diff-on-failure
+
+  package:
+    name: Compile and package complete archive
+    needs: [preflight, quality]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+
+      - name: Pull canonical TeX Live image
+        run: docker compose pull texlive
+
+      - name: Build every document
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker compose run --rm --no-deps texlive \
+            python3 latex/tools/build.py --all --keep-going --check-generated
+
+      - name: Upload LaTeX logs after a failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: release-latex-logs-${{ github.sha }}
+          path: |
+            .build/**/*.log
+            .build/**/*.blg
+          if-no-files-found: warn
+          retention-days: 7
+          include-hidden-files: true
+
+      - name: Package release assets
+        shell: bash
+        env:
+          RELEASE_DESCRIPTION: ${{ inputs.release_description || '' }}
+          RELEASE_TITLE: ${{ github.event_name == 'push' && 'Latest compiled notes' || inputs.release_title }}
+        run: |
+          set -euo pipefail
+          mkdir -p .build
+          printf '%s' "$RELEASE_DESCRIPTION" > .build/release-description.md
+          RELEASE_TIMESTAMP="$(git show -s --format=%cI "$GITHUB_SHA")"
+          python3 latex/tools/package_notes.py \
+            --source-commit "$GITHUB_SHA" \
+            --release-timestamp "$RELEASE_TIMESTAMP" \
+            --release-title "$RELEASE_TITLE" \
+            --description-file .build/release-description.md
+
+      - name: Validate packaged release
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool .build/release/manifest.json >/dev/null
+          test -s .build/release/RELEASE_NOTES.md
+          (cd .build/release && sha256sum --check SHA256SUMS.txt)
+          find .build/release -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort
+
+      - name: Transfer release package to publisher
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: notes-release-${{ github.sha }}
+          path: .build/release/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+          include-hidden-files: true
+
+  publish:
+    name: Publish GitHub Release
+    needs: package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download validated release package
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: notes-release-${{ github.sha }}
+          path: .build/release
+
+      - name: Publish rolling release or immutable snapshot
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SNAPSHOT_TAG: ${{ inputs.release_tag || '' }}
+          SNAPSHOT_TITLE: ${{ inputs.release_title || '' }}
+        run: |
+          set -euo pipefail
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            TAG="notes-latest"
+            TITLE="Latest compiled notes"
+            MAKE_LATEST="true"
+            LATEST_MAIN="$(gh api "repos/$REPOSITORY/commits/main" --jq .sha)"
+            if [ "$LATEST_MAIN" != "$GITHUB_SHA" ]; then
+              echo "A newer main commit exists; this older run will not move notes-latest."
+              exit 0
+            fi
+          else
+            TAG="$SNAPSHOT_TAG"
+            TITLE="$SNAPSHOT_TITLE"
+            MAKE_LATEST="false"
+            if gh release view "$TAG" --repo "$REPOSITORY" >/dev/null 2>&1 \
+              || gh api "repos/$REPOSITORY/git/ref/tags/$TAG" >/dev/null 2>&1; then
+              echo "Snapshot tag or release already exists; refusing to overwrite: $TAG" >&2
+              exit 1
+            fi
+          fi
+
+          NOTES_FILE=".build/release/RELEASE_NOTES.md"
+          if [ "$EVENT_NAME" = "push" ] \
+            && gh release view "$TAG" --repo "$REPOSITORY" >/dev/null 2>&1; then
+            RELEASE_ID="$(gh api "repos/$REPOSITORY/releases/tags/$TAG" --jq .id)"
+            gh api --method PATCH "repos/$REPOSITORY/releases/$RELEASE_ID" \
+              -F draft=true \
+              -f body="Publication in progress for $GITHUB_SHA."
+          else
+            RELEASE_ID="$(
+              gh api --method POST "repos/$REPOSITORY/releases" \
+                -f tag_name="$TAG" \
+                -f target_commitish="$GITHUB_SHA" \
+                -f name="$TITLE" \
+                -f body="Publication in progress for $GITHUB_SHA." \
+                -F draft=true \
+                -F prerelease=false \
+                --jq .id
+            )"
+          fi
+
+          declare -A expected_assets=()
+          while IFS= read -r -d '' asset; do
+            name="$(basename "$asset")"
+            expected_assets["$name"]=1
+            gh release upload "$TAG" "$asset" --clobber --repo "$REPOSITORY"
+          done < <(find .build/release -maxdepth 1 -type f -print0 | LC_ALL=C sort -z)
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            while IFS=$'\t' read -r asset_id asset_name; do
+              if [ -z "${expected_assets[$asset_name]+present}" ]; then
+                echo "Deleting stale rolling-release asset: $asset_name"
+                gh api --method DELETE \
+                  "repos/$REPOSITORY/releases/assets/$asset_id"
+              fi
+            done < <(
+              gh api --paginate "repos/$REPOSITORY/releases/$RELEASE_ID/assets" \
+                --jq '.[] | [.id, .name] | @tsv'
+            )
+
+            if gh api "repos/$REPOSITORY/git/ref/tags/$TAG" >/dev/null 2>&1; then
+              gh api --method PATCH "repos/$REPOSITORY/git/refs/tags/$TAG" \
+                -f sha="$GITHUB_SHA" -F force=true >/dev/null
+            else
+              gh api --method POST "repos/$REPOSITORY/git/refs" \
+                -f ref="refs/tags/$TAG" -f sha="$GITHUB_SHA" >/dev/null
+            fi
+          fi
+
+          gh api --method PATCH "repos/$REPOSITORY/releases/$RELEASE_ID" \
+            -F draft=false \
+            -F prerelease=false \
+            -f make_latest="$MAKE_LATEST" \
+            -f name="$TITLE" \
+            -f body="$(cat "$NOTES_FILE")" >/dev/null
+
+          echo "Published $TAG from $GITHUB_SHA with ${#expected_assets[@]} assets."

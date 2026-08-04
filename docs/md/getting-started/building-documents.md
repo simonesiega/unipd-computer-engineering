@@ -2,13 +2,11 @@
 
 [← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md)
 
-This guide covers local compilation, generated files, and the checks to run before contributing. Install the required tools first by following the [installation guide](installation.md).
-
-Run every command from the repository root.
+This guide covers local compilation, generated files, and checks before contributing. Run commands from the repository root after following [Installation](installation.md).
 
 ## Build documents
 
-Use the canonical Docker Compose environment for PDFs that will be committed. It uses the same pinned TeX Live image as CI on every platform. Initial setup, platform notes, and troubleshooting are documented in [Docker builds](docker.md).
+Use the canonical Docker Compose environment. It matches CI and release builds across platforms.
 
 | Task | Command |
 |---|---|
@@ -18,9 +16,7 @@ Use the canonical Docker Compose environment for PDFs that will be committed. It
 | Build multiple targets | `docker compose run --rm texlive python3 latex/tools/build.py 1/course-a 1/course-b` |
 | Build all documents | `docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going` |
 
-Replace the example paths with the directories or `main.tex` files you want to build.
-
-For a course or integration project, a successful build publishes `main.pdf` and refreshes the generated section of its localized `README.md`. Component examples publish only their `main.pdf`. Temporary files are stored under `.build/`.
+Replace example paths as needed. Every output is available under `.build/<document>/main.pdf`. A course build does not create or update `<year>/<course>/main.pdf`; generated course PDFs are ignored and must not be committed. It does refresh the generated course README section with a link to the rolling release. Component and integration examples keep their tracked PDFs beside their sources.
 
 Do not manually edit content between:
 
@@ -29,63 +25,71 @@ Do not manually edit content between:
 <!-- GENERATED:END -->
 ```
 
-A native TeX installation may be used for quick previews. Replace `docker compose run --rm texlive python3` with `python3` on Linux or macOS, or `py` on Windows. Native TeX output is not guaranteed to match CI byte for byte; regenerate files to be committed with Docker Compose.
+A native TeX installation may be used for quick previews by replacing the Docker prefix with `python3` on Linux/macOS or `py` on Windows. Release and CI output always uses the pinned Docker image.
 
 ## Build changed documents
 
-Build only documents affected by changes since another Git revision:
+Build only documents affected since another revision:
 
 ```bash
-docker compose run --rm texlive python3 latex/tools/build.py --changed-from origin/main --keep-going
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --changed-from origin/main --keep-going
 ```
 
-Course-local changes build that course, and component-example changes build that example. Changes to shared LaTeX, the canonical environment, the CI build workflow, or the build tool build all documents. Documentation-only changes do not compile a document.
+Course-local changes select that course. Component-example and integration changes select their document. Shared LaTeX, fonts, the canonical environment, build workflow, or build tool select every document. Documentation-only changes generally select none. Push publication intentionally ignores this optimization and builds the complete archive.
 
 ## Validate changes
 
-Check repository structure and source conventions:
+Run repository and Git-index checks:
 
 | Platform | Command |
 |---|---|
 | Linux or macOS | `python3 latex/tools/check_repository.py` |
 | Windows PowerShell | `py latex/tools/check_repository.py` |
 
-The validation checks course, component, and complete integration-project structure, UTF-8 source files, tabs, trailing whitespace, and unresolved merge-conflict markers.
+The validator checks source/layout conventions, Markdown links, and whether a generated course PDF was accidentally tracked.
 
-Verify in the canonical environment that every committed PDF and generated course or integration README is current:
+Verify all tracked generated fixtures and README sections in the canonical environment:
 
 ```bash
-docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going --check-generated
+docker compose run --rm --no-deps texlive \
+  python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
-`--check-generated` builds under `.build/` and fails when committed generated files are missing or stale without replacing them. PDF comparison is byte for byte, which is why this check and final PDF regeneration must use the pinned container.
+`--check-generated` compiles under `.build/`. It compares tracked component/integration PDFs and generated README content, but correctly does not expect a committed course PDF. Always inspect affected course PDFs from `.build/` visually. Pull-request reviewers can instead use the temporary `latex-pdfs-<commit-sha>` GitHub Actions artifact, retained for approximately 14 days.
+
+If a generated course PDF was forced into Git, remove it only from the index:
+
+```bash
+git rm --cached -- <year>/<course>/main.pdf
+```
+
+Do not rewrite history for normal contribution cleanup.
 
 ## Complete build command reference
 
-Exactly one selection mode must be provided: explicit `TARGET` values, `--all`, `--changed-from`, or `--changed-file-list`.
+Exactly one selection mode is required: explicit `TARGET` values, `--all`, `--changed-from`, or `--changed-file-list`.
 
 | Argument or option | Value | Purpose |
 |---|---|---|
 | `TARGET` | Directory or `main.tex` path | Build one or more explicitly listed documents |
-| `--all` | None | Discover and build every course, component example, and integration project |
-| `--changed-from` | Git revision | Build documents affected by changes from the revision to `HEAD` |
-| `--changed-to` | Git revision | Change the end revision used with `--changed-from`; defaults to `HEAD` |
-| `--changed-file-list` | File path | Build documents affected by repository-relative paths read from a file |
-| `--no-compile` | None | Reuse an existing PDF and `.toc` data instead of running LaTeX; fail before README generation if the `.toc` is unavailable |
-| `--no-readme` | None | Do not create or update generated README content |
-| `--clean` | None | Remove `.build/` after a successful run |
-| `--keep-going` | None | Process every selected document and report all failures at the end |
-| `--check-generated` | None | Compare built PDFs and README content with committed generated files |
-| `-h`, `--help` | None | Print the command reference and exit |
+| `--all` | None | Discover and build every document |
+| `--changed-from` | Git revision | Build documents affected from that revision to `HEAD` |
+| `--changed-to` | Git revision | Change the end revision used with `--changed-from` |
+| `--changed-file-list` | File path | Read repository-relative changed paths from a file |
+| `--no-compile` | None | Reuse existing PDF and `.toc` data, normally from `.build/` |
+| `--no-readme` | None | Do not update generated README content |
+| `--clean` | None | Remove `.build/` after success |
+| `--keep-going` | None | Process all selected targets and report failures together |
+| `--check-generated` | None | Compare tracked generated fixtures and README content |
+| `-h`, `--help` | None | Print the command reference |
 
-`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. When using `--no-compile`, the build requires an existing `.toc` file to update a README; use `--no-readme` to reuse only the PDF. `--changed-to` applies only to `--changed-from`.
+`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. `--changed-to` applies only to `--changed-from`.
 
-Display the built-in reference with:
+Display built-in help with:
 
 ```bash
 docker compose run --rm texlive python3 latex/tools/build.py --help
 ```
 
-Always review affected PDFs visually before opening a pull request.
-
-For automated checks and affected-document selection in GitHub Actions, see [Validation, Tests, and CI](../development/tool-test-and-ci.md).
+Release packaging and publication are maintainer/CI responsibilities described in [Validation, Tests, and CI](../development/tool-test-and-ci.md). Contributors do not stage `.build/release/` or generated course PDFs.

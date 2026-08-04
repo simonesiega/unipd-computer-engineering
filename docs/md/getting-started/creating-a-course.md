@@ -96,6 +96,6 @@ Run the canonical build from the repository root, replacing `1/course-name` with
 docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
 ```
 
-A successful build publishes `main.pdf` and creates or updates the generated section of the course `README.md`. Do not manually edit content between the generated markers.
+A successful build writes the PDF to `.build/1/course-name/main.pdf` and creates or updates the generated section of the course `README.md`. Do not manually edit content between the generated markers, and do not copy or commit the generated PDF under the course directory.
 
-Review the PDF visually, then continue with [Building documents](building-documents.md) for validation and generated-file checks.
+Review the `.build/` PDF visually, then continue with [Building documents](building-documents.md) for validation and generated-file checks. Pull-request reviewers may use the temporary CI PDF artifact; successful `main` builds publish course PDFs through the rolling `notes-latest` release.

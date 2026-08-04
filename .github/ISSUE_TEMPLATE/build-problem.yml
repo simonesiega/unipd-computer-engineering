@@ -16,6 +16,7 @@ body:
         - Repository validation
         - Generated files
         - GitHub Actions / CI
+        - Release packaging or publishing
         - Installation or dependencies
         - Other
     validations:
@@ -26,7 +27,7 @@ body:
     attributes:
       label: Build target or workflow
       description: Name the course path, component example, command, or workflow job that fails.
-      placeholder: e.g. 1/course-name or LaTeX CI / Compile affected documents
+      placeholder: e.g. 1/course-name or Publish compiled notes / Package release assets
     validations:
       required: true
 

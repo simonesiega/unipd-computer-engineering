@@ -17,6 +17,10 @@ START_MARKER = "<!-- GENERATED:START -->"
 END_MARKER = "<!-- GENERATED:END -->"
 DOCUMENT_ROOTS = ("1", "2", "3", "latex/components", "latex/integration")
 SOURCE_DATE_EPOCH = "1785542400"
+LATEST_NOTES_DOWNLOAD_URL = (
+    "https://github.com/simonesiega/unipd-computer-engineering/"
+    "releases/download/notes-latest"
+)
 LEVEL_DEPTH = {
     "part": 0,
     "chapter": 0,
@@ -96,7 +100,10 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
         # tool are shared by all documents, so changes require a complete build.
         shared_latex = (
             path == Path("compose.yaml")
-            or path == Path(".github/workflows/ci.yml")
+            or path in {
+                Path(".github/workflows/ci.yml"),
+                Path(".github/workflows/publish-notes.yml"),
+            }
             or path == Path("latex/unipd-notes.cls")
             or path == Path("latex/tools/build.py")
             or (
@@ -296,12 +303,14 @@ def document_language(document: Path) -> str:
 
 
 def render_generated_markdown(
-    entries: list[TocEntry], language: str = "italian"
+    entries: list[TocEntry],
+    language: str = "italian",
+    pdf_target: str = "main.pdf",
 ) -> str:
     """Render table-of-contents entries as localized README Markdown."""
     labels = README_LABELS[language]
     lines = [
-        f"[{labels['pdf']}](main.pdf)",
+        f"[{labels['pdf']}]({pdf_target})",
         "",
         f"## {labels['contents']}",
     ]
@@ -313,6 +322,27 @@ def render_generated_markdown(
             page = f" — {labels['page']} {entry.page}" if entry.page else ""
             lines.append(f"{indentation}- {entry.title}{page}")
     return "\n".join(lines)
+
+
+def is_course_document(root: Path, document: Path) -> bool:
+    """Return whether a document is a direct course entry point."""
+    relative = document.relative_to(root)
+    return (
+        len(relative.parts) == 3
+        and relative.parts[0] in {"1", "2", "3"}
+        and relative.name == "main.tex"
+    )
+
+
+def course_release_pdf_target(root: Path, document: Path) -> str:
+    """Return the rolling-release asset URL for a course document."""
+    relative = document.relative_to(root)
+    if not is_course_document(root, document):
+        return "main.pdf"
+    return (
+        f"{LATEST_NOTES_DOWNLOAD_URL}/"
+        f"{relative.parts[0]}-{relative.parts[1]}.pdf"
+    )
 
 
 def is_component_example(root: Path, document: Path) -> bool:
@@ -364,12 +394,55 @@ def update_readme(directory: Path, generated_markdown: str) -> None:
         temporary_readme.unlink(missing_ok=True)
 
 
-def generated_file_error(generated: Path, committed: Path) -> str | None:
-    """Return an error when a generated file differs from its committed file."""
-    if not committed.is_file():
-        return f"Generated file is not committed: {committed}"
-    if generated.read_bytes() != committed.read_bytes():
-        return f"Generated file is stale: {committed}"
+def generated_file_error(generated: Path, tracked: Path) -> str | None:
+    """Return an error when generated content differs from its tracked fixture."""
+    if not tracked.is_file():
+        return f"Generated fixture is not tracked: {tracked}"
+    if generated.read_bytes() != tracked.read_bytes():
+        return f"Generated fixture is stale: {tracked}"
+    return None
+
+
+def reusable_outputs(
+    root: Path, document: Path, course_document: bool
+) -> tuple[Path, Path]:
+    """Locate PDF and TOC outputs for a no-compile operation."""
+    output_directory = build_directory(root, document)
+    pdf_file = output_directory / "main.pdf"
+    if not pdf_file.is_file() and not course_document:
+        pdf_file = document.parent / "main.pdf"
+
+    toc_file = output_directory / "main.toc"
+    if not toc_file.is_file():
+        local_toc = document.parent / "main.toc"
+        if local_toc.is_file():
+            toc_file = local_toc
+    return pdf_file, toc_file
+
+
+def document_outputs(
+    root: Path,
+    document: Path,
+    compile_enabled: bool,
+    check_generated: bool,
+    course_document: bool,
+) -> tuple[Path, Path]:
+    """Compile a document or locate outputs that may be safely reused."""
+    if not compile_enabled:
+        return reusable_outputs(root, document, course_document)
+    return compile_document(
+        root,
+        document,
+        publish=not check_generated and not course_document,
+    )
+
+
+def generated_readme_error(directory: Path, markdown: str) -> str | None:
+    """Return an error when generated README content is missing or stale."""
+    expected = generated_readme_content(directory, markdown)
+    readme = directory / "README.md"
+    if not readme.is_file() or readme.read_text(encoding="utf-8") != expected:
+        return f"Generated README content is stale: {readme}"
     return None
 
 
@@ -384,20 +457,17 @@ def process_document(
     relative = document.relative_to(root)
     print(f"==> {relative}", flush=True)
 
-    if compile_enabled:
-        pdf_file, toc_file = compile_document(
-            root, document, publish=not check_generated
-        )
-    else:
-        pdf_file = document.parent / "main.pdf"
-        toc_file = build_directory(root, document) / "main.toc"
-        if not toc_file.is_file():
-            local_toc = document.parent / "main.toc"
-            if local_toc.is_file():
-                toc_file = local_toc
+    course_document = is_course_document(root, document)
+    pdf_file, toc_file = document_outputs(
+        root,
+        document,
+        compile_enabled,
+        check_generated,
+        course_document,
+    )
 
     generated_errors: list[str] = []
-    if check_generated:
+    if check_generated and not course_document:
         pdf_error = generated_file_error(pdf_file, document.parent / "main.pdf")
         if pdf_error:
             generated_errors.append(pdf_error)
@@ -412,17 +482,15 @@ def process_document(
                     f"{toc_file}. Build the document first or use --no-readme."
                 )
             entries = parse_toc(toc_file)
-            markdown = render_generated_markdown(entries, document_language(document))
+            markdown = render_generated_markdown(
+                entries,
+                document_language(document),
+                course_release_pdf_target(root, document),
+            )
             if check_generated:
-                expected_readme = generated_readme_content(document.parent, markdown)
-                committed_readme = document.parent / "README.md"
-                if (
-                    not committed_readme.is_file()
-                    or committed_readme.read_text(encoding="utf-8") != expected_readme
-                ):
-                    generated_errors.append(
-                        f"Generated README content is stale: {committed_readme}"
-                    )
+                readme_error = generated_readme_error(document.parent, markdown)
+                if readme_error:
+                    generated_errors.append(readme_error)
             else:
                 update_readme(document.parent, markdown)
 
@@ -482,16 +550,13 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--check-generated",
         action="store_true",
-        help="Build in .build and fail if committed PDFs or READMEs are stale",
+        help="Build in .build and fail if tracked generated outputs are stale",
     )
     return parser.parse_args()
 
 
-def main() -> int:
-    """Select and process requested documents."""
-    arguments = parse_arguments()
-    root = repository_root()
-
+def validate_arguments(arguments: argparse.Namespace) -> None:
+    """Validate option combinations after command-line parsing."""
     if arguments.check_generated and arguments.no_compile:
         raise ValueError("--check-generated cannot be combined with --no-compile")
     if arguments.check_generated and arguments.no_readme:
@@ -511,27 +576,35 @@ def main() -> int:
             "or --changed-file-list"
         )
 
+
+def select_documents(
+    root: Path, arguments: argparse.Namespace
+) -> list[Path] | None:
+    """Select requested documents, returning None for a valid changed-file no-op."""
     if arguments.all:
-        documents = discover_documents(root)
-    elif arguments.changed_from or arguments.changed_file_list:
-        if arguments.changed_from:
-            paths = changed_files(root, arguments.changed_from, arguments.changed_to)
-        else:
-            paths = read_changed_files(root, arguments.changed_file_list)
-        documents = affected_documents(root, paths)
-        if not documents:
-            print("No changed files affect a LaTeX document.", flush=True)
-            return 0
-        print(
-            f"Selected {len(documents)} affected document(s) "
-            f"from {len(paths)} changed file(s)."
-        )
+        return discover_documents(root)
+    if not (arguments.changed_from or arguments.changed_file_list):
+        return [resolve_document(root, value) for value in arguments.targets]
+
+    if arguments.changed_from:
+        paths = changed_files(root, arguments.changed_from, arguments.changed_to)
     else:
-        documents = [resolve_document(root, value) for value in arguments.targets]
-
+        paths = read_changed_files(root, arguments.changed_file_list)
+    documents = affected_documents(root, paths)
     if not documents:
-        raise RuntimeError("No main.tex files were discovered")
+        print("No changed files affect a LaTeX document.", flush=True)
+        return None
+    print(
+        f"Selected {len(documents)} affected document(s) "
+        f"from {len(paths)} changed file(s)."
+    )
+    return documents
 
+
+def process_documents(
+    root: Path, documents: list[Path], arguments: argparse.Namespace
+) -> list[tuple[Path, Exception]]:
+    """Process selected documents and collect failures in keep-going mode."""
     failures: list[tuple[Path, Exception]] = []
     for document in documents:
         try:
@@ -550,18 +623,37 @@ def main() -> int:
         ) as caught_error:
             if not arguments.keep_going:
                 raise
-            failures.append((document.relative_to(root), caught_error))
-            print(
-                f"error: {document.relative_to(root)}: {caught_error}",
-                file=sys.stderr,
-            )
+            relative = document.relative_to(root)
+            failures.append((relative, caught_error))
+            print(f"error: {relative}: {caught_error}", file=sys.stderr)
+    return failures
 
+
+def report_failures(
+    failures: list[tuple[Path, Exception]], document_count: int
+) -> None:
+    """Print one summary for collected document failures."""
+    print(
+        f"Failed {len(failures)} of {document_count} document(s):", file=sys.stderr
+    )
+    for document, failure in failures:
+        print(f"  - {document}: {failure}", file=sys.stderr)
+
+
+def main() -> int:
+    """Select and process requested documents."""
+    arguments = parse_arguments()
+    validate_arguments(arguments)
+    root = repository_root()
+    documents = select_documents(root, arguments)
+    if documents is None:
+        return 0
+    if not documents:
+        raise RuntimeError("No main.tex files were discovered")
+
+    failures = process_documents(root, documents, arguments)
     if failures:
-        print(
-            f"Failed {len(failures)} of {len(documents)} document(s):", file=sys.stderr
-        )
-        for document, failure in failures:
-            print(f"  - {document}: {failure}", file=sys.stderr)
+        report_failures(failures, len(documents))
         return 1
     if arguments.clean:
         shutil.rmtree(root / ".build", ignore_errors=True)

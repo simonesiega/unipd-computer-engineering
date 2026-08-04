@@ -1,3 +1,8 @@
+# Generated course PDFs are build/release outputs, never source-owned files.
+/1/**/main.pdf
+/2/**/main.pdf
+/3/**/main.pdf
+
 # Repository build output and tool caches
 /.build/
 /.ruff_cache/
@@ -14,7 +19,7 @@
 /venv/
 
 # LaTeX artifacts produced by compiling any source file outside the build tool.
-# Source .tex files and published .pdf files remain tracked.
+# Source .tex files and non-course reference/example PDFs may remain tracked.
 *.acn
 *.acr
 *.alg

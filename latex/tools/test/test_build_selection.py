@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from build import (
     TocEntry,
     affected_documents,
+    course_release_pdf_target,
     discover_documents,
     document_language,
     generated_file_error,
@@ -54,6 +55,7 @@ class BuildSelectionTests(unittest.TestCase):
         shared_paths = (
             Path("compose.yaml"),
             Path(".github/workflows/ci.yml"),
+            Path(".github/workflows/publish-notes.yml"),
             Path("latex/tools/build.py"),
             Path("latex/unipd-notes.cls"),
             Path("latex/components/code/code.sty"),
@@ -149,7 +151,7 @@ class BuildSelectionTests(unittest.TestCase):
             missing_error = generated_file_error(generated, committed)
             self.assertIsNotNone(missing_error)
             assert missing_error is not None
-            self.assertIn("not committed", missing_error)
+            self.assertIn("not tracked", missing_error)
             committed.write_bytes(b"stale")
             stale_error = generated_file_error(generated, committed)
             self.assertIsNotNone(stale_error)
@@ -202,7 +204,9 @@ class BuildSelectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             document = self.create_document(root, "1/course")
-            (document.parent / "main.pdf").write_bytes(b"pdf")
+            built_pdf = root / ".build/1/course/main.pdf"
+            built_pdf.parent.mkdir(parents=True)
+            built_pdf.write_bytes(b"pdf")
             readme = document.parent / "README.md"
             original = (
                 "# Course\n\n<!-- GENERATED:START -->\n"
@@ -220,6 +224,37 @@ class BuildSelectionTests(unittest.TestCase):
                 )
 
             self.assertEqual(readme.read_text(encoding="utf-8"), original)
+
+    def test_course_readme_links_to_rolling_release_asset(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            document = self.create_document(root, "2/algorithms-and-data-structures")
+            built = root / ".build/2/algorithms-and-data-structures"
+            built.mkdir(parents=True)
+            (built / "main.pdf").write_bytes(b"pdf")
+            (built / "main.toc").write_text(
+                "\\contentsline {chapter}{Introduction}{1}{chapter.1}%\n",
+                encoding="utf-8",
+            )
+
+            process_document(
+                root,
+                document,
+                compile_enabled=False,
+                readme_enabled=True,
+                check_generated=False,
+            )
+
+            target = course_release_pdf_target(root, document)
+            self.assertEqual(
+                target,
+                "https://github.com/simonesiega/unipd-computer-engineering/"
+                "releases/download/notes-latest/"
+                "2-algorithms-and-data-structures.pdf",
+            )
+            readme = (document.parent / "README.md").read_text(encoding="utf-8")
+            self.assertIn(f"]({target})", readme)
+            self.assertFalse((document.parent / "main.pdf").exists())
 
     def test_integration_change_selects_its_document(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

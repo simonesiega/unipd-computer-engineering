@@ -2,7 +2,7 @@
 
 [← Documentation](../README.md) · [Docker builds](docker.md) · [Building documents](building-documents.md)
 
-You do not need to install the project to read the notes. Open the compiled `main.pdf` inside a course directory.
+You do not need to install the project to read the notes. Download the latest compiled notes from the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release; semester snapshots are available as immutable releases.
 
 This guide covers the tools and repository setup required to build the notes locally. See [Docker builds](docker.md) for the complete canonical-container workflow and [Building documents](building-documents.md) for build selection and validation options.
 
@@ -52,7 +52,7 @@ A successful build publishes `main.pdf` inside the example directory and stores 
 
 ## Optional native TeX installation
 
-A native installation can be useful for quick editor previews, but it is not the canonical environment for generated PDFs. Different LuaLaTeX or package versions can produce different PDF bytes even when the pages look identical. Before committing a generated `main.pdf`, rebuild it with the Docker Compose environment above.
+A native installation can be useful for quick editor previews, but it is not the canonical environment for generated PDFs. Different LuaLaTeX or package versions can produce different PDF bytes even when the pages look identical. Use the Docker Compose environment for final review, CI-equivalent checks, tracked example regeneration, and release builds. Generated course PDFs must not be committed.
 
 Native builds require Python 3.10+, LuaLaTeX, `latexmk`, and Biber when a bibliography is present. Install them through a TeX distribution:
 

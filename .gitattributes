@@ -1,7 +1,8 @@
 # Keep source and configuration files consistent across operating systems.
 * text=auto eol=lf
 
-# Generated documents and bundled assets are binary.
+# Tracked example/reference PDFs and bundled assets are binary.
+# Generated course PDFs are ignored rather than tracked or stored with Git LFS.
 *.pdf binary
 *.png binary
 *.otf binary

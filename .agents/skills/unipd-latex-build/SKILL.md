@@ -52,8 +52,10 @@ Ignore cascading errors until the first meaningful error is understood. Do not h
 
 A course build may update:
 
-- `<year>/<course-name>/main.pdf`;
-- the generated section of its `README.md`.
+- `.build/<year>/<course-name>/main.pdf`;
+- the generated section of `<year>/<course-name>/README.md`.
+
+Course PDFs are ignored release outputs. Never copy them beside course sources, add them with `git add -f`, or stage them. The release packaging tool, not this skill, owns `.build/release/`, asset renaming, manifests, checksums, and release notes.
 
 A component build may update:
 
@@ -72,6 +74,6 @@ docker compose run --rm texlive \
 
 ## Review
 
-Inspect the working tree after building. Confirm generated changes match affected sources, identify unexpected outputs, and preserve pre-existing changes.
+Inspect the working tree after building. Confirm generated changes match affected sources, identify unexpected outputs, preserve pre-existing changes, and verify that no course `main.pdf` is staged or tracked.
 
-Report build scope, commands, successful and failed documents, generated files, and unresolved first errors.
+Report build scope, commands, successful and failed documents, generated files, unavailable Docker or other skipped checks, and unresolved first errors.

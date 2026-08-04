@@ -42,6 +42,8 @@ latex/components/<component>/
 
 Valid year roots are `1/`, `2/`, and `3/`. Course entry points must declare a class and contain a complete document environment.
 
+The validator also uses the Git index to reject tracked generated course PDFs under `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf`. An ignored local PDF is valid; a tracked one must be removed with `git rm --cached -- <path>`. Do not use `git add -f` or rewrite history to bypass this policy.
+
 Source hygiene includes:
 
 - valid UTF-8 for `.tex`, `.sty`, `.cls`, and `.bib`;
@@ -74,4 +76,4 @@ Route specialized problems:
 
 Inspect automatic changes, confirm source normalization did not alter meaning, preserve pre-existing work, and re-run affected checks.
 
-Report commands, passed and failed checks, automatic modifications, fixes, unresolved failures, and required follow-up skills.
+Report commands, passed and failed checks, accidentally tracked generated PDFs, automatic modifications, fixes, unresolved failures, and required follow-up skills.

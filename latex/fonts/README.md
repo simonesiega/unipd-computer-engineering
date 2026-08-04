@@ -114,7 +114,7 @@ When adding, replacing, renaming, or removing a font file:
 4. compile every component example;
 5. compile both integration examples;
 6. inspect line wrapping, page breaks, captions, code, and mathematics visually;
-7. regenerate all affected PDFs before committing.
+7. regenerate and review all affected PDFs, committing only tracked component/integration fixtures and never course PDFs.
 
 Do not change the bundled font set without verifying both textual and mathematical output.
 

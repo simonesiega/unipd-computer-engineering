@@ -10,7 +10,7 @@ This documentation is organized by task. The project README introduces the archi
 
 ## Start here
 
-- **Reading the notes?** Browse the degree-year directories from the [project README](../../README.md#browse-the-notes).
+- **Reading the notes?** Download the latest compiled PDFs from the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release, or browse source directories from the [project README](../../README.md#browse-the-notes).
 - **Setting up the repository?** Start with [Installation](getting-started/installation.md), then use [Docker builds](getting-started/docker.md) for the canonical PDF workflow.
 - **Adding a course?** Follow [Creating a course](getting-started/creating-a-course.md), then read [Writing notes](user-guide/writing-notes.md).
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
@@ -24,7 +24,7 @@ This documentation is organized by task. The project README introduces the archi
 | [Installation](getting-started/installation.md) | Installing the required tools and verifying a local build. |
 | [Docker builds](getting-started/docker.md) | Running canonical builds, verifying generated files, and troubleshooting Docker. |
 | [Creating a course](getting-started/creating-a-course.md) | Adding a new course directory and its initial `main.tex`. |
-| [Building documents](getting-started/building-documents.md) | Compiling notes, refreshing generated files, and validating changes. |
+| [Building documents](getting-started/building-documents.md) | Compiling notes into `.build/`, refreshing generated files, and validating changes. |
 
 ## Writing notes
 
@@ -48,7 +48,7 @@ This documentation is organized by task. The project README introduces the archi
 |---|---|
 | [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
 | [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
-| [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document builds, GitHub Actions, and artifacts. |
+| [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document artifacts, rolling releases, and immutable snapshots. |
 
 ## Project policies
 

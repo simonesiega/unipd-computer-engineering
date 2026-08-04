@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
@@ -56,6 +57,41 @@ def validate_markdown_links(path: Path, root: Path) -> list[str]:
             line = content.count("\n", 0, match.start()) + 1
             relative = path.relative_to(root)
             errors.append(f"{relative}:{line}: broken Markdown link: {target}")
+    return errors
+
+
+def validate_tracked_course_pdfs(root: Path) -> list[str]:
+    """Reject generated course PDFs recorded in the Git index."""
+    result = subprocess.run(
+        ("git", "ls-files", "-z", "--", *YEARS),
+        cwd=root,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        details = result.stderr.decode("utf-8", errors="replace").strip()
+        return [f"Unable to inspect tracked files with Git: {details}"]
+
+    tracked = sorted(
+        Path(value.decode("utf-8", errors="surrogateescape"))
+        for value in result.stdout.split(b"\0")
+        if value
+    )
+    errors: list[str] = []
+    for path in tracked:
+        if (
+            len(path.parts) >= 3
+            and path.parts[0] in YEARS
+            and path.parts[-1] == "main.pdf"
+        ):
+            relative = path.as_posix()
+            errors.append(
+                f"{relative}: generated course PDF is tracked. Compiled course PDFs "
+                "must not be committed; build the PDF locally or download it from "
+                "the notes-latest release. Remove it from the index with: "
+                f"git rm --cached -- {relative}"
+            )
     return errors
 
 
@@ -162,6 +198,8 @@ def main() -> int:
     """Validate repository LaTeX sources and directory layouts."""
     root = repository_root()
     errors: list[str] = []
+
+    errors.extend(validate_tracked_course_pdfs(root))
 
     for year in YEARS:
         year_directory = root / year

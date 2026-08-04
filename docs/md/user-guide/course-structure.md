@@ -11,7 +11,6 @@ To generate this structure automatically, follow the [Creating a course](../gett
 ```text
 <year>/<course-name>/
 ├── main.tex              # required source entry point
-├── main.pdf              # generated and committed
 ├── README.md             # contains a generated contents section
 ├── sections/             # optional course content
 │   └── .gitkeep          # preserves the initially empty directory
@@ -30,8 +29,8 @@ To generate this structure automatically, follow the [Creating a course](../gett
 | `sections/` | Contains substantial chapters or sections included by `main.tex`. |
 | `assets/` | Stores course-specific images, diagrams, data, and supporting files. |
 | `references.bib` | Stores bibliography entries when the course uses external references. |
-| `main.pdf` | Published output produced by the build tool. |
-| `README.md` | Provides course information and an automatically generated contents section. |
+| `.build/<year>/<course-name>/main.pdf` | Ignored local/CI output produced by the build tool; not a course source file. |
+| `README.md` | Provides course information, a rolling-release PDF link, and an automatically generated contents section. |
 
 Keep shared LaTeX behavior outside course directories. Reusable commands, environments, typography, and layout belong in the shared class or components.
 
@@ -66,9 +65,9 @@ Document the source and license of all third-party material. Whenever possible, 
 
 ## Generated files
 
-Builds place temporary files under the repository-level `.build/` directory and publish the final `main.pdf` inside the course directory.
+Builds place compilation files and the final course PDF under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests expose it through a temporary CI artifact, while successful complete `main` builds publish a renamed copy through the rolling GitHub Release.
 
-The build tool creates or updates the generated section of `README.md` from the compiled table of contents. Do not edit content between:
+The build tool creates or updates the generated section of `README.md` from the compiled table of contents and links to the stable rolling-release asset. Do not edit content between:
 
 ```html
 <!-- GENERATED:START -->
@@ -77,6 +76,6 @@ The build tool creates or updates the generated section of `README.md` from the 
 
 Manual course information may be written outside those markers.
 
-Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`. When source changes affect the document, regenerate `main.pdf` and the README section in the [canonical Docker environment](../getting-started/docker.md), then commit them with the same change.
+Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`, and do not commit `<year>/<course>/main.pdf`. When source changes affect the document, rebuild in the [canonical Docker environment](../getting-started/docker.md), visually review `.build/<year>/<course>/main.pdf`, and commit only source-owned files plus generated README content. If a course PDF was accidentally tracked, remove it with `git rm --cached -- <year>/<course>/main.pdf`; normal contributions must not rewrite Git history.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) for build and validation commands.

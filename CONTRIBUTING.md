@@ -101,9 +101,9 @@ Clearly distinguish exercises from solutions, and state when a solution is infor
 
 ## Licensing and attribution
 
-Study notes and academic materials under `1/`, `2/`, and `3/`, including their LaTeX sources and compiled PDFs, are distributed under [CC BY-SA 4.0](LICENSE).
+Study notes and academic materials under `1/`, `2/`, and `3/` are distributed under [CC BY-SA 4.0](LICENSE). Compiled PDFs published through GitHub Releases are generated distributions of those corresponding licensed sources.
 
-The shared LaTeX system, tools, documentation, CI configuration, and other supporting project files are distributed under the [MIT License](LICENSE-MIT).
+The shared LaTeX system, tools, release packaging, documentation, CI configuration, and other supporting project files are distributed under the [MIT License](LICENSE-MIT).
 
 By submitting a contribution, you confirm that:
 
@@ -153,7 +153,15 @@ Do not manually edit content between generated markers:
 <!-- GENERATED:END -->
 ```
 
-When source changes affect a compiled document, include the updated PDF and generated README section in the same pull request. Regenerate committed PDFs through the pinned Docker Compose environment used by CI; native TeX distributions can produce different bytes even when their output is visually identical.
+Edit course-owned LaTeX sources, figures, bibliography files, and README content outside the generated markers. A course build keeps its PDF under `.build/<year>/<course>/main.pdf` and refreshes the generated README section. Generated course PDFs under `1/`, `2/`, and `3/` are ignored build outputs and must not be added to Git. Component and integration example PDFs remain tracked fixtures and are regenerated through the pinned Docker Compose environment when affected.
+
+If a course PDF was accidentally forced into the index, remove it without deleting the local build with:
+
+```bash
+git rm --cached -- <year>/<course>/main.pdf
+```
+
+Do not rewrite repository history during normal contributions. Historical binary cleanup, if ever desired, is a separate disruptive maintainer operation outside this migration.
 
 Shared LaTeX, build-tool, font, or CI changes may affect multiple courses and examples. Keep them focused, preserve compatibility, update the relevant documentation, and follow the complete validation workflow.
 
@@ -185,7 +193,17 @@ Security vulnerabilities must not be reported publicly. Submit them through [Git
 
 Before opening a pull request, follow [Docker builds](docs/md/getting-started/docker.md) and [Building documents](docs/md/getting-started/building-documents.md), then complete the applicable items in the review checklist below.
 
-CI compiles only documents affected by a commit. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, canonical Compose environment, CI build workflow, or build tool compile the complete archive because they may affect every document. Manually dispatched CI runs also compile the complete archive.
+For pull requests, CI compiles only documents affected by the proposed changes when selection is possible. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, canonical Compose environment, CI build workflow, or build tool compile every document because they may have repository-wide impact. Reviewers can download the `latex-pdfs-<commit-sha>` workflow artifact from the pull-request run; it is retained for approximately 14 days. Failed compilation logs are uploaded separately when available.
+
+Pushes to `main` run all quality checks, compile the complete archive, package course PDFs as `<degree-year>-<course-slug>.pdf`, and replace the assets of the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release. Packaging also creates `manifest.json`, `SHA256SUMS.txt`, and `RELEASE_NOTES.md`.
+
+### Maintainer release procedure
+
+The rolling release is automatic after a successful push to `main`; it is titled **Latest compiled notes**, its tag is moved to that `main` commit, and stale assets are removed. Re-running the same commit is idempotent.
+
+For an immutable end-of-semester snapshot, open **Actions → Publish compiled notes → Run workflow**, then provide a new release tag, title, and optional Markdown description. Tags such as `2026-2027-semester-1` are recommended. The workflow compiles and packages the complete archive with the same code as the rolling release and fails if either the requested tag or release already exists. Never reuse or overwrite a snapshot tag.
+
+For packaging failures, inspect the named missing course PDF, duplicate asset name, manifest, or checksum error in **Compile and package complete archive**. For publication failures, inspect the `gh` command output and any draft release left intentionally to prevent partial assets from appearing successful. A failed snapshot draft must be inspected and explicitly deleted before retrying the same tag; published snapshots must never be deleted merely to replace their contents. No repository secret is required because publication uses the workflow token.
 
 ## Pull requests
 
@@ -217,8 +235,8 @@ The pull-request description should:
 - identify the affected course or repository area;
 - cite relevant sources for technical corrections;
 - state which validation steps were completed;
-- include every changed generated file;
-- confirm that affected PDFs were reviewed visually;
+- include generated README changes and any affected tracked example outputs, but no generated course PDF;
+- confirm that affected PDFs were reviewed visually, locally or from the CI artifact;
 - disclose new third-party material and its license or permission.
 
 Draft pull requests are welcome for substantial contributions that would benefit from early feedback.
@@ -250,7 +268,8 @@ Before opening a pull request, confirm that:
 - [ ] source files follow the documented repository conventions;
 - [ ] affected documents compile successfully in the canonical Docker environment;
 - [ ] affected PDFs have been reviewed visually;
-- [ ] generated PDFs and README sections pass the canonical `--check-generated` check;
+- [ ] tracked generated examples and generated README sections pass the canonical `--check-generated` check;
+- [ ] no generated course `main.pdf` is tracked or included in the pull request;
 - [ ] the relevant validation checks pass;
 - [ ] the pull-request description explains the change and validation;
 - [ ] covered-exam status changes only after maintainer approval.

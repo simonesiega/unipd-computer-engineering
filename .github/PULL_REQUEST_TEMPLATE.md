@@ -23,7 +23,8 @@
 
 - [ ] Affected documents compile successfully in the canonical Docker environment.
 - [ ] Affected PDFs were reviewed visually.
-- [ ] Generated PDFs and course or integration README sections pass `--check-generated`.
+- [ ] Tracked example PDFs and course or integration README sections pass `--check-generated`.
+- [ ] Generated course PDFs are not tracked; the PR build artifact is available for review where applicable.
 - [ ] Relevant repository and pre-commit checks pass.
 
 ## Sources, licensing, and integrity

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -15,6 +16,7 @@ from check_repository import (
     validate_integration_examples,
     validate_markdown_links,
     validate_source,
+    validate_tracked_course_pdfs,
 )
 
 
@@ -30,6 +32,44 @@ class RepositoryValidationTests(unittest.TestCase):
             )
 
             self.assertEqual(validate_course(main, root), [])
+
+    def test_source_only_course_has_no_tracked_pdf_error(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            subprocess.run(("git", "init", "--quiet"), cwd=root, check=True)
+            main = root / "1" / "source-only" / "main.tex"
+            main.parent.mkdir(parents=True)
+            main.write_text(
+                "\\documentclass{unipd-notes}\n"
+                "\\begin{document}\\end{document}\n",
+                encoding="utf-8",
+            )
+            subprocess.run(("git", "add", "1/source-only/main.tex"), cwd=root, check=True)
+
+            self.assertEqual(validate_course(main, root), [])
+            self.assertEqual(validate_tracked_course_pdfs(root), [])
+
+    def test_tracked_generated_course_pdf_is_rejected_with_removal_guidance(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            subprocess.run(("git", "init", "--quiet"), cwd=root, check=True)
+            pdf = root / "2" / "algorithms" / "main.pdf"
+            pdf.parent.mkdir(parents=True)
+            pdf.write_bytes(b"pdf")
+            subprocess.run(
+                ("git", "add", "-f", "2/algorithms/main.pdf"), cwd=root, check=True
+            )
+
+            errors = validate_tracked_course_pdfs(root)
+
+            self.assertEqual(len(errors), 1)
+            self.assertIn("2/algorithms/main.pdf", errors[0])
+            self.assertIn("must not be committed", errors[0])
+            self.assertIn("build the PDF locally", errors[0])
+            self.assertIn("notes-latest release", errors[0])
+            self.assertIn(
+                "git rm --cached -- 2/algorithms/main.pdf", errors[0]
+            )
 
     def test_invalid_course_location_and_incomplete_document_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
