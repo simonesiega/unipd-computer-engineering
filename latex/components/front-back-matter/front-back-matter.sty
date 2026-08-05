@@ -38,14 +38,20 @@
 \NewDocumentCommand{\revision}{mmm}{#1 & #2 & #3 \\
 }
 
-\NewDocumentCommand{\printcourselists}{}{%
+\newcommand*{\unipd@printlist@figures}{%
+  \section*{\listfigurename}\@starttoc{lof}\medskip}
+\newcommand*{\unipd@printlist@tables}{%
+  \section*{\listtablename}\@starttoc{lot}\medskip}
+\newcommand*{\unipd@printlist@algorithms}{%
+  \section*{\listalgorithmcfname}\@starttoc{loa}\medskip}
+\newcommand*{\unipd@printlist@listings}{%
+  \section*{\lstlistlistingname}\@starttoc{lol}}
+
+\NewDocumentCommand{\printcourselists}{O{figures,tables,algorithms,listings}}{%
   \clearpage
   \chapter*{\unipdtranslate{document-lists}}%
   \addcontentsline{toc}{chapter}{\unipdtranslate{document-lists}}%
-  \section*{\listfigurename}\@starttoc{lof}\medskip
-  \section*{\listtablename}\@starttoc{lot}\medskip
-  \section*{\listalgorithmcfname}\@starttoc{loa}\medskip
-  \section*{\lstlistlistingname}\@starttoc{lol}%
+  \@for\unipd@list:=#1\do{\csname unipd@printlist@\unipd@list\endcsname}%
 }
 
 \NewDocumentCommand{\makecoursefrontmatter}{}{%

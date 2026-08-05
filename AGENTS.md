@@ -74,8 +74,17 @@ Python tool change:
 1. `unipd-python-tool-development`
 2. `unipd-repository-validation`
 
+Documentation, policy, skill, or agent-instruction change:
+
+1. inspect the authoritative implementation or workflow for every behavioral claim;
+2. preserve generated Markdown regions and legal notices;
+3. run repository validation, including local-link and heading-anchor checks;
+4. skip LaTeX compilation and PDF review unless the documentation change accompanies behavior that affects rendered documents.
+
 A task that changes course sources normally requires rebuilding and visually reviewing the affected `.build/` PDF. Workflow steps may be omitted only when irrelevant; report the reason. Explicitly report unavailable Docker, skipped builds, unavailable artifacts, and PDFs that were not visually reviewed.
 
 ## Completion
+
+Respect explicit file-scope restrictions from the user even when the normal workflow would edit generated outputs; report any resulting verification gap instead of expanding scope without permission.
 
 Report changed, generated, and inspected-only files; skills used; commands run; PDF-review status; failures; skipped checks; and remaining uncertainty.

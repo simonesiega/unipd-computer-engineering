@@ -29,7 +29,7 @@ Prefer semantic LaTeX commands and shared environments over manual formatting. D
 - Use LaTeX for mathematical content instead of screenshots.
 - Verify calculations, examples, edge cases, and final results.
 
-Keep notation stable across definitions, proofs, examples, and exercises.
+Keep notation stable across definitions, proofs, examples, and exercises. Use `\given` and `\suchthat` for ordinary relation-sized vertical bars. Inside a matching `\left` and `\right` construction, use `\givenscaled` or `\suchthatscaled` when the bar should scale with the delimiters.
 
 ## Educational environments
 
@@ -52,6 +52,8 @@ Do not use callout environments merely for decoration.
 ## Code, algorithms, figures, and tables
 
 Use the shared [LaTeX components](../../../latex/components/README.md) and inspect their examples before introducing custom formatting.
+
+Use the `unipdcode` and `unipdterminal` environments for source listings and terminal sessions. The older generic names `code` and `terminal` remain compatibility aliases, but new documents should use the prefixed interfaces.
 
 Code and algorithms should be relevant, readable, and accompanied by enough explanation to understand their purpose. Identify the language or notation when it is not obvious.
 

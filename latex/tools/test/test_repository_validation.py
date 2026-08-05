@@ -7,10 +7,13 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import check_repository as check_repository_module
 from check_repository import (
+    markdown_anchors,
     validate_components,
     validate_course,
     validate_integration_examples,
@@ -21,15 +24,39 @@ from check_repository import (
 
 
 class RepositoryValidationTests(unittest.TestCase):
+    @staticmethod
+    def write_course(
+        root: Path,
+        *,
+        year: str = "1",
+        source: str | None = None,
+        readme: str = "# Course\n\n<!-- GENERATED:START -->\n<!-- GENERATED:END -->\n",
+    ) -> Path:
+        main = root / year / "course" / "main.tex"
+        main.parent.mkdir(parents=True)
+        if source is None:
+            academic_start = 2026 + int(year) - 1
+            source = (
+                "\\documentclass[italian]{unipd-notes}\n"
+                "\\unipdsetup{\n"
+                "  course = {Course},\n"
+                "  author = {Ada Lovelace},\n"
+                f"  academic-year = {{{academic_start}--{academic_start + 1}}},\n"
+                f"  degree-year = {{{year}}},\n"
+                "  semester = {1},\n"
+                "  date = {},\n"
+                "  version = {0.1.0}\n"
+                "}\n"
+                "\\begin{document}\nContent.\n\\end{document}\n"
+            )
+        main.write_text(source, encoding="utf-8")
+        (main.parent / "README.md").write_text(readme, encoding="utf-8")
+        return main
+
     def test_valid_course_entry_point_passes(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            main = root / "1" / "course" / "main.tex"
-            main.parent.mkdir(parents=True)
-            main.write_text(
-                "\\documentclass{unipd-notes}\n\\begin{document}\n\\end{document}\n",
-                encoding="utf-8",
-            )
+            main = self.write_course(root)
 
             self.assertEqual(validate_course(main, root), [])
 
@@ -37,14 +64,8 @@ class RepositoryValidationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             subprocess.run(("git", "init", "--quiet"), cwd=root, check=True)
-            main = root / "1" / "source-only" / "main.tex"
-            main.parent.mkdir(parents=True)
-            main.write_text(
-                "\\documentclass{unipd-notes}\n"
-                "\\begin{document}\\end{document}\n",
-                encoding="utf-8",
-            )
-            subprocess.run(("git", "add", "1/source-only/main.tex"), cwd=root, check=True)
+            main = self.write_course(root)
+            subprocess.run(("git", "add", "1/course/main.tex"), cwd=root, check=True)
 
             self.assertEqual(validate_course(main, root), [])
             self.assertEqual(validate_tracked_course_pdfs(root), [])
@@ -83,7 +104,7 @@ class RepositoryValidationTests(unittest.TestCase):
 
             self.assertTrue(validate_course(nested, root))
             errors = validate_course(invalid, root)
-            self.assertTrue(any("document class" in error for error in errors))
+            self.assertTrue(any("documentclass" in error for error in errors))
             self.assertTrue(any("document environment" in error for error in errors))
 
             uppercase = root / "3" / "Invalid Course" / "main.tex"
@@ -95,6 +116,119 @@ class RepositoryValidationTests(unittest.TestCase):
             )
             errors = validate_course(uppercase, root)
             self.assertTrue(any("lowercase kebab-case" in error for error in errors))
+
+    def test_course_metadata_and_readme_requirements_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            main = self.write_course(
+                root,
+                year="2",
+                source=(
+                    "\\documentclass[italian,english]{unipd-notes}\n"
+                    "\\unipdsetup{\n"
+                    "  course = {},\n"
+                    "  author = {Your Name},\n"
+                    "  academic-year = {2026--2027},\n"
+                    "  degree-year = {1},\n"
+                    "  semester = {3},\n"
+                    "  version = {}\n"
+                    "}\n"
+                    "\\begin{document}\\end{document}\n"
+                ),
+                readme="# Course\n<!-- GENERATED:START -->\n",
+            )
+
+            errors = validate_course(main, root)
+
+            expected_messages = (
+                "exactly one supported language",
+                "must define date",
+                "course metadata must not be empty",
+                "author metadata must be non-empty and not a placeholder",
+                "degree-year must match directory year 2",
+                "semester must be 1 or 2",
+                "academic-year must be 2027--2028",
+                "version metadata must not be empty",
+                "generated README markers",
+            )
+            for message in expected_messages:
+                self.assertTrue(
+                    any(message in error for error in errors),
+                    f"missing validation error containing: {message}",
+                )
+
+    def test_course_requires_readme_setup_and_supported_class(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            main = root / "1" / "course" / "main.tex"
+            main.parent.mkdir(parents=True)
+            main.write_text(
+                "\\documentclass{article}\n"
+                "\\begin{document}Content.\\end{document}\n",
+                encoding="utf-8",
+            )
+
+            errors = validate_course(main, root)
+
+            self.assertTrue(any("using unipd-notes" in error for error in errors))
+            self.assertTrue(any("must declare \\unipdsetup" in error for error in errors))
+            self.assertTrue(any("missing required course README" in error for error in errors))
+
+    def test_repository_main_reports_partial_course_structures(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            (root / "1").write_text("not a directory\n", encoding="utf-8")
+            (root / "2" / "partial-course").mkdir(parents=True)
+            with (
+                patch.object(
+                    check_repository_module, "repository_root", return_value=root
+                ),
+                patch.object(
+                    check_repository_module,
+                    "validate_tracked_course_pdfs",
+                    return_value=[],
+                ),
+                patch.object(
+                    check_repository_module, "validate_components", return_value=[]
+                ),
+                patch.object(
+                    check_repository_module,
+                    "validate_integration_examples",
+                    return_value=[],
+                ),
+                patch("builtins.print") as print_mock,
+            ):
+                self.assertEqual(check_repository_module.main(), 1)
+
+            diagnostics = "\n".join(
+                str(call.args[0]) for call in print_mock.call_args_list if call.args
+            )
+            self.assertIn("expected a course-year directory", diagnostics)
+            self.assertIn("course directory is missing main.tex", diagnostics)
+
+    def test_repository_main_accepts_empty_archive_with_valid_shared_layout(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            with (
+                patch.object(
+                    check_repository_module, "repository_root", return_value=root
+                ),
+                patch.object(
+                    check_repository_module,
+                    "validate_tracked_course_pdfs",
+                    return_value=[],
+                ),
+                patch.object(
+                    check_repository_module, "validate_components", return_value=[]
+                ),
+                patch.object(
+                    check_repository_module,
+                    "validate_integration_examples",
+                    return_value=[],
+                ),
+                patch("builtins.print"),
+            ):
+                self.assertEqual(check_repository_module.main(), 0)
 
     def test_component_validation_requires_exact_package_and_example_layout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -161,20 +295,37 @@ class RepositoryValidationTests(unittest.TestCase):
             root = Path(temporary_directory)
             docs = root / "docs"
             docs.mkdir()
-            (docs / "target.md").write_text("# Target\n", encoding="utf-8")
+            (docs / "target.md").write_text("# Section\n", encoding="utf-8")
             page = docs / "page.md"
             page.write_text(
+                "# Local heading\n"
                 "[Valid](target.md#section)\n"
+                "[Local](#local-heading)\n"
                 "[External](https://example.com)\n"
-                "[Missing](missing.md)\n",
+                "[Missing](missing.md)\n"
+                "[Missing anchor](target.md#renamed)\n",
                 encoding="utf-8",
             )
 
             errors = validate_markdown_links(page, root)
 
-            self.assertEqual(len(errors), 1)
-            self.assertIn("page.md:3", errors[0])
+            self.assertEqual(len(errors), 2)
+            self.assertIn("page.md:5", errors[0])
             self.assertIn("missing.md", errors[0])
+            self.assertIn("page.md:6", errors[1])
+            self.assertIn("broken Markdown anchor", errors[1])
+
+    def test_markdown_anchor_generation_handles_duplicates_and_fences(self) -> None:
+        anchors = markdown_anchors(
+            "# Installation & setup\n"
+            "## Repeated\n"
+            "## Repeated\n"
+            "```markdown\n# Not a heading\n```\n"
+        )
+
+        self.assertEqual(
+            anchors, {"installation--setup", "repeated", "repeated-1"}
+        )
 
     def test_source_hygiene_errors_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

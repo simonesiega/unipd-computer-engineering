@@ -23,7 +23,11 @@ Each component must have one responsibility. Reuse the existing owner of a behav
 - `page-style`: geometry, headers, and footers;
 - `figures-tables`: floats, captions, and tables;
 - `diagrams`: TikZ and CircuitikZ styles;
+- `mathematics`: mathematical notation and shared operators;
+- `code` and `algorithms`: listings, terminal sessions, and pseudocode;
 - `references`: labels, cross-references, and bibliography;
+- `glossary`: terms, acronyms, and glossary printing;
+- `front-back-matter`: prefaces, revision history, pagination transitions, and document lists;
 - `environments`: definitions, results, examples, warnings, exercises, and solutions.
 
 Do not solve a course-specific problem with a repository-wide special case.

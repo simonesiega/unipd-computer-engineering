@@ -57,11 +57,9 @@ A course build may update:
 
 Course PDFs are ignored release outputs. Never copy them beside course sources, add them with `git add -f`, or stage them. The release packaging tool, not this skill, owns `.build/release/`, asset renaming, manifests, checksums, and release notes.
 
-A component build may update:
+A component build may update `latex/components/<component>/example/main.pdf`. An integration build may update `latex/integration/<language>/main.pdf` and its generated README block.
 
-- `latex/components/<component>/example/main.pdf`.
-
-Treat these as build outputs; never repair them manually.
+Treat these as build outputs; never repair them manually. A shared class, component package, font, canonical environment, or build-tool change requires the repository-wide build because every document depends on it.
 
 ## Generated-state verification
 

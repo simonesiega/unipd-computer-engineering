@@ -65,7 +65,7 @@ Document the source and license of all third-party material. Whenever possible, 
 
 ## Generated files
 
-Builds place compilation files and the final course PDF under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests expose it through a temporary CI artifact, while successful complete `main` builds publish a renamed copy through the rolling GitHub Release.
+Builds place compilation files and the final course PDF under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests and pushes to `main` expose affected PDFs through temporary CI artifacts. A maintainer manually refreshes the rolling GitHub Release when the complete archive is ready to publish.
 
 The build tool creates or updates the generated section of `README.md` from the compiled table of contents and links to the stable rolling-release asset. Do not edit content between:
 

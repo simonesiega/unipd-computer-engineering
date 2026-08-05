@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 import tempfile
@@ -11,6 +12,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import package_notes as package_notes_module
 from package_notes import (
     CHECKSUMS_NAME,
     MANIFEST_NAME,
@@ -70,6 +72,27 @@ class NotesPackagingTests(unittest.TestCase):
             self.assertEqual(
                 course_metadata(main), {"course": r"Systems \% Design"}
             )
+
+    def test_packaging_rejects_missing_or_malformed_course_metadata(self) -> None:
+        for source in (
+            "\\documentclass{unipd-notes}\n\\begin{document}\\end{document}\n",
+            "\\unipdsetup{course = {Unclosed}\n",
+            "\\unipdsetup{course = {}}\n",
+        ):
+            with self.subTest(source=source), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                main = self.create_course(root, 1, "malformed", "Temporary")
+                main.write_text(source, encoding="utf-8")
+
+                with self.assertRaisesRegex(
+                    ValueError, "missing or malformed non-empty course metadata"
+                ):
+                    package_release(
+                        root,
+                        root / ".build/release",
+                        self.SOURCE_COMMIT,
+                        self.TIMESTAMP,
+                    )
 
     def test_release_timestamp_must_be_an_iso_datetime_with_offset(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -173,6 +196,33 @@ class NotesPackagingTests(unittest.TestCase):
                 release_notes.index("1-calculus-1.pdf"),
                 release_notes.index("2-zoology.pdf"),
             )
+
+    def test_cli_main_packages_description_and_explicit_release_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            self.create_course(root, 1, "calculus", "Calculus")
+            description = root / "description.md"
+            description.write_text("Reviewed notes.\n", encoding="utf-8")
+            arguments = argparse.Namespace(
+                root=root,
+                source_commit=self.SOURCE_COMMIT,
+                release_timestamp=self.TIMESTAMP,
+                release_title="Semester release",
+                description_file=Path("description.md"),
+            )
+
+            with (
+                patch.object(
+                    package_notes_module, "parse_arguments", return_value=arguments
+                ),
+                patch("builtins.print"),
+            ):
+                self.assertEqual(package_notes_module.main(), 0)
+
+            notes = (root / ".build/release/RELEASE_NOTES.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("Reviewed notes.", notes)
 
     def test_missing_compiled_pdf_fails_without_partial_assets(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

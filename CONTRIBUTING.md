@@ -171,9 +171,9 @@ Shared LaTeX, build-tool, font, or CI changes may affect multiple courses and ex
 
 Adding or improving material does not automatically make an exam covered.
 
-A contributor may propose covered status, but the repository maintainer makes the final decision during pull-request review. Approval depends on whether the intended course topics are represented, no substantial known gaps remain, and the compiled notes have been reviewed.
+A contributor may propose covered status, but only a maintainer's immutable snapshot publication establishes it. Approval depends on whether the intended course topics are represented, no substantial known gaps remain, and the compiled notes have been reviewed. Rolling `notes-latest` publication never establishes covered status.
 
-Update covered-exam counts and tables only after maintainer approval.
+Covered-exam counts and tables are generated from published immutable snapshots. Do not edit them manually.
 
 ## Getting help and reporting problems
 
@@ -197,13 +197,13 @@ Before opening a pull request, follow [Docker builds](docs/md/getting-started/do
 
 For pull requests, CI compiles only documents affected by the proposed changes when selection is possible. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, canonical Compose environment, CI build workflow, or build tool compile every document because they may have repository-wide impact. Reviewers can download the `latex-pdfs-<commit-sha>` workflow artifact from the pull-request run; it is retained for approximately 14 days. Failed compilation logs are uploaded separately when available.
 
-Pushes to `main` run all quality checks, compile the complete archive, package course PDFs as `<degree-year>-<course-slug>.pdf`, and replace the assets of the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release. Packaging also creates `manifest.json`, `SHA256SUMS.txt`, and `RELEASE_NOTES.md`.
+Pushes to `main` run all quality checks and compile only affected documents when selection is possible. They produce temporary review artifacts but do not publish a GitHub Release. Complete publication is intentionally manual so frequent note corrections do not rebuild and replace the entire archive.
 
 ### Maintainer release procedure
 
-The rolling release is automatic after a successful push to `main`; it is titled **Latest compiled notes**, its tag is moved to that `main` commit, and stale assets are removed. Re-running the same commit is idempotent.
+Open **Actions → Publish compiled notes → Run workflow** from the latest `main` commit. Select `rolling` to refresh [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest). The workflow runs all quality checks, compiles the complete archive, packages course PDFs as `<degree-year>-<course-slug>.pdf`, creates `manifest.json`, `SHA256SUMS.txt`, and `RELEASE_NOTES.md`, replaces stale assets, and moves the rolling tag. Re-running the same commit is idempotent.
 
-For an immutable end-of-semester snapshot, open **Actions → Publish compiled notes → Run workflow**, then provide a new release tag and title. For an optional release description, copy the questionnaire-style [`docs/md/release/example.md`](docs/md/release/example.md), answer each prompt, replace every bracketed placeholder, remove sections that do not apply, commit the new `.md` file, and provide its repository-relative path through `release_description_file`. Tags such as `2026-2027-semester-1` are recommended. Publishing the snapshot explicitly approves every included PDF as a covered exam, so do not create it while any included notes are incomplete or unreviewed. The workflow compiles and packages the complete archive, fails if either the requested tag or release already exists, and then regenerates the README coverage and release tables from published GitHub Releases. Never reuse or overwrite a snapshot tag.
+For an immutable end-of-semester snapshot, use the same action, select `snapshot`, then provide a new release tag and title. For an optional release description, copy the questionnaire-style [`docs/md/release/example.md`](docs/md/release/example.md), answer each prompt, replace every bracketed placeholder, remove sections that do not apply, commit the new `.md` file, and provide its repository-relative path through `release_description_file`. Tags such as `2026-2027-semester-1` are recommended. Publishing the snapshot explicitly approves every included PDF as a covered exam, so do not create it while any included notes are incomplete or unreviewed. The workflow compiles and packages the complete archive, fails if either the requested tag or release already exists, and then regenerates the README coverage and release tables from published GitHub Releases. Never reuse or overwrite a snapshot tag.
 
 For packaging failures, inspect the named missing course PDF, duplicate asset name, manifest, or checksum error in **Compile and package complete archive**. For publication failures, inspect the `gh` command output and any draft release left intentionally to prevent partial assets from appearing successful. A failed snapshot draft must be inspected and explicitly deleted before retrying the same tag; published snapshots must never be deleted merely to replace their contents. No repository secret is required because publication uses the workflow token.
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 from coverage import Coverage
 
-MINIMUM_COVERAGE = 60
+MINIMUM_COVERAGE = 80
 
 
 def main() -> int:

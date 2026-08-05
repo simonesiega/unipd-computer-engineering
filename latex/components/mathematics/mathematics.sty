@@ -29,8 +29,10 @@
 \NewDocumentCommand{\mat}{m}{\symbf{#1}}
 \NewDocumentCommand{\set}{m}{\left\{#1\right\}}
 \NewDocumentCommand{\functionmap}{mmm}{#1\colon #2\longrightarrow #3}
-\NewDocumentCommand{\given}{}{\,\middle|\,}
-\NewDocumentCommand{\suchthat}{}{\,\middle|\,}
+\NewDocumentCommand{\given}{}{\mathrel{\vert}}
+\NewDocumentCommand{\suchthat}{}{\mathrel{\vert}}
+\NewDocumentCommand{\givenscaled}{}{\,\middle\vert\,}
+\NewDocumentCommand{\suchthatscaled}{}{\,\middle\vert\,}
 \NewDocumentCommand{\diff}{}{\mathop{}\!\mathrm{d}}
 \NewDocumentCommand{\transpose}{}{^{\mathsf{T}}}
 

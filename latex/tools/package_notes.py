@@ -189,10 +189,15 @@ def discover_courses(root: Path) -> list[Path]:
     return courses
 
 
-def _course_name(main_file: Path, fallback_slug: str) -> str:
-    """Return a readable canonical course name when metadata is available."""
+def _course_name(main_file: Path, _fallback_slug: str) -> str:
+    """Return the required canonical course name from unipdsetup metadata."""
     name = course_metadata(main_file).get("course", "").strip()
-    return name or fallback_slug.replace("-", " ").title()
+    if not name:
+        raise ValueError(
+            f"{main_file}: missing or malformed non-empty course metadata in "
+            "\\unipdsetup"
+        )
+    return name
 
 
 def _manifest(

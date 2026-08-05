@@ -17,7 +17,7 @@ description: Develop, fix, review, and test Python tools under latex/tools/ and 
 
 Use only the Python standard library unless a migration is explicitly requested. Prefer `unittest`, `tempfile`, `pathlib`, `subprocess`, and `unittest.mock`.
 
-Do not introduce pytest, third-party fixtures, coverage libraries, property testing, or snapshot dependencies.
+Do not introduce pytest, third-party fixtures, coverage imports in test code, property testing, or snapshot dependencies. The existing `run_tool_tests.py` runner is the sole Coverage.py integration.
 
 Place tests under `latex/tools/test/`, use `test_*.py`, and add tests to the file that owns the behavior. Create a new file only for a separate responsibility.
 
@@ -60,11 +60,19 @@ Focused file:
 python3 latex/tools/test/test_<name>.py
 ```
 
-Complete suite:
+Complete suite without coverage:
 
 ```bash
 python3 -m unittest discover -s latex/tools/test -p 'test_*.py'
 ```
+
+CI-equivalent branch coverage, after installing the pinned Coverage.py dependency through pre-commit or an isolated environment:
+
+```bash
+python3 latex/tools/run_tool_tests.py
+```
+
+The coverage runner enforces the repository's 80% aggregate minimum. Add tests for meaningful behavior and failure paths rather than targeting the percentage mechanically.
 
 Use the available Python launcher on the current platform.
 

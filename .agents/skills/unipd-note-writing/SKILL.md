@@ -62,6 +62,7 @@ Never present an unverified derivation as correct.
 
 ## Code and algorithms
 
+- Use `unipdcode` and `unipdterminal` for new listings and terminal sessions; retain the generic compatibility aliases only in older material that is outside the requested scope.
 - Identify the language or notation when unclear.
 - Explain purpose, inputs, outputs, assumptions, and limitations.
 - Verify syntax, logic, pseudocode, invariants, and complexity when relevant.

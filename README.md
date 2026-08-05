@@ -129,6 +129,8 @@ cd unipd-computer-engineering
 docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
 ```
 
+For daily work, the equivalent shortcut is `make build COURSE=1/course-name`; run `make help` to list the other thin wrappers.
+
 The course PDF remains under `.build/<year>/<course>/main.pdf` for local review; generated course PDFs must not be committed. The canonical build requires Docker Compose. Native TeX installations remain useful for previews, but release and CI builds use the pinned container. See [Installation](docs/md/getting-started/installation.md) for prerequisites, [Docker builds](docs/md/getting-started/docker.md) for container setup and troubleshooting, and [Building documents](docs/md/getting-started/building-documents.md) for build options.
 
 ## Documentation

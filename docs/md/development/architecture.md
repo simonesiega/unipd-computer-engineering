@@ -22,8 +22,8 @@ Component/integration tests ─┘
  .build/<document>/main.pdf + logs + TOC
               │
               ├─> generated README validation
-              ├─> pull request: temporary review artifact (about 14 days)
-              └─> main/snapshot: package_notes.py
+              ├─> pull request/main: temporary review artifact (about 14 days)
+              └─> manual rolling/snapshot: package_notes.py
                                │
                                v
                     .build/release/
@@ -47,7 +47,7 @@ Repository validation runs separately from compilation. Pre-commit executes stru
 | Build-owned files | `.build/<document>/` | Local or CI compilation output; ignored and disposable |
 | Release staging | `.build/release/` | Cleaned and owned exclusively by `package_notes.py`; never committed |
 | Temporary CI artifacts | Pull-request PDF bundles and failure logs | Review/diagnostic downloads retained for a limited period |
-| Rolling release assets | GitHub Release tagged `notes-latest` | Latest complete successful `main` build; assets are replaced as one publication operation |
+| Rolling release assets | GitHub Release tagged `notes-latest` | Latest complete manually published `main` build; assets are replaced as one publication operation |
 | Immutable snapshot assets | Maintainer-selected GitHub Release tags | Stable end-of-semester distributions; never overwritten |
 
 Generated course PDFs matching `1/**/main.pdf`, `2/**/main.pdf`, and `3/**/main.pdf` are ignored. Git-aware repository validation rejects one if it is forced into the index. Source PDFs or third-party reference PDFs may still be tracked when licensing permits, so PDF files are not ignored globally and Git LFS is not used.
@@ -82,24 +82,24 @@ The build system also treats each `latex/components/<component>/example/main.tex
 
 For each selected document, `build.py` resolves `main.tex`, recreates a mirrored output directory under `.build/`, compiles with `latexmk` and LuaLaTeX in the pinned environment, and reads `main.toc`. Course PDFs remain only under `.build/`; their generated README link points to the stable rolling-release asset. Component and integration PDFs remain tracked compatibility fixtures and are published beside their sources when built normally.
 
-For pull requests, changed paths are mapped to affected documents. Shared dependency changes select every document. Built PDFs under `.build/` are uploaded as a temporary review artifact, while failures upload available LaTeX logs. Pull-request code receives no write token and cannot publish a release.
+For pull requests and pushes to `main`, changed paths are mapped to affected documents. Shared dependency changes select every document. Built PDFs under `.build/` are uploaded as a temporary review artifact, while failures upload available LaTeX logs. Validation receives no write token and cannot publish a release.
 
-For every push to `main`, `publish-notes.yml` runs all quality checks and compiles every document. `package_notes.py` then discovers all direct course sources, requires the corresponding `.build/<year>/<course>/main.pdf`, derives names from canonical year and course directory identity, rejects invalid paths and collisions, and recreates `.build/release/`. It emits a sorted manifest, Markdown index, and checksums using the source commit timestamp supplied by the workflow.
+A manual rolling or snapshot publication runs all quality checks and compiles every document. `package_notes.py` then discovers all direct course sources, requires the corresponding `.build/<year>/<course>/main.pdf`, derives names from canonical year and course directory identity, rejects invalid paths and collisions, and recreates `.build/release/`. It emits a sorted manifest, Markdown index, and checksums using the source commit timestamp supplied by the workflow.
 
-The publisher temporarily drafts the rolling release while replacing assets, removes assets no longer present, moves `notes-latest` to the successfully packaged `main` commit, and republishes it with the title **Latest compiled notes**. Drafting prevents a partial update from appearing successful. Repeated runs for the same commit replace rather than duplicate assets. The stable public URL is:
+For a manually requested rolling publication, the publisher requires the latest `main` commit, temporarily drafts the release while replacing assets, removes assets no longer present, moves `notes-latest` to the successfully packaged commit, and republishes it with the title **Latest compiled notes**. Drafting prevents a partial update from appearing successful. Repeated runs for the same commit replace rather than duplicate assets. The stable public URL is:
 
 <https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest>
 
-A manual dispatch uses the same complete build and package. It requires a unique tag and title, accepts an optional committed Markdown description file based on [`docs/md/release/example.md`](../release/example.md), records the source commit in generated metadata and release notes, and creates a draft before uploading. Existing snapshot tags or releases are rejected and are never overwritten. Publishing an immutable snapshot is the maintainer's explicit approval that every included PDF represents a covered exam.
+A snapshot dispatch uses the same complete build and package. It requires a unique tag and title, accepts an optional committed Markdown description file based on [`docs/md/release/example.md`](../release/example.md), records the source commit in generated metadata and release notes, and creates a draft before uploading. Existing snapshot tags or releases are rejected and are never overwritten. Publishing an immutable snapshot is the maintainer's explicit approval that every included PDF represents a covered exam.
 
-After any rolling or snapshot publication, `update_release_catalog.py` reads all published releases through the GitHub API. It excludes drafts, treats unique PDFs from immutable snapshots as covered exams, and regenerates the README counts, covered-course table, and release inventory. The workflow commits only `README.md` with `[skip ci]`, retries when `main` advances, and moves `notes-latest` to the resulting catalogue-only commit so the rolling tag still identifies current `main`. The immutable snapshot tag remains fixed at the source commit used to build its assets.
+After any rolling or snapshot publication, `update_release_catalog.py` reads all published releases through the GitHub API. It excludes drafts, lists the rolling release without counting it as coverage, treats unique PDFs from immutable snapshots as covered exams, and regenerates the README counts, covered-course table, and release inventory. The workflow commits only `README.md` with `[skip ci]`, retries when `main` advances, and moves `notes-latest` to the resulting catalogue-only commit so the rolling tag still identifies current `main`. The immutable snapshot tag remains fixed at the source commit used to build its assets.
 
 ## Change boundaries
 
 | Change | Expected build impact |
 |---|---|
-| File inside one course | That course in pull requests; every document on `main` publication |
-| File inside one component example | That example in pull requests |
+| File inside one course | That course in pull requests and `main` validation; every document on manual publication |
+| File inside one component example | That example in pull requests and `main` validation |
 | Shared class or component package | Every document |
 | Bundled font | Every document |
 | Canonical build environment or build workflow | Every document |

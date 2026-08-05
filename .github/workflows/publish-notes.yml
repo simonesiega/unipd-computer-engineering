@@ -1,17 +1,23 @@
 name: Publish compiled notes
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
     inputs:
-      release_tag:
-        description: Immutable snapshot tag (for example, 2026-2027-semester-1)
+      release_kind:
+        description: Publication type
         required: true
+        default: rolling
+        type: choice
+        options:
+          - rolling
+          - snapshot
+      release_tag:
+        description: Snapshot tag (required for snapshots, for example 2026-2027-semester-1)
+        required: false
         type: string
       release_title:
-        description: Snapshot release title
-        required: true
+        description: Snapshot title (required for snapshots)
+        required: false
         type: string
       release_description_file:
         description: Optional repository-relative Markdown description file
@@ -32,16 +38,24 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Reject an existing or unsafe snapshot identifier
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+      - name: Validate publication request
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_KIND: ${{ inputs.release_kind }}
           RELEASE_TAG: ${{ inputs.release_tag }}
           RELEASE_TITLE: ${{ inputs.release_title }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          if [ "$RELEASE_KIND" = "rolling" ]; then
+            LATEST_MAIN="$(gh api "repos/$REPOSITORY/commits/main" --jq .sha)"
+            if [ "$LATEST_MAIN" != "$GITHUB_SHA" ]; then
+              echo "Rolling publication must be dispatched from the latest main commit." >&2
+              exit 1
+            fi
+            exit 0
+          fi
           if [[ ! "$RELEASE_TAG" =~ ^[0-9A-Za-z][0-9A-Za-z._-]*$ ]]; then
             echo "Snapshot tags must use letters, digits, dots, underscores, or hyphens." >&2
             exit 1
@@ -168,7 +182,7 @@ jobs:
       - name: Package release assets
         shell: bash
         env:
-          RELEASE_TITLE: ${{ github.event_name == 'push' && 'Latest compiled notes' || inputs.release_title }}
+          RELEASE_TITLE: ${{ inputs.release_kind == 'rolling' && 'Latest compiled notes' || inputs.release_title }}
         run: |
           set -euo pipefail
           RELEASE_TIMESTAMP="$(git show -s --format=%cI "$GITHUB_SHA")"
@@ -228,21 +242,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
-          EVENT_NAME: ${{ github.event_name }}
+          RELEASE_KIND: ${{ inputs.release_kind }}
           SNAPSHOT_TAG: ${{ inputs.release_tag || '' }}
           SNAPSHOT_TITLE: ${{ inputs.release_title || '' }}
         run: |
           set -euo pipefail
 
-          if [ "$EVENT_NAME" = "push" ]; then
+          if [ "$RELEASE_KIND" = "rolling" ]; then
             TAG="notes-latest"
             TITLE="Latest compiled notes"
             MAKE_LATEST="true"
-            LATEST_MAIN="$(gh api "repos/$REPOSITORY/commits/main" --jq .sha)"
-            if [ "$LATEST_MAIN" != "$GITHUB_SHA" ]; then
-              echo "A newer main commit exists; this older run will not move notes-latest."
-              exit 0
-            fi
           else
             TAG="$SNAPSHOT_TAG"
             TITLE="$SNAPSHOT_TITLE"
@@ -255,7 +264,7 @@ jobs:
           fi
 
           NOTES_FILE=".build/release/RELEASE_NOTES.md"
-          if [ "$EVENT_NAME" = "push" ] \
+          if [ "$RELEASE_KIND" = "rolling" ] \
             && gh release view "$TAG" --repo "$REPOSITORY" >/dev/null 2>&1; then
             RELEASE_ID="$(gh api "repos/$REPOSITORY/releases/tags/$TAG" --jq .id)"
             gh api --method PATCH "repos/$REPOSITORY/releases/$RELEASE_ID" \
@@ -281,7 +290,7 @@ jobs:
             gh release upload "$TAG" "$asset" --clobber --repo "$REPOSITORY"
           done < <(find .build/release -maxdepth 1 -type f -print0 | LC_ALL=C sort -z)
 
-          if [ "$EVENT_NAME" = "push" ]; then
+          if [ "$RELEASE_KIND" = "rolling" ]; then
             while IFS=$'\t' read -r asset_id asset_name; do
               if [ -z "${expected_assets[$asset_name]+present}" ]; then
                 echo "Deleting stale rolling-release asset: $asset_name"

@@ -11,7 +11,7 @@
 
 Il \cref{lst:python-sum} implementa il checksum a otto bit usato per verificare l'integrità di un frame.
 
-\begin{code}[language=Python,caption={Calcolo del checksum di un frame},label={lst:python-sum}]
+\begin{unipdcode}[language=Python,caption={Calcolo del checksum di un frame},label={lst:python-sum}]
 def checksum(frame: bytes) -> int:
     # Compatibile con città, “déjà vu”, niño, Größe e œuf — senza conversioni.
     # Il complemento limita il risultato a otto bit.
@@ -19,22 +19,22 @@ def checksum(frame: bytes) -> int:
 
 payload = bytes([0x31, 0x7A, 0x04])
 print(f"Checksum: 0x{checksum(payload):02X}")
-\end{code}
+\end{unipdcode}
 
 L'esecuzione produce il byte di controllo in notazione esadecimale.
 
-\begin{terminal}[caption={Compilazione ed esecuzione},label={lst:terminal-run}]
+\begin{unipdterminal}[caption={Compilazione ed esecuzione},label={lst:terminal-run}]
 $ python3 checksum.py
 Checksum: 0x51
-\end{terminal}
+\end{unipdterminal}
 
 Il risultato è riportato nel \cref{lst:terminal-run}.
 
-\begin{code}[language=JavaScript,caption={Verifica di una coda non vuota},label={lst:javascript-check}]
+\begin{unipdcode}[language=JavaScript,caption={Verifica di una coda non vuota},label={lst:javascript-check}]
 export function canConsume(items) {
   return items > 0;
 }
-\end{code}
+\end{unipdcode}
 
 Il \cref{lst:javascript-check} verifica anche la definizione condivisa del linguaggio JavaScript.
 \end{document}

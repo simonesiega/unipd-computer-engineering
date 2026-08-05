@@ -109,7 +109,7 @@ The illustrative benchmark below assumes a fixed workload of one million message
   \end{tabularx}
 \end{table}
 
-\begin{code}[language=Python,caption={A checked insertion operation},label={lst:insert}]
+\begin{unipdcode}[language=Python,caption={A checked insertion operation},label={lst:insert}]
 def insert(queue, item):
     with queue.mutex:
         if queue.count == queue.capacity:
@@ -117,13 +117,13 @@ def insert(queue, item):
         queue.data[queue.tail] = item
         queue.tail = (queue.tail + 1) % queue.capacity
         queue.count += 1
-\end{code}
+\end{unipdcode}
 
 \chapter{Scheduling and verification}
 
 A blocking insertion first reserves one free position and then acquires the mutex. Reversing these operations can deadlock: a producer may hold the mutex while waiting for a consumer that needs the same mutex to remove an item. The removal operation used by the test harness is shown in \cref{lst:remove}.
 
-\begin{code}[language=Python,caption={A checked removal operation},label={lst:remove}]
+\begin{unipdcode}[language=Python,caption={A checked removal operation},label={lst:remove}]
 def remove(queue):
     with queue.mutex:
         if queue.count == 0:
@@ -132,7 +132,7 @@ def remove(queue):
         queue.head = (queue.head + 1) % queue.capacity
         queue.count -= 1
         return item
-\end{code}
+\end{unipdcode}
 
 The checks in \cref{lst:insert,lst:remove} turn invariant violations into immediate failures during testing. Production code normally waits on a semaphore, but assertions around the internal counter still detect incorrect signaling and accidental unlocked access. \Cref{alg:insert} uses the safe acquisition order.
 

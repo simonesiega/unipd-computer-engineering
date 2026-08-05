@@ -1,7 +1,9 @@
-name: Pull request validation
+name: Change validation
 
 on:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -54,7 +56,7 @@ jobs:
         id: changes
         shell: bash
         env:
-          BASE: ${{ github.event.pull_request.base.sha || '' }}
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before || '' }}
         run: |
           set -euo pipefail
           mkdir -p .build

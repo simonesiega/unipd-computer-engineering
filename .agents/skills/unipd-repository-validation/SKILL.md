@@ -40,9 +40,11 @@ latex/components/<component>/
     └── main.pdf
 ```
 
-Valid year roots are `1/`, `2/`, and `3/`. Course entry points must declare a class and contain a complete document environment.
+Valid year roots are `1/`, `2/`, and `3/`. A course requires a direct kebab-case directory, `main.tex`, and `README.md` with one ordered generated-marker pair. Its entry point must select exactly one supported language on `unipd-notes`, contain a complete document environment, and define canonical `\unipdsetup` metadata. Required values include a non-empty course and version, a non-placeholder author, semester `1` or `2`, a degree year matching the directory, a cohort-consistent academic year, and an explicit date key that may be empty.
 
 The validator also uses the Git index to reject tracked generated course PDFs under `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf`. An ignored local PDF is valid; a tracked one must be removed with `git rm --cached -- <path>`. Do not use `git add -f` or rewrite history to bypass this policy.
+
+Markdown validation checks that repository-relative targets exist and that fragments identify GitHub-style ATX heading anchors. Headings inside fenced code blocks do not create anchors.
 
 Source hygiene includes:
 

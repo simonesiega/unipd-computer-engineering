@@ -58,7 +58,7 @@ Exactly one selection mode is required:
 | `latex/tools/build.py` or its shared LaTeX-source parser | Every document |
 | Unrelated documentation or policy file | None |
 
-Push publication does not use this reduced selection: it always passes `--all` so the release is a complete archive.
+Manual rolling and snapshot publication do not use this reduced selection: both pass `--all` so every published release is a complete archive.
 
 ## Compilation
 
@@ -141,10 +141,11 @@ The tool:
 5. derives `<year>-<course-slug>.pdf` without spaces or path traversal;
 6. rejects duplicate names rather than overwrite them;
 7. copies PDF bytes without changing canonical build output;
-8. sorts courses by degree year, course name, and asset filename;
-9. writes `manifest.json`, `RELEASE_NOTES.md`, and `SHA256SUMS.txt`.
+8. requires a non-empty canonical `course` value from a parseable `\unipdsetup` block;
+9. sorts courses by degree year, course name, and asset filename;
+10. writes `manifest.json`, `RELEASE_NOTES.md`, and `SHA256SUMS.txt`.
 
-The manifest records course metadata where available, source directory, size, SHA-256, source commit, and injected release timestamp. The timestamp must be an ISO-8601 date-time with a UTC offset, such as `2026-08-04T12:00:00+00:00` or the equivalent `Z` form. Supplying the commit timestamp makes repeated packaging of the same source deterministic. An empty source archive succeeds with an empty manifest and explanatory release index. A course source with no compiled PDF fails clearly.
+The manifest records the required canonical course name, source directory, size, SHA-256, source commit, and injected release timestamp. The timestamp must be an ISO-8601 date-time with a UTC offset, such as `2026-08-04T12:00:00+00:00` or the equivalent `Z` form. Supplying the commit timestamp makes repeated packaging of the same source deterministic. An empty source archive succeeds with an empty manifest and explanatory release index. A course source with no compiled PDF fails clearly.
 
 Release staging is ignored and tool-owned. Workflows publish exactly those staged files; they do not duplicate naming, manifest, or checksum logic in shell.
 

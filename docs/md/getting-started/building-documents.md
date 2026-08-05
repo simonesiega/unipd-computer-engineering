@@ -4,6 +4,28 @@
 
 This guide covers local compilation, generated files, and checks before contributing. Run commands from the repository root after following [Installation](installation.md).
 
+## Daily command shortcuts
+
+A small root [`Makefile`](../../../Makefile) wraps the canonical tools for routine work:
+
+| Task | Command |
+|---|---|
+| Build one course | `make build COURSE=1/calculus-1` |
+| Build every document | `make all` |
+| Run all pre-commit checks | `make check` |
+| Remove `.build/` | `make clean` |
+| List shortcuts | `make help` |
+
+Create a course with `make course` and the same required metadata accepted by `create_course.py`:
+
+```bash
+make course YEAR=1 COURSE="Calculus 1" SHORT="Calculus" \
+  PROFESSOR="Name" SEMESTER=1 AUTHOR="Ada Lovelace" \
+  DATE=2026-08-06 LANGUAGE=english
+```
+
+These targets are intentionally thin wrappers. They require GNU Make in addition to the tools used by the wrapped command; Windows users may use Make through Git Bash, WSL, or another compatible installation. The commands below remain the canonical interfaces for advanced options, platforms without Make, and troubleshooting. `make check` also requires the development dependencies installed during repository setup.
+
 ## Build documents
 
 Use the canonical Docker Compose environment. It matches CI and release builds across platforms.
@@ -36,7 +58,7 @@ docker compose run --rm texlive \
   python3 latex/tools/build.py --changed-from origin/main --keep-going
 ```
 
-Course-local changes select that course. Component-example and integration changes select their document. Shared LaTeX, fonts, the canonical environment, build workflow, or build tool select every document. Documentation-only changes generally select none. Push publication intentionally ignores this optimization and builds the complete archive.
+Course-local changes select that course. Component-example and integration changes select their document. Shared LaTeX, fonts, the canonical environment, build workflow, or build tool select every document. Documentation-only changes generally select none. A manually requested rolling or snapshot publication intentionally ignores this optimization and builds the complete archive.
 
 ## Validate changes
 
@@ -47,7 +69,7 @@ Run repository and Git-index checks:
 | Linux or macOS | `python3 latex/tools/check_repository.py` |
 | Windows PowerShell | `py latex/tools/check_repository.py` |
 
-The validator checks source/layout conventions, Markdown links, and whether a generated course PDF was accidentally tracked.
+The validator checks course metadata and layout, component and integration structure, Markdown targets and heading anchors, source hygiene, and whether a generated course PDF was accidentally tracked.
 
 Verify all tracked generated fixtures and README sections in the canonical environment:
 

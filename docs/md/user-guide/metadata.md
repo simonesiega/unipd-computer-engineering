@@ -19,7 +19,7 @@ Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{docu
   degree-year = {1},
   semester = {1},
   document-type = {Appunti delle lezioni},
-  author = {Your Name},
+  author = {Ada Lovelace},
   date = {3 agosto 2026},
   version = {0.1.0}
 }
@@ -36,15 +36,17 @@ Use the official course title and accurate information for the specific edition 
 | `professor` | Instructor for the documented course edition |
 | `academic-year` | Academic year in `YYYY--YYYY` form |
 | `degree-year` | Degree year: `1`, `2`, or `3` |
-| `semester` | Semester or teaching period |
+| `semester` | Semester `1` or `2` |
 | `document-type` | Type of material, such as `Appunti delle lezioni` or `Lecture notes` |
 | `author` | Author or authors of the notes |
 | `date` | Explicit publication date stored in the document source |
 | `version` | Revision identifier, starting from `0.1.0` for new notes |
 
-Set `author` explicitly. Its shared default is the repository maintainer and would incorrectly attribute notes created by another contributor.
+Set `author` explicitly. Its shared default is empty to prevent accidental attribution; the cover omits the author field when it is empty. Repository validation rejects empty or placeholder authors in course documents.
 
-`short-course`, `professor`, `semester`, and `version` may be omitted when they are unknown or not applicable. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. It has no automatic default because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
+Repository course validation requires `course`, `academic-year`, `degree-year`, `semester`, `author`, `date`, and `version`. The course name and version must be non-empty; the author must also be non-placeholder. The degree year must match the parent directory, and the academic year must match the repository cohort (`2026--2027`, `2027--2028`, or `2028--2029`).
+
+`short-course`, `professor`, and `document-type` may be omitted when they are unknown or not applicable. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 

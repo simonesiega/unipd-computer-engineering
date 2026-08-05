@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from latex_source import strip_comments
+
 YEARS = ("1", "2", "3")
 SOURCE_SUFFIXES = (".tex", ".sty", ".cls", ".bib")
 COMPONENTS_DIRECTORY = "latex/components"
@@ -16,7 +18,20 @@ INTEGRATION_DIRECTORY = "latex/integration"
 INTEGRATION_EXAMPLES = ("english", "italian")
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
 COURSE_DIRECTORY_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+COURSE_CLASS = re.compile(
+    r"\\documentclass\s*\[([^]]*)\]\s*\{unipd-notes\}"
+)
+COURSE_SETUP = re.compile(r"\\unipdsetup\s*\{(.*?)\}\s*\\begin\{document\}", re.DOTALL)
+METADATA_VALUE = re.compile(r"(?m)^\s*([a-z-]+)\s*=\s*\{([^{}]*)\}\s*,?\s*$")
+ACADEMIC_YEAR = re.compile(r"^(\d{4})--(\d{4})$")
+SUPPORTED_LANGUAGES = {"italian", "english"}
+DEGREE_COHORT_START_YEAR = 2026
+PLACEHOLDER_AUTHORS = {"author", "nome cognome", "todo", "tbd", "your name"}
+README_START_MARKER = "<!-- GENERATED:START -->"
+README_END_MARKER = "<!-- GENERATED:END -->"
 MARKDOWN_LINK = re.compile(r"!?\[[^]]*\]\((?:<([^>]+)>|([^\s)]+))")
+MARKDOWN_HEADING = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$")
+MARKDOWN_ANCHOR_PUNCTUATION = re.compile(r"[^\w\- ]", re.UNICODE)
 
 
 def repository_root() -> Path:
@@ -48,20 +63,56 @@ def validate_source(path: Path, root: Path) -> list[str]:
     return errors
 
 
+def markdown_anchors(content: str) -> set[str]:
+    """Return GitHub-style anchors for ATX headings outside fenced code blocks."""
+    anchors: set[str] = set()
+    occurrences: dict[str, int] = {}
+    in_fence = False
+    fence_marker = ""
+    for line in content.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith(("```", "~~~")):
+            marker = stripped[:3]
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+            elif marker == fence_marker:
+                in_fence = False
+            continue
+        if in_fence:
+            continue
+        match = MARKDOWN_HEADING.match(line)
+        if match is None:
+            continue
+        heading = re.sub(r"<[^>]+>", "", match.group(1)).casefold()
+        base = MARKDOWN_ANCHOR_PUNCTUATION.sub("", heading).replace(" ", "-")
+        count = occurrences.get(base, 0)
+        occurrences[base] = count + 1
+        anchors.add(base if count == 0 else f"{base}-{count}")
+    return anchors
+
+
 def validate_markdown_links(path: Path, root: Path) -> list[str]:
-    """Report repository-relative Markdown links whose targets do not exist."""
+    """Report missing repository-relative Markdown targets and heading anchors."""
     content = path.read_text(encoding="utf-8")
     errors: list[str] = []
     for match in MARKDOWN_LINK.finditer(content):
         target = unquote(match.group(1) or match.group(2))
         parsed = urlparse(target)
-        if parsed.scheme or parsed.netloc or not parsed.path:
+        if parsed.scheme or parsed.netloc:
             continue
-        destination = (path.parent / parsed.path).resolve()
+        destination = (path.parent / (parsed.path or path.name)).resolve()
+        line = content.count("\n", 0, match.start()) + 1
+        relative = path.relative_to(root)
         if not destination.exists():
-            line = content.count("\n", 0, match.start()) + 1
-            relative = path.relative_to(root)
             errors.append(f"{relative}:{line}: broken Markdown link: {target}")
+            continue
+        if parsed.fragment and destination.is_file() and destination.suffix == ".md":
+            destination_content = destination.read_text(encoding="utf-8")
+            if parsed.fragment.casefold() not in markdown_anchors(destination_content):
+                errors.append(
+                    f"{relative}:{line}: broken Markdown anchor: {target}"
+                )
     return errors
 
 
@@ -114,11 +165,103 @@ def validate_course(main_file: Path, root: Path) -> list[str]:
             f"{relative}: course directory names must use lowercase kebab-case"
         )
 
-    content = main_file.read_text(encoding="utf-8", errors="replace")
-    if "\\documentclass" not in content:
-        errors.append(f"{relative}: does not declare a document class")
+    content = strip_comments(
+        main_file.read_text(encoding="utf-8", errors="replace")
+    )
+    class_matches = COURSE_CLASS.findall(content)
+    if len(class_matches) != 1:
+        errors.append(
+            f"{relative}: must contain exactly one \\documentclass declaration "
+            "using unipd-notes with an italian or english option"
+        )
+    else:
+        options = {
+            option.strip() for option in class_matches[0].split(",") if option.strip()
+        }
+        languages = options & SUPPORTED_LANGUAGES
+        if len(languages) != 1:
+            errors.append(
+                f"{relative}: must select exactly one supported language: "
+                "italian or english"
+            )
+
     if "\\begin{document}" not in content or "\\end{document}" not in content:
         errors.append(f"{relative}: must contain a complete document environment")
+
+    setup_match = COURSE_SETUP.search(content)
+    metadata: dict[str, str] = {}
+    if setup_match is None:
+        errors.append(f"{relative}: must declare \\unipdsetup before the document")
+    else:
+        metadata = {
+            key: value.strip()
+            for key, value in METADATA_VALUE.findall(setup_match.group(1))
+        }
+        for key in (
+            "course",
+            "author",
+            "academic-year",
+            "degree-year",
+            "semester",
+            "date",
+            "version",
+        ):
+            if key not in metadata:
+                errors.append(f"{relative}: \\unipdsetup must define {key}")
+
+        if "course" in metadata and not metadata["course"]:
+            errors.append(f"{relative}: course metadata must not be empty")
+        if "author" in metadata:
+            author = metadata["author"]
+            if not author or author.casefold() in PLACEHOLDER_AUTHORS:
+                errors.append(
+                    f"{relative}: author metadata must be non-empty and not a placeholder"
+                )
+        expected_degree_year = relative.parts[0]
+        if (
+            "degree-year" in metadata
+            and metadata["degree-year"] != expected_degree_year
+        ):
+            errors.append(
+                f"{relative}: degree-year must match directory year "
+                f"{expected_degree_year}"
+            )
+        if "semester" in metadata and metadata["semester"] not in {"1", "2"}:
+            errors.append(f"{relative}: semester must be 1 or 2")
+        if "academic-year" in metadata:
+            academic_match = ACADEMIC_YEAR.fullmatch(metadata["academic-year"])
+            degree_year = int(expected_degree_year)
+            expected_start = DEGREE_COHORT_START_YEAR + degree_year - 1
+            if (
+                academic_match is None
+                or int(academic_match.group(1)) != expected_start
+                or int(academic_match.group(2)) != expected_start + 1
+            ):
+                errors.append(
+                    f"{relative}: academic-year must be "
+                    f"{expected_start}--{expected_start + 1} for degree year "
+                    f"{expected_degree_year}"
+                )
+        if "version" in metadata and not metadata["version"]:
+            errors.append(f"{relative}: version metadata must not be empty")
+
+    readme = main_file.with_name("README.md")
+    if not readme.is_file():
+        errors.append(f"{readme.relative_to(root)}: missing required course README")
+    else:
+        readme_content = readme.read_text(encoding="utf-8", errors="replace")
+        start_count = readme_content.count(README_START_MARKER)
+        end_count = readme_content.count(README_END_MARKER)
+        if (
+            start_count != 1
+            or end_count != 1
+            or readme_content.index(README_START_MARKER)
+            > readme_content.index(README_END_MARKER)
+        ):
+            errors.append(
+                f"{readme.relative_to(root)}: must contain exactly one ordered pair "
+                "of generated README markers"
+            )
     return errors
 
 
@@ -243,10 +386,10 @@ def main() -> int:
     source_files = sorted(
         path
         for path in root.rglob("*")
-        if path.is_file()
-        and path.suffix.lower() in SOURCE_SUFFIXES
-        and ".git" not in path.parts
+        if ".git" not in path.parts
         and ".build" not in path.parts
+        and path.is_file()
+        and path.suffix.lower() in SOURCE_SUFFIXES
     )
     for path in source_files:
         errors.extend(validate_source(path, root))
@@ -254,7 +397,9 @@ def main() -> int:
     markdown_files = sorted(
         path
         for path in root.rglob("*.md")
-        if ".git" not in path.parts and ".build" not in path.parts
+        if ".git" not in path.parts
+        and ".build" not in path.parts
+        and path.is_file()
     )
     for path in markdown_files:
         errors.extend(validate_markdown_links(path, root))

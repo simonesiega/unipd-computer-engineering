@@ -109,7 +109,7 @@ Il benchmark illustrativo seguente ipotizza un milione di messaggi dopo una fase
   \end{tabularx}
 \end{table}
 
-\begin{code}[language=Python,caption={Inserimento con controllo esplicito},label={lst:insert}]
+\begin{unipdcode}[language=Python,caption={Inserimento con controllo esplicito},label={lst:insert}]
 def enqueue(queue, item):
     with queue.mutex:
         if queue.count == queue.capacity:
@@ -117,13 +117,13 @@ def enqueue(queue, item):
         queue.data[queue.tail] = item
         queue.tail = (queue.tail + 1) % queue.capacity
         queue.count += 1
-\end{code}
+\end{unipdcode}
 
 \chapter{Scheduling e verifica}
 
 Un inserimento bloccante riserva prima una posizione libera e acquisisce poi il mutex. Invertire le due operazioni può causare un deadlock: il produttore conserverebbe il mutex in attesa di un consumatore che necessita dello stesso mutex. La rimozione usata nei test è riportata nel \cref{lst:remove}.
 
-\begin{code}[language=Python,caption={Rimozione con controllo esplicito},label={lst:remove}]
+\begin{unipdcode}[language=Python,caption={Rimozione con controllo esplicito},label={lst:remove}]
 def dequeue(queue):
     with queue.mutex:
         if queue.count == 0:
@@ -132,7 +132,7 @@ def dequeue(queue):
         queue.head = (queue.head + 1) % queue.capacity
         queue.count -= 1
         return item
-\end{code}
+\end{unipdcode}
 
 I controlli nei \cref{lst:insert,lst:remove} trasformano una violazione dell'invariante in un errore immediato. Il codice di produzione attende normalmente un semaforo, ma le asserzioni sul contatore restano utili per individuare segnali errati e accessi eseguiti senza lock. L'\cref{alg:insert} adotta l'ordine di acquisizione sicuro.
 

@@ -172,7 +172,7 @@
 \clist_map_inline:nn
   {
     course, short-course, professor, academic-year, degree-year, semester,
-    document-type, date, version
+    document-type, author, date, version
   }
   { \unipd_metadata_set:nn {#1} {} }
 
@@ -180,7 +180,6 @@
   { university } { \unipdtranslate{university} }
 \exp_args:Nne \unipd_metadata_set:nn
   { degree } { \unipdtranslate{degree} }
-\unipd_metadata_set:nn { author } { Simone~Siega }
 \unipd_metadata_set:nn { repository } { Computer~Engineering~—~UniPD }
 \unipd_metadata_set:nn { license } { CC~BY-SA~4.0 }
 \exp_args:Nne \unipd_metadata_set:nn

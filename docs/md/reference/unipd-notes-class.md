@@ -9,8 +9,10 @@ The `unipd-notes` class provides the shared foundation for every course document
 Course documents should load the class directly:
 
 ```latex
-\documentclass{unipd-notes}
+\documentclass[italian]{unipd-notes}
 ```
+
+Use `english` instead when the course is taught in English. Repository course validation requires exactly one supported language option.
 
 The repository build tool adds `latex/` to the LaTeX search path, so course files should not use a relative path to the class.
 
@@ -27,7 +29,7 @@ Select the language of every course explicitly:
 \documentclass[english]{unipd-notes}
 ```
 
-Italian remains the default for compatibility when neither option is present. The language option configures Babel, `siunitx`, theorem and algorithm names, cross-references, glossary and contents headings, cover fields, revision history, and other shared labels. Course prose and user-supplied metadata must use the same language.
+Italian remains the class-level default for compatibility with non-course examples and older external documents, but repository courses must never rely on that fallback. The language option configures Babel, `siunitx`, theorem and algorithm names, cross-references, glossary and contents headings, cover fields, revision history, and other shared labels. Course prose and user-supplied metadata must use the same language.
 
 ### Bibliography
 
@@ -94,8 +96,10 @@ Use the shared lifecycle commands instead of manipulating page numbering directl
 | `coursepreface` | Add an optional preface to the table of contents. |
 | `revisionhistory` and `\revision` | Add an optional, page-breakable revision table. |
 | `\makecoursemainmatter` | Start Arabic page numbering at 1 before the first chapter. |
-| `\printcourselists` | Print one localized section containing figure, table, algorithm, and listing entries. |
+| `\printcourselists` | Print localized document lists. The optional selection accepts `figures`, `tables`, `algorithms`, and `listings`; omitting it prints all four. |
 | `\courseappendices` | Start the appendix sequence. |
+
+Use `\printcourselists[figures,listings]`, for example, when a course has no tables or algorithms. Omit the command entirely when the document has no listable material.
 
 The focused [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example demonstrates the complete order. Bibliographies and glossaries use their own component interfaces and may be printed where the document structure requires them.
 
@@ -106,7 +110,7 @@ The focused [`front-back-matter`](../../../latex/components/front-back-matter/ex
 
 \unipdsetup{
   course = {Official Course Name},
-  author = {Your Name},
+  author = {Ada Lovelace},
   academic-year = {2026--2027},
   degree-year = {1},
   semester = {1},

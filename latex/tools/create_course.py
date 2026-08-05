@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import re
 import shutil
 import sys
@@ -15,6 +16,16 @@ DEGREE_START_YEAR = 2026
 VALID_YEARS = (1, 2, 3)
 VALID_SEMESTERS = (1, 2)
 VALID_LANGUAGES = ("italian", "english")
+MONTH_NAMES = {
+    "italian": (
+        "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+        "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre",
+    ),
+    "english": (
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ),
+}
 SCAFFOLD_LABELS = {
     "italian": {
         "document_type": "Appunti delle lezioni",
@@ -44,6 +55,7 @@ class Course:
     semester: int
     document_date: str
     language: str
+    author: str
 
 
 def repository_root() -> Path:
@@ -57,6 +69,27 @@ def non_empty(value: str) -> str:
     if not value:
         raise argparse.ArgumentTypeError("value must not be empty")
     return value
+
+
+def iso_date(value: str) -> str:
+    """Return a valid ISO calendar date, rejecting free text and placeholders."""
+    value = value.strip()
+    try:
+        parsed = dt.date.fromisoformat(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(
+            "date must use ISO YYYY-MM-DD format"
+        ) from error
+    if parsed.isoformat() != value:
+        raise argparse.ArgumentTypeError("date must use ISO YYYY-MM-DD format")
+    return value
+
+
+def localized_date(value: str, language: str) -> str:
+    """Render an ISO date in the selected course language."""
+    parsed = dt.date.fromisoformat(value)
+    month = MONTH_NAMES[language][parsed.month - 1]
+    return f"{parsed.day} {month} {parsed.year}"
 
 
 def kebab_case(value: str) -> str:
@@ -116,7 +149,7 @@ def render_main(course: Course) -> str:
   degree-year = {{{course.year}}},
   semester = {{{course.semester}}},
   document-type = {{{labels["document_type"]}}},
-  author = {{Your Name}},
+  author = {{{escape_latex(course.author)}}},
   date = {{{escape_latex(course.document_date)}}},
   version = {{0.1.0}}
 }}
@@ -166,6 +199,8 @@ def create_course(root: Path, course: Course) -> Path:
         )
     if course.language not in VALID_LANGUAGES:
         raise ValueError(f"Language must be one of: {', '.join(VALID_LANGUAGES)}")
+    if not course.author.strip():
+        raise ValueError("Author must not be empty")
 
     slug = kebab_case(course.name)
     duplicate = duplicate_directory(root, slug)
@@ -224,10 +259,13 @@ def parse_arguments() -> argparse.Namespace:
         help="Teaching semester",
     )
     parser.add_argument(
+        "--author", type=non_empty, required=True, help="Author of the notes"
+    )
+    parser.add_argument(
         "--date",
-        type=non_empty,
+        type=iso_date,
         required=True,
-        help="Explicit document publication date",
+        help="Publication date in ISO YYYY-MM-DD format",
     )
     parser.add_argument(
         "--language",
@@ -247,8 +285,9 @@ def main() -> int:
         short_name=arguments.short_course,
         professor=arguments.professor,
         semester=arguments.semester,
-        document_date=arguments.date,
+        document_date=localized_date(arguments.date, arguments.language),
         language=arguments.language,
+        author=arguments.author,
     )
     root = repository_root()
     course_directory = create_course(root, course)

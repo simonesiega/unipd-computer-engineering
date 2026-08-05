@@ -10,7 +10,8 @@ description: Visually inspect generated course or component PDFs for layout, rea
 Review the current generated PDF:
 
 - `.build/<year>/<course-name>/main.pdf` for a local course build, or the corresponding PDF from the pull-request CI artifact;
-- `latex/components/<component>/example/main.pdf` for a tracked component fixture.
+- `latex/components/<component>/example/main.pdf` for a tracked component fixture;
+- `latex/integration/<language>/main.pdf` for a tracked integration fixture.
 
 Course PDFs are protected build outputs and must not be copied into, staged from, or committed under a course directory. Do not review an outdated PDF after source changes. If neither a current local build nor its CI artifact is available, report an incomplete review.
 

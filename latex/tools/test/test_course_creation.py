@@ -2,21 +2,26 @@
 
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import create_course as create_course_module
 from create_course import (
     Course,
     academic_year,
     canonical_build_command,
     create_course,
     escape_latex,
+    iso_date,
     kebab_case,
+    localized_date,
 )
 
 
@@ -45,6 +50,16 @@ class CourseCreationTests(unittest.TestCase):
                 self.assertEqual(escape_latex(character), escaped)
         self.assertEqual(escape_latex("Probabilità"), "Probabilità")
 
+    def test_iso_dates_are_validated_and_localized(self) -> None:
+        self.assertEqual(iso_date("2026-09-28"), "2026-09-28")
+        self.assertEqual(localized_date("2026-09-28", "italian"), "28 settembre 2026")
+        self.assertEqual(localized_date("2026-09-28", "english"), "28 September 2026")
+        for invalid in ("tomorrow", "TODO", "2026-02-30", "28 September 2026"):
+            with self.subTest(value=invalid), self.assertRaises(
+                argparse.ArgumentTypeError
+            ):
+                iso_date(invalid)
+
     def test_academic_year_follows_degree_year(self) -> None:
         self.assertEqual(academic_year(1), "2026--2027")
         self.assertEqual(academic_year(2), "2027--2028")
@@ -68,6 +83,7 @@ class CourseCreationTests(unittest.TestCase):
                 1,
                 "3 agosto 2026",
                 "italian",
+                "Ada Lovelace",
             )
 
             directory = create_course(root, course)
@@ -84,6 +100,7 @@ class CourseCreationTests(unittest.TestCase):
             self.assertIn(r"\documentclass[italian]{unipd-notes}", main)
             self.assertIn("academic-year = {2026--2027}", main)
             self.assertIn("degree-year = {1}", main)
+            self.assertIn("author = {Ada Lovelace}", main)
             self.assertIn("date = {3 agosto 2026}", main)
             self.assertNotIn(r"\today", main)
             self.assertIn("document-type = {Appunti delle lezioni}", main)
@@ -104,6 +121,7 @@ class CourseCreationTests(unittest.TestCase):
                 1,
                 "3 August 2026",
                 "english",
+                "Grace Hopper",
             )
 
             directory = create_course(root, course)
@@ -111,10 +129,80 @@ class CourseCreationTests(unittest.TestCase):
             readme = (directory / "README.md").read_text(encoding="utf-8")
 
             self.assertIn(r"\documentclass[english]{unipd-notes}", main)
+            self.assertIn("author = {Grace Hopper}", main)
             self.assertIn("document-type = {Lecture notes}", main)
             self.assertIn(r"\chapter{Introduction}", main)
             self.assertIn("Add the course content here.", main)
             self.assertIn("generated course contents", readme)
+
+    def test_partial_course_is_removed_when_scaffolding_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            course = Course(
+                1,
+                "Operating Systems",
+                "Systems",
+                "Name",
+                1,
+                "3 August 2026",
+                "english",
+                "Ada Lovelace",
+            )
+            original_write_text = Path.write_text
+
+            def fail_on_readme(
+                path: Path,
+                data: str,
+                encoding: str | None = None,
+                errors: str | None = None,
+                newline: str | None = None,
+            ) -> int:
+                if path.name == "README.md":
+                    raise OSError("simulated write failure")
+                return original_write_text(
+                    path,
+                    data,
+                    encoding=encoding,
+                    errors=errors,
+                    newline=newline,
+                )
+
+            with (
+                patch.object(Path, "write_text", fail_on_readme),
+                self.assertRaisesRegex(OSError, "simulated write failure"),
+            ):
+                create_course(root, course)
+
+            self.assertFalse((root / "1" / "operating-systems").exists())
+
+    def test_cli_main_creates_course_with_explicit_author(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            arguments = [
+                "create_course.py",
+                "--year", "1",
+                "--course", "Operating Systems",
+                "--short-course", "Systems",
+                "--professor", "Name",
+                "--semester", "1",
+                "--author", "Ada Lovelace",
+                "--date", "2026-08-03",
+                "--language", "english",
+            ]
+            with (
+                patch.object(sys, "argv", arguments),
+                patch.object(
+                    create_course_module, "repository_root", return_value=root
+                ),
+                patch("builtins.print"),
+            ):
+                self.assertEqual(create_course_module.main(), 0)
+
+            source = (root / "1" / "operating-systems" / "main.tex").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("author = {Ada Lovelace}", source)
+            self.assertIn("date = {3 August 2026}", source)
 
     def test_duplicate_slug_is_rejected_across_years(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -129,6 +217,7 @@ class CourseCreationTests(unittest.TestCase):
                     1,
                     "3 agosto 2026",
                     "italian",
+                    "Ada Lovelace",
                 ),
             )
 
@@ -143,6 +232,7 @@ class CourseCreationTests(unittest.TestCase):
                         1,
                         "3 agosto 2026",
                         "italian",
+                        "Ada Lovelace",
                     ),
                 )
 
@@ -160,6 +250,7 @@ class CourseCreationTests(unittest.TestCase):
                         1,
                         "3 agosto 2026",
                         "italian",
+                        "Ada Lovelace",
                     ),
                 )
             with self.assertRaises(ValueError):
@@ -173,6 +264,7 @@ class CourseCreationTests(unittest.TestCase):
                         3,
                         "3 agosto 2026",
                         "italian",
+                        "Ada Lovelace",
                     ),
                 )
             with self.assertRaises(ValueError):
@@ -186,6 +278,7 @@ class CourseCreationTests(unittest.TestCase):
                         1,
                         "3 agosto 2026",
                         "german",
+                        "Ada Lovelace",
                     ),
                 )
 
@@ -203,6 +296,8 @@ class CourseCreationTests(unittest.TestCase):
                 "Name",
                 "--semester",
                 "1",
+                "--author",
+                "Ada Lovelace",
                 "--date",
                 " ",
                 "--language",
@@ -213,7 +308,7 @@ class CourseCreationTests(unittest.TestCase):
             text=True,
         )
         self.assertEqual(result.returncode, 2)
-        self.assertIn("argument --date: value must not be empty", result.stderr)
+        self.assertIn("argument --date: date must use ISO YYYY-MM-DD format", result.stderr)
 
         for invalid_language in ("", "german"):
             with self.subTest(language=invalid_language):
@@ -231,8 +326,10 @@ class CourseCreationTests(unittest.TestCase):
                         "Name",
                         "--semester",
                         "1",
+                        "--author",
+                        "Ada Lovelace",
                         "--date",
-                        "3 August 2026",
+                        "2026-08-03",
                         "--language",
                         invalid_language,
                     ],

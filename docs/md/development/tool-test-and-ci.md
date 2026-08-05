@@ -29,13 +29,13 @@ Tests use standard-library `unittest`, temporary directories and repositories, d
 
 | Test file | Main responsibility |
 |---|---|
-| `test_course_creation.py` | Course slug, metadata, scaffold, duplicate, and argument validation |
+| `test_course_creation.py` | Course slug, ISO date localization, metadata, scaffold cleanup, duplicates, CLI behavior, and argument validation |
 | `test_build_selection.py` | Discovery, affected paths, TOC/README behavior, generated state, and rolling-release course links |
-| `test_notes_packaging.py` | Asset/slug naming, collisions, manifests, checksums, ordering, missing PDFs, invalid paths, and empty archives |
+| `test_notes_packaging.py` | Asset/slug naming, canonical metadata, collisions, manifests, checksums, ordering, missing PDFs, invalid paths, and empty archives |
 | `test_release_catalog.py` | Release parsing, immutable-snapshot coverage, deduplication, ordering, README tables, and empty release history |
 | `test_gitignore.py` | Specific course `main.pdf` ignore rules without globally ignoring PDFs |
 | `test_changelog_generation.py` | Complete Git history, per-course changes, renames, dates, and placeholders |
-| `test_repository_validation.py` | Layouts, Markdown links, source hygiene, and tracked generated-course-PDF rejection |
+| `test_repository_validation.py` | Course metadata and layouts, Markdown targets and anchors, source hygiene, partial structures, and tracked generated-course-PDF rejection |
 
 Run all tests:
 
@@ -49,7 +49,7 @@ Run one file directly, for example:
 python3 latex/tools/test/test_notes_packaging.py
 ```
 
-CI invokes `latex/tools/run_tool_tests.py`, which adds Coverage.py branch reporting and enforces the repository's 60% minimum.
+CI invokes `latex/tools/run_tool_tests.py`, which adds Coverage.py branch reporting and enforces the repository's 80% minimum.
 
 ## Pre-commit and repository validation
 
@@ -59,24 +59,24 @@ Pre-commit runs added-file-size, case-conflict, merge-conflict, YAML, final-newl
 
 | Area | Checks |
 |---|---|
-| Courses | Direct `<year>/<course>/main.tex`, lowercase kebab-case, class declaration, and complete document environment |
+| Courses | Direct `<year>/<course>/main.tex`, lowercase kebab-case, supported language and class, complete document environment, required `\unipdsetup` metadata, cohort-consistent academic year, and a `README.md` with generated markers |
 | Tracked course outputs | No indexed `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf` |
 | Components | Matching package plus `example/main.tex` and tracked `example/main.pdf` only |
 | Integration examples | Localized `main.tex`, tracked `main.pdf`, and generated `README.md` only |
 | Sources | UTF-8 `.tex`, `.sty`, `.cls`, and `.bib`; LF endings and final newlines; no tabs, trailing whitespace, or conflict markers |
-| Documentation | Existing repository-relative Markdown link targets |
+| Documentation | Existing repository-relative Markdown targets and valid GitHub-style heading anchors, excluding headings inside fenced code blocks |
 
 The generated-course-PDF rule queries `git ls-files`, not the local filesystem. Ignored local `.build/` output therefore does not fail validation, while a PDF forced into the index does. Its diagnostic names the file, explains local/release access, and gives `git rm --cached -- <path>` removal guidance.
 
 ## Workflow separation and security
 
-`.github/workflows/ci.yml` handles pull requests and optional manual validation. `.github/workflows/publish-notes.yml` handles pushes to `main` and manually requested immutable snapshots. Actions are pinned to full commit SHAs. Pull-request jobs and all build/package jobs use `contents: read`; only the final trusted publisher job receives `contents: write`. The workflows do not use `pull_request_target`, expose repository secrets to pull-request code, or require custom secrets. GitHub CLI publication uses `GH_TOKEN: ${{ github.token }}`.
+`.github/workflows/ci.yml` handles pull requests, pushes to `main`, and optional manual validation. `.github/workflows/publish-notes.yml` handles manually requested rolling releases and immutable snapshots. Actions are pinned to full commit SHAs. Pull-request jobs and all build/package jobs use `contents: read`; only the final trusted publisher job receives `contents: write`. The workflows do not use `pull_request_target`, expose repository secrets to pull-request code, or require custom secrets. GitHub CLI publication uses `GH_TOKEN: ${{ github.token }}`.
 
-Concurrency cancels superseded validation on the same pull-request reference. Release runs are serialized and are not cancelled mid-publication. Before moving `notes-latest`, an older queued push run checks whether its commit is still current `main` and exits without rolling the release backward.
+Concurrency cancels superseded validation on the same pull-request or branch reference. Release runs are serialized and are not cancelled mid-publication. A rolling publication is accepted only when dispatched from the latest `main` commit.
 
-## Pull requests
+## Pull requests and pushes to main
 
-The quality job runs every pre-commit hook. The build job checks out complete history, obtains the pull-request base, writes changed paths to `.build/changed-files.txt`, and lets `build.py` select affected documents. If a usable base is unavailable or the workflow is dispatched manually, it builds all documents.
+The quality job runs every pre-commit hook. The build job checks out complete history, obtains the pull-request base or previous `main` commit, writes changed paths to `.build/changed-files.txt`, and lets `build.py` select affected documents. If a usable base is unavailable or the workflow is dispatched manually, it builds all documents.
 
 The canonical command is either:
 
@@ -95,11 +95,11 @@ docker compose run --rm --no-deps texlive \
   python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
-Successful `.build/**/main.pdf` files are uploaded as `latex-pdfs-<commit-sha>`, without extra compression, for approximately 14 days. Reviewers download this temporary artifact from the workflow run; it is not a permanent publication. When compilation fails, `.log` and `.blg` files are uploaded as `latex-logs-<commit-sha>` for 7 days when available. A quality failure has no LaTeX logs because compilation never starts. Pull requests never create or modify a GitHub Release.
+Successful `.build/**/main.pdf` files are uploaded as `latex-pdfs-<commit-sha>`, without extra compression, for approximately 14 days. Reviewers download this temporary artifact from the workflow run; it is not a permanent publication. When compilation fails, `.log` and `.blg` files are uploaded as `latex-logs-<commit-sha>` for 7 days when available. A quality failure has no LaTeX logs because compilation never starts. Neither pull requests nor pushes to `main` create or modify a GitHub Release.
 
-## Pushes to main and rolling release
+## Manual rolling release
 
-Every push to `main` runs all quality checks and the complete canonical build, regardless of changed-file selection:
+Run **Publish compiled notes** manually from the latest `main` commit and select `rolling`. Publication runs all quality checks and the complete canonical build:
 
 ```bash
 docker compose run --rm --no-deps texlive \
@@ -120,7 +120,7 @@ The release is set to draft while assets are replaced. Uploads use clobber seman
 
 ## Immutable manual snapshots
 
-Run **Publish compiled notes** manually and provide:
+Run **Publish compiled notes** manually, select `snapshot`, and provide:
 
 - `release_tag`, such as `2026-2027-semester-1`;
 - `release_title`;
@@ -144,7 +144,7 @@ Course asset names are:
 
 Examples include `1-calculus-1.pdf`, `1-linear-algebra.pdf`, and `2-algorithms-and-data-structures.pdf`. Names are lowercase kebab-case, shell/URL safe, deterministic across operating systems, and independent of temporary build paths. Collisions and invalid paths fail packaging.
 
-`manifest.json` contains sorted course records with degree year, course name when available from `\unipdsetup`, course slug, source directory, asset filename, byte size, SHA-256, source SHA, and release timestamp. `SHA256SUMS.txt` covers every PDF, the manifest, and `RELEASE_NOTES.md`. The Markdown file provides the human-readable sorted index and licensing statement.
+`manifest.json` contains sorted course records with degree year, the required canonical course name from `\unipdsetup`, course slug, source directory, asset filename, byte size, SHA-256, source SHA, and release timestamp. `SHA256SUMS.txt` covers every PDF, the manifest, and `RELEASE_NOTES.md`. The Markdown file provides the human-readable sorted index and licensing statement.
 
 ## Diagnosing failures
 

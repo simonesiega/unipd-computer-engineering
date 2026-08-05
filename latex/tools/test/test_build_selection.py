@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import argparse
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import build as build_module
 from build import (
     TocEntry,
     affected_documents,
@@ -18,8 +21,10 @@ from build import (
     generated_file_error,
     parse_toc,
     process_document,
+    process_documents,
     render_generated_markdown,
     resolve_document,
+    validate_arguments,
 )
 
 
@@ -30,6 +35,114 @@ class BuildSelectionTests(unittest.TestCase):
         document.parent.mkdir(parents=True)
         document.write_text("\\begin{document}\\end{document}\n", encoding="utf-8")
         return document.resolve()
+
+    @staticmethod
+    def arguments(**overrides: object) -> argparse.Namespace:
+        values: dict[str, object] = {
+            "targets": ["1/course"],
+            "all": False,
+            "changed_from": None,
+            "changed_to": "HEAD",
+            "changed_file_list": None,
+            "no_compile": False,
+            "no_readme": False,
+            "clean": False,
+            "keep_going": False,
+            "check_generated": False,
+        }
+        values.update(overrides)
+        return argparse.Namespace(**values)
+
+    def test_build_argument_validation_rejects_conflicting_modes(self) -> None:
+        invalid_arguments = (
+            self.arguments(no_compile=True, check_generated=True),
+            self.arguments(no_readme=True, check_generated=True),
+            self.arguments(targets=[], all=False),
+            self.arguments(all=True),
+        )
+        invalid_arguments[-1].targets = ["1/course"]
+        for arguments in invalid_arguments:
+            with self.subTest(arguments=arguments), self.assertRaises(ValueError):
+                validate_arguments(arguments)
+
+    def test_keep_going_collects_partial_build_failures(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            first = self.create_document(root, "1/first")
+            second = self.create_document(root, "1/second")
+            arguments = self.arguments(keep_going=True)
+
+            with patch.object(
+                build_module,
+                "process_document",
+                side_effect=[OSError("broken output"), None],
+            ):
+                failures = process_documents(root, [first, second], arguments)
+
+            self.assertEqual(len(failures), 1)
+            self.assertEqual(failures[0][0], Path("1/first/main.tex"))
+            self.assertIn("broken output", str(failures[0][1]))
+
+    def test_build_main_cleans_outputs_after_success(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            document = self.create_document(root, "1/course")
+            build_directory = root / ".build"
+            build_directory.mkdir()
+            arguments = self.arguments(clean=True)
+            with (
+                patch.object(build_module, "parse_arguments", return_value=arguments),
+                patch.object(build_module, "repository_root", return_value=root),
+                patch.object(
+                    build_module, "select_documents", return_value=[document]
+                ),
+                patch.object(
+                    build_module, "process_documents", return_value=[]
+                ),
+            ):
+                self.assertEqual(build_module.main(), 0)
+
+            self.assertFalse(build_directory.exists())
+
+    def test_build_main_reports_failures_and_empty_selection(self) -> None:
+        arguments = self.arguments()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            document = self.create_document(root, "1/course")
+            with (
+                patch.object(build_module, "parse_arguments", return_value=arguments),
+                patch.object(build_module, "repository_root", return_value=root),
+                patch.object(
+                    build_module, "select_documents", return_value=[document]
+                ),
+                patch.object(
+                    build_module,
+                    "process_documents",
+                    return_value=[(Path("1/course/main.tex"), OSError("failed"))],
+                ),
+                patch.object(build_module, "report_failures") as report,
+            ):
+                self.assertEqual(build_module.main(), 1)
+                report.assert_called_once()
+
+            with (
+                patch.object(build_module, "parse_arguments", return_value=arguments),
+                patch.object(build_module, "repository_root", return_value=root),
+                patch.object(build_module, "select_documents", return_value=[]),
+                self.assertRaisesRegex(RuntimeError, "No main.tex"),
+            ):
+                build_module.main()
+
+    def test_changed_file_selection_can_be_a_valid_no_op(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            changed = root / "changed.txt"
+            changed.write_text("README.md\n", encoding="utf-8")
+            arguments = self.arguments(
+                targets=[], changed_file_list=str(changed)
+            )
+
+            self.assertIsNone(build_module.select_documents(root, arguments))
 
     def test_document_discovery_finds_courses_and_component_examples(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
