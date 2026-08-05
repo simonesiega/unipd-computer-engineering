@@ -67,6 +67,19 @@ class ReleaseCatalogTests(unittest.TestCase):
         self.assertEqual([release.tag for release in releases], ["2026-2027-semester-1"])
         self.assertEqual([pdf.filename for pdf in releases[0].pdfs], ["1-calculus-1.pdf"])
 
+    def test_parser_rejects_non_array_release_and_asset_data(self) -> None:
+        with self.assertRaisesRegex(TypeError, "Release data"):
+            parse_releases({})
+
+        invalid_assets = self.release(
+            "snapshot",
+            "2027-01-01T10:00:00Z",
+            [],
+        )
+        invalid_assets["assets"] = {}
+        with self.assertRaisesRegex(TypeError, "Release assets"):
+            parse_releases([invalid_assets])
+
     def test_only_immutable_snapshots_cover_exams_and_duplicates_are_removed(self) -> None:
         releases = parse_releases(
             [

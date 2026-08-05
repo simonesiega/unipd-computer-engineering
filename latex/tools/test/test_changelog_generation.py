@@ -78,9 +78,11 @@ class ChangelogGenerationTests(unittest.TestCase):
 
     def test_shallow_repository_is_rejected_before_reading_history(self) -> None:
         root = Path("repository")
-        with patch("generate_changelog.run_git", return_value="true\n") as git:
-            with self.assertRaisesRegex(ValueError, "shallow repository"):
-                read_history(root)
+        with (
+            patch("generate_changelog.run_git", return_value="true\n") as git,
+            self.assertRaisesRegex(ValueError, "shallow repository"),
+        ):
+            read_history(root)
 
         git.assert_called_once_with(
             root, "rev-parse", "--is-shallow-repository"

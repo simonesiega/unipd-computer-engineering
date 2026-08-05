@@ -108,6 +108,17 @@ class RepositoryValidationTests(unittest.TestCase):
 
             self.assertEqual(validate_components(root), [])
 
+            invalid_component = root / "latex" / "components" / "Invalid Component"
+            invalid_example = invalid_component / "example"
+            invalid_example.mkdir(parents=True)
+            (invalid_component / "Invalid Component.sty").write_text(
+                "package\n", encoding="utf-8"
+            )
+            (invalid_example / "main.tex").write_text("source\n", encoding="utf-8")
+            (invalid_example / "main.pdf").write_bytes(b"pdf")
+            errors = validate_components(root)
+            self.assertTrue(any("lowercase kebab-case" in error for error in errors))
+
             (example / "main.log").write_text("temporary\n", encoding="utf-8")
             errors = validate_components(root)
             self.assertTrue(any("unexpected component example" in error for error in errors))
@@ -169,10 +180,12 @@ class RepositoryValidationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             source = root / "source.tex"
-            source.write_text("<<<<<<< HEAD\n\tcontent  \n", encoding="utf-8")
+            source.write_bytes(b"<<<<<<< HEAD\r\n\tcontent  ")
 
             errors = validate_source(source, root)
 
+            self.assertTrue(any("LF line endings" in error for error in errors))
+            self.assertTrue(any("end with a newline" in error for error in errors))
             self.assertTrue(any("merge-conflict" in error for error in errors))
             self.assertTrue(any("tab characters" in error for error in errors))
             self.assertTrue(any("trailing whitespace" in error for error in errors))

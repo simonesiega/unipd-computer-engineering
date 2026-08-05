@@ -15,7 +15,7 @@ Una formula in linea, come $f(x)=x^2$, mantiene la stessa tipografia delle formu
 \begin{equation}\label{eq:quadratic}
   x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
-La \cref{eq:quadratic} è numerata automaticamente. Un calcolo allineato usa
+L'\cref{eq:quadratic} è numerata automaticamente. Un calcolo allineato usa
 \begin{align}
   (x+1)^2 &= x^2+2x+1,\\
   (x-1)^2 &= x^2-2x+1.
@@ -35,6 +35,16 @@ In probabilità si scrive
 \[
   \Prob\left(A\given B\right)=\frac{\Prob(A\cap B)}{\Prob(B)},
   \qquad \Expected[X],\quad \Var(X),\quad \Cov(X,Y).
+\]
+Le inclusioni $\N\subset\Z\subset\Q\subset\R\subset\C$ riassumono gli insiemi numerici principali. Per $z=3+4\imaginaryunit$ valgono $\abs*{z}=5$ e $\exponential^{\imaginaryunit\pi}=-1$, mentre $\inner*{\vect{x},\vect{y}}$ indica il prodotto interno. Inoltre,
+\[
+  \int_0^1 x^2\,\diff x=\frac{1}{3},\qquad
+  \floor*{2.7}=2,\qquad \ceil*{2.1}=3.
+\]
+Per una matrice quadrata si usano $\diag(1,2,3)$ e $\rank(\mat{A})$; un problema di ottimizzazione può essere scritto come
+\[
+  x_{\min}=\argmin_{x\in\R} f(x),\qquad
+  x_{\max}=\argmax_{x\in\R} f(x).
 \]
 Le unità seguono una forma uniforme: $g=\qty{9.81}{\metre\per\second\squared}$ e $R=\qty{4.7}{\kilo\ohm}$.
 \end{document}

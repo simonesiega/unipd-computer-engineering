@@ -8,9 +8,9 @@
 \begin{tikzpicture}[unipd/diagram,node distance=16mm]
  \node[unipd/graph node] (a) {$A$}; \node[unipd/graph node,right=of a] (b) {$B$};
  \node[unipd/graph node emphasized,right=of b] (c) {$C$};
- \draw[unipd/weighted edge] (a)--node[unipd/edge label,above]{$2$}(b);
- \draw[unipd/weighted edge] (b)--node[unipd/edge label,above]{$5$}(c);
- \draw[unipd/optional edge,bend right=28] (a) to node[unipd/edge label,below]{$8$}(c);
+ \draw[unipd/graph directed] (a)--node[unipd/edge label,above]{$2$}(b);
+ \draw[unipd/graph directed] (b)--node[unipd/edge label,above]{$5$}(c);
+ \draw[unipd/graph optional,bend right=28] (a) to node[unipd/edge label,below]{$8$}(c);
 \end{tikzpicture}
 \caption{Grafo orientato pesato di una piccola rete}\label{fig:diagram-graph}\figuresource{elaborazione propria}
 \end{figure}
@@ -20,8 +20,8 @@
  \node[unipd/automaton initial] (q0) {$q_0$};
  \node[unipd/automaton accepting,right=of q0] (q1) {$q_1$};
  \path[unipd/automaton transition] (q0) edge node[unipd/transition label,above]{$1$}(q1)
-   (q0) edge[loop above] node[unipd/transition label]{$0$}(q0)
-   (q1) edge[loop above] node[unipd/transition label]{$0,1$}(q1);
+   (q0) edge[unipd/automaton loop,loop above] node[unipd/transition label]{$0$}(q0)
+   (q1) edge[unipd/automaton loop,loop above] node[unipd/transition label]{$0,1$}(q1);
 \end{tikzpicture}
 \caption{Automa che riconosce le parole contenenti almeno un uno}\label{fig:diagram-automaton}\figuresource{elaborazione propria}
 \end{figure}

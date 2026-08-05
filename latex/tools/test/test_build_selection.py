@@ -19,6 +19,7 @@ from build import (
     parse_toc,
     process_document,
     render_generated_markdown,
+    resolve_document,
 )
 
 
@@ -41,6 +42,17 @@ class BuildSelectionTests(unittest.TestCase):
                 discover_documents(root), sorted([course, example, integration])
             )
 
+    def test_explicit_document_must_remain_inside_repository(self) -> None:
+        with (
+            tempfile.TemporaryDirectory() as repository_directory,
+            tempfile.TemporaryDirectory() as external_directory,
+        ):
+            root = Path(repository_directory)
+            external = self.create_document(Path(external_directory), "document")
+
+            with self.assertRaisesRegex(ValueError, "inside the repository"):
+                resolve_document(root, str(external))
+
     def test_course_change_selects_only_that_course(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -57,6 +69,7 @@ class BuildSelectionTests(unittest.TestCase):
             Path(".github/workflows/ci.yml"),
             Path(".github/workflows/publish-notes.yml"),
             Path("latex/tools/build.py"),
+            Path("latex/tools/latex_source.py"),
             Path("latex/unipd-notes.cls"),
             Path("latex/components/code/code.sty"),
             Path("latex/fonts/Example/font.otf"),
@@ -125,6 +138,17 @@ class BuildSelectionTests(unittest.TestCase):
                 "- Nessuna voce numerata.",
                 render_generated_markdown([], "italian"),
             )
+
+    def test_document_language_ignores_commented_class_declarations(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            document = Path(temporary_directory) / "main.tex"
+            document.write_text(
+                "% \\documentclass[english]{unipd-notes}\n"
+                "\\documentclass[italian]{unipd-notes}\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(document_language(document), "italian")
 
     def test_toc_parser_handles_nested_formatting_and_ignores_unknown_levels(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

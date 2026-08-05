@@ -22,7 +22,6 @@ fonts/
 │   ├── LibertinusSerif-Bold.otf
 │   ├── LibertinusSerif-Italic.otf
 │   ├── LibertinusSerif-Regular.otf
-│   ├── LibertinusSerif-Semibold.otf
 │   └── LibertinusSerif-SemiboldItalic.otf
 └── Source Sans 3/
     ├── SourceSans3-Bold.otf
@@ -40,7 +39,6 @@ No additional files belong inside a font-family directory.
 | **Libertinus Math** | [`LibertinusMath-Regular.otf`](Libertinus/LibertinusMath-Regular.otf) | Mathematical equations, operators, symbols, and formula labels. |
 | **Libertinus Serif** | [`LibertinusSerif-Regular.otf`](Libertinus/LibertinusSerif-Regular.otf) | Normal paragraphs and long-form academic text. |
 | **Libertinus Serif** | [`LibertinusSerif-Italic.otf`](Libertinus/LibertinusSerif-Italic.otf) | Emphasis, introduced terminology, source notes, and publication titles. |
-| **Libertinus Serif** | [`LibertinusSerif-Semibold.otf`](Libertinus/LibertinusSerif-Semibold.otf) | Semibold emphasis where a stronger hierarchy is required. |
 | **Libertinus Serif** | [`LibertinusSerif-SemiboldItalic.otf`](Libertinus/LibertinusSerif-SemiboldItalic.otf) | Combined semibold and italic emphasis. |
 | **Libertinus Serif** | [`LibertinusSerif-Bold.otf`](Libertinus/LibertinusSerif-Bold.otf) | Strong emphasis in body text. |
 | **Source Sans 3** | [`SourceSans3-Regular.otf`](Source%20Sans%203/SourceSans3-Regular.otf) | Captions, labels, headers, footers, and structural text. |
@@ -49,8 +47,8 @@ No additional files belong inside a font-family directory.
 | **Source Sans 3** | [`SourceSans3-Bold.otf`](Source%20Sans%203/SourceSans3-Bold.otf) | Chapter titles, section headings, and prominent labels. |
 | **IBM Plex Mono** | [`IBMPlexMono-Regular.otf`](IBM%20Plex%20Mono/IBMPlexMono-Regular.otf) | Source code, terminal sessions, paths, and technical identifiers. |
 | **IBM Plex Mono** | [`IBMPlexMono-Italic.otf`](IBM%20Plex%20Mono/IBMPlexMono-Italic.otf) | Italic emphasis inside monospaced content. |
-| **IBM Plex Mono** | [`IBMPlexMono-Medium.otf`](IBM%20Plex%20Mono/IBMPlexMono-Medium.otf) | Medium-emphasis technical text. |
-| **IBM Plex Mono** | [`IBMPlexMono-Bold.otf`](IBM%20Plex%20Mono/IBMPlexMono-Bold.otf) | Keywords and strongly emphasized code. |
+| **IBM Plex Mono** | [`IBMPlexMono-Medium.otf`](IBM%20Plex%20Mono/IBMPlexMono-Medium.otf) | Programming-language keywords in code listings. |
+| **IBM Plex Mono** | [`IBMPlexMono-Bold.otf`](IBM%20Plex%20Mono/IBMPlexMono-Bold.otf) | Strong emphasis in monospaced text and algorithm presentation. |
 
 ## Usage
 
@@ -65,7 +63,7 @@ The shared class applies the following mappings automatically:
 | `\sffamily` | Source Sans 3 | Titles, headings, captions, labels, and navigation elements. |
 | `\ttfamily` and `\texttt` | IBM Plex Mono | Code, commands, filenames, paths, protocols, and identifiers. |
 
-Authors should use semantic LaTeX commands and environments instead of selecting font files or font families manually.
+Authors should use semantic LaTeX commands and environments instead of selecting font files or font families manually. Libertinus uses its bundled semibold italic face for combined bold and italic emphasis. Because the bundled Source Sans 3 and IBM Plex Mono subsets do not include bold italic files, `fontspec` derives those two combined faces by slanting the corresponding bundled bold font; no system font substitution is used.
 
 ## Typographic roles
 

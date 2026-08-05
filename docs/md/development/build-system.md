@@ -55,7 +55,7 @@ Exactly one selection mode is required:
 | `latex/unipd-notes.cls` | Every document |
 | Component `.sty` file | Every document |
 | Bundled `.otf` or `.ttf` font | Every document |
-| `latex/tools/build.py` | Every document |
+| `latex/tools/build.py` or its shared LaTeX-source parser | Every document |
 | Unrelated documentation or policy file | None |
 
 Push publication does not use this reduced selection: it always passes `--all` so the release is a complete archive.
@@ -128,7 +128,7 @@ After a successful complete build, package course outputs with stable injected m
 ```bash
 python3 latex/tools/package_notes.py \
   --source-commit <40-character-sha> \
-  --release-timestamp <iso-8601-timestamp> \
+  --release-timestamp <iso-8601-timestamp-with-utc-offset> \
   --release-title "Latest compiled notes"
 ```
 
@@ -144,7 +144,7 @@ The tool:
 8. sorts courses by degree year, course name, and asset filename;
 9. writes `manifest.json`, `RELEASE_NOTES.md`, and `SHA256SUMS.txt`.
 
-The manifest records course metadata where available, source directory, size, SHA-256, source commit, and injected release timestamp. Supplying the commit timestamp makes repeated packaging of the same source deterministic. An empty source archive succeeds with an empty manifest and explanatory release index. A course source with no compiled PDF fails clearly.
+The manifest records course metadata where available, source directory, size, SHA-256, source commit, and injected release timestamp. The timestamp must be an ISO-8601 date-time with a UTC offset, such as `2026-08-04T12:00:00+00:00` or the equivalent `Z` form. Supplying the commit timestamp makes repeated packaging of the same source deterministic. An empty source archive succeeds with an empty manifest and explanatory release index. A course source with no compiled PDF fails clearly.
 
 Release staging is ignored and tool-owned. Workflows publish exactly those staged files; they do not duplicate naming, manifest, or checksum logic in shell.
 

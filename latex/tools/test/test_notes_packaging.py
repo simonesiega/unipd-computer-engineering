@@ -17,6 +17,7 @@ from package_notes import (
     RELEASE_NOTES_NAME,
     asset_filename,
     course_identity,
+    course_metadata,
     package_release,
     sha256_file,
     slugify,
@@ -56,6 +57,49 @@ class NotesPackagingTests(unittest.TestCase):
             asset_filename(1, "Invalid Course")
         with self.assertRaisesRegex(ValueError, "degree year"):
             asset_filename(4, "course")
+
+    def test_course_metadata_ignores_comments_and_preserves_escaped_percent(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            main = Path(temporary_directory) / "main.tex"
+            main.write_text(
+                "% \\unipdsetup{course = {Commented course}}\n"
+                "\\unipdsetup{course = {Systems \\% Design}}\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(
+                course_metadata(main), {"course": r"Systems \% Design"}
+            )
+
+    def test_release_timestamp_must_be_an_iso_datetime_with_offset(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            output = root / ".build" / "release"
+
+            package_release(
+                root,
+                output,
+                self.SOURCE_COMMIT,
+                " 2026-08-04T12:00:00Z ",
+            )
+            manifest = json.loads((output / MANIFEST_NAME).read_text(encoding="utf-8"))
+            self.assertEqual(manifest["release_timestamp"], "2026-08-04T12:00:00Z")
+
+            for invalid in (
+                "",
+                "2026-08-04",
+                "2026-08-04T12:00:00",
+                "not-a-timestamp",
+            ):
+                with self.subTest(timestamp=invalid), self.assertRaisesRegex(
+                    ValueError, "Release timestamp"
+                ):
+                    package_release(
+                        root,
+                        output,
+                        self.SOURCE_COMMIT,
+                        invalid,
+                    )
 
     def test_manifest_checksums_and_ordering_are_deterministic(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -169,11 +213,14 @@ class NotesPackagingTests(unittest.TestCase):
             self.create_course(root, 1, "course-b", "Course B")
             output = root / ".build" / "release"
 
-            with patch("package_notes.asset_filename", return_value="1-collision.pdf"):
-                with self.assertRaisesRegex(ValueError, "Duplicate release asset name"):
-                    package_release(
-                        root, output, self.SOURCE_COMMIT, self.TIMESTAMP
-                    )
+            with (
+                patch(
+                    "package_notes.asset_filename",
+                    return_value="1-collision.pdf",
+                ),
+                self.assertRaisesRegex(ValueError, "Duplicate release asset name"),
+            ):
+                package_release(root, output, self.SOURCE_COMMIT, self.TIMESTAMP)
 
             self.assertFalse((output / "1-collision.pdf").exists())
 

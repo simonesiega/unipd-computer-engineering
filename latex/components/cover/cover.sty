@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Course cover]
+\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 Course cover]
 
-\NewDocumentCommand{\unipdcoverfield}{mm}{%
+\newcommand*{\unipd@coverfield}[2]{%
   \unipdifmetadata{#2}{%
     \par\noindent
     {\small\sffamily\color{unipd-muted}#1\par}
@@ -32,13 +32,13 @@
 
     \vspace{1.6cm}
     \begin{minipage}{0.74\textwidth}
-      \unipdcoverfield{\unipdtranslate{professor}}{professor}
-      \unipdcoverfield{\unipdtranslate{academic-year}}{academic-year}
-      \unipdcoverfield{\unipdtranslate{degree-year}}{degree-year}
-      \unipdcoverfield{\unipdtranslate{semester}}{semester}
-      \unipdcoverfield{\unipdtranslate{author}}{author}
-      \unipdcoverfield{\unipdtranslate{date}}{date}
-      \unipdcoverfield{\unipdtranslate{version}}{version}
+      \unipd@coverfield{\unipdtranslate{professor}}{professor}
+      \unipd@coverfield{\unipdtranslate{academic-year}}{academic-year}
+      \unipd@coverfield{\unipdtranslate{degree-year}}{degree-year}
+      \unipd@coverfield{\unipdtranslate{semester}}{semester}
+      \unipd@coverfield{\unipdtranslate{author}}{author}
+      \unipd@coverfield{\unipdtranslate{date}}{date}
+      \unipd@coverfield{\unipdtranslate{version}}{version}
     \end{minipage}
 
     \vfill

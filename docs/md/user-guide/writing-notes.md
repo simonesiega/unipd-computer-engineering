@@ -77,9 +77,11 @@ Place labels close to the element they identify and use LaTeX cross-references i
 
 ## Sources and attribution
 
-Cite borrowed definitions, results, data, diagrams, quotations, and substantial factual claims. Use `references.bib` when a course needs a bibliography and enable the document class's [bibliography option](../reference/unipd-notes-class.md#class-option).
+Cite borrowed definitions, results, data, diagrams, quotations, and substantial factual claims. Use `references.bib` when a course needs a bibliography and enable the document class's [bibliography option](../reference/unipd-notes-class.md#bibliography).
 
 Prefer original explanations. Do not copy textbooks, restricted course material, solution manuals, or third-party assets without permission and a compatible license.
+
+Use only measurements and datasets whose origin and meaning can be verified. When synthetic or hypothetical values are useful for an example, label them explicitly and never present them as observed results.
 
 AI-assisted material must be checked by a human for accuracy, originality, consistency, citations, and licensing. Never include fabricated references.
 

@@ -1,4 +1,15 @@
-\documentclass[english]{../../../unipd-notes}
+\begin{filecontents*}{references-example.bib}
+@online{dijkstra-ewd123,
+  author = {Dijkstra, Edsger W.},
+  title = {Cooperating Sequential Processes (EWD 123)},
+  year = {1968},
+  url = {https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD123.html},
+  urldate = {2026-08-04}
+}
+\end{filecontents*}
+
+\documentclass[english,bibliography]{../../../unipd-notes}
+\addbibresource{references-example.bib}
 
 \unipdsetup{
   course = {Computer Engineering Fundamentals},
@@ -11,7 +22,7 @@
 \section{Producer--consumer buffer}\label{sec:elements}
 
 \begin{theorem}\label{thm:identity}
-If access to the buffer is protected by mutual exclusion, the number of elements remains between zero and the capacity $N$.
+Suppose that the buffer starts empty, an insertion is permitted only when $n<N$, and a removal is permitted only when $n>0$. If every counter update is protected by mutual exclusion, the number of elements remains between zero and the capacity $N$.
 \end{theorem}
 
 \begin{equation}\label{eq:identity}
@@ -62,5 +73,7 @@ def can_consume(items):
   \Return{$x$}\;
 \end{algorithm}
 
-The invariant in \cref{thm:identity}, expressed by \cref{eq:identity}, prevents overflow and underflow. \Cref{fig:reference} summarizes the flow, while \cref{tab:types,lst:identity,alg:identity} describe initialization and removal.
+The invariant in \cref{thm:identity}, expressed by \cref{eq:identity}, prevents overflow and underflow. \Cref{fig:reference} summarizes the flow, while \cref{tab:types,lst:identity,alg:identity} describe initialization and removal. Dijkstra's treatment of cooperating sequential processes includes the bounded-buffer construction used by this example \autocite{dijkstra-ewd123}.
+
+\printcoursebibliography
 \end{document}

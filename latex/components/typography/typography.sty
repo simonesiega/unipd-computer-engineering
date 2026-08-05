@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Typography]
+\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 Typography]
 
 \ifunipdenglish
   \RequirePackage[main=english,italian]{babel}
@@ -27,15 +27,12 @@
   BoldItalicFont=LibertinusSerif-SemiboldItalic.otf,
   Numbers={Lining,Proportional}
 ]
-\newfontfamily\unipdserifsemibold{LibertinusSerif-Semibold.otf}[
-  Path=\unipdlibertinusfontpath,
-  ItalicFont=LibertinusSerif-SemiboldItalic.otf
-]
 \setsansfont{SourceSans3-Regular.otf}[
   Path=\unipdsourcefontpath,
   ItalicFont=SourceSans3-It.otf,
   BoldFont=SourceSans3-Bold.otf,
   BoldItalicFont=SourceSans3-Bold.otf,
+  BoldItalicFeatures={FakeSlant=0.2},
   Numbers={Lining,Proportional}
 ]
 \newfontfamily\unipdsanssemibold{SourceSans3-Semibold.otf}[
@@ -47,6 +44,7 @@
   ItalicFont=IBMPlexMono-Italic.otf,
   BoldFont=IBMPlexMono-Bold.otf,
   BoldItalicFont=IBMPlexMono-Bold.otf,
+  BoldItalicFeatures={FakeSlant=0.2},
   Scale=MatchLowercase
 ]
 \newfontfamily\unipdmonomedium{IBMPlexMono-Medium.otf}[

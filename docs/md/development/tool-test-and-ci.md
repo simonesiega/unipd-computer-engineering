@@ -63,7 +63,7 @@ Pre-commit runs added-file-size, case-conflict, merge-conflict, YAML, final-newl
 | Tracked course outputs | No indexed `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf` |
 | Components | Matching package plus `example/main.tex` and tracked `example/main.pdf` only |
 | Integration examples | Localized `main.tex`, tracked `main.pdf`, and generated `README.md` only |
-| Sources | UTF-8 `.tex`, `.sty`, `.cls`, and `.bib`; no tabs, trailing whitespace, or conflict markers |
+| Sources | UTF-8 `.tex`, `.sty`, `.cls`, and `.bib`; LF endings and final newlines; no tabs, trailing whitespace, or conflict markers |
 | Documentation | Existing repository-relative Markdown link targets |
 
 The generated-course-PDF rule queries `git ls-files`, not the local filesystem. Ignored local `.build/` output therefore does not fail validation, while a PDF forced into the index does. Its diagnostic names the file, explains local/release access, and gives `git rm --cached -- <path>` removal guidance.

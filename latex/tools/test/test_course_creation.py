@@ -87,6 +87,8 @@ class CourseCreationTests(unittest.TestCase):
             self.assertIn("date = {3 agosto 2026}", main)
             self.assertNotIn(r"\today", main)
             self.assertIn("document-type = {Appunti delle lezioni}", main)
+            self.assertIn(r"\makecoursefrontmatter", main)
+            self.assertIn(r"\makecoursemainmatter", main)
             self.assertIn(r"\chapter{Introduzione}", main)
             self.assertIn("Aggiungere qui i contenuti del corso.", main)
             self.assertIn("contenuti generati del corso", readme)

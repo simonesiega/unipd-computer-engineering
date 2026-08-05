@@ -12,9 +12,11 @@ import shutil
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 
 from create_course import kebab_case as slugify
+from latex_source import is_escaped, strip_comments
 
 YEARS = ("1", "2", "3")
 COURSE_SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -86,7 +88,7 @@ def _braced_group(text: str, opening: int) -> tuple[str, int]:
     start = opening + 1
     position = start
     while position < len(text):
-        escaped = position > 0 and text[position - 1] == "\\"
+        escaped = is_escaped(text, position)
         if text[position] == "{" and not escaped:
             depth += 1
         elif text[position] == "}" and not escaped:
@@ -103,7 +105,7 @@ def _split_metadata(setup: str) -> dict[str, str]:
     depth = 0
     start = 0
     for position, character in enumerate(setup):
-        escaped = position > 0 and setup[position - 1] == "\\"
+        escaped = is_escaped(setup, position)
         if character == "{" and not escaped:
             depth += 1
         elif character == "}" and not escaped:
@@ -131,7 +133,7 @@ def _split_metadata(setup: str) -> dict[str, str]:
 
 def course_metadata(main_file: Path) -> dict[str, str]:
     """Read available canonical course metadata from main.tex."""
-    source = main_file.read_text(encoding="utf-8")
+    source = strip_comments(main_file.read_text(encoding="utf-8"))
     marker = "\\unipdsetup"
     position = source.find(marker)
     if position < 0:
@@ -227,8 +229,10 @@ def render_release_notes(
             "",
             f"Release timestamp: `{release_timestamp}`",
             "",
-            "Compiled PDFs are generated distributions of the corresponding "
-            "CC BY-SA 4.0 course sources.",
+            (
+                "Compiled PDFs are generated distributions of the corresponding "
+                "CC BY-SA 4.0 course sources."
+            ),
             "",
             "## Available notes",
             "",
@@ -259,8 +263,23 @@ def _validate_release_metadata(
     """Validate metadata shared by every staged release asset."""
     if SOURCE_COMMIT.fullmatch(source_commit) is None:
         raise ValueError("Source commit must be a 40-character hexadecimal Git SHA")
-    if not release_timestamp.strip():
+    if not release_timestamp:
         raise ValueError("Release timestamp must not be empty")
+    normalized_timestamp = (
+        release_timestamp[:-1] + "+00:00"
+        if release_timestamp.endswith("Z")
+        else release_timestamp
+    )
+    try:
+        parsed_timestamp = datetime.fromisoformat(normalized_timestamp)
+    except ValueError as error:
+        raise ValueError(
+            "Release timestamp must be a valid ISO-8601 date-time"
+        ) from error
+    if "T" not in release_timestamp or parsed_timestamp.utcoffset() is None:
+        raise ValueError(
+            "Release timestamp must include a time and UTC offset"
+        )
     if not title.strip():
         raise ValueError("Release title must not be empty")
 
@@ -402,7 +421,8 @@ def package_release(
 ) -> list[CourseAsset]:
     """Create a clean release directory from compiled course outputs."""
     root = root.resolve()
-    source_commit = source_commit.lower()
+    source_commit = source_commit.strip().lower()
+    release_timestamp = release_timestamp.strip()
     title = title.strip()
     _validate_release_metadata(source_commit, release_timestamp, title)
     output_directory = _prepare_release_directory(root, output_directory)
@@ -428,8 +448,7 @@ def _git(root: Path, *arguments: str) -> str:
         ("git", *arguments),
         cwd=root,
         check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
     return result.stdout.strip()

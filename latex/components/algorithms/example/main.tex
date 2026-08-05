@@ -35,4 +35,28 @@ Nel caso peggiore, l'\cref{alg:linear-search} confronta la chiave con tutti gli 
   }
   \Return{$(-s)\bmod 256$}\;
 \end{algorithm}
+
+\clearpage
+\begin{algorithm}[H]
+  \caption{Ricerca binaria con intervallo chiuso}
+  \label{alg:binary-search}
+  \KwInput{Una sequenza ordinata $a_1,\dots,a_n$ e un valore $x$}
+  \KwOutput{La posizione di $x$, oppure $\bot$}
+  \Function{cerca$(a,x)$}{
+    $l\gets 1$; $r\gets n$\;
+    \While{$l\leq r$ \KwAnd $x\neq\bot$}{
+      $m\gets\floor*{(l+r)/2}$\;
+      \If{$a_m=x$}{
+        \Return{$m$}\;
+      }
+      \ElseIf{$a_m<x$}{
+        $l\gets m+1$\;
+      }
+      \Else{
+        $r\gets m-1$\;
+      }
+    }
+    \Return{$\bot$}\;
+  }
+\end{algorithm}
 \end{document}

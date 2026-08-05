@@ -1,6 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/08/01 v0.1.0 Front and back matter]
+\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 Front and back matter]
 
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
 \RequirePackage{needspace}
 
 \NewDocumentEnvironment{coursepreface}{}{%
@@ -13,30 +15,43 @@
   \par\addvspace{2\baselineskip}%
   \Needspace{9\baselineskip}%
   \phantomsection
+  \markboth{\unipdtranslate{revision-history}}{\unipdtranslate{revision-history}}%
   {\usekomafont{chapter}\unipdtranslate{revision-history}\par}%
   \nobreak\vspace{0.8\baselineskip}%
   \addcontentsline{toc}{chapter}{\unipdtranslate{revision-history}}%
-  \begin{tabular}{@{}l l p{0.62\linewidth}@{}}\toprule
+  \setlength{\LTpre}{0pt}%
+  \setlength{\LTpost}{0pt}%
+  \begin{longtable}{@{}l l p{0.62\linewidth}@{}}
+  \toprule
   \unipdtranslate{version} & \unipdtranslate{date} &
   \unipdtranslate{changes} \\\midrule
+  \endfirsthead
+  \toprule
+  \unipdtranslate{version} & \unipdtranslate{date} &
+  \unipdtranslate{changes} \\\midrule
+  \endhead
+  \bottomrule
+  \endfoot
 }{%
-  \bottomrule\end{tabular}
+  \end{longtable}
 }
 \NewDocumentCommand{\revision}{mmm}{#1 & #2 & #3 \\
 }
 
 \NewDocumentCommand{\printcourselists}{}{%
-  \clearpage\listoffigures
-  \clearpage\listoftables
-  \clearpage\listofalgorithms
-  \clearpage\lstlistoflistings
+  \clearpage
+  \chapter*{\unipdtranslate{document-lists}}%
+  \addcontentsline{toc}{chapter}{\unipdtranslate{document-lists}}%
+  \section*{\listfigurename}\@starttoc{lof}\medskip
+  \section*{\listtablename}\@starttoc{lot}\medskip
+  \section*{\listalgorithmcfname}\@starttoc{loa}\medskip
+  \section*{\lstlistlistingname}\@starttoc{lol}%
 }
 
 \NewDocumentCommand{\makecoursefrontmatter}{}{%
   \makecoursecover
   \makecoursetableofcontents
 }
-\NewDocumentCommand{\makecoursemainmatter}{}{\clearpage}
-\NewDocumentCommand{\makecoursebackmatter}{}{\clearpage}
+\NewDocumentCommand{\makecoursemainmatter}{}{\clearpage\pagenumbering{arabic}}
 
 \endinput

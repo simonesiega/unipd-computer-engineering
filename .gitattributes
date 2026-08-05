@@ -5,5 +5,10 @@
 # Generated course PDFs are ignored rather than tracked or stored with Git LFS.
 *.pdf binary
 *.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.bmp binary
 *.otf binary
 *.ttf binary

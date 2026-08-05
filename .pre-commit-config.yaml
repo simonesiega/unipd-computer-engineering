@@ -11,12 +11,12 @@ repos:
       - id: check-merge-conflict
       - id: check-yaml
       - id: end-of-file-fixer
-        exclude: '\.(?:otf|ttf|pdf|png)$'
+        exclude: '\.(?:otf|ttf|pdf|png|jpe?g|gif|webp|bmp)$'
       - id: mixed-line-ending
         args: [--fix=lf]
-        exclude: '\.(?:otf|ttf|pdf|png)$'
+        exclude: '\.(?:otf|ttf|pdf|png|jpe?g|gif|webp|bmp)$'
       - id: trailing-whitespace
-        exclude: '\.(?:otf|ttf|pdf|png)$'
+        exclude: '\.(?:otf|ttf|pdf|png|jpe?g|gif|webp|bmp)$'
 
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.12
@@ -29,20 +29,20 @@ repos:
         name: test course tools with coverage
         entry: python latex/tools/run_tool_tests.py
         language: python
-        additional_dependencies: [coverage==7.10.3]
+        additional_dependencies: [coverage==7.15.3]
         pass_filenames: false
         files: '(^latex/tools/.*\.py$|^\.pre-commit-config\.yaml$)'
       - id: python-lint
         name: lint Python tools
         entry: ruff check
         language: python
-        additional_dependencies: [ruff==0.12.7]
+        additional_dependencies: [ruff==0.16.1]
         types: [python]
       - id: python-types
         name: type-check Python tools
         entry: mypy latex/tools
         language: python
-        additional_dependencies: [coverage==7.10.3, mypy==1.17.1]
+        additional_dependencies: [coverage==7.15.3, mypy==2.3.0]
         pass_filenames: false
         files: '(^latex/tools/.*\.py$|^mypy\.ini$|^\.pre-commit-config\.yaml$)'
       - id: latex-repository-check

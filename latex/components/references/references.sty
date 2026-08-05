@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 References and optional bibliography]
+\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 References and optional bibliography]
 
 \ifunipdbibliography
   \RequirePackage[
@@ -7,11 +7,13 @@
     style=authoryear,
     sorting=nyt,
     giveninits=true,
+    uniquename=init,
     maxbibnames=99
   ]{biblatex}
 \fi
+\RequirePackage[nameinlink,noabbrev]{cleveref}
 
-\newcommand*{\unipdcrefnames}[3]{%
+\newcommand*{\unipd@crefnames}[3]{%
   \crefname{#1}
     {\unipdtranslate{#2-lower}}
     {\unipdtranslate{#3-lower}}%
@@ -19,27 +21,25 @@
     {\unipdtranslate{#2-upper}}
     {\unipdtranslate{#3-upper}}%
 }
-\unipdcrefnames{chapter}{chapter}{chapters}
-\unipdcrefnames{section}{section}{sections}
-\unipdcrefnames{subsection}{subsection}{subsections}
-\unipdcrefnames{equation}{equation}{equations}
-\unipdcrefnames{figure}{figure}{figures}
-\unipdcrefnames{table}{table}{tables}
-\unipdcrefnames{lstlisting}{listing}{listings}
-\unipdcrefnames{listing}{listing}{listings}
-\unipdcrefnames{algocf}{algorithm}{algorithms}
-\unipdcrefnames{algorithm}{algorithm}{algorithms}
-\unipdcrefnames{definition}{definition}{definitions}
-\unipdcrefnames{theorem}{theorem}{theorems}
-\unipdcrefnames{proposition}{proposition}{propositions}
-\unipdcrefnames{lemma}{lemma}{lemmas}
-\unipdcrefnames{corollary}{corollary}{corollaries}
-\unipdcrefnames{example}{example}{examples}
-\unipdcrefnames{remark}{remark}{remarks}
-\unipdcrefnames{important}{important}{importants}
-\unipdcrefnames{warning}{warning}{warnings}
-\unipdcrefnames{exercise}{exercise}{exercises}
-\unipdcrefnames{solution}{solution}{solutions}
+\unipd@crefnames{chapter}{chapter}{chapters}
+\unipd@crefnames{section}{section}{sections}
+\unipd@crefnames{subsection}{subsection}{subsections}
+\unipd@crefnames{equation}{equation}{equations}
+\unipd@crefnames{figure}{figure}{figures}
+\unipd@crefnames{table}{table}{tables}
+\unipd@crefnames{listing}{listing}{listings}
+\unipd@crefnames{algorithm}{algorithm}{algorithms}
+\unipd@crefnames{definition}{definition}{definitions}
+\unipd@crefnames{theorem}{theorem}{theorems}
+\unipd@crefnames{proposition}{proposition}{propositions}
+\unipd@crefnames{lemma}{lemma}{lemmas}
+\unipd@crefnames{corollary}{corollary}{corollaries}
+\unipd@crefnames{example}{example}{examples}
+\unipd@crefnames{remark}{remark}{remarks}
+\unipd@crefnames{important}{important}{importants}
+\unipd@crefnames{warning}{warning}{warnings}
+\unipd@crefnames{exercise}{exercise}{exercises}
+\unipd@crefnames{solution}{solution}{solutions}
 
 \ifunipdbibliography
   \DefineBibliographyStrings{italian}

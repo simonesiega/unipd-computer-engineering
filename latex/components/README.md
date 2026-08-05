@@ -30,8 +30,8 @@ No additional files belong inside a component directory.
 | **Diagrams** | Reusable TikZ and CircuitikZ styles for graphs, automata, circuits, flowcharts, software architecture, and UML diagrams. | [`diagrams.sty`](diagrams/diagrams.sty) | [`main.tex`](diagrams/example/main.tex) | [`main.pdf`](diagrams/example/main.pdf) |
 | **Document structure** | Chapter and section hierarchy, numbering, unnumbered structural sections, and appendix management. | [`document-structure.sty`](document-structure/document-structure.sty) | [`main.tex`](document-structure/example/main.tex) | [`main.pdf`](document-structure/example/main.pdf) |
 | **Environments** | Definitions, theorems, proofs, propositions, lemmas, corollaries, examples, remarks, warnings, exercises, and solutions. | [`environments.sty`](environments/environments.sty) | [`main.tex`](environments/example/main.tex) | [`main.pdf`](environments/example/main.pdf) |
-| **Figures and tables** | Figure and table structure, external images, captions, source notes, labels, reference integration, float behavior, and table typography. | [`figures-tables.sty`](figures-tables/figures-tables.sty) | [`main.tex`](figures-tables/example/main.tex) | [`main.pdf`](figures-tables/example/main.pdf) |
-| **Front and back matter** | Preface, revision history, document lists, appendix and bibliography placement, and closing sections. | [`front-back-matter.sty`](front-back-matter/front-back-matter.sty) | [`main.tex`](front-back-matter/example/main.tex) | [`main.pdf`](front-back-matter/example/main.pdf) |
+| **Figures and tables** | Figure and table structure, external images, captions, source notes, float behavior, and table typography. | [`figures-tables.sty`](figures-tables/figures-tables.sty) | [`main.tex`](figures-tables/example/main.tex) | [`main.pdf`](figures-tables/example/main.pdf) |
+| **Front and back matter** | Preface, breakable revision history, document lists, and front- and main-matter pagination. | [`front-back-matter.sty`](front-back-matter/front-back-matter.sty) | [`main.tex`](front-back-matter/example/main.tex) | [`main.pdf`](front-back-matter/example/main.pdf) |
 | **Glossary** | Course terminology and acronyms with consistent definitions, grouping, and presentation. | [`glossary.sty`](glossary/glossary.sty) | [`main.tex`](glossary/example/main.tex) | [`main.pdf`](glossary/example/main.pdf) |
 | **Lists** | Bulleted, numbered, descriptive, nested, and procedural lists with consistent spacing and indentation. | [`lists.sty`](lists/lists.sty) | [`main.tex`](lists/example/main.tex) | [`main.pdf`](lists/example/main.pdf) |
 | **Mathematics** | Mathematical fonts, symbols, operators, equation behavior, and helpers for vectors, matrices, sets, and probability. | [`mathematics.sty`](mathematics/mathematics.sty) | [`main.tex`](mathematics/example/main.tex) | [`main.pdf`](mathematics/example/main.pdf) |
@@ -39,7 +39,7 @@ No additional files belong inside a component directory.
 | **Navigation** | PDF hyperlinks, URLs, bookmarks, link appearance, and navigation behavior. | [`navigation.sty`](navigation/navigation.sty) | [`main.tex`](navigation/example/main.tex) | [`main.pdf`](navigation/example/main.pdf) |
 | **Page style** | A4 page geometry, margins, running headers, footers, and page-number presentation. | [`page-style.sty`](page-style/page-style.sty) | [`main.tex`](page-style/example/main.tex) | [`main.pdf`](page-style/example/main.pdf) |
 | **References** | Intelligent cross-references, labels, reference formatting, and optional bibliography management. | [`references.sty`](references/references.sty) | [`main.tex`](references/example/main.tex) | [`main.pdf`](references/example/main.pdf) |
-| **Table of contents** | Main table of contents, linked entries, front-matter pagination, and transition to Arabic page numbering. | [`table-of-contents.sty`](table-of-contents/table-of-contents.sty) | [`main.tex`](table-of-contents/example/main.tex) | [`main.pdf`](table-of-contents/example/main.pdf) |
+| **Table of contents** | Main table of contents, linked entries, and Roman-numbered front-matter presentation. | [`table-of-contents.sty`](table-of-contents/table-of-contents.sty) | [`main.tex`](table-of-contents/example/main.tex) | [`main.pdf`](table-of-contents/example/main.pdf) |
 | **Typography** | Document fonts, shared colors, typographic hierarchy, paragraph behavior, vertical rhythm, and general text rules. | [`typography.sty`](typography/typography.sty) | [`main.tex`](typography/example/main.tex) | [`main.pdf`](typography/example/main.pdf) |
 
 ## Loading
@@ -79,7 +79,7 @@ Each component has a clearly defined responsibility and should not duplicate fun
 
 Shared definitions such as fonts and colors belong to `typography`, while document information and translated labels belong to `metadata`. Page layout is handled by `page-style`. Components must retrieve language-dependent text through `\unipdtranslate` rather than hard-code Italian or English labels.
 
-`figures-tables` provides the shared infrastructure for figures and tables, including floats, captions, numbering, labels, cross-references, and source notes. `diagrams` builds on this infrastructure by providing TikZ and CircuitikZ styles for technical diagrams.
+`figures-tables` provides the shared infrastructure for figures and tables, including floats, captions, numbering, and source notes. Cross-reference names and formatting remain owned by `references`. `diagrams` builds on the figure infrastructure by providing TikZ and CircuitikZ styles for technical diagrams.
 
 As a result, `diagrams` depends on `figures-tables`, while `figures-tables` can be used independently.
 

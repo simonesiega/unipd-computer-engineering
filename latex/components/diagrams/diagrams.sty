@@ -1,24 +1,19 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/08/01 v0.1.0 Technical diagrams]
+\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 Technical diagrams]
 
 \RequirePackage{tikz}
-\usetikzlibrary{arrows.meta,automata,backgrounds,calc,fit,matrix,positioning,shapes.geometric,shapes.multipart}
+\usetikzlibrary{arrows.meta,automata,positioning,shapes.geometric,shapes.multipart}
 \RequirePackage[europeanresistors,siunitx]{circuitikz}
 
 \tikzset{
   unipd/diagram/.style={font=\sffamily\small,line cap=round,line join=round,>=Latex},
   unipd/node/.style={draw=unipd-primary,fill=unipd-soft,line width=.7pt,rounded corners=2pt,inner xsep=7pt,inner ysep=5pt,align=center},
-  unipd/node emphasized/.style={unipd/node,line width=1pt,fill=unipd-rule},
   unipd/edge/.style={draw=unipd-primary,line width=.7pt},
   unipd/directed edge/.style={unipd/edge,-{Latex[length=2.2mm]}},
-  unipd/undirected edge/.style={unipd/edge},
-  unipd/weighted edge/.style={unipd/directed edge},
-  unipd/labeled edge/.style={unipd/directed edge},
   unipd/optional edge/.style={unipd/directed edge,dashed},
   unipd/edge label/.style={font=\sffamily\footnotesize,fill=white,inner sep=1.5pt,text=unipd-primary},
   unipd/graph node/.style={unipd/node,circle,minimum size=8mm,inner sep=1pt},
   unipd/graph node emphasized/.style={unipd/graph node,line width=1pt,fill=unipd-rule},
-  unipd/graph edge/.style={unipd/undirected edge},
   unipd/graph directed/.style={unipd/directed edge},
   unipd/graph optional/.style={unipd/optional edge},
   unipd/automaton state/.style={state,draw=unipd-primary,fill=unipd-soft,line width=.7pt,minimum size=9mm,font=\sffamily\small},
@@ -31,36 +26,20 @@
   unipd/flow end/.style={unipd/flow start,line width=1pt},
   unipd/flow process/.style={unipd/node,minimum width=28mm},
   unipd/flow decision/.style={unipd/node,diamond,aspect=2.1,inner sep=2pt},
-  unipd/flow data/.style={unipd/node,trapezium,trapezium left angle=70,trapezium right angle=110},
-  unipd/flow connector/.style={unipd/node,circle,minimum size=6mm,inner sep=0pt},
   unipd/flow arrow/.style={unipd/directed edge},
   unipd/architecture component/.style={unipd/node,minimum width=25mm,minimum height=10mm},
   unipd/architecture service/.style={unipd/architecture component,font=\ttfamily\small},
   unipd/architecture database/.style={unipd/node,cylinder,shape border rotate=90,aspect=.25,minimum width=20mm,minimum height=13mm,font=\ttfamily\small},
-  unipd/architecture external/.style={unipd/architecture component,dashed},
   unipd/architecture user/.style={unipd/architecture component,ellipse},
-  unipd/architecture group/.style={draw=unipd-rule,fill=unipd-soft,rounded corners=3pt,inner sep=7pt},
-  unipd/architecture bus/.style={unipd/edge,line width=1.4pt},
   unipd/architecture connection/.style={unipd/directed edge},
-  unipd/architecture asynchronous/.style={unipd/architecture connection,dashed},
   unipd/architecture data flow/.style={unipd/architecture connection,double,double distance=.7pt},
   unipd/uml class/.style={rectangle split,rectangle split parts=3,draw=unipd-primary,fill=unipd-soft,line width=.7pt,rounded corners=1pt,align=left,font=\sffamily\small,inner sep=4pt,text width=35mm},
-  unipd/uml interface/.style={unipd/uml class,dashed},
-  unipd/uml package/.style={unipd/node,draw=unipd-muted,minimum width=35mm,minimum height=18mm},
-  unipd/uml actor/.style={unipd/architecture user},
-  unipd/uml association/.style={unipd/edge},
-  unipd/uml directed association/.style={unipd/directed edge},
-  unipd/uml inheritance/.style={unipd/edge,-{Triangle[open,length=3mm]}},
-  unipd/uml implementation/.style={unipd/uml inheritance,dashed},
-  unipd/uml dependency/.style={unipd/directed edge,dashed},
-  unipd/uml aggregation/.style={unipd/edge,{Diamond[open,length=3mm]}-},
-  unipd/uml composition/.style={unipd/edge,{Diamond[length=3mm]}-}
+  unipd/uml inheritance/.style={unipd/edge,-{Triangle[open,length=3mm]}}
 }
 
 \ctikzset{bipoles/thickness=1,bipoles/length=1cm,nodes width=.06,voltage shift=.5}
 \tikzset{
   unipd/circuit/.style={unipd/diagram,draw=unipd-primary,line width=.7pt},
-  unipd/circuit label/.style={font=\sffamily\footnotesize,text=unipd-primary},
   unipd/circuit node/.style={circle,fill=unipd-primary,inner sep=1.2pt}
 }
 

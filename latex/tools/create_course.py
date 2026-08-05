@@ -122,8 +122,8 @@ def render_main(course: Course) -> str:
 }}
 
 \\begin{{document}}
-\\makecoursecover
-\\makecoursetableofcontents
+\\makecoursefrontmatter
+\\makecoursemainmatter
 
 \\chapter{{{labels["introduction"]}}}
 

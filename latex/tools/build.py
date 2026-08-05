@@ -13,6 +13,8 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from latex_source import is_escaped, strip_comments
+
 START_MARKER = "<!-- GENERATED:START -->"
 END_MARKER = "<!-- GENERATED:END -->"
 DOCUMENT_ROOTS = ("1", "2", "3", "latex/components", "latex/integration")
@@ -105,7 +107,10 @@ def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
                 Path(".github/workflows/publish-notes.yml"),
             }
             or path == Path("latex/unipd-notes.cls")
-            or path == Path("latex/tools/build.py")
+            or path in {
+                Path("latex/tools/build.py"),
+                Path("latex/tools/latex_source.py"),
+            }
             or (
                 len(parts) >= 3
                 and parts[:2] == ("latex", "components")
@@ -156,6 +161,10 @@ def resolve_document(root: Path, value: str) -> Path:
     if path.is_dir():
         path = path / "main.tex"
     path = path.resolve()
+    try:
+        path.relative_to(root.resolve())
+    except ValueError as error:
+        raise ValueError(f"Document must be inside the repository: {path}") from error
     if path.name != "main.tex" or not path.is_file():
         raise FileNotFoundError(f"Expected an existing main.tex: {path}")
     return path
@@ -227,7 +236,7 @@ def parse_group(text: str, position: int) -> tuple[str, int]:
     position += 1
     while position < len(text):
         character = text[position]
-        escaped = position > 0 and text[position - 1] == "\\"
+        escaped = is_escaped(text, position)
         if character == "{" and not escaped:
             depth += 1
         elif character == "}" and not escaped:
@@ -294,7 +303,9 @@ def parse_toc(toc_file: Path) -> list[TocEntry]:
 
 def document_language(document: Path) -> str:
     """Return the language selected by a document class option."""
-    source = document.read_text(encoding="utf-8", errors="replace")
+    source = strip_comments(
+        document.read_text(encoding="utf-8", errors="replace")
+    )
     match = DOCUMENT_CLASS_PATTERN.search(source)
     if match is None or match.group(1) is None:
         return "italian"

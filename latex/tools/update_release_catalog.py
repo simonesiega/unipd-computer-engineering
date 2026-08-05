@@ -56,7 +56,7 @@ def _markdown(value: str) -> str:
 def _release_records(data: Any) -> list[dict[str, Any]]:
     """Flatten normal or gh --paginate --slurp release JSON."""
     if not isinstance(data, list):
-        raise ValueError("Release data must be a JSON array")
+        raise TypeError("Release data must be a JSON array")
     records: list[dict[str, Any]] = []
     for item in data:
         if isinstance(item, list):
@@ -75,7 +75,7 @@ def parse_releases(data: Any) -> list[PublishedRelease]:
         pdfs: list[ReleasedPdf] = []
         assets = record.get("assets", [])
         if not isinstance(assets, list):
-            raise ValueError("Release assets must be a JSON array")
+            raise TypeError("Release assets must be a JSON array")
         for asset in assets:
             if not isinstance(asset, dict):
                 continue
@@ -250,6 +250,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except (OSError, ValueError, json.JSONDecodeError) as error:
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)
         sys.exit(1)

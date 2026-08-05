@@ -27,12 +27,17 @@ def repository_root() -> Path:
 def validate_source(path: Path, root: Path) -> list[str]:
     """Validate a LaTeX source for encoding and source-hygiene errors."""
     relative = path.relative_to(root)
+    source_bytes = path.read_bytes()
     try:
-        content = path.read_text(encoding="utf-8")
+        content = source_bytes.decode("utf-8")
     except UnicodeDecodeError as error:
         return [f"{relative}: is not valid UTF-8 ({error})"]
 
     errors: list[str] = []
+    if b"\r" in source_bytes:
+        errors.append(f"{relative}: must use LF line endings")
+    if content and not content.endswith("\n"):
+        errors.append(f"{relative}: must end with a newline")
     if CONFLICT_MARKER.search(content):
         errors.append(f"{relative}: contains an unresolved merge-conflict marker")
     if "\t" in content:
@@ -66,8 +71,7 @@ def validate_tracked_course_pdfs(root: Path) -> list[str]:
         ("git", "ls-files", "-z", "--", *YEARS),
         cwd=root,
         check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     if result.returncode != 0:
         details = result.stderr.decode("utf-8", errors="replace").strip()
@@ -129,6 +133,10 @@ def validate_components(root: Path) -> list[str]:
         path for path in components_directory.iterdir() if path.is_dir()
     ):
         relative = component.relative_to(root)
+        if COURSE_DIRECTORY_NAME.fullmatch(component.name) is None:
+            errors.append(
+                f"{relative}: component directory names must use lowercase kebab-case"
+            )
         package = component / f"{component.name}.sty"
         example = component / "example"
         required_paths = {package, example}

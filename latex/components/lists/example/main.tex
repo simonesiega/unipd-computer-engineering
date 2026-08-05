@@ -8,12 +8,24 @@
   \item unità di controllo, composta da:
     \begin{itemize}
       \item registro dell'istruzione corrente;
-      \item logica di decodifica e segnali di controllo.
+      \item logica di decodifica, che comprende:
+        \begin{itemize}
+          \item riconoscimento dell'opcode;
+          \item generazione dei segnali di controllo.
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 \begin{enumerate}
   \item prelevare l'istruzione dalla memoria;
-  \item decodificare l'opcode e gli operandi;
+  \item decodificare l'opcode e gli operandi:
+    \begin{enumerate}
+      \item identificare il formato dell'istruzione;
+      \item interpretare gli operandi:
+        \begin{enumerate}
+          \item leggere i registri sorgente;
+          \item estendere gli operandi immediati.
+        \end{enumerate}
+    \end{enumerate}
   \item eseguire l'operazione e aggiornare lo stato.
 \end{enumerate}
 \section{Descrizioni e passi}
@@ -24,5 +36,9 @@
 \begin{steps}
   \item Tradurre l'indirizzo virtuale mediante la tabella delle pagine.
   \item Accedere al frame fisico e verificare i permessi.
+    \begin{steps}
+      \item Controllare il bit di presenza.
+      \item Verificare i permessi di lettura o scrittura.
+    \end{steps}
 \end{steps}
 \end{document}

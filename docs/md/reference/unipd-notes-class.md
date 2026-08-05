@@ -84,6 +84,21 @@ Course documents should use the interfaces exposed by these components instead o
 
 See the [component reference](../../../latex/components/README.md) for responsibilities, examples, and extension rules.
 
+## Document lifecycle
+
+Use the shared lifecycle commands instead of manipulating page numbering directly:
+
+| Interface | Purpose |
+|---|---|
+| `\makecoursefrontmatter` | Create the cover and Roman-numbered table of contents. |
+| `coursepreface` | Add an optional preface to the table of contents. |
+| `revisionhistory` and `\revision` | Add an optional, page-breakable revision table. |
+| `\makecoursemainmatter` | Start Arabic page numbering at 1 before the first chapter. |
+| `\printcourselists` | Print one localized section containing figure, table, algorithm, and listing entries. |
+| `\courseappendices` | Start the appendix sequence. |
+
+The focused [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example demonstrates the complete order. Bibliographies and glossaries use their own component interfaces and may be printed where the document structure requires them.
+
 ## Typical document
 
 ```latex
@@ -101,8 +116,8 @@ See the [component reference](../../../latex/components/README.md) for responsib
 }
 
 \begin{document}
-\makecoursecover
-\makecoursetableofcontents
+\makecoursefrontmatter
+\makecoursemainmatter
 
 \chapter{Introduction}
 
@@ -110,6 +125,8 @@ Course content.
 
 \end{document}
 ```
+
+`\makecoursefrontmatter` creates the cover and table of contents while preserving Roman page numbering, so a preface or revision history can follow it. Call `\makecoursemainmatter` immediately before the first chapter to clear the page, switch to Arabic numbering, and start the main text at page 1.
 
 See [Metadata](../user-guide/metadata.md) for every `\unipdsetup` field and [Writing notes](../user-guide/writing-notes.md) for authoring conventions.
 
