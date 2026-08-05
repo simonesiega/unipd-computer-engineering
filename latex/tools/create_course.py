@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Create a course directory with the repository's standard files and metadata."""
 
 from __future__ import annotations

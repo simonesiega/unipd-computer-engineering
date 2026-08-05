@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate README exam coverage and release tables from GitHub Releases."""
 
 from __future__ import annotations

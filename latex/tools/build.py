@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Compile repository documents and refresh generated READMEs."""
 
 from __future__ import annotations

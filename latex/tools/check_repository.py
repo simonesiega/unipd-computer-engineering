@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Validate the repository's LaTeX sources and document layouts."""
 
 from __future__ import annotations

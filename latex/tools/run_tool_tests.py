@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Run the Python tool tests and enforce branch-coverage reporting."""
 
 from __future__ import annotations

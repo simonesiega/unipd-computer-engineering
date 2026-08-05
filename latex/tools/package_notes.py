@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Package compiled course PDFs and deterministic release metadata."""
 
 from __future__ import annotations

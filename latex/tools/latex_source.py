@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Small helpers for inspecting LaTeX source without interpreting TeX."""
 
 from __future__ import annotations

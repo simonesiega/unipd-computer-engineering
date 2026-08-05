@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate one complete Git changelog for every course archive."""
 
 from __future__ import annotations
