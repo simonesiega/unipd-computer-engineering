@@ -37,9 +37,9 @@
 
 ## Overview
 
-This repository is a shared, long-term archive of study materials for Computer Engineering students at the University of Padua. It is an unofficial, student-maintained project and is not affiliated with or endorsed by the University of Padua.
+This repository follows the 2026–2029 Computer Engineering cohort at the University of Padua. It is an unofficial, student-maintained project and is not affiliated with or endorsed by the University of Padua. Students and other contributors are welcome to use and improve it.
 
-Contributions may correct or expand existing notes, add original material for new courses, improve diagrams and examples, or enhance the LaTeX system, documentation, build tools, and automation that support the archive.
+Contributions may correct or expand existing notes, add original material for courses belonging to this cohort archive, improve diagrams and examples, or enhance the LaTeX system, documentation, build tools, and automation that support the archive.
 
 Every contribution is valuable. A pull request may contain anything from a typo correction to a complete set of course notes.
 
@@ -57,7 +57,7 @@ Small corrections, documentation improvements, and focused additions may normall
 
 Open an issue first when you plan to:
 
-- add a new course;
+- add another course belonging to this cohort archive;
 - substantially reorganize existing notes;
 - change the shared LaTeX system;
 - modify repository-wide build, validation, or CI behaviour.
@@ -69,7 +69,7 @@ Choose the path closest to your change and follow the linked guide.
 | Contribution | Main guide |
 |---|---|
 | Correct or expand notes | [Writing notes](docs/md/user-guide/writing-notes.md) |
-| Add a new course | [Creating a course](docs/md/getting-started/creating-a-course.md) |
+| Add a course from this cohort | [Creating a course](docs/md/getting-started/creating-a-course.md) |
 | Reorganize a course | [Course structure](docs/md/user-guide/course-structure.md) |
 | Update course or document metadata | [Metadata](docs/md/user-guide/metadata.md) |
 | Set up canonical PDF builds | [Docker builds](docs/md/getting-started/docker.md) |
@@ -182,7 +182,7 @@ Search the [existing issues](https://github.com/simonesiega/unipd-computer-engin
 | Request | Form |
 |---|---|
 | Inaccurate, unclear, incomplete, or outdated notes | [Report a content error](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=content-error.yml) |
-| A new course archive | [Submit a course proposal](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=course-proposal.yml) |
+| A course missing from this cohort archive | [Submit a course proposal](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=course-proposal.yml) |
 | A reproducible local build, validation, generated-file, or CI failure | [Report a build problem](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=build-problem.yml) |
 
 For a request that does not fit these forms, start a [general issue](https://github.com/simonesiega/unipd-computer-engineering/issues/new). A draft pull request is also welcome when you want feedback on work already in progress.
@@ -276,4 +276,4 @@ Before opening a pull request, confirm that:
 - [ ] the pull-request description explains the change and validation;
 - [ ] covered-exam status changes only after maintainer approval.
 
-Thank you for helping build a useful, reliable, and long-term archive for Computer Engineering students.
+Thank you for helping build a useful and reliable archive for the 2026–2029 Computer Engineering cohort.

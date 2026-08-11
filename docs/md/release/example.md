@@ -1,5 +1,5 @@
-<!-- What is this snapshot? State the academic year, semester, and purpose in one sentence. -->
-[Stable end-of-semester snapshot for semester N of academic year YYYY–YYYY.]
+<!-- What is this snapshot? Use the applicable archive year (2026–2027, 2027–2028, or 2028–2029) and state the semester and purpose in one sentence. -->
+[Stable end-of-semester snapshot for semester N of academic year 2026–2027.]
 
 ## Included courses
 

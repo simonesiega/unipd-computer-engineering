@@ -13,7 +13,7 @@
 ## Change type
 
 - [ ] Content correction or expansion
-- [ ] New course or substantial reorganization
+- [ ] Course addition within this cohort or substantial reorganization
 - [ ] LaTeX, build, validation, or CI change
 - [ ] Documentation or repository maintenance
 
