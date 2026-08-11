@@ -2,13 +2,13 @@
 
 [← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md) · [Building documents](building-documents.md)
 
-This guide covers the minimum steps required to add a course to the archive. Note-writing conventions, metadata details, and build options belong to their dedicated guides.
+This guide covers the minimum steps required to add a course belonging to the 2026–2029 cohort archive. Note-writing conventions, metadata details, and build options belong to their dedicated guides.
 
 ## Before starting
 
 Check that the course is not already present under `1/`, `2/`, or `3/`.
 
-External contributors should open an issue before adding a new course so that its name, degree year, and scope can be agreed upon. The repository maintainer may create courses directly.
+External contributors should open an issue before adding a course from this cohort so that its name, degree year, and scope can be agreed upon. The repository maintainer may create courses directly.
 
 ## Create the course
 
@@ -71,7 +71,7 @@ For the example above it creates:
 
 The empty `.gitkeep` files ensure that Git preserves `sections/` and `assets/` until course content is added.
 
-The generated `main.tex` uses the supplied metadata and the academic year associated with this degree archive:
+The generated `main.tex` uses the supplied metadata and this cohort archive's fixed academic-year mapping:
 
 | Degree year | Academic year |
 |---:|---|

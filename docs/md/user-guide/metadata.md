@@ -80,6 +80,6 @@ Use `\unipdifmetadata` when content should appear only if a field is present:
 
 `\unipdheadcourse` returns `short-course` when available and otherwise falls back to `course`.
 
-Keep metadata in `main.tex`; do not repeat it in section files. Update the academic year, professor, date, and version when publishing notes for a new course edition.
+Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping, and update the professor, date, and version when publishing a new edition.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) to regenerate and review the PDF.

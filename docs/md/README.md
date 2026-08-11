@@ -6,7 +6,7 @@
 
 [← Project README](../../README.md) · [Browse the notes](../../README.md#browse-the-notes) · [Contributing](../../CONTRIBUTING.md)
 
-This documentation is organized by task. The project README introduces the archive and provides access to the notes; the guides below explain how to create, write, build, and maintain them.
+This documentation covers the archive for the 2026–2029 Computer Engineering cohort at the University of Padua. It is organized by task: the project README introduces the archive and provides access to the notes, while the guides below explain how to create, write, build, and maintain them.
 
 ## Start here
 
@@ -24,7 +24,7 @@ This documentation is organized by task. The project README introduces the archi
 |---|---|
 | [Installation](getting-started/installation.md) | Installing the required tools and verifying a local build. |
 | [Docker builds](getting-started/docker.md) | Running canonical builds, verifying generated files, and troubleshooting Docker. |
-| [Creating a course](getting-started/creating-a-course.md) | Adding a new course directory and its initial `main.tex`. |
+| [Creating a course](getting-started/creating-a-course.md) | Adding a course from this cohort and its initial `main.tex`. |
 | [Building documents](getting-started/building-documents.md) | Compiling notes into `.build/`, refreshing generated files, and validating changes. |
 
 ## Writing notes
@@ -50,6 +50,7 @@ This documentation is organized by task. The project README introduces the archi
 | [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
 | [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
 | [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document artifacts, rolling releases, and immutable snapshots. |
+| [AI-assisted development](development/ai-assisted-development.md) | Human-review requirements, agent instructions, and specialized skill responsibilities. |
 | [Release description questionnaire](release/example.md) | Prompts and placeholders to complete for a semester snapshot introduction. |
 
 ## Project policies

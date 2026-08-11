@@ -5,7 +5,7 @@
 <h1 align="center">UniPD Computer Engineering</h1>
 
 <p align="center">
-  <strong>A structured archive of course notes and academic material for the bachelor's degree in Computer Engineering at the University of Padua.</strong>
+  <strong>This repository follows the 2026–2029 Computer Engineering cohort at the University of Padua.</strong>
 </p>
 
 <p align="center">
@@ -47,7 +47,7 @@
 
 ## Contents
 
-- [Notes preview](#notes-preview)
+- [Example preview](#example-preview)
 - [Overview](#overview)
 - [Browse the notes](#browse-the-notes)
 - [Exams covered](#exams-covered)
@@ -60,7 +60,7 @@
 - [License](#license)
 - [Contributors](#contributors)
 
-## Notes preview
+## Example preview
 
 <p align="center">
   <img
@@ -74,21 +74,21 @@ The preview shows a representative page from the archive, demonstrating the shar
 
 ## Overview
 
-This repository is a long-term academic archive for the three-year Bachelor's degree programme in Computer Engineering at the University of Padua.
+This repository is the academic archive for the 2026–2029 cohort of the three-year Bachelor's degree programme in Computer Engineering at the University of Padua.
 
-It collects notes, summaries, diagrams, exercises, references, and other study material produced throughout the degree. Courses are organized by degree year and use a shared LaTeX system to keep their structure, typography, metadata, and generated distributions consistent. LaTeX sources live in the normal Git repository; compiled course PDFs are published separately.
+It collects notes, summaries, diagrams, exercises, references, and other study material produced throughout this cohort's degree. Courses are organized by degree year and use a shared LaTeX system to keep their structure, typography, metadata, and generated distributions consistent. LaTeX sources live in the normal Git repository; compiled course PDFs are published separately.
 
 The archive serves both as an active study workspace and as a record of the material covered for each exam.
 
 ## Browse the notes
 
-Choose the directory corresponding to your degree year:
+The archive uses the following fixed degree-year and academic-year mapping:
 
-| Degree year | Course directory |
-|---|---|
-| First year | [`1/`](1/) |
-| Second year | [`2/`](2/) |
-| Third year | [`3/`](3/) |
+| Degree year | Academic year | Course directory |
+|---|---|---|
+| First year | 2026–2027 | [`1/`](1/) |
+| Second year | 2027–2028 | [`2/`](2/) |
+| Third year | 2028–2029 | [`3/`](3/) |
 
 **[Download the latest complete set of compiled notes](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest).** The rolling `notes-latest` release always represents the latest successfully published `main` commit. Its assets use stable names such as `1-calculus-1.pdf` and include a manifest, SHA-256 checksums, and a Markdown index.
 
@@ -142,32 +142,18 @@ The [documentation hub](docs/md/README.md) is the main reference for using, buil
 | Getting started | [Installation](docs/md/getting-started/installation.md) · [Docker builds](docs/md/getting-started/docker.md) · [Creating a course](docs/md/getting-started/creating-a-course.md) · [Building documents](docs/md/getting-started/building-documents.md) |
 | Writing notes | [Course structure](docs/md/user-guide/course-structure.md) · [Writing notes](docs/md/user-guide/writing-notes.md) · [Metadata](docs/md/user-guide/metadata.md) |
 | LaTeX reference | [Document class](docs/md/reference/unipd-notes-class.md) · [Components](latex/components/README.md) · [Fonts](latex/fonts/README.md) |
-| Repository internals | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) |
+| Repository internals | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) · [AI-assisted development](docs/md/development/ai-assisted-development.md) |
 | Project policies | [Contributing](CONTRIBUTING.md) · [Report a problem](CONTRIBUTING.md#getting-help-and-reporting-problems) · [Security](SECURITY.md) |
 
 ## AI-assisted development
 
-This repository may use AI-assisted tools to help write, review, build, test, and maintain course material and supporting infrastructure. AI output is never treated as authoritative by itself: every contribution remains subject to human review for accuracy, clarity, originality, citations, licensing, academic integrity, and consistency with the surrounding material.
+AI-assisted tools may support course material and repository maintenance, but their output is never authoritative and remains subject to human review. Contributors remain responsible for accuracy, originality, citations, licensing, academic integrity, and disclosing uncertainty or skipped verification.
 
-Repository-specific instructions for compatible AI coding agents are stored in [`AGENTS.md`](AGENTS.md) and [`.agents/skills/`](.agents/skills/).
-
-`AGENTS.md` defines the shared rules and routes each task to the most appropriate skill, while each `SKILL.md` contains a focused workflow for one area of the project.
-
-| File | Responsibility |
-|---|---|
-| [`AGENTS.md`](AGENTS.md) | Defines repository-wide rules, protected generated content, academic and licensing constraints, skill routing, normal workflows, and completion reporting. |
-| [`.agents/skills/unipd-note-writing/SKILL.md`](.agents/skills/unipd-note-writing/SKILL.md) | Writes and reviews course-specific prose, mathematics, examples, exercises, solutions, references, code explanations, and diagrams stored with course sources. |
-| [`.agents/skills/unipd-latex-component-development/SKILL.md`](.agents/skills/unipd-latex-component-development/SKILL.md) | Develops the shared document class, LaTeX components, component examples, fonts, public interfaces, dependencies, and related documentation. |
-| [`.agents/skills/unipd-python-tool-development/SKILL.md`](.agents/skills/unipd-python-tool-development/SKILL.md) | Develops, fixes, reviews, and tests Python repository tools while preserving the standard-library `unittest` architecture and deterministic isolated tests. |
-| [`.agents/skills/unipd-latex-build/SKILL.md`](.agents/skills/unipd-latex-build/SKILL.md) | Selects and compiles affected documents, diagnoses LaTeX failures, and regenerates PDFs and other build-owned outputs. |
-| [`.agents/skills/unipd-pdf-review/SKILL.md`](.agents/skills/unipd-pdf-review/SKILL.md) | Visually reviews generated PDFs for layout, readability, navigation, clipping, overlap, page-break, and rendering problems. |
-| [`.agents/skills/unipd-repository-validation/SKILL.md`](.agents/skills/unipd-repository-validation/SKILL.md) | Runs and diagnoses repository validation, pre-commit checks, structural rules, source hygiene, YAML, encoding, whitespace, and line-ending failures. |
-
-These files guide AI-assisted work but do not replace the project documentation, validation tools, contribution requirements, or maintainer review. Contributors remain responsible for every submitted change and must disclose uncertainty, skipped checks, unavailable tools, and material that still requires verification.
+See [AI-assisted development](docs/md/development/ai-assisted-development.md) for the repository's agent guidance, responsibilities, and review requirements.
 
 ## Contributing
 
-Contributions to the study materials, LaTeX system, documentation, and repository tooling are welcome. Before opening an issue or pull request, read [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution paths, quality standards, licensing requirements, validation steps, and academic-integrity rules.
+Contributions to the 2026–2029 cohort's study materials, LaTeX system, documentation, and repository tooling are welcome from all students and other contributors. Before opening an issue or pull request, read [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution paths, quality standards, licensing requirements, validation steps, and academic-integrity rules.
 
 Security vulnerabilities involving scripts, dependencies, automation, or configuration should be reported according to [`SECURITY.md`](SECURITY.md).
 
