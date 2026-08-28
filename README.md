@@ -60,6 +60,9 @@
 - [License](#license)
 - [Contributors](#contributors)
 
+<details>
+<summary>Example preview</summary>
+
 ## Example preview
 
 <p align="center">
@@ -72,6 +75,11 @@
 
 The preview shows a representative page from the archive, demonstrating the shared layout for headings, text, diagrams, equations, cross-references, source notes, and code listings.
 
+</details>
+
+<details>
+<summary>Overview</summary>
+
 ## Overview
 
 This repository is the academic archive for the 2026–2029 cohort of the three-year Bachelor's degree programme in Computer Engineering at the University of Padua.
@@ -79,6 +87,11 @@ This repository is the academic archive for the 2026–2029 cohort of the three-
 It collects notes, summaries, diagrams, exercises, references, and other study material produced throughout this cohort's degree. Courses are organized by degree year and use a shared LaTeX system to keep their structure, typography, metadata, and generated distributions consistent. LaTeX sources live in the normal Git repository; compiled course PDFs are published separately.
 
 The archive serves both as an active study workspace and as a record of the material covered for each exam.
+
+</details>
+
+<details>
+<summary>Browse the notes</summary>
 
 ## Browse the notes
 
@@ -93,6 +106,8 @@ The archive uses the following fixed degree-year and academic-year mapping:
 **[Download the latest complete set of compiled notes](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest).** The rolling `notes-latest` release always represents the latest successfully published `main` commit. Its assets use stable names such as `1-calculus-1.pdf` and include a manifest, SHA-256 checksums, and a Markdown index.
 
 The degree-year directories contain the LaTeX sources and supporting files needed to reproduce each PDF. Pull-request builds are uploaded as temporary GitHub Actions artifacts for review and retained for approximately 14 days. Stable end-of-semester editions are published as immutable snapshot releases. Weekly generated changelogs under [`CHANGELOG/`](CHANGELOG/) record committed course-source changes, grouped by date and linked to the corresponding commit.
+
+</details>
 
 ## Exams covered
 
@@ -119,6 +134,9 @@ Current covered exams:
 | [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) | 2026-08-04 | Latest compiled notes | — |
 <!-- RELEASE-CATALOG:END -->
 
+<details>
+<summary>Quick start</summary>
+
 ## Quick start
 
 Clone the repository, then build a course in the pinned TeX Live environment used by CI. Replace `1/course-name` with the course path you want to build.
@@ -133,6 +151,8 @@ For daily work, the equivalent shortcut is `make build COURSE=1/course-name`; ru
 
 The course PDF remains under `.build/<year>/<course>/main.pdf` for local review; generated course PDFs must not be committed. The canonical build requires Docker Compose. Native TeX installations remain useful for previews, but release and CI builds use the pinned container. See [Installation](docs/md/getting-started/installation.md) for prerequisites, [Docker builds](docs/md/getting-started/docker.md) for container setup and troubleshooting, and [Building documents](docs/md/getting-started/building-documents.md) for build options.
 
+</details>
+
 ## Documentation
 
 The [documentation hub](docs/md/README.md) is the main reference for using, building, and extending the archive.
@@ -145,17 +165,30 @@ The [documentation hub](docs/md/README.md) is the main reference for using, buil
 | Repository internals | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) · [AI-assisted development](docs/md/development/ai-assisted-development.md) |
 | Project policies | [Contributing](CONTRIBUTING.md) · [Report a problem](CONTRIBUTING.md#getting-help-and-reporting-problems) · [Security](SECURITY.md) |
 
+<details>
+<summary>AI-assisted development</summary>
+
 ## AI-assisted development
 
 AI-assisted tools may support course material and repository maintenance, but their output is never authoritative and remains subject to human review. Contributors remain responsible for accuracy, originality, citations, licensing, academic integrity, and disclosing uncertainty or skipped verification.
 
 See [AI-assisted development](docs/md/development/ai-assisted-development.md) for the repository's agent guidance, responsibilities, and review requirements.
 
+</details>
+
+<details>
+<summary>Contributing</summary>
+
 ## Contributing
 
 Contributions to the 2026–2029 cohort's study materials, LaTeX system, documentation, and repository tooling are welcome from all students and other contributors. Before opening an issue or pull request, read [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution paths, quality standards, licensing requirements, validation steps, and academic-integrity rules.
 
 Security vulnerabilities involving scripts, dependencies, automation, or configuration should be reported according to [`SECURITY.md`](SECURITY.md).
+
+</details>
+
+<details>
+<summary>Academic disclaimer</summary>
 
 ## Academic disclaimer
 
@@ -164,6 +197,8 @@ This is an independent and unofficial repository. It is not affiliated with, mai
 The materials may contain errors, incomplete explanations, missing topics, personal interpretations, outdated information, or inaccurate AI-assisted content. They are intended to complement lectures and official course resources, not replace them, and are provided without guarantees of accuracy, completeness, or suitability for a particular academic purpose.
 
 Always verify important information against official university resources, course instructors, syllabi, textbooks, and teaching materials. The University of Padua name, logo, and related marks are the property of their respective owners. The logo is displayed solely to identify the institution associated with the degree programme; its use does not imply affiliation, authorization, or endorsement.
+
+</details>
 
 ## License
 
