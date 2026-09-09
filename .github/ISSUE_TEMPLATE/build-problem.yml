@@ -1,6 +1,8 @@
 name: Build problem
 description: Report a reproducible failure in the build tools, validation checks, or CI.
 title: "[Build problem]: "
+labels:
+  - bug
 body:
   - type: markdown
     attributes:
@@ -89,4 +91,6 @@ body:
         - label: I followed the installation and building guides and searched for duplicate issues.
           required: true
         - label: I removed secrets, private data, and sensitive paths from the report.
+          required: true
+        - label: I agree to follow the [Code of Conduct](https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md).
           required: true

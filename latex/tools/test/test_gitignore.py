@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 class GitignoreTests(unittest.TestCase):
-    def test_only_generated_course_main_pdfs_are_ignored(self) -> None:
+    def test_local_context_and_only_generated_course_main_pdfs_are_ignored(self) -> None:
         repository_root = Path(__file__).resolve().parents[3]
         rules = (repository_root / ".gitignore").read_text(encoding="utf-8")
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -20,13 +20,14 @@ class GitignoreTests(unittest.TestCase):
                 "1/calculus/main.pdf",
                 "2/algorithms/main.pdf",
                 "3/networks/main.pdf",
+                ".context/reference.md",
                 "1/calculus/reference.pdf",
                 "latex/components/code/example/main.pdf",
             )
             for relative in paths:
                 path = root / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(b"pdf")
+                path.write_bytes(b"reference" if path.suffix == ".md" else b"pdf")
 
             ignored = subprocess.run(
                 ("git", "check-ignore", *paths),
@@ -36,7 +37,7 @@ class GitignoreTests(unittest.TestCase):
                 text=True,
             ).stdout.splitlines()
 
-            self.assertEqual(ignored, list(paths[:3]))
+            self.assertEqual(ignored, list(paths[:4]))
 
 
 if __name__ == "__main__":

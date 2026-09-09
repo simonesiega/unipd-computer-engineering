@@ -12,7 +12,7 @@ help:
 	@echo "  make check"
 	@echo "  make clean"
 	@echo "  make course YEAR=1 COURSE='Calculus 1' SHORT='Calculus' \\"
-	@echo "    PROFESSOR='Name' SEMESTER=1 AUTHOR='Your Name' DATE=2026-08-06 LANGUAGE=english"
+	@echo "  PROFESSOR='Name' SEMESTER=1 AUTHOR='Ada Lovelace' DATE=2026-08-06 LANGUAGE=english"
 
 course:
 	@test -n "$(YEAR)" || (echo "YEAR is required" >&2; exit 2)

@@ -1,8 +1,14 @@
 # LaTeX Components
 
-This directory contains the modular components used by the [`unipd-notes`](../unipd-notes.cls) document class.
+[← Documentation](../../docs/README.md) · [`unipd-notes` class](../../docs/md/reference/unipd-notes-class.md) · [Docker builds](../../docs/md/getting-started/docker.md)
 
-Each component has one specific responsibility and always follows the same structure:
+This directory contains the reusable LaTeX components loaded by [`unipd-notes.cls`](../unipd-notes.cls).
+
+Each component owns one focused responsibility and exposes a small public interface shared by course documents and integration examples.
+
+## Component structure
+
+Every component follows the same layout:
 
 ```text
 component-name/
@@ -12,123 +18,102 @@ component-name/
     └── main.pdf
 ```
 
-The files have the following roles:
+| File | Responsibility |
+|---|---|
+| `component-name.sty` | Reusable LaTeX implementation |
+| `example/main.tex` | Isolated example of the component's public behavior |
+| `example/main.pdf` | Canonically compiled visual fixture |
 
-- `component-name.sty` contains the reusable LaTeX implementation.
-- `example/main.tex` demonstrates the component in isolation.
-- `example/main.pdf` is the compiled example produced with LuaLaTeX.
+No additional files or subdirectories belong inside a component directory.
 
-No additional files belong inside a component directory.
+## Component catalogue
 
-## Components
+| Component | Responsibility |
+|---|---|
+| [`algorithms`](algorithms/) | Localized pseudocode, algorithm numbering, captions, labels, input/output declarations, and presentation |
+| [`code`](code/) | Source listings and terminal sessions with syntax highlighting, numbering, captions, labels, and monospace typography |
+| [`cover`](cover/) | Course-note cover generated from shared document metadata |
+| [`diagrams`](diagrams/) | Shared TikZ and CircuitikZ styles for technical diagrams |
+| [`document-structure`](document-structure/) | Chapter and section hierarchy, numbering, unnumbered structure, and appendices |
+| [`environments`](environments/) | Definitions, theorems, proofs, examples, remarks, warnings, exercises, and solutions |
+| [`figures-tables`](figures-tables/) | Figures, tables, captions, source notes, float behavior, and table typography |
+| [`front-back-matter`](front-back-matter/) | Preface, revision history, document lists, and front/main-matter transitions |
+| [`glossary`](glossary/) | Course terminology and acronyms |
+| [`lists`](lists/) | Bulleted, numbered, descriptive, nested, and procedural lists |
+| [`mathematics`](mathematics/) | Mathematical fonts, symbols, operators, equation behavior, and common helpers |
+| [`metadata`](metadata/) | Course/document configuration, shared translations, and language-dependent defaults |
+| [`navigation`](navigation/) | PDF hyperlinks, URLs, bookmarks, and link behavior |
+| [`page-style`](page-style/) | Page geometry, margins, headers, footers, and page numbers |
+| [`references`](references/) | Cross-references, labels, reference formatting, and optional bibliography support |
+| [`table-of-contents`](table-of-contents/) | Main contents page and front-matter contents presentation |
+| [`typography`](typography/) | Fonts, colors, text hierarchy, paragraph behavior, spacing, and general typography |
 
-| Component | Purpose | Package | Example source | Example PDF |
-|---|---|---|---|---|
-| **Algorithms** | Localized pseudocode, algorithm numbering, line numbering, input and output declarations, captions, labels, and presentation. | [`algorithms.sty`](algorithms/algorithms.sty) | [`main.tex`](algorithms/example/main.tex) | [`main.pdf`](algorithms/example/main.pdf) |
-| **Code** | Source-code listings and terminal sessions with syntax highlighting, line numbering, captions, labels, and consistent monospace typography. | [`code.sty`](code/code.sty) | [`main.tex`](code/example/main.tex) | [`main.pdf`](code/example/main.pdf) |
-| **Cover** | Course-note cover generated from the shared academic and document metadata. | [`cover.sty`](cover/cover.sty) | [`main.tex`](cover/example/main.tex) | [`main.pdf`](cover/example/main.pdf) |
-| **Diagrams** | Reusable TikZ and CircuitikZ styles for graphs, automata, circuits, flowcharts, software architecture, and UML diagrams. | [`diagrams.sty`](diagrams/diagrams.sty) | [`main.tex`](diagrams/example/main.tex) | [`main.pdf`](diagrams/example/main.pdf) |
-| **Document structure** | Chapter and section hierarchy, numbering, unnumbered structural sections, and appendix management. | [`document-structure.sty`](document-structure/document-structure.sty) | [`main.tex`](document-structure/example/main.tex) | [`main.pdf`](document-structure/example/main.pdf) |
-| **Environments** | Definitions, theorems, proofs, propositions, lemmas, corollaries, examples, remarks, warnings, exercises, and solutions. | [`environments.sty`](environments/environments.sty) | [`main.tex`](environments/example/main.tex) | [`main.pdf`](environments/example/main.pdf) |
-| **Figures and tables** | Figure and table structure, external images, captions, source notes, float behavior, and table typography. | [`figures-tables.sty`](figures-tables/figures-tables.sty) | [`main.tex`](figures-tables/example/main.tex) | [`main.pdf`](figures-tables/example/main.pdf) |
-| **Front and back matter** | Preface, breakable revision history, document lists, and front- and main-matter pagination. | [`front-back-matter.sty`](front-back-matter/front-back-matter.sty) | [`main.tex`](front-back-matter/example/main.tex) | [`main.pdf`](front-back-matter/example/main.pdf) |
-| **Glossary** | Course terminology and acronyms with consistent definitions, grouping, and presentation. | [`glossary.sty`](glossary/glossary.sty) | [`main.tex`](glossary/example/main.tex) | [`main.pdf`](glossary/example/main.pdf) |
-| **Lists** | Bulleted, numbered, descriptive, nested, and procedural lists with consistent spacing and indentation. | [`lists.sty`](lists/lists.sty) | [`main.tex`](lists/example/main.tex) | [`main.pdf`](lists/example/main.pdf) |
-| **Mathematics** | Mathematical fonts, symbols, operators, equation behavior, and helpers for vectors, matrices, sets, and probability. | [`mathematics.sty`](mathematics/mathematics.sty) | [`main.tex`](mathematics/example/main.tex) | [`main.pdf`](mathematics/example/main.pdf) |
-| **Metadata** | Central configuration of course and document information, language-dependent defaults, and shared translations. | [`metadata.sty`](metadata/metadata.sty) | [`main.tex`](metadata/example/main.tex) | [`main.pdf`](metadata/example/main.pdf) |
-| **Navigation** | PDF hyperlinks, URLs, bookmarks, link appearance, and navigation behavior. | [`navigation.sty`](navigation/navigation.sty) | [`main.tex`](navigation/example/main.tex) | [`main.pdf`](navigation/example/main.pdf) |
-| **Page style** | A4 page geometry, margins, running headers, footers, and page-number presentation. | [`page-style.sty`](page-style/page-style.sty) | [`main.tex`](page-style/example/main.tex) | [`main.pdf`](page-style/example/main.pdf) |
-| **References** | Intelligent cross-references, labels, reference formatting, and optional bibliography management. | [`references.sty`](references/references.sty) | [`main.tex`](references/example/main.tex) | [`main.pdf`](references/example/main.pdf) |
-| **Table of contents** | Main table of contents, linked entries, and Roman-numbered front-matter presentation. | [`table-of-contents.sty`](table-of-contents/table-of-contents.sty) | [`main.tex`](table-of-contents/example/main.tex) | [`main.pdf`](table-of-contents/example/main.pdf) |
-| **Typography** | Document fonts, shared colors, typographic hierarchy, paragraph behavior, vertical rhythm, and general text rules. | [`typography.sty`](typography/typography.sty) | [`main.tex`](typography/example/main.tex) | [`main.pdf`](typography/example/main.pdf) |
+For class-level loading, supported options, and document lifecycle interfaces, see the [`unipd-notes` class reference](../../docs/md/reference/unipd-notes-class.md).
 
-## Loading
+## Responsibility boundaries
 
-The components are loaded centrally by [`unipd-notes.cls`](../unipd-notes.cls) in dependency order.
+Components should remain independent in purpose and reuse existing shared interfaces instead of duplicating them.
 
-A document enables the complete system with:
+Important ownership rules:
 
-```latex
-\documentclass[italian]{unipd-notes}
-\documentclass[english]{unipd-notes}
-```
+- `metadata` owns document information, translations, and language-dependent shared labels;
+- `typography` owns fonts, colors, text hierarchy, and general typographic primitives;
+- `page-style` owns page geometry, headers, footers, and page-number presentation;
+- `figures-tables` owns shared figure and table infrastructure;
+- `references` owns cross-reference names and formatting;
+- `diagrams` builds on figure infrastructure for TikZ and CircuitikZ diagrams;
+- course-specific behavior does not belong in shared components.
 
-Course documents should normally load the class rather than importing individual component packages directly. The language option localizes all shared component labels.
+Language-dependent text must use the repository translation interfaces rather than hard-coded Italian or English labels.
 
-LuaLaTeX is required to compile the class and every component example.
-
-## Building the examples
-
-Use the [canonical Docker environment](../../docs/md/getting-started/docker.md) for generated PDFs. From the repository root, compile all documents with:
-
-```bash
-docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going
-```
-
-To compile a single component example, pass its directory to the same tool:
-
-```bash
-docker compose run --rm texlive python3 latex/tools/build.py latex/components/diagrams/example
-```
-
-The comprehensive [`english`](../integration/english/) and [`italian`](../integration/italian/) integration examples verify localization across components, including statements, algorithms, listings, document lists, quantities, cross-references, and appendices.
-
-## Component responsibilities
-
-Each component has a clearly defined responsibility and should not duplicate functionality provided by another component.
-
-Shared definitions such as fonts and colors belong to `typography`, while document information and translated labels belong to `metadata`. Page layout is handled by `page-style`. Components must retrieve language-dependent text through `\unipdtranslate` rather than hard-code Italian or English labels.
-
-`figures-tables` provides the shared infrastructure for figures and tables, including floats, captions, numbering, and source notes. Cross-reference names and formatting remain owned by `references`. `diagrams` builds on the figure infrastructure by providing TikZ and CircuitikZ styles for technical diagrams.
-
-As a result, `diagrams` depends on `figures-tables`, while `figures-tables` can be used independently.
-
-The `algorithms` component customizes `algorithm2e` exclusively through its documented public commands and styles, avoiding dependencies on private implementation details that could change between package versions.
-
-The `code` component provides explicit `listings` mappings for Italian and other commonly used Western European characters, as well as typographic quotation marks, dashes, and ellipses. Its isolated example includes representative multilingual source text to verify that these mappings work correctly.
+A component may depend on another component when the dependency follows these ownership boundaries. Dependencies should remain explicit and one-directional.
 
 ## Component requirements
 
 Every component must:
 
-1. use the exact directory structure documented above;
+1. use the standard directory structure;
 2. contain one `.sty` package named after its directory;
-3. contain an isolated and compilable `example/main.tex`;
-4. contain the corresponding `example/main.pdf`;
-5. have one clear responsibility;
+3. provide an isolated, compilable `example/main.tex`;
+4. keep its corresponding `example/main.pdf` up to date;
+5. own one clear responsibility;
 6. expose a small and stable public interface;
-7. reuse existing fonts, colors, counters, spacing, and helpers;
+7. reuse existing shared fonts, colors, counters, spacing, and helpers;
 8. avoid unrelated global changes;
-9. follow the naming and formatting conventions already used by the repository;
-10. compile with LuaLaTeX without errors, undefined references, duplicate destinations, or avoidable overfull boxes.
+9. follow repository naming and formatting conventions;
+10. compile cleanly with LuaLaTeX.
 
-## Examples
+Avoid relying on undocumented internals of third-party LaTeX packages when a public interface is available.
 
-Each `example/main.tex` is both documentation and a visual test.
+## Examples as visual fixtures
 
-An example should:
+Each `example/main.tex` serves both as documentation and as an isolated visual test.
 
-- demonstrate the component's important public features;
-- use realistic Computer Engineering content in its selected language;
-- remain focused on that component;
-- use the shared document style where appropriate;
-- include numbering, labels, captions, or references when relevant;
-- compile independently through the repository's normal build system.
+A good example should:
 
-The corresponding `example/main.pdf` must be regenerated whenever the example source or component implementation changes.
+- demonstrate the important public behavior of the component;
+- use realistic Computer Engineering content;
+- remain focused on the component being tested;
+- include labels, captions, numbering, or references when relevant;
+- compile through the normal repository build system.
+
+The corresponding `example/main.pdf` is tracked and must be regenerated whenever the component or its example changes.
+
+The integration projects under [`latex/integration/`](../integration/) provide broader end-to-end verification across multiple components and both supported languages.
 
 ## Adding or changing a component
 
-When adding a component or changing an existing one:
+When modifying the component system:
 
-1. inspect the current component conventions;
-2. create or update the `.sty` package;
-3. create or update `example/main.tex`;
-4. register the component in [`unipd-notes.cls`](../unipd-notes.cls) at the correct dependency position;
-5. update this README when the component catalogue or responsibility boundaries change;
-6. compile the component example;
-7. compile both integration examples;
-8. regenerate the affected `main.pdf` files;
-9. review the PDFs visually before committing.
+1. identify the component that owns the behavior;
+2. update its `.sty` implementation and isolated example;
+3. register a new component in [`unipd-notes.cls`](../unipd-notes.cls) at the correct dependency position when necessary;
+4. update this catalogue if responsibilities or available components change;
+5. rebuild the affected component example;
+6. run both integration examples when shared behavior may affect them;
+7. review the regenerated PDFs visually;
+8. run the repository generated-state checks before committing.
 
-Do not add extra files or subdirectories to a component folder. Shared tools, documentation, assets, and build scripts belong elsewhere in the repository.
+For canonical build commands and generated-file verification, see [Building documents](../../docs/md/getting-started/building-documents.md).
+
+Shared tools, general documentation, assets, and build scripts belong elsewhere in the repository rather than inside a component directory.

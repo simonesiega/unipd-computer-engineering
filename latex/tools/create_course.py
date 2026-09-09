@@ -15,6 +15,7 @@ DEGREE_START_YEAR = 2026
 VALID_YEARS = (1, 2, 3)
 VALID_SEMESTERS = (1, 2)
 VALID_LANGUAGES = ("italian", "english")
+PLACEHOLDER_AUTHORS = {"author", "nome cognome", "todo", "tbd", "your name"}
 MONTH_NAMES = {
     "italian": (
         "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
@@ -67,6 +68,14 @@ def non_empty(value: str) -> str:
     value = value.strip()
     if not value:
         raise argparse.ArgumentTypeError("value must not be empty")
+    return value
+
+
+def author_name(value: str) -> str:
+    """Return a real author value, rejecting blank and placeholder names."""
+    value = non_empty(value)
+    if value.casefold() in PLACEHOLDER_AUTHORS:
+        raise argparse.ArgumentTypeError("author must not be a placeholder")
     return value
 
 
@@ -198,8 +207,9 @@ def create_course(root: Path, course: Course) -> Path:
         )
     if course.language not in VALID_LANGUAGES:
         raise ValueError(f"Language must be one of: {', '.join(VALID_LANGUAGES)}")
-    if not course.author.strip():
-        raise ValueError("Author must not be empty")
+    author = course.author.strip()
+    if not author or author.casefold() in PLACEHOLDER_AUTHORS:
+        raise ValueError("Author must not be empty or a placeholder")
 
     slug = kebab_case(course.name)
     duplicate = duplicate_directory(root, slug)
@@ -258,7 +268,7 @@ def parse_arguments() -> argparse.Namespace:
         help="Teaching semester",
     )
     parser.add_argument(
-        "--author", type=non_empty, required=True, help="Author of the notes"
+        "--author", type=author_name, required=True, help="Author of the notes"
     )
     parser.add_argument(
         "--date",

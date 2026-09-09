@@ -37,6 +37,7 @@ jobs:
           REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
           TARGET_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -50,6 +51,7 @@ jobs:
 
             python latex/tools/generate_changelog.py \
               --repository-url "$REPOSITORY_URL"
+            python latex/tools/check_repository.py
 
             if [ -z "$(git status --porcelain -- CHANGELOG 1/.gitkeep 2/.gitkeep 3/.gitkeep)" ]; then
               echo "Course changelogs are already current."

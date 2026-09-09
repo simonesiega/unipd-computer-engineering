@@ -16,6 +16,7 @@ import create_course as create_course_module
 from create_course import (
     Course,
     academic_year,
+    author_name,
     canonical_build_command,
     create_course,
     escape_latex,
@@ -49,6 +50,14 @@ class CourseCreationTests(unittest.TestCase):
             with self.subTest(character=character):
                 self.assertEqual(escape_latex(character), escaped)
         self.assertEqual(escape_latex("Probabilità"), "Probabilità")
+
+    def test_author_names_reject_blank_and_known_placeholders(self) -> None:
+        self.assertEqual(author_name("  Ada Lovelace  "), "Ada Lovelace")
+        for invalid in ("", "Your Name", "Nome Cognome", "TODO", "TBD"):
+            with self.subTest(value=invalid), self.assertRaises(
+                argparse.ArgumentTypeError
+            ):
+                author_name(invalid)
 
     def test_iso_dates_are_validated_and_localized(self) -> None:
         self.assertEqual(iso_date("2026-09-28"), "2026-09-28")
@@ -279,6 +288,20 @@ class CourseCreationTests(unittest.TestCase):
                         "3 agosto 2026",
                         "german",
                         "Ada Lovelace",
+                    ),
+                )
+            with self.assertRaisesRegex(ValueError, "placeholder"):
+                create_course(
+                    root,
+                    Course(
+                        1,
+                        "Course",
+                        "Course",
+                        "Name",
+                        1,
+                        "3 agosto 2026",
+                        "italian",
+                        "Your Name",
                     ),
                 )
 

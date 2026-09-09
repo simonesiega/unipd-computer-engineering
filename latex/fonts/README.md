@@ -1,12 +1,23 @@
 # LaTeX Fonts
 
-This directory contains the font files used by the [`unipd-notes`](../unipd-notes.cls) document class. The fonts are bundled with the repository so that all builds produce consistent output without depending on fonts installed on the operating system.
+[← Documentation](../../docs/README.md) · [License](#licensing) · [`unipd-notes` class](../../docs/md/reference/unipd-notes-class.md) · [Components](../components/README.md) · [Docker builds](../../docs/md/getting-started/docker.md)
 
-The type system has three specific responsibilities:
+This directory contains the OpenType fonts bundled with the repository and used by the [`unipd-notes`](../unipd-notes.cls) document class.
 
-- Libertinus Serif and Libertinus Math provide body text and mathematics;
-- Source Sans 3 provides headings, captions, labels, and structural text;
-- IBM Plex Mono provides source code, terminal output, and technical identifiers.
+Bundling the fonts keeps canonical builds independent from fonts installed on the host operating system.
+
+## Font system
+
+The repository bundles three font families, with Libertinus providing both serif text and mathematics:
+
+| Family | Role |
+|---|---|
+| **Libertinus Serif** | Body text and long-form academic content |
+| **Libertinus Math** | Mathematical notation and symbols |
+| **Source Sans 3** | Headings, captions, labels, navigation, and structural text |
+| **IBM Plex Mono** | Source code, terminal output, paths, commands, and technical identifiers |
+
+The shared LaTeX components load these files automatically. Course authors should use semantic LaTeX commands and environments rather than selecting font files directly.
 
 ## Directory structure
 
@@ -30,94 +41,79 @@ fonts/
     └── SourceSans3-Semibold.otf
 ```
 
-No additional files belong inside a font-family directory.
+No unrelated files belong inside a font-family directory.
 
 ## Font catalogue
 
-| Family | File | Role |
+| Family | File | Primary role |
 |---|---|---|
-| **Libertinus Math** | [`LibertinusMath-Regular.otf`](Libertinus/LibertinusMath-Regular.otf) | Mathematical equations, operators, symbols, and formula labels. |
-| **Libertinus Serif** | [`LibertinusSerif-Regular.otf`](Libertinus/LibertinusSerif-Regular.otf) | Normal paragraphs and long-form academic text. |
-| **Libertinus Serif** | [`LibertinusSerif-Italic.otf`](Libertinus/LibertinusSerif-Italic.otf) | Emphasis, introduced terminology, source notes, and publication titles. |
-| **Libertinus Serif** | [`LibertinusSerif-SemiboldItalic.otf`](Libertinus/LibertinusSerif-SemiboldItalic.otf) | Combined semibold and italic emphasis. |
-| **Libertinus Serif** | [`LibertinusSerif-Bold.otf`](Libertinus/LibertinusSerif-Bold.otf) | Strong emphasis in body text. |
-| **Source Sans 3** | [`SourceSans3-Regular.otf`](Source%20Sans%203/SourceSans3-Regular.otf) | Captions, labels, headers, footers, and structural text. |
-| **Source Sans 3** | [`SourceSans3-It.otf`](Source%20Sans%203/SourceSans3-It.otf) | Italic sans-serif text. |
-| **Source Sans 3** | [`SourceSans3-Semibold.otf`](Source%20Sans%203/SourceSans3-Semibold.otf) | Subheadings and medium-emphasis structural text. |
-| **Source Sans 3** | [`SourceSans3-Bold.otf`](Source%20Sans%203/SourceSans3-Bold.otf) | Chapter titles, section headings, and prominent labels. |
-| **IBM Plex Mono** | [`IBMPlexMono-Regular.otf`](IBM%20Plex%20Mono/IBMPlexMono-Regular.otf) | Source code, terminal sessions, paths, and technical identifiers. |
-| **IBM Plex Mono** | [`IBMPlexMono-Italic.otf`](IBM%20Plex%20Mono/IBMPlexMono-Italic.otf) | Italic emphasis inside monospaced content. |
-| **IBM Plex Mono** | [`IBMPlexMono-Medium.otf`](IBM%20Plex%20Mono/IBMPlexMono-Medium.otf) | Programming-language keywords in code listings. |
-| **IBM Plex Mono** | [`IBMPlexMono-Bold.otf`](IBM%20Plex%20Mono/IBMPlexMono-Bold.otf) | Strong emphasis in monospaced text and algorithm presentation. |
+| **Libertinus Math** | [`LibertinusMath-Regular.otf`](Libertinus/LibertinusMath-Regular.otf) | Mathematical equations, operators, symbols, and formula labels |
+| **Libertinus Serif** | [`LibertinusSerif-Regular.otf`](Libertinus/LibertinusSerif-Regular.otf) | Normal paragraphs and long-form text |
+| **Libertinus Serif** | [`LibertinusSerif-Italic.otf`](Libertinus/LibertinusSerif-Italic.otf) | Emphasis and italic academic text |
+| **Libertinus Serif** | [`LibertinusSerif-SemiboldItalic.otf`](Libertinus/LibertinusSerif-SemiboldItalic.otf) | Combined semibold and italic emphasis |
+| **Libertinus Serif** | [`LibertinusSerif-Bold.otf`](Libertinus/LibertinusSerif-Bold.otf) | Strong body-text emphasis |
+| **Source Sans 3** | [`SourceSans3-Regular.otf`](Source%20Sans%203/SourceSans3-Regular.otf) | Captions, labels, headers, footers, and structural text |
+| **Source Sans 3** | [`SourceSans3-It.otf`](Source%20Sans%203/SourceSans3-It.otf) | Italic sans-serif text |
+| **Source Sans 3** | [`SourceSans3-Semibold.otf`](Source%20Sans%203/SourceSans3-Semibold.otf) | Subheadings and medium-emphasis structure |
+| **Source Sans 3** | [`SourceSans3-Bold.otf`](Source%20Sans%203/SourceSans3-Bold.otf) | Chapter titles, section headings, and prominent labels |
+| **IBM Plex Mono** | [`IBMPlexMono-Regular.otf`](IBM%20Plex%20Mono/IBMPlexMono-Regular.otf) | Code, terminal sessions, filenames, paths, and identifiers |
+| **IBM Plex Mono** | [`IBMPlexMono-Italic.otf`](IBM%20Plex%20Mono/IBMPlexMono-Italic.otf) | Italic monospaced emphasis |
+| **IBM Plex Mono** | [`IBMPlexMono-Medium.otf`](IBM%20Plex%20Mono/IBMPlexMono-Medium.otf) | Programming-language keywords and medium emphasis |
+| **IBM Plex Mono** | [`IBMPlexMono-Bold.otf`](IBM%20Plex%20Mono/IBMPlexMono-Bold.otf) | Strong monospaced emphasis |
 
-## Usage
+## LaTeX mapping
 
-The [`typography`](../components/typography/typography.sty) component loads and configures the font files through `fontspec`. The [`mathematics`](../components/mathematics/mathematics.sty) component configures Libertinus Math through `unicode-math`.
+Font loading is owned by the shared components:
 
-The shared class applies the following mappings automatically:
+- [`typography.sty`](../components/typography/typography.sty) configures text families through `fontspec`;
+- [`mathematics.sty`](../components/mathematics/mathematics.sty) configures Libertinus Math through `unicode-math`.
 
-| LaTeX interface | Font family | Typical use |
-|---|---|---|
-| `\rmfamily` and normal text | Libertinus Serif | Paragraphs, definitions, theorems, proofs, and explanations. |
-| Mathematics | Libertinus Math | Inline and displayed mathematics. |
-| `\sffamily` | Source Sans 3 | Titles, headings, captions, labels, and navigation elements. |
-| `\ttfamily` and `\texttt` | IBM Plex Mono | Code, commands, filenames, paths, protocols, and identifiers. |
+The effective mapping is:
 
-Authors should use semantic LaTeX commands and environments instead of selecting font files or font families manually. Libertinus uses its bundled semibold italic face for combined bold and italic emphasis. Because the bundled Source Sans 3 and IBM Plex Mono subsets do not include bold italic files, `fontspec` derives those two combined faces by slanting the corresponding bundled bold font; no system font substitution is used.
+| LaTeX interface | Font family |
+|---|---|
+| Normal text and `\rmfamily` | Libertinus Serif |
+| Mathematics | Libertinus Math |
+| `\sffamily` | Source Sans 3 |
+| `\ttfamily` and `\texttt` | IBM Plex Mono |
 
-## Typographic roles
+The bundled subsets do not contain every possible combined style. Where necessary, `fontspec` derives missing combined faces from the bundled files instead of falling back to system fonts.
 
-| Content | Default face | Typical size |
-|---|---|---:|
-| Body text | Libertinus Serif Regular | 11 pt |
-| Mathematical content | Libertinus Math | Matched to surrounding text |
-| Chapter and section headings | Source Sans 3 Bold | 16–24 pt |
-| Subheadings | Source Sans 3 Semibold | 11–14 pt |
-| Figure and table captions | Source Sans 3 Regular | 9 pt |
-| Code and terminal blocks | IBM Plex Mono Regular | 9.5 pt |
-| Inline technical identifiers | IBM Plex Mono Regular | Matched to surrounding text |
+## Font requirements
 
-## Requirements
+Every bundled font file must:
 
-LuaLaTeX is required because the font system uses OpenType files through `fontspec` and `unicode-math`. pdfLaTeX and XeLaTeX are not supported by the shared class.
-
-Every font file must:
-
-1. remain inside its current family directory;
-2. retain its exact filename;
-3. be loaded through the shared font-path definitions;
+1. remain inside its designated family directory;
+2. retain the filename expected by the shared configuration;
+3. be loaded through the repository's shared font-path definitions;
 4. have a clear typographic role;
-5. be available to every repository build;
-6. preserve compatibility with the current LuaLaTeX configuration.
+5. be available to every canonical build;
+6. remain compatible with the current LuaLaTeX configuration.
 
-Do not install or reference system-local substitutes, because they can change line breaks, page breaks, mathematical metrics, and generated PDFs.
+System-local substitutes must not be used in canonical builds because different font files can change metrics, line breaks, page breaks, and generated PDFs.
 
-## Building and validation
-
-From the repository root, compile all documents in the [canonical Docker environment](../../docs/md/getting-started/docker.md) and verify the bundled fonts with:
-
-```bash
-docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going
-```
-
-A successful validation must not report missing fonts, substituted font families, missing mathematical glyphs, or compilation errors. Regenerated PDFs must also pass the canonical `--check-generated` check.
+LuaLaTeX is required by the shared font system.
 
 ## Changing the font system
 
-When adding, replacing, renaming, or removing a font file:
+When adding, replacing, renaming, or removing a font:
 
-1. update the relevant font-family directory;
+1. update the relevant family directory;
 2. update [`typography.sty`](../components/typography/typography.sty) or [`mathematics.sty`](../components/mathematics/mathematics.sty);
-3. update the catalogue and directory tree in this README;
-4. compile every component example;
-5. compile both integration examples;
-6. inspect line wrapping, page breaks, captions, code, and mathematics visually;
-7. regenerate and review all affected PDFs, committing only tracked component/integration fixtures and never course PDFs.
+3. update this directory tree and catalogue;
+4. rebuild affected component and integration examples;
+5. run the complete canonical document build;
+6. inspect text wrapping, page breaks, headings, captions, code, and mathematical output;
+7. run generated-state validation before committing.
 
-Do not change the bundled font set without verifying both textual and mathematical output.
+Font changes are repository-wide presentation changes and should be reviewed across both textual and mathematical content.
+
+For canonical build and validation commands, see [Building documents](../../docs/md/getting-started/building-documents.md).
 
 ## Licensing
 
-The bundled font files remain subject to their respective open-source licences. The licence text and release-specific attribution notices are stored in [`FONT-LICENSE.md`](FONT-LICENSE.md).
+Bundled fonts remain subject to their original open-source licenses.
 
-Do not remove, replace, or redistribute the font files without preserving the corresponding licence information.
+Release-specific attribution and license information is documented in [`FONT-LICENSE.md`](FONT-LICENSE.md).
+
+Do not remove or redistribute bundled font files without preserving the applicable license information.

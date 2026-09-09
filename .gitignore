@@ -14,7 +14,8 @@
 **/__pycache__/
 *.py[cod]
 
-# Local Python environments
+# Local reference material and Python environments
+/.context/
 /.venv/
 /venv/
 

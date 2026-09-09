@@ -1,12 +1,14 @@
 # Build System
 
-[← Documentation](../README.md) · [Architecture](architecture.md) · [Building documents](../getting-started/building-documents.md) · [Validation, Tests, and CI](tool-test-and-ci.md)
+[← Documentation](../README.md) · [Architecture](architecture.md) · [Building documents](../getting-started/building-documents.md) · [Validation, tests, and CI](tool-test-and-ci.md)
 
-`latex/tools/build.py` discovers LaTeX documents, selects targets, compiles them in isolated output directories, refreshes generated README content, and verifies tracked generated fixtures. `latex/tools/package_notes.py` has the separate responsibility of turning complete course build outputs into release assets.
+`latex/tools/build.py` is the repository's document build entry point. It discovers LaTeX documents, selects targets, compiles them into isolated output directories, updates generated README content, and verifies tracked generated fixtures.
 
-## Document discovery and output
+`latex/tools/package_notes.py` owns the separate packaging step that turns complete course build outputs into release-ready assets.
 
-The build system searches:
+## Document discovery
+
+The build system discovers independent `main.tex` entry points under:
 
 ```text
 1/
@@ -16,7 +18,9 @@ latex/components/
 latex/integration/
 ```
 
-Every discovered `main.tex` is an independent document. A target may be a document directory or its `main.tex`. Output mirrors the source path:
+Each discovered `main.tex` is treated as one buildable document.
+
+Build output mirrors the source path under `.build/`:
 
 ```text
 1/course-name/main.tex
@@ -29,40 +33,40 @@ latex/integration/english/main.tex
 └── .build/latex/integration/english/main.pdf
 ```
 
-Each output directory is removed and recreated before compilation. Course PDFs remain in `.build/` and are never copied into course directories. Normal component and integration builds continue to update their tracked example PDF beside `main.tex`.
+Course PDFs remain under `.build/` and are never copied into course directories.
 
-## Selection modes
+Tracked component and integration example PDFs are maintained separately as generated fixtures.
+
+## Target selection
 
 Exactly one selection mode is required:
 
 | Mode | Selection |
 |---|---|
-| Explicit targets | One or more directories or `main.tex` files |
+| Explicit target | One or more document directories or `main.tex` files |
 | `--all` | Every course, component example, and integration project |
-| `--changed-from REVISION` | Documents affected by a Git diff from `REVISION` to `HEAD` |
+| `--changed-from REVISION` | Documents affected by changes from `REVISION` to `HEAD` |
 | `--changed-file-list FILE` | Documents affected by repository-relative paths listed in a file |
 
-`--changed-to` changes the end revision used with `--changed-from`; its default is `HEAD`. `--changed-file-list` is used in CI because changed paths are collected outside the TeX container. No affected document is a successful no-op.
+`--changed-to` may be used with `--changed-from` to change the end revision from its default of `HEAD`.
 
-## Affected-document mapping
+Changed-file selection is intentionally conservative:
 
-| Changed path | Selected documents |
+| Changed area | Build impact |
 |---|---|
-| File inside `1/<course>/`, `2/<course>/`, or `3/<course>/` | That course |
-| File inside a component `example/` | That component example |
-| File inside `latex/integration/<example>/` | That integration example |
-| `compose.yaml` or the CI/release build workflows | Every document |
-| `latex/unipd-notes.cls` | Every document |
-| Component `.sty` file | Every document |
-| Bundled `.otf` or `.ttf` font | Every document |
-| `latex/tools/build.py` or its shared LaTeX-source parser | Every document |
-| Unrelated documentation or policy file | None |
+| File inside one course | That course |
+| File inside one component example | That example |
+| File inside one integration example | That integration project |
+| Shared class, component package, font, build environment, or build tooling | Every document |
+| Unrelated documentation or policy | No LaTeX document |
 
-Manual rolling and snapshot publication do not use this reduced selection: both pass `--all` so every published release is a complete archive.
+Complete archive publication uses `--all`; reduced selection is only an optimization for development and validation.
 
 ## Compilation
 
-Each document is compiled from its source directory with:
+Each selected document is compiled with `latexmk` and LuaLaTeX in a mirrored `.build/` directory.
+
+The effective compilation uses:
 
 ```text
 latexmk
@@ -74,56 +78,64 @@ latexmk
 main.tex
 ```
 
-The environment prepends `latex/` to `TEXINPUTS`, fixes `SOURCE_DATE_EPOCH`, enables `FORCE_SOURCE_DATE`, and sets UTC. These reduce variable output but do not make unrelated TeX installations byte-identical. Canonical CI and release builds therefore use the pinned `texlive` service in `compose.yaml`. Documents store publication dates explicitly rather than use `\today`.
+The environment adds `latex/` to `TEXINPUTS`, fixes the source-date environment, and uses UTC to reduce avoidable output differences.
 
-After compilation, `main.pdf`, `main.toc`, logs, and other temporary files remain in `.build/<document>/`. The PDF is the one to inspect locally for a course. Do not copy or stage it under `1/`, `2/`, or `3/`.
+Canonical builds use the pinned `texlive` service defined in `compose.yaml`.
+
+After compilation, the generated PDF, table of contents, logs, and auxiliary files remain under:
+
+```text
+.build/<document>/
+```
+
+For course work, `.build/<year>/<course>/main.pdf` is the PDF to review locally.
 
 ## Generated README content
 
-For courses and integration projects, the tool parses `main.toc` into a localized Markdown table of contents between:
+For courses and integration projects, `build.py` reads the compiled `main.toc` and generates a localized Markdown contents section between:
 
 ```html
 <!-- GENERATED:START -->
 <!-- GENERATED:END -->
 ```
 
-Course README blocks link to the deterministic asset in the rolling `notes-latest` release, for example:
+Content outside those markers is preserved.
 
-```text
-https://github.com/simonesiega/unipd-computer-engineering/
-releases/download/notes-latest/1-calculus-1.pdf
-```
+Course README sections link to the stable asset published through the rolling `notes-latest` release. Integration projects may link to their tracked local PDF. Component examples do not receive generated README content.
 
-Integration README blocks continue to link to their tracked local `main.pdf`. Component examples do not receive generated README content. Existing content outside the markers is preserved.
-
-With `--no-compile`, README generation reuses `main.pdf` and `main.toc` from `.build/`; non-course documents may fall back to local generated files. If required output is unavailable, the command fails before changing the README. Use `--no-readme` when intentionally compiling or reusing only a PDF.
+Do not edit generated sections manually.
 
 ## Generated-state verification
 
-`--check-generated` compiles into `.build/` without publishing tracked files. It checks:
+`--check-generated` verifies that tracked generated content matches what the current sources produce.
 
-- generated course and integration README content;
-- tracked component-example and integration PDFs byte for byte.
+It checks:
 
-It deliberately does not compare a course PDF with `<year>/<course>/main.pdf`, because that file must not be tracked or expected. Git-aware repository validation independently rejects any generated course PDF forced into the index.
+- generated course and integration README sections;
+- tracked component-example PDFs;
+- tracked integration PDFs.
 
-`--check-generated` cannot be combined with `--no-compile` or `--no-readme`.
+Course PDFs are deliberately excluded from tracked-PDF comparison because normal course output belongs only under `.build/`.
 
-## Processing options
+Repository validation separately rejects generated course PDFs that are forced into Git.
+
+## Build options
 
 | Option | Behavior |
 |---|---|
-| `--no-compile` | Reuse existing PDF and `.toc` data; fail safely when required output is missing |
-| `--no-readme` | Compile without creating or updating generated README content |
-| `--keep-going` | Process every selected document and report all failures afterward |
+| `--no-compile` | Reuse existing PDF and `.toc` output when available |
+| `--no-readme` | Compile without updating generated README content |
+| `--keep-going` | Continue through all selected documents and report failures afterward |
 | `--clean` | Remove the repository-level `.build/` directory after success |
-| `--check-generated` | Verify tracked generated fixtures and README sections without replacing them |
+| `--check-generated` | Verify generated tracked state without replacing it |
 
-Without `--keep-going`, the first error stops processing. With it, all failures are collected and returned through a non-zero status.
+`--check-generated` cannot be combined with `--no-compile` or `--no-readme`.
+
+Without `--keep-going`, processing stops at the first failure.
 
 ## Release packaging
 
-After a successful complete build, package course outputs with stable injected metadata:
+After a complete build, `latex/tools/package_notes.py` converts course PDFs into deterministic release assets under `.build/release/`. Invoke it with release metadata supplied by the publishing workflow:
 
 ```bash
 python3 latex/tools/package_notes.py \
@@ -132,21 +144,34 @@ python3 latex/tools/package_notes.py \
   --release-title "Latest compiled notes"
 ```
 
-The tool:
+The source commit must be a full SHA. The release timestamp must include a UTC offset, for example `2026-08-04T12:00:00+00:00` or its equivalent `Z` form. Publishing uses the source commit timestamp so repeated packaging of the same source remains deterministic.
 
-1. removes and recreates `.build/release/`;
-2. discovers direct `<year>/<course>/main.tex` sources;
-3. requires each matching `.build/<year>/<course>/main.pdf`;
-4. validates year and lowercase kebab-case identity;
-5. derives `<year>-<course-slug>.pdf` without spaces or path traversal;
-6. rejects duplicate names rather than overwrite them;
-7. copies PDF bytes without changing canonical build output;
-8. requires a non-empty canonical `course` value from a parseable `\unipdsetup` block;
-9. sorts courses by degree year, course name, and asset filename;
-10. writes `manifest.json`, `RELEASE_NOTES.md`, and `SHA256SUMS.txt`.
+The packaging step:
 
-The manifest records the required canonical course name, source directory, size, SHA-256, source commit, and injected release timestamp. The timestamp must be an ISO-8601 date-time with a UTC offset, such as `2026-08-04T12:00:00+00:00` or the equivalent `Z` form. Supplying the commit timestamp makes repeated packaging of the same source deterministic. An empty source archive succeeds with an empty manifest and explanatory release index. A course source with no compiled PDF fails clearly.
+- discovers direct course entry points under `1/`, `2/`, and `3/`;
+- requires the matching compiled PDF under `.build/`;
+- derives stable asset names such as `1-calculus-1.pdf`;
+- rejects invalid paths and naming collisions;
+- copies the built PDF bytes without modifying them;
+- reads canonical course metadata from `\unipdsetup`;
+- creates a sorted manifest and release index;
+- generates SHA-256 checksums;
+- succeeds with an empty manifest and explanatory release index when the course archive is empty.
 
-Release staging is ignored and tool-owned. Workflows publish exactly those staged files; they do not duplicate naming, manifest, or checksum logic in shell.
+A discovered course with no matching compiled PDF, malformed canonical metadata, or invalid release metadata causes packaging to fail.
 
-See [Docker builds](../getting-started/docker.md), [Building documents](../getting-started/building-documents.md), and [Validation, Tests, and CI](tool-test-and-ci.md).
+The release staging directory contains:
+
+```text
+.build/release/
+├── <year>-<course-slug>.pdf
+├── manifest.json
+├── SHA256SUMS.txt
+└── RELEASE_NOTES.md
+```
+
+Packaging owns asset naming, metadata generation, checksums, and release staging. GitHub workflows publish these outputs but should not duplicate that logic.
+
+For publication behavior, workflow permissions, CI artifacts, and rolling or snapshot releases, see [Validation, tests, and CI](tool-test-and-ci.md).
+
+For local commands and normal student workflows, see [Building documents](../getting-started/building-documents.md) and [Docker builds](../getting-started/docker.md).

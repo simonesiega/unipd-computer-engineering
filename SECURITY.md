@@ -1,27 +1,6 @@
-<p align="center">
-  <img src="docs/assets/unipd.png" alt="University of Padua" width="320" />
-</p>
+# Security
 
-<h1 align="center">
-  Security Policy
-</h1>
-
-<p align="center">
-  Responsible disclosure guidelines for the UniPD Computer Engineering archive.
-</p>
-
-<p align="center">
-  <img
-    src="https://img.shields.io/badge/Security-private%20reporting-red"
-    alt="Private security reporting"
-  />
-  <img
-    src="https://img.shields.io/badge/Supported-default%20branch-brightgreen"
-    alt="Supported version: current default branch"
-  />
-</p>
-
-## Overview
+[← Project README](README.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Contributing](CONTRIBUTING.md)
 
 This policy covers security issues involving the repository's scripts, dependencies, build tools, CI workflows, automation, and configuration.
 
@@ -29,38 +8,50 @@ It does not cover factual, mathematical, technical, or typographical errors in t
 
 ## Supported version
 
-Security fixes are applied only to the current default branch.
+Security fixes are handled for the current default branch.
+
+Older commits, archived artifacts, and historical releases are not maintained as separate supported versions.
 
 ## Reporting a vulnerability
 
-Do not open a public issue containing vulnerability details.
+If you discover a security vulnerability, **do not open a public issue containing technical details**.
 
-Submit security reports privately through [GitHub Private Vulnerability Reporting](https://github.com/simonesiega/unipd-computer-engineering/security/advisories/new).
+Report it privately through [GitHub Private Vulnerability Reporting](https://github.com/simonesiega/unipd-computer-engineering/security/advisories/new).
 
-Include, when possible:
+Please include, when possible:
 
-- a concise description of the issue;
-- the affected component or file;
-- its potential impact;
-- reproducible steps or a proof of concept;
-- any suggested mitigation.
+| Field | What to include |
+|---|---|
+| Description | A concise explanation of the issue. |
+| Affected area | The relevant file, workflow, dependency, script, or configuration. |
+| Impact | What an attacker or unexpected behavior could affect. |
+| Reproduction | Minimal steps or a proof of concept that makes the issue verifiable. |
+| Mitigation | Any suggested fix or workaround, if known. |
 
-Do not include real credentials, access tokens, personal information, or other unnecessary sensitive data.
+Use sanitized examples. Do not include real credentials, access tokens, personal information, or unrelated sensitive data.
 
-If private vulnerability reporting is unavailable, open a public [issue](https://github.com/simonesiega/unipd-computer-engineering/issues) requesting a private reporting channel without disclosing technical details.
+If GitHub Private Vulnerability Reporting is unavailable, open a public [issue](https://github.com/simonesiega/unipd-computer-engineering/issues) requesting a private reporting channel without disclosing vulnerability details.
 
-## Response and disclosure
+## What to expect
 
-Reports are normally acknowledged within three days, although response times may vary.
+After receiving a report, the maintainer will review the issue, attempt to reproduce it, and coordinate a fix and disclosure when appropriate.
 
-The maintainer may request additional information while investigating the issue. Relevant updates will be provided when available.
+Please do not disclose the vulnerability publicly until a fix is available or disclosure has been coordinated.
 
-Please do not disclose the vulnerability publicly until a fix has been released or disclosure has been coordinated with the maintainer. Reporters may be credited in a security advisory or release notes when appropriate, unless they request anonymity.
+Reporters may be credited in a security advisory or release notes when appropriate unless they request anonymity.
 
 ## Content errors
 
 The notes in this repository are unofficial, student-created material and may contain errors, omissions, outdated information, or inaccurate AI-assisted content.
 
-Content problems are not security vulnerabilities. Mistakes in notes, broken links, documentation problems, and PDF compilation or rendering issues should be reported through a public [issue](https://github.com/simonesiega/unipd-computer-engineering/issues) or addressed with a pull request unless they create an actual security risk. Include a reliable source when appropriate.
+These are not security vulnerabilities unless they create an actual security risk.
 
-For additional guidance, see the academic disclaimer in [`README.md`](README.md) and the contribution requirements in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+For incorrect notes, broken links, documentation problems, or PDF compilation and rendering issues, use the relevant public [issue form](https://github.com/simonesiega/unipd-computer-engineering/issues/new/choose) or open a Pull Request. Include a reliable source when appropriate.
+
+## Related policies
+
+| Document | Purpose |
+|---|---|
+| [`README.md`](README.md) | Project overview, academic disclaimer, releases, and licensing. |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution workflow, validation, licensing, and academic-integrity rules. |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Community standards and private conduct reporting. |

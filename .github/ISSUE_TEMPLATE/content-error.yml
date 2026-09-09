@@ -1,6 +1,8 @@
 name: Content error
 description: Report an inaccurate, unclear, incomplete, or outdated part of the study material.
 title: "[Content error]: "
+labels:
+  - documentation
 body:
   - type: markdown
     attributes:
@@ -59,4 +61,6 @@ body:
         - label: I searched the existing issues and did not find a duplicate.
           required: true
         - label: This report does not include confidential, restricted, or active-assessment material.
+          required: true
+        - label: I agree to follow the [Code of Conduct](https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md).
           required: true

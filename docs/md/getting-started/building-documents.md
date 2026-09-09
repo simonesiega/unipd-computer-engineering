@@ -1,117 +1,149 @@
 # Building Documents
 
-[← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md)
+[← Documentation](../README.md) · [Installation](installation.md) · [Docker builds](docker.md) · [Build system](../development/build-system.md)
 
-This guide covers local compilation, generated files, and checks before contributing. Run commands from the repository root after following [Installation](installation.md).
+This guide covers the normal workflow for compiling notes, reviewing generated PDFs, and validating changes before opening a Pull Request.
 
-## Daily command shortcuts
+Run commands from the repository root after completing [Installation](installation.md).
 
-A small root [`Makefile`](../../../Makefile) wraps the canonical tools for routine work:
+## Daily shortcuts
+
+The root [`Makefile`](../../../Makefile) provides short wrappers for common tasks:
 
 | Task | Command |
 |---|---|
 | Build one course | `make build COURSE=1/calculus-1` |
 | Build every document | `make all` |
-| Run all pre-commit checks | `make check` |
+| Run repository checks | `make check` |
 | Remove `.build/` | `make clean` |
-| List shortcuts | `make help` |
+| List available shortcuts | `make help` |
 
-Create a course with `make course` and the same required metadata accepted by `create_course.py`:
+These commands are convenience wrappers. The Docker commands below remain the canonical interface and should be used when you need advanced options or do not have GNU Make installed.
+
+## Build a document
+
+Use the pinned Docker environment so local output matches CI and release builds:
 
 ```bash
-make course YEAR=1 COURSE="Calculus 1" SHORT="Calculus" \
-  PROFESSOR="Name" SEMESTER=1 AUTHOR="Ada Lovelace" \
-  DATE=2026-08-06 LANGUAGE=english
+docker compose run --rm texlive \
+  python3 latex/tools/build.py 1/course-name
 ```
 
-These targets are intentionally thin wrappers. They require GNU Make in addition to the tools used by the wrapped command; Windows users may use Make through Git Bash, WSL, or another compatible installation. The commands below remain the canonical interfaces for advanced options, platforms without Make, and troubleshooting. `make check` also requires the development dependencies installed during repository setup.
+The same command works for other document types:
 
-## Build documents
+```bash
+# Component example
+docker compose run --rm texlive \
+  python3 latex/tools/build.py latex/components/diagrams/example
 
-Use the canonical Docker Compose environment. It matches CI and release builds across platforms.
+# Integration example
+docker compose run --rm texlive \
+  python3 latex/tools/build.py latex/integration/english
+```
 
-| Task | Command |
-|---|---|
-| Build one course | `docker compose run --rm texlive python3 latex/tools/build.py 1/course-name` |
-| Build one component example | `docker compose run --rm texlive python3 latex/tools/build.py latex/components/diagrams/example` |
-| Build an integration example | `docker compose run --rm texlive python3 latex/tools/build.py latex/integration/english` |
-| Build multiple targets | `docker compose run --rm texlive python3 latex/tools/build.py 1/course-a 1/course-b` |
-| Build all documents | `docker compose run --rm texlive python3 latex/tools/build.py --all --keep-going` |
+Build multiple documents by listing multiple targets, or build everything with:
 
-Replace example paths as needed. Every output is available under `.build/<document>/main.pdf`. A course build does not create or update `<year>/<course>/main.pdf`; generated course PDFs are ignored and must not be committed. It does refresh the generated course README section with a link to the rolling release. Component and integration examples keep their tracked PDFs beside their sources.
+```bash
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --all --keep-going
+```
 
-Do not manually edit content between:
+## Review the output
+
+Build output is written under `.build/` using the same path as the source document.
+
+For a course:
+
+```text
+1/course-name/main.tex
+└── .build/1/course-name/main.pdf
+```
+
+Review `.build/<year>/<course>/main.pdf` after every meaningful content or layout change.
+
+Generated course `main.pdf` files under `1/`, `2/`, or `3/` must not be committed.
+
+Component and integration examples may keep tracked PDFs beside their sources because they act as repository fixtures.
+
+## Generated README sections
+
+Course and integration builds may update generated README content between:
 
 ```html
 <!-- GENERATED:START -->
 <!-- GENERATED:END -->
 ```
 
-A native TeX installation may be used for quick previews by replacing the Docker prefix with `python3` on Linux/macOS or `py` on Windows. Release and CI output always uses the pinned Docker image.
+Do not edit content inside these markers manually.
 
-## Build changed documents
+Manual course information may be written outside the generated section.
 
-Build only documents affected since another revision:
+## Build only changed documents
+
+To compile documents affected by changes since `origin/main`:
 
 ```bash
 docker compose run --rm texlive \
-  python3 latex/tools/build.py --changed-from origin/main --keep-going
+  python3 latex/tools/build.py \
+    --changed-from origin/main \
+    --keep-going
 ```
 
-Course-local changes select that course. Component-example and integration changes select their document. Shared LaTeX, fonts, the canonical environment, build workflow, or build tool select every document. Documentation-only changes generally select none. A manually requested rolling or snapshot publication intentionally ignores this optimization and builds the complete archive.
+Course-local changes normally select that course. Shared LaTeX, fonts, the canonical build environment, or build-tool changes may select every document.
 
-## Validate changes
+For the complete selection rules, see [Build system](../development/build-system.md).
 
-Run repository and Git-index checks:
+## Validate your changes
+
+Run the repository validator:
 
 | Platform | Command |
 |---|---|
 | Linux or macOS | `python3 latex/tools/check_repository.py` |
 | Windows PowerShell | `py latex/tools/check_repository.py` |
 
-The validator checks course metadata and layout, component and integration structure, Markdown targets and heading anchors, source hygiene, and whether a generated course PDF was accidentally tracked.
-
-Verify all tracked generated fixtures and README sections in the canonical environment:
+Then verify generated tracked state in the canonical environment:
 
 ```bash
 docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py --all --keep-going --check-generated
+  python3 latex/tools/build.py \
+    --all \
+    --keep-going \
+    --check-generated
 ```
 
-`--check-generated` compiles under `.build/`. It compares tracked component/integration PDFs and generated README content, but correctly does not expect a committed course PDF. Always inspect affected course PDFs from `.build/` visually. Pull-request reviewers can instead use the temporary `latex-pdfs-<commit-sha>` GitHub Actions artifact, retained for approximately 14 days.
+This checks generated README sections and tracked component/integration fixtures. Course PDFs remain under `.build/` and should be reviewed visually.
 
-If a generated course PDF was forced into Git, remove it only from the index:
+For the complete repository quality pipeline, tests, CI behavior, and Pull Request artifacts, see [Validation, tests, and CI](../development/tool-test-and-ci.md).
+
+## If a course PDF was accidentally tracked
+
+Remove it from Git without deleting your local file:
 
 ```bash
 git rm --cached -- <year>/<course>/main.pdf
 ```
 
-Do not rewrite history for normal contribution cleanup.
+Do not rewrite repository history for normal contribution cleanup.
 
-## Complete build command reference
+## Useful build options
 
-Exactly one selection mode is required: explicit `TARGET` values, `--all`, `--changed-from`, or `--changed-file-list`.
+| Option | Use it when |
+|---|---|
+| `--all` | You want to build every document |
+| `--changed-from REVISION` | You want to build only affected documents |
+| `--keep-going` | You want all selected documents processed even if one fails |
+| `--no-readme` | You want to compile without updating generated README content |
+| `--clean` | You want `.build/` removed after a successful run |
+| `--check-generated` | You want to verify tracked generated state |
 
-| Argument or option | Value | Purpose |
-|---|---|---|
-| `TARGET` | Directory or `main.tex` path | Build one or more explicitly listed documents |
-| `--all` | None | Discover and build every document |
-| `--changed-from` | Git revision | Build documents affected from that revision to `HEAD` |
-| `--changed-to` | Git revision | Change the end revision used with `--changed-from` |
-| `--changed-file-list` | File path | Read repository-relative changed paths from a file |
-| `--no-compile` | None | Reuse existing PDF and `.toc` data, normally from `.build/` |
-| `--no-readme` | None | Do not update generated README content |
-| `--clean` | None | Remove `.build/` after success |
-| `--keep-going` | None | Process all selected targets and report failures together |
-| `--check-generated` | None | Compare tracked generated fixtures and README content |
-| `-h`, `--help` | None | Print the command reference |
-
-`--check-generated` cannot be combined with `--no-compile` or `--no-readme`. `--changed-to` applies only to `--changed-from`.
+For the full command reference and tool behavior, see [Build system](../development/build-system.md).
 
 Display built-in help with:
 
 ```bash
-docker compose run --rm texlive python3 latex/tools/build.py --help
+docker compose run --rm texlive \
+  python3 latex/tools/build.py --help
 ```
 
-Release packaging and publication are maintainer/CI responsibilities described in [Validation, Tests, and CI](../development/tool-test-and-ci.md). Contributors do not stage `.build/release/` or generated course PDFs.
+Release packaging and publication are maintainer responsibilities. Contributors should not stage `.build/release/` or generated course PDFs.

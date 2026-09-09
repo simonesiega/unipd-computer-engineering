@@ -34,6 +34,12 @@
 - [ ] The contribution is original or may be redistributed under the applicable repository license.
 - [ ] The contribution contains no confidential, restricted, active-assessment, or sensitive material.
 
+## AI-assisted work
+
+<!-- State which tools were used and what was reviewed, or write "Not used". Never treat generated academic content as authoritative. -->
+
 ## Additional notes
 
-<!-- Mention known limitations, follow-up work, or anything reviewers should check closely. -->
+<!-- Mention known limitations, follow-up work, skipped checks, or anything reviewers should inspect closely. -->
+
+- [ ] I have read and agree to follow the [Code of Conduct](https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md).

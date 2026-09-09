@@ -1,0 +1,13 @@
+# Default owner for every repository path.
+* @simonesiega
+
+# Governance, security, releases, and automation require maintainer review.
+/.github/ @simonesiega
+/CODE_OF_CONDUCT.md @simonesiega
+/SECURITY.md @simonesiega
+/LICENSE @simonesiega
+/LICENSE-MIT @simonesiega
+/compose.yaml @simonesiega
+
+# Shared typesetting and repository tools affect every course archive.
+/latex/ @simonesiega

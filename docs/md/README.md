@@ -1,10 +1,6 @@
-<p align="center">
-  <img src="../assets/unipd.png" alt="University of Padua" width="320" />
-</p>
-
 # UniPD Computer Engineering Documentation
 
-[← Project README](../../README.md) · [Browse the notes](../../README.md#browse-the-notes) · [Contributing](../../CONTRIBUTING.md)
+[← Project README](../../README.md) · [Browse the notes](../../README.md#browse-the-notes) · [Contributing](../../CONTRIBUTING.md) · [Code of Conduct](../../CODE_OF_CONDUCT.md)
 
 This documentation covers the archive for the 2026–2029 Computer Engineering cohort at the University of Padua. It is organized by task: the project README introduces the archive and provides access to the notes, while the guides below explain how to create, write, build, and maintain them.
 
@@ -14,9 +10,9 @@ This documentation covers the archive for the 2026–2029 Computer Engineering c
 - **Setting up the repository?** Start with [Installation](getting-started/installation.md), then use [Docker builds](getting-started/docker.md) for the canonical PDF workflow.
 - **Adding a course?** Follow [Creating a course](getting-started/creating-a-course.md), then read [Writing notes](user-guide/writing-notes.md).
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
-- **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#getting-help-and-reporting-problems).
+- **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#issues-and-getting-help).
 - **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation, Tests, and CI](development/tool-test-and-ci.md).
-- **Publishing a semester snapshot?** Start from the [release description example](release/example.md) and follow the manual-release procedure in [Validation, Tests, and CI](development/tool-test-and-ci.md#immutable-manual-snapshots).
+- **Publishing a semester snapshot?** Start from the [release description example](release/example.md) and review the snapshot requirements in [Validation, Tests, and CI](development/tool-test-and-ci.md#immutable-snapshots).
 
 ## Getting started
 
@@ -47,8 +43,8 @@ This documentation covers the archive for the 2026–2029 Computer Engineering c
 
 | Guide | Covers |
 |---|---|
-| [Architecture](development/architecture.md) | Repository layout, document discovery, generated outputs, and component boundaries. |
-| [Build system](development/build-system.md) | Build selection, compilation, publishing, and generated README behavior. |
+| [Architecture](development/architecture.md) | Repository layers, ownership boundaries, dependencies, and responsibility routing. |
+| [Build system](development/build-system.md) | Document discovery, target selection, compilation, generated README state, and release packaging. |
 | [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document artifacts, rolling releases, and immutable snapshots. |
 | [AI-assisted development](development/ai-assisted-development.md) | Human-review requirements, agent instructions, and specialized skill responsibilities. |
 | [Release description questionnaire](release/example.md) | Prompts and placeholders to complete for a semester snapshot introduction. |
@@ -58,13 +54,6 @@ This documentation covers the archive for the 2026–2029 Computer Engineering c
 | Guide | Covers |
 |---|---|
 | [Contributing](../../CONTRIBUTING.md) | Contribution paths, issue forms, quality standards, licensing, pull requests, and review checks. |
+| [Code of Conduct](../../CODE_OF_CONDUCT.md) | Community behavior, private conduct reporting, scope, and enforcement. |
 | [Security](../../SECURITY.md) | Private vulnerability reporting and the distinction between security and content errors. |
 | [License](../../README.md#license) | Licensing for academic materials, software, documentation, fonts, and third-party assets. |
-
-## Documentation conventions
-
-- Commands are shown from the repository root unless stated otherwise.
-- Native commands use `python3` on Linux and macOS or `py` in Windows PowerShell; Docker commands use `python3` inside the container.
-- Keep internal repository links relative.
-- Link to the authoritative guide instead of repeating detailed procedures.
-- Do not manually edit generated course or integration README sections.

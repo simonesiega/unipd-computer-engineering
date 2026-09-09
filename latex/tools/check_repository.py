@@ -15,13 +15,16 @@ SOURCE_SUFFIXES = (".tex", ".sty", ".cls", ".bib")
 COMPONENTS_DIRECTORY = "latex/components"
 INTEGRATION_DIRECTORY = "latex/integration"
 INTEGRATION_EXAMPLES = ("english", "italian")
+EXCLUDED_DIRECTORIES = {".git", ".build", ".context"}
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
 COURSE_DIRECTORY_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 COURSE_CLASS = re.compile(
     r"\\documentclass\s*\[([^]]*)\]\s*\{unipd-notes\}"
 )
 COURSE_SETUP = re.compile(r"\\unipdsetup\s*\{(.*?)\}\s*\\begin\{document\}", re.DOTALL)
-METADATA_VALUE = re.compile(r"(?m)^\s*([a-z-]+)\s*=\s*\{([^{}]*)\}\s*,?\s*$")
+METADATA_VALUE = re.compile(
+    r"(?m)^\s*([a-z-]+)\s*=\s*\{((?:\\[{}]|[^{}]|\{[^{}]*\})*)\}\s*,?\s*$"
+)
 ACADEMIC_YEAR = re.compile(r"^(\d{4})--(\d{4})$")
 SUPPORTED_LANGUAGES = {"italian", "english"}
 DEGREE_COHORT_START_YEAR = 2026
@@ -385,8 +388,7 @@ def main() -> int:
     source_files = sorted(
         path
         for path in root.rglob("*")
-        if ".git" not in path.parts
-        and ".build" not in path.parts
+        if EXCLUDED_DIRECTORIES.isdisjoint(path.relative_to(root).parts)
         and path.is_file()
         and path.suffix.lower() in SOURCE_SUFFIXES
     )
@@ -396,8 +398,7 @@ def main() -> int:
     markdown_files = sorted(
         path
         for path in root.rglob("*.md")
-        if ".git" not in path.parts
-        and ".build" not in path.parts
+        if EXCLUDED_DIRECTORIES.isdisjoint(path.relative_to(root).parts)
         and path.is_file()
     )
     for path in markdown_files:

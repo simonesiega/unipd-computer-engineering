@@ -1,0 +1,52 @@
+name: General question
+description: Ask a question or report a documentation or repository problem not covered by another form.
+title: "[Question]: "
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form only when the content-error, course-proposal, and build-problem forms do not fit. Do not include vulnerability details, private information, restricted material, or active-assessment content.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Reading or downloading notes
+        - Documentation
+        - Contributing
+        - Repository organization
+        - Licensing or attribution
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or problem
+      description: Explain what you need and identify relevant files, pages, or links.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: What have you already checked?
+      description: Link the guides, issues, or repository paths you reviewed and include any useful non-sensitive context.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the documentation, existing issues, and pull requests before opening this issue.
+          required: true
+        - label: This issue contains no confidential, restricted, active-assessment, personal, or security-sensitive material.
+          required: true
+        - label: I agree to follow the [Code of Conduct](https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md).
+          required: true

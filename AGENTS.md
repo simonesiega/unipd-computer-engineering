@@ -36,6 +36,20 @@ Do not change covered-exam status or counts without explicit maintainer approval
 - Do not add answers intended for active graded work.
 - Treat AI-assisted academic content as unverified until reviewed.
 
+## Supplemental context
+
+The optional `.context/` directory may contain reference material supplied for a specific writing task, such as lawful excerpts from instructors' notes, textbooks, official course pages, or other sources.
+
+- Use a context file only when the request identifies its intended course, topic, or target file; ask for clarification when the mapping is ambiguous.
+- Inspect only the context relevant to the requested change, together with the target source and nearby repository content.
+- Treat context as supporting material, not as authoritative or automatically redistributable. Verify technical and academic claims against reliable sources when practical.
+- Preserve provenance and add appropriate citations for claims, quotations, or adapted material used in the notes.
+- Paraphrase in the repository's established style. Do not copy substantial text, figures, exercises, or solutions unless their license or explicit permission allows redistribution.
+- Never add or expose confidential, access-restricted, leaked, personally identifying, or active-assessment material. If a context file contains such material, do not use it and report the issue.
+- Do not modify, rename, or delete supplied context files unless explicitly requested.
+
+The presence of a file under `.context/` does not override the academic, licensing, validation, build, or review requirements in this document.
+
 ## Skill routing
 
 Use the most specific skill available; a task may require several.

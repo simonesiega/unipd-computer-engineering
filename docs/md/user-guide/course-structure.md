@@ -65,7 +65,7 @@ Document the source and license of all third-party material. Whenever possible, 
 
 ## Generated files
 
-Builds place compilation files and the final course PDF under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests and pushes to `main` expose affected PDFs through temporary CI artifacts. A maintainer manually refreshes the rolling GitHub Release when the complete archive is ready to publish.
+Builds place compilation files and the generated course `main.pdf` under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests and pushes to `main` expose affected PDFs through temporary CI artifacts. A maintainer manually refreshes the rolling GitHub Release when the complete archive is ready to publish.
 
 The build tool creates or updates the generated section of `README.md` from the compiled table of contents and links to the stable rolling-release asset. Do not edit content between:
 
@@ -76,6 +76,6 @@ The build tool creates or updates the generated section of `README.md` from the 
 
 Manual course information may be written outside those markers.
 
-Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`, and do not commit `<year>/<course>/main.pdf`. When source changes affect the document, rebuild in the [canonical Docker environment](../getting-started/docker.md), visually review `.build/<year>/<course>/main.pdf`, and commit only source-owned files plus generated README content. If a course PDF was accidentally tracked, remove it with `git rm --cached -- <year>/<course>/main.pdf`; normal contributions must not rewrite Git history.
+Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`, and do not commit a generated `<year>/<course>/main.pdf`. When source changes affect the document, rebuild in the [canonical Docker environment](../getting-started/docker.md), visually review `.build/<year>/<course>/main.pdf`, and commit only source-owned files plus generated README content. If a generated course `main.pdf` was accidentally tracked, remove it with `git rm --cached -- <year>/<course>/main.pdf`; normal contributions must not rewrite Git history.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) for build and validation commands.

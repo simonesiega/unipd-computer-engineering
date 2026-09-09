@@ -351,14 +351,7 @@ jobs:
             git add -- README.md
             git commit -m "docs(releases): update published notes catalogue [skip ci]"
             if git push origin "HEAD:$TARGET_BRANCH"; then
-              CATALOG_SHA="$(git rev-parse HEAD)"
-              if gh api "repos/$REPOSITORY/git/ref/tags/notes-latest" \
-                >/dev/null 2>&1; then
-                gh api --method PATCH \
-                  "repos/$REPOSITORY/git/refs/tags/notes-latest" \
-                  -f sha="$CATALOG_SHA" -F force=true >/dev/null
-              fi
-              echo "Published README release catalogue at $CATALOG_SHA."
+              echo "Published README release catalogue at $(git rev-parse HEAD)."
               exit 0
             fi
             echo "The branch advanced; retrying catalogue update ($attempt/3)."

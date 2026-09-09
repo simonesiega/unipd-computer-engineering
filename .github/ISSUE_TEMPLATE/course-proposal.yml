@@ -1,6 +1,8 @@
 name: Course proposal
 description: Propose a course belonging to the 2026–2029 cohort archive and coordinate its scope.
 title: "[Course proposal]: "
+labels:
+  - enhancement
 body:
   - type: markdown
     attributes:
@@ -82,4 +84,6 @@ body:
         - label: I have read the creating-a-course guide and the contribution rules.
           required: true
         - label: I will not contribute confidential, restricted, or unlawfully copied material.
+          required: true
+        - label: I agree to follow the [Code of Conduct](https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md).
           required: true

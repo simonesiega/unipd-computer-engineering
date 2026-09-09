@@ -18,14 +18,19 @@ Extend the existing architecture instead of creating a parallel system.
 
 Each component must have one responsibility. Reuse the existing owner of a behavior:
 
-- `typography`: fonts, colors, and text rules;
-- `metadata`: course and document information;
+- `typography`: fonts, colors, hierarchy, paragraph behavior, and text rules;
+- `metadata`: course and document information, translations, and language-dependent defaults;
+- `cover`: cover-page presentation based on shared metadata;
 - `page-style`: geometry, headers, and footers;
-- `figures-tables`: floats, captions, and tables;
+- `document-structure`: chapter and section hierarchy, numbering, and appendices;
+- `table-of-contents`: contents generation and front-matter presentation;
+- `lists`: bulleted, numbered, descriptive, nested, and procedural lists;
+- `figures-tables`: floats, captions, source notes, and tables;
 - `diagrams`: TikZ and CircuitikZ styles;
 - `mathematics`: mathematical notation and shared operators;
 - `code` and `algorithms`: listings, terminal sessions, and pseudocode;
 - `references`: labels, cross-references, and bibliography;
+- `navigation`: hyperlinks, URLs, bookmarks, and PDF navigation;
 - `glossary`: terms, acronyms, and glossary printing;
 - `front-back-matter`: prefaces, revision history, pagination transitions, and document lists;
 - `environments`: definitions, results, examples, warnings, exercises, and solutions.
@@ -34,7 +39,7 @@ Do not solve a course-specific problem with a repository-wide special case.
 
 ## Component structure
 
-Every component must contain at least:
+Every component must contain exactly this structure:
 
 ```text
 latex/components/<component>/
@@ -44,7 +49,7 @@ latex/components/<component>/
     └── main.pdf
 ```
 
-A new component must use an ASCII kebab-case name, provide a matching package and isolated example, be loaded by `latex/unipd-notes.cls`, and be listed in `latex/components/README.md`.
+A new component must use an ASCII kebab-case name, provide a matching package and isolated example, be loaded by `latex/unipd-notes.cls`, and be listed in `latex/components/README.md`. Do not add extra files or subdirectories inside a component directory.
 
 ## Interfaces and dependencies
 

@@ -1,226 +1,158 @@
-<p align="center">
-  <img src="docs/assets/unipd.png" alt="University of Padua" width="320" />
-</p>
+# Contributing
 
-<h1 align="center">
-  Contributing to UniPD Computer Engineering
-</h1>
+[← Project README](README.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security policy](SECURITY.md)
 
-<p align="center">
-  Guidelines for contributing study materials and repository improvements.
-</p>
-
-<p align="center">
-  <img
-    src="https://img.shields.io/badge/PRs-welcome-brightgreen"
-    alt="Pull requests welcome"
-  />
-  <a href="LICENSE">
-    <img
-      src="https://img.shields.io/badge/Notes-CC%20BY--SA%204.0-EF9421?logo=creativecommons&logoColor=white"
-      alt="Notes: Creative Commons Attribution-ShareAlike 4.0 International License"
-    />
-  </a>
-  <a href="LICENSE-MIT">
-    <img
-      src="https://img.shields.io/badge/Code-MIT-yellow?logo=opensourceinitiative&logoColor=white"
-      alt="Code: MIT License"
-    />
-  </a>
-  <a href="https://github.com/simonesiega/unipd-computer-engineering/issues">
-    <img
-      src="https://img.shields.io/github/issues/simonesiega/unipd-computer-engineering"
-      alt="Open issues"
-    />
-  </a>
-</p>
-
-## Overview
-
-This repository follows the 2026–2029 Computer Engineering cohort at the University of Padua. It is an unofficial, student-maintained project and is not affiliated with or endorsed by the University of Padua. Students and other contributors are welcome to use and improve it.
-
-Contributions may correct or expand existing notes, add original material for courses belonging to this cohort archive, improve diagrams and examples, or enhance the LaTeX system, documentation, build tools, and automation that support the archive.
-
-Every contribution is valuable. A pull request may contain anything from a typo correction to a complete set of course notes.
+Contributions are welcome, from small corrections to complete course material, as long as they are accurate, focused, legally redistributable, and consistent with the rest of the archive.
 
 ## Quick workflow
 
 | Step | Action |
 |---:|---|
-| 1 | Check the existing courses, documentation, issues, and pull requests. |
+| 1 | Check the existing courses, documentation, issues, and Pull Requests. |
 | 2 | Fork the repository and create a focused branch from `main`. |
 | 3 | Make one coherent change. |
 | 4 | Build and review the affected documents, then run the relevant checks. |
-| 5 | Open a pull request describing the change and the validation performed. |
+| 5 | Open a Pull Request describing what changed and how you validated it. |
 
-Small corrections, documentation improvements, and focused additions may normally go directly to a pull request.
+Small corrections and documentation improvements can normally go directly to a Pull Request.
 
-Open an issue first when you plan to:
+Open an issue first for substantial work such as adding a course, reorganizing a large part of an existing course, changing the shared LaTeX system, or modifying repository-wide build and CI behavior.
 
-- add another course belonging to this cohort archive;
-- substantially reorganize existing notes;
-- change the shared LaTeX system;
-- modify repository-wide build, validation, or CI behaviour.
-
-## Contribution paths
-
-Choose the path closest to your change and follow the linked guide.
+## What can I contribute?
 
 | Contribution | Main guide |
 |---|---|
 | Correct or expand notes | [Writing notes](docs/md/user-guide/writing-notes.md) |
 | Add a course from this cohort | [Creating a course](docs/md/getting-started/creating-a-course.md) |
 | Reorganize a course | [Course structure](docs/md/user-guide/course-structure.md) |
-| Update course or document metadata | [Metadata](docs/md/user-guide/metadata.md) |
-| Set up canonical PDF builds | [Docker builds](docs/md/getting-started/docker.md) |
+| Update metadata | [Metadata](docs/md/user-guide/metadata.md) |
 | Build and validate documents | [Building documents](docs/md/getting-started/building-documents.md) |
 | Modify the document class | [Document class](docs/md/reference/unipd-notes-class.md) |
 | Modify shared components | [LaTeX components](latex/components/README.md) |
 | Modify bundled fonts | [LaTeX fonts](latex/fonts/README.md) |
-| Change repository infrastructure | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, Tests, and CI](docs/md/development/tool-test-and-ci.md) |
+| Change repository infrastructure | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, tests, and CI](docs/md/development/tool-test-and-ci.md) |
 
-Before editing an existing course, review its current content, notation, terminology, structure, open issues, and pull requests. Preserve existing conventions unless the purpose of the contribution is to improve them.
+Before editing an existing course, review its current notation, terminology, structure, open issues, and Pull Requests. Preserve established conventions unless changing them is the purpose of the contribution.
 
 ## Quality standards
 
-Contributed material should be useful to students beyond the original author or lecture group.
+Study material should be useful beyond the original author or lecture group.
 
-Aim for work that is:
+Keep contributions:
 
-- **accurate:** statements, notation, examples, and solutions have been checked;
-- **clear:** assumptions, abbreviations, and non-obvious steps are explained;
-- **structured:** topics follow a logical progression;
-- **consistent:** language, terminology, notation, and formatting remain stable;
-- **well-sourced:** borrowed material and substantial claims include appropriate references;
-- **readable:** equations, code, diagrams, and tables remain legible in the compiled PDF;
-- **maintainable:** source files are organized and avoid unnecessary local formatting.
+- **accurate** — check statements, notation, examples, and solutions;
+- **clear** — explain assumptions, abbreviations, and non-obvious steps;
+- **structured** — organize topics in a logical progression;
+- **consistent** — preserve terminology, notation, language, and formatting;
+- **well-sourced** — cite borrowed material and substantial external claims;
+- **readable** — keep equations, code, diagrams, and tables legible in the compiled PDF;
+- **maintainable** — follow the shared structure instead of adding unnecessary local formatting.
 
-Write notes in the language in which the course is taught: use Italian for courses taught in Italian and English for courses taught in English. Preserve that language when editing an existing course.
+Write notes in the language in which the course is taught. Preserve that language when editing an existing course.
 
 Clearly distinguish exercises from solutions, and state when a solution is informal, incomplete, or only one possible approach.
 
 ## Licensing and attribution
 
-Study notes and academic materials under `1/`, `2/`, and `3/` are distributed under [CC BY-SA 4.0](LICENSE). Compiled PDFs published through GitHub Releases are generated distributions of those corresponding licensed sources.
+| Material | License |
+|---|---|
+| Study notes and academic materials under `1/`, `2/`, and `3/` | [CC BY-SA 4.0](LICENSE) |
+| Compiled note PDFs distributed through GitHub Releases | Generated distributions of their corresponding [CC BY-SA 4.0](LICENSE) sources |
+| Shared LaTeX system, build and validation tools, release packaging, documentation except `CODE_OF_CONDUCT.md`, CI configuration, and other supporting project files | [MIT](LICENSE-MIT) |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Adapted from the Contributor Covenant and distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Third-party fonts, assets, and bundled resources | Subject to their respective licenses. See [`latex/fonts/FONT-LICENSE.md`](latex/fonts/FONT-LICENSE.md) for font licensing information. |
 
-The shared LaTeX system, tools, release packaging, documentation, CI configuration, and other supporting project files are distributed under the [MIT License](LICENSE-MIT).
+By submitting a contribution, you confirm that you created the material or have the right to contribute it, that it may be distributed under the applicable repository license, and that required attribution and license notices have been preserved.
 
-By submitting a contribution, you confirm that:
-
-- you created the material or have the right to contribute it;
-- it may be distributed under the applicable repository license;
-- all required attribution and license notices have been preserved.
-
-Do not upload material that cannot be redistributed legally, including:
-
-- scans or copies of textbooks;
-- paid or access-restricted resources;
-- lecture slides, recordings, handouts, or instructor material without permission;
-- copyrighted diagrams, images, code, or datasets without a compatible license;
-- proprietary solution manuals;
-- personal, confidential, or sensitive information.
+Do not upload material that cannot legally be redistributed, including textbook scans, paid or access-restricted resources, proprietary solution manuals, instructor material without permission, or copyrighted images, diagrams, code, and datasets without a compatible license.
 
 Prefer original explanations and diagrams. When redistribution rights are unclear, link to the external source instead of copying it.
 
-Clearly identify quotations and third-party material, including its source and applicable license.
+## AI-assisted contributions
 
-## AI-assisted content
+AI-assisted contributions are allowed only after careful human review.
 
-AI-assisted contributions are permitted only after careful human review.
+You remain responsible for accuracy, completeness, originality, citations, attribution, licensing, and consistency with the surrounding material.
 
-Contributors remain responsible for the material's:
-
-- accuracy and completeness;
-- originality;
-- citations and attribution;
-- licensing;
-- consistency with the surrounding notes.
-
-Do not submit unreviewed generated content or fabricated references.
+Do not submit unreviewed generated content, fabricated references, or claims you have not verified.
 
 ## Repository conventions
 
-Course structure, generated files, metadata, and source conventions are documented in:
-
-- [Course structure](docs/md/user-guide/course-structure.md)
-- [Metadata](docs/md/user-guide/metadata.md)
-- [Building documents](docs/md/getting-started/building-documents.md)
+Course structure, metadata, generated files, and source conventions are documented in [Course structure](docs/md/user-guide/course-structure.md), [Metadata](docs/md/user-guide/metadata.md), and [Building documents](docs/md/getting-started/building-documents.md).
 
 Do not manually edit content between generated markers:
 
 ```html
 <!-- GENERATED:START -->
 <!-- GENERATED:END -->
+
 <!-- RELEASE-CATALOG:START -->
 <!-- RELEASE-CATALOG:END -->
 ```
 
-Edit course-owned LaTeX sources, figures, bibliography files, and README content outside the generated markers. A course build keeps its PDF under `.build/<year>/<course>/main.pdf` and refreshes the generated README section. Generated course PDFs under `1/`, `2/`, and `3/` are ignored build outputs and must not be added to Git. Component and integration example PDFs remain tracked fixtures and are regenerated through the pinned Docker Compose environment when affected.
+Edit course-owned LaTeX sources, figures, bibliography files, and README content outside generated sections.
 
-If a course PDF was accidentally forced into the index, remove it without deleting the local build with:
+Generated course `main.pdf` files are build outputs and must not be committed. Local builds remain under:
 
-```bash
-git rm --cached -- <year>/<course>/main.pdf
+```text
+.build/<year>/<course>/main.pdf
 ```
 
-Do not rewrite repository history during normal contributions. Historical binary cleanup, if ever desired, is a separate disruptive maintainer operation outside this migration.
-
-Shared LaTeX, build-tool, font, or CI changes may affect multiple courses and examples. Keep them focused, preserve compatibility, update the relevant documentation, and follow the complete validation workflow.
+Shared LaTeX, build-tool, font, and CI changes may affect multiple courses. Keep these changes focused, preserve compatibility, update the relevant documentation, and run the complete applicable validation workflow.
 
 ## Exam coverage
 
-Adding or improving material does not automatically make an exam covered.
+Adding or improving material does not automatically mark an exam as covered.
 
-A contributor may propose covered status, but only a maintainer's immutable snapshot publication establishes it. Approval depends on whether the intended course topics are represented, no substantial known gaps remain, and the compiled notes have been reviewed. Rolling `notes-latest` publication never establishes covered status.
+An exam becomes covered only when its intended notes are sufficiently complete, reviewed, and approved through an immutable snapshot release. The rolling `notes-latest` release does not establish covered status.
 
-Covered-exam counts and tables are generated from published immutable snapshots. Do not edit them manually.
+Coverage counts and tables are generated from published releases. Do not edit them manually.
 
-## Getting help and reporting problems
+## Issues and getting help
 
-Search the [existing issues](https://github.com/simonesiega/unipd-computer-engineering/issues) first, then use the form that best matches the request:
+Search the [existing issues](https://github.com/simonesiega/unipd-computer-engineering/issues) before opening a new one.
 
 | Request | Form |
 |---|---|
 | Inaccurate, unclear, incomplete, or outdated notes | [Report a content error](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=content-error.yml) |
 | A course missing from this cohort archive | [Submit a course proposal](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=course-proposal.yml) |
-| A reproducible local build, validation, generated-file, or CI failure | [Report a build problem](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=build-problem.yml) |
+| A reproducible build, validation, generated-file, or CI failure | [Report a build problem](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=build-problem.yml) |
+| Anything else | [Ask a general question](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=general-question.yml) |
 
-For a request that does not fit these forms, start a [general issue](https://github.com/simonesiega/unipd-computer-engineering/issues/new). A draft pull request is also welcome when you want feedback on work already in progress.
+You can also [open the issue chooser](https://github.com/simonesiega/unipd-computer-engineering/issues/new/choose) to compare all available forms.
 
-Include precise paths and locations in content reports. Build reports should contain reproduction steps, environment details, and sanitized logs. Course proposals should link to the official public course page and explain the planned scope and redistribution rights.
+For content reports, include the precise course and location. For build reports, include reproduction steps, environment details, and sanitized logs.
 
-Security vulnerabilities must not be reported publicly. Submit them through [GitHub Private Vulnerability Reporting](https://github.com/simonesiega/unipd-computer-engineering/security/advisories/new) and follow [`SECURITY.md`](SECURITY.md).
+Security vulnerabilities must not be reported publicly. Follow [`SECURITY.md`](SECURITY.md) and use [GitHub Private Vulnerability Reporting](https://github.com/simonesiega/unipd-computer-engineering/security/advisories/new).
 
 ## Validation
 
-Before opening a pull request, follow [Docker builds](docs/md/getting-started/docker.md) and [Building documents](docs/md/getting-started/building-documents.md), then complete the applicable items in the review checklist below.
+Before opening a Pull Request, build the affected documents using the canonical Docker environment and review the generated PDFs visually.
 
-For pull requests, CI compiles only documents affected by the proposed changes when selection is possible. A change inside a course builds that course, and a change inside a component example builds that example. Changes to the shared document class, component packages, bundled fonts, canonical Compose environment, CI build workflow, or build tool compile every document because they may have repository-wide impact. Reviewers can download the `latex-pdfs-<commit-sha>` workflow artifact from the pull-request run; it is retained for approximately 14 days. Failed compilation logs are uploaded separately when available.
+For a course build:
 
-Pushes to `main` run all quality checks and compile only affected documents when selection is possible. They produce temporary review artifacts but do not publish a GitHub Release. Complete publication is intentionally manual so frequent note corrections do not rebuild and replace the entire archive.
-
-### Maintainer release procedure
-
-Open **Actions → Publish compiled notes → Run workflow** from the latest `main` commit. Select `rolling` to refresh [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest). The workflow runs all quality checks, compiles the complete archive, packages course PDFs as `<degree-year>-<course-slug>.pdf`, creates `manifest.json`, `SHA256SUMS.txt`, and `RELEASE_NOTES.md`, replaces stale assets, and moves the rolling tag. Re-running the same commit is idempotent.
-
-For an immutable end-of-semester snapshot, use the same action, select `snapshot`, then provide a new release tag and title. For an optional release description, copy the questionnaire-style [`docs/md/release/example.md`](docs/md/release/example.md), answer each prompt, replace every bracketed placeholder, remove sections that do not apply, commit the new `.md` file, and provide its repository-relative path through `release_description_file`. Tags such as `2026-2027-semester-1` are recommended. Publishing the snapshot explicitly approves every included PDF as a covered exam, so do not create it while any included notes are incomplete or unreviewed. The workflow compiles and packages the complete archive, fails if either the requested tag or release already exists, and then regenerates the README coverage and release tables from published GitHub Releases. Never reuse or overwrite a snapshot tag.
-
-For packaging failures, inspect the named missing course PDF, duplicate asset name, manifest, or checksum error in **Compile and package complete archive**. For publication failures, inspect the `gh` command output and any draft release left intentionally to prevent partial assets from appearing successful. A failed snapshot draft must be inspected and explicitly deleted before retrying the same tag; published snapshots must never be deleted merely to replace their contents. No repository secret is required because publication uses the workflow token.
-
-## Pull requests
-
-Keep each pull request focused on one course or one coherent repository change.
-
-Use concise branch names, for example:
-
-```text
-notes/analysis-1-limits
-fix/programming-pointer-example
-docs/course-contribution-guide
-latex/improve-theorem-spacing
+```bash
+docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
 ```
 
-Use a clear pull-request title, for example:
+See [Docker builds](docs/md/getting-started/docker.md), [Building documents](docs/md/getting-started/building-documents.md), and [Validation, tests, and CI](docs/md/development/tool-test-and-ci.md) for the complete validation workflow.
+
+Pull-request CI builds affected documents when possible. Repository-wide LaTeX, font, build-system, or CI changes may trigger compilation of the complete archive.
+
+## Branches and Pull Requests
+
+Keep each Pull Request focused on one course or one coherent repository change.
+
+Short branch names are enough:
+
+| Change | Example |
+|---|---|
+| Notes | `notes/analysis-1-limits` |
+| Fix | `fix/programming-pointer-example` |
+| Documentation | `docs/course-contribution-guide` |
+| LaTeX | `latex/improve-theorem-spacing` |
+
+Use clear Pull Request titles, for example:
 
 ```text
 notes(analysis-1): add limits and continuity chapter
@@ -229,23 +161,17 @@ docs: clarify how students can add course notes
 latex(diagrams): improve automata edge labels
 ```
 
-GitHub automatically loads [the pull-request template](.github/PULL_REQUEST_TEMPLATE.md). Complete every applicable section; if a validation item does not apply, state why.
+GitHub automatically loads [the Pull Request template](.github/PULL_REQUEST_TEMPLATE.md). Complete every applicable section and explain why any checklist item or validation step was skipped.
 
-The pull-request description should:
+The Pull Request description should explain what changed, identify the affected course or repository area, cite relevant sources when needed, and state how the change was validated.
 
-- explain what was added, corrected, or reorganized;
-- identify the affected course or repository area;
-- cite relevant sources for technical corrections;
-- state which validation steps were completed;
-- include generated README changes and any affected tracked example outputs, but no generated course PDF;
-- confirm that affected PDFs were reviewed visually, locally or from the CI artifact;
-- disclose new third-party material and its license or permission.
+Include generated README changes and affected tracked example outputs when required, but never include generated course PDFs.
 
-Draft pull requests are welcome for substantial contributions that would benefit from early feedback.
+Draft Pull Requests are welcome for substantial work that would benefit from early feedback.
 
 ## Academic integrity
 
-This archive is intended to support learning and must not enable academic misconduct.
+This archive exists to support learning and must not enable academic misconduct.
 
 Do not contribute:
 
@@ -257,23 +183,23 @@ Do not contribute:
 
 Past exercises and exam-style problems may be included only when they can be shared lawfully and their source is stated clearly.
 
-Contributors remain responsible for following applicable university rules and course-specific instructions.
+Contributors are responsible for following applicable university rules and course-specific instructions.
 
-## Review checklist
+## Before you send it
 
-Before opening a pull request, confirm that:
+Confirm that:
 
 - [ ] the contribution is in the correct course or repository area;
-- [ ] the material is original or may be redistributed legally;
+- [ ] the material is original or may legally be redistributed;
 - [ ] sources, attribution, and third-party licenses are documented;
-- [ ] the course language, terminology, notation, and structure are consistent;
+- [ ] course language, terminology, notation, and structure are consistent;
 - [ ] source files follow the documented repository conventions;
 - [ ] affected documents compile successfully in the canonical Docker environment;
 - [ ] affected PDFs have been reviewed visually;
-- [ ] tracked generated examples and generated README sections pass the canonical `--check-generated` check;
-- [ ] no generated course `main.pdf` is tracked or included in the pull request;
-- [ ] the relevant validation checks pass;
-- [ ] the pull-request description explains the change and validation;
-- [ ] covered-exam status changes only after maintainer approval.
+- [ ] generated sections and tracked examples are up to date;
+- [ ] no generated course PDF is included in the Pull Request;
+- [ ] relevant validation checks pass;
+- [ ] the Pull Request explains the change, validation, material AI assistance when relevant, and any skipped checks;
+- [ ] the contribution follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Thank you for helping build a useful and reliable archive for the 2026–2029 Computer Engineering cohort.
+Thanks for helping build a useful and reliable archive for the 2026–2029 Computer Engineering cohort.

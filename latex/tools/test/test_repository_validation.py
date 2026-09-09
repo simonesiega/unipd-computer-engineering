@@ -117,6 +117,28 @@ class RepositoryValidationTests(unittest.TestCase):
             errors = validate_course(uppercase, root)
             self.assertTrue(any("lowercase kebab-case" in error for error in errors))
 
+    def test_generated_latex_escapes_are_valid_metadata_values(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            main = self.write_course(
+                root,
+                source=(
+                    "\\documentclass[english]{unipd-notes}\n"
+                    "\\unipdsetup{\n"
+                    "  course = {Signals \\& Systems},\n"
+                    "  author = {Ada \\textbackslash{} Lovelace},\n"
+                    "  academic-year = {2026--2027},\n"
+                    "  degree-year = {1},\n"
+                    "  semester = {1},\n"
+                    "  date = {3 September 2026},\n"
+                    "  version = {0.1.0}\n"
+                    "}\n"
+                    "\\begin{document}\nContent.\n\\end{document}\n"
+                ),
+            )
+
+            self.assertEqual(validate_course(main, root), [])
+
     def test_course_metadata_and_readme_requirements_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -209,6 +231,12 @@ class RepositoryValidationTests(unittest.TestCase):
     def test_repository_main_accepts_empty_archive_with_valid_shared_layout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
+            context = root / ".context"
+            context.mkdir()
+            (context / "reference.tex").write_bytes(b"not UTF-8: \xff")
+            (context / "reference.md").write_text(
+                "[Private local target](missing.md)\n", encoding="utf-8"
+            )
             with (
                 patch.object(
                     check_repository_module, "repository_root", return_value=root

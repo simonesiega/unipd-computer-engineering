@@ -85,7 +85,7 @@ Prefer original explanations. Do not copy textbooks, restricted course material,
 
 Use only measurements and datasets whose origin and meaning can be verified. When synthetic or hypothetical values are useful for an example, label them explicitly and never present them as observed results.
 
-AI-assisted material must be checked by a human for accuracy, originality, consistency, citations, and licensing. Never include fabricated references.
+AI-assisted material must be checked by a human for accuracy, originality, consistency, citations, and licensing. Never include fabricated references. See [AI-assisted development](../development/ai-assisted-development.md) for repository-wide responsibilities and disclosure expectations.
 
 ## Review
 
@@ -95,6 +95,6 @@ Before contributing notes:
 - verify terminology, notation, examples, and solutions;
 - check citations and third-party licenses;
 - compile in the [canonical Docker environment](../getting-started/docker.md) and visually inspect the PDF;
-- run the generated-file check and commit the updated outputs.
+- run the generated-state check and commit only the tracked generated files that belong to the change; never commit a generated course `main.pdf`.
 
 Continue with [Metadata](metadata.md) for document information or [Building documents](../getting-started/building-documents.md) for compilation and validation.

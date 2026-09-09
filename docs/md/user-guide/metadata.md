@@ -46,7 +46,7 @@ Set `author` explicitly. Its shared default is empty to prevent accidental attri
 
 Repository course validation requires `course`, `academic-year`, `degree-year`, `semester`, `author`, `date`, and `version`. The course name and version must be non-empty; the author must also be non-placeholder. The degree year must match the parent directory, and the academic year must match the repository cohort (`2026--2027`, `2027--2028`, or `2028--2029`).
 
-`short-course`, `professor`, and `document-type` may be omitted when they are unknown or not applicable. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
+`short-course`, `professor`, and `document-type` are optional at the metadata layer and may be omitted when they are unknown or not applicable. The course-creation tool intentionally requires `short-course` and `professor` when scaffolding a new course so the initial document is complete. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 

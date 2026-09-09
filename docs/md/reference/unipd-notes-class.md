@@ -2,59 +2,67 @@
 
 [← Documentation](../README.md) · [Metadata](../user-guide/metadata.md) · [Components](../../../latex/components/README.md) · [Fonts](../../../latex/fonts/README.md)
 
-The `unipd-notes` class provides the shared foundation for every course document. It configures the base page model, exposes the bibliography option, and loads the repository's LaTeX components.
+The `unipd-notes` class is the shared foundation for every course document. It defines the base document model, loads the repository's LaTeX components, and exposes the supported document-level interfaces.
 
 ## Basic usage
 
-Course documents should load the class directly:
+Load the class directly:
 
 ```latex
 \documentclass[italian]{unipd-notes}
 ```
 
-Use `english` instead when the course is taught in English. Repository course validation requires exactly one supported language option.
+Use `english` for courses taught in English:
 
-The repository build tool adds `latex/` to the LaTeX search path, so course files should not use a relative path to the class.
+```latex
+\documentclass[english]{unipd-notes}
+```
 
-LuaLaTeX is required. Compilation with another TeX engine stops with an error.
+Repository courses must declare exactly one supported language option.
+
+The build system adds `latex/` to the LaTeX search path, so course sources should not reference the class through a relative path.
+
+LuaLaTeX is required.
 
 ## Class options
 
 ### Language
 
-Select the language of every course explicitly:
+Supported language options are:
 
-```latex
-\documentclass[italian]{unipd-notes}
-\documentclass[english]{unipd-notes}
+```text
+italian
+english
 ```
 
-Italian remains the class-level default for compatibility with non-course examples and older external documents, but repository courses must never rely on that fallback. The language option configures Babel, `siunitx`, theorem and algorithm names, cross-references, glossary and contents headings, cover fields, revision history, and other shared labels. Course prose and user-supplied metadata must use the same language.
+The selected language configures shared localization across Babel, `siunitx`, theorem and algorithm labels, cross-references, glossary and contents headings, cover fields, revision history, and other component output.
+
+Italian remains the class-level fallback for compatibility with non-course examples, but repository courses must select a language explicitly.
 
 ### Bibliography
 
 Enable bibliography support with:
 
 ```latex
-\documentclass[bibliography]{unipd-notes}
+\documentclass[italian,bibliography]{unipd-notes}
 ```
 
-The option enables the bibliography features provided by the references component. Register the bibliography file in the preamble and print it at the appropriate position in the document:
+Then register and print the bibliography normally:
 
 ```latex
-\documentclass[bibliography]{unipd-notes}
 \addbibresource{references.bib}
 
 \begin{document}
+
 % Course content
 
 \printcoursebibliography
 \end{document}
 ```
 
-Bibliography builds require Biber, which `latexmk` runs automatically. Courses without a bibliography should omit the option.
+Bibliography builds require Biber, which `latexmk` invokes automatically.
 
-The language and bibliography options may be combined, for example `\documentclass[english,bibliography]{unipd-notes}`. Other class options are forwarded to the underlying `scrreprt` class. Avoid overriding the shared defaults unless the change is necessary and consistent with the rest of the archive.
+Other class options are forwarded to the underlying `scrreprt` class.
 
 ## Base document
 
@@ -68,11 +76,11 @@ The class is based on KOMA-Script's `scrreprt` with these defaults:
 | Chapter opening | `open=any` |
 | Heading size | `headings=normal` |
 
-Course documents should rely on these shared settings rather than redefining page dimensions, heading styles, or document layout locally.
+Shared page and heading behavior should remain centralized in the class and its components.
 
 ## Loaded components
 
-The class loads the following components, grouped here by responsibility:
+The class loads the shared components below:
 
 | Area | Components |
 |---|---|
@@ -82,28 +90,41 @@ The class loads the following components, grouped here by responsibility:
 | Document organization | `document-structure`, `cover`, `table-of-contents` |
 | Supporting material | `references`, `glossary`, `front-back-matter` |
 
-Course documents should use the interfaces exposed by these components instead of loading their `.sty` files directly.
+Course documents should use the public interfaces exposed by these components rather than loading component `.sty` files directly.
 
-See the [component reference](../../../latex/components/README.md) for responsibilities, examples, and extension rules.
+See the [component reference](../../../latex/components/README.md) for component-specific APIs and examples.
 
 ## Document lifecycle
 
-Use the shared lifecycle commands instead of manipulating page numbering directly:
+The class provides shared interfaces for the main document phases:
 
 | Interface | Purpose |
 |---|---|
-| `\makecoursefrontmatter` | Create the cover and Roman-numbered table of contents. |
-| `coursepreface` | Add an optional preface to the table of contents. |
-| `revisionhistory` and `\revision` | Add an optional, page-breakable revision table. |
-| `\makecoursemainmatter` | Start Arabic page numbering at 1 before the first chapter. |
-| `\printcourselists` | Print localized document lists. The optional selection accepts `figures`, `tables`, `algorithms`, and `listings`; omitting it prints all four. |
-| `\courseappendices` | Start the appendix sequence. |
+| `\makecoursefrontmatter` | Create the cover and Roman-numbered table of contents |
+| `coursepreface` | Add an optional preface |
+| `revisionhistory` and `\revision` | Add an optional revision-history table |
+| `\makecoursemainmatter` | Switch to Arabic numbering and begin the main document |
+| `\printcourselists` | Print selected document lists |
+| `\courseappendices` | Start the appendix sequence |
 
-Use `\printcourselists[figures,listings]`, for example, when a course has no tables or algorithms. Omit the command entirely when the document has no listable material.
+`\printcourselists` accepts any combination of:
 
-The focused [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example demonstrates the complete order. Bibliographies and glossaries use their own component interfaces and may be printed where the document structure requires them.
+```text
+figures
+tables
+algorithms
+listings
+```
 
-## Typical document
+For example:
+
+```latex
+\printcourselists[figures,listings]
+```
+
+The [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example shows the complete lifecycle in context.
+
+## Minimal course document
 
 ```latex
 \documentclass[english]{unipd-notes}
@@ -115,11 +136,12 @@ The focused [`front-back-matter`](../../../latex/components/front-back-matter/ex
   degree-year = {1},
   semester = {1},
   document-type = {Lecture notes},
-  date = {3 August 2026},
+  date = {28 September 2026},
   version = {0.1.0}
 }
 
 \begin{document}
+
 \makecoursefrontmatter
 \makecoursemainmatter
 
@@ -130,14 +152,16 @@ Course content.
 \end{document}
 ```
 
-`\makecoursefrontmatter` creates the cover and table of contents while preserving Roman page numbering, so a preface or revision history can follow it. Call `\makecoursemainmatter` immediately before the first chapter to clear the page, switch to Arabic numbering, and start the main text at page 1.
+For the complete `\unipdsetup` field reference, see [Metadata](../user-guide/metadata.md).
 
-See [Metadata](../user-guide/metadata.md) for every `\unipdsetup` field and [Writing notes](../user-guide/writing-notes.md) for authoring conventions.
+For note-writing conventions, see [Writing notes](../user-guide/writing-notes.md).
 
 ## Extending the class
 
-Add shared behavior to the component responsible for that concern. Create a new component only when the feature has a distinct responsibility and cannot reasonably belong to an existing one.
+Shared behavior should be added to the component that owns that responsibility.
 
-Preserve component load order and compatibility across every course and example. Changes to the class or a component package affect all documents and require a full [canonical Docker build](../getting-started/docker.md) and generated-file check.
+Create a new component only when the feature has a distinct concern that does not fit an existing package.
 
-Do not use or redefine the class's internal path commands in course documents.
+Changes to the class or shared components affect every course and example, so they require a complete canonical build and generated-state verification.
+
+Do not use or redefine internal class path commands from course documents.
