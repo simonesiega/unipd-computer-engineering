@@ -100,7 +100,7 @@ Current covered exams:
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|
-| [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) | 2026-08-04 | Latest compiled notes | — |
+| [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) | 2026-09-10 | Latest compiled notes | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/notes-latest/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/notes-latest/1-fondamenti-di-informatica.pdf) |
 <!-- RELEASE-CATALOG:END -->
 
 ## Build locally
