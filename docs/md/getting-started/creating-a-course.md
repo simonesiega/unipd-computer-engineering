@@ -60,7 +60,7 @@ py latex/tools/create_course.py `
 | `--professor` | Non-empty text | Professor associated with this edition |
 | `--semester` | `1` or `2` | Teaching semester |
 | `--author` | Non-empty, non-placeholder text | Author or authors credited for the notes |
-| `--date` | ISO `YYYY-MM-DD` | Publication date |
+| `--date` | ISO `YYYY-MM-DD` | Course start date |
 | `--language` | `italian` or `english` | Document language |
 
 The degree year determines the academic year automatically:
@@ -71,7 +71,7 @@ The degree year determines the academic year automatically:
 | 2 | `2027--2028` |
 | 3 | `2028--2029` |
 
-The publication date must be a real ISO calendar date. The generated source stores a localized fixed date instead of `\today` so builds remain reproducible. Omit `--course-code` or `--channel` when that information is not applicable or not yet known; the corresponding optional metadata key is generated with an empty value and is hidden from the cover and README.
+The course start date must be a real ISO calendar date. The generated source stores it as a localized fixed date instead of deriving it from `\today` or the document build time. Omit `--course-code` or `--channel` when that information is not applicable or not yet known; the corresponding optional metadata key is generated with an empty value and is hidden from the cover and README.
 
 For the complete meaning and validation rules of each field, see [Metadata](../user-guide/metadata.md).
 

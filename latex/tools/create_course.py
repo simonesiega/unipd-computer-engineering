@@ -55,7 +55,7 @@ class Course:
     short_name: str
     professor: str
     semester: int
-    document_date: str
+    course_start_date: str
     language: str
     author: str
     course_code: str = ""
@@ -104,7 +104,7 @@ def channel(value: str) -> str:
 
 
 def iso_date(value: str) -> str:
-    """Return a valid ISO calendar date, rejecting free text and placeholders."""
+    """Return a valid ISO course start date, rejecting free text and placeholders."""
     value = value.strip()
     try:
         parsed = dt.date.fromisoformat(value)
@@ -118,7 +118,7 @@ def iso_date(value: str) -> str:
 
 
 def localized_date(value: str, language: str) -> str:
-    """Render an ISO date in the selected course language."""
+    """Render an ISO course start date in the selected course language."""
     parsed = dt.date.fromisoformat(value)
     month = MONTH_NAMES[language][parsed.month - 1]
     return f"{parsed.day} {month} {parsed.year}"
@@ -184,7 +184,7 @@ def render_main(course: Course) -> str:
   semester = {{{course.semester}}},
   document-type = {{{labels["document_type"]}}},
   author = {{{escape_latex(course.author)}}},
-  date = {{{escape_latex(course.document_date)}}},
+  date = {{{escape_latex(course.course_start_date)}}},
   version = {{0.1.0}}
 }}
 
@@ -316,7 +316,7 @@ def parse_arguments() -> argparse.Namespace:
         "--date",
         type=iso_date,
         required=True,
-        help="Publication date in ISO YYYY-MM-DD format",
+        help="Course start date in ISO YYYY-MM-DD format",
     )
     parser.add_argument(
         "--language",
@@ -336,7 +336,7 @@ def main() -> int:
         short_name=arguments.short_course,
         professor=arguments.professor,
         semester=arguments.semester,
-        document_date=localized_date(arguments.date, arguments.language),
+        course_start_date=localized_date(arguments.date, arguments.language),
         language=arguments.language,
         author=arguments.author,
         course_code=arguments.course_code or "",

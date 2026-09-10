@@ -78,7 +78,7 @@ class CourseCreationTests(unittest.TestCase):
             ):
                 channel(invalid)
 
-    def test_iso_dates_are_validated_and_localized(self) -> None:
+    def test_course_start_dates_are_validated_and_localized(self) -> None:
         self.assertEqual(iso_date("2026-09-28"), "2026-09-28")
         self.assertEqual(localized_date("2026-09-28", "italian"), "28 settembre 2026")
         self.assertEqual(localized_date("2026-09-28", "english"), "28 September 2026")
@@ -87,6 +87,21 @@ class CourseCreationTests(unittest.TestCase):
                 argparse.ArgumentTypeError
             ):
                 iso_date(invalid)
+
+    def test_cli_help_identifies_date_as_the_course_start_date(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).resolve().parents[1] / "create_course.py"),
+                "--help",
+            ],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("Course start date in ISO YYYY-MM-DD format", result.stdout)
 
     def test_academic_year_follows_degree_year(self) -> None:
         self.assertEqual(academic_year(1), "2026--2027")

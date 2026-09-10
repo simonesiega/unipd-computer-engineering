@@ -43,7 +43,7 @@ Use the official course title and accurate information for the specific edition 
 | `semester` | Semester `1` or `2` |
 | `document-type` | Type of material, such as `Appunti delle lezioni` or `Lecture notes` |
 | `author` | Author or authors of the notes |
-| `date` | Explicit publication date stored in the document source |
+| `date` | Start date of the course, stored explicitly in the document source |
 | `version` | Revision identifier, starting from `0.1.0` for new notes |
 
 Set `author` explicitly. Its shared default is empty to prevent accidental attribution; the cover omits the author field when it is empty. Repository validation rejects empty or placeholder authors in course documents.
@@ -54,7 +54,7 @@ Repository course validation requires `course`, `academic-year`, `degree-year`, 
 
 When available, write `course-code` as the canonical uppercase University activity code: two to four letters followed by seven or eight digits, such as `IN0000225` or `IN10100190`. Write `channel` as a concise uppercase identifier such as `B`, `1`, or `A-K`. Repository validation checks the format of non-empty values but does not require either optional field. Both values appear on the cover and in the generated section of the course README when supplied.
 
-Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
+Set `date` explicitly to the course start date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic value because it represents the course schedule rather than the document build time. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 
@@ -88,6 +88,6 @@ Use `\unipdifmetadata` when content should appear only if a field is present:
 
 `\unipdheadcourse` returns `short-course` when available and otherwise falls back to `course`.
 
-Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping, and update the channel, professor, date, and version when publishing a new edition.
+Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping. Update the channel, professor, and course start date when documenting a different course edition; update the version when publishing a revision of the notes.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) to regenerate and review the PDF.
