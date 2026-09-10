@@ -40,6 +40,8 @@ class RepositoryValidationTests(unittest.TestCase):
                 "\\documentclass[italian]{unipd-notes}\n"
                 "\\unipdsetup{\n"
                 "  course = {Course},\n"
+                "  course-code = {IN0000225},\n"
+                "  channel = {B},\n"
                 "  author = {Ada Lovelace},\n"
                 f"  academic-year = {{{academic_start}--{academic_start + 1}}},\n"
                 f"  degree-year = {{{year}}},\n"
@@ -116,6 +118,33 @@ class RepositoryValidationTests(unittest.TestCase):
             )
             errors = validate_course(uppercase, root)
             self.assertTrue(any("lowercase kebab-case" in error for error in errors))
+
+    def test_optional_course_code_and_channel_formats_are_validated(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            main = self.write_course(
+                root,
+                source=(
+                    "\\documentclass[italian]{unipd-notes}\n"
+                    "\\unipdsetup{\n"
+                    "  course = {Course},\n"
+                    "  course-code = {in0000225},\n"
+                    "  channel = {channel B},\n"
+                    "  author = {Ada Lovelace},\n"
+                    "  academic-year = {2026--2027},\n"
+                    "  degree-year = {1},\n"
+                    "  semester = {1},\n"
+                    "  date = {},\n"
+                    "  version = {0.1.0}\n"
+                    "}\n"
+                    "\\begin{document}\nContent.\n\\end{document}\n"
+                ),
+            )
+
+            errors = validate_course(main, root)
+
+            self.assertTrue(any("course-code must contain" in error for error in errors))
+            self.assertTrue(any("channel must use" in error for error in errors))
 
     def test_generated_latex_escapes_are_valid_metadata_values(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

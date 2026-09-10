@@ -53,7 +53,7 @@ CI uses `latex/tools/run_tool_tests.py` to add branch coverage and enforce the r
 
 | Area | Main checks |
 |---|---|
-| Courses | Direct course layout, kebab-case names, supported language/class, required metadata, cohort-consistent academic year, and generated README markers |
+| Courses | Direct course layout, kebab-case names, supported language/class, required metadata, optional `course-code`/`channel` formats, cohort-consistent academic year, and generated README markers |
 | Course outputs | No tracked `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf` |
 | Components | Expected package and isolated tracked example structure |
 | Integration examples | Expected source, generated README, and tracked example PDF structure |

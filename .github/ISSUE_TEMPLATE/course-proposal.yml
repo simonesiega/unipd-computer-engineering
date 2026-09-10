@@ -18,6 +18,20 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: course-code
+    attributes:
+      label: Course code
+      description: Optional official University of Padua activity code.
+      placeholder: e.g. IN0000225
+
+  - type: input
+    id: channel
+    attributes:
+      label: Teaching channel
+      description: Optional channel for the proposed course edition.
+      placeholder: e.g. B or A-K
+
   - type: dropdown
     id: degree-year
     attributes:

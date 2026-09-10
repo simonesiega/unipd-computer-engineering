@@ -15,6 +15,7 @@ import build as build_module
 from build import (
     TocEntry,
     affected_documents,
+    course_identifiers,
     course_release_pdf_target,
     discover_documents,
     document_language,
@@ -366,6 +367,17 @@ class BuildSelectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             document = self.create_document(root, "2/algorithms-and-data-structures")
+            document.write_text(
+                "\\documentclass[english]{unipd-notes}\n"
+                "\\unipdsetup{\n"
+                "  course-code = {IN0000225},\n"
+                "  channel = {B}\n"
+                "}\n"
+                "\\begin{document}\n"
+                "course-code = {SHOULDNOTMATCH}\n"
+                "\\end{document}\n",
+                encoding="utf-8",
+            )
             built = root / ".build/2/algorithms-and-data-structures"
             built.mkdir(parents=True)
             (built / "main.pdf").write_bytes(b"pdf")
@@ -389,8 +401,14 @@ class BuildSelectionTests(unittest.TestCase):
                 "releases/download/notes-latest/"
                 "2-algorithms-and-data-structures.pdf",
             )
+            self.assertEqual(
+                course_identifiers(document),
+                {"course-code": "IN0000225", "channel": "B"},
+            )
             readme = (document.parent / "README.md").read_text(encoding="utf-8")
             self.assertIn(f"]({target})", readme)
+            self.assertIn("- **Course code:** IN0000225", readme)
+            self.assertIn("- **Channel:** B", readme)
             self.assertFalse((document.parent / "main.pdf").exists())
 
     def test_integration_change_selects_its_document(self) -> None:

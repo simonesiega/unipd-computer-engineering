@@ -16,6 +16,8 @@ VALID_YEARS = (1, 2, 3)
 VALID_SEMESTERS = (1, 2)
 VALID_LANGUAGES = ("italian", "english")
 PLACEHOLDER_AUTHORS = {"author", "nome cognome", "todo", "tbd", "your name"}
+COURSE_CODE = re.compile(r"^[A-Z]{2,4}[0-9]{7,8}$")
+CHANNEL = re.compile(r"^[A-Z0-9]+(?:-[A-Z0-9]+)*$")
 MONTH_NAMES = {
     "italian": (
         "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
@@ -56,6 +58,8 @@ class Course:
     document_date: str
     language: str
     author: str
+    course_code: str = ""
+    channel: str = ""
 
 
 def repository_root() -> Path:
@@ -76,6 +80,26 @@ def author_name(value: str) -> str:
     value = non_empty(value)
     if value.casefold() in PLACEHOLDER_AUTHORS:
         raise argparse.ArgumentTypeError("author must not be a placeholder")
+    return value
+
+
+def course_code(value: str) -> str:
+    """Return a canonical University of Padua course code."""
+    value = value.strip()
+    if COURSE_CODE.fullmatch(value) is None:
+        raise argparse.ArgumentTypeError(
+            "course code must contain 2–4 uppercase letters followed by 7 or 8 digits"
+        )
+    return value
+
+
+def channel(value: str) -> str:
+    """Return a canonical channel identifier such as B or A-K."""
+    value = value.strip()
+    if CHANNEL.fullmatch(value) is None:
+        raise argparse.ArgumentTypeError(
+            "channel must use uppercase letters or digits separated by hyphens"
+        )
     return value
 
 
@@ -152,6 +176,8 @@ def render_main(course: Course) -> str:
 \\unipdsetup{{
   course = {{{escape_latex(course.name)}}},
   short-course = {{{escape_latex(course.short_name)}}},
+  course-code = {{{course.course_code}}},
+  channel = {{{course.channel}}},
   professor = {{{escape_latex(course.professor)}}},
   academic-year = {{{academic_year(course.year)}}},
   degree-year = {{{course.year}}},
@@ -210,6 +236,10 @@ def create_course(root: Path, course: Course) -> Path:
     author = course.author.strip()
     if not author or author.casefold() in PLACEHOLDER_AUTHORS:
         raise ValueError("Author must not be empty or a placeholder")
+    if course.course_code and COURSE_CODE.fullmatch(course.course_code) is None:
+        raise ValueError("Course code must use the canonical uppercase format")
+    if course.channel and CHANNEL.fullmatch(course.channel) is None:
+        raise ValueError("Channel must use the canonical uppercase format")
 
     slug = kebab_case(course.name)
     duplicate = duplicate_directory(root, slug)
@@ -258,6 +288,18 @@ def parse_arguments() -> argparse.Namespace:
         "--short-course", type=non_empty, required=True, help="Short course name"
     )
     parser.add_argument(
+        "--course-code",
+        type=course_code,
+        default=None,
+        help="Optional University of Padua course code",
+    )
+    parser.add_argument(
+        "--channel",
+        type=channel,
+        default=None,
+        help="Optional teaching channel, for example B or A-K",
+    )
+    parser.add_argument(
         "--professor", type=non_empty, required=True, help="Professor name"
     )
     parser.add_argument(
@@ -297,6 +339,8 @@ def main() -> int:
         document_date=localized_date(arguments.date, arguments.language),
         language=arguments.language,
         author=arguments.author,
+        course_code=arguments.course_code or "",
+        channel=arguments.channel or "",
     )
     root = repository_root()
     course_directory = create_course(root, course)

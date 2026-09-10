@@ -32,18 +32,25 @@ LEVEL_DEPTH = {
 README_LABELS = {
     "italian": {
         "pdf": "Apri il PDF compilato",
+        "course_code": "Codice insegnamento",
+        "channel": "Canale",
         "contents": "Indice dei contenuti",
         "empty": "Nessuna voce numerata.",
         "page": "p.",
     },
     "english": {
         "pdf": "Open the compiled PDF",
+        "course_code": "Course code",
+        "channel": "Channel",
         "contents": "Table of contents",
         "empty": "No numbered entries.",
         "page": "p.",
     },
 }
 DOCUMENT_CLASS_PATTERN = re.compile(r"\\documentclass\s*(?:\[([^]]*)\])?\s*\{")
+COURSE_IDENTIFIER_PATTERN = re.compile(
+    r"(?m)^\s*(course-code|channel)\s*=\s*\{([^{}]*)\}\s*,?\s*$"
+)
 
 
 @dataclass(frozen=True)
@@ -312,18 +319,41 @@ def document_language(document: Path) -> str:
     return "english" if "english" in options else "italian"
 
 
+def course_identifiers(document: Path) -> dict[str, str]:
+    """Return optional course identifiers declared before the document body."""
+    source = strip_comments(document.read_text(encoding="utf-8", errors="replace"))
+    setup = source.find("\\unipdsetup")
+    document_start = source.find("\\begin{document}", setup)
+    if setup < 0 or document_start < 0:
+        return {}
+    preamble_metadata = source[setup:document_start]
+    return {
+        key: value.strip()
+        for key, value in COURSE_IDENTIFIER_PATTERN.findall(preamble_metadata)
+        if value.strip()
+    }
+
+
 def render_generated_markdown(
     entries: list[TocEntry],
     language: str = "italian",
     pdf_target: str = "main.pdf",
+    identifiers: dict[str, str] | None = None,
 ) -> str:
-    """Render table-of-contents entries as localized README Markdown."""
+    """Render course identifiers and contents as localized README Markdown."""
     labels = README_LABELS[language]
-    lines = [
-        f"[{labels['pdf']}]({pdf_target})",
-        "",
-        f"## {labels['contents']}",
-    ]
+    lines = [f"[{labels['pdf']}]({pdf_target})"]
+    identifiers = identifiers or {}
+    if identifiers:
+        lines.append("")
+    details = (
+        ("course-code", labels["course_code"]),
+        ("channel", labels["channel"]),
+    )
+    for key, label in details:
+        if key in identifiers:
+            lines.append(f"- **{label}:** {identifiers[key]}")
+    lines.extend(("", f"## {labels['contents']}"))
     if not entries:
         lines.append(f"- {labels['empty']}")
     else:
@@ -496,6 +526,7 @@ def process_document(
                 entries,
                 document_language(document),
                 course_release_pdf_target(root, document),
+                course_identifiers(document) if course_document else None,
             )
             if check_generated:
                 readme_error = generated_readme_error(document.parent, markdown)

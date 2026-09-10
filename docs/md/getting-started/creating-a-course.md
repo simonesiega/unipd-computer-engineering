@@ -23,6 +23,8 @@ python3 latex/tools/create_course.py \
   --year 1 \
   --course "Analisi Matematica 1" \
   --short-course "Analisi 1" \
+  --course-code "IN0000225" \
+  --channel "B" \
   --professor "Name" \
   --semester 1 \
   --author "Ada Lovelace" \
@@ -37,6 +39,8 @@ py latex/tools/create_course.py `
   --year 1 `
   --course "Analisi Matematica 1" `
   --short-course "Analisi 1" `
+  --course-code "IN0000225" `
+  --channel "B" `
   --professor "Name" `
   --semester 1 `
   --author "Ada Lovelace" `
@@ -51,6 +55,8 @@ py latex/tools/create_course.py `
 | `--year` | `1`, `2`, or `3` | Degree year |
 | `--course` | Non-empty text | Official course name |
 | `--short-course` | Non-empty text | Short title used in running page elements |
+| `--course-code` | Two to four uppercase letters followed by seven or eight digits | Optional official University of Padua activity code |
+| `--channel` | Uppercase letters or digits, optionally separated by hyphens | Optional teaching channel such as `B` or `A-K` |
 | `--professor` | Non-empty text | Professor associated with this edition |
 | `--semester` | `1` or `2` | Teaching semester |
 | `--author` | Non-empty, non-placeholder text | Author or authors credited for the notes |
@@ -65,7 +71,7 @@ The degree year determines the academic year automatically:
 | 2 | `2027--2028` |
 | 3 | `2028--2029` |
 
-The publication date must be a real ISO calendar date. The generated source stores a localized fixed date instead of `\today` so builds remain reproducible.
+The publication date must be a real ISO calendar date. The generated source stores a localized fixed date instead of `\today` so builds remain reproducible. Omit `--course-code` or `--channel` when that information is not applicable or not yet known; the corresponding optional metadata key is generated with an empty value and is hidden from the cover and README.
 
 For the complete meaning and validation rules of each field, see [Metadata](../user-guide/metadata.md).
 
@@ -113,7 +119,7 @@ The generated PDF is written to:
 
 Review that PDF visually before adding substantial content.
 
-The build also refreshes the generated section of the course `README.md`. Do not edit content between:
+The build also refreshes the generated section of the course `README.md`, including the course code and channel when supplied. Do not edit content between:
 
 ```html
 <!-- GENERATED:START -->

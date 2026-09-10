@@ -26,6 +26,8 @@ METADATA_VALUE = re.compile(
     r"(?m)^\s*([a-z-]+)\s*=\s*\{((?:\\[{}]|[^{}]|\{[^{}]*\})*)\}\s*,?\s*$"
 )
 ACADEMIC_YEAR = re.compile(r"^(\d{4})--(\d{4})$")
+COURSE_CODE = re.compile(r"^[A-Z]{2,4}[0-9]{7,8}$")
+CHANNEL = re.compile(r"^[A-Z0-9]+(?:-[A-Z0-9]+)*$")
 SUPPORTED_LANGUAGES = {"italian", "english"}
 DEGREE_COHORT_START_YEAR = 2026
 PLACEHOLDER_AUTHORS = {"author", "nome cognome", "todo", "tbd", "your name"}
@@ -213,6 +215,20 @@ def validate_course(main_file: Path, root: Path) -> list[str]:
 
         if "course" in metadata and not metadata["course"]:
             errors.append(f"{relative}: course metadata must not be empty")
+        if metadata.get("course-code") and COURSE_CODE.fullmatch(
+            metadata["course-code"]
+        ) is None:
+            errors.append(
+                f"{relative}: course-code must contain 2–4 uppercase letters "
+                "followed by 7 or 8 digits"
+            )
+        if metadata.get("channel") and CHANNEL.fullmatch(
+            metadata["channel"]
+        ) is None:
+            errors.append(
+                f"{relative}: channel must use uppercase letters or digits "
+                "separated by hyphens"
+            )
         if "author" in metadata:
             author = metadata["author"]
             if not author or author.casefold() in PLACEHOLDER_AUTHORS:

@@ -32,6 +32,28 @@ cd unipd-computer-engineering
 
 Run repository commands from this directory.
 
+## Install validation dependencies
+
+Install the pinned development dependency set before running repository checks.
+
+Linux or macOS:
+
+```bash
+python3 -m pip install -r .github/requirements-ci.txt
+pre-commit install
+```
+
+Windows PowerShell:
+
+```powershell
+py -m pip install -r .github/requirements-ci.txt
+pre-commit install
+```
+
+If the `pre-commit` executable is not available on `PATH` after installation, use `py -m pre_commit install` on Windows or `python3 -m pre_commit install` on Linux and macOS.
+
+The installation command currently provides pre-commit itself. The first complete check creates the pinned hook environments used for Coverage.py, Ruff, mypy, Actionlint, and the repository validators. `pre-commit install` also enables these checks automatically for future local commits.
+
 ## Prepare the canonical TeX environment
 
 The root [`compose.yaml`](../../../compose.yaml) pins the TeX Live image used by both local canonical builds and GitHub Actions.
@@ -54,6 +76,36 @@ docker compose run --rm texlive \
 ```
 
 A successful build confirms that Docker, the mounted repository, the TeX environment, and the build tool are working correctly.
+
+Run the complete repository checks:
+
+```bash
+pre-commit run --all-files --show-diff-on-failure
+```
+
+If GNU Make is available, the equivalent shortcut is:
+
+```bash
+make check
+```
+
+A fresh installation is ready for repository work when both the test-document build and complete pre-commit run succeed.
+
+## Setup sequence
+
+```text
+Clone the repository
+        ↓
+Install validation dependencies and the Git hook
+        ↓
+Pull the pinned TeX Live image
+        ↓
+Build a test document
+        ↓
+Run make check or pre-commit
+        ↓
+Ready
+```
 
 Continue with:
 

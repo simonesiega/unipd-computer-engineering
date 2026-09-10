@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/08/05 v0.1.0 Course cover]
+\ProvidesPackage{\@currpath\@currname}[2026/09/09 v0.2.0 Course cover]
 
 \newcommand*{\unipd@coverfield}[2]{%
   \unipdifmetadata{#2}{%
@@ -32,6 +32,8 @@
 
     \vspace{1.6cm}
     \begin{minipage}{0.74\textwidth}
+      \unipd@coverfield{\unipdtranslate{course-code}}{course-code}
+      \unipd@coverfield{\unipdtranslate{channel}}{channel}
       \unipd@coverfield{\unipdtranslate{professor}}{professor}
       \unipd@coverfield{\unipdtranslate{academic-year}}{academic-year}
       \unipd@coverfield{\unipdtranslate{degree-year}}{degree-year}

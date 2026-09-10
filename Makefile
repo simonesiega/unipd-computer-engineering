@@ -12,7 +12,8 @@ help:
 	@echo "  make check"
 	@echo "  make clean"
 	@echo "  make course YEAR=1 COURSE='Calculus 1' SHORT='Calculus' \\"
-	@echo "  PROFESSOR='Name' SEMESTER=1 AUTHOR='Ada Lovelace' DATE=2026-08-06 LANGUAGE=english"
+	@echo "  COURSE_CODE=IN0000225 CHANNEL=B PROFESSOR='Name' SEMESTER=1 \\"
+	@echo "  AUTHOR='Ada Lovelace' DATE=2026-08-06 LANGUAGE=english"
 
 course:
 	@test -n "$(YEAR)" || (echo "YEAR is required" >&2; exit 2)
@@ -28,7 +29,7 @@ course:
 		--course "$(COURSE)" \
 		--short-course "$(SHORT)" \
 		--professor "$(PROFESSOR)" \
-		--semester "$(SEMESTER)" \
+		$(if $(strip $(COURSE_CODE)),--course-code "$(COURSE_CODE)" )$(if $(strip $(CHANNEL)),--channel "$(CHANNEL)" )--semester "$(SEMESTER)" \
 		--author "$(AUTHOR)" \
 		--date "$(DATE)" \
 		--language "$(LANGUAGE)"

@@ -1,16 +1,20 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{\@currpath\@currname}[2026/07/31 v0.1.0 Shared course notes class]
-
-\edef\unipdcomponentpath{\@currpath components/}
-\edef\unipdfontpath{\@currpath fonts/}
-\edef\unipdlibertinusfontpath{\unipdfontpath Libertinus/}
-\edef\unipdsourcefontpath{\unipdfontpath Source Sans 3/}
-\edef\unipdmonofontpath{\unipdfontpath IBM Plex Mono/}
+\ProvidesClass{\@currpath\@currname}[2026/09/09 v0.2.0 Shared course notes class]
 
 \RequirePackage{iftex}
 \ifLuaTeX\else
   \ClassError{unipd-notes}{LuaLaTeX is required}{Compile this document with LuaLaTeX.}
 \fi
+
+\edef\unipdclasspath{\directlua{
+  local path = kpse.find_file("unipd-notes.cls")
+  tex.sprint(-2, path and (path:match("^(.*[/])") or "") or "")
+}}
+\edef\unipdcomponentpath{\unipdclasspath components/}
+\edef\unipdfontpath{\unipdclasspath fonts/}
+\edef\unipdlibertinusfontpath{\unipdfontpath Libertinus/}
+\edef\unipdsourcefontpath{\unipdfontpath Source Sans 3/}
+\edef\unipdmonofontpath{\unipdfontpath IBM Plex Mono/}
 
 \newif\ifunipdbibliography
 \newif\ifunipdenglish

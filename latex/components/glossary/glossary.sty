@@ -1,8 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{\@currpath\@currname}[2026/08/01 v0.1.0 Glossary and acronyms]
+\ProvidesPackage{\@currpath\@currname}[2026/09/10 v0.1.1 Glossary and acronyms]
 
 \RequirePackage[acronym,toc,nonumberlist,nopostdot]{glossaries-extra}
-\makenoidxglossaries
+\newif\ifunipd@glossaryinitialized
+\unipd@glossaryinitializedfalse
+\newcommand*{\unipd@initializeglossaries}{%
+  \ifunipd@glossaryinitialized\else
+    \global\unipd@glossaryinitializedtrue
+    \makenoidxglossaries
+  \fi
+}
 \setabbreviationstyle[acronym]{long-short}
 \renewcommand*{\glstextformat}[1]{\textcolor{unipd-accent}{#1}}
 \renewcommand*{\glossarysection}[2][]{\chapter*{#2}\addcontentsline{toc}{chapter}{#2}}
@@ -16,11 +23,19 @@
 \setglossarystyle{unipd-long}
 \setlength{\glsdescwidth}{0.72\linewidth}
 
-\NewDocumentCommand{\newcourseacronym}{mmm}{\newacronym{#1}{#2}{#3}}
-\NewDocumentCommand{\newcourseterm}{mmm}{\newglossaryentry{#1}{name={#2},description={#3}}}
+\NewDocumentCommand{\newcourseacronym}{mmm}{%
+  \unipd@initializeglossaries
+  \newacronym{#1}{#2}{#3}%
+}
+\NewDocumentCommand{\newcourseterm}{mmm}{%
+  \unipd@initializeglossaries
+  \newglossaryentry{#1}{name={#2},description={#3}}%
+}
 \NewDocumentCommand{\printcourseglossary}{}{%
-  \printnoidxglossary[title={\unipdtranslate{glossary}}]%
-  \printnoidxglossary[type=\acronymtype,title={\unipdtranslate{acronyms}}]%
+  \ifunipd@glossaryinitialized
+    \printnoidxglossary[title={\unipdtranslate{glossary}}]%
+    \printnoidxglossary[type=\acronymtype,title={\unipdtranslate{acronyms}}]%
+  \fi
 }
 
 \endinput

@@ -92,7 +92,7 @@ For course work, `.build/<year>/<course>/main.pdf` is the PDF to review locally.
 
 ## Generated README content
 
-For courses and integration projects, `build.py` reads the compiled `main.toc` and generates a localized Markdown contents section between:
+For courses and integration projects, `build.py` reads the compiled `main.toc` and generates a localized Markdown section between:
 
 ```html
 <!-- GENERATED:START -->
@@ -101,7 +101,7 @@ For courses and integration projects, `build.py` reads the compiled `main.toc` a
 
 Content outside those markers is preserved.
 
-Course README sections link to the stable asset published through the rolling `notes-latest` release. Integration projects may link to their tracked local PDF. Component examples do not receive generated README content.
+Course README sections link to the stable asset published through the rolling `notes-latest` release and include non-empty `course-code` and `channel` metadata. Integration projects may link to their tracked local PDF. Component examples do not receive generated README content.
 
 Do not edit generated sections manually.
 

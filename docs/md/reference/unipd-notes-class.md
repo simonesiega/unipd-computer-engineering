@@ -131,11 +131,15 @@ The [`front-back-matter`](../../../latex/components/front-back-matter/example/ma
 
 \unipdsetup{
   course = {Official Course Name},
-  author = {Ada Lovelace},
+  short-course = {Course Name},
+  course-code = {IN0000225},
+  channel = {B},
+  professor = {Prof. Ada Lovelace},
   academic-year = {2026--2027},
   degree-year = {1},
   semester = {1},
   document-type = {Lecture notes},
+  author = {Ada Lovelace},
   date = {28 September 2026},
   version = {0.1.0}
 }

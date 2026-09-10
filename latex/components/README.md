@@ -32,7 +32,7 @@ No additional files or subdirectories belong inside a component directory.
 |---|---|
 | [`algorithms`](algorithms/) | Localized pseudocode, algorithm numbering, captions, labels, input/output declarations, and presentation |
 | [`code`](code/) | Source listings and terminal sessions with syntax highlighting, numbering, captions, labels, and monospace typography |
-| [`cover`](cover/) | Course-note cover generated from shared document metadata |
+| [`cover`](cover/) | Course-note cover generated from shared document metadata, including optional course code and channel |
 | [`diagrams`](diagrams/) | Shared TikZ and CircuitikZ styles for technical diagrams |
 | [`document-structure`](document-structure/) | Chapter and section hierarchy, numbering, unnumbered structure, and appendices |
 | [`environments`](environments/) | Definitions, theorems, proofs, examples, remarks, warnings, exercises, and solutions |
@@ -41,7 +41,7 @@ No additional files or subdirectories belong inside a component directory.
 | [`glossary`](glossary/) | Course terminology and acronyms |
 | [`lists`](lists/) | Bulleted, numbered, descriptive, nested, and procedural lists |
 | [`mathematics`](mathematics/) | Mathematical fonts, symbols, operators, equation behavior, and common helpers |
-| [`metadata`](metadata/) | Course/document configuration, shared translations, and language-dependent defaults |
+| [`metadata`](metadata/) | Course/document configuration, optional course identifiers, shared translations, and language-dependent defaults |
 | [`navigation`](navigation/) | PDF hyperlinks, URLs, bookmarks, and link behavior |
 | [`page-style`](page-style/) | Page geometry, margins, headers, footers, and page numbers |
 | [`references`](references/) | Cross-references, labels, reference formatting, and optional bibliography support |

@@ -12,8 +12,10 @@ Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{docu
 \documentclass[italian]{unipd-notes}
 
 \unipdsetup{
-  course = {Fondamenti di Ingegneria Informatica},
-  short-course = {Fondamenti di Ingegneria},
+  course = {Fondamenti di Informatica},
+  short-course = {Fondamenti di Informatica},
+  course-code = {IN0000225},
+  channel = {B},
   professor = {Prof. Mario Rossi},
   academic-year = {2026--2027},
   degree-year = {1},
@@ -33,6 +35,8 @@ Use the official course title and accurate information for the specific edition 
 |---|---|
 | `course` | Official full course name |
 | `short-course` | Short title used where space is limited |
+| `course-code` | Official University of Padua course or activity code |
+| `channel` | Teaching channel for the documented course edition |
 | `professor` | Instructor for the documented course edition |
 | `academic-year` | Academic year in `YYYY--YYYY` form |
 | `degree-year` | Degree year: `1`, `2`, or `3` |
@@ -46,7 +50,11 @@ Set `author` explicitly. Its shared default is empty to prevent accidental attri
 
 Repository course validation requires `course`, `academic-year`, `degree-year`, `semester`, `author`, `date`, and `version`. The course name and version must be non-empty; the author must also be non-placeholder. The degree year must match the parent directory, and the academic year must match the repository cohort (`2026--2027`, `2027--2028`, or `2028--2029`).
 
-`short-course`, `professor`, and `document-type` are optional at the metadata layer and may be omitted when they are unknown or not applicable. The course-creation tool intentionally requires `short-course` and `professor` when scaffolding a new course so the initial document is complete. Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
+`short-course`, `course-code`, `channel`, `professor`, and `document-type` are optional at the metadata layer and may be omitted when they are unknown or not applicable. The course-creation tool intentionally requires `short-course` and `professor` when scaffolding a new course so the initial document is complete.
+
+When available, write `course-code` as the canonical uppercase University activity code: two to four letters followed by seven or eight digits, such as `IN0000225` or `IN10100190`. Write `channel` as a concise uppercase identifier such as `B`, `1`, or `A-K`. Repository validation checks the format of non-empty values but does not require either optional field. Both values appear on the cover and in the generated section of the course README when supplied.
+
+Set `date` explicitly to the publication date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic date because reproducible builds fix TeX's clock and would make `\today` misleading. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 
@@ -80,6 +88,6 @@ Use `\unipdifmetadata` when content should appear only if a field is present:
 
 `\unipdheadcourse` returns `short-course` when available and otherwise falls back to `course`.
 
-Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping, and update the professor, date, and version when publishing a new edition.
+Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping, and update the channel, professor, date, and version when publishing a new edition.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) to regenerate and review the PDF.

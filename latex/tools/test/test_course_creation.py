@@ -18,6 +18,8 @@ from create_course import (
     academic_year,
     author_name,
     canonical_build_command,
+    channel,
+    course_code,
     create_course,
     escape_latex,
     iso_date,
@@ -59,6 +61,23 @@ class CourseCreationTests(unittest.TestCase):
             ):
                 author_name(invalid)
 
+    def test_optional_course_identifiers_are_validated(self) -> None:
+        self.assertEqual(course_code("  IN0000225  "), "IN0000225")
+        self.assertEqual(course_code("INP9087560"), "INP9087560")
+        self.assertEqual(course_code("IN10100190"), "IN10100190")
+        self.assertEqual(channel("  B  "), "B")
+        self.assertEqual(channel("A-K"), "A-K")
+        for invalid in ("in0000225", "IN225", "IN 0000225"):
+            with self.subTest(course_code=invalid), self.assertRaises(
+                argparse.ArgumentTypeError
+            ):
+                course_code(invalid)
+        for invalid in ("channel B", "a-k", "A K"):
+            with self.subTest(channel=invalid), self.assertRaises(
+                argparse.ArgumentTypeError
+            ):
+                channel(invalid)
+
     def test_iso_dates_are_validated_and_localized(self) -> None:
         self.assertEqual(iso_date("2026-09-28"), "2026-09-28")
         self.assertEqual(localized_date("2026-09-28", "italian"), "28 settembre 2026")
@@ -93,6 +112,8 @@ class CourseCreationTests(unittest.TestCase):
                 "3 agosto 2026",
                 "italian",
                 "Ada Lovelace",
+                "IN0000225",
+                "B",
             )
 
             directory = create_course(root, course)
@@ -109,6 +130,8 @@ class CourseCreationTests(unittest.TestCase):
             self.assertIn(r"\documentclass[italian]{unipd-notes}", main)
             self.assertIn("academic-year = {2026--2027}", main)
             self.assertIn("degree-year = {1}", main)
+            self.assertIn("course-code = {IN0000225}", main)
+            self.assertIn("channel = {B}", main)
             self.assertIn("author = {Ada Lovelace}", main)
             self.assertIn("date = {3 agosto 2026}", main)
             self.assertNotIn(r"\today", main)
@@ -139,6 +162,8 @@ class CourseCreationTests(unittest.TestCase):
 
             self.assertIn(r"\documentclass[english]{unipd-notes}", main)
             self.assertIn("author = {Grace Hopper}", main)
+            self.assertIn("course-code = {}", main)
+            self.assertIn("channel = {}", main)
             self.assertIn("document-type = {Lecture notes}", main)
             self.assertIn(r"\chapter{Introduction}", main)
             self.assertIn("Add the course content here.", main)
@@ -193,6 +218,8 @@ class CourseCreationTests(unittest.TestCase):
                 "--course", "Operating Systems",
                 "--short-course", "Systems",
                 "--professor", "Name",
+                "--course-code", "IN0000225",
+                "--channel", "B",
                 "--semester", "1",
                 "--author", "Ada Lovelace",
                 "--date", "2026-08-03",
@@ -210,8 +237,36 @@ class CourseCreationTests(unittest.TestCase):
             source = (root / "1" / "operating-systems" / "main.tex").read_text(
                 encoding="utf-8"
             )
+            self.assertIn("course-code = {IN0000225}", source)
+            self.assertIn("channel = {B}", source)
             self.assertIn("author = {Ada Lovelace}", source)
             self.assertIn("date = {3 August 2026}", source)
+
+            arguments_without_identifiers = [
+                "create_course.py",
+                "--year", "1",
+                "--course", "Computer Networks",
+                "--short-course", "Networks",
+                "--professor", "Name",
+                "--semester", "1",
+                "--author", "Ada Lovelace",
+                "--date", "2026-08-03",
+                "--language", "english",
+            ]
+            with (
+                patch.object(sys, "argv", arguments_without_identifiers),
+                patch.object(
+                    create_course_module, "repository_root", return_value=root
+                ),
+                patch("builtins.print"),
+            ):
+                self.assertEqual(create_course_module.main(), 0)
+
+            optional_source = (
+                root / "1" / "computer-networks" / "main.tex"
+            ).read_text(encoding="utf-8")
+            self.assertIn("course-code = {}", optional_source)
+            self.assertIn("channel = {}", optional_source)
 
     def test_duplicate_slug_is_rejected_across_years(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
