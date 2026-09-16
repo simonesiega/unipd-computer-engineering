@@ -23,7 +23,7 @@ python3 latex/tools/create_course.py \
   --year 1 \
   --course "Analisi Matematica 1" \
   --short-course "Analisi 1" \
-  --course-code "IN0000225" \
+  --course-code "IN10100190" \
   --channel "B" \
   --professor "Name" \
   --semester 1 \
@@ -39,7 +39,7 @@ py latex/tools/create_course.py `
   --year 1 `
   --course "Analisi Matematica 1" `
   --short-course "Analisi 1" `
-  --course-code "IN0000225" `
+  --course-code "IN10100190" `
   --channel "B" `
   --professor "Name" `
   --semester 1 `

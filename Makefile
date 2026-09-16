@@ -11,9 +11,9 @@ help:
 	@echo "  make all"
 	@echo "  make check"
 	@echo "  make clean"
-	@echo "  make course YEAR=1 COURSE='Calculus 1' SHORT='Calculus' \\"
-	@echo "  COURSE_CODE=IN0000225 CHANNEL=B PROFESSOR='Name' SEMESTER=1 \\"
-	@echo "  AUTHOR='Ada Lovelace' DATE=2026-08-06 LANGUAGE=english"
+	@echo "  make course YEAR=1 COURSE='Analisi Matematica 1' SHORT='Analisi 1' \\"
+	@echo "  COURSE_CODE=IN10100190 CHANNEL=B PROFESSOR='Name' SEMESTER=1 \\"
+	@echo "  AUTHOR='Ada Lovelace' DATE=2026-09-28 LANGUAGE=italian"
 
 course:
 	@test -n "$(YEAR)" || (echo "YEAR is required" >&2; exit 2)
