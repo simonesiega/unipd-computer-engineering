@@ -36,7 +36,7 @@ Repository tools use standard-library `unittest`, deterministic inputs, temporar
 | `test_notes_packaging.py` | Release asset naming, metadata, manifests, checksums, ordering, and packaging failures |
 | `test_release_catalog.py` | Published-release parsing, exam coverage, deduplication, and generated release tables |
 | `test_gitignore.py` | Course-PDF ignore rules without globally ignoring PDF files |
-| `test_changelog_generation.py` | Per-course history generation, renames, dates, and placeholders |
+| `test_changelog_generation.py` | Per-course history generation, baselines, renames, dates, and placeholders |
 | `test_repository_validation.py` | Repository structure, source hygiene, Markdown links, metadata, and generated-output rules |
 
 Run the complete test suite with:
@@ -171,7 +171,15 @@ Draft releases are ignored. Immutable snapshots establish covered exams, while t
 
 The catalogue update is limited to the generated README section and is committed automatically with `[skip ci]` when its contents change. The rolling tag remains attached to the source/build commit rather than moving to this later catalogue-only commit.
 
-The weekly `Course changelogs` workflow separately regenerates protected files under `CHANGELOG/` from complete Git history and commits them only when their generated content changes.
+The weekly `Course changelogs` workflow separately regenerates protected files under `CHANGELOG/` from complete Git history and commits them only when their generated content changes. When `CHANGELOG/BASELINE` exists, only course commits after that recorded commit are included.
+
+A maintainer can intentionally start a fresh changelog period with:
+
+```bash
+python3 latex/tools/generate_changelog.py --reset-baseline
+```
+
+The command records the current `HEAD`, removes earlier generated course changelogs, and preserves the year placeholders. Future workflow runs then report only course changes committed after that baseline. The baseline and generated changelogs are tool-owned and must not be edited manually.
 
 ## Failure diagnosis
 

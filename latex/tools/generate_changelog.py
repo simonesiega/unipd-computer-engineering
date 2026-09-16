@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -12,6 +13,8 @@ from urllib.parse import quote
 
 YEARS = ("1", "2", "3")
 CHANGELOG_DIRECTORY = "CHANGELOG"
+BASELINE_FILENAME = "BASELINE"
+COMMIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 RECORD_SEPARATOR = "\x1e"
 FIELD_SEPARATOR = "\x1f"
 
@@ -104,16 +107,51 @@ def ensure_complete_history(root: Path) -> None:
         raise ValueError(f"Unexpected Git shallow-repository status: {shallow!r}")
 
 
-def read_history(root: Path) -> list[Commit]:
-    """Read every commit that changed a degree-year archive."""
+def baseline_path(root: Path) -> Path:
+    """Return the tracked changelog-baseline path."""
+    return root / CHANGELOG_DIRECTORY / BASELINE_FILENAME
+
+
+def read_baseline(root: Path) -> str | None:
+    """Read and validate the optional changelog baseline commit."""
+    path = baseline_path(root)
+    if not path.exists():
+        return None
+    baseline = path.read_text(encoding="utf-8").strip()
+    if COMMIT_SHA.fullmatch(baseline) is None:
+        raise ValueError(f"Invalid changelog baseline in {path}: {baseline!r}")
+    try:
+        run_git(root, "cat-file", "-e", f"{baseline}^{{commit}}")
+        run_git(root, "merge-base", "--is-ancestor", baseline, "HEAD")
+    except subprocess.CalledProcessError as error:
+        raise ValueError(
+            f"Changelog baseline is not an ancestor of HEAD: {baseline}"
+        ) from error
+    return baseline
+
+
+def reset_baseline(root: Path) -> str:
+    """Set the changelog baseline to HEAD and return its full commit ID."""
     ensure_complete_history(root)
+    baseline = run_git(root, "rev-parse", "HEAD").strip()
+    if COMMIT_SHA.fullmatch(baseline) is None:
+        raise ValueError(f"Git returned an invalid HEAD commit ID: {baseline!r}")
+    ensure_preserved_directory(root / CHANGELOG_DIRECTORY)
+    baseline_path(root).write_text(baseline + "\n", encoding="utf-8", newline="\n")
+    return baseline
+
+
+def read_history(root: Path, baseline: str | None = None) -> list[Commit]:
+    """Read degree-year commits, optionally only those after *baseline*."""
+    ensure_complete_history(root)
+    revision = f"{baseline}..HEAD" if baseline else "HEAD"
     output = run_git(
         root,
         "log",
         f"--format={RECORD_SEPARATOR}%H{FIELD_SEPARATOR}%cI{FIELD_SEPARATOR}%s",
         "--name-status",
         "--find-renames",
-        "HEAD",
+        revision,
         "--",
         *YEARS,
     )
@@ -299,6 +337,11 @@ def parse_arguments() -> argparse.Namespace:
         "--repository-url",
         help="Base URL used for commit links (defaults to the origin remote)",
     )
+    parser.add_argument(
+        "--reset-baseline",
+        action="store_true",
+        help="start future changelogs after the current HEAD commit",
+    )
     return parser.parse_args()
 
 
@@ -307,9 +350,11 @@ def main() -> int:
     arguments = parse_arguments()
     root = repository_root()
     repository_url = arguments.repository_url or discover_repository_url(root)
-    histories = build_course_histories(read_history(root))
+    baseline = reset_baseline(root) if arguments.reset_baseline else read_baseline(root)
+    histories = build_course_histories(read_history(root, baseline))
     write_changelogs(root, histories, repository_url)
-    print(f"Generated {len(histories)} course changelog(s).")
+    suffix = f" after baseline {baseline[:7]}" if baseline else ""
+    print(f"Generated {len(histories)} course changelog(s){suffix}.")
     return 0
 
 

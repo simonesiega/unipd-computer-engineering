@@ -17,8 +17,10 @@ from generate_changelog import (
     RECORD_SEPARATOR,
     build_course_histories,
     parse_history,
+    read_baseline,
     read_history,
     render_changelog,
+    reset_baseline,
     write_changelogs,
 )
 
@@ -61,6 +63,85 @@ class ChangelogGenerationTests(unittest.TestCase):
             self.assertEqual(
                 history[0].changes[0].paths,
                 ("1/analisi-matematica-1/main.tex",),
+            )
+
+    def test_history_can_start_after_a_baseline_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            subprocess.run(("git", "init", "--quiet"), cwd=root, check=True)
+            subprocess.run(
+                ("git", "config", "user.name", "Test Author"),
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ("git", "config", "user.email", "test@example.com"),
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ("git", "config", "core.autocrlf", "false"),
+                cwd=root,
+                check=True,
+            )
+            course = root / "1" / "analisi-matematica-1"
+            course.mkdir(parents=True)
+            main_file = course / "main.tex"
+            main_file.write_text("first\n", encoding="utf-8", newline="\n")
+            self._commit(root, "Create course", "2026-08-01T09:00:00Z")
+            baseline = subprocess.run(
+                ("git", "rev-parse", "HEAD"),
+                cwd=root,
+                check=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            ).stdout.strip()
+            main_file.write_text("second\n", encoding="utf-8", newline="\n")
+            self._commit(root, "Revise course", "2026-08-02T09:00:00Z")
+
+            history = read_history(root, baseline)
+
+            self.assertEqual([commit.subject for commit in history], ["Revise course"])
+
+    def test_reset_baseline_records_head_and_can_be_read(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            subprocess.run(("git", "init", "--quiet"), cwd=root, check=True)
+            subprocess.run(
+                ("git", "config", "user.name", "Test Author"),
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ("git", "config", "user.email", "test@example.com"),
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ("git", "config", "core.autocrlf", "false"),
+                cwd=root,
+                check=True,
+            )
+            tracked = root / "tracked.txt"
+            tracked.write_text("content\n", encoding="utf-8", newline="\n")
+            self._commit(root, "Initial commit", "2026-08-01T09:00:00Z")
+            expected = subprocess.run(
+                ("git", "rev-parse", "HEAD"),
+                cwd=root,
+                check=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            ).stdout.strip()
+
+            baseline = reset_baseline(root)
+
+            self.assertEqual(baseline, expected)
+            self.assertEqual(read_baseline(root), expected)
+            self.assertEqual(
+                (root / "CHANGELOG" / "BASELINE").read_text(encoding="utf-8"),
+                expected + "\n",
             )
 
     @staticmethod

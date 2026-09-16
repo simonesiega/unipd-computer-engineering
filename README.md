@@ -72,9 +72,9 @@ Courses are organized by degree year and share the same LaTeX system for structu
 | Second year | 2027–2028 | [`2/`](2/) |
 | Third year | 2028–2029 | [`3/`](3/) |
 
-**[Download the latest complete set of compiled notes](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest).**
+**[Download published compiled notes from GitHub Releases](https://github.com/simonesiega/unipd-computer-engineering/releases).**
 
-The rolling `notes-latest` release tracks the latest successfully published `main` commit. Stable end-of-semester editions are published as immutable snapshot releases, while pull-request builds are available temporarily through GitHub Actions for review.
+When available, the rolling `notes-latest` release tracks the latest successfully published `main` commit. Stable end-of-semester editions are published as immutable snapshot releases, while pull-request builds are available temporarily through GitHub Actions for review. If no release is listed below, build the notes locally instead.
 
 Weekly generated changelogs under [`CHANGELOG/`](CHANGELOG/) record committed course-source changes and link them to the corresponding commits.
 
@@ -100,7 +100,7 @@ Current covered exams:
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|
-| [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) | 2026-09-10 | Latest compiled notes | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/notes-latest/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/notes-latest/1-fondamenti-di-informatica.pdf) |
+| — | — | _No releases published yet_ | — |
 <!-- RELEASE-CATALOG:END -->
 
 ## Build locally
