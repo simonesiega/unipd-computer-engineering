@@ -15,12 +15,18 @@
   version = {0.1.0}
 }
 
+\crefname{chapter}{lezione}{lezioni}
+\Crefname{chapter}{Lezione}{Lezioni}
+\input{sections/notazione}
+
 \begin{document}
 \makecoursefrontmatter
 \makecoursemainmatter
 
-\chapter{Introduzione}
+\printnoidxglossary[title={Convenzioni e notazione},sort=def]
 
-Aggiungere qui i contenuti del corso.
+\input{sections/01-lezione}
+
+\glsaddall
 
 \end{document}

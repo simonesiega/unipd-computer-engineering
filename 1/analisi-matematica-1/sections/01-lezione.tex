@@ -1,0 +1,337 @@
+\chapter[Lezione 1 --- 29 settembre 2026]{Lezione 1 --- 29 settembre 2026: numeri naturali, ordinamento e principio di induzione}
+\label{chap:lezione-01}
+
+\section{Numeri naturali e le loro operazioni}
+\label{sec:lez01-numeri-naturali}
+
+Si considera l'insieme dei numeri naturali
+\[
+  \N=\{0,1,2,3,\ldots\},
+\]
+adottando quindi la convenzione \(0\in\N\).
+
+Su \(\N\) sono definite le operazioni di somma e prodotto. Entrambe sono
+operazioni binarie, ossia applicazioni che a ogni coppia ordinata
+\((a,b)\in\N\times\N\) associano un elemento di \(\N\):
+\[
+  +\colon\N\times\N\to\N,
+  \qquad
+  (a,b)\mapsto a+b,
+\]
+\[
+  \cdot\colon\N\times\N\to\N,
+  \qquad
+  (a,b)\mapsto ab.
+\]
+L'insieme \(\N\times\N\) costituisce pertanto l'insieme di partenza,
+mentre \(\N\) è l'insieme di arrivo delle due operazioni.
+
+Le proprietà fondamentali della somma e del prodotto introdotte di seguito
+vengono assunte come \emph{assiomi} e costituiscono il punto di
+partenza per i successivi sviluppi, senza essere dimostrate.
+
+Per ogni \(a,b,c\in\N\), la somma è commutativa, ossia l'ordine degli
+addendi non modifica il risultato, e associativa, ossia il modo in cui
+gli addendi vengono raggruppati non modifica la somma:
+\[
+  a+b=b+a,
+  \qquad
+  (a+b)+c=a+(b+c).
+\]
+La somma ammette un unico elemento neutro \(e_0\), caratterizzato
+dalla proprietà
+\[
+  \exists!\,e_0\in\N
+  \quad\text{tale che}\quad
+  \forall a\in\N,\qquad a+e_0=a.
+\]
+Tale elemento è
+\[
+  e_0=0.
+\]
+
+Per ogni \(a,b,c\in\N\), il prodotto è commutativo, ossia l'ordine dei
+fattori non modifica il risultato, e associativo, ossia il modo in cui i
+fattori vengono raggruppati non modifica il prodotto:
+\[
+  ab=ba,
+  \qquad
+  (ab)c=a(bc).
+\]
+Il prodotto ammette un unico elemento neutro \(e_1\), caratterizzato
+dalla proprietà
+\[
+  \exists!\,e_1\in\N
+  \quad\text{tale che}\quad
+  \forall a\in\N,\qquad ae_1=a.
+\]
+Tale elemento è
+\[
+  e_1=1.
+\]
+
+\clearpage
+
+\section{Ordinamento totale dei numeri naturali}
+\label{sec:lez01-ordine-naturali}
+
+Per \(a,b\in\N\), si definisce la relazione \(\le\) nel modo seguente.
+
+\begin{definition}[Ordine naturale]
+\label{def:ordine-naturali}
+\[
+  a\le b
+  \quad\Longleftrightarrow\quad
+  \exists c\in\N:\ a+c=b.
+\]
+\end{definition}
+
+La relazione \(a\le b\) esprime quindi il fatto che è possibile ottenere
+\(b\) aggiungendo ad \(a\) un opportuno numero naturale. Tale relazione
+soddisfa quattro proprietà fondamentali.
+
+\textbf{Riflessività.}
+Ogni numero naturale è minore o uguale a se stesso; per ogni \(a\in\N\)
+vale
+\[
+  a\le a.
+\]
+Infatti, nella \cref{def:ordine-naturali} è sufficiente scegliere \(c=0\),
+poiché
+\[
+  a+0=a.
+\]
+
+\textbf{Antisimmetria.}
+Se due numeri naturali sono ciascuno minore o uguale dell'altro, allora
+coincidono. Per ogni \(a,b\in\N\),
+\[
+  a\le b
+  \quad\text{e}\quad
+  b\le a
+  \quad\Longrightarrow\quad
+  a=b.
+\]
+
+\textbf{Transitività.}
+Se un numero naturale è minore o uguale a un secondo numero e quest'ultimo
+è minore o uguale a un terzo, allora il primo è minore o uguale al terzo.
+Per ogni \(a,b,c\in\N\),
+\[
+  a\le b
+  \quad\text{e}\quad
+  b\le c
+  \quad\Longrightarrow\quad
+  a\le c.
+\]
+
+\textbf{Dicotomia.}
+Ogni coppia di numeri naturali è confrontabile: per ogni \(a,b\in\N\)
+vale
+\[
+  a\le b
+  \quad\text{oppure}\quad
+  b\le a.
+\]
+Le due possibilità non sono necessariamente esclusive: quando \(a=b\),
+entrambe le relazioni risultano vere.
+
+Le proprietà precedenti caratterizzano la relazione \(\le\) come un
+ordinamento totale su \(\N\).
+
+La relazione d'ordine è inoltre compatibile con le operazioni di somma e
+prodotto.
+
+\begin{proposition}[Compatibilità dell'ordine]
+\label{prop:compatibilita-ordine}
+Per ogni \(a,b,c\in\N\), se \(a\le b\), allora
+\[
+  a+c\le b+c.
+\]
+Inoltre, se \(c>0\), vale
+\[
+  ac\le bc.
+\]
+\end{proposition}
+
+La prima proprietà afferma che l'aggiunta dello stesso numero naturale ai
+due membri preserva la relazione d'ordine; la seconda esprime l'analoga
+compatibilità rispetto alla moltiplicazione per un numero naturale
+strettamente positivo.
+
+Se \(c=0\), si ha \(ac=bc=0\), per cui la disuguaglianza non stretta
+rimane comunque valida.
+
+\clearpage
+
+\section{Richiami su insiemi e dimostrazioni}
+\label{sec:lez01-insiemi-dimostrazioni}
+
+Siano \(A\) e \(B\) due insiemi. Tra le operazioni fondamentali sugli
+insiemi si considerano l'intersezione, che raccoglie gli elementi comuni,
+e l'unione, che raccoglie gli elementi appartenenti ad almeno uno dei due:
+
+\[
+  A\cap B=\{x:x\in A\text{ e }x\in B\},\qquad
+  A\cup B=\{x:x\in A\text{ oppure }x\in B\}.
+\]
+
+La \cref{fig:venn-operazioni} rappresenta le regioni corrispondenti:
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/insiemi/venn-operazioni}
+  \caption{Intersezione (a sinistra) e unione (a destra) di due insiemi.}
+  \label{fig:venn-operazioni}
+\end{figure}
+
+Accanto alla notazione insiemistica, è necessario fissare il linguaggio
+impiegato negli enunciati matematici e nelle relative dimostrazioni.
+
+Un teorema ha la forma
+\[
+  \text{IPOTESI}\Longrightarrow\text{TESI}.
+\]
+Una dimostrazione deduce la tesi dalle ipotesi mediante passaggi logicamente
+validi. Per proposizioni \(A\) e \(B\), l'implicazione
+\(A\Longrightarrow B\) asserisce che, se \(A\) è vera, allora è vera
+anche \(B\). Nella logica classica essa è equivalente alla propria
+contronominale:
+\[
+  A\Rightarrow B\quad\Longleftrightarrow\quad\neg B\Rightarrow\neg A.
+\]
+La dimostrazione per assurdo è distinta: mantenendo valide le ipotesi, si
+assume la negazione della tesi e da tali assunzioni si ricava una
+contraddizione, ossia una proposizione \(C\) e, contemporaneamente, la sua
+negazione \(\neg C\).
+
+\section{Principio di induzione}
+\label{sec:lez01-induzione}
+
+Il principio di induzione consente di dimostrare che una determinata
+proprietà vale per tutti i numeri naturali a partire da un valore iniziale
+\(p\). Si verifica anzitutto la proprietà per \(p\) e si dimostra che la
+sua validità per un generico naturale \(n\) implica la validità per il
+successivo \(n+1\). Ne segue così la propagazione della proprietà da
+\(p\) a \(p+1\), quindi a \(p+2\), e così via.
+
+\begin{theorem}[Principio di induzione]
+\label{thm:principio-induzione}
+Siano \(A\subseteq\N\) e \(p\in\N\). Se
+\[
+  p\in A
+  \qquad\text{e}\qquad
+  \forall n\in\N,\quad n\in A\Longrightarrow n+1\in A,
+\]
+allora
+\[
+  \{n\in\N:n\ge p\}\subseteq A.
+\]
+\end{theorem}
+
+\clearpage
+
+La prima condizione è
+\[
+  p\in A.
+\]
+Essa costituisce il \emph{passo base} e fissa il punto iniziale
+dell'induzione. La seconda condizione è
+\[
+  n\in A\Longrightarrow n+1\in A.
+\]
+Essa costituisce il \emph{passo induttivo} e permette di estendere
+l'appartenenza ad \(A\) da un naturale al suo successivo.
+
+Se \(P(n)\) è una proprietà dipendente da \(n\) e si intende dimostrarne
+la validità per ogni \(n\ge p\), si può porre
+\[
+  A=\{n\in\N : n\ge p \text{ e } P(n)\text{ è vera}\}.
+\]
+Dimostrare che \(P(n)\) vale per ogni \(n\ge p\) equivale allora a
+verificare
+\[
+  P(p)
+\]
+e a dimostrare, per un generico \(n\ge p\),
+\[
+  P(n)\Longrightarrow P(n+1).
+\]
+
+Il seguente esempio mostra l'applicazione concreta di questo procedimento.
+
+\begin{example}[Somma dei primi \(n\) naturali positivi]
+\label{ex:somma-primi-naturali}
+Per ogni \(n\in\N\) con \(n\ge1\) vale
+\[
+  \sum_{i=1}^{n}i=\frac{n(n+1)}2.
+\]
+\end{example}
+
+\begin{proof}
+La tesi consiste nel dimostrare che la formula
+\[
+  \sum_{i=1}^{n}i=\frac{n(n+1)}2
+\]
+vale per ogni numero naturale \(n\ge1\).
+
+A tale scopo si considera l'insieme dei naturali per i quali la proprietà
+risulta vera:
+\[
+  A=\left\{n\in\N\,\middle|\,n\ge1,\;
+    \sum_{i=1}^{n}i=\frac{n(n+1)}2\right\}.
+\]
+L'obiettivo è quindi mostrare che ogni naturale maggiore o uguale a \(1\)
+appartiene ad \(A\).
+
+\emph{Passo base.}
+Si verifica anzitutto la proprietà per \(n=1\). Si ha
+\[
+  \sum_{i=1}^{1}i=1
+  \qquad\text{e}\qquad
+  \frac{1(1+1)}2=1.
+\]
+I due membri coincidono, pertanto \(1\in A\) e il passo base è verificato.
+
+\emph{Passo induttivo.}
+Sia \(n\in A\). Per definizione di \(A\), ciò significa che \(n\ge1\) e
+che vale l'ipotesi induttiva
+\[
+  \sum_{i=1}^{n}i=\frac{n(n+1)}2.
+\]
+Si deve dimostrare che anche il naturale successivo appartiene ad \(A\),
+ossia
+\[
+  n+1\in A.
+\]
+Poiché \(n+1\ge1\), la tesi induttiva consiste nel verificare
+\[
+  \sum_{i=1}^{n+1}i=\frac{(n+1)(n+2)}2.
+\]
+
+Separando dalla sommatoria l'ultimo addendo e applicando l'ipotesi
+induttiva nella seconda uguaglianza, si ottiene
+\begin{align*}
+  \sum_{i=1}^{n+1}i
+    &=\sum_{i=1}^{n}i+(n+1)\\
+    &=\frac{n(n+1)}2+(n+1)\\
+    &=\frac{n(n+1)+2(n+1)}2\\
+    &=\frac{(n+1)(n+2)}2.
+\end{align*}
+L'ultima espressione coincide con quella richiesta dalla tesi induttiva;
+pertanto \(n+1\in A\). Risulta quindi verificata l'implicazione
+\[
+  n\in A\Longrightarrow n+1\in A.
+\]
+
+Essendo verificati sia il passo base sia il passo induttivo, per il
+\cref{thm:principio-induzione} si conclude che
+\[
+  \{n\in\N:n\ge1\}\subseteq A.
+\]
+Di conseguenza,
+\[
+  \sum_{i=1}^{n}i=\frac{n(n+1)}2
+\]
+per ogni \(n\in\N\) con \(n\ge1\).
+\end{proof}
