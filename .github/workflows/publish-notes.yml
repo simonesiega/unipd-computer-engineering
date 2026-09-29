@@ -249,6 +249,13 @@ jobs:
           set -euo pipefail
 
           if [ "$RELEASE_KIND" = "rolling" ]; then
+            # Compilation may have taken long enough for main to advance.
+            # Check again before mutating any existing release or tag.
+            LATEST_MAIN="$(gh api "repos/$REPOSITORY/commits/main" --jq .sha)"
+            if [ "$LATEST_MAIN" != "$GITHUB_SHA" ]; then
+              echo "main advanced during the build; dispatch rolling publication again." >&2
+              exit 1
+            fi
             TAG="notes-latest"
             TITLE="Latest compiled notes"
             MAKE_LATEST="true"

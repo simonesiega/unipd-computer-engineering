@@ -100,6 +100,8 @@ The generated directory contains:
 
 The generator validates metadata before writing, rejects duplicate course identities, escapes LaTeX-sensitive input, and cleans up a partially created course if generation fails.
 
+No course registry, class change, or CI configuration change is needed. The tools discover the new entry point from its path and metadata; see the [course compatibility contract](../development/architecture.md#course-compatibility-contract).
+
 For file responsibilities and recommended source organization, see [Course structure](../user-guide/course-structure.md).
 
 ## Build the new course

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -15,7 +16,10 @@ SOURCE_SUFFIXES = (".tex", ".sty", ".cls", ".bib")
 COMPONENTS_DIRECTORY = "latex/components"
 INTEGRATION_DIRECTORY = "latex/integration"
 INTEGRATION_EXAMPLES = ("english", "italian")
-EXCLUDED_DIRECTORIES = {".git", ".build", ".context"}
+EXCLUDED_DIRECTORIES = {
+    ".git", ".build", ".context", ".venv", "venv", ".mypy_cache", ".ruff_cache",
+    ".pytest_cache", "__pycache__", "htmlcov", ".ipynb_checkpoints", ".vscode", ".idea",
+}
 CONFLICT_MARKER = re.compile(r"^(?:<{7}|={7}|>{7})(?: |$)", re.MULTILINE)
 COURSE_DIRECTORY_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 COURSE_CLASS = re.compile(
@@ -41,6 +45,19 @@ MARKDOWN_ANCHOR_PUNCTUATION = re.compile(r"[^\w\- ]", re.UNICODE)
 def repository_root() -> Path:
     """Return the repository root."""
     return Path(__file__).resolve().parents[2]
+
+
+def repository_files(root: Path) -> list[Path]:
+    """List working-tree files, pruning local environments and generated trees."""
+    files: list[Path] = []
+    for directory, subdirectories, filenames in os.walk(root):
+        subdirectories[:] = sorted(
+            name for name in subdirectories if name not in EXCLUDED_DIRECTORIES
+        )
+        files.extend(
+            path for name in filenames if (path := Path(directory) / name).is_file()
+        )
+    return sorted(files)
 
 
 def validate_source(path: Path, root: Path) -> list[str]:
@@ -401,22 +418,12 @@ def main() -> int:
     errors.extend(validate_components(root))
     errors.extend(validate_integration_examples(root))
 
-    source_files = sorted(
-        path
-        for path in root.rglob("*")
-        if EXCLUDED_DIRECTORIES.isdisjoint(path.relative_to(root).parts)
-        and path.is_file()
-        and path.suffix.lower() in SOURCE_SUFFIXES
-    )
+    files = repository_files(root)
+    source_files = [path for path in files if path.suffix.lower() in SOURCE_SUFFIXES]
     for path in source_files:
         errors.extend(validate_source(path, root))
 
-    markdown_files = sorted(
-        path
-        for path in root.rglob("*.md")
-        if EXCLUDED_DIRECTORIES.isdisjoint(path.relative_to(root).parts)
-        and path.is_file()
-    )
+    markdown_files = [path for path in files if path.suffix.lower() == ".md"]
     for path in markdown_files:
         errors.extend(validate_markdown_links(path, root))
 

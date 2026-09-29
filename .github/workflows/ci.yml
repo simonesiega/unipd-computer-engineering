@@ -65,8 +65,8 @@ jobs:
             || ! git cat-file -e "${BASE}^{commit}" 2>/dev/null; then
             echo "mode=all" >> "$GITHUB_OUTPUT"
           else
-            git diff --name-only --diff-filter=ACMRD "$BASE" HEAD -- \
-              > .build/changed-files.txt
+            git diff --no-renames --name-only -z --diff-filter=ACMRD "$BASE" HEAD -- \
+              > .build/changed-files.nul
             echo "mode=changed" >> "$GITHUB_OUTPUT"
           fi
 
@@ -83,7 +83,7 @@ jobs:
           else
             docker compose run --rm --no-deps texlive \
               python3 latex/tools/build.py \
-                --changed-file-list .build/changed-files.txt \
+                --changed-file-list .build/changed-files.nul \
                 --keep-going \
                 --check-generated
           fi

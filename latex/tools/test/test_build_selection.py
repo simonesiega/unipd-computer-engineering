@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -138,12 +140,158 @@ class BuildSelectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             changed = root / "changed.txt"
-            changed.write_text("README.md\n", encoding="utf-8")
+            changed.write_bytes(b"README.md\0")
             arguments = self.arguments(
                 targets=[], changed_file_list=str(changed)
             )
 
             self.assertIsNone(build_module.select_documents(root, arguments))
+
+    @staticmethod
+    def git(root: Path, *arguments: str) -> bytes:
+        environment = os.environ.copy()
+        environment.update({
+            "GIT_CONFIG_NOSYSTEM": "1",
+            "GIT_CONFIG_GLOBAL": os.devnull,
+            "GIT_AUTHOR_DATE": "2026-08-01T09:00:00Z",
+            "GIT_COMMITTER_DATE": "2026-08-01T09:00:00Z",
+        })
+        return subprocess.run(
+            ["git", *arguments], cwd=root, env=environment,
+            check=True, capture_output=True,
+        ).stdout
+
+    def initialize_git(self, root: Path) -> None:
+        self.git(root, "init", "--quiet")
+        for key, value in {
+            "user.name": "Test Author", "user.email": "test@example.com",
+            "core.autocrlf": "false", "core.quotepath": "true",
+            "diff.renames": "true", "commit.gpgsign": "false",
+        }.items():
+            self.git(root, "config", key, value)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "--quiet", "-m", "Initial sources")
+
+    def test_changed_selection_includes_both_courses_after_an_input_moves(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            first = self.create_document(root, "1/first")
+            second = self.create_document(root, "1/second")
+            source = first.parent / "figure.tex"
+            source.write_text("A diagram.\n", encoding="utf-8", newline="\n")
+            self.initialize_git(root)
+            source.rename(second.parent / source.name)
+            self.git(root, "add", "-A")
+            self.git(root, "commit", "--quiet", "-m", "Move diagram")
+
+            arguments = self.arguments(targets=[], changed_from="HEAD~1")
+            self.assertEqual(
+                build_module.select_documents(root, arguments), sorted([first, second])
+            )
+            changed = root / "changed-files.nul"
+            changed.write_bytes(self.git(
+                root, "diff", "--no-renames", "--name-only", "-z",
+                "--diff-filter=ACMRD", "HEAD~1", "HEAD", "--",
+            ))
+            arguments = self.arguments(targets=[], changed_file_list=changed.name)
+            self.assertEqual(
+                build_module.select_documents(root, arguments), sorted([first, second])
+            )
+
+    def test_git_and_file_list_preserve_accented_and_spaced_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            document = self.create_document(root, "1/course")
+            self.initialize_git(root)
+            expected = [Path("1/course/continuità.tex"), Path("1/course/figure 1.tex")]
+            for relative in expected:
+                (root / relative).write_text("Content.\n", encoding="utf-8", newline="\n")
+            self.git(root, "add", ".")
+            self.git(root, "commit", "--quiet", "-m", "Add inputs")
+
+            paths = build_module.changed_files(root, "HEAD~1", "HEAD")
+            self.assertEqual(paths, expected)
+            self.assertEqual(affected_documents(root, paths), [document])
+            changed = root / "changed-files.nul"
+            changed.write_bytes(self.git(
+                root, "diff", "--no-renames", "--name-only", "-z",
+                "--diff-filter=ACMRD", "HEAD~1", "HEAD", "--",
+            ))
+            self.assertEqual(build_module.read_changed_files(root, changed.name), expected)
+
+    def test_changed_file_list_preserves_newlines_inside_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            changed = root / "changed-files.nul"
+            changed.write_bytes(b"1/course/line\nbreak.tex\0README.md\0")
+            self.assertEqual(
+                build_module.read_changed_files(root, changed.name),
+                [Path("1/course/line\nbreak.tex"), Path("README.md")],
+            )
+            changed.write_bytes(b"")
+            self.assertEqual(build_module.read_changed_files(root, changed.name), [])
+
+    def test_changed_file_list_rejects_legacy_or_truncated_records(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            changed = root / "changed-files.nul"
+            for content in (b"README.md\n", b"README.md\0unfinished"):
+                with self.subTest(content=content):
+                    changed.write_bytes(content)
+                    with self.assertRaisesRegex(ValueError, "NUL"):
+                        build_module.read_changed_files(root, changed.name)
+
+    def test_reference_warning_failure_preserves_published_outputs(self) -> None:
+        for target in ("1/course", "latex/components/code/example"):
+            with self.subTest(target=target), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve()
+                document = self.create_document(root, target)
+                readme = document.parent / "README.md"
+                readme.write_text("Original README\n", encoding="utf-8")
+                fixture = document.parent / "main.pdf"
+                fixture.write_bytes(b"original fixture")
+                output = build_module.build_directory(root, document)
+
+                def latexmk(
+                    command: list[str], output: Path = output, **kwargs: object
+                ) -> None:
+                    (output / "main.pdf").write_bytes(b"unresolved reference")
+                    (output / "main.toc").write_text("", encoding="utf-8")
+                    # Model latexmk's default success versus strict failure
+                    # when references remain unresolved after the final pass.
+                    if "-Werror" in command:
+                        raise subprocess.CalledProcessError(12, command)
+
+                with (
+                    patch.object(build_module.shutil, "which", return_value="latexmk"),
+                    patch.object(build_module.subprocess, "run", side_effect=latexmk),
+                    self.assertRaises(subprocess.CalledProcessError),
+                ):
+                    process_document(root, document, True, True, False)
+
+                self.assertEqual(fixture.read_bytes(), b"original fixture")
+                self.assertEqual(readme.read_text(encoding="utf-8"), "Original README\n")
+
+    def test_successful_strict_build_keeps_course_pdf_in_build_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            document = self.create_document(root, "1/course")
+            output = build_module.build_directory(root, document)
+
+            def latexmk(command: list[str], **kwargs: object) -> None:
+                self.assertIn("-Werror", command)
+                (output / "main.pdf").write_bytes(b"resolved PDF")
+                (output / "main.toc").write_text("", encoding="utf-8")
+
+            with (
+                patch.object(build_module.shutil, "which", return_value="latexmk"),
+                patch.object(build_module.subprocess, "run", side_effect=latexmk),
+            ):
+                process_document(root, document, True, True, False)
+                process_document(root, document, True, True, True)
+
+            self.assertTrue((output / "main.pdf").is_file())
+            self.assertFalse((document.parent / "main.pdf").exists())
 
     def test_document_discovery_finds_courses_and_component_examples(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

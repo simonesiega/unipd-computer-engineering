@@ -46,9 +46,19 @@ Exactly one selection mode is required:
 | Explicit target | One or more document directories or `main.tex` files |
 | `--all` | Every course, component example, and integration project |
 | `--changed-from REVISION` | Documents affected by changes from `REVISION` to `HEAD` |
-| `--changed-file-list FILE` | Documents affected by repository-relative paths listed in a file |
+| `--changed-file-list FILE` | Documents affected by NUL-terminated repository-relative paths listed in a file |
 
 `--changed-to` may be used with `--changed-from` to change the end revision from its default of `HEAD`.
+
+Both changed-file modes preserve accented filenames, spaces, and embedded newlines. Moves are treated as a deletion plus an addition so both the original and receiving documents are selected. To prepare a file list outside the TeX container:
+
+```bash
+mkdir -p .build
+git diff --no-renames --name-only -z --diff-filter=ACMRD origin/main HEAD -- \
+  > .build/changed-files.nul
+```
+
+Pass that file to `--changed-file-list .build/changed-files.nul`. Legacy newline-delimited lists must be regenerated with `-z`; they are rejected rather than silently misinterpreted. An empty file is a valid no-op.
 
 Changed-file selection is intentionally conservative:
 
@@ -71,12 +81,15 @@ The effective compilation uses:
 ```text
 latexmk
 -lualatex
+-Werror
 -halt-on-error
 -interaction=nonstopmode
 -file-line-error
 -outdir=<mirrored .build directory>
 main.tex
 ```
+
+`-Werror` makes latexmk fail when its final warning summary reports unresolved references or citations, multiply defined labels, or missing characters. Temporary first-pass reference warnings are allowed while latexmk reruns the document; other package warnings are not automatically fatal. A failed compilation does not replace tracked PDF fixtures or generated README content.
 
 The environment adds `latex/` to `TEXINPUTS`, fixes the source-date environment, and uses UTC to reduce avoidable output differences.
 

@@ -51,7 +51,7 @@ class RepositoryValidationTests(unittest.TestCase):
                 "}\n"
                 "\\begin{document}\nContent.\n\\end{document}\n"
             )
-        main.write_text(source, encoding="utf-8")
+        main.write_text(source, encoding="utf-8", newline="\n")
         (main.parent / "README.md").write_text(readme, encoding="utf-8")
         return main
 
@@ -286,6 +286,51 @@ class RepositoryValidationTests(unittest.TestCase):
                 patch("builtins.print"),
             ):
                 self.assertEqual(check_repository_module.main(), 0)
+
+    def test_local_environments_are_ignored_but_new_sources_are_checked(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            main = self.write_course(root)
+            local_directories = (
+                ".venv", "venv", ".mypy_cache", ".ruff_cache", ".pytest_cache",
+                "__pycache__", "htmlcov", ".ipynb_checkpoints", ".vscode", ".idea",
+                "latex/tools/.venv",
+            )
+            for relative in local_directories:
+                dependency = root / relative / "lib/site-packages/example"
+                dependency.mkdir(parents=True)
+                (dependency / "README.md").write_text(
+                    "[Upstream documentation](docs/missing.md)\n", encoding="utf-8"
+                )
+                (dependency / "sample.tex").write_bytes(b"invalid UTF-8: \xff")
+
+            with (
+                patch.object(check_repository_module, "repository_root", return_value=root),
+                patch.object(
+                    check_repository_module, "validate_tracked_course_pdfs", return_value=[]
+                ),
+                patch.object(check_repository_module, "validate_components", return_value=[]),
+                patch.object(
+                    check_repository_module, "validate_integration_examples", return_value=[]
+                ),
+                patch("builtins.print") as print_mock,
+            ):
+                status = check_repository_module.main()
+                self.assertEqual(status, 0, str(print_mock.call_args_list))
+                # New, unstaged course sources and documentation must still be checked.
+                (main.parent / "new-lecture.tex").write_bytes(b"\tBad indentation\n")
+                (root / "new-guide.md").write_text(
+                    "[Missing](missing.md)\n", encoding="utf-8"
+                )
+                print_mock.reset_mock()
+                self.assertEqual(check_repository_module.main(), 1)
+
+            diagnostics = "\n".join(
+                str(call.args[0]) for call in print_mock.call_args_list if call.args
+            )
+            self.assertIn("new-lecture.tex", diagnostics)
+            self.assertIn("new-guide.md", diagnostics)
+            self.assertNotIn("site-packages", diagnostics)
 
     def test_component_validation_requires_exact_package_and_example_layout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

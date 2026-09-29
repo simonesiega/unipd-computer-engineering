@@ -82,6 +82,37 @@ A few rules keep the architecture predictable:
 
 Every course uses a single `<year>/<course>/main.tex` entry point. Component examples and integration projects are also independent buildable documents, but their detailed structure and build behavior belong in their dedicated guides.
 
+## Course compatibility contract
+
+Adding a course in this archive must be a content operation, not an architectural migration. The supported scope is all three degree years of the 2026–2029 cohort, either semester, and either Italian or English. There is no list of supported course names: creation, validation, build selection, README generation, and packaging work from the standard course path and metadata.
+
+A new course therefore needs no registration in the class, build tool, or CI workflows. Its generated README and release asset name follow the same rules as existing courses. Publication still requires a separate maintainer action; discovering a course does not approve its academic content or exam coverage.
+
+### Content capabilities
+
+The existing [components](../../../latex/components/README.md) supply subject-independent primitives rather than one template per subject:
+
+| Material | Existing support |
+|---|---|
+| Mathematical, probabilistic, and numerical material | Equations, matrices, operators, units, definitions, results, proofs, and exercises |
+| Physics and electrical material | Mathematical notation, quantities and units, figures, tables, TikZ, and CircuitikZ |
+| Programming and algorithms | Source listings, terminal sessions, pseudocode, and cross-references |
+| Architecture, systems, networks, and control diagrams | Graphs, automata, flowcharts, architecture/UML styles, circuits, and general TikZ drawing |
+| Supporting material | Bibliography, glossary, acronyms, appendices, and document lists |
+
+These capabilities do not prescribe how a course is taught. Topic-based chapters, numbered lectures, laboratories, and mixed organizations use the same document hierarchy and build pipeline.
+
+### Course-local extension points
+
+- Keep subject-specific notation, glossary entries, bibliography entries, diagram content, plotting parameters, and data inside the course directory.
+- Small semantic notation helpers or listing-language definitions may live in the course preamble or an included course-local source. Reuse existing public commands and shared visual styles rather than redefining them.
+- A specialized LaTeX package or TikZ library may be loaded in the course preamble when compatible with the class and available in the pinned TeX environment. Verify it with a canonical build; storing an asset does not imply that LuaLaTeX can include its format directly or run an external converter.
+- Promote a genuinely reusable typesetting feature into its existing component owner when needed. Do not introduce a course-specific class, build script, workflow branch, or shared component merely because a new subject is being added.
+
+The course-creation tests exercise all twelve year/semester/language combinations through validation, discovery, affected-path selection, localized README generation, and packaging. Their PDF/TOC inputs are synthetic; actual rendering remains covered separately by canonical builds and PDF review.
+
+This contract avoids per-course infrastructure work; it is not a promise that every future package will be compatible or that dependencies will never need maintenance. New languages, cohorts, degree structures, or external preprocessing requirements need an explicit infrastructure review rather than hidden exceptions in course sources.
+
 ## Where to go next
 
 | Topic | Canonical guide |

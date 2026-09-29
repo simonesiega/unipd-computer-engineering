@@ -8,7 +8,7 @@ description: Write, expand, correct, reorganize, or review course-note content u
 ## Establish context
 
 1. Identify the course, files, requested topic, and available source material.
-2. Inspect the affected lecture and nearby content.
+2. Inspect the affected chapter, section, or lecture and nearby content.
 3. Preserve the course language, terminology, notation, labels, and established facts.
 4. Inspect `main.tex` when document order or inclusion changes.
 5. Consult `docs/md/user-guide/writing-notes.md` when conventions are unclear or the change is substantial.
@@ -25,9 +25,9 @@ Keep the diff limited to the requested course content and the relevant writing i
 
 ## Structure and LaTeX
 
-Organize the document chronologically by lecture and supplied date. Each lecture is a primary unit with a number and concise descriptive title. Within a lecture, use only a small number of major numbered sections for autonomous conceptual blocks; do not create a numbered subsection merely because a minor concept has a name. Present related concepts in continuous prose, semantic mathematical environments, or concise unnumbered blocks. Keep the table of contents compact and useful throughout a full course; avoid excessive heading depth and tutorial-style fragmentation.
+Preserve the course's chosen organization. Use chronological, numbered lectures with supplied dates only when the course follows that convention or the user requests it; other courses may use topic-based chapters and sections. Do not impose one course's lecture structure on another. Keep headings descriptive and the table of contents compact; use semantic environments rather than a numbered subsection for every minor concept.
 
-Prefer one substantial source file per lecture under the repository's existing `sections/` convention, for example `01-lezione.tex`. Keep `main.tex` focused on metadata, front matter, the compact conventions reference, lecture inclusions, and applicable back matter. Do not create placeholder lectures with invented dates.
+Split substantial content under the existing `sections/` convention by the course's natural units, such as chapters, topics, or lectures. Keep `main.tex` focused on metadata, document order, and applicable front/back matter. Do not invent lecture dates or placeholder content.
 
 Use existing semantic commands and environments. Keep course-specific diagrams in the course source and reuse shared diagram styles. Do not introduce local fonts, colors, spacing rules, heading styles, or duplicate shared commands.
 
@@ -56,11 +56,11 @@ Keep the glossary or conventions reference intentionally small enough to remain 
 
 ## Labels, cross-references, and sources
 
-Use stable lowercase prefixes: `chap:` for lectures; `sec:` for major sections; `def:`, `thm:`, `prop:`, `lem:`, `cor:`, and `ex:` for reusable mathematical objects; and `eq:`, `fig:`, `tab:`, `lst:`, and `alg:` for referenced items.
+Use stable lowercase prefixes: `chap:` for chapters (including lecture chapters); `sec:` for major sections; `def:`, `thm:`, `prop:`, `lem:`, `cor:`, and `ex:` for reusable mathematical objects; and `eq:`, `fig:`, `tab:`, `lst:`, and `alg:` for referenced items.
 
-Label a lecture (for example `chap:lezione-01`) and important reusable definitions, results, principles, and significant examples only when later reference is plausible. Labels should identify the mathematical object, not merely its location. Do not label every paragraph or unreferenced equation.
+Label chapters and important reusable definitions, results, principles, and significant examples only when later reference is plausible. Preserve existing valid labels outside the requested scope. Labels should identify the mathematical object, not merely its location. Do not label every paragraph or unreferenced equation.
 
-When a later lecture uses an earlier result, normally refer to its original label using the existing `\\cref` and hyperlink facilities rather than duplicating its statement or proof. References should read naturally in the exposition. Never hard-code page numbers. Check labels for uniqueness and all references for resolution.
+When later content uses an earlier result, normally refer to its original label using the existing `\\cref` and hyperlink facilities rather than duplicating its statement or proof. References should read naturally in the exposition. Never hard-code page numbers. Check labels for uniqueness and all references for resolution.
 
 Cite borrowed definitions, results, data, diagrams, quotations, and substantial claims. Prefer reliable sources and never invent citations. Mark unverifiable claims for human review.
 
@@ -72,4 +72,4 @@ Cite borrowed definitions, results, data, diagrams, quotations, and substantial 
 
 ## Review
 
-Read the result as a student. Check chronological progression, compact heading hierarchy and table of contents, formal impersonal register, concision, source fidelity, mathematical correctness, examples, citations, and scope. Check that previous results are referenced rather than duplicated, the glossary remains compact, labels are unique, and references resolve. Compile in the canonical environment and visually review the resulting PDF; report checks that could not be completed.
+Read the result as a student. Check progression appropriate to the course's organization, compact heading hierarchy and table of contents, formal impersonal register, concision, source fidelity, mathematical correctness, examples, citations, and scope. Check that previous results are referenced rather than duplicated, the glossary remains compact, labels are unique, and references resolve. Compile in the canonical environment and visually review the resulting PDF; report checks that could not be completed.

@@ -14,7 +14,7 @@ Follow the course’s established notation unless there is a clear reason to imp
 
 ## Structure and prose
 
-Organize topics in a logical learning order using `\chapter`, `\section`, `\subsection`, and `\subsubsection`. Do not skip heading levels.
+Organize topics in a logical learning order using `\chapter`, `\section`, `\subsection`, and `\subsubsection`. Do not skip heading levels. Preserve each course's chosen organization: numbered, dated lectures are appropriate for some courses, while topic-based chapters suit others. Lecture numbering is not a repository-wide requirement.
 
 Write explanatory prose rather than a transcript of the lecture. State assumptions, connect related ideas, and explain non-obvious steps.
 
@@ -66,7 +66,7 @@ Prefer original or reproducible diagrams over screenshots. Include the source an
 Use descriptive lowercase labels with a stable prefix:
 
 ```text
-ch:memory-hierarchy
+chap:memory-hierarchy
 sec:cache
 eq:average-access-time
 fig:cache-levels

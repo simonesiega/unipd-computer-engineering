@@ -32,9 +32,11 @@ To generate this structure automatically, follow the [Creating a course](../gett
 | `.build/<year>/<course-name>/main.pdf` | Ignored local/CI output produced by the build tool; not a course source file. |
 | `README.md` | Provides course information, a rolling-release PDF link, and an automatically generated contents section. |
 
-Keep shared LaTeX behavior outside course directories. Reusable commands, environments, typography, and layout belong in the shared class or components.
+Keep shared typography, layout, and reusable typesetting behavior in the class or components. Subject-specific notation helpers, glossary entries, listing-language definitions, and diagram parameters may remain in the course preamble or an included course-local source; do not duplicate interfaces already provided by the class. See the [course compatibility contract](../development/architecture.md#course-compatibility-contract) for the boundary between normal course work and infrastructure changes.
 
 ## Organizing source files
+
+Preserve each course's teaching organization: topics, numbered lectures, laboratories, or a mixture. The repository fixes the entry point and metadata, not a universal chapter sequence or lecture-numbering scheme.
 
 Keep short documents in `main.tex`. Move substantial content into `sections/` as the course grows:
 

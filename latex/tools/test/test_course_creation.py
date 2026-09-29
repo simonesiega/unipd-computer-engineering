@@ -7,12 +7,21 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from itertools import product
 from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import create_course as create_course_module
+from build import (
+    affected_documents,
+    build_directory,
+    course_release_pdf_target,
+    discover_documents,
+    process_document,
+)
+from check_repository import validate_course
 from create_course import (
     Course,
     academic_year,
@@ -26,6 +35,7 @@ from create_course import (
     kebab_case,
     localized_date,
 )
+from package_notes import discover_courses, package_release
 
 
 class CourseCreationTests(unittest.TestCase):
@@ -183,6 +193,94 @@ class CourseCreationTests(unittest.TestCase):
             self.assertIn(r"\chapter{Introduction}", main)
             self.assertIn("Add the course content here.", main)
             self.assertIn("generated course contents", readme)
+
+    def test_new_courses_integrate_without_registration_for_all_supported_metadata(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory).resolve()
+            documents: list[Path] = []
+            expected_assets: dict[str, str] = {}
+            for year, semester, language in product(
+                (1, 2, 3), (1, 2), ("italian", "english")
+            ):
+                with self.subTest(year=year, semester=semester, language=language):
+                    start = (
+                        f"{2025 + year}-09-28" if semester == 1
+                        else f"{2026 + year}-03-01"
+                    )
+                    directory = create_course(
+                        root,
+                        Course(
+                            year=year,
+                            name=f"Test Course {year} {semester} {language}",
+                            short_name="Test Course",
+                            professor="Test Professor",
+                            semester=semester,
+                            course_start_date=localized_date(start, language),
+                            language=language,
+                            author="Test Author",
+                        ),
+                    )
+                    document = directory / "main.tex"
+                    documents.append(document)
+                    self.assertEqual(validate_course(document, root), [])
+
+                    relative = directory.relative_to(root)
+                    for filename in (
+                        "main.tex", "sections/topic.tex", "assets/data.csv",
+                        "references.bib", "notation.tex",
+                    ):
+                        self.assertEqual(
+                            affected_documents(root, [relative / filename]),
+                            [document],
+                        )
+
+                    # Synthetic build outputs exercise tool interoperability,
+                    # not TeX compilation or the visual quality of a document.
+                    output = build_directory(root, document)
+                    self.assertEqual(output, root / ".build" / relative)
+                    output.mkdir(parents=True)
+                    (output / "main.pdf").write_bytes(b"synthetic PDF fixture")
+                    (output / "main.toc").write_text(
+                        "\\contentsline {chapter}{Topic}{1}{chapter.1}%\n",
+                        encoding="utf-8", newline="\n",
+                    )
+                    with patch("builtins.print"):
+                        process_document(
+                            root, document, compile_enabled=False,
+                            readme_enabled=True, check_generated=False,
+                        )
+
+                    filename = f"{year}-{directory.name}.pdf"
+                    expected_assets[filename] = relative.as_posix()
+                    target = course_release_pdf_target(root, document)
+                    self.assertTrue(target.endswith(f"/notes-latest/{filename}"))
+                    readme = (directory / "README.md").read_text(encoding="utf-8")
+                    heading = (
+                        "Indice dei contenuti" if language == "italian"
+                        else "Table of contents"
+                    )
+                    self.assertIn(f"## {heading}", readme)
+                    self.assertIn(f"]({target})", readme)
+                    self.assertIn("Topic — p. 1", readme)
+                    self.assertFalse((directory / "main.pdf").exists())
+
+            self.assertEqual(discover_documents(root), sorted(documents))
+            self.assertEqual(discover_courses(root), sorted(documents))
+            assets = package_release(
+                root, root / ".build/release", "a" * 40, "2026-08-04T12:00:00Z"
+            )
+            self.assertEqual(len(assets), 12)
+            self.assertEqual(
+                {asset.asset_filename: asset.source_directory for asset in assets},
+                expected_assets,
+            )
+            for asset in assets:
+                self.assertEqual(
+                    (root / ".build/release" / asset.asset_filename).read_bytes(),
+                    b"synthetic PDF fixture",
+                )
 
     def test_partial_course_is_removed_when_scaffolding_fails(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

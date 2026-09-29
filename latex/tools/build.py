@@ -75,26 +75,37 @@ def discover_documents(root: Path) -> list[Path]:
     return sorted(path.resolve() for path in documents)
 
 
+def parse_changed_paths(data: bytes) -> list[Path]:
+    """Decode Git's unquoted, NUL-terminated path records without splitting names."""
+    if data and not data.endswith(b"\0"):
+        raise ValueError(
+            "Changed paths must be NUL-terminated; generate the list with "
+            "git diff --no-renames --name-only -z"
+        )
+    return [
+        Path(record.decode("utf-8", errors="surrogateescape"))
+        for record in data.split(b"\0") if record
+    ]
+
+
 def changed_files(root: Path, base: str, head: str) -> list[Path]:
-    """Return repository-relative paths changed between two Git revisions."""
+    """Return changed paths, including both the old and new names of moved inputs."""
     result = subprocess.run(
-        ["git", "diff", "--name-only", "--diff-filter=ACMRD", base, head, "--"],
+        ["git", "diff", "--no-renames", "--name-only", "-z",
+         "--diff-filter=ACMRD", base, head, "--"],
         cwd=root,
         check=True,
         stdout=subprocess.PIPE,
-        text=True,
     )
-    return [Path(line) for line in result.stdout.splitlines() if line]
+    return parse_changed_paths(result.stdout)
 
 
 def read_changed_files(root: Path, filename: str) -> list[Path]:
-    """Read repository-relative changed paths prepared outside the TeX container."""
+    """Read NUL-terminated changed paths prepared outside the TeX container."""
     path = Path(filename)
     if not path.is_absolute():
         path = root / path
-    return [
-        Path(line) for line in path.read_text(encoding="utf-8").splitlines() if line
-    ]
+    return parse_changed_paths(path.read_bytes())
 
 
 def affected_documents(root: Path, paths: list[Path]) -> list[Path]:
@@ -198,6 +209,7 @@ def compile_document(
     command = [
         latexmk,
         "-lualatex",
+        "-Werror",
         "-halt-on-error",
         "-interaction=nonstopmode",
         "-file-line-error",
@@ -566,7 +578,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--changed-file-list",
         metavar="FILE",
-        help="Build documents affected by repository-relative paths listed in FILE",
+        help="Build documents affected by NUL-terminated repository-relative paths in FILE",
     )
     parser.add_argument(
         "--no-compile",

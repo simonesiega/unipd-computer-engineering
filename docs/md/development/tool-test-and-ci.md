@@ -31,7 +31,7 @@ Repository tools use standard-library `unittest`, deterministic inputs, temporar
 
 | Test file | Main responsibility |
 |---|---|
-| `test_course_creation.py` | Course creation, metadata, duplicate handling, cleanup, and CLI validation |
+| `test_course_creation.py` | Course creation, metadata, duplicate handling, cleanup, CLI validation, and cross-tool compatibility for every year/semester/language combination |
 | `test_build_selection.py` | Document discovery, affected paths, generated README behavior, and build selection |
 | `test_notes_packaging.py` | Release asset naming, metadata, manifests, checksums, ordering, and packaging failures |
 | `test_release_catalog.py` | Published-release parsing, exam coverage, deduplication, and generated release tables |
@@ -61,6 +61,8 @@ CI uses `latex/tools/run_tool_tests.py` to add branch coverage and enforce the r
 | Documentation | Existing repository-relative targets and valid GitHub-style heading anchors |
 
 The tracked-course-PDF rule checks the Git index rather than local `.build/` output, so normal local compilation does not fail validation.
+
+Source and Markdown scans include new, unstaged repository files but prune local-only trees: `.git`, `.build`, `.context`, `.venv`, `venv`, Python/tool caches, `htmlcov`, notebook checkpoints, and editor directories. Installing dependencies in a local virtual environment therefore does not make third-party files subject to repository source and link checks.
 
 ## Pre-commit
 
@@ -136,9 +138,9 @@ tag:   notes-latest
 title: Latest compiled notes
 ```
 
-It represents the latest successfully published complete archive from `main`. The workflow rejects a rolling run unless its source is still the current `main` commit.
+It represents the latest successfully published complete archive from `main`. The workflow checks the source against the current `main` commit in preflight and again immediately before mutating a release or tag. If `main` advances during compilation, publication stops without modifying the release; dispatch a new run from the latest commit.
 
-Publication is staged as a draft while assets are replaced so a partial update is not presented as successful. Matching assets are replaced, stale assets are removed, and the `notes-latest` tag is moved to the source/build commit before publication. Re-running the same source is idempotent.
+Publication is staged as a draft while assets are replaced so a partial update is not presented as successful. Matching assets are replaced, stale assets are removed, and the `notes-latest` tag is moved to the source/build commit before publication. Re-running the same source is idempotent while it remains the current `main` commit.
 
 If publication fails, inspect the draft release and workflow output before retrying.
 
@@ -154,7 +156,7 @@ Use the [release description questionnaire](../release/example.md) as the starti
 
 Published snapshots are never moved or overwritten. If an upload fails, its draft remains non-public; inspect it and explicitly delete only that failed draft and tag before retrying the same snapshot identifier. Never delete a published snapshot merely to replace its contents.
 
-Publishing a snapshot explicitly approves every included course PDF as covered. The rolling `notes-latest` release does not establish exam coverage by itself.
+Publishing a snapshot explicitly approves every included course PDF as covered. Packaging includes every course in the archive, including scaffolds and unfinished notes; the release description does not filter this set. Use rolling publication until every included course is sufficiently complete and reviewed. The rolling `notes-latest` release does not establish exam coverage by itself.
 
 ## Release catalogue
 
