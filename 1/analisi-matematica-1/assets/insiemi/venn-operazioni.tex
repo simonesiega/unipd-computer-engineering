@@ -1,0 +1,20 @@
+\begin{tikzpicture}[unipd/diagram]
+  \begin{scope}
+    \clip (0,0) circle (1);
+    \fill[unipd-accent!25] (1.2,0) circle (1);
+  \end{scope}
+  \draw[unipd/edge] (0,0) circle (1);
+  \draw[unipd/edge] (1.2,0) circle (1);
+  \node at (-0.45,0) {$A$};
+  \node at (1.65,0) {$B$};
+  \node at (0.6,-1.35) {$A\cap B$};
+  \begin{scope}[xshift=5cm]
+    \fill[unipd-accent!25] (0,0) circle (1);
+    \fill[unipd-accent!25] (1.2,0) circle (1);
+    \draw[unipd/edge] (0,0) circle (1);
+    \draw[unipd/edge] (1.2,0) circle (1);
+    \node at (-0.45,0) {$A$};
+    \node at (1.65,0) {$B$};
+    \node at (0.6,-1.35) {$A\cup B$};
+  \end{scope}
+\end{tikzpicture}
