@@ -258,7 +258,10 @@ e a dimostrare, per un generico \(n\ge p\),
   P(n)\Longrightarrow P(n+1).
 \]
 
-Il seguente esempio mostra l'applicazione concreta di questo procedimento.
+Vediamo ora due applicazioni del principio di induzione:
+nell'\cref{ex:somma-primi-naturali} dimostreremo la formula per la somma
+dei primi \(n\) naturali positivi, mentre nell'\cref{ex:somma-geometrica-finita}
+considereremo la somma geometrica finita.
 
 \begin{example}[Somma dei primi \(n\) naturali positivi]
 \label{ex:somma-primi-naturali}
@@ -266,22 +269,21 @@ Per ogni \(n\in\N\) con \(n\ge1\) vale
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
+La formula fornisce quindi un'espressione chiusa per la somma
+\[
+  1+2+\cdots+n
+\]
+dei primi \(n\) numeri naturali positivi.
 \end{example}
 
 \begin{proof}
-La tesi consiste nel dimostrare che la formula
-\[
-  \sum_{i=1}^{n}i=\frac{n(n+1)}2
-\]
-vale per ogni numero naturale \(n\ge1\).
-
-A tale scopo si considera l'insieme dei naturali per i quali la proprietà
-risulta vera:
+Per applicare il principio di induzione si considera l'insieme dei naturali
+per i quali la proprietà risulta vera:
 \[
   A=\left\{n\in\N\,\middle|\,n\ge1,\;
     \sum_{i=1}^{n}i=\frac{n(n+1)}2\right\}.
 \]
-L'obiettivo è quindi mostrare che ogni naturale maggiore o uguale a \(1\)
+L'obiettivo è mostrare che ogni numero naturale maggiore o uguale a \(1\)
 appartiene ad \(A\).
 
 \emph{Passo base.}
@@ -291,26 +293,23 @@ Si verifica anzitutto la proprietà per \(n=1\). Si ha
   \qquad\text{e}\qquad
   \frac{1(1+1)}2=1.
 \]
-I due membri coincidono, pertanto \(1\in A\) e il passo base è verificato.
+I due membri coincidono; pertanto \(1\in A\) e il passo base è verificato.
 
 \emph{Passo induttivo.}
-Sia \(n\in A\). Per definizione di \(A\), ciò significa che \(n\ge1\) e
-che vale l'ipotesi induttiva
+Sia \(n\in A\). Per definizione di \(A\), si ha \(n\ge1\) e vale
+l'ipotesi induttiva
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
 Si deve dimostrare che anche il naturale successivo appartiene ad \(A\),
-ossia
-\[
-  n+1\in A.
-\]
-Poiché \(n+1\ge1\), la tesi induttiva consiste nel verificare
+ossia che \(n+1\in A\). Poiché \(n+1\ge1\), la tesi induttiva consiste
+nel verificare
 \[
   \sum_{i=1}^{n+1}i=\frac{(n+1)(n+2)}2.
 \]
 
 Separando dalla sommatoria l'ultimo addendo e applicando l'ipotesi
-induttiva nella seconda uguaglianza, si ottiene
+induttiva, si ottiene
 \begin{align*}
   \sum_{i=1}^{n+1}i
     &=\sum_{i=1}^{n}i+(n+1)\\
@@ -325,7 +324,7 @@ pertanto \(n+1\in A\). Risulta quindi verificata l'implicazione
 \]
 
 Essendo verificati sia il passo base sia il passo induttivo, per il
-\cref{thm:principio-induzione} si conclude che
+\cref{thm:principio-induzione}, con valore iniziale \(p=1\), si conclude che
 \[
   \{n\in\N:n\ge1\}\subseteq A.
 \]
@@ -334,4 +333,94 @@ Di conseguenza,
   \sum_{i=1}^{n}i=\frac{n(n+1)}2
 \]
 per ogni \(n\in\N\) con \(n\ge1\).
+\end{proof}
+
+\begin{example}[Somma geometrica finita]
+\label{ex:somma-geometrica-finita}
+Sia \(q\in\R\setminus\{1\}\). Per ogni \(n\in\N\) vale
+\[
+  \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
+\]
+Con la convenzione \(q^0=1\), il membro sinistro rappresenta la somma
+\[
+  1+q+q^2+\cdots+q^n.
+\]
+La formula fornisce quindi un'espressione chiusa per la somma dei primi
+\(n+1\) termini della progressione geometrica di ragione \(q\).
+
+In particolare, per \(q=0\) tutti i termini con esponente positivo sono
+nulli e si ha
+\[
+  \sum_{k=0}^{n}0^k
+  =1+0+\cdots+0
+  =1.
+\]
+D'altra parte,
+\[
+  \frac{1-0^{n+1}}{1-0}=1.
+\]
+Il caso \(q=0\) soddisfa quindi la formula; l'unico valore escluso è
+\(q=1\), poiché annulla il denominatore.
+\end{example}
+
+\begin{proof}
+Fissato \(q\in\R\setminus\{1\}\), si considera l'insieme dei naturali
+per i quali la proprietà risulta vera:
+\[
+  A=\left\{n\in\N\,\middle|\,
+    \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}\right\}.
+\]
+L'obiettivo è mostrare che ogni numero naturale appartiene ad \(A\),
+ossia che \(A=\N\).
+
+\emph{Passo base.}
+Si verifica anzitutto la proprietà per \(n=0\). Si ha
+\[
+  \sum_{k=0}^{0}q^k=q^0=1
+\]
+e, poiché \(q\neq1\),
+\[
+  \frac{1-q^{0+1}}{1-q}
+  =\frac{1-q}{1-q}
+  =1.
+\]
+I due membri coincidono; pertanto \(0\in A\) e il passo base è verificato.
+
+\emph{Passo induttivo.}
+Sia \(n\in A\). Per definizione di \(A\), vale l'ipotesi induttiva
+\[
+  \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
+\]
+Si deve dimostrare che anche il naturale successivo appartiene ad \(A\),
+ossia che \(n+1\in A\). La tesi induttiva consiste quindi nel verificare
+\[
+  \sum_{k=0}^{n+1}q^k=\frac{1-q^{n+2}}{1-q}.
+\]
+
+Separando dalla sommatoria l'ultimo addendo e applicando l'ipotesi
+induttiva, si ottiene
+\begin{align*}
+  \sum_{k=0}^{n+1}q^k
+    &=\sum_{k=0}^{n}q^k+q^{n+1}\\
+    &=\frac{1-q^{n+1}}{1-q}+q^{n+1}\\
+    &=\frac{1-q^{n+1}+q^{n+1}(1-q)}{1-q}\\
+    &=\frac{1-q^{n+1}+q^{n+1}-q^{n+2}}{1-q}\\
+    &=\frac{1-q^{n+2}}{1-q}.
+\end{align*}
+L'ultima espressione coincide con quella richiesta dalla tesi induttiva;
+pertanto \(n+1\in A\). Risulta quindi verificata l'implicazione
+\[
+  n\in A\Longrightarrow n+1\in A.
+\]
+
+Essendo verificati sia il passo base sia il passo induttivo, per il
+\cref{thm:principio-induzione}, con valore iniziale \(p=0\), si conclude che
+\[
+  A=\N.
+\]
+Poiché \(q\in\R\setminus\{1\}\) era arbitrario, si conclude che
+\[
+  \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}
+\]
+per ogni \(n\in\N\) e per ogni \(q\in\R\setminus\{1\}\).
 \end{proof}
