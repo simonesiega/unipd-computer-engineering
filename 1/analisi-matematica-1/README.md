@@ -15,7 +15,7 @@
   - 1.4 Principio di induzione — p. 4
 - 2 Lezione 2 --- 30 settembre 2026 — p. 8
   - 2.1 Numeri interi — p. 8
-  - 2.2 Numeri razionali — p. 8
+  - 2.2 Numeri razionali — p. 9
   - 2.3 Irrazionalità della radice quadrata di 2 — p. 9
-  - 2.4 Fattoriale — p. 10
+  - 2.4 Fattoriale — p. 11
 <!-- GENERATED:END -->
