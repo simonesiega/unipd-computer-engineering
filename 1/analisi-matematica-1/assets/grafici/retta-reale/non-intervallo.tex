@@ -1,0 +1,18 @@
+\begin{tikzpicture}[unipd/diagram]
+  \draw[->,unipd-muted] (-0.7,0) -- (5,0) node[right] {\(\R\)};
+  \draw[very thick,unipd-primary] (0,0) -- (2,0);
+  \foreach \p in {0,2}
+    \draw[unipd-primary,fill=white,thick] (\p,0) circle (2pt);
+  \foreach \p in {1,4}
+    \fill[unipd-primary] (\p,0) circle (2pt);
+  \draw[unipd-warning,fill=white,thick] (3,0) circle (2pt);
+  \node[below=6pt] at (0,0) {\(0\)};
+  \node[below=6pt] at (1,0) {\(\frac12\)};
+  \node[below=6pt] at (2,0) {\(1\)};
+  \node[below=6pt] at (3,0) {\(\frac32\)};
+  \node[below=6pt] at (4,0) {\(2\)};
+  \node[above=8pt] at (1,0) {\(\frac12\in A\)};
+  \node[above=8pt,text=unipd-warning] at (3,0) {\(\frac32\notin A\)};
+  \node[above=8pt] at (4.3,0) {\(2\in A\)};
+  \node at (2,-1) {\(A=(0,1)\cup\{2\}\)};
+\end{tikzpicture}

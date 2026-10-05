@@ -1,0 +1,15 @@
+\begin{tikzpicture}[unipd/diagram]
+  \fill[green!12] (0,-0.18) rectangle (4,0.18);
+  \draw[->,unipd-muted] (-0.8,0) -- (5,0) node[right] {\(\R\)};
+  \draw[very thick,unipd-primary] (0,0) -- (4,0);
+  \fill[unipd-primary] (0,0) circle (2pt);
+  \draw[unipd-primary,fill=white,thick] (4,0) circle (2pt);
+  \fill[unipd-primary] (2.5,0) circle (2pt);
+  \node[below=6pt] at (0,0) {\(z\)};
+  \node[below=6pt] at (2.5,0) {\(x\)};
+  \node[below=6pt] at (4,0) {\(z+\varepsilon\)};
+  \draw[unipd-rule,thin] (0,0.2) -- (0,0.7) (4,0.2) -- (4,0.7);
+  \draw[<->,unipd-muted] (0,0.6) -- (4,0.6)
+    node[midway,above] {\(\varepsilon\)};
+  \node at (2,-0.95) {\(z\le x<z+\varepsilon\)};
+\end{tikzpicture}
