@@ -1,0 +1,18 @@
+\begin{tikzpicture}[unipd/diagram]
+  \fill[green!12] (2,-0.18) rectangle (5,0.18);
+  \draw[->,unipd-muted] (-0.5,0) -- (6,0) node[right] {\(\R\)};
+  \foreach \p in {0,0.8,1.5,2.4,3.5,4.1,4.45}
+    \fill[unipd-primary] (\p,0) circle (2pt);
+  \node[above=8pt] at (0.8,0) {\(A\)};
+  \node[fill=green!12,inner sep=1pt] at (4.7,0) {\(\cdots\)};
+  \draw[unipd-muted] (2,-0.08) -- (2,0.08);
+  \draw[unipd-muted] (5,-0.08) -- (5,0.08);
+  \node[below=6pt] at (2,0) {\(x-\varepsilon\)};
+  \node[below=6pt] at (5,0) {\(x=\sup A\)};
+  \fill[green!40!black] (3.5,0) circle (2pt);
+  \node[above=8pt,text=green!40!black] at (3.5,0) {\(\bar a\in A\)};
+  \draw[unipd-rule,thin] (2,0.2) -- (2,0.85) (5,0.2) -- (5,0.85);
+  \draw[<->,unipd-muted] (2,0.75) -- (5,0.75)
+    node[midway,above] {\(\varepsilon>0\)};
+  \node at (2.75,-1) {\(\forall\varepsilon>0\;\exists\bar a\in A:\quad x-\varepsilon<\bar a\le x\)};
+\end{tikzpicture}
