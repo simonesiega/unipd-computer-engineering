@@ -1,0 +1,454 @@
+\chapter[Lezione 3 --- 1 ottobre 2026]{Lezione 3: coefficienti binomiali e numeri reali}
+\label{chap:lezione-03}
+
+\section{Coefficienti binomiali}
+\label{sec:lez03-coefficienti-binomiali}
+
+La definizione del fattoriale introdotta nella \cref{def:fattoriale}
+permette di definire i coefficienti binomiali. Essi saranno considerati
+per ogni coppia di numeri naturali.
+
+\begin{definition}[Coefficiente binomiale]
+\label{def:coefficiente-binomiale}
+Siano \(n,k\in\N\). Si definisce
+\[
+  \binom{n}{k}
+  :=
+  \begin{cases}
+    \displaystyle\frac{n!}{k!(n-k)!}, & \text{se } k\le n,\\[8pt]
+    0, & \text{se } k>n.
+  \end{cases}
+\]
+\end{definition}
+
+Dalla definizione si ricavano immediatamente alcuni casi particolari. Per
+ogni \(n\in\N\),
+\[
+  \binom{n}{0}
+  =\frac{n!}{0!\,n!}
+  =1
+\]
+e
+\[
+  \binom{n}{n}
+  =\frac{n!}{n!\,0!}
+  =1.
+\]
+Inoltre, per ogni \(n\in\N\) con \(n\ge1\),
+\begin{align*}
+  \binom{n}{n-1}
+    &=\frac{n!}{(n-1)!\,(n-(n-1))!}\\
+    &=\frac{n!}{(n-1)!\,1!}\\
+    &=n.
+\end{align*}
+
+Una prima proprietà fondamentale dei coefficienti binomiali è la loro
+simmetria rispetto agli indici \(k\) e \(n-k\).
+
+\begin{proposition}[Simmetria dei coefficienti binomiali]
+\label{prop:simmetria-coefficienti-binomiali}
+Per ogni \(n,k\in\N\) con \(k\le n\) vale
+\[
+  \binom{n}{k}=\binom{n}{n-k}.
+\]
+\end{proposition}
+
+\begin{proof}
+Per la \cref{def:coefficiente-binomiale},
+\[
+  \binom{n}{k}
+  =\frac{n!}{k!(n-k)!}.
+\]
+D'altra parte,
+\begin{align*}
+  \binom{n}{n-k}
+    &=\frac{n!}{(n-k)!\,(n-(n-k))!}\\
+    &=\frac{n!}{(n-k)!\,k!}.
+\end{align*}
+Poiché il prodotto è commutativo, i due denominatori coincidono e quindi
+\[
+  \binom{n}{k}=\binom{n}{n-k}.
+\]
+\end{proof}
+
+Un'altra relazione fondamentale è l'identità di Pascal, che esprime un
+coefficiente binomiale come somma di due coefficienti della riga
+precedente.
+
+\begin{proposition}[Identità di Pascal]
+\label{prop:identita-pascal}
+Per ogni \(n,k\in\N\) con \(n\ge1\) e \(1\le k\le n\) vale
+\[
+  \binom{n}{k}
+  =\binom{n-1}{k-1}+\binom{n-1}{k}.
+\]
+\end{proposition}
+
+\begin{proof}
+Si considera anzitutto il caso \(1\le k\le n-1\). Applicando la
+\cref{def:coefficiente-binomiale}, si ottiene
+\begin{align*}
+  \binom{n-1}{k-1}+\binom{n-1}{k}
+    &=\frac{(n-1)!}{(k-1)!(n-k)!}
+      +\frac{(n-1)!}{k!(n-k-1)!}.
+\end{align*}
+
+Poiché
+\[
+  (n-k)!=(n-k)(n-k-1)!
+  \qquad\text{e}\qquad
+  k!=k(k-1)!,
+\]
+si può raccogliere il fattore comune
+\[
+  \frac{(n-1)!}{(k-1)!(n-k-1)!}
+\]
+e ottenere
+\begin{align*}
+  \binom{n-1}{k-1}+\binom{n-1}{k}
+    &=\frac{(n-1)!}{(k-1)!(n-k-1)!}
+      \left(\frac{1}{n-k}+\frac{1}{k}\right)\\
+    &=\frac{(n-1)!}{(k-1)!(n-k-1)!}
+      \frac{n}{k(n-k)}\\
+    &=\frac{n!}{k!(n-k)!}\\
+    &=\binom{n}{k}.
+\end{align*}
+
+Resta il caso \(k=n\). Per la definizione estesa dei coefficienti
+binomiali,
+\[
+  \binom{n-1}{n}=0,
+\]
+mentre
+\[
+  \binom{n-1}{n-1}=1
+  \qquad\text{e}\qquad
+  \binom{n}{n}=1.
+\]
+Pertanto anche in questo caso
+\[
+  \binom{n}{n}
+  =\binom{n-1}{n-1}+\binom{n-1}{n}.
+\]
+\end{proof}
+
+Benché la formula della \cref{def:coefficiente-binomiale} sia espressa
+come rapporto di fattoriali, il suo valore è sempre un numero naturale:
+\[
+  \binom{n}{k}\in\N
+  \qquad
+  \forall n,k\in\N.
+\]
+La dimostrazione di questa proprietà non viene sviluppata in questa sede.
+
+\clearpage
+
+\section{Numeri reali}
+\label{sec:lez03-numeri-reali}
+
+Gli insiemi numerici introdotti finora sono legati dalla catena di
+inclusioni
+\[
+  \N\subseteq\Z\subseteq\Q.
+\]
+Come mostrato nel \cref{thm:irrazionalita-radice-due}, l'insieme dei
+razionali non è tuttavia sufficiente a contenere tutte le soluzioni di
+equazioni algebriche elementari. Si introduce pertanto un insieme numerico
+più ampio, l'insieme dei numeri reali \(\R\), ottenendo
+\[
+  \N\subseteq\Z\subseteq\Q\subseteq\R.
+\]
+
+Nel seguito si utilizza una proprietà di completezza di \(\R\), formulata
+mediante il cosiddetto assioma di separazione.
+
+Siano \(A,B\subseteq\R\) due insiemi non vuoti. Si dice che \(A\) e \(B\)
+sono \emph{separati}, con \(A\) a sinistra di \(B\), se
+\[
+  a\le b
+  \qquad
+  \forall a\in A,\ \forall b\in B.
+\]
+
+\phantomsection
+\label{ass:assioma-separazione}
+\textbf{Assioma di separazione.}
+Se \(A,B\subseteq\R\) sono non vuoti e separati, allora esiste almeno un
+numero reale \(x\) tale che
+\[
+  a\le x\le b
+  \qquad
+  \forall a\in A,\ \forall b\in B.
+\]
+Un tale numero \(x\) è detto \emph{elemento separatore} degli insiemi
+\(A\) e \(B\).
+
+L'assioma di separazione esprime una proprietà caratteristica dei numeri
+reali. Esistono altre formulazioni equivalenti della completezza di
+\(\R\), ma non vengono sviluppate in questa sede.
+
+\section{Proprietà archimedea}
+\label{sec:lez03-proprieta-archimedea}
+
+L'assioma di separazione permette di dimostrare che i numeri naturali non
+sono superiormente limitati nell'insieme dei reali.
+
+\begin{theorem}[Proprietà archimedea]
+\label{thm:proprieta-archimedea}
+Per ogni \(x\in\R\) esiste \(n\in\N\) tale che
+\[
+  n>x.
+\]
+Equivalentemente,
+\[
+  \forall x\in\R\;\exists n\in\N:\ n>x.
+\]
+\end{theorem}
+
+\begin{proof}
+Sia \(x\in\R\).
+
+Se \(x\le0\), è sufficiente scegliere \(n=1\), poiché
+\[
+  1>x.
+\]
+
+Si considera quindi il caso \(x>0\) e si pone
+\[
+  A=\{n\in\N:n\le x\}.
+\]
+Poiché \(0\le x\), si ha \(0\in A\), dunque \(A\neq\varnothing\).
+L'obiettivo è mostrare che \(A\neq\N\). Infatti, da questa disuguaglianza
+seguirebbe l'esistenza di un naturale \(n\notin A\), cioè di un naturale
+per cui \(n>x\).
+
+Si procede per assurdo supponendo
+\[
+  A=\N.
+\]
+Si definisce allora
+\[
+  B=\{y\in\R:y\ge n\ \text{per ogni }n\in\N\}.
+\]
+Dall'ipotesi \(A=\N\) segue che
+\[
+  n\le x
+  \qquad
+  \forall n\in\N,
+\]
+perciò \(x\in B\) e quindi \(B\neq\varnothing\).
+
+Inoltre, per ogni \(n\in A=\N\) e per ogni \(y\in B\), dalla definizione
+di \(B\) si ha
+\[
+  n\le y.
+\]
+Gli insiemi \(A\) e \(B\) sono dunque separati. Per l'\hyperref[ass:assioma-separazione]{assioma di separazione} esiste
+\(\lambda\in\R\) tale che
+\[
+  n\le\lambda\le y
+  \qquad
+  \forall n\in A,\ \forall y\in B.
+\]
+
+Poiché \(A=\N\), per ogni \(n\in\N\) anche \(n+1\in A\). Dalla proprietà
+di separazione segue quindi
+\[
+  n+1\le\lambda,
+\]
+da cui
+\[
+  n\le\lambda-1
+  \qquad
+  \forall n\in\N.
+\]
+Per definizione di \(B\), ciò implica
+\[
+  \lambda-1\in B.
+\]
+
+D'altra parte, essendo \(\lambda\) un elemento separatore, vale
+\[
+  \lambda\le y
+  \qquad
+  \forall y\in B.
+\]
+Scegliendo in particolare \(y=\lambda-1\), si ottiene
+\[
+  \lambda\le\lambda-1,
+\]
+ovvero
+\[
+  1\le0,
+\]
+che è assurdo.
+
+L'ipotesi \(A=\N\) è pertanto falsa. Esiste quindi almeno un
+\(n\in\N\setminus A\), e dalla definizione di \(A\) segue
+\[
+  n>x.
+\]
+\end{proof}
+
+\clearpage
+
+\section{Parte intera, floor e ceiling}
+\label{sec:lez03-parte-intera}
+
+La proprietà archimedea conduce a un'importante caratterizzazione della
+posizione di un numero reale rispetto agli interi consecutivi.
+
+\begin{proposition}[Proprietà della parte intera]
+\label{prop:parte-intera}
+Per ogni \(x\in\R\) esiste un unico \(n\in\Z\) tale che
+\[
+  n\le x<n+1.
+\]
+In simboli,
+\[
+  \forall x\in\R\;\exists!\,n\in\Z:\ n\le x<n+1.
+\]
+\end{proposition}
+
+La \cref{prop:parte-intera} garantisce quindi che ogni numero reale
+\(x\) individua un unico intero \(n\) che non supera \(x\), mentre
+l'intero successivo \(n+1\) lo supera strettamente. Tale intero coincide
+con il più grande intero minore o uguale a \(x\) e viene chiamato
+\emph{parte intera} di \(x\).
+
+Questa proprietà permette di introdurre una funzione che associa a ogni
+numero reale la sua parte intera.
+
+\begin{definition}[Funzione floor]
+\label{def:floor}
+Per ogni \(x\in\R\), si definisce
+\[
+  \lfloor x\rfloor=n,
+\]
+dove \(n\in\Z\) è l'unico intero individuato dalla
+\cref{prop:parte-intera}.
+
+Equivalentemente,
+\[
+  \lfloor x\rfloor\le x<\lfloor x\rfloor+1.
+\]
+\end{definition}
+
+La funzione floor associa quindi a ogni numero reale il più grande intero
+che non lo supera. Per esempio,
+\[
+  \lfloor x\rfloor=0
+  \qquad
+  \text{per ogni }x\in[0,1).
+\]
+Più in generale, per ogni \(n\in\Z\),
+\[
+  \lfloor x\rfloor=n
+  \quad\Longleftrightarrow\quad
+  n\le x<n+1
+  \quad\Longleftrightarrow\quad
+  x\in[n,n+1).
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[c]{0.56\textwidth}
+    \centering
+    \input{assets/grafici/funzioni/floor}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.38\textwidth}
+    \small
+    \textbf{Esempi in Python}
+    \input{assets/pseudocodice/funzioni/floor}
+    \vspace{0.5em}
+  \end{minipage}
+  \caption{Grafico della funzione floor ed esempi d'uso in Python.}
+  \label{fig:floor}
+\end{figure}
+
+In modo analogo si introduce la funzione ceiling, che associa a ogni
+numero reale il più piccolo intero maggiore o uguale al numero stesso.
+
+\begin{definition}[Funzione ceiling]
+\label{def:ceiling}
+Per ogni \(x\in\R\), si definisce
+\[
+  \lceil x\rceil=m,
+\]
+dove \(m\in\Z\) è l'unico intero tale che
+\[
+  m-1<x\le m.
+\]
+Equivalentemente,
+\[
+  \lceil x\rceil-1<x\le\lceil x\rceil.
+\]
+\end{definition}
+
+La funzione ceiling associa quindi a ogni numero reale il più piccolo intero
+maggiore o uguale al numero stesso. Per esempio,
+\[
+  \lceil x\rceil=1
+  \qquad
+  \text{per ogni }x\in(0,1].
+\]
+Più in generale, per ogni \(m\in\Z\),
+\[
+  \lceil x\rceil=m
+  \quad\Longleftrightarrow\quad
+  m-1<x\le m
+  \quad\Longleftrightarrow\quad
+  x\in(m-1,m].
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[c]{0.56\textwidth}
+    \centering
+    \input{assets/grafici/funzioni/ceiling}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.38\textwidth}
+    \small
+    \textbf{Esempi in Python}
+    \input{assets/pseudocodice/funzioni/ceiling}
+    \vspace{0.5em}
+  \end{minipage}
+  \caption{Grafico della funzione ceiling ed esempi d'uso in Python.}
+  \label{fig:ceiling}
+\end{figure}
+
+\section[Cenno sulla radice quadrata di 2 nei reali]
+{Cenno su \(\sqrt{2}\in\R\setminus\Q\)}
+\label{sec:lez03-completezza-radice-due}
+
+Nella \cref{sec:lez02-irrazionalita-radice-due} è stato dimostrato che
+\[
+  \sqrt{2}\notin\Q.
+\]
+
+Per motivare l'esistenza di \(\sqrt{2}\) nell'insieme dei numeri reali,
+si considerano gli insiemi
+\[
+  A=\{x\in\R:x\ge0,\ x^2<2\},
+  \qquad
+  B=\{x\in\R:x\ge0,\ x^2>2\}.
+\]
+
+Resta da verificare che \(A\) e \(B\) siano separati. L'idea è quindi
+applicare l'assioma di separazione per individuare un elemento
+separatore \(\lambda\in\R\). Geometricamente, tale elemento \(\lambda\) si colloca tra i due
+insiemi
+\[
+  a\le\lambda\le b
+  \qquad
+  \forall a\in A,\ \forall b\in B.
+\]
+
+Il passaggio conclusivo consiste nel mostrare che
+\[
+  \lambda^2=2.
+\]
+
+Il cenno conduce quindi alla conclusione \(\sqrt{2}\in\R\setminus\Q\).

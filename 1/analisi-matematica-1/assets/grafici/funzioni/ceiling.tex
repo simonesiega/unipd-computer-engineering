@@ -1,0 +1,27 @@
+\begin{tikzpicture}[unipd/diagram,scale=0.9]
+  \fill[green!12] (0,0.7) rectangle (1,1.3);
+  \draw[unipd-rule,very thin] (-2,-2) grid (2,2);
+  \draw[->,unipd-muted] (-2.4,0) -- (2.6,0) node[right] {\(x\)};
+  \draw[->,unipd-muted] (0,-2.4) -- (0,2.6) node[above] {\(y\)};
+
+  \foreach \k in {-2,-1,0,1,2} {
+    \draw[unipd-muted] (\k,-2.45) -- (\k,-2.55)
+      node[below] {\(\k\)};
+    \draw[unipd-muted] (-2.45,\k) -- (-2.55,\k)
+      node[left] {\(\k\)};
+  }
+
+  \draw[very thick,unipd-primary] (-2.4,-2) -- (-2,-2);
+  \fill[unipd-primary] (-2,-2) circle (2pt);
+  \foreach \m in {-1,0,1,2} {
+    \draw[very thick,unipd-primary] ({\m-1},\m) -- (\m,\m);
+    \draw[unipd-primary,fill=white,thick] ({\m-1},\m) circle (2pt);
+    \fill[unipd-primary] (\m,\m) circle (2pt);
+  }
+
+  \draw[very thick,green!40!black] (0,1) -- (1,1);
+  \draw[green!40!black,fill=white,thick] (0,1) circle (2pt);
+  \fill[green!40!black] (1,1) circle (2pt);
+  \node[fill=green!12,draw=green!40!black,rounded corners,inner sep=3pt]
+    at (0.5,-0.55) {\(\lceil x\rceil=1\), \(x\in(0,1]\)};
+\end{tikzpicture}
