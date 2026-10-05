@@ -13,4 +13,9 @@
   - 1.2 Ordinamento totale dei numeri naturali — p. 3
   - 1.3 Richiami su insiemi e dimostrazioni — p. 4
   - 1.4 Principio di induzione — p. 4
+- 2 Lezione 2 --- 30 settembre 2026 — p. 8
+  - 2.1 Numeri interi — p. 8
+  - 2.2 Numeri razionali — p. 8
+  - 2.3 Irrazionalità della radice quadrata di 2 — p. 9
+  - 2.4 Fattoriale — p. 10
 <!-- GENERATED:END -->

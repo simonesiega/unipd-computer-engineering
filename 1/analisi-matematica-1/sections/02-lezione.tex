@@ -1,0 +1,414 @@
+\chapter[Lezione 2 --- 30 settembre 2026]{Lezione 2: numeri interi, razionali e fattoriale}
+\label{chap:lezione-02}
+
+\section{Numeri interi}
+\label{sec:lez02-numeri-interi}
+
+Dato un insieme \(A\), si indica con \(-A\) l'insieme degli opposti dei
+suoi elementi:
+\[
+  -A=\{-a:a\in A\}.
+\]
+Poiché \(0\in\N\), l'insieme \(-\N\) contiene \(0\) e gli opposti dei
+naturali positivi. L'unione di \(\N\) e \(-\N\) permette quindi di
+introdurre l'insieme dei numeri interi.
+
+\begin{definition}[Numeri interi]
+\label{def:numeri-interi}
+\[
+  \Z=\N\cup(-\N).
+\]
+\end{definition}
+
+Si assume l'\emph{assioma di esistenza e unicità dell'opposto}, secondo cui
+ogni intero ammette un unico opposto, anch'esso appartenente a \(\Z\). In
+forma più precisa, vale
+\[
+  \forall m\in\Z\;\exists!\,n\in\Z
+  \quad\text{tale che}\quad
+  m+n=0.
+\]
+Tale unico intero è indicato con \(-m\) ed è detto \emph{opposto} di \(m\).
+
+L'ordinamento è compatibile con la moltiplicazione per un intero positivo;
+se invece il fattore è negativo, il verso della disuguaglianza si inverte.
+
+\begin{proposition}[Compatibilità dell'ordine in \(\Z\)]
+\label{prop:compatibilita-ordine-interi}
+Per ogni \(a,b,c\in\Z\), se \(a\le b\), allora
+\[
+  c>0\Longrightarrow ac\le bc,
+  \qquad
+  c<0\Longrightarrow ac\ge bc.
+\]
+\end{proposition}
+
+In particolare, moltiplicare una disuguaglianza per un numero negativo
+inverte il verso. Se \(c=0\), invece, si ha
+\[
+  ac=bc=0.
+\]
+
+Si pone allora il problema di stabilire se, dato \(a\in\Z\), esista
+\(b\in\Z\) tale che
+\[
+  ab=1.
+\]
+Quando un tale elemento esiste, esso è detto \emph{inverso moltiplicativo}
+di \(a\) e viene indicato con \(a^{-1}\), ossia
+\[
+  a^{-1}:=b.
+\]
+In \(\Z\), tuttavia, l'inverso moltiplicativo non esiste per ogni elemento.
+
+\begin{proposition}[Inversi moltiplicativi in \(\Z\)]
+\label{prop:inversi-interi}
+Gli unici interi che ammettono un inverso moltiplicativo in \(\Z\) sono
+\(-1\) e \(1\). In particolare,
+\[
+  (-1)^{-1}=-1,
+  \qquad
+  1^{-1}=1.
+\]
+\end{proposition}
+
+\begin{proof}
+Siano \(a,b\in\Z\) tali che \(ab=1\). Il prodotto è positivo, perciò
+\(a\) e \(b\) hanno lo stesso segno. Se sono entrambi positivi, sono
+interi almeno uguali a \(1\); affinché il loro prodotto sia \(1\), devono
+quindi essere entrambi uguali a \(1\). Se sono entrambi negativi, gli
+interi positivi \(-a\) e \(-b\) hanno prodotto \(1\), perciò
+\(a=b=-1\). Viceversa, \((-1)(-1)=1\) e \(1\cdot1=1\), da cui seguono
+le uguaglianze enunciate.
+\end{proof}
+
+\section{Numeri razionali}
+\label{sec:lez02-numeri-razionali}
+
+Come mostrato nella \cref{prop:inversi-interi}, in \(\Z\) soltanto
+\(-1\) e \(1\) ammettono un inverso moltiplicativo. Ciò motiva
+l'introduzione di un insieme numerico più ampio, nel quale sia possibile
+rappresentare anche rapporti tra numeri interi.
+
+Nella definizione dei numeri razionali sarà utile escludere lo zero
+dall'insieme dei possibili denominatori. A questo scopo, per due insiemi
+\(A\) e \(B\), si introduce la differenza insiemistica
+\[
+  A\setminus B=\{x\in A:x\notin B\},
+\]
+ossia l'insieme degli elementi di \(A\) che non appartengono a \(B\).
+
+In particolare,
+\[
+  \N\setminus\{0\}
+\]
+indica l'insieme dei numeri naturali diversi da zero.
+
+\begin{definition}[Numeri razionali]
+\label{def:numeri-razionali}
+L'insieme dei numeri razionali è
+\[
+  \Q=\left\{\frac{m}{n}\,\middle|\,
+    m\in\Z,\ n\in\N\setminus\{0\}\right\}.
+\]
+\end{definition}
+
+L'introduzione dei numeri razionali estende quindi gli insiemi numerici
+considerati finora, secondo la catena di inclusioni
+\[
+  \N\subseteq\Z\subseteq\Q.
+\]
+
+Il denominatore viene scelto positivo; un eventuale segno negativo si
+riporta quindi al numeratore. Uno stesso numero razionale può essere
+rappresentato da frazioni diverse, come \(\frac12=\frac24\). Riducendo
+la frazione ai minimi termini si ottiene una rappresentazione con
+\(\operatorname{mcd}(m,n)=1\), dove il massimo comune divisore è inteso
+come quello positivo di \(|m|\) e \(n\). Con il denominatore positivo,
+questa forma ridotta è unica; in particolare, lo zero si rappresenta
+come \(\frac01\).
+
+In \(\Q\), invece, si assume l'\emph{assioma dell'inverso moltiplicativo}:
+\[
+  \forall a\in\Q\setminus\{0\}\;\exists b\in\Q
+  \quad\text{tale che}\quad
+  ab=1.
+\]
+Con la notazione introdotta in precedenza, tale elemento si indica con
+\[
+  b=a^{-1}.
+\]
+
+L'inverso moltiplicativo di un numero razionale non nullo è detto anche
+\emph{reciproco}. Per esempio,
+\[
+  2^{-1}=\frac12.
+\]
+
+\section[Irrazionalità della radice quadrata di 2]{Irrazionalità di \(\sqrt{2}\)}
+\label{sec:lez02-irrazionalita-radice-due}
+
+La costruzione dei razionali non è sufficiente a descrivere tutti i numeri
+che emergono naturalmente nelle equazioni. Si consideri il polinomio
+\[
+  p(x)=x^2-2,
+  \qquad p\in\Q[x].
+\]
+La notazione \(\Q[x]\) indica l'insieme dei polinomi nella variabile \(x\)
+con coefficienti razionali. L'equazione \(x^2-2=0\) non ammette soluzioni
+razionali; in particolare, \(\sqrt{2}\notin\Q\). 
+
+Per affrontare la dimostrazione di questo risultato, si introduce anzitutto la nozione di parità di un intero che 
+verrà utilizzata in seguito.
+
+Un intero \(m\) si dice \emph{pari} se esiste \(k\in\Z\) tale che
+\[
+  m=2k,
+\]
+mentre si dice \emph{dispari} se esiste \(k\in\Z\) tale che
+\[
+  m=2k+1.
+\]
+Ogni intero è pari oppure dispari, e le due possibilità sono mutuamente
+esclusive.
+
+\begin{lemma}[Parità del quadrato]
+\label{lem:quadrato-pari}
+Per ogni \(m\in\Z\), se \(m^2\) è pari, allora \(m\) è pari.
+\end{lemma}
+
+\begin{proof}
+Richiamando la contronominale introdotta nella
+\cref{sec:lez01-insiemi-dimostrazioni}, è sufficiente dimostrare che, se
+\(m\) è dispari, allora \(m^2\) è dispari. Poiché \(m\) è dispari, esiste \(k\in\Z\) tale che
+\[
+  m=2k+1.
+\]
+Pertanto
+\begin{align*}
+  m^2
+    &=(2k+1)^2\\
+    &=4k^2+4k+1\\
+    &=4k(k+1)+1.
+\end{align*}
+Ponendo
+\[
+  \ell=2k(k+1)\in\Z,
+\]
+si ottiene
+\[
+  m^2=2\ell+1,
+\]
+quindi \(m^2\) è dispari. La contronominale è pertanto verificata e il
+lemma segue.
+\end{proof}
+
+\begin{theorem}[Irrazionalità di \(\sqrt{2}\)]
+\label{thm:irrazionalita-radice-due}
+L'equazione \(x^2-2=0\) non ammette soluzioni \(x\in\Q\). Equivalentemente,
+\[
+  \sqrt{2}\notin\Q.
+\]
+\end{theorem}
+
+\begin{proof}
+Si procede per assurdo, supponendo che l'equazione ammetta una soluzione
+razionale. Per la forma ridotta di un numero razionale, esistono
+\(m\in\Z\) e \(n\in\N\setminus\{0\}\), con
+\[
+  \operatorname{mcd}(m,n)=1,
+\]
+tali che
+\[
+  \left(\frac{m}{n}\right)^2=2.
+\]
+Poiché \(n\neq0\), si può moltiplicare per \(n^2\) e ottenere
+\[
+  m^2=2n^2.
+\]
+Di conseguenza, \(m^2\) è pari e, per il \cref{lem:quadrato-pari}, anche
+\(m\) è pari. Esiste quindi \(h\in\Z\) tale che \(m=2h\). Sostituendo
+nell'uguaglianza precedente,
+\begin{align*}
+  4h^2&=2n^2,\\
+  n^2&=2h^2.
+\end{align*}
+Pertanto anche \(n^2\) è pari e, applicando nuovamente il
+\cref{lem:quadrato-pari}, si conclude che \(n\) è pari.
+
+Entrambi gli interi \(m\) e \(n\) sono dunque divisibili per \(2\), in
+contraddizione con \(\operatorname{mcd}(m,n)=1\). La contraddizione mostra
+che l'ipotesi iniziale è falsa. L'equazione \(x^2-2=0\) non ammette
+quindi soluzioni razionali; in particolare,
+\[
+  \sqrt{2}\notin\Q.
+\]
+
+Dal punto di vista logico, la dimostrazione segue lo schema per assurdo
+descritto nella \cref{sec:lez01-insiemi-dimostrazioni}. Indicando con
+\[
+  B:\quad x^2-2=0 \text{ non ammette soluzioni in }\Q,
+\]
+si assume la negazione \(\neg B\) e da questa si ricava una contraddizione.
+Pertanto \(\neg B\) è falsa e la tesi \(B\) è vera.
+\end{proof}
+
+Nel risultato appena dimostrato compare il numero \(2\), che è un numero
+primo. Prima di formulare la generalizzazione, richiamiamo la relativa
+definizione.
+
+\begin{definition}[Numero primo]
+\label{def:numero-primo}
+Un numero naturale \(p>1\) è primo se i suoi unici divisori positivi sono
+\(1\) e \(p\).
+\end{definition}
+
+Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è perché
+ammette \(2\) come divisore oltre a \(1\) e a sé stesso. Il numero \(1\)
+non è primo, poiché la definizione richiede \(p>1\).
+
+Con questa terminologia, il risultato del
+\cref{thm:irrazionalita-radice-due} si generalizza alla radice quadrata
+di ogni numero primo.
+
+\begin{proposition}[Irrazionalità della radice di un numero primo]
+\label{prop:irrazionalita-radice-primo}
+Sia \(p\in\N\) un numero primo. L'equazione
+\[
+  x^2-p=0
+\]
+non ammette soluzioni razionali. Equivalentemente,
+\[
+  \sqrt{p}\notin\Q.
+\]
+\end{proposition}
+
+La dimostrazione di questa proposizione non viene sviluppata in questa sede.
+
+\section{Fattoriale}
+\label{sec:lez02-fattoriale}
+
+Per definire il fattoriale si fissa anzitutto il valore iniziale in
+\(n=0\) e si specifica poi come ricavare il valore al naturale successivo.
+
+\begin{definition}[Fattoriale]
+\label{def:fattoriale}
+Il fattoriale è definito ricorsivamente dalle condizioni
+\[
+  0!:=1,
+  \qquad
+  (n+1)!:=(n+1)n!,
+  \quad n\in\N.
+\]
+\end{definition}
+
+Applicando la definizione ricorsiva si ottengono, per esempio,
+\begin{align*}
+  0!&=1,\\
+  1!&=1\cdot0!=1,\\
+  2!&=2\cdot1!=2,\\
+  3!&=3\cdot2!=3\cdot2\cdot1.
+\end{align*}
+Per \(n\ge1\), il fattoriale può essere scritto anche nella forma esplicita
+\[
+  n!=1\cdot2\cdot3\cdots n=\prod_{i=1}^{n}i.
+\]
+Il caso \(n=0\) è specificato separatamente da \(0!=1\). La ricorrenza
+costruisce il prodotto aggiungendo a ogni passo il fattore successivo.
+
+A partire dalla definizione precedente è possibile ricavare alcune
+semplici proprietà del fattoriale. In particolare, il fattoriale di un
+numero naturale è sempre maggiore o uguale al numero stesso.
+
+\begin{proposition}[Una disuguaglianza per il fattoriale]
+\label{prop:fattoriale-maggiore-n}
+Per ogni \(n\in\N\) vale
+\[
+  n!\ge n.
+\]
+\end{proposition}
+
+\begin{proof}
+Per applicare il principio di induzione, introdotto nella
+\cref{sec:lez01-induzione}, si considera l'insieme dei numeri naturali
+per i quali la disuguaglianza è verificata:
+\[
+  A=\{n\in\N:n!\ge n\}.
+\]
+
+\emph{Passo base.}
+Si verifica anzitutto la proprietà per \(n=0\). Per definizione,
+\[
+  0!=1\ge0,
+\]
+quindi \(0\in A\) e il passo base è verificato.
+
+\emph{Passo induttivo.}
+Si deve dimostrare che
+\[
+  n\in A\Longrightarrow n+1\in A.
+\]
+
+Il caso \(n=0\) viene verificato direttamente:
+\[
+  1!=1\ge1,
+\]
+quindi \(1\in A\).
+
+Consideriamo ora \(n\ge1\) e supponiamo \(n\in A\). Per definizione di
+\(A\), vale l'ipotesi induttiva
+\[
+  n!\ge n.
+\]
+Poiché \(n+1>0\), per la compatibilità dell'ordine con la
+moltiplicazione per un numero positivo, espressa nella
+\cref{prop:compatibilita-ordine}, moltiplicando entrambi i membri per
+\(n+1\) il verso della disuguaglianza non cambia. Si ottiene quindi
+\[
+  (n+1)n!\ge(n+1)n.
+\]
+Per la \cref{def:fattoriale},
+\[
+  (n+1)!=(n+1)n!,
+\]
+e pertanto
+\[
+  (n+1)!\ge(n+1)n.
+\]
+
+Resta da confrontare \((n+1)n\) con \(n+1\). Poiché \(n\ge1\) e
+\(n+1>0\), moltiplicando la disuguaglianza
+\[
+  n\ge1
+\]
+per \(n+1\) si ottiene
+\[
+  (n+1)n\ge(n+1)\cdot1=n+1.
+\]
+Combinando le due disuguaglianze,
+\[
+  (n+1)!
+  \ge(n+1)n
+  \ge n+1.
+\]
+Si è quindi dimostrato che \(n+1\in A\).
+
+Il passo induttivo è dunque verificato sia per \(n=0\), tramite controllo
+diretto, sia per ogni \(n\ge1\).
+
+Essendo verificati il passo base e il passo induttivo, per il
+\cref{thm:principio-induzione}, con valore iniziale \(p=0\), si conclude
+che
+\[
+  \N\subseteq A.
+\]
+Poiché per definizione \(A\subseteq\N\), segue che
+\[
+  A=\N.
+\]
+Di conseguenza,
+\[
+  n!\ge n
+\]
+per ogni \(n\in\N\).
+\end{proof}
