@@ -18,4 +18,10 @@
   - 2.2 Numeri razionali — p. 9
   - 2.3 Irrazionalità della radice quadrata di 2 — p. 9
   - 2.4 Fattoriale — p. 11
+- 3 Lezione 3 --- 1 ottobre 2026 — p. 14
+  - 3.1 Coefficienti binomiali — p. 14
+  - 3.2 Numeri reali — p. 16
+  - 3.3 Proprietà archimedea — p. 16
+  - 3.4 Parte intera, floor e ceiling — p. 18
+  - 3.5 Cenno sulla radice quadrata di 2 nei reali — p. 19
 <!-- GENERATED:END -->
