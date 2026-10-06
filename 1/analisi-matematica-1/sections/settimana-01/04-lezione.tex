@@ -28,7 +28,8 @@ per il \cref{thm:proprieta-archimedea} esiste \(q\in\N\) tale che
 \]
 In particolare \(q>0\).
 
-Si considera allora il numero reale \(qx\). Per la \cref{prop:parte-intera} esiste \(p\in\Z\) tale che
+Si considera allora il numero reale \(qx\). Per la
+\cref{prop:parte-intera} esiste \(p\in\Z\) tale che
 \[
   p\le qx<p+1.
 \]
@@ -68,8 +69,10 @@ si ha \(z\in\Q\) e quindi
   \label{fig:densita-razionali}
 \end{figure}
 
-Come conseguenza della densità dei razionali, tra due numeri reali distinti
-esiste almeno un numero razionale e almeno un numero irrazionale.
+Un'ulteriore conseguenza del \cref{thm:densita-razionali}, insieme
+all'esistenza di numeri irrazionali discussa nella
+\cref{sec:lez03-completezza-radice-due}, è che tra due numeri reali
+distinti esistono sia numeri razionali sia numeri irrazionali.
 
 \begin{theorem}[Razionali e irrazionali tra due reali]
 \label{thm:razionali-irrazionali-tra-reali}
@@ -95,6 +98,9 @@ sviluppata in questa sede.
 Siano \(a,b\in\R\) con \(a<b\). Si introducono le seguenti notazioni:
 \[
   (a,b)=\{x\in\R:a<x<b\},
+\]
+\[
+  [a,b]=\{x\in\R:a\le x\le b\},
 \]
 \[
   [a,b)=\{x\in\R:a\le x<b\},
@@ -178,7 +184,7 @@ Un numero reale \(x\in\R\) si dice \emph{minorante} di \(A\) se e solo se
 
 Anche un minorante non deve necessariamente appartenere ad \(A\).
 
-Per l'insieme
+Per l'insieme considerato nell'\cref{ex:insieme-non-intervallo},
 \[
   A=(0,1)\cup\{2\},
 \]
@@ -253,8 +259,8 @@ L'insieme \(\N\) non è invece superiormente limitato. Infatti, se esistesse
   \qquad
   \forall n\in\N,
 \]
-si avrebbe un maggiorante reale di \(\N\), in contraddizione con la
-proprietà archimedea del \cref{thm:proprieta-archimedea}.
+si avrebbe un maggiorante reale di \(\N\), in contraddizione con il
+\cref{thm:proprieta-archimedea}.
 
 Anche \(\Z\) non è superiormente limitato. Se lo fosse, poiché
 \[
@@ -270,7 +276,8 @@ assurdo che esista \(b\in\R\) tale che
   \qquad
   \forall z\in\Z,
 \]
-moltiplicando per \(-1\) si ottiene
+moltiplicando per \(-1\) e applicando la
+\cref{prop:compatibilita-ordine-interi} si ottiene
 \[
   -b\ge -z
   \qquad
@@ -292,9 +299,9 @@ superiormente né inferiormente limitati.
 \section{Massimo e minimo}
 \label{sec:lez04-massimo-minimo}
 
-La nozione di maggiorante o minorante non richiede che l'elemento
-considerato appartenga all'insieme. Per massimo e minimo, invece,
-l'appartenenza è essenziale.
+Nelle \cref{def:maggiorante,def:minorante} non si richiede che il
+maggiorante o il minorante appartengano all'insieme. Per massimo e minimo,
+invece, l'appartenenza è essenziale.
 
 \begin{definition}[Massimo e minimo]
 \label{def:massimo-minimo}
@@ -330,7 +337,9 @@ allora
 \[
   \max A=1.
 \]
-L'insieme non ammette invece minimo, poiché \(0\notin A\).
+L'insieme non ammette invece minimo. Infatti, per ogni \(a\in A\) si ha
+\(0<a/2<a\le1\), dunque \(a/2\in A\) e \(a/2<a\); nessun elemento di
+\(A\) può quindi essere il minimo.
 
 Per descrivere in modo sistematico maggioranti e minoranti si introducono
 i due insiemi
@@ -407,6 +416,8 @@ mentre, se \(A\) non è inferiormente limitato, si scrive
 \[
   \inf A=-\infty.
 \]
+I simboli \(+\infty\) e \(-\infty\) non rappresentano numeri reali;
+sono utilizzati qui esclusivamente come convenzione notazionale.
 
 Massimo e minimo, quando esistono, coincidono rispettivamente con estremo
 superiore ed estremo inferiore.
@@ -425,6 +436,9 @@ Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
   \]
 \end{enumerate}
 \end{proposition}
+
+La dimostrazione della \cref{prop:relazione-estremi-massimo-minimo} non viene
+sviluppata in questa sede.
 
 \section{Caratterizzazione di estremo superiore e inferiore}
 \label{sec:lez04-caratterizzazione-estremi}
@@ -454,10 +468,15 @@ e
 \]
 \end{theorem}
 
-La prima condizione afferma che \(x\) è un maggiorante di \(A\). La
-seconda garantisce che nessun numero strettamente minore di \(x\) possa
-essere un maggiorante: per ogni \(\varepsilon>0\), esiste infatti un elemento
-di \(A\) compreso strettamente al di sopra di \(x-\varepsilon\).
+La prima condizione afferma, secondo la \cref{def:maggiorante}, che
+\(x\) è un maggiorante di \(A\). La seconda garantisce che nessun numero
+strettamente minore di \(x\) possa essere un maggiorante. Poiché ogni
+elemento di \(A\) è minore o uguale a \(x\), le due condizioni insieme
+equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
+\(\bar a\in A\) tale che
+\[
+  x-\varepsilon<\bar a\le x.
+\]
 
 \begin{figure}[htbp]
   \centering
@@ -467,6 +486,109 @@ di \(A\) compreso strettamente al di sopra di \(x-\varepsilon\).
   \(x-\varepsilon<\bar a\le x\).}
   \label{fig:caratterizzazione-sup}
 \end{figure}
+
+\begin{proof}[Dimostrazione del \cref{thm:caratterizzazione-sup}]
+Si dimostrano separatamente le due implicazioni.
+
+\emph{Prima implicazione \((\Rightarrow)\).}
+Si supponga
+\[
+  x=\sup A.
+\]
+Per la \cref{def:estremo-superiore},
+\[
+  x=\min M_A,
+\]
+quindi \(x\in M_A\). Per la \cref{def:maggiorante}, ciò equivale a
+\[
+  x\ge a
+  \qquad
+  \forall a\in A,
+\]
+e la prima condizione è verificata.
+
+Sia ora \(\varepsilon>0\). Poiché
+\[
+  x-\varepsilon<x=\min M_A,
+\]
+si ha
+\[
+  x-\varepsilon\notin M_A.
+\]
+Per definizione di \(M_A\), un numero \(\alpha\in\R\) appartiene a \(M_A\)
+se e solo se \(\alpha\ge a\) per ogni \(a\in A\). Pertanto
+\(x-\varepsilon\notin M_A\) significa che esiste \(\bar a\in A\) tale che
+\[
+  x-\varepsilon<\bar a.
+\]
+Essendo \(\varepsilon>0\) arbitrario, anche la seconda condizione è
+verificata.
+
+\emph{Seconda implicazione \((\Leftarrow)\).}
+Si supponga ora che valgano
+\[
+  x\ge a
+  \qquad
+  \forall a\in A
+\]
+e
+\[
+  \forall\varepsilon>0\;\exists\bar a\in A
+  \quad\text{tale che}\quad
+  x-\varepsilon<\bar a.
+\]
+La prima condizione implica, per la \cref{def:maggiorante}, che
+\(x\in M_A\).
+
+Poiché \(A\) è superiormente limitato, per il
+\cref{thm:estremi-maggioranti-minoranti} l'insieme \(M_A\) ammette minimo.
+Si pone
+\[
+  y:=\min M_A=\sup A.
+\]
+Dalla seconda condizione segue che, per ogni \(\varepsilon>0\),
+\[
+  x-\varepsilon\notin M_A.
+\]
+Infatti, per ciascun \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
+\(x-\varepsilon<\bar a\), mentre un maggiorante di \(A\) dovrebbe essere
+maggiore o uguale a ogni elemento di \(A\).
+
+Poiché \(y=\min M_A\), si ha \(y\in M_A\). Inoltre, ogni numero reale
+\(t\ge y\) appartiene a \(M_A\): infatti, essendo \(y\) un maggiorante,
+\[
+  a\le y\le t
+  \qquad
+  \forall a\in A.
+\]
+Di conseguenza, da \(x-\varepsilon\notin M_A\) segue necessariamente
+\[
+  x-\varepsilon<y
+  \qquad
+  \forall\varepsilon>0.
+\]
+
+Se fosse \(y<x\), scegliendo
+\[
+  \varepsilon=x-y>0
+\]
+si otterrebbe
+\[
+  x-\varepsilon=y<y,
+\]
+che è assurdo. Deve quindi essere \(y\ge x\).
+
+D'altra parte, essendo \(x\in M_A\) e \(y=\min M_A\), vale
+\[
+  y\le x.
+\]
+Pertanto \(x=y\). Poiché \(y=\sup A\), si conclude
+\[
+  x=\sup A.
+\]
+\end{proof}
+
+\clearpage
 
 \begin{theorem}[Caratterizzazione dell'estremo inferiore]
 \label{thm:caratterizzazione-inf}
@@ -489,10 +611,15 @@ e
 \]
 \end{theorem}
 
-La prima condizione afferma che \(x\) è un minorante di \(A\). La seconda
-afferma che nessun numero strettamente maggiore di \(x\) può essere un
-minorante: per ogni \(\varepsilon>0\), esiste infatti un elemento di \(A\)
-compreso strettamente al di sotto di \(x+\varepsilon\).
+La prima condizione afferma, secondo la \cref{def:minorante}, che
+\(x\) è un minorante di \(A\). La seconda garantisce che nessun numero
+strettamente maggiore di \(x\) possa essere un minorante. Poiché ogni
+elemento di \(A\) è maggiore o uguale a \(x\), le due condizioni insieme
+equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
+\(\bar a\in A\) tale che
+\[
+  x\le\bar a<x+\varepsilon.
+\]
 
 \begin{figure}[htbp]
   \centering
@@ -503,5 +630,122 @@ compreso strettamente al di sotto di \(x+\varepsilon\).
   \label{fig:caratterizzazione-inf}
 \end{figure}
 
-Le dimostrazioni delle
-\cref{thm:caratterizzazione-sup,thm:caratterizzazione-inf} saranno sviluppate nella lezione successiva.
+
+La dimostrazione del \cref{thm:caratterizzazione-inf} viene lasciata al
+lettore come esercizio, in modo da ripercorrere in forma simmetrica il
+ragionamento appena svolto.
+
+\begin{exercise}[Dimostrazione della caratterizzazione dell'estremo inferiore]
+\label{ex:caratterizzazione-inf}
+Dimostrare il \cref{thm:caratterizzazione-inf}. Si suggerisce di seguire i
+due versi della dimostrazione del \cref{thm:caratterizzazione-sup},
+sostituendo all'insieme \(M_A\) dei maggioranti l'insieme \(m_A\) dei
+minoranti e utilizzando
+\[
+  \inf A=\max m_A.
+\]
+\end{exercise}
+
+Dopo aver svolto autonomamente l'esercizio, si può confrontare il proprio
+ragionamento con la seguente soluzione.
+
+\begin{proof}[Soluzione dell'esercizio]
+Si dimostrano separatamente le due implicazioni.
+
+\emph{Prima implicazione \((\Rightarrow)\).}
+Si supponga
+\[
+  x=\inf A.
+\]
+Per la \cref{def:estremo-inferiore},
+\[
+  x=\max m_A,
+\]
+quindi \(x\in m_A\). Per la \cref{def:minorante}, ciò equivale a
+\[
+  x\le a
+  \qquad
+  \forall a\in A,
+\]
+e la prima condizione è verificata.
+
+Sia ora \(\varepsilon>0\). Poiché
+\[
+  x+\varepsilon>x=\max m_A,
+\]
+si ha
+\[
+  x+\varepsilon\notin m_A.
+\]
+Per definizione di \(m_A\), un numero \(\alpha\in\R\) appartiene a \(m_A\)
+se e solo se \(\alpha\le a\) per ogni \(a\in A\). Pertanto
+\(x+\varepsilon\notin m_A\) significa che esiste \(\bar a\in A\) tale che
+\[
+  \bar a<x+\varepsilon.
+\]
+Essendo \(\varepsilon>0\) arbitrario, anche la seconda condizione è
+verificata.
+
+\emph{Seconda implicazione \((\Leftarrow)\).}
+Si supponga ora che valgano
+\[
+  x\le a
+  \qquad
+  \forall a\in A
+\]
+e
+\[
+  \forall\varepsilon>0\;\exists\bar a\in A
+  \quad\text{tale che}\quad
+  \bar a<x+\varepsilon.
+\]
+La prima condizione implica, per la \cref{def:minorante}, che
+\(x\in m_A\).
+
+Poiché \(A\) è inferiormente limitato, per il
+\cref{thm:estremi-maggioranti-minoranti} l'insieme \(m_A\) ammette massimo.
+Si pone
+\[
+  y:=\max m_A=\inf A.
+\]
+Dalla seconda condizione segue che, per ogni \(\varepsilon>0\),
+\[
+  x+\varepsilon\notin m_A.
+\]
+Infatti, per ciascun \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
+\(\bar a<x+\varepsilon\), mentre un minorante di \(A\) dovrebbe essere
+minore o uguale a ogni elemento di \(A\).
+
+Poiché \(y=\max m_A\), si ha \(y\in m_A\). Inoltre, ogni numero reale
+\(t\le y\) appartiene a \(m_A\): infatti, essendo \(y\) un minorante,
+\[
+  t\le y\le a
+  \qquad
+  \forall a\in A.
+\]
+Di conseguenza, da \(x+\varepsilon\notin m_A\) segue necessariamente
+\[
+  y<x+\varepsilon
+  \qquad
+  \forall\varepsilon>0.
+\]
+
+Se fosse \(y>x\), scegliendo
+\[
+  \varepsilon=y-x>0
+\]
+si otterrebbe
+\[
+  y<x+\varepsilon=y,
+\]
+che è assurdo. Deve quindi essere \(y\le x\).
+
+D'altra parte, essendo \(x\in m_A\) e \(y=\max m_A\), vale
+\[
+  x\le y.
+\]
+Pertanto \(x=y\). Poiché \(y=\inf A\), si conclude
+\[
+  x=\inf A.
+\]
+\end{proof}

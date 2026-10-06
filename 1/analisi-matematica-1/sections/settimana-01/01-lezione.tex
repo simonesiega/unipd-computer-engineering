@@ -8,7 +8,7 @@ Si considera l'insieme dei numeri naturali
 \[
   \N=\{0,1,2,3,\ldots\},
 \]
-adottando quindi la convenzione \(0\in\N\).
+adottando la convenzione \(0\in\N\).
 
 Su \(\N\) sono definite le operazioni di somma e prodotto. Entrambe sono
 operazioni binarie, ossia applicazioni che a ogni coppia ordinata
@@ -70,6 +70,16 @@ Tale elemento è
   e_1=1.
 \]
 
+Infine, il prodotto è distributivo rispetto alla somma: per ogni
+\(a,b,c\in\N\) vale
+\[
+  a(b+c)=ab+ac.
+\]
+Per la commutatività del prodotto, equivalentemente,
+\[
+  (a+b)c=ac+bc.
+\]
+
 \clearpage
 
 \section{Ordinamento totale dei numeri naturali}
@@ -91,7 +101,7 @@ La relazione \(a\le b\) esprime quindi il fatto che è possibile ottenere
 soddisfa quattro proprietà fondamentali.
 
 \textbf{Riflessività.}
-Ogni numero naturale è minore o uguale a se stesso; per ogni \(a\in\N\)
+Ogni numero naturale è minore o uguale a sé stesso; per ogni \(a\in\N\)
 vale
 \[
   a\le a.
@@ -162,6 +172,9 @@ strettamente positivo.
 Se \(c=0\), si ha \(ac=bc=0\), per cui la disuguaglianza non stretta
 rimane comunque valida.
 
+La dimostrazione della \cref{prop:compatibilita-ordine} non viene
+sviluppata in questa sede.
+
 \clearpage
 
 \section{Richiami su insiemi e dimostrazioni}
@@ -198,7 +211,7 @@ validi. Per proposizioni \(A\) e \(B\), l'implicazione
 anche \(B\). Nella logica classica essa è equivalente alla propria
 contronominale:
 \[
-  A\Rightarrow B\quad\Longleftrightarrow\quad\neg B\Rightarrow\neg A.
+  A\Longrightarrow B\quad\Longleftrightarrow\quad\neg B\Longrightarrow\neg A.
 \]
 La dimostrazione per assurdo è distinta: mantenendo valide le ipotesi, si
 assume la negazione della tesi e da tali assunzioni si ricava una
@@ -246,7 +259,7 @@ l'appartenenza ad \(A\) da un naturale al suo successivo.
 Se \(P(n)\) è una proprietà dipendente da \(n\) e si intende dimostrarne
 la validità per ogni \(n\ge p\), si può porre
 \[
-  A=\{n\in\N : n\ge p \text{ e } P(n)\text{ è vera}\}.
+  A=\{n\in\N:n\ge p \text{ e } P(n)\text{ è vera}\}.
 \]
 Dimostrare che \(P(n)\) vale per ogni \(n\ge p\) equivale allora a
 verificare
@@ -258,10 +271,12 @@ e a dimostrare, per un generico \(n\ge p\),
   P(n)\Longrightarrow P(n+1).
 \]
 
-Vediamo ora due applicazioni del principio di induzione:
-nell'\cref{ex:somma-primi-naturali} dimostreremo la formula per la somma
+Si considerano ora due applicazioni del \cref{thm:principio-induzione}:
+nell'\cref{ex:somma-primi-naturali} si dimostra la formula per la somma
 dei primi \(n\) naturali positivi, mentre nell'\cref{ex:somma-geometrica-finita}
-considereremo la somma geometrica finita.
+si considera la somma geometrica finita.
+Nel secondo esempio compare l'insieme \(\R\) dei numeri reali, che sarà
+introdotto nella \cref{sec:lez03-numeri-reali}.
 
 \begin{example}[Somma dei primi \(n\) naturali positivi]
 \label{ex:somma-primi-naturali}
@@ -277,10 +292,10 @@ dei primi \(n\) numeri naturali positivi.
 \end{example}
 
 \begin{proof}
-Per applicare il principio di induzione si considera l'insieme dei naturali
+Per applicare il \cref{thm:principio-induzione} si considera l'insieme dei naturali
 per i quali la proprietà risulta vera:
 \[
-  A=\left\{n\in\N\,\middle|\,n\ge1,\;
+  A=\left\{n\in\N:n\ge1,\;
     \sum_{i=1}^{n}i=\frac{n(n+1)}2\right\}.
 \]
 L'obiettivo è mostrare che ogni numero naturale maggiore o uguale a \(1\)
@@ -359,15 +374,19 @@ D'altra parte,
 \[
   \frac{1-0^{n+1}}{1-0}=1.
 \]
-Il caso \(q=0\) soddisfa quindi la formula; l'unico valore escluso è
-\(q=1\), poiché annulla il denominatore.
+Il caso \(q=0\) soddisfa quindi la formula. Il valore \(q=1\) è escluso
+dalla formula precedente perché annulla il denominatore; in tal caso,
+direttamente,
+\[
+  \sum_{k=0}^{n}1^k=n+1.
+\]
 \end{example}
 
 \begin{proof}
 Fissato \(q\in\R\setminus\{1\}\), si considera l'insieme dei naturali
 per i quali la proprietà risulta vera:
 \[
-  A=\left\{n\in\N\,\middle|\,
+  A=\left\{n\in\N:
     \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}\right\}.
 \]
 L'obiettivo è mostrare che ogni numero naturale appartiene ad \(A\),

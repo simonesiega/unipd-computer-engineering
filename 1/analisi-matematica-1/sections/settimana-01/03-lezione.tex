@@ -21,7 +21,8 @@ Siano \(n,k\in\N\). Si definisce
 \]
 \end{definition}
 
-Dalla definizione si ricavano immediatamente alcuni casi particolari. Per
+Dalla \cref{def:coefficiente-binomiale} si ricavano immediatamente alcuni
+casi particolari. Per
 ogni \(n\in\N\),
 \[
   \binom{n}{0}
@@ -93,7 +94,7 @@ Si considera anzitutto il caso \(1\le k\le n-1\). Applicando la
       +\frac{(n-1)!}{k!(n-k-1)!}.
 \end{align*}
 
-Poiché
+Poiché, per la \cref{def:fattoriale},
 \[
   (n-k)!=(n-k)(n-k-1)!
   \qquad\text{e}\qquad
@@ -114,8 +115,7 @@ e ottenere
     &=\binom{n}{k}.
 \end{align*}
 
-Resta il caso \(k=n\). Per la definizione estesa dei coefficienti
-binomiali,
+Resta il caso \(k=n\). Per la \cref{def:coefficiente-binomiale},
 \[
   \binom{n-1}{n}=0,
 \]
@@ -151,13 +151,15 @@ inclusioni
 \[
   \N\subseteq\Z\subseteq\Q.
 \]
-Come mostrato nel \cref{thm:irrazionalita-radice-due}, l'insieme dei
-razionali non è tuttavia sufficiente a contenere tutte le soluzioni di
-equazioni algebriche elementari. Si introduce pertanto un insieme numerico
-più ampio, l'insieme dei numeri reali \(\R\), ottenendo
+Come mostrato nel \cref{thm:irrazionalita-radice-due}, l'equazione
+\(x^2-2=0\) non ammette soluzioni razionali. Si introduce pertanto un
+insieme numerico più ampio, l'insieme dei numeri reali \(\R\), ottenendo
 \[
   \N\subseteq\Z\subseteq\Q\subseteq\R.
 \]
+Nella \cref{sec:lez03-completezza-radice-due} si tornerà sull'equazione
+\(x^2=2\) per giustificare l'esistenza in \(\R\) della sua soluzione non
+negativa.
 
 Nel seguito si utilizza una proprietà di completezza di \(\R\), formulata
 mediante il cosiddetto assioma di separazione.
@@ -190,7 +192,8 @@ reali. Esistono altre formulazioni equivalenti della completezza di
 \section{Proprietà archimedea}
 \label{sec:lez03-proprieta-archimedea}
 
-L'assioma di separazione permette di dimostrare che i numeri naturali non
+L'\hyperref[ass:assioma-separazione]{assioma di separazione} permette di
+dimostrare che i numeri naturali non
 sono superiormente limitati nell'insieme dei reali.
 
 \begin{theorem}[Proprietà archimedea]
@@ -243,7 +246,8 @@ di \(B\) si ha
 \[
   n\le y.
 \]
-Gli insiemi \(A\) e \(B\) sono dunque separati. Per l'\hyperref[ass:assioma-separazione]{assioma di separazione} esiste
+Gli insiemi \(A\) e \(B\) sono dunque separati. Per
+l'\hyperref[ass:assioma-separazione]{assioma di separazione} esiste
 \(\lambda\in\R\) tale che
 \[
   n\le\lambda\le y
@@ -295,7 +299,8 @@ L'ipotesi \(A=\N\) è pertanto falsa. Esiste quindi almeno un
 \section{Parte intera, floor e ceiling}
 \label{sec:lez03-parte-intera}
 
-La proprietà archimedea conduce a un'importante caratterizzazione della
+Il \cref{thm:proprieta-archimedea} conduce a un'importante
+caratterizzazione della
 posizione di un numero reale rispetto agli interi consecutivi.
 
 \begin{proposition}[Proprietà della parte intera]
@@ -309,6 +314,9 @@ In simboli,
   \forall x\in\R\;\exists!\,n\in\Z:\ n\le x<n+1.
 \]
 \end{proposition}
+
+La dimostrazione della \cref{prop:parte-intera} non viene sviluppata in
+questa sede.
 
 La \cref{prop:parte-intera} garantisce quindi che ogni numero reale
 \(x\) individua un unico intero \(n\) che non supera \(x\), mentre
@@ -335,7 +343,9 @@ Equivalentemente,
 \end{definition}
 
 La funzione floor associa quindi a ogni numero reale il più grande intero
-che non lo supera. Per esempio,
+che non lo supera. Nel seguito si utilizza la consueta notazione degli
+intervalli reali, che sarà formalizzata nella \cref{sec:lez04-intervalli}.
+Per esempio,
 \[
   \lfloor x\rfloor=0
   \qquad
@@ -367,7 +377,8 @@ Più in generale, per ogni \(n\in\Z\),
   \label{fig:floor}
 \end{figure}
 
-In modo analogo si introduce la funzione ceiling, che associa a ogni
+In modo analogo alla \cref{def:floor} si introduce la funzione ceiling,
+che associa a ogni
 numero reale il più piccolo intero maggiore o uguale al numero stesso.
 
 \begin{definition}[Funzione ceiling]
@@ -423,23 +434,24 @@ Più in generale, per ogni \(m\in\Z\),
 {Cenno su \(\sqrt{2}\in\R\setminus\Q\)}
 \label{sec:lez03-completezza-radice-due}
 
-Nella \cref{sec:lez02-irrazionalita-radice-due} è stato dimostrato che
+Nel \cref{thm:irrazionalita-radice-due} è stato dimostrato che
 \[
   \sqrt{2}\notin\Q.
 \]
 
-Per motivare l'esistenza di \(\sqrt{2}\) nell'insieme dei numeri reali,
-si considerano gli insiemi
+Per motivare l'esistenza in \(\R\) di un numero reale non negativo il cui
+quadrato sia \(2\), si considerano gli insiemi
 \[
   A=\{x\in\R:x\ge0,\ x^2<2\},
   \qquad
   B=\{x\in\R:x\ge0,\ x^2>2\}.
 \]
 
-Resta da verificare che \(A\) e \(B\) siano separati. L'idea è quindi
-applicare l'assioma di separazione per individuare un elemento
-separatore \(\lambda\in\R\). Geometricamente, tale elemento \(\lambda\) si colloca tra i due
-insiemi
+Gli insiemi \(A\) e \(B\) sono non vuoti, poiché \(0\in A\) e \(2\in B\).
+Resta da verificare che siano separati. Una volta verificata questa condizione,
+l'\hyperref[ass:assioma-separazione]{assioma di separazione} garantisce
+l'esistenza di un elemento separatore
+\(\lambda\in\R\). Geometricamente, tale elemento si colloca tra i due insiemi
 \[
   a\le\lambda\le b
   \qquad
@@ -451,4 +463,10 @@ Il passaggio conclusivo consiste nel mostrare che
   \lambda^2=2.
 \]
 
-Il cenno conduce quindi alla conclusione \(\sqrt{2}\in\R\setminus\Q\).
+Completando le verifiche omesse, ossia la separazione di \(A\) e \(B\) e
+l'identità \(\lambda^2=2\), si ottiene \(\lambda\ge0\) e
+\(\lambda^2=2\), dunque \(\lambda=\sqrt{2}\). Insieme al
+\cref{thm:irrazionalita-radice-due}, ciò mostra che
+\[
+  \sqrt{2}\in\R\setminus\Q.
+\]
