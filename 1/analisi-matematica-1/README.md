@@ -24,12 +24,12 @@
   - 3.3 Proprietà archimedea — p. 16
   - 3.4 Parte intera, floor e ceiling — p. 18
   - 3.5 Cenno sulla radice quadrata di 2 nei reali — p. 19
-- 4 Lezione 4 --- 2 ottobre 2026 — p. 20
-  - 4.1 Densità dei numeri razionali — p. 20
-  - 4.2 Intervalli della retta reale — p. 21
-  - 4.3 Maggioranti, minoranti e insiemi limitati — p. 21
-    - 4.3.1 Esempi fondamentali — p. 22
-  - 4.4 Massimo e minimo — p. 23
-  - 4.5 Estremo superiore ed estremo inferiore — p. 24
-  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 25
+- 4 Lezione 4 --- 2 ottobre 2026 — p. 21
+  - 4.1 Densità dei numeri razionali — p. 21
+  - 4.2 Intervalli della retta reale — p. 22
+  - 4.3 Maggioranti, minoranti e insiemi limitati — p. 23
+    - 4.3.1 Esempi fondamentali — p. 23
+  - 4.4 Massimo e minimo — p. 24
+  - 4.5 Estremo superiore ed estremo inferiore — p. 25
+  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 26
 <!-- GENERATED:END -->

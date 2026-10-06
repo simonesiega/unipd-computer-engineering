@@ -49,6 +49,9 @@ inverte il verso. Se \(c=0\), invece, si ha
   ac=bc=0.
 \]
 
+La dimostrazione della \cref{prop:compatibilita-ordine-interi} non viene
+sviluppata in questa sede.
+
 Si pone allora il problema di stabilire se, dato \(a\in\Z\), esista
 \(b\in\Z\) tale che
 \[
@@ -130,11 +133,12 @@ come \(\frac01\).
 
 In \(\Q\), invece, si assume l'\emph{assioma dell'inverso moltiplicativo}:
 \[
-  \forall a\in\Q\setminus\{0\}\;\exists b\in\Q
+  \forall a\in\Q\setminus\{0\}\;\exists!\,b\in\Q
   \quad\text{tale che}\quad
   ab=1.
 \]
-Con la notazione introdotta in precedenza, tale elemento si indica con
+Con la notazione \(a^{-1}\) introdotta nella
+\cref{sec:lez02-numeri-interi}, tale unico elemento si indica con
 \[
   b=a^{-1}.
 \]
@@ -156,10 +160,13 @@ che emergono naturalmente nelle equazioni. Si consideri il polinomio
 \]
 La notazione \(\Q[x]\) indica l'insieme dei polinomi nella variabile \(x\)
 con coefficienti razionali. L'equazione \(x^2-2=0\) non ammette soluzioni
-razionali; in particolare, \(\sqrt{2}\notin\Q\).
+razionali. Nel seguito questo risultato sarà anche scritto nella forma
+\(\sqrt{2}\notin\Q\): l'esistenza in \(\R\) del numero reale non negativo
+il cui quadrato è \(2\), e quindi la legittimità di tale notazione, sarà
+giustificata nella \cref{sec:lez03-completezza-radice-due}.
 
-Per affrontare la dimostrazione di questo risultato, si introduce anzitutto la nozione di parità di un intero che
-verrà utilizzata in seguito.
+Per affrontare la dimostrazione di questo risultato, si introduce anzitutto
+la nozione di parità di un intero, che verrà utilizzata in seguito.
 
 Un intero \(m\) si dice \emph{pari} se esiste \(k\in\Z\) tale che
 \[
@@ -205,20 +212,26 @@ lemma segue.
 
 \begin{theorem}[Irrazionalità di \(\sqrt{2}\)]
 \label{thm:irrazionalita-radice-due}
-L'equazione \(x^2-2=0\) non ammette soluzioni \(x\in\Q\). Equivalentemente,
+L'equazione \(x^2-2=0\) non ammette soluzioni \(x\in\Q\). Con la
+notazione anticipata sopra, equivalentemente,
 \[
   \sqrt{2}\notin\Q.
 \]
 \end{theorem}
 
 \begin{proof}
-Si procede per assurdo, supponendo che l'equazione ammetta una soluzione
-razionale. Per la forma ridotta di un numero razionale, esistono
-\(m\in\Z\) e \(n\in\N\setminus\{0\}\), con
+Si procede per assurdo. Si supponga che esista \(x\in\Q\) tale che
 \[
-  \operatorname{mcd}(m,n)=1,
+  x^2=2.
 \]
-tali che
+Scrivendo \(x\) in forma ridotta, esistono \(m\in\Z\) e
+\(n\in\N\setminus\{0\}\) tali che
+\[
+  x=\frac{m}{n},
+  \qquad
+  \operatorname{mcd}(m,n)=1.
+\]
+Pertanto
 \[
   \left(\frac{m}{n}\right)^2=2.
 \]
@@ -254,7 +267,7 @@ Pertanto \(\neg B\) è falsa e la tesi \(B\) è vera.
 \end{proof}
 
 Nel risultato appena dimostrato compare il numero \(2\), che è un numero
-primo. Prima di formulare la generalizzazione, richiamiamo la relativa
+primo. Prima di formulare la generalizzazione, si richiama la relativa
 definizione.
 
 \begin{definition}[Numero primo]
@@ -277,13 +290,16 @@ Sia \(p\in\N\) un numero primo. L'equazione
 \[
   x^2-p=0
 \]
-non ammette soluzioni razionali. Equivalentemente,
+non ammette soluzioni razionali. Quando si usa la consueta notazione
+\(\sqrt{p}\) per la radice quadrata reale non negativa di \(p\), il risultato
+si esprime nella forma
 \[
   \sqrt{p}\notin\Q.
 \]
 \end{proposition}
 
-La dimostrazione di questa proposizione non viene sviluppata in questa sede.
+La dimostrazione della \cref{prop:irrazionalita-radice-primo} non viene
+sviluppata in questa sede.
 
 \section{Fattoriale}
 \label{sec:lez02-fattoriale}
@@ -302,7 +318,7 @@ Il fattoriale è definito ricorsivamente dalle condizioni
 \]
 \end{definition}
 
-Applicando la definizione ricorsiva si ottengono, per esempio,
+Applicando la \cref{def:fattoriale} si ottengono, per esempio,
 \begin{align*}
   0!&=1,\\
   1!&=1\cdot0!=1,\\
@@ -316,7 +332,7 @@ Per \(n\ge1\), il fattoriale può essere scritto anche nella forma esplicita
 Il caso \(n=0\) è specificato separatamente da \(0!=1\). La ricorrenza
 costruisce il prodotto aggiungendo a ogni passo il fattore successivo.
 
-A partire dalla definizione precedente è possibile ricavare alcune
+A partire dalla \cref{def:fattoriale} è possibile ricavare alcune
 semplici proprietà del fattoriale. In particolare, il fattoriale di un
 numero naturale è sempre maggiore o uguale al numero stesso.
 
@@ -329,7 +345,7 @@ Per ogni \(n\in\N\) vale
 \end{proposition}
 
 \begin{proof}
-Per applicare il principio di induzione, introdotto nella
+Per applicare il \cref{thm:principio-induzione}, introdotto nella
 \cref{sec:lez01-induzione}, si considera l'insieme dei numeri naturali
 per i quali la disuguaglianza è verificata:
 \[
@@ -337,7 +353,8 @@ per i quali la disuguaglianza è verificata:
 \]
 
 \emph{Passo base.}
-Si verifica anzitutto la proprietà per \(n=0\). Per definizione,
+Si verifica anzitutto la proprietà per \(n=0\). Per la
+\cref{def:fattoriale},
 \[
   0!=1\ge0,
 \]
@@ -348,22 +365,20 @@ Si deve dimostrare che
 \[
   n\in A\Longrightarrow n+1\in A.
 \]
-
 Il caso \(n=0\) viene verificato direttamente:
 \[
   1!=1\ge1,
 \]
 quindi \(1\in A\).
 
-Consideriamo ora \(n\ge1\) e supponiamo \(n\in A\). Per definizione di
+Si consideri ora \(n\ge1\) e si supponga \(n\in A\). Per definizione di
 \(A\), vale l'ipotesi induttiva
 \[
   n!\ge n.
 \]
-Poiché \(n+1>0\), per la compatibilità dell'ordine con la
-moltiplicazione per un numero positivo, espressa nella
-\cref{prop:compatibilita-ordine}, moltiplicando entrambi i membri per
-\(n+1\) il verso della disuguaglianza non cambia. Si ottiene quindi
+Poiché \(n+1>0\), per la \cref{prop:compatibilita-ordine}, moltiplicando
+entrambi i membri per \(n+1\) il verso della disuguaglianza non cambia.
+Si ottiene quindi
 \[
   (n+1)n!\ge(n+1)n.
 \]
@@ -377,32 +392,25 @@ e pertanto
 \]
 
 Resta da confrontare \((n+1)n\) con \(n+1\). Poiché \(n\ge1\) e
-\(n+1>0\), moltiplicando la disuguaglianza
-\[
-  n\ge1
-\]
-per \(n+1\) si ottiene
+\(n+1>0\), moltiplicando la disuguaglianza \(n\ge1\) per \(n+1\) si
+ottiene
 \[
   (n+1)n\ge(n+1)\cdot1=n+1.
 \]
 Combinando le due disuguaglianze,
 \[
-  (n+1)!
-  \ge(n+1)n
-  \ge n+1.
+  (n+1)!\ge(n+1)n\ge n+1.
 \]
 Si è quindi dimostrato che \(n+1\in A\).
 
 Il passo induttivo è dunque verificato sia per \(n=0\), tramite controllo
-diretto, sia per ogni \(n\ge1\).
-
-Essendo verificati il passo base e il passo induttivo, per il
-\cref{thm:principio-induzione}, con valore iniziale \(p=0\), si conclude
-che
+diretto, sia per ogni \(n\ge1\). Essendo verificati il passo base e il
+passo induttivo, per il \cref{thm:principio-induzione}, con valore
+iniziale \(p=0\), si conclude che
 \[
   \N\subseteq A.
 \]
-Poiché per definizione \(A\subseteq\N\), segue che
+Poiché, per definizione, \(A\subseteq\N\), segue che
 \[
   A=\N.
 \]
