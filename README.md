@@ -85,22 +85,23 @@ An exam is considered **covered** only when its intended notes are sufficiently 
 <!-- RELEASE-CATALOG:START -->
 | Degree year | Exams covered |
 |---|---:|
-| First year | 0 |
+| First year | 2 |
 | Second year | 0 |
 | Third year | 0 |
-| **Total** | **0** |
+| **Total** | **2** |
 
 Current covered exams:
 
 | Year | Exam | Course archive | Compiled notes |
 |---:|---|---|---|
-| — | _No exams covered yet_ | — | — |
+| 1 | Analisi Matematica 1 | [`1/analisi-matematica-1`](1/analisi-matematica-1/) | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-analisi-matematica-1.pdf) |
+| 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-fondamenti-di-informatica.pdf) |
 
 ## Releases
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|
-| — | — | _No releases published yet_ | — |
+| [`2026-2027-week-01`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/2026-2027-week-01) | 2026-10-07 | Week 1 Snapshot | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-fondamenti-di-informatica.pdf) |
 <!-- RELEASE-CATALOG:END -->
 
 ## Build locally
