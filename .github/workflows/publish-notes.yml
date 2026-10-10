@@ -169,7 +169,7 @@ jobs:
 
       - name: Upload LaTeX logs after a failure
         if: ${{ failure() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: release-latex-logs-${{ github.sha }}
           path: |
@@ -203,7 +203,7 @@ jobs:
           find .build/release -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort
 
       - name: Transfer release package to publisher
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: notes-release-${{ github.sha }}
           path: .build/release/
