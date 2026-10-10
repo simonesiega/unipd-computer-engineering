@@ -14,8 +14,7 @@
 **/__pycache__/
 *.py[cod]
 
-# Local reference material and Python environments
-/.context/
+#Python environments
 /.venv/
 /venv/
 
@@ -88,3 +87,7 @@ _minted-*/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Context
+.context/**
+!.context/.gitkeep
