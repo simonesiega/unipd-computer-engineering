@@ -1,0 +1,18 @@
+\begin{unipdcode}[language=Python]
+voti = [20, 30, 27]
+voti[0] = 21
+voti.append(18)
+ultimo = voti.pop()
+ordinati = sorted(voti)
+print("Primi due:", voti[:2])
+print("Presente 30:", 30 in voti)
+
+totale = 0
+conteggio = 0
+for voto in voti:
+    if voto >= 24:
+        totale = totale + voto
+        conteggio = conteggio + 1
+if conteggio > 0:
+    print("Media dei voti almeno 24:", totale / conteggio)
+\end{unipdcode}
