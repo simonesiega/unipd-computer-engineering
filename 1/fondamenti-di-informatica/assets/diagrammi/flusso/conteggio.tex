@@ -1,0 +1,20 @@
+% Diagramma originale; licenza CC BY-SA 4.0 del materiale didattico.
+\begin{tikzpicture}[unipd/diagram,node distance=7mm]
+  \node[unipd/flow start] (inizio) {Inizio};
+  \node[unipd/flow process,rounded corners=0pt,below=of inizio]
+    (inizializzazione) {\(n\gets0\)};
+  \node[unipd/flow decision,below=of inizializzazione]
+    (condizione) {\(n<3\)?};
+  \node[unipd/flow process,rounded corners=0pt,below=10mm of condizione]
+    (incremento) {\(n\gets n+1\)};
+  \node[unipd/flow end,below=of incremento] (fine) {Fine};
+  \draw[unipd/flow arrow] (inizio) -- (inizializzazione);
+  \draw[unipd/flow arrow] (inizializzazione) -- (condizione);
+  \draw[unipd/flow arrow] (condizione) --
+    node[unipd/edge label,midway,right,xshift=1mm,yshift=1mm] {Sì} (incremento);
+  \draw[unipd/flow arrow] (incremento.west) -- ++(-6mm,0)
+    |- (condizione.west);
+  \draw[unipd/flow arrow] (condizione.east) --
+    node[unipd/edge label,midway,above] {No} ++(9mm,0)
+    |- (fine.east);
+\end{tikzpicture}

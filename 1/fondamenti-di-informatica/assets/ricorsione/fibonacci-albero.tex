@@ -1,0 +1,15 @@
+% Diagramma originale; licenza CC BY-SA 4.0 del materiale didattico.
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node] (a) at (0,0) {\texttt{fib(5)}};
+  \node[unipd/node] (b) at (-2.4,-1.2) {\texttt{fib(4)}};
+  \node[unipd/node] (c) at (2.4,-1.2) {\texttt{fib(3)}};
+  \node[unipd/node] (d) at (-3.6,-2.4) {\texttt{fib(3)}};
+  \node[unipd/node] (e) at (-1.2,-2.4) {\texttt{fib(2)}};
+  \node[unipd/node] (f) at (1.2,-2.4) {\texttt{fib(2)}};
+  \node[unipd/node] (g) at (3.6,-2.4) {\texttt{fib(1)}};
+  \node[unipd/node] (h) at (-4.5,-3.6) {\texttt{fib(2)}};
+  \node[unipd/node] (i) at (-2.7,-3.6) {\texttt{fib(1)}};
+  \foreach \parent/\child in {a/b,a/c,b/d,b/e,c/f,c/g,d/h,d/i} {
+    \draw[unipd/directed edge] (\parent) -- (\child);
+  }
+\end{tikzpicture}

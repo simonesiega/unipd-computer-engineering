@@ -1,0 +1,531 @@
+\chapter{Introduzione a Python}
+\label{chap:introduzione-python}
+
+Python permette di esprimere in forma eseguibile i procedimenti descritti
+nella \cref{sec:fi-algoritmi}. Variabili, condizioni, cicli e funzioni
+consentono di organizzare il calcolo, mentre le operazioni di ingresso e
+uscita permettono di acquisire i dati e comunicare i risultati. Nel
+seguito il nome Python indica sempre \emph{Python 3}.\footnote{Riferimento didattico:
+S. Canazza, \emph{Python}, file
+\nolinkurl{2026_FI_02_canazza_Python.pdf}. Per approfondire:
+Python Software Foundation,
+\href{https://docs.python.org/3/tutorial/}{\emph{The Python Tutorial}},
+in particolare le sezioni dedicate a espressioni, controllo del flusso,
+moduli e operazioni di ingresso e uscita.}
+
+\section{Python e l'esecuzione dei programmi}
+\label{sec:fi-python-esecuzione}
+
+Python è un linguaggio \emph{ad alto livello} e \emph{general purpose}:
+permette di descrivere operazioni senza specificare le istruzioni del
+processore ed è utilizzabile in ambiti diversi. Nato dal lavoro di Guido
+van Rossum al CWI alla fine degli anni Ottanta, ebbe la prima versione
+pubblica nel 1991. Python 3 non è pienamente compatibile con Python 2,
+che non è più mantenuto: gli esempi destinati alle due versioni non sono
+quindi sempre intercambiabili.
+
+L'\emph{interprete Python} realizza l'esecuzione del programma.
+Nell'implementazione CPython, il codice sorgente viene tradotto in
+\emph{bytecode}, una rappresentazione intermedia eseguita dall'interprete.
+L'interpretazione non consiste dunque necessariamente nell'eseguire
+una riga di sorgente alla volta, come chiarito nella
+\cref{sec:fi-linguaggi-esecuzione}.
+
+Il sorgente può essere inserito in modalità interattiva oppure salvato
+in un file di testo con estensione \texttt{.py}, detto \emph{script}.
+Avviando l'interprete dal terminale senza indicare uno script, si accede
+alla modalità interattiva, riconoscibile dal prompt
+\lstinline[basicstyle=\ttfamily]|>>>|.
+Il ciclo \emph{REPL} (\emph{Read, Eval, Print, Loop}) legge il comando,
+lo valuta, mostra il risultato di un'espressione quando previsto e
+attende un nuovo comando. Un assegnamento, per esempio, non produce
+automaticamente una stampa. Questa modalità è utile per prove brevi;
+le definizioni rimangono disponibili durante la sessione, ma vengono
+perse quando questa termina, salvo che siano state salvate in un file.
+
+Uno script conserva invece le istruzioni da eseguire a ogni avvio. Il
+ciclo di lavoro consiste nel modificare il sorgente, salvarlo, eseguirlo
+e verificare il risultato. Il flusso di esecuzione può essere
+modificato da condizioni e cicli, che determinano quali blocchi eseguire
+o ripetere. A differenza del REPL, una semplice espressione nello script
+non viene visualizzata
+automaticamente; per produrre un'uscita si può usare \texttt{print()}.
+
+\input{assets/codice/esecuzione/saluto}
+
+Una \emph{stringa} è una sequenza di caratteri; negli esempi è delimitata
+nel sorgente da virgolette singole o doppie dello stesso tipo. Le
+virgolette non fanno parte del testo stampato. Le parentesi tonde indicano la chiamata della
+funzione \texttt{print}; il testo fra parentesi è il suo \emph{argomento}.
+\texttt{print()} mostra i valori ricevuti, separandoli normalmente con
+spazi se sono più di uno, e aggiunge un fine riga. Fuori da una stringa,
+\texttt{\#} introduce un commento fino alla fine della riga: serve a
+spiegare il codice e non viene eseguito.
+
+Salvando l'esempio come \texttt{saluto.py}, dalla directory che lo contiene
+si ottiene la seguente esecuzione. Qui \texttt{python3} indica il comando
+che avvia Python 3; il suo nome può dipendere dall'ambiente.
+
+\input{assets/codice/esecuzione/terminale}
+
+Il simbolo \texttt{\$} è il prompt del terminale e non va digitato.
+Analogamente, \lstinline[basicstyle=\ttfamily]|>>>|
+identifica il REPL e non fa parte del codice di uno script.
+
+\section{Variabili, tipi di dato e input/output}
+\label{sec:fi-python-variabili}
+
+Una \emph{variabile} è un nome che fa riferimento a un valore, ossia a
+un oggetto gestito da Python. L'assegnamento \texttt{nome = espressione}
+valuta prima l'espressione a destra e poi associa il risultato al nome
+a sinistra. Non esprime un'uguaglianza matematica né una relazione che
+si aggiorni da sola. Dopo \texttt{a = 3} e \texttt{b = a}, l'istruzione
+\texttt{a = 4} lascia \texttt{b} associato al valore \texttt{3}.
+Un nome deve essere definito prima di essere usato, altrimenti si
+ottiene un errore \texttt{NameError}.
+
+L'aggiornamento \texttt{punteggio = punteggio + 1} usa il valore corrente
+di \texttt{punteggio}, aggiunge uno e associa al nome il nuovo risultato.
+Non richiede una dichiarazione separata della variabile. Il tipo è una
+proprietà dell'oggetto a cui il nome fa riferimento: uno stesso nome può
+essere riassegnato a oggetti di tipo diverso, ma mantenerne coerente il
+significato rende il programma più leggibile.
+
+Gli \emph{identificatori} possono usare lettere, cifre e il carattere
+\texttt{\_}, ma non iniziare con una cifra né contenere spazi. Non possono
+coincidere con parole riservate, come \texttt{if} e \texttt{for}. Python
+distingue maiuscole e minuscole: \texttt{prezzo} e \texttt{Prezzo} sono
+nomi diversi. Si preferiscono nomi descrittivi in \emph{snake\_case},
+come \texttt{numero\_studenti}, evitando di riutilizzare nomi di funzioni
+predefinite, come \texttt{input} o \texttt{str}.
+
+Fra i tipi fondamentali si distinguono:
+\begin{itemize}
+  \item \texttt{int}: numeri interi, come \texttt{0}, \texttt{42}, \texttt{-7};
+  \item \texttt{float}: numeri in virgola mobile, come \texttt{3.14} e
+        \texttt{-0.5}, non necessariamente rappresentazioni esatte dei
+        valori decimali (\cref{sec:fi-precisione-arrotondamento});
+  \item \texttt{str}: stringhe, come
+        \lstinline[basicstyle=\ttfamily]|"ciao"| e
+        \lstinline[basicstyle=\ttfamily]|"42"|;
+  \item \texttt{bool}: valori logici \texttt{True} e \texttt{False}.
+\end{itemize}
+Gli interi \texttt{int} di Python non hanno una larghezza fissa:
+la loro precisione cresce secondo necessità, entro i limiti delle
+risorse disponibili. Non sono quindi soggetti all'overflow su un numero
+prefissato di bit descritto nella \cref{sec:fi-aritmetica-overflow}.
+
+Il separatore decimale è il punto. La funzione \texttt{type(valore)}
+restituisce il tipo: per esempio, \texttt{type(42)} è visualizzato come
+\lstinline[basicstyle=\ttfamily]|<class 'int'>|.
+La stringa \lstinline[basicstyle=\ttfamily]|"42"|
+è distinta dal numero \texttt{42}, secondo le convenzioni introdotte
+nella \cref{sec:fi-caratteri}.
+
+Gli operatori aritmetici \texttt{+}, \texttt{-} e \texttt{*} esprimono
+somma, sottrazione e prodotto; \texttt{**} esprime la potenza.
+Per operandi \texttt{int} o \texttt{float}, \texttt{/} produce una divisione
+con risultato \texttt{float}, anche quando il quoziente è intero:
+\texttt{10 / 2} vale \texttt{5.0}. L'operatore \texttt{//} calcola invece
+il quoziente arrotondato verso il basso, cioè verso \(-\infty\);
+con entrambi gli operandi interi il risultato è \texttt{int}, altrimenti
+è \texttt{float}. Non coincide con il troncamento verso zero.
+
+Per interi \(a\) e \(b\ne0\), il resto \texttt{a \% b} soddisfa
+\[
+  a=(a\mathbin{//}b)b+(a\mathbin{\%}b).
+\]
+Il resto ha modulo minore di \(|b|\) e, se non è nullo, il segno
+del divisore. Per esempio, \texttt{17 // 5} vale \texttt{3} e
+\texttt{17 \% 5} vale \texttt{2}, mentre
+\texttt{-17 // 5} vale \texttt{-4} e \texttt{-17 \% 5} vale \texttt{3}.
+Il resto è utile, per esempio, per riconoscere gli interi pari mediante
+\texttt{numero \% 2 == 0}. Un divisore nullo causa
+\texttt{ZeroDivisionError} per \texttt{/}, \texttt{//} e \texttt{\%}.
+
+Le parentesi modificano l'ordine di valutazione. Le potenze precedono
+prodotti, divisioni e resti, che precedono somme e sottrazioni; a pari
+livello questi ultimi operatori si raggruppano da sinistra.
+\texttt{**} si raggruppa invece da destra: \texttt{2 ** 3 ** 2}
+vale \texttt{2 ** (3 ** 2)}. La potenza precede il segno meno alla sua sinistra:
+\texttt{-3 ** 2} vale \texttt{-9}, mentre
+\texttt{(-3) ** 2} vale \texttt{9}.
+
+Gli operatori dipendono dal tipo degli operandi: su stringhe,
+\texttt{+} concatena testi e \texttt{*} con un intero li ripete.
+\lstinline[basicstyle=\ttfamily]|"3" + "4"|
+vale quindi \lstinline[basicstyle=\ttfamily]|"34"|, non \texttt{7};
+\lstinline[basicstyle=\ttfamily]|"ab" * 3| vale
+\lstinline[basicstyle=\ttfamily]|"ababab"|. La concatenazione diretta di
+una stringa con un numero causa \texttt{TypeError}.
+
+Le funzioni \texttt{int()}, \texttt{float()}, \texttt{str()} e
+\texttt{bool()} consentono conversioni esplicite.
+\lstinline[basicstyle=\ttfamily]|int("42")|
+produce \texttt{42}; da un valore \texttt{float}, \texttt{int()} tronca
+verso zero, per cui \texttt{int(-3.9)} vale \texttt{-3}.
+\lstinline[basicstyle=\ttfamily]|float("3.5")| produce \texttt{3.5}
+e \texttt{str(42)} produce \lstinline[basicstyle=\ttfamily]|"42"|.
+Un testo non ammissibile causa \texttt{ValueError}:
+\lstinline[basicstyle=\ttfamily]|int("3.5")| e
+\lstinline[basicstyle=\ttfamily]|float("ciao")| non sono conversioni valide.
+
+\texttt{bool()} determina il valore di verità: zero e la stringa vuota
+\lstinline[basicstyle=\ttfamily]|""| sono falsi;
+numeri non nulli e stringhe non vuote sono veri.
+In particolare,
+\lstinline[basicstyle=\ttfamily]|bool("False")|
+è \texttt{True}: la funzione non interpreta il significato della
+parola scritta.
+
+\texttt{input(prompt)} mostra il messaggio \emph{prompt}, attende una
+riga e la restituisce come stringa, senza il fine riga finale.
+Per elaborare numericamente il dato occorre convertirlo:
+
+\input{assets/codice/variabili/somma-input}
+
+Con gli ingressi \texttt{3} e \texttt{4}, il programma stampa
+\texttt{Somma: 7} e \texttt{Media: 3.5}. L'assegnamento aggiorna
+\texttt{totale} usando il valore precedente; la conversione permette
+la somma numerica. L'esempio assume che entrambi gli ingressi rappresentino interi
+validi.
+
+\section{Logica booleana e istruzioni condizionali}
+\label{sec:fi-python-condizioni}
+
+I confronti \texttt{==}, \texttt{!=}, \texttt{<}, \texttt{<=},
+\texttt{>} e \texttt{>=} verificano rispettivamente uguaglianza,
+diversità e relazioni d'ordine, producendo un valore booleano.
+\texttt{=} assegna un valore; \texttt{==} confronta due valori.
+Per esempio, \texttt{voto = 18} esegue un assegnamento,
+mentre \texttt{voto == 18} verifica il valore corrente.
+
+Gli operatori \texttt{and}, \texttt{or} e \texttt{not} combinano le
+condizioni. Per operandi booleani, la congiunzione è vera soltanto
+quando entrambi sono veri; la disgiunzione è vera quando almeno uno è
+vero, anche se lo sono entrambi; la negazione inverte il valore di
+verità. Le \emph{tabelle di verità} elencano tutti i casi possibili:
+\begin{center}
+  \begin{tabular}{ccccc}
+    \toprule
+    \(a\) & \(b\) & \texttt{a and b} & \texttt{a or b} & \texttt{not a} \\
+    \midrule
+    \texttt{False} & \texttt{False} & \texttt{False} & \texttt{False} & \texttt{True} \\
+    \texttt{False} & \texttt{True}  & \texttt{False} & \texttt{True}  & \texttt{True} \\
+    \texttt{True}  & \texttt{False} & \texttt{False} & \texttt{True}  & \texttt{False} \\
+    \texttt{True}  & \texttt{True}  & \texttt{True}  & \texttt{True}  & \texttt{False} \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+I confronti precedono gli operatori logici, fra i quali l'ordine è
+\texttt{not}, poi \texttt{and}, poi \texttt{or}. Quindi
+\texttt{True or False and False} vale \texttt{True}.
+Le parentesi rendono esplicito il raggruppamento anche quando non sono
+strettamente necessarie. Per condizioni booleane \(a,b\), le
+\emph{leggi di De Morgan} danno le equivalenze
+\[
+\begin{aligned}
+  \texttt{not (a and b)}&\quad\Longleftrightarrow\quad
+    \texttt{(not a) or (not b)},\\
+  \texttt{not (a or b)}&\quad\Longleftrightarrow\quad
+    \texttt{(not a) and (not b)}.
+\end{aligned}
+\]
+Negare una congiunzione significa che almeno una condizione non vale;
+negare una disgiunzione significa che nessuna vale.
+
+Python valuta il secondo operando di \texttt{and} e \texttt{or}
+soltanto quando è necessario: è la cosiddetta valutazione
+\emph{a cortocircuito}. Se gli operandi non sono booleani, questi
+operatori restituiscono uno degli operandi, non necessariamente
+\texttt{True} o \texttt{False}.
+
+L'istruzione \texttt{if} esegue un blocco soltanto se la sua condizione
+è vera. Le clausole \texttt{elif} introducono ulteriori alternative;
+\texttt{else}, priva di condizione, copre il caso residuo.
+
+\input{assets/codice/condizioni/esito}
+
+L'esempio assume un voto intero fra \texttt{0} e \texttt{30}.
+Le condizioni vengono esaminate dall'alto verso il basso: viene eseguito
+soltanto il blocco della prima condizione vera. Con \texttt{voto = 27}
+l'uscita è \texttt{Buono}; i confronti successivi non vengono valutati.
+Se nessuna condizione è vera, viene eseguito \texttt{else}, quando
+presente. Più \texttt{if} indipendenti, invece, controllano separatamente
+le proprie condizioni e possono eseguire più blocchi: non equivalgono
+in generale a una catena \texttt{if/elif/else}.
+
+I due punti introducono il blocco. L'\emph{indentazione}, cioè il rientro
+iniziale, fa parte della sintassi e identifica le istruzioni che vi
+appartengono. Tutte le istruzioni allo stesso livello devono avere lo
+stesso rientro; il ritorno al livello precedente conclude il blocco.
+Si usano quattro spazi per livello, senza mescolarli con tabulazioni.
+Un rientro non valido causa un errore di sintassi; un rientro valido ma
+posto nel punto sbagliato può invece cambiare il comportamento senza
+produrre un errore automatico.
+
+\section{Cicli e iterazioni}
+\label{sec:fi-python-cicli}
+
+Un \emph{ciclo} esegue ripetutamente un blocco di istruzioni.
+Ogni ripetizione è detta \emph{iterazione}. Il ciclo \texttt{while}
+è regolato da una condizione; \texttt{for} percorre invece i valori
+forniti da un oggetto \emph{iterabile}, come una lista, un \texttt{range}
+o un file.
+
+\texttt{while} controlla la condizione \emph{prima} di ogni iterazione.
+Se è falsa già al primo controllo, il corpo non viene eseguito.
+Occorre inizializzare i valori usati nella condizione e, quando
+necessario, aggiornarli nel corpo affinché il ciclo possa terminare.
+Un uso semplice è la validazione di un ingresso:
+
+\input{assets/codice/cicli/validazione}
+
+Il programma accetta il primo intero non negativo. La nuova lettura
+aggiorna \texttt{eta} prima del controllo successivo; senza di essa,
+un primo valore negativo farebbe ripetere indefinitamente la stessa
+richiesta. La terminazione dipende dall'inserimento di un dato valido.
+La verifica riguarda il valore numerico: il programma assume comunque
+un testo convertibile con \texttt{int()}, non gestisce parole o frazioni.
+
+In un ciclo \emph{controllato da un contatore}, l'inizializzazione
+stabilisce il primo valore, la condizione il limite e l'aggiornamento
+il progresso. Per contare da uno a cinque si inizializza
+\texttt{n = 1}, si controlla \texttt{n <= 5} e, dopo ogni elaborazione,
+si esegue \texttt{n = n + 1}, abbreviabile come \texttt{n += 1}.
+Un aggiornamento assente o nella direzione sbagliata può lasciare la
+condizione sempre vera: il ciclo è allora infinito, consuma risorse e
+impedisce di raggiungere le istruzioni successive. È un errore logico
+che l'interprete non riconosce in generale come errore di sintassi.
+
+Un ciclo \emph{con sentinella} termina invece quando viene letto un
+valore convenuto. Per sommare interi fino all'inserimento di zero,
+si inizializza una somma a zero e si legge il primo numero; finché
+\texttt{numero != 0}, si aggiunge il numero alla somma e si legge il
+successivo. La sentinella non viene elaborata come dato. Se è il primo
+ingresso, non viene svolta alcuna iterazione. La sentinella deve essere
+distinguibile dai dati da elaborare.
+
+\texttt{for} associa alla variabile del ciclo, uno alla volta, i valori
+forniti dall'iterabile ed esegue il corpo per ciascuno. Non richiede
+un aggiornamento manuale di tale variabile. È adatto sia a un numero
+prestabilito di ripetizioni sia alla visita degli elementi di una lista.
+
+\texttt{range()} descrive una sequenza di interi regolarmente spaziati,
+non una lista. Con un argomento, \texttt{range(stop)} parte da zero con
+passo uno; con due, \texttt{range(start, stop)} parte da \texttt{start};
+con tre, \texttt{range(start, stop, step)} usa il passo indicato.
+L'estremo iniziale è incluso e quello finale è escluso.
+\texttt{range(5)} dà \texttt{0, 1, 2, 3, 4}; \texttt{range(1, 6)} dà
+\texttt{1, 2, 3, 4, 5}; \texttt{range(1, 10, 2)} dà
+\texttt{1, 3, 5, 7, 9}. Con passo negativo,
+\texttt{range(5, 0, -1)} dà \texttt{5, 4, 3, 2, 1}.
+
+Il passo deve essere non nullo, altrimenti si ottiene \texttt{ValueError}.
+Con passo positivo vengono visitati valori minori di \texttt{stop};
+con passo negativo, valori maggiori di \texttt{stop}. Se la direzione
+non permette di partire verso il limite, la sequenza è vuota, come
+in \texttt{range(5, 0)}. Anche \texttt{range(0)} è vuoto.
+
+\input{assets/codice/cicli/accumulo}
+
+L'uscita è \texttt{Somma: 15}. La variabile \texttt{totale} è un
+\emph{accumulatore}: conserva il risultato parziale, inizialmente zero
+per una somma, e viene aggiornata a ogni iterazione. Con una sequenza
+vuota manterrebbe il valore iniziale. L'uso di \texttt{6} come limite
+escluso permette di includere \texttt{5} senza un caso separato.
+
+\section{Liste}
+\label{sec:fi-python-liste}
+
+Una \emph{lista} è un contenitore ordinato di elementi, scritto mediante
+parentesi quadre e valori separati da virgole. \texttt{[]} indica una
+lista vuota. Gli elementi possono avere tipi diversi, ma una lista
+omogenea rende normalmente più semplice l'elaborazione. «Ordinato»
+significa che ogni elemento ha una posizione, non che i valori siano
+già disposti in ordine crescente. Sono ammesse ripetizioni.
+
+La funzione \texttt{len(lista)} restituisce il numero di elementi.
+In una lista di lunghezza \(n\), gli indici non negativi validi sono
+\(0,\ldots,n-1\): \texttt{lista[0]} indica il primo elemento.
+Gli indici negativi contano dalla fine: \texttt{lista[-1]} indica
+l'ultimo e \texttt{lista[-2]} il penultimo; l'indice minimo valido è
+\(-n\). Un indice fuori da questi limiti causa \texttt{IndexError}.
+Una lista vuota non ammette accessi a singoli elementi.
+
+Le liste sono \emph{mutabili}: \texttt{lista[i] = valore}
+sostituisce l'elemento in posizione \texttt{i}.
+
+Alcune operazioni si chiamano \emph{metodi} e si scrivono dopo il nome
+della lista, separati da un punto. Il metodo \texttt{lista.append(valore)}
+aggiunge un elemento in fondo, modificando la lista senza restituire
+la lista aggiornata. Il metodo \texttt{lista.pop()} rimuove e restituisce
+l'ultimo elemento; se la lista è vuota, causa \texttt{IndexError}.
+
+L'espressione \texttt{valore in lista} verifica la presenza e produce un
+booleano. Lo \emph{slicing} \texttt{lista[i:j]} restituisce una nuova
+lista con gli elementi dall'indice \texttt{i} incluso a \texttt{j} escluso.
+Omettendo \texttt{i} si parte dall'inizio; omettendo \texttt{j}
+si arriva alla fine. \texttt{sorted(lista)}
+restituisce una nuova lista ordinata in senso crescente senza modificare
+l'originale; presuppone elementi confrontabili fra loro.
+
+\input{assets/codice/liste/voti}
+
+Dopo la sostituzione, l'aggiunta e la rimozione, \texttt{voti} contiene
+\texttt{[21, 30, 27]}; \texttt{ultimo} vale \texttt{18}. L'uscita mostra
+\texttt{Primi due: [21, 30]}, \texttt{Presente 30: True} e
+\texttt{Media dei voti almeno 24: 28.5}. Il ciclo visita direttamente
+i valori, senza usare indici, e la condizione seleziona quelli da
+accumulare. Il contatore permette di calcolare la media dei soli valori
+selezionati; il controllo finale evita una divisione per zero se nessuno
+soddisfa la condizione. \texttt{ordinati} è una lista distinta con valori
+\texttt{[21, 27, 30]}, mentre l'ordine di \texttt{voti} rimane invariato.
+
+\section{Funzioni}
+\label{sec:fi-python-funzioni}
+
+Una \emph{funzione} raccoglie sotto un nome istruzioni riutilizzabili.
+Consente di evitare ripetizioni di codice e di suddividere un problema
+in operazioni più semplici. La definizione
+usa \texttt{def}, il nome, le parentesi con gli eventuali \emph{parametri}
+e i due punti; il corpo è indentato.
+
+\noindent\begin{minipage}{\linewidth}
+Eseguire la definizione rende disponibile la funzione, ma non esegue il
+suo corpo. La \emph{chiamata}, scritta con il nome seguito dalle parentesi,
+avvia invece il corpo. I valori passati nella chiamata sono gli
+\emph{argomenti}; i parametri sono i nomi con cui la funzione li usa.
+Le parentesi restano necessarie anche per una funzione senza argomenti.
+
+\input{assets/codice/funzioni/area}
+\end{minipage}\par
+
+\texttt{base} e \texttt{altezza} sono parametri; \texttt{8} e \texttt{5}
+sono gli argomenti della chiamata. \texttt{return} termina la chiamata e
+restituisce il risultato al punto che l'ha invocata, dove può essere
+assegnato oppure usato in un'altra espressione. L'esempio stampa
+\texttt{Area: 40}. I parametri e le variabili assegnate nel corpo sono
+normalmente locali alla chiamata: non diventano automaticamente nomi
+utilizzabili all'esterno.
+
+\texttt{print()} mostra un valore, ma non lo restituisce come risultato
+del calcolo. Sostituendo il \texttt{return} dell'esempio con
+\texttt{print(base * altezza)}, la chiamata stamperebbe \texttt{40},
+ma \texttt{risultato} varrebbe \texttt{None}. Questo valore indica
+l'assenza di un risultato specificato: viene restituito quando si
+raggiunge la fine del corpo senza \texttt{return}, oppure si esegue
+\texttt{return} senza espressione. Anche \texttt{print()} restituisce
+\texttt{None}. Una funzione può restituire un booleano, per esempio
+mediante \texttt{return numero \% 2 == 0}, o scegliere risultati diversi
+con istruzioni condizionali.
+
+Le definizioni possono essere raccolte in un file separato, detto
+\emph{modulo}. Salvando la sola definizione precedente in
+\texttt{geometria.py}, un altro script nella stessa directory può
+utilizzarla così:
+
+\input{assets/codice/funzioni/modulo}
+
+\texttt{import geometria} rende disponibile il modulo. La funzione
+viene richiamata tramite il nome qualificato
+\texttt{geometria.}\allowbreak\texttt{area\_rettangolo},
+formato dal nome del modulo e da quello della funzione. L'estensione
+\texttt{.py} non si scrive in \texttt{import}. Nell'esempio il modulo
+contiene soltanto la definizione:
+le eventuali istruzioni poste al suo livello principale verrebbero
+eseguite anche durante l'importazione.
+
+\section{Gestione dei file di testo}
+\label{sec:fi-python-file}
+
+Un file consente di conservare dati oltre la durata del programma,
+secondo la distinzione fra memoria di lavoro e archiviazione della
+\cref{sec:fi-memoria-archiviazione}. Un \emph{file di testo} rappresenta
+caratteri mediante una codifica; un \emph{file binario} contiene byte
+interpretati secondo il proprio formato, non necessariamente come testo.
+Anche il testo è memorizzato come byte: la differenza riguarda la loro
+interpretazione (\cref{sec:fi-caratteri}).
+
+Il \emph{percorso} identifica il file. Un percorso relativo, come
+\lstinline[basicstyle=\ttfamily]|"voti.txt"|,
+viene risolto rispetto alla \emph{directory di lavoro corrente} del
+processo, normalmente quella dalla quale viene avviato il programma,
+non necessariamente quella che contiene lo script.
+Un percorso assoluto non dipende invece dalla directory corrente.
+
+La chiamata
+\lstinline[basicstyle=\ttfamily]|open(percorso, modalita, encoding="utf-8")|
+apre un file di testo e restituisce un oggetto per leggerlo o scriverlo.
+Il parametro \texttt{encoding} specifica la codifica utilizzata nella
+scrittura e nell'interpretazione del testo in lettura. Per leggere
+correttamente un file esistente deve corrispondere alla codifica con cui
+è stato salvato. UTF-8 permette, fra l'altro, di conservare il testo
+italiano con i caratteri accentati.
+
+\noindent\begin{minipage}{\linewidth}
+Le modalità essenziali sono:
+\begin{itemize}
+  \item \lstinline[basicstyle=\ttfamily]|"r"|: lettura di un file esistente;
+  \item \lstinline[basicstyle=\ttfamily]|"w"|: scrittura; crea il file se manca
+        e cancella il contenuto precedente già all'apertura;
+  \item \lstinline[basicstyle=\ttfamily]|"a"|: aggiunta in fondo;
+        conserva il contenuto esistente e crea il file se manca.
+\end{itemize}
+\end{minipage}\par
+Creare un file presuppone comunque che la directory di destinazione
+esista e che siano disponibili i permessi necessari.
+
+La forma \texttt{with open(...) as file:} associa l'oggetto al nome
+\texttt{file} e ne delimita l'uso a un blocco indentato. All'uscita dal
+blocco il file viene chiuso automaticamente, anche se si verifica un
+errore nel corpo. La chiusura libera le risorse e completa le scritture
+in attesa; non occorre aggiungere una chiamata manuale a \texttt{close()}.
+
+\input{assets/codice/file/scrittura}
+
+\texttt{write()} scrive una stringa e non aggiunge automaticamente un
+fine riga. La sequenza \texttt{\textbackslash n} indica un carattere di
+fine riga, secondo le convenzioni della \cref{sec:fi-caratteri}.
+Il primo blocco sostituisce il contenuto con due righe, il secondo ne
+aggiunge una terza. Il file risultante contiene \texttt{24}, \texttt{27}
+e \texttt{30}, un voto per riga; si tratta di testo, non della
+rappresentazione binaria degli interi.
+Rieseguendo tutto l'esempio si ottengono ancora soltanto queste tre
+righe, perché l'apertura iniziale in
+\lstinline[basicstyle=\ttfamily]|"w"| cancella il contenuto.
+
+Per leggere un file breve per intero si può usare \texttt{file.read()}
+all'interno del blocco \texttt{with}: il risultato è una sola stringa.
+In alternativa, \texttt{for riga in file} legge una riga alla volta,
+senza richiedere di conservare tutto il testo insieme. La lettura
+per righe è adatta anche a file di grandi dimensioni.
+
+Le righe lette conservano normalmente il fine riga \texttt{\textbackslash n};
+l'ultima può esserne priva. Stampare una riga con \texttt{print(riga)}
+può quindi aggiungere un secondo fine riga. \texttt{riga.strip()}
+restituisce una stringa senza spazi bianchi iniziali e finali, incluso
+il fine riga, ma elimina anche eventuali spazi significativi.
+Per stampare il testo senza aggiungere un altro fine riga si può usare
+\lstinline[basicstyle=\ttfamily]|print(riga, end="")|.
+
+L'esempio seguente legge il file creato in precedenza, assumendo che
+ogni riga contenga un intero valido, e ne accumula i valori:
+
+\input{assets/codice/file/lettura}
+
+Con il file precedente stampa \texttt{Somma: 81}; con un file vuoto
+stampa \texttt{Somma: 0}. La conversione \texttt{int()} è necessaria
+perché una riga è una stringa; per dati in virgola mobile si userebbe
+\texttt{float()}. Una riga vuota o non numerica causerebbe
+\texttt{ValueError}: la pulizia con \texttt{strip()} non rende valido
+qualunque contenuto.
+
+Aprire un file inesistente in modalità
+\lstinline[basicstyle=\ttfamily]|"r"| causa \texttt{FileNotFoundError}.
+Nel frammento, \texttt{try} racchiude le operazioni che possono
+fallire, mentre \texttt{except FileNotFoundError} individua il blocco
+da eseguire per quel particolare errore, senza intercettare gli altri.
+Se il file manca, il messaggio segnala il problema anziché presentare
+zero come somma di dati letti.

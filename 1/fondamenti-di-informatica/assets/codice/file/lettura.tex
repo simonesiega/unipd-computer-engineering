@@ -1,0 +1,10 @@
+\begin{unipdcode}[language=Python]
+try:
+    totale = 0
+    with open("voti.txt", "r", encoding="utf-8") as file:
+        for riga in file:
+            totale = totale + int(riga.strip())
+    print("Somma:", totale)
+except FileNotFoundError:
+    print("File voti.txt non trovato.")
+\end{unipdcode}

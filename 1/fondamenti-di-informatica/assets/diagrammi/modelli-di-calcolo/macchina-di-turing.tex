@@ -1,0 +1,16 @@
+% Diagramma originale; licenza CC BY-SA 4.0 del materiale didattico.
+\begin{tikzpicture}[unipd/diagram]
+  \foreach \i/\tapesymbol in {0/\mdlgwhtsquare,1/0,2/1,3/1,4/0,5/\mdlgwhtsquare,6/\mdlgwhtsquare} {
+    \node[unipd/node,rectangle,rounded corners=0pt,
+          minimum width=10mm,minimum height=10mm,inner sep=0pt]
+      (cell\i) at (\i,0) {$\tapesymbol$};
+  }
+  \node at (-0.9,0) {$\cdots$};
+  \node at (6.9,0) {$\cdots$};
+  \node[unipd/node] (head) at (3,1.5) {Testina: stato $q$};
+  \draw[unipd/directed edge,shorten <=2pt,shorten >=2pt]
+    (head.south) -- (cell3.north);
+  % Etichetta separata: il suo sfondo non deve coprire la freccia.
+  \draw[unipd/edge,<->] (2,-0.9) -- (4,-0.9);
+  \node[unipd/edge label] at (3,-1.4) {spostamento di una cella};
+\end{tikzpicture}

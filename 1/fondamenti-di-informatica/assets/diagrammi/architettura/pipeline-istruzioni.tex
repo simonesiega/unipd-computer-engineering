@@ -1,0 +1,15 @@
+% Diagramma originale; licenza CC BY-SA 4.0 del materiale didattico.
+\begin{tikzpicture}[unipd/diagram,x=0.9cm,y=0.65cm]
+  \node[anchor=east] at (-0.7,0) {Ciclo};
+  \foreach \cycle in {1,...,8} {
+    \node at (\cycle,0) {\cycle};
+  }
+  \foreach \instruction in {1,...,4} {
+    \node[anchor=east] at (-0.7,-\instruction) {Istruzione \instruction};
+    \foreach \stage/\name in {0/F,1/D,2/O,3/E,4/W} {
+      \node[unipd/node,rounded corners=0pt,minimum width=8mm,
+        minimum height=6mm,inner sep=0pt]
+        at ({\instruction+\stage},-\instruction) {\name};
+    }
+  }
+\end{tikzpicture}
