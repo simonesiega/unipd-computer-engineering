@@ -1,0 +1,22 @@
+% Diagramma originale; licenza CC BY-SA 4.0 del materiale didattico.
+\begin{tikzpicture}[unipd/diagram]
+  \draw[unipd/edge,rounded corners=2pt] (-4.6,0.5) rectangle (4.6,2.7);
+  \node at (0,2.4) {CPU};
+  \node[unipd/architecture component] (control) at (-3,1.35)
+    {Unità di\\controllo};
+  \node[unipd/architecture component] (alu) at (0,1.35) {ALU};
+  \node[unipd/architecture component] (registers) at (3,1.35)
+    {Registri\\PC, istruzione\\dati};
+  \draw[unipd/edge,<->] (control) -- (alu);
+  \draw[unipd/edge,<->] (alu) -- (registers);
+  \draw[unipd/edge,line width=1.2pt] (-4.6,-0.3) -- (4.6,-0.3);
+  \node[font=\normalfont,anchor=north] at (0,-0.4)
+    {Bus: dati, indirizzi, controllo};
+  \draw[unipd/edge,<->] (0,0.5) -- (0,-0.3);
+  \node[unipd/architecture component] (memory) at (-3,-1.5)
+    {Memoria centrale\\istruzioni e dati};
+  \node[unipd/architecture component] (io) at (3,-1.5)
+    {Interfacce I/O\\periferiche};
+  \draw[unipd/edge,<->] (memory.north) -- (-3,-0.3);
+  \draw[unipd/edge,<->] (io.north) -- (3,-0.3);
+\end{tikzpicture}
