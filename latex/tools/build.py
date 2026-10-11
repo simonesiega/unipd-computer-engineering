@@ -331,6 +331,17 @@ def document_language(document: Path) -> str:
     return "english" if "english" in options else "italian"
 
 
+def document_toc_depth(document: Path) -> int | None:
+    """Return the last literal tocdepth setting in the document preamble."""
+    source = strip_comments(document.read_text(encoding="utf-8", errors="replace"))
+    preamble = source.split("\\begin{document}", 1)[0]
+    settings = re.findall(
+        r"\\setcounter\s*\{\s*tocdepth\s*\}\s*\{\s*([+-]?\d+)\s*\}",
+        preamble,
+    )
+    return int(settings[-1]) if settings else None
+
+
 def course_identifiers(document: Path) -> dict[str, str]:
     """Return optional course identifiers declared before the document body."""
     source = strip_comments(document.read_text(encoding="utf-8", errors="replace"))
@@ -534,6 +545,13 @@ def process_document(
                     f"{toc_file}. Build the document first or use --no-readme."
                 )
             entries = parse_toc(toc_file)
+            toc_depth = document_toc_depth(document)
+            if toc_depth is not None:
+                entries = [
+                    entry for entry in entries
+                    if (-1 if entry.level == "part" else LEVEL_DEPTH[entry.level])
+                    <= toc_depth
+                ]
             markdown = render_generated_markdown(
                 entries,
                 document_language(document),
