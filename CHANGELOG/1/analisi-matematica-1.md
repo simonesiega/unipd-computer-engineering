@@ -6,6 +6,52 @@ Committed changes for `1/analisi-matematica-1` and every file below it.
 
 Newest changes appear first.
 
+## 7/10/2026
+
+### [`e75cb22`](https://github.com/simonesiega/unipd-computer-engineering/commit/e75cb222726532ca201e24754ebe4ff6966d8b03) — docs(analisi-1): review and refine week 1 notes (#11)
+
+- **Modified** `README.md`
+- **Modified** `assets/grafici/retta-reale/caratterizzazione-inf.tex`
+- **Modified** `assets/grafici/retta-reale/caratterizzazione-sup.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+
+## 5/10/2026
+
+### [`8f12a46`](https://github.com/simonesiega/unipd-computer-engineering/commit/8f12a463bef707820bdbc50335148519b5205941) — feat(analisi-1): add lecture 4 notes (#10)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/retta-reale/caratterizzazione-inf.tex`
+- **Added** `assets/grafici/retta-reale/caratterizzazione-sup.tex`
+- **Added** `assets/grafici/retta-reale/densita-razionali.tex`
+- **Added** `assets/grafici/retta-reale/non-intervallo.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Added** `sections/settimana-01/04-lezione.tex`
+
+### [`b342567`](https://github.com/simonesiega/unipd-computer-engineering/commit/b342567e8061fa84af20bfe0a70e7a65669f12c9) — feat(analisi-1): add lecture 3 notes (#9)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/ceiling.tex`
+- **Added** `assets/grafici/funzioni/floor.tex`
+- **Renamed** `assets/insiemi/venn-operazioni.tex` → `assets/grafici/insiemi/venn-operazioni.tex`
+- **Added** `assets/pseudocodice/funzioni/ceiling.tex`
+- **Added** `assets/pseudocodice/funzioni/floor.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/notazione.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Added** `sections/settimana-01/03-lezione.tex`
+
+### [`1486ac8`](https://github.com/simonesiega/unipd-computer-engineering/commit/1486ac87450e40298d71e3e07b1af3c300542350) — feat(analisi-1): add lecture 2 notes (#8)
+
+- **Modified** `README.md`
+- **Modified** `main.tex`
+- **Modified** `sections/notazione.tex`
+- **Renamed** `sections/01-lezione.tex` → `sections/settimana-01/01-lezione.tex`
+- **Added** `sections/settimana-01/02-lezione.tex`
+
 ## 29/9/2026
 
 ### [`69e84d7`](https://github.com/simonesiega/unipd-computer-engineering/commit/69e84d7c7b69c4e3ef12672870cca0a15697c70a) — feat(analisi-1): add lecture 1 notes
