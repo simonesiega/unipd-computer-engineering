@@ -32,4 +32,10 @@
   - 4.4 Massimo e minimo — p. 24
   - 4.5 Estremo superiore ed estremo inferiore — p. 25
   - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 26
+- 5 Lezione 5 --- 6 ottobre 2026 — p. 30
+  - 5.1 Disuguaglianza di Bernoulli — p. 30
+  - 5.2 Binomio di Newton — p. 30
+  - 5.3 Esercizi sul fattoriale — p. 31
+  - 5.4 Esercizi sugli estremi — p. 32
+- A Tutorato 1 --- 8 ottobre 2026 — p. 35
 <!-- GENERATED:END -->
