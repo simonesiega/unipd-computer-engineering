@@ -1,0 +1,189 @@
+\chapter[Tutorato 1 --- 8 ottobre 2026]{Tutorato 1: fattoriale e dimostrazioni per induzione}
+\label[appendix]{chap:tutorato-01}
+
+\begin{exercise}[Semplificazione di un rapporto di fattoriali]
+\label{ex:tutorato01-rapporto-fattoriali}
+Per \(n\in\N\), semplificare l'espressione
+\[
+  \frac{(n+2)!+(n+1)!}{(n+3)!}.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Per la \cref{def:fattoriale},
+\[
+  (n+2)!=(n+2)(n+1)!,
+  \qquad
+  (n+3)!=(n+3)(n+2)(n+1)!.
+\]
+Raccogliendo \((n+1)!\) al numeratore, si ottiene
+\begin{align*}
+  \frac{(n+2)!+(n+1)!}{(n+3)!}
+    &=\frac{\bigl((n+2)+1\bigr)(n+1)!}
+      {(n+3)(n+2)(n+1)!}\\
+    &=\frac{(n+3)(n+1)!}{(n+3)(n+2)(n+1)!}\\
+    &=\frac{1}{n+2}.
+\end{align*}
+Il denominatore iniziale e i fattori semplificati sono strettamente
+positivi per ogni \(n\in\N\); tutte le divisioni sono quindi lecite,
+anche nel caso \(n=0\).
+\end{proof}
+
+\begin{exercise}[Somma dei primi \(n\) numeri dispari positivi]
+\label{ex:tutorato01-somma-dispari}
+Dimostrare che, per ogni \(n\in\N\) con \(n\ge1\), vale
+\[
+  \sum_{k=1}^{n}(2k-1)=n^2.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Si applica il \cref{thm:principio-induzione} con valore iniziale \(p=1\).
+
+\emph{Passo base.}
+Per \(n=1\),
+\[
+  \sum_{k=1}^{1}(2k-1)=1=1^2.
+\]
+
+\emph{Passo induttivo.}
+Sia \(n\ge1\) e si supponga che valga l'ipotesi induttiva
+\[
+  \sum_{k=1}^{n}(2k-1)=n^2.
+\]
+Separando l'ultimo addendo della somma fino a \(n+1\) e applicando
+l'ipotesi induttiva, si ottiene
+\begin{align*}
+  \sum_{k=1}^{n+1}(2k-1)
+    &=\sum_{k=1}^{n}(2k-1)+\bigl(2(n+1)-1\bigr)\\
+    &=n^2+2n+1\\
+    &=(n+1)^2.
+\end{align*}
+È dunque verificata la formula per \(n+1\). Per il principio di
+induzione, l'identità vale per ogni \(n\ge1\).
+\end{proof}
+
+\begin{exercise}[Somma dei quadrati dei primi \(n\) naturali positivi]
+\label{ex:tutorato01-somma-quadrati}
+Dimostrare che, per ogni \(n\in\N\) con \(n\ge1\), vale
+\[
+  \sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}6.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Si applica il \cref{thm:principio-induzione} con valore iniziale \(p=1\).
+
+\emph{Passo base.}
+Per \(n=1\),
+\[
+  \sum_{k=1}^{1}k^2=1=\frac{1\cdot2\cdot3}{6}.
+\]
+
+\emph{Passo induttivo.}
+Sia \(n\ge1\) e si supponga
+\[
+  \sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}6.
+\]
+Separando l'ultimo addendo e applicando l'ipotesi induttiva,
+\begin{align*}
+  \sum_{k=1}^{n+1}k^2
+    &=\sum_{k=1}^{n}k^2+(n+1)^2\\
+    &=\frac{n(n+1)(2n+1)}6+(n+1)^2\\
+    &=\frac{n+1}{6}\bigl(n(2n+1)+6(n+1)\bigr)\\
+    &=\frac{n+1}{6}(2n^2+7n+6)\\
+    &=\frac{(n+1)(n+2)(2n+3)}6.
+\end{align*}
+Nell'ultimo passaggio è stata utilizzata la fattorizzazione
+\(2n^2+7n+6=(n+2)(2n+3)\). Poiché \(2n+3=2(n+1)+1\),
+l'espressione ottenuta coincide con quella richiesta per \(n+1\).
+Il passo induttivo è quindi verificato, e la formula vale per ogni
+\(n\ge1\).
+\end{proof}
+
+\begin{exercise}[Dimostrazione del binomio di Newton]
+\label{ex:tutorato01-binomio-newton}
+Dimostrare per induzione il \cref{thm:binomio-newton}: per ogni
+\(a,b\in\R\) e per ogni \(n\in\N\),
+\[
+  (a+b)^n=\sum_{k=0}^{n}\binom{n}{k}a^k b^{n-k}.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Fissati \(a,b\in\R\), si applica il \cref{thm:principio-induzione}
+con valore iniziale \(p=0\). Si mantiene la convenzione \(t^0=1\),
+anche per \(t=0\), adottata nel \cref{thm:binomio-newton}.
+
+\emph{Passo base.}
+Per la \cref{def:coefficiente-binomiale}, \(\binom{0}{0}=1\).
+Quindi, per \(n=0\),
+\[
+  (a+b)^0=1=\binom{0}{0}a^0b^0.
+\]
+
+\emph{Passo induttivo.}
+Sia \(n\in\N\) e si supponga che valga l'ipotesi induttiva
+\[
+  (a+b)^n=\sum_{k=0}^{n}\binom{n}{k}a^k b^{n-k}.
+\]
+Moltiplicando per \(a+b\) e distribuendo il prodotto rispetto alla
+somma finita, si ottiene
+\begin{align*}
+  (a+b)^{n+1}
+    &=(a+b)^n(a+b)\\
+    &=\left(\sum_{k=0}^{n}\binom{n}{k}a^k b^{n-k}\right)(a+b)\\
+    &=\sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k}
+      +\sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}.
+\end{align*}
+Nella prima somma si pone \(j=k+1\). Quando \(k\) varia da \(0\)
+a \(n\), il nuovo indice \(j\) varia da \(1\) a \(n+1\);
+inoltre \(k=j-1\) e \(n-k=n+1-j\). Pertanto
+\[
+  \sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k}
+  =\sum_{j=1}^{n+1}\binom{n}{j-1}a^j b^{n+1-j}.
+\]
+Rinominando \(j\) come \(k\), l'uguaglianza precedente dà
+\[
+  (a+b)^{n+1}
+  =\sum_{k=1}^{n+1}\binom{n}{k-1}a^k b^{n+1-k}
+    +\sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}.
+\]
+Le due somme hanno ora gli stessi fattori \(a^k b^{n+1-k}\),
+ma intervalli di sommazione diversi: gli indici comuni sono
+\(1,\ldots,n\). Il termine con \(k=n+1\) compare soltanto nella
+prima somma e vale \(a^{n+1}\), mentre quello con \(k=0\) compare
+soltanto nella seconda e vale \(b^{n+1}\), poiché
+\(\binom{n}{n}=\binom{n}{0}=1\).
+Separando questi termini e combinando le somme sugli indici comuni,
+si ottiene
+\[
+  (a+b)^{n+1}
+  =b^{n+1}
+    +\sum_{k=1}^{n}
+      \left(\binom{n}{k-1}+\binom{n}{k}\right)a^k b^{n+1-k}
+    +a^{n+1}.
+\]
+Per \(n=0\) non vi sono indici comuni: la somma da \(1\) a \(0\)
+è vuota e vale \(0\), e l'uguaglianza resta valida.
+
+Per ogni \(1\le k\le n\), l'identità di Pascal, dimostrata nella
+\cref{prop:identita-pascal}, si applica con indice superiore \(n+1\)
+e fornisce
+\[
+  \binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}.
+\]
+Infatti, \(n+1\ge1\) e \(1\le k\le n+1\), come richiesto
+dalle ipotesi dell'identità. Per la
+\cref{def:coefficiente-binomiale}, anche i termini estremi hanno
+coefficienti \(\binom{n+1}{0}=\binom{n+1}{n+1}=1\). Ne segue
+\begin{align*}
+  (a+b)^{n+1}
+    &=b^{n+1}+\sum_{k=1}^{n}\binom{n+1}{k}a^k b^{n+1-k}
+      +a^{n+1}\\
+    &=\sum_{k=0}^{n+1}\binom{n+1}{k}a^k b^{n+1-k}.
+\end{align*}
+È quindi verificata la formula per \(n+1\). Il principio di induzione
+assicura che essa vale per ogni \(n\in\N\). Poiché \(a,b\in\R\)
+erano arbitrari, segue il \cref{thm:binomio-newton}.
+\end{proof}
