@@ -12,7 +12,7 @@
   - 1.2 Algoritmi e risoluzione dei problemi — p. 2
   - 1.3 La macchina di Turing e i limiti del calcolo — p. 4
   - 1.4 Architettura del calcolatore ed esecuzione delle istruzioni — p. 6
-  - 1.5 Memoria, archiviazione e dispositivi di ingresso e uscita — p. 8
+  - 1.5 Memoria, archiviazione e dispositivi di ingresso e uscita — p. 9
   - 1.6 Linguaggi di programmazione e forme di esecuzione — p. 10
 - 2 Rappresentazione delle informazioni — p. 13
   - 2.1 Sistemi di numerazione posizionali — p. 13

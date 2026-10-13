@@ -17,7 +17,7 @@
   - 2.1 Numeri interi — p. 8
   - 2.2 Numeri razionali — p. 9
   - 2.3 Irrazionalità della radice quadrata di 2 — p. 9
-  - 2.4 Fattoriale — p. 11
+  - 2.4 Fattoriale — p. 12
 - 3 Lezione 3 --- 1 ottobre 2026 — p. 14
   - 3.1 Coefficienti binomiali — p. 14
   - 3.2 Numeri reali — p. 16
@@ -28,14 +28,14 @@
   - 4.1 Densità dei numeri razionali — p. 21
   - 4.2 Intervalli della retta reale — p. 22
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 23
-    - 4.3.1 Esempi fondamentali — p. 23
+    - 4.3.1 Esempi fondamentali — p. 24
   - 4.4 Massimo e minimo — p. 24
   - 4.5 Estremo superiore ed estremo inferiore — p. 25
   - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 26
-- 5 Lezione 5 --- 6 ottobre 2026 — p. 30
-  - 5.1 Disuguaglianza di Bernoulli — p. 30
-  - 5.2 Binomio di Newton — p. 30
-  - 5.3 Esercizi sul fattoriale — p. 31
-  - 5.4 Esercizi sugli estremi — p. 32
-- A Tutorato 1 --- 8 ottobre 2026 — p. 35
+- 5 Lezione 5 --- 6 ottobre 2026 — p. 31
+  - 5.1 Disuguaglianza di Bernoulli — p. 31
+  - 5.2 Binomio di Newton — p. 31
+  - 5.3 Esercizi sul fattoriale — p. 32
+  - 5.4 Esercizi sugli estremi — p. 33
+- A Tutorato 1 --- 8 ottobre 2026 — p. 36
 <!-- GENERATED:END -->
