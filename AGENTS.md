@@ -21,6 +21,7 @@ Do not manually edit:
 
 - content between `<!-- GENERATED:START -->` and `<!-- GENERATED:END -->`;
 - the README catalogue between `<!-- RELEASE-CATALOG:START -->` and `<!-- RELEASE-CATALOG:END -->`;
+- `RELEASES.md` (the complete release archive owned by `latex/tools/update_release_catalog.py`);
 - files under `CHANGELOG/`;
 - compiled PDFs or other generated outputs.
 

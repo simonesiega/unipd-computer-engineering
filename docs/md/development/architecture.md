@@ -61,7 +61,7 @@ The repository distinguishes between files edited by contributors and files owne
 | Class | Examples | Ownership |
 |---|---|---|
 | Source-owned | Course sources, `latex/`, `docs/`, tools, workflows, configuration | Edited and reviewed through normal Git history. |
-| Tracked generated content | Generated README sections, `CHANGELOG/`, tracked component and integration fixtures | Updated only through the tool that owns them. |
+| Tracked generated content | Generated README sections, `RELEASES.md`, `CHANGELOG/`, tracked component and integration fixtures | Updated only through the tool that owns them. |
 | Build-owned output | `.build/<document>/` | Disposable local or CI output; never treated as source. |
 | Release staging | `.build/release/` | Temporary packaging area owned by the release tooling. |
 | Published artifacts | GitHub Release assets | Distributions produced from validated repository sources. |

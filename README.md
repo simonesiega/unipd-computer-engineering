@@ -74,7 +74,7 @@ Courses are organized by degree year and share the same LaTeX system for structu
 
 **[Download published compiled notes from GitHub Releases](https://github.com/simonesiega/unipd-computer-engineering/releases).**
 
-When available, the rolling `notes-latest` release tracks the latest successfully published `main` commit. Stable end-of-semester editions are published as immutable snapshot releases, while pull-request builds are available temporarily through GitHub Actions for review. If no release is listed below, build the notes locally instead.
+When available, the rolling `notes-latest` release tracks the latest successfully published `main` commit. Reviewed editions are published as immutable snapshot releases, while pull-request builds are available temporarily through GitHub Actions for review. If no release is listed below, build the notes locally instead.
 
 Weekly generated changelogs under [`CHANGELOG/`](CHANGELOG/) record committed course-source changes and link them to the corresponding commits.
 
@@ -98,6 +98,8 @@ Current covered exams:
 | 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-fondamenti-di-informatica.pdf) |
 
 ## Releases
+
+Browse the five most recent releases below, or [view all published releases](RELEASES.md).
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|

@@ -1,81 +1,62 @@
 ---
 name: unipd-python-tool-development
-description: Develop, fix, review, and test Python tools under latex/tools/ and latex/tools/test/. Use for regressions, filesystem and Git behavior, deterministic output, argument validation, and affected-document selection. Preserve the standard-library unittest architecture. Do not use for LaTeX builds, PDF review, course writing, shared LaTeX development, or repository validation.
+description: Implement, review, and test repository Python tools in latex/tools/ and latex/tools/test/, including course creation, build selection, validation, changelogs, packaging, and release catalog generation. Preserve deterministic standard-library unittest tests. Delegate content writing, LaTeX compilation, PDF inspection, and pre-commit validation.
 ---
 
 # UniPD Python Tool Development and Testing
 
-## Establish context
+## Establish observable behavior
 
-1. Identify the tool and observable behavior under test.
-2. Inspect the implementation and closest existing test file.
-3. Reuse existing helpers and temporary-repository patterns.
-4. Consult `docs/md/development/tool-test-and-ci.md` when conventions are unclear.
-5. Reproduce reported behavior when practical.
+1. Identify the tool and the public behavior being added, corrected, or reviewed. Read its current implementation, CLI behavior, related helpers, and closest tests.
+2. Consult `docs/md/development/tool-test-and-ci.md` and `docs/md/development/build-system.md` if selection, generation, packaging, or CI ownership is unclear.
+3. Reproduce a reported failure before modifying code when practical. Identify expectations from existing tests and project policy, not assumptions based on one particular course.
+4. Preserve the layout and language support of all course years, supported semesters, dated or topical structures, and allowed class languages. Do not hard-code course names, professors, course topics, lecture schedules, or temporary snapshot dates.
 
 ## Test architecture
 
-Use only the Python standard library unless a migration is explicitly requested. Prefer `unittest`, `tempfile`, `pathlib`, `subprocess`, and `unittest.mock`.
+Tests live under `latex/tools/test/`, follow `test_*.py`, and use only Python's standard-library test infrastructure. Prefer `unittest`, `tempfile`, `pathlib`, `subprocess`, `unittest.mock`, and local fake repositories. Put regression tests near the responsible feature; add new test modules only when responsibilities are genuinely separate.
 
-Do not introduce pytest, third-party fixtures, coverage imports in test code, property testing, or snapshot dependencies. The existing `run_tool_tests.py` runner is the sole Coverage.py integration.
+Do **not** introduce pytest, Hypothesis/property-testing frameworks, third-party test fixtures, external network dependencies, or test-side coverage imports without an explicit approved migration. `latex/tools/run_tool_tests.py` owns Coverage.py integration and enforces the repository's aggregate **80% minimum**; design tests for real behavioral coverage, not merely a percentage.
 
-Place tests under `latex/tools/test/`, use `test_*.py`, and add tests to the file that owns the behavior. Create a new file only for a separate responsibility.
+## Implementation quality
 
-## What to test
+- Keep CLI arguments, error output, exit status, generated files, paths, and documented interfaces stable unless a deliberate change is requested.
+- Favor explicit validation and useful, actionable errors; distinguish user input errors from environmental failures.
+- Make outputs deterministic: control ordering, encoding (UTF-8), line endings, timestamps, locales, environment variables, and Git history inputs where relevant.
+- Use temporary directories, never writing test data into the real working repository. Avoid network access and global Git settings. Configure identity on temporary repositories only.
+- Honor tool ownership of generated course README sections, component/integration fixtures, manifests, checksums, the README release catalogue and `RELEASES.md`, and changelogs. Regenerate release listings with `update_release_catalog.py` from published release data; never manually change release assets or immutable snapshots.
+- Treat unexpected paths, symlinks, repository traversal, invalid metadata, duplicate asset names, missing sources, and partial failures according to the actual tool contract; do not assume happy-path input.
+- Support all validated year/semester/language combinations without imposing subject-specific assumptions or externally inferred course metadata.
+- Do not broaden repository-wide behavior to hide a single malformed course. Add appropriate regression coverage when a real invariant changes.
 
-Prefer stable observable behavior:
+## Regression method
 
-- return values and exit codes;
-- generated files, contents, and directory layouts;
-- argument validation and interface-level errors;
-- Git-history behavior;
-- affected-document selection.
+1. Demonstrate the bug or unmet requirement with a focused failing test.
+2. Apply the smallest implementation correction.
+3. Run that test and the closest affected tests.
+4. Run the complete tool suite for changes to shared helpers, schemas, discovery, build selection, generation, validation, or packaging.
+5. Inspect produced files or CLI output rather than asserting private implementation details where public behavior is available.
+6. Confirm the fix does not change unrelated courses, fixtures, README manual content, or release metadata.
 
-Avoid private implementation details unless no stable interface exists. Use focused tests with descriptive names and specific assertions.
-
-## Regression workflow
-
-1. Reproduce the failure.
-2. Add a test that fails for the original behavior.
-3. Apply the smallest implementation fix.
-4. Run the new test and related tests.
-5. Run the full suite when shared behavior changes.
-
-Test the user-visible regression, not an implementation accident.
-
-## Isolation and determinism
-
-- Use temporary directories or repositories; never write into the real repository.
-- Avoid network access, absolute paths, global Git configuration, uncontrolled time, locale assumptions, and filesystem ordering.
-- Configure local Git identity and deterministic commits when history is required.
-- Control dates, environment variables, and process inputs when they affect output.
-- Sort collections before comparing unordered results.
-- Clean up automatically.
+Key cases to cover when relevant: absent/invalid arguments; existing target files; duplicate or colliding slugs; inconsistent metadata; no-op/idempotent reruns; ordering across platforms; files with non-ASCII content; missing or stale generated files; Git renames or missing history; recoverable versus fatal failures; erroneous paths and escape attempts; and valid empty states.
 
 ## Commands
 
-Focused file:
+From the repository root, use the available Python launcher (`python3` on typical Unix systems, `py` on Windows PowerShell):
 
 ```bash
+# A focused test module
 python3 latex/tools/test/test_<name>.py
-```
 
-Complete suite without coverage:
-
-```bash
+# All standard-library unit tests
 python3 -m unittest discover -s latex/tools/test -p 'test_*.py'
-```
 
-CI-equivalent branch coverage, after installing the pinned Coverage.py dependency through pre-commit or an isolated environment:
-
-```bash
+# Canonical test runner with branch coverage, after pinned dependencies are installed
 python3 latex/tools/run_tool_tests.py
 ```
 
-The coverage runner enforces the repository's 80% aggregate minimum. Add tests for meaningful behavior and failure paths rather than targeting the percentage mechanically.
+If dependencies are unavailable, report which command could not run; a bare unittest pass is not equivalent to a passing coverage-enforced run. Repository-wide Ruff/mypy/pre-commit verification belongs to `unipd-repository-validation`; generated-state compilation belongs to `unipd-latex-build`.
 
-Use the available Python launcher on the current platform.
+## Completion
 
-## Review
-
-Confirm coverage, isolation, determinism, useful failures, and absence of new third-party dependencies.
+Report the observed bug or requested behavior, regression test coverage, exact commands and outcomes, modified files, output compatibility, and remaining limitations. Inspect the final diff and ensure no unrelated code or user work was altered. No commits, tags, or releases without explicit authorization.

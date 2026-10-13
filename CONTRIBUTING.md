@@ -90,7 +90,7 @@ Do not manually edit content between generated markers:
 <!-- RELEASE-CATALOG:END -->
 ```
 
-Edit course-owned LaTeX sources, figures, bibliography files, and README content outside generated sections.
+`RELEASES.md` is also generated in full by `latex/tools/update_release_catalog.py`; do not edit it manually. Edit course-owned LaTeX sources, figures, bibliography files, and README content outside generated sections.
 
 Generated course `main.pdf` files are build outputs and must not be committed. Local builds remain under:
 

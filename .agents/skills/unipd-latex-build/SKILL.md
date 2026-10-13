@@ -1,77 +1,76 @@
 ---
 name: unipd-latex-build
-description: Select and compile affected UniPD LaTeX documents with latex/tools/build.py, diagnose compilation failures, and regenerate owned outputs. Use after course, component, class, font, or build-system changes. Do not use for content writing, PDF visual review, LaTeX design, repository validation, or CI debugging.
+description: Select, compile, and diagnose affected UniPD LaTeX documents through the canonical latex/tools/build.py and Docker environment; verify tool-owned generated files. Use for course, component, integration, class, font, or build-environment changes. Does not replace academic, visual PDF, or repository-quality review.
 ---
 
 # UniPD LaTeX Build
 
-## Establish scope
+## Identify the correct scope
 
-Inspect changed files and choose the smallest correct build scope. Consult the build documentation only when selection is unclear.
+Inspect the working tree, changed paths, and document dependencies before building. Use the smallest sound selection while respecting transitive effects:
 
-Run commands from the repository root through the canonical Docker Compose service.
+- A course-local content, figure, or `main.tex` change normally affects that course.
+- A component example change affects at least that example; a shared component/class change can affect every course and integration fixture.
+- Shared class, component packages, fonts, canonical Docker/Compose environment, and build-tool logic require repository-wide verification.
+- Use affected-document selection based on a reliable Git comparison when appropriate; if the base is unavailable, prefer a complete build over claiming the selection was exhaustive.
 
-One course:
+Preserve each course's source layout and language; builds must not infer a common lecture numbering scheme or force a particular discipline's content.
+
+Run from the repository root using the **pinned Docker Compose environment**, which is the reference for CI and releases:
 
 ```bash
-docker compose run --rm texlive \
+# One course
+docker compose run --rm --no-deps texlive \
   python3 latex/tools/build.py <year>/<course-name>
-```
 
-One component example:
-
-```bash
-docker compose run --rm texlive \
+# Component example
+docker compose run --rm --no-deps texlive \
   python3 latex/tools/build.py latex/components/<component>/example
-```
 
-Repository-wide dependency change:
+# Integration example
+docker compose run --rm --no-deps texlive \
+  python3 latex/tools/build.py latex/integration/<language>
 
-```bash
-docker compose run --rm texlive \
-  python3 latex/tools/build.py --all --keep-going
-```
+# Affected documents since a known base
+docker compose run --rm --no-deps texlive \
+  python3 latex/tools/build.py --changed-from origin/main --keep-going
 
-Repository-wide changes include the canonical Compose environment, CI build workflow, class, shared component packages, bundled fonts, and build-tool behavior. Do not build everything for an isolated course edit without reason.
-
-Use the repository build tool instead of calling `latexmk` or LuaLaTeX directly, except when diagnosing the build tool itself.
-
-## Diagnose failures
-
-1. Identify the first failed document.
-2. Read the first meaningful LaTeX error.
-3. Locate the source file and line when possible.
-4. Separate source errors from dependency or environment failures.
-5. Apply the smallest in-scope fix.
-6. Rebuild the failed document.
-7. Re-run the original build scope.
-
-Ignore cascading errors until the first meaningful error is understood. Do not hide unresolved failures or warnings relevant to the task.
-
-## Generated outputs
-
-A course build may update:
-
-- `.build/<year>/<course-name>/main.pdf`;
-- the generated section of `<year>/<course-name>/README.md`.
-
-Course PDFs are ignored release outputs. Never copy them beside course sources, add them with `git add -f`, or stage them. The release packaging tool, not this skill, owns `.build/release/`, asset renaming, manifests, checksums, and release notes.
-
-A component build may update `latex/components/<component>/example/main.pdf`. An integration build may update `latex/integration/<language>/main.pdf` and its generated README block.
-
-Treat these as build outputs; never repair them manually. A shared class, component package, font, canonical environment, or build-tool change requires the repository-wide build because every document depends on it.
-
-## Generated-state verification
-
-When requested or appropriate for a release-level change:
-
-```bash
-docker compose run --rm texlive \
+# Complete archive and tracked generated-state verification
+docker compose run --rm --no-deps texlive \
   python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
-## Review
+`--changed-from` requires a locally available reliable revision; do not assume `origin/main` exists. Explicit targets and `--all` are alternatives. For further options, consult `docs/md/getting-started/building-documents.md` or `build.py --help`. Use the build tool instead of ad hoc `latexmk`/LuaLaTeX commands unless debugging the tool itself.
 
-Inspect the working tree after building. Confirm generated changes match affected sources, identify unexpected outputs, preserve pre-existing changes, and verify that no course `main.pdf` is staged or tracked.
+## Diagnose compilation and generation
 
-Report build scope, commands, successful and failed documents, generated files, unavailable Docker or other skipped checks, and unresolved first errors.
+1. Record which documents were selected, the source revision, and the exact build command.
+2. Inspect the **first meaningful error** in the failed document's log; ignore cascading messages until its cause is understood.
+3. Identify the source file/line or component responsible. Distinguish an invalid source, missing dependency, stale generated state, environment failure, and a genuine tool regression.
+4. Make the smallest authorized fix, or hand off to `unipd-note-writing`, `unipd-latex-component-development`, or `unipd-python-tool-development` based on ownership.
+5. Rebuild the failed target, then repeat the original selection to establish that the whole affected scope succeeds.
+6. Inspect warnings for new unresolved references, missing glyphs, overfull/underfull boxes, or unexpected font/language issues. Identify known nonblocking package warnings separately; do not silently dismiss new warnings.
+
+A green build proves that the selected documents compiled. It does **not** prove that mathematical claims, executable listings, bibliography content, hyperlinks, or visual page layout are correct.
+
+## Generated-file ownership
+
+The tool may produce:
+
+- courses: `.build/<year>/<course-name>/main.pdf` and generated content inside `<year>/<course-name>/README.md`;
+- component examples: tracked `latex/components/<component>/example/main.pdf`;
+- integration examples: tracked `latex/integration/<language>/main.pdf` and tool-owned README regions.
+
+Do not edit generated README blocks between `<!-- GENERATED:START -->` and `<!-- GENERATED:END -->` manually. Instead correct the source/tool and regenerate. Preserve hand-authored README content outside these markers.
+
+Course PDFs are ignored outputs. Never place or stage `main.pdf` within `1/`, `2/`, or `3/`, or override ignore rules with `git add -f`. Component and integration fixture PDFs may be tracked and should reflect the canonical build.
+
+The publishing workflow, not the build skill, owns `.build/release/`, asset naming, manifests, checksums, releases, tags, and publication. Never publish or commit as a side effect of compiling.
+
+## Generated-state and release readiness
+
+For broad infrastructure changes or prepublication verification use `--all --keep-going --check-generated`. This detects stale tracked generated state but does not excuse unsound source content. If generated files need updating, regenerate using the canonical tool, inspect the diff, and repeat the check. Preserve the user's existing changes.
+
+After successful compilation, request actual rendered-page inspection from `unipd-pdf-review` and repository hygiene/quality from `unipd-repository-validation` when required. A successful Docker run cannot be reported as completion of these other checks.
+
+Report selected targets, exact commands, build results, changed generated files, warnings (new versus pre-existing), skipped/unavailable checks, and remaining issues. If Docker is unavailable, identify any alternative checks as **noncanonical**, not as equivalent to a passing canonical build.

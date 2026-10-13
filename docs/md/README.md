@@ -12,7 +12,7 @@ This documentation covers the archive for the 2026–2029 Computer Engineering c
 - **Contributing a change?** Read [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [Building documents](getting-started/building-documents.md).
 - **Reporting a problem or proposing a course?** Choose the appropriate [issue form](../../CONTRIBUTING.md#issues-and-getting-help).
 - **Changing shared LaTeX or tooling?** Begin with [Architecture](development/architecture.md) and [Validation, Tests, and CI](development/tool-test-and-ci.md).
-- **Publishing a semester snapshot?** Start from the [release description example](release/example.md) and review the snapshot requirements in [Validation, Tests, and CI](development/tool-test-and-ci.md#immutable-snapshots).
+- **Publishing a snapshot?** Start from the [release description example](release/example.md) and review the snapshot requirements in [Validation, Tests, and CI](development/tool-test-and-ci.md#immutable-snapshots).
 
 ## Getting started
 
@@ -47,7 +47,7 @@ This documentation covers the archive for the 2026–2029 Computer Engineering c
 | [Build system](development/build-system.md) | Document discovery, target selection, compilation, generated README state, and release packaging. |
 | [Validation, Tests, and CI](development/tool-test-and-ci.md) | Python tool tests, repository checks, affected-document artifacts, rolling releases, and immutable snapshots. |
 | [AI-assisted development](development/ai-assisted-development.md) | Human-review requirements, agent instructions, and specialized skill responsibilities. |
-| [Release description questionnaire](release/example.md) | Prompts and placeholders to complete for a semester snapshot introduction. |
+| [Release description questionnaire](release/example.md) | Prompts and placeholders to complete for a snapshot introduction. |
 
 ## Project policies
 

@@ -34,7 +34,7 @@ Repository tools use standard-library `unittest`, deterministic inputs, temporar
 | `test_course_creation.py` | Course creation, metadata, duplicate handling, cleanup, CLI validation, and cross-tool compatibility for every year/semester/language combination |
 | `test_build_selection.py` | Document discovery, affected paths, generated README behavior, and build selection |
 | `test_notes_packaging.py` | Release asset naming, metadata, manifests, checksums, ordering, and packaging failures |
-| `test_release_catalog.py` | Published-release parsing, exam coverage, deduplication, and generated release tables |
+| `test_release_catalog.py` | Published-release parsing, exam coverage, recent README releases, and the complete release archive |
 | `test_gitignore.py` | Course-PDF ignore rules without globally ignoring PDF files |
 | `test_changelog_generation.py` | Per-course history generation, baselines, renames, dates, and placeholders |
 | `test_repository_validation.py` | Repository structure, source hygiene, Markdown links, metadata, and generated-output rules |
@@ -125,7 +125,7 @@ Two publication modes are supported:
 | Mode | Purpose |
 |---|---|
 | `rolling` | Refresh the moving `notes-latest` release with the current complete archive |
-| `snapshot` | Publish an immutable, maintainer-approved semester archive |
+| `snapshot` | Publish an immutable, maintainer-approved archive |
 
 Both modes run the complete quality checks, build every document, package course assets, verify generated metadata and checksums, and only then publish the staged release assets.
 
@@ -160,7 +160,7 @@ Publishing a snapshot explicitly approves every included course PDF as covered. 
 
 ## Release catalogue
 
-After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated release catalogue in the root README.
+After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated catalogue in the root README and the complete [release archive](../../../RELEASES.md). The README shows at most the five newest published releases in the same table format as the archive; when fewer exist, it shows all of them. Both listings include published rolling releases, while drafts are excluded.
 
 The generated section is bounded by:
 
@@ -169,9 +169,7 @@ The generated section is bounded by:
 <!-- RELEASE-CATALOG:END -->
 ```
 
-Draft releases are ignored. Immutable snapshots establish covered exams, while the rolling release is listed without contributing to coverage.
-
-The catalogue update is limited to the generated README section and is committed automatically with `[skip ci]` when its contents change. The rolling tag remains attached to the source/build commit rather than moving to this later catalogue-only commit.
+Immutable snapshots establish covered exams; the rolling release does not contribute to coverage. `RELEASES.md` is wholly tool-owned and must not be edited manually. The updater changes only the generated README section and `RELEASES.md`; the publication workflow commits them together with `[skip ci]` when either changes. The rolling tag remains attached to the source/build commit rather than moving to this later catalogue-only commit.
 
 The weekly `Course changelogs` workflow separately regenerates protected files under `CHANGELOG/` from complete Git history and commits them only when their generated content changes. When `CHANGELOG/BASELINE` exists, only course commits after that recorded commit are included.
 

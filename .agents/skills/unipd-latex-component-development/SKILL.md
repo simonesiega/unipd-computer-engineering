@@ -1,45 +1,42 @@
 ---
 name: unipd-latex-component-development
-description: Create, modify, or review shared LaTeX infrastructure in latex/unipd-notes.cls, latex/components/, or latex/fonts/. Use for component responsibilities, public interfaces, dependencies, examples, class behavior, fonts, and related documentation. Do not use for course content, builds, PDF review, Python tools, or validation.
+description: Design, modify, and review reusable UniPD LaTeX class infrastructure, components, and fonts under latex/. Use for shared interfaces, localized presentation, dependencies, examples, and compatibility across all courses. Delegate compilation, PDF inspection, validation, Python tooling, and course content to their respective skills.
 ---
 
 # UniPD LaTeX Component Development
 
-## Establish context
+## Discover the existing owner
 
-1. Identify the class, component, or font area involved.
-2. Read `latex/components/README.md`.
-3. Inspect the implementation, example, related components, and class loading order.
-4. Consult class or font documentation when those areas change.
+1. Read `latex/components/README.md` and the relevant implementation, component example, and load sequence in `latex/unipd-notes.cls`.
+2. Inspect impacted public commands, callers, neighboring components, and documentation. Check both supported language configurations (`italian`, `english`) and course-specific uses where relevant.
+3. Prefer extending the responsible existing component over adding new packages, redundant macros, global patches, or one-off course workarounds.
+4. Do not change shared behavior merely to address a unique example in one subject; shared changes must be defensible across different disciplines, course structures, notation, and languages.
 
-Extend the existing architecture instead of creating a parallel system.
+## Responsibility map
 
-## Component boundaries
+- `typography`: fonts, colors, hierarchy, text spacing and paragraph rules.
+- `metadata`: course/document information, localized defaults and translation interfaces.
+- `cover`: cover presentation using shared metadata.
+- `page-style`: geometry, headers, footers and numbering presentation.
+- `document-structure`: chapters, sections, appendices and document hierarchy.
+- `table-of-contents`: contents structure and front-matter presentation.
+- `lists`: enumerations, descriptions, nested and procedural lists.
+- `figures-tables`: figures, floats, captions, source notes and tables.
+- `diagrams`: common TikZ/CircuitikZ styles and helpers.
+- `mathematics`: shared operators, symbols and mathematical typography.
+- `code`: source code, terminal blocks, syntax formatting and listings.
+- `algorithms`: pseudocode, inputs/outputs, numbering and algorithm captions.
+- `references`: labels, cross-reference formats and bibliography support.
+- `navigation`: links, URLs, PDF bookmarks and navigation.
+- `glossary`: terminology and glossary interfaces.
+- `front-back-matter`: prefaces, revision material, document lists and pagination transitions.
+- `environments`: definitions, results, proofs, examples, exercises, solutions and callouts.
 
-Each component must have one responsibility. Reuse the existing owner of a behavior:
+Respect ownership boundaries and explicit dependency ordering. No shared component should silently depend on course files.
 
-- `typography`: fonts, colors, hierarchy, paragraph behavior, and text rules;
-- `metadata`: course and document information, translations, and language-dependent defaults;
-- `cover`: cover-page presentation based on shared metadata;
-- `page-style`: geometry, headers, and footers;
-- `document-structure`: chapter and section hierarchy, numbering, and appendices;
-- `table-of-contents`: contents generation and front-matter presentation;
-- `lists`: bulleted, numbered, descriptive, nested, and procedural lists;
-- `figures-tables`: floats, captions, source notes, and tables;
-- `diagrams`: TikZ and CircuitikZ styles;
-- `mathematics`: mathematical notation and shared operators;
-- `code` and `algorithms`: listings, terminal sessions, and pseudocode;
-- `references`: labels, cross-references, and bibliography;
-- `navigation`: hyperlinks, URLs, bookmarks, and PDF navigation;
-- `glossary`: terms, acronyms, and glossary printing;
-- `front-back-matter`: prefaces, revision history, pagination transitions, and document lists;
-- `environments`: definitions, results, examples, warnings, exercises, and solutions.
+## Structure and public API
 
-Do not solve a course-specific problem with a repository-wide special case.
-
-## Component structure
-
-Every component must contain exactly this structure:
+The canonical component layout is:
 
 ```text
 latex/components/<component>/
@@ -49,32 +46,30 @@ latex/components/<component>/
     └── main.pdf
 ```
 
-A new component must use an ASCII kebab-case name, provide a matching package and isolated example, be loaded by `latex/unipd-notes.cls`, and be listed in `latex/components/README.md`. Do not add extra files or subdirectories inside a component directory.
+Follow this layout exactly; the repository validator expects an isolated example and no unrelated files beneath a component directory. New component names are ASCII kebab-case. Register a new package in the class's dependency-ordered loading and in the component catalogue.
 
-## Interfaces and dependencies
+- Keep commands and environments semantic, focused, documented, and backward-compatible whenever reasonable. Avoid exposing internal helpers or renaming established interfaces without a migration requirement.
+- Reuse shared fonts, colors, lengths, counters, translations, theorem styles, and LaTeX packages. Avoid duplicate package loading and circular dependencies.
+- Preserve LuaLaTeX compatibility and the supported class options. Prefer documented public interfaces over fragile redefinitions of upstream internals.
+- Make language-dependent strings configurable/localized; do not hard-code Italian or English display text in shared presentation logic.
+- Preserve mathematically correct rendering, accessibility of symbols, code indentation, `\cref` behavior, hyperlink targets, and numbering semantics. Visual embellishments must not change academic meaning.
+- Avoid assuming that all courses use dated lectures, mathematical theorem environments, Python listings, glossaries, or identical front matter.
 
-- Keep public commands semantic, small, consistently named, and backward-compatible when practical.
-- Do not expose internal helpers unnecessarily.
-- Do not rename public interfaces without an explicit migration.
-- Reuse existing packages, colors, fonts, counters, lengths, and helpers.
-- Load dependencies before consumers; avoid cycles and course dependencies.
-- Confirm new packages exist in the supported TeX environment.
-- Preserve LuaLaTeX compatibility and avoid fragile internal patches.
+## Fonts, licensing, and reproducibility
 
-## Examples and documentation
+Check font availability in the pinned TeX environment, fallback behavior, and glyph coverage for regular, italic, bold, math, and monospace content as applicable. Review mathematics and technical code where font changes could alter distinct symbols or legibility.
 
-Every public behavior change must be demonstrated by the component example.
+Preserve font and third-party asset licenses and attribution; consult `latex/fonts/FONT-LICENSE.md`. Do not add unverified or improperly distributable assets.
 
-Examples must be isolated, focused, realistic, and cover relevant options or edge cases. Update reference documentation when public commands, environments, class options, component boundaries, or font behavior change.
+## Examples, migration, and documentation
 
-## Class changes
+- Demonstrate each changed public behavior in the owning `example/main.tex`, including relevant error cases, labels, mathematical content, code, captions, or long-line stress cases when applicable.
+- Update related component/class documentation whenever options, interfaces, responsibilities, or expected behavior change. Do not make examples into unrelated showcases.
+- If a shared change might affect cross-component behavior or localization, inspect the integration examples for both supported languages.
+- Never hand-edit the tracked example `main.pdf`: it is a generated visual fixture, updated by the canonical build.
 
-Keep component loading centralized and dependency-ordered. Preserve existing class options unless removal is explicitly requested. Keep component-specific behavior out of the class.
+## Validation and handoff
 
-## Font changes
+After implementation, hand off to `unipd-latex-build` for the component and all affected documents (repository-wide for shared class/component/font changes), to `unipd-pdf-review` for actual rendered-page verification, and to `unipd-repository-validation` for structural checks. If tool behavior must change, use `unipd-python-tool-development`.
 
-Verify redistribution rights and preserve licenses. Document configuration and fallback behavior. When affected, cover regular, italic, bold, bold italic, mathematics, and monospace use.
-
-## Review
-
-Confirm responsibility, public interfaces, dependencies, examples, documentation, compatibility, and licensing. Then use `unipd-latex-build` and `unipd-pdf-review`.
+Inspect the diff for compatibility breaks, unintended global typography changes, unreviewed generated PDFs, and unrelated edits. Report tested languages, affected documents, API changes, fixture updates, limitations, and remaining risks. Do not commit, tag, or publish without authorization.
