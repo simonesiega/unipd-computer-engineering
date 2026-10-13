@@ -381,7 +381,7 @@ valori stampati dal valore restituito.
 \begin{solution}
 Ogni invocazione stampa il proprio argomento e, se questo è positivo,
 richiama la funzione con \(n-1\). La misura \(n\) diminuisce
-di un'unità a ogni chiamata, fino a raggiungere zero e la chiamata ricorsiva 
+di un'unità a ogni chiamata, fino a raggiungere zero e la chiamata ricorsiva
 è in coda.
 
 \begin{unipdcode}[language=Python]
@@ -396,6 +396,6 @@ def conto_rovescia(n):
 
 Con \texttt{conto\_rovescia(3)} vengono stampati \(3,2,1,0\), uno
 per riga e in quest'ordine; con zero viene stampato soltanto zero.
-Il valore restituito è \texttt{None}, non la sequenza stampata. Anche questa 
+Il valore restituito è \texttt{None}, non la sequenza stampata. Anche questa
 ricorsione in coda rimane soggetta ai limiti di profondità di CPython.
 \end{solution}
