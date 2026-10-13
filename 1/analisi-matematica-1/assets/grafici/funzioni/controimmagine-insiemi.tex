@@ -1,0 +1,27 @@
+\begin{tikzpicture}[unipd/diagram]
+  \fill[unipd-accent!13] (0,.5) ellipse (.49 and .75);
+  \fill[unipd-accent!13] (5,.5) ellipse (.49 and .75);
+  \draw[unipd/edge] (0,0) ellipse (.95 and 1.65);
+  \draw[unipd/edge] (5,0) ellipse (.95 and 1.65);
+  \draw[unipd-accent,dashed] (0,.5) ellipse (.49 and .75);
+  \draw[unipd-accent,dashed] (5,.5) ellipse (.49 and .75);
+  \node at (0,1.92) {\(A\)};
+  \node at (5,1.92) {\(B\)};
+  \node at (2.5,1.32) {\(f\)};
+  \node[text=unipd-accent!80!black] at (0,-1.95)
+    {\(f^{-1}(S)\)};
+  \node[text=unipd-accent!80!black] at (5,-1.95) {\(S\)};
+
+  \draw[unipd/directed edge] (.09,.91) -- (4.91,.91);
+  \draw[unipd/directed edge] (.09,.19) -- (4.91,.19);
+  \draw[unipd/directed edge] (.09,-.55) -- (4.91,-.98);
+  \draw[unipd/directed edge] (.09,-1.2) -- (4.91,-.98);
+  \foreach \y/\n in {.91/1,.19/2,-.55/3,-1.2/4} {
+    \fill[unipd-primary] (0,\y) circle (2pt);
+    \node[left] at (-.08,\y) {\(a_{\n}\)};
+  }
+  \foreach \y/\n in {.91/1,.19/2,-.98/3} {
+    \fill[unipd-primary] (5,\y) circle (2pt);
+    \node[right] at (5.09,\y) {\(b_{\n}\)};
+  }
+\end{tikzpicture}

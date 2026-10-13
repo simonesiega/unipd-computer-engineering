@@ -1,0 +1,23 @@
+\begin{tikzpicture}[unipd/diagram]
+  \foreach \shift in {0,4.4,8.8} {
+    \begin{scope}[xshift=\shift cm]
+      \draw[unipd/edge] (0,0) ellipse (0.55 and 1.15);
+      \draw[unipd/edge] (2.35,0) ellipse (0.55 and 1.15);
+      \node at (0,1.45) {\(A\)};
+      \node at (2.35,1.45) {\(B\)};
+      \foreach \y in {-.55,.55} {
+        \fill[unipd-primary] (0,\y) circle (2pt);
+        \fill[unipd-primary] (2.35,\y) circle (2pt);
+      }
+    \end{scope}
+  }
+  \draw[unipd/directed edge] (0,.55) -- (2.35,.55);
+  \draw[unipd/directed edge] (4.4,.55) -- (6.75,.55);
+  \draw[unipd/directed edge] (4.4,.55) -- (6.75,-.55);
+  \draw[unipd/directed edge] (4.4,-.55) -- (6.75,-.55);
+  \draw[unipd/directed edge] (8.8,.55) -- (11.15,.55);
+  \draw[unipd/directed edge] (8.8,-.55) -- (11.15,.55);
+  \node[align=center] at (1.18,-1.55) {valore mancante};
+  \node[align=center] at (5.58,-1.55) {due valori};
+  \node[align=center] at (9.98,-1.55) {applicazione};
+\end{tikzpicture}

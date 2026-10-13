@@ -1,0 +1,23 @@
+\begin{tikzpicture}[unipd/diagram,x=1.25cm,y=.78cm]
+  \fill[unipd-accent!12] (-2.2,1) rectangle (2.2,4);
+  \draw[unipd-muted,dashed] (-2.2,1) -- (2.2,1);
+  \draw[unipd-muted,dashed] (-2.2,4) -- (2.2,4);
+  \draw[->,unipd-muted] (-2.5,0) -- (2.75,0) node[right] {\(x\)};
+  \draw[->,unipd-muted] (0,-1.05) -- (0,5.05) node[above] {\(y\)};
+  \draw[very thick,unipd-primary,domain=-2.2:2.2,samples=90]
+    plot (\x,{\x*\x});
+  \draw[very thick,unipd-accent] (0,1) -- (0,4);
+  \draw[very thick,unipd-accent] (-2,0) -- (-1,0);
+  \draw[very thick,unipd-accent] (1,0) -- (2,0);
+  \foreach \x in {-2,-1,1,2} {
+    \draw[unipd-muted] (\x,.08) -- (\x,-.08)
+      node[below] {\(\x\)};
+  }
+  \foreach \y in {-1,1,4} {
+    \draw[unipd-muted] (.07,\y) -- (-.07,\y)
+      node[left] {\(\y\)};
+  }
+  \node[anchor=west] at (2.45,3.8) {\(S=[1,4]\)};
+  \node[anchor=west,text=unipd-primary] at (1.05,4.55)
+    {\(y=x^2\)};
+\end{tikzpicture}

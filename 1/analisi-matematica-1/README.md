@@ -37,5 +37,12 @@
   - 5.2 Binomio di Newton — p. 31
   - 5.3 Esercizi sul fattoriale — p. 32
   - 5.4 Esercizi sugli estremi — p. 33
-- A Tutorato 1 --- 8 ottobre 2026 — p. 36
+- 6 Lezione 6 --- 13 ottobre 2026 — p. 36
+  - 6.1 Un esercizio sugli estremi di insiemi separati — p. 36
+  - 6.2 Prodotto cartesiano e applicazioni — p. 36
+  - 6.3 Dominio, codominio e immagine — p. 37
+  - 6.4 Controimmagine di un sottoinsieme — p. 38
+  - 6.5 Applicazioni suriettive, iniettive e biiettive — p. 39
+  - 6.6 Tre applicazioni definite dal quadrato — p. 40
+- A Tutorato 1 --- 8 ottobre 2026 — p. 42
 <!-- GENERATED:END -->
