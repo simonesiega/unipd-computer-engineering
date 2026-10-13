@@ -1,0 +1,30 @@
+\begin{tikzpicture}[unipd/diagram]
+  \foreach \shift in {0,4.4,8.8} {
+    \begin{scope}[xshift=\shift cm]
+      \draw[unipd/edge] (0,0) ellipse (0.55 and 1.25);
+      \draw[unipd/edge] (2.35,0) ellipse (0.55 and 1.25);
+      \node at (0,1.5) {\(A\)};
+      \node at (2.35,1.5) {\(B\)};
+    \end{scope}
+  }
+  \foreach \y in {-.65,.65} {
+    \fill[unipd-primary] (0,\y) circle (2pt);
+    \fill[unipd-primary] (8.8,\y) circle (2pt);
+    \fill[unipd-primary] (11.15,\y) circle (2pt);
+    \fill[unipd-primary] (6.75,\y) circle (2pt);
+  }
+  \foreach \y in {-.8,0,.8} {
+    \fill[unipd-primary] (2.35,\y) circle (2pt);
+    \fill[unipd-primary] (4.4,\y) circle (2pt);
+  }
+  \draw[unipd/directed edge] (0,.65) -- (2.35,.8);
+  \draw[unipd/directed edge] (0,-.65) -- (2.35,-.8);
+  \draw[unipd/directed edge] (4.4,.8) -- (6.75,.65);
+  \draw[unipd/directed edge] (4.4,0) -- (6.75,.65);
+  \draw[unipd/directed edge] (4.4,-.8) -- (6.75,-.65);
+  \draw[unipd/directed edge] (8.8,.65) -- (11.15,.65);
+  \draw[unipd/directed edge] (8.8,-.65) -- (11.15,-.65);
+  \node at (1.18,-1.65) {iniettiva};
+  \node at (5.58,-1.65) {suriettiva};
+  \node at (9.98,-1.65) {biiettiva};
+\end{tikzpicture}
