@@ -67,8 +67,8 @@ se il risultato per \(n-1\) è corretto, moltiplicarlo per \(n\)
 produce \(n!\).
 
 Le implementazioni seguenti assumono un argomento di tipo \texttt{int}.
-Per i valori negativi, \texttt{raise ValueError(*)} segnala un
-argomento non ammissibile e interrompe la funzione.
+Per i valori negativi, \texttt{raise ValueError("n deve essere non negativo")}
+segnala un argomento non ammissibile e interrompe la funzione.
 
 \begin{unipdcode}[language=Python]
 def fattoriale_iterativo(n):
@@ -127,6 +127,8 @@ Ogni nuova invocazione aggiunge un frame alla sommità; alla sua
 conclusione il frame viene rimosso e riprende l'invocazione
 precedente. Le invocazioni sospese non eseguono simultaneamente
 istruzioni: ne viene conservato lo stato.
+
+\clearpage
 
 \begin{example}[Traccia di \texttt{fattoriale(4)}]
 \label{ex:fi-traccia-fattoriale}
@@ -252,6 +254,9 @@ qui definita per gli indici \(n\ge1\):
   F_1=F_2=1,\qquad F_n=F_{n-1}+F_{n-2}\quad(n>2).
   \label{eq:fi-fibonacci}
 \end{equation}
+
+\clearpage
+
 I primi termini sono \(1,1,2,3,5,8,13,\ldots\). La funzione
 ricorsiva traduce la definizione in due casi base e due chiamate
 per ogni indice maggiore di due:
@@ -337,14 +342,33 @@ ma quella iterativa evita di ripetere i calcoli già svolti.
 
 \section{Esercizi di riepilogo}
 
-\subsection*{Testi}
-
 \begin{exercise}[Somma dei primi naturali]
 \label{ex:fi-somma-naturali}
 Scrivere una funzione ricorsiva che, per un intero \(n\ge0\), restituisca
 \(1+2+\cdots+n\), con somma nulla per \(n=0\). Identificare caso base,
 passo ricorsivo e misura che garantisce la terminazione.
 \end{exercise}
+
+\begin{solution}
+Il caso base è la somma vuota; il passo ricorsivo aggiunge \(n\)
+alla somma dei naturali fino a \(n-1\). La misura \(n\) diminuisce
+di un'unità a ogni chiamata, fino a raggiungere zero.
+
+\begin{unipdcode}[language=Python]
+def somma_naturali(n):
+    if n < 0:
+        raise ValueError("n deve essere non negativo")
+    if n == 0:
+        return 0
+    return n + somma_naturali(n - 1)
+\end{unipdcode}
+
+Per \(n=4\) il risultato è \(10\); per \(n=0\) è zero. L'addizione
+rimane sospesa durante la chiamata ricorsiva: la ricorsione non
+è quindi in coda.
+\end{solution}
+
+\clearpage
 
 \begin{exercise}[Conto alla rovescia]
 \label{ex:fi-conto-rovescia}
@@ -354,27 +378,12 @@ Spiegare perché il problema diventa più semplice e distinguere i
 valori stampati dal valore restituito.
 \end{exercise}
 
-\subsection*{Soluzioni}
-
-\begin{solution}
-Il caso base è la somma vuota; il passo aggiunge \(n\) alla somma fino
-a \(n-1\). La misura \(n\) diminuisce fino a zero.
-\begin{unipdcode}[language=Python]
-def somma_naturali(n):
-    if n < 0:
-        raise ValueError("n deve essere non negativo")
-    if n == 0:
-        return 0
-    return n + somma_naturali(n - 1)
-\end{unipdcode}
-Per \(n=4\) il risultato è dieci; per \(n=0\) è zero. La somma rimane
-sospesa durante la chiamata: la ricorsione non è in coda.
-\end{solution}
-
 \begin{solution}
 Ogni invocazione stampa il proprio argomento e, se questo è positivo,
-richiama la funzione con \(n-1\). La misura \(n\) diminuisce fino a
-zero e la chiamata è in coda.
+richiama la funzione con \(n-1\). La misura \(n\) diminuisce
+di un'unità a ogni chiamata, fino a raggiungere zero e la chiamata ricorsiva 
+è in coda.
+
 \begin{unipdcode}[language=Python]
 def conto_rovescia(n):
     if n < 0:
@@ -384,8 +393,9 @@ def conto_rovescia(n):
         return
     return conto_rovescia(n - 1)
 \end{unipdcode}
-Con \texttt{conto\_rovescia(3)} vengono stampati \(3,2,1,0\), in
-quest'ordine; con zero viene stampato soltanto zero. Il valore restituito
-è \texttt{None}, non la sequenza stampata. Anche questa ricorsione in
-coda rimane soggetta ai limiti di profondità di CPython.
+
+Con \texttt{conto\_rovescia(3)} vengono stampati \(3,2,1,0\), uno
+per riga e in quest'ordine; con zero viene stampato soltanto zero.
+Il valore restituito è \texttt{None}, non la sequenza stampata. Anche questa 
+ricorsione in coda rimane soggetta ai limiti di profondità di CPython.
 \end{solution}
