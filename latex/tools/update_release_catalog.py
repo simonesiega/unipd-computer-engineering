@@ -1,4 +1,4 @@
-"""Generate README exam coverage and release tables from GitHub Releases."""
+"""Generate README coverage/recent releases and the complete release archive."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ END_MARKER = "<!-- RELEASE-CATALOG:END -->"
 PDF_ASSET = re.compile(r"^([123])-([a-z0-9]+(?:-[a-z0-9]+)*)\.pdf$")
 YEARS = (1, 2, 3)
 YEAR_LABELS = {1: "First year", 2: "Second year", 3: "Third year"}
+RECENT_RELEASE_LIMIT = 5
 
 
 @dataclass(frozen=True)
@@ -135,8 +136,35 @@ def covered_courses(
     return covered
 
 
+def render_release_table(releases: list[PublishedRelease]) -> list[str]:
+    """Render release rows in the same format for both catalogues."""
+    lines = ["| Release | Date | Title | PDFs |", "|---|---|---|---|"]
+    if not releases:
+        lines.append("| — | — | _No releases published yet_ | — |")
+    for release in releases:
+        release_link = (
+            f"[`{release.tag}`]({release.url})" if release.url else f"`{release.tag}`"
+        )
+        pdf_links = "<br>".join(
+            f"[{pdf.filename}]({pdf.download_url})"
+            if pdf.download_url
+            else f"`{pdf.filename}`"
+            for pdf in release.pdfs
+        ) or "—"
+        lines.append(
+            f"| {release_link} | {release.published_at[:10]} | "
+            f"{_markdown(release.title)} | {pdf_links} |"
+        )
+    return lines
+
+
+def render_archive(releases: list[PublishedRelease]) -> str:
+    """Render the complete, tool-owned release archive."""
+    return "\n".join(["# Releases", "", *render_release_table(releases), ""])
+
+
 def render_catalog(root: Path, releases: list[PublishedRelease]) -> str:
-    """Render the three generated README tables."""
+    """Render README coverage and the five newest published releases."""
     covered = covered_courses(releases)
     counts = {year: sum(key[0] == year for key in covered) for year in YEARS}
     lines = [
@@ -181,28 +209,12 @@ def render_catalog(root: Path, releases: list[PublishedRelease]) -> str:
             "",
             "## Releases",
             "",
-            "| Release | Date | Title | PDFs |",
-            "|---|---|---|---|",
+            "Browse the five most recent releases below, or [view all published releases](RELEASES.md).",
+            "",
+            *render_release_table(releases[:RECENT_RELEASE_LIMIT]),
+            END_MARKER,
         )
     )
-    if not releases:
-        lines.append("| — | — | _No releases published yet_ | — |")
-    else:
-        for release in releases:
-            release_link = (
-                f"[`{release.tag}`]({release.url})" if release.url else f"`{release.tag}`"
-            )
-            pdf_links = "<br>".join(
-                f"[{pdf.filename}]({pdf.download_url})"
-                if pdf.download_url
-                else f"`{pdf.filename}`"
-                for pdf in release.pdfs
-            ) or "—"
-            lines.append(
-                f"| {release_link} | {release.published_at[:10]} | "
-                f"{_markdown(release.title)} | {pdf_links} |"
-            )
-    lines.append(END_MARKER)
     return "\n".join(lines)
 
 
@@ -225,6 +237,19 @@ def update_readme(readme: Path, generated: str) -> bool:
     return True
 
 
+def update_archive(archive: Path, generated: str) -> bool:
+    """Atomically replace the tool-owned archive only when content changes."""
+    if archive.is_file() and archive.read_text(encoding="utf-8") == generated:
+        return False
+    temporary = archive.with_suffix(".md.tmp")
+    try:
+        temporary.write_text(generated, encoding="utf-8", newline="\n")
+        os.replace(temporary, archive)
+    finally:
+        temporary.unlink(missing_ok=True)
+    return True
+
+
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -233,14 +258,16 @@ def parse_arguments() -> argparse.Namespace:
 
 
 def main() -> int:
-    """Update README from prepared GitHub release JSON."""
+    """Update both release listings from prepared GitHub release JSON."""
     arguments = parse_arguments()
     root = repository_root()
     data = json.loads(arguments.releases_json.read_text(encoding="utf-8"))
     releases = parse_releases(data)
-    changed = update_readme(root / "README.md", render_catalog(root, releases))
+    readme_changed = update_readme(root / "README.md", render_catalog(root, releases))
+    archive_changed = update_archive(root / "RELEASES.md", render_archive(releases))
     print(
-        f"{'Updated' if changed else 'Verified'} README release catalogue from "
+        f"{'Updated' if readme_changed else 'Verified'} README and "
+        f"{'updated' if archive_changed else 'verified'} RELEASES.md from "
         f"{len(releases)} published release(s)."
     )
     return 0

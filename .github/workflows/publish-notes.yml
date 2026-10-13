@@ -327,7 +327,7 @@ jobs:
 
           echo "Published $TAG from $GITHUB_SHA with ${#expected_assets[@]} assets."
 
-      - name: Update README release catalogue
+      - name: Update README and complete release archive
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -349,20 +349,21 @@ jobs:
             git reset --hard "origin/$TARGET_BRANCH"
             python3 latex/tools/update_release_catalog.py \
               --releases-json .build/releases.json
+            python3 latex/tools/check_repository.py
 
-            if git diff --quiet -- README.md; then
-              echo "README release catalogue is already current."
+            if [ -z "$(git status --porcelain -- README.md RELEASES.md)" ]; then
+              echo "README and RELEASES.md are already current."
               exit 0
             fi
 
-            git add -- README.md
-            git commit -m "docs(releases): update published notes catalogue [skip ci]"
+            git add -- README.md RELEASES.md
+            git commit -m "docs(releases): update published notes catalogues [skip ci]"
             if git push origin "HEAD:$TARGET_BRANCH"; then
-              echo "Published README release catalogue at $(git rev-parse HEAD)."
+              echo "Published release catalogues at $(git rev-parse HEAD)."
               exit 0
             fi
             echo "The branch advanced; retrying catalogue update ($attempt/3)."
           done
 
-          echo "Could not update the README release catalogue after three attempts." >&2
+          echo "Could not update release catalogues after three attempts." >&2
           exit 1

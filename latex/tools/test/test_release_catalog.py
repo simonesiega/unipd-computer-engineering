@@ -14,7 +14,9 @@ from update_release_catalog import (
     START_MARKER,
     covered_courses,
     parse_releases,
+    render_archive,
     render_catalog,
+    update_archive,
     update_readme,
 )
 
@@ -106,7 +108,7 @@ class ReleaseCatalogTests(unittest.TestCase):
         self.assertEqual(set(covered), {(1, "calculus-1"), (2, "algorithms")})
         self.assertEqual(covered[(1, "calculus-1")].download_url, "https://example.test/2026-2027-semester-2/1-calculus-1.pdf")
 
-    def test_catalog_contains_counts_courses_and_every_published_release(self) -> None:
+    def test_catalog_contains_counts_courses_and_recent_published_releases(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             course = root / "1" / "calculus-1"
@@ -161,6 +163,44 @@ class ReleaseCatalogTests(unittest.TestCase):
             self.assertTrue(content.startswith("Before\n"))
             self.assertTrue(content.endswith("\nAfter\n"))
             self.assertFalse(update_readme(readme, catalog))
+
+    def test_recent_releases_and_complete_archive_share_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            releases = parse_releases(
+                [
+                    self.release(
+                        f"snapshot-{number}",
+                        f"2027-01-{number:02d}T10:00:00Z",
+                        [f"1-course-{number}.pdf"],
+                    )
+                    for number in range(1, 8)
+                ]
+            )
+            catalog = render_catalog(root, releases)
+            archive_text = render_archive(releases)
+            self.assertEqual(catalog.count("| [`snapshot-"), 5)
+            self.assertEqual(archive_text.count("| [`snapshot-"), 7)
+            introduction = (
+                "Browse the five most recent releases below, or "
+                "[view all published releases](RELEASES.md)."
+            )
+            self.assertLess(catalog.index("## Releases"), catalog.index(introduction))
+            self.assertLess(catalog.index(introduction), catalog.index("| Release | Date |"))
+            self.assertTrue(catalog.endswith(f"\n{END_MARKER}"))
+            for number in range(3, 8):
+                row = next(
+                    line for line in archive_text.splitlines()
+                    if f"`snapshot-{number}`" in line
+                )
+                self.assertIn(row, catalog)
+
+            archive = root / "RELEASES.md"
+            self.assertTrue(update_archive(archive, archive_text))
+            self.assertEqual(archive.read_text(encoding="utf-8"), archive_text)
+            self.assertFalse(update_archive(archive, archive_text))
+            self.assertTrue(update_archive(archive, render_archive([])))
+            self.assertIn("No releases published yet", archive.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
