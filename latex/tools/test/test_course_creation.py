@@ -26,7 +26,6 @@ from create_course import (
     Course,
     academic_year,
     author_name,
-    canonical_build_command,
     channel,
     course_code,
     create_course,
@@ -117,13 +116,6 @@ class CourseCreationTests(unittest.TestCase):
         self.assertEqual(academic_year(1), "2026--2027")
         self.assertEqual(academic_year(2), "2027--2028")
         self.assertEqual(academic_year(3), "2028--2029")
-
-    def test_next_build_command_uses_the_canonical_environment(self) -> None:
-        self.assertEqual(
-            canonical_build_command(Path("1/analisi-matematica-1")),
-            "docker compose run --rm texlive python3 latex/tools/build.py "
-            "1/analisi-matematica-1",
-        )
 
     def test_standard_layout_and_metadata_are_created(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -343,10 +335,15 @@ class CourseCreationTests(unittest.TestCase):
                 patch.object(
                     create_course_module, "repository_root", return_value=root
                 ),
-                patch("builtins.print"),
+                patch("builtins.print") as printed,
             ):
                 self.assertEqual(create_course_module.main(), 0)
 
+            self.assertIn(
+                "Next step: docker compose run --rm texlive "
+                "python3 latex/tools/build.py 1/operating-systems",
+                [str(call.args[0]) for call in printed.call_args_list],
+            )
             source = (root / "1" / "operating-systems" / "main.tex").read_text(
                 encoding="utf-8"
             )
