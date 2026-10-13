@@ -1,72 +1,62 @@
 ---
 name: unipd-pdf-review
-description: Visually inspect generated course or component PDFs for layout, readability, navigation, and rendering defects. Use only after a successful relevant build. Do not use for content writing, compilation, LaTeX implementation, tests, validation, or CI.
+description: Visually inspect freshly compiled UniPD course, component, and integration PDFs for layout, legibility, pagination, links, and rendering regressions. Requires real inspection of rendered page images, not compilation or text extraction alone. Route content corrections and source implementation to the appropriate skills.
 ---
 
 # UniPD PDF Review
 
-## Select and inspect
+## Select a verifiable build
 
-Review the current generated PDF:
+Use a PDF produced **after the latest relevant source changes**:
 
-- `.build/<year>/<course-name>/main.pdf` for a local course build, or the corresponding PDF from the pull-request CI artifact;
-- `latex/components/<component>/example/main.pdf` for a tracked component fixture;
-- `latex/integration/<language>/main.pdf` for a tracked integration fixture.
+- courses: `.build/<year>/<course-name>/main.pdf` or the matching CI PDF artifact;
+- component examples: `latex/components/<component>/example/main.pdf`;
+- language integration examples: `latex/integration/<language>/main.pdf`.
 
-Course PDFs are protected build outputs and must not be copied into, staged from, or committed under a course directory. Do not review an outdated PDF after source changes. If neither a current local build nor its CI artifact is available, report an incomplete review.
+Confirm its source revision and build provenance when available. Never review an outdated document as evidence for current changes. Course PDFs are ignored build/release outputs; do not copy them into course source folders or track them. Component and integration PDFs are intentional tracked fixtures.
 
-Inspect the full affected PDF when practical. For large documents, inspect at least the cover, front matter, table of contents, changed sections, adjacent pages, affected bibliography or appendices, and final page.
+If no current PDF exists, request or delegate a build to `unipd-latex-build`; this skill does not itself own compilation or LaTeX source edits.
 
-Render pages to images. Text extraction alone is not a visual review.
+## Perform a real visual review
 
-## Visual checklist
+1. Determine the PDF's page count and affected chapters/pages. Render the pages to image files with an available PDF renderer (for example `pdftoppm` or a compatible tool).
+2. **Actually open and inspect the rendered images.** A successful render command, extracted text, file metadata, an image contact-sheet path, or an assertion that images were generated is not visual inspection.
+3. For a small or release-candidate PDF, inspect every page. For a long PDF, first inspect a readable contact sheet covering every page; then inspect at full readable resolution the cover, front matter, contents, changed pages, neighboring pages, diagrams, tables, code, appendices/bibliography, and ending. For a requested *full* review, do not silently substitute sampling.
+4. When necessary, zoom into difficult equations, small labels, multi-column content, glyphs, and dense code listings. Text extraction and PDF structure checks may supplement but never replace image inspection.
+5. When previous output exists, compare affected and adjacent pages to catch unintended repagination or typographic regressions. Page shifts alone are not defects; assess actual readability and meaning.
+6. If an image viewer fails, try another available inspection method or render format before declaring a blocker. If the images still cannot be viewed, mark the visual review **incomplete** and report precisely which pages could not be inspected.
 
-Check document-wide:
+Do not use OCR as the default means of visual assessment. Do not claim `PASS` solely because compilation, validation, or extracted text succeeded.
 
-- page size, margins, headers, footers, numbering, hierarchy, spacing, and page breaks;
-- blank, duplicated, clipped, overlapping, off-page, or unreadably small content;
-- inconsistent typography or avoidable large empty areas.
+## Examine document-wide consistency
 
-Check front matter:
+- Page size, margins, line lengths, running headers, footers, page numbers, blank pages, and front/main/appendix transitions.
+- Consistent typography, font weights, language-appropriate hyphenation, paragraph spacing, hierarchy, and table-of-contents entries.
+- Content clipped at edges, collisions, missing glyphs, off-page floats, duplicated elements, unreadably small text, and missing pages.
+- Widows/orphans, awkwardly separated theorem or example statements, split captions, strange page breaks, and conspicuous accidental whitespace. Do not call every intentionally sparse page an error.
 
-- title, course, academic year, author, version, contents, lists, and page-number transitions.
+## Examine academic and technical material visually
 
-Check mathematics:
+- **Mathematics:** signs, subscripts, superscripts, delimiters, roots, accents, quantifiers, equation alignment, case distinctions, theorem/proof boxes, and visually misleading line breaks.
+- **Diagrams and figures:** axes, arrows, label placement, legends, captions, resolution, scaling, and whether required information is visible.
+- **Tables:** header association, column widths, multi-page continuation, wrapped cells, unit labels, alignment, and clipping.
+- **Code and pseudocode:** indentation, line wraps, syntax colors/contrast, command/output separation, character fidelity, and terminal/text block boundaries.
+- **Navigation:** legible references, table-of-contents destinations, hyperlink/bookmark behavior when inspectable, missing `??`, repeated destinations, and apparent cross-reference inconsistencies.
+- **Front matter:** cover fields and attribution **as authored**; do not second-guess course-specific dates, versions, or channels without evidence and authorization.
 
-- symbols, delimiters, alignment, numbering, matrices, cases, theorem layout, and awkward page splits.
+If a rendered sign, exponent, symbol, or code indentation changes the meaning, flag it as a content-significant visual defect and hand off the source correction to `unipd-note-writing` or `unipd-latex-component-development` as appropriate. Do not independently redesign the document.
 
-Check figures, diagrams, and tables:
+## Findings and pass criteria
 
-- resolution, scaling, cropping, labels, legends, captions, source notes, wrapping, alignment, multi-page behavior, and legibility.
+For each issue, provide severity, exact PDF path, **physical PDF page**, printed page number if different, affected element, observed defect, likely source location, and minimal suggested correction.
 
-Check code and algorithms:
+Classify findings as:
 
-- monospace rendering, highlighting, indentation, line numbers, wrapping, clipping, captions, inputs, outputs, and page breaks.
+- `blocking`: missing, unreadable, clipped/overlapping, incorrect or meaning-changing rendering;
+- `important`: substantial readability, navigation, or consistency defect;
+- `minor`: limited cosmetic defect;
+- `observation`: benign or intentional characteristic worth noting.
 
-Check references and navigation:
+Finish with one explicit result: `PASS`, `PASS WITH MINOR ISSUES`, `NEEDS CHANGES`, or `INCOMPLETE REVIEW`. Only `PASS`/`PASS WITH MINOR ISSUES` may follow actual review of the **declared required pages**. Report exactly which page ranges or all pages were visually inspected, any viewer failures, limitations, and what remains for publication.
 
-- cross-reference numbers, unresolved `??`, citations, bibliography, hyperlinks, bookmarks, and visible duplicate destinations.
-
-Review visual correctness only; mathematical correctness belongs to note review unless rendering changes meaning.
-
-## Findings
-
-Classify each finding:
-
-- `blocking`: missing, unreadable, clipped, overlapping, or meaningfully broken;
-- `important`: clearly harms readability or consistency;
-- `minor`: cosmetic with limited impact;
-- `observation`: notable but not necessarily defective.
-
-For each finding, report severity, PDF path, page, element, concise problem, likely source file when identifiable, and a correction when clear.
-
-## Result
-
-End with exactly one status:
-
-- `PASS`
-- `PASS WITH MINOR ISSUES`
-- `NEEDS CHANGES`
-- `INCOMPLETE REVIEW`
-
-State which pages were reviewed. Never pass a missing or only partially inspectable required PDF.
+A visual `PASS` does not certify mathematical or programming correctness, and a successful build does not certify visual quality.

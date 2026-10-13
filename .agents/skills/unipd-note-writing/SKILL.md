@@ -1,75 +1,67 @@
 ---
 name: unipd-note-writing
-description: Write, expand, correct, reorganize, or review course-note content under 1/, 2/, or 3/, including course-specific diagrams. Use for explanations, definitions, proofs, examples, exercises, solutions, code explanations, labels, and references. Do not use for builds, PDF review, shared LaTeX infrastructure, Python tools, or validation.
+description: Draft, extend, edit, or academically review course notes and course-specific assets under 1/, 2/, or 3/. Use for exposition, proofs, exercises, calculations, technical explanations, program listings, and sources. Delegate builds, visual PDF inspection, repository validation, tooling, and shared LaTeX implementation to their respective skills.
 ---
 
 # UniPD Note Writing
 
-## Establish context
+## Scope and evidence
 
-1. Identify the course, files, requested topic, and available source material.
-2. Inspect the affected chapter, section, or lecture and nearby content.
-3. Preserve the course language, terminology, notation, labels, and established facts.
-4. Inspect `main.tex` when document order or inclusion changes.
-5. Consult `docs/md/user-guide/writing-notes.md` when conventions are unclear or the change is substantial.
+1. Establish whether the request is to draft new content, revise existing material, or conduct a correctness-only review. Follow the requested scope; review is not permission to rewrite everything.
+2. Read the relevant course `main.tex`, surrounding sections, existing notation, and any supplied lecture material before making changes. For a whole-course review, inspect the complete included text and relevant assets rather than isolated excerpts.
+3. Consult `docs/md/user-guide/writing-notes.md` and the relevant course README when necessary. Treat the course's documented conventions and explicit maintainer decisions as authoritative for that course; do not infer dates, channels, versions, or completeness from external expectations.
+4. Separate what supplied materials establish from independent verification or added explanation. When lectures or external sources are missing or ambiguous, report the gap rather than inventing content.
+5. Preserve the course language (`italian` or `english`), intended level, terminology, structure, and existing valid labels. These skills apply to every course and must not impose conventions borrowed from a different subject.
 
-Keep the diff limited to the requested course content and the relevant writing instructions.
+## Academic prose and continuity
 
-## Educational writing
+- Write connected, accurate exposition suitable for a university textbook or serious lecture notes, not a transcript, chat explanation, or bullet-point summary. Favor concise, self-contained paragraphs with natural transitions.
+- For Italian courses, use sober, fluent, impersonal academic Italian. Avoid habitual first-person narration, awkward repeated passive constructions, unexplained jargon, redundant restatements, filler, and formula-by-formula commentary. For English courses, apply equivalent standards in natural academic English.
+- Preserve the author's established voice. Correct meaningful grammar, spelling, punctuation, ambiguity, and terminology problems; do not rephrase sound sentences for variety or formality alone.
+- Ensure concepts are introduced before use, or clearly linked to an earlier definition. Keep terminology and notation consistent from introductory sections through exercises and appendices.
+- Explain non-obvious reasoning without expanding routine steps unnecessarily. Distinguish definitions, assumptions, conventions, intuition, claims, proofs, worked examples, and exercises.
+- Match the actual syllabus and available materials. Do not add unrelated advanced theory, speculative coverage, invented lectures, or missing-looking sections merely to make the notes seem comprehensive.
 
-- Write explanations, not transcripts or disconnected notes. Produce concise, continuous exposition in the style of a university textbook or serious lecture notes, not a tutorial or generated-sounding checklist. Avoid filler, repetition, obvious restatements, announcements of what follows, and over-explanation of routine formulae.
-- Use formal, precise, sober, impersonal academic Italian for Italian notes. Normally avoid first-person plural exposition such as «consideriamo», «vediamo», «definiamo», «dimostriamo», and «abbiamo». Prefer direct declarative or impersonal constructions without mechanically repeating «si».
-- Stay faithful to supplied source material and the actual scope covered. Useful clarification is allowed; do not introduce unrelated theory or conventions merely to make the notes appear more complete. Never invent lecture dates or content.
-- Define unfamiliar terms and symbols at first use where needed. State assumptions, domains, and conditions; explain non-obvious reasoning and enough steps to make proofs intelligible.
-- Distinguish intuition from proof and definition, axiom, property, theorem, remark, example, and demonstration. Preserve course terminology where specified.
+## Verify mathematics and quantitative content
 
-## Structure and LaTeX
+Independently check every changed or reviewed mathematical statement, calculation, proof, and worked result; never infer validity from an attractive final answer.
 
-Preserve the course's chosen organization. Use chronological, numbered lectures with supplied dates only when the course follows that convention or the user requests it; other courses may use topic-based chapters and sections. Do not impose one course's lecture structure on another. Keep headings descriptive and the table of contents compact; use semantic environments rather than a numbered subsection for every minor concept.
+- State the domain, hypotheses, quantifiers, units, conventions, and applicable ranges before relying on them.
+- Check equivalences versus implications; necessary versus sufficient conditions; existence and uniqueness; boundary, empty, zero, negative, infinite, and degenerate cases where relevant.
+- For induction, verify the actual starting case, exact inductive hypothesis, admissibility of the next step, and closure of the argument.
+- For inequalities, verify signs before multiplying/dividing, direction changes, and whether cited results apply to the elements' actual domain. Do not use a theorem proved only for a narrower set without justifying extension.
+- For limits, bounds, optimization, algebra, discrete mathematics, statistics, or other course-specific mathematics, verify definitions and hypotheses according to that field; do not impose Analysis-specific notation on other subjects.
+- Recalculate numeric examples and consistency of approximations, precision, rounding, indexing, and claimed outputs. Use independent computation when useful, while preserving mathematical justification.
+- Never silently change a theorem's meaning to repair its proof; make the smallest sound correction and identify any substantive ambiguity that requires an instructor or maintainer decision.
 
-Split substantial content under the existing `sections/` convention by the course's natural units, such as chapters, topics, or lectures. Keep `main.tex` focused on metadata, document order, and applicable front/back matter. Do not invent lecture dates or placeholder content.
+## Verify algorithms, programs, and technical claims
 
-Use existing semantic commands and environments. Keep course-specific diagrams in the course source and reuse shared diagram styles. Do not introduce local fonts, colors, spacing rules, heading styles, or duplicate shared commands.
+- Distinguish formal models, pseudocode, program text, commands, and sample output. Never present invalid executable syntax as executable code; label deliberate metasyntax explicitly.
+- Check algorithm inputs, outputs, preconditions, invariants, termination, complexity claims, and exceptional cases when relevant.
+- For included programming languages, verify syntax and semantics using the specified language/version and applicable runtime. Execute **safe, self-contained** examples in isolated temporary locations where feasible; avoid user data, production systems, network calls, or side effects. Explicitly report examples that were not executed.
+- Verify representations, conversions, numeric widths, character encodings, and implementation-specific behavior against their stated assumptions; do not generalize a language- or platform-specific result without qualification.
+- Keep diagrams, tables, code, formulas, and prose mutually consistent. A source snippet can be syntactically correct yet still demonstrate the wrong behavior.
 
-Use environments by meaning:
+## Course structure and shared LaTeX
 
-- `definition` for concepts;
-- `theorem`, `proposition`, `lemma`, `corollary`, and `proof` for formal results;
-- `example` and `remark` for illustration and clarification;
-- `important` and `warning` for essential information and common mistakes;
-- `exercise` and `solution` for practice.
+- Preserve each course's own organization: dated lecture chapters, topical chapters, tutorials, and appendices are all legitimate. Do not require dates or lecture numbers in topic-organized courses.
+- Keep `main.tex` concerned with class language, metadata, document order, and front/back matter; keep substantial course material in the established `sections/` and course assets under `assets/`.
+- Use shared semantic environments (`definition`, `theorem`, `proposition`, `lemma`, `corollary`, `proof`, `example`, `remark`, `exercise`, `solution`, `important`, `warning`) only when their meaning fits. Not every statement needs a callout or heading.
+- Use `unipdcode`, `unipdterminal`, and the existing diagram/algorithm facilities. Do not add per-course typography, geometry, fonts, colors, or duplicate shared macros to solve a common LaTeX problem.
+- Keep mathematical notation and equation alignment meaningful. Use `\given` and `\suchthat`, or scaled variants inside scalable delimiters, as documented. Number equations only if later referenced.
+- Use stable, descriptive lowercase labels (`chap:`, `sec:`, `def:`, `thm:`, `prop:`, `lem:`, `cor:`, `ex:`, `eq:`, `fig:`, `tab:`, `lst:`, `alg:`) when useful; preserve existing valid labels. Prefer `\cref` to manually repeated numbers, hard-coded page numbers, or duplicate proofs.
+- Keep glossaries or notation tables selective: include genuinely reusable or ambiguous symbols, not every definition in the course. First-use explanations remain mandatory.
 
-Use semantic environments rather than excessive headings. Do not use callouts merely for decoration.
+## Sources, authorship, and minimal edits
 
-## Mathematics, examples, and solutions
+- Cite borrowed results, nontrivial factual claims, diagrams, datasets, and quotations using the course's existing citation approach. Verify references; never fabricate citations or assume that a source's license permits redistribution.
+- Respect the notes' original scope and declared omissions. Do not invent lecture content, claim official university approval, or alter course metadata, release coverage, licensing, or version policy without a request.
+- Prefer the smallest justified source diff. Protect prior work and unrelated files; avoid bulk stylistic churn. When a suspected defect is unverified, leave it as a clearly identified concern rather than making a speculative correction.
 
-- Define symbols before relying on them and state relevant domains and conditions.
-- Keep notation stable. Verify calculations, quantifiers, edge cases, and final results.
-- Align multi-line calculations by meaning. Number equations only when referenced later.
-- Make examples purposeful and consistent with the material already introduced.
-- Make exercises unambiguous and dependent only on introduced material; clearly distinguish exercises and solutions.
-- Never present an unverified derivation as correct.
+## Completion and handoff
 
-## Glossary and conventions
+After editing, read the full affected passages in context and inspect `git diff` for regressions. Record exact locations and distinguish confirmed corrections from optional suggestions.
 
-Keep the glossary or conventions reference intentionally small enough to remain concise after many weeks of lectures. Include only course-specific conventions, ambiguous notation, and recurring symbols that are genuinely useful to look up. Explain ordinary standard notation briefly at first use instead of cataloguing it globally. Keep entries short; do not use the glossary to summarize mathematical theory or duplicate lesson definitions and results. The glossary never replaces a concept's first formal introduction in the lesson.
+Hand off compilation to `unipd-latex-build`, **actual rendered-page inspection** to `unipd-pdf-review`, and hygiene checks to `unipd-repository-validation`. Their successful results must be reported separately; do not claim to have performed them merely because the notes were reviewed.
 
-## Labels, cross-references, and sources
-
-Use stable lowercase prefixes: `chap:` for chapters (including lecture chapters); `sec:` for major sections; `def:`, `thm:`, `prop:`, `lem:`, `cor:`, and `ex:` for reusable mathematical objects; and `eq:`, `fig:`, `tab:`, `lst:`, and `alg:` for referenced items.
-
-Label chapters and important reusable definitions, results, principles, and significant examples only when later reference is plausible. Preserve existing valid labels outside the requested scope. Labels should identify the mathematical object, not merely its location. Do not label every paragraph or unreferenced equation.
-
-When later content uses an earlier result, normally refer to its original label using the existing `\\cref` and hyperlink facilities rather than duplicating its statement or proof. References should read naturally in the exposition. Never hard-code page numbers. Check labels for uniqueness and all references for resolution.
-
-Cite borrowed definitions, results, data, diagrams, quotations, and substantial claims. Prefer reliable sources and never invent citations. Mark unverifiable claims for human review.
-
-## Code and diagrams
-
-- Use `unipdcode` and `unipdterminal` for new listings and terminal sessions; retain generic compatibility aliases only in older material outside the requested scope.
-- Identify the language or notation when unclear; explain purpose, assumptions, and limitations.
-- Prefer original or reproducible diagrams and shared repository styles. Store course assets under `assets/`, and document third-party sources and licenses.
-
-## Review
-
-Read the result as a student. Check progression appropriate to the course's organization, compact heading hierarchy and table of contents, formal impersonal register, concision, source fidelity, mathematical correctness, examples, citations, and scope. Check that previous results are referenced rather than duplicated, the glossary remains compact, labels are unique, and references resolve. Compile in the canonical environment and visually review the resulting PDF; report checks that could not be completed.
+Report what was inspected, changed, independently verified, left uncertain, and not checked. Do not commit, push, tag, or publish unless explicitly authorized.
