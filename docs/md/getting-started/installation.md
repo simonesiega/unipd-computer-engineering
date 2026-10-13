@@ -2,7 +2,7 @@
 
 [← Documentation](../README.md) · [Docker builds](docker.md) · [Building documents](building-documents.md)
 
-You do not need to install the repository to read the notes. Download compiled PDFs from the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release or from an immutable semester snapshot.
+You do not need to install the repository to read the notes. Download compiled PDFs from the rolling [`notes-latest`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/notes-latest) release or from an immutable snapshot release.
 
 This guide covers the minimum setup required to build and contribute locally.
 
