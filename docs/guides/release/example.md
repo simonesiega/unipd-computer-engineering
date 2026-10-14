@@ -1,3 +1,5 @@
+<!-- Read the [snapshot requirements](../development/tool-test-and-ci.md#immutable-snapshots) before using this template, including approval, committed-description, and placeholder checks. -->
+
 <!-- What is this snapshot? Use the applicable archive year (2026–2027, 2027–2028, or 2028–2029) and state the week or semester and purpose in one sentence. -->
 [Reviewed snapshot for week N of academic year 2026–2027.]
 

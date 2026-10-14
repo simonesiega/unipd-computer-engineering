@@ -6,7 +6,7 @@ This guide defines how course files are organized. All course-specific sources a
 
 ## Standard layout
 
-To generate this structure automatically, follow the [Creating a course](../getting-started/creating-a-course.md) guide, which explains how to use `create_course.py` and configure the required course metadata.
+Courses use the layout below. The [course generator](../getting-started/creating-a-course.md) creates `main.tex`, `README.md`, `sections/`, and `assets/`; add `references.bib` if a bibliography is needed.
 
 ```text
 <year>/<course-name>/
@@ -32,7 +32,7 @@ To generate this structure automatically, follow the [Creating a course](../gett
 | `.build/<year>/<course-name>/main.pdf` | Ignored local/CI output produced by the build tool; not a course source file. |
 | `README.md` | Provides course information, a rolling-release PDF link, and an automatically generated contents section. |
 
-Keep shared typography, layout, and reusable typesetting behavior in the class or components. Subject-specific notation helpers, glossary entries, listing-language definitions, and diagram parameters may remain in the course preamble or an included course-local source; do not duplicate interfaces already provided by the class. See the [course compatibility contract](../development/architecture.md#course-compatibility-contract) for the boundary between normal course work and infrastructure changes.
+Keep shared typography and layout in the class or components. Course-local notation, glossary entries, listing-language definitions, and diagram parameters may live in the preamble or an included source. Reuse existing interfaces; see the [course compatibility contract](../development/architecture.md#course-compatibility-contract) for extension boundaries.
 
 ## Organizing source files
 
@@ -61,23 +61,12 @@ Use lowercase kebab-case, descriptive names, and two-digit numeric prefixes when
 
 Use descriptive filenames and store each asset within the course that uses it. Create subdirectories under `assets/` only when they make the directory easier to navigate.
 
-Assets may use any format appropriate for the course, including SVG images, JPEG files, CSV datasets, Jupyter notebooks, Draw.io diagrams, and domain-specific data files.
+Keep editable originals when useful: SVG or Draw.io diagrams, CSV data, notebooks, and other subject-specific files may accompany the notes. Not every stored format can be included directly by LuaLaTeX. Use supported image formats or course-local TikZ sources in the document; document any conversion steps and verify them in the network-disabled Docker environment.
 
-Document the source and license of all third-party material. Whenever possible, prefer original diagrams, figures, and datasets.
+Follow [Sources and attribution](writing-notes.md#sources-and-attribution) for asset provenance and [Licensing and attribution](../../../CONTRIBUTING.md#licensing-and-attribution) for redistribution rights.
 
 ## Generated files
 
-Builds place compilation files and the generated course `main.pdf` under the repository-level `.build/<year>/<course-name>/` directory. The PDF stays there for local review. Pull requests and pushes to `main` expose affected PDFs through temporary CI artifacts. A maintainer manually refreshes the rolling GitHub Release when the complete archive is ready to publish.
-
-The build tool creates or updates the generated section of `README.md` from the compiled table of contents and links to the stable rolling-release asset. Do not edit content between:
-
-```html
-<!-- GENERATED:START -->
-<!-- GENERATED:END -->
-```
-
-Manual course information may be written outside those markers.
-
-Do not commit temporary LaTeX files such as `.aux`, `.log`, `.out`, or `.toc`, and do not commit a generated `<year>/<course>/main.pdf`. When source changes affect the document, rebuild in the [canonical Docker environment](../getting-started/docker.md), visually review `.build/<year>/<course>/main.pdf`, and commit only source-owned files plus generated README content. If a generated course `main.pdf` was accidentally tracked, remove it with `git rm --cached -- <year>/<course>/main.pdf`; normal contributions must not rewrite Git history.
+[Review the output](../getting-started/building-documents.md#review-the-output) owns generated-file locations, PDF fixtures, and what may be committed. [Generated README content](../development/build-system.md#generated-readme-content) explains marker ownership and the distinction between local contents and published downloads. For hosted review copies, see [CI artifacts](../development/tool-test-and-ci.md#pull-requests-and-main).
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) for build and validation commands.

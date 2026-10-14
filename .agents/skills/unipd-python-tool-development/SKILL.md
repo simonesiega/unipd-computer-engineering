@@ -8,7 +8,7 @@ description: Implement, review, and test repository Python tools in latex/tools/
 ## Establish observable behavior
 
 1. Identify the tool and the public behavior being added, corrected, or reviewed. Read its current implementation, CLI behavior, related helpers, and closest tests.
-2. Consult `docs/md/development/tool-test-and-ci.md` and `docs/md/development/build-system.md` if selection, generation, packaging, or CI ownership is unclear.
+2. Consult `docs/guides/development/tool-test-and-ci.md` and `docs/guides/development/build-system.md` if selection, generation, packaging, or CI ownership is unclear.
 3. Reproduce a reported failure before modifying code when practical. Identify expectations from existing tests and project policy, not assumptions based on one particular course.
 4. Preserve the layout and language support of all course years, supported semesters, dated or topical structures, and allowed class languages. Do not hard-code course names, professors, course topics, lecture schedules, or temporary snapshot dates.
 

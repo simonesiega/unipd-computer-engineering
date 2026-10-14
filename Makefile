@@ -2,17 +2,19 @@
 
 DOCKER := docker compose run --rm --no-deps texlive
 BUILD := $(DOCKER) python3 latex/tools/build.py
+PYTHON ?= python3
 
-.PHONY: help course build check all clean
+.PHONY: help course build check docs all clean
 
 help:
 	@echo "Daily repository commands:"
-	@echo "  make build COURSE=1/calculus-1"
+	@echo "  make build COURSE=1/analisi-matematica-1"
 	@echo "  make all"
 	@echo "  make check"
+	@echo "  make docs (requires .github/requirements-docs.txt)"
 	@echo "  make clean"
-	@echo "  make course YEAR=1 COURSE='Analisi Matematica 1' SHORT='Analisi 1' \\"
-	@echo "  COURSE_CODE=IN10100190 CHANNEL=B PROFESSOR='Name' SEMESTER=1 \\"
+	@echo "  make course YEAR=1 COURSE='Corso di Esempio' SHORT='Esempio' \\"
+	@echo "  PROFESSOR='Name' SEMESTER=1 \\"
 	@echo "  AUTHOR='Ada Lovelace' DATE=2026-09-28 LANGUAGE=italian"
 
 course:
@@ -35,11 +37,14 @@ course:
 		--language "$(LANGUAGE)"
 
 build:
-	@test -n "$(COURSE)" || (echo "COURSE is required, for example COURSE=1/calculus-1" >&2; exit 2)
+	@test -n "$(COURSE)" || (echo "COURSE is required, for example COURSE=1/analisi-matematica-1" >&2; exit 2)
 	$(BUILD) "$(COURSE)"
 
 check:
 	pre-commit run --all-files --show-diff-on-failure
+
+docs:
+	$(PYTHON) latex/tools/build_docs.py
 
 all:
 	$(BUILD) --all --keep-going

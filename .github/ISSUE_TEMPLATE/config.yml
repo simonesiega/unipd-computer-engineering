@@ -7,7 +7,7 @@ contact_links:
     url: https://github.com/simonesiega/unipd-computer-engineering/blob/main/CODE_OF_CONDUCT.md#reporting-a-problem
     about: Review the private conduct-reporting process. Do not open a public issue.
   - name: Documentation hub
-    url: https://github.com/simonesiega/unipd-computer-engineering/blob/main/docs/md/README.md
+    url: https://github.com/simonesiega/unipd-computer-engineering/blob/main/docs/guides/README.md
     about: Read the setup, writing, build, reference, and maintenance guides.
   - name: Contribution guide
     url: https://github.com/simonesiega/unipd-computer-engineering/blob/main/CONTRIBUTING.md

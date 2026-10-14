@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="docs/assets/unipd.png" alt="University of Padua" width="420" />
+  <img src="docs/assets/unipd.png" alt="University of Padua" width="320" />
 </p>
 
 <h1 align="center">UniPD Computer Engineering</h1>
 
 <p align="center">
-  <strong>Notes, exercises, diagrams, and study material for the 2026–2029 Computer Engineering cohort at the University of Padua.</strong>
+  <strong>Lecture notes, exercises, proofs, and diagrams for the 2026–2029 Computer Engineering cohort at the University of Padua.</strong>
 </p>
 
 <p align="center">
@@ -13,17 +13,12 @@
 </p>
 
 <p align="center">
+  <a href="https://simonesiega.github.io/unipd-computer-engineering/">Notes website</a> ·
   <a href="#browse-the-notes">Browse notes</a> ·
-  <a href="#coverage">Coverage</a> ·
-  <a href="#build-locally">Build locally</a> ·
-  <a href="#documentation">Documentation</a> ·
-  <a href="#contributing">Contributing</a>
+  <a href="#coverage">Coverage</a>
 </p>
 
 <p align="center">
-  <a href="https://www.unipd.it/corsi-di-laurea/ingegneria-informatica">
-    <img src="https://img.shields.io/badge/BSc%20Computer%20Engineering-2026%E2%80%932029-A51C30" alt="BSc in Computer Engineering: 2026–2029" />
-  </a>
   <a href="https://github.com/simonesiega/unipd-computer-engineering/actions/workflows/ci.yml?query=branch%3Amain">
     <img src="https://img.shields.io/github/actions/workflow/status/simonesiega/unipd-computer-engineering/ci.yml?branch=main&label=build%20%26%20checks" alt="Build and validation status" />
   </a>
@@ -54,15 +49,15 @@
   />
 </p>
 
-The preview shows the shared layout used across the archive for headings, text, diagrams, equations, references, source notes, and code listings.
+The preview shows an example of a note created with the custom LaTeX layout provided by the project.
 
 </details>
 
 ## Overview
 
-This repository is a student-maintained academic archive for the 2026–2029 three-year Bachelor's degree programme in Computer Engineering at the [University of Padua](https://www.unipd.it/).
+This archive collects notes for the 2026–2029 Computer Engineering cohort at the [University of Padua](https://www.unipd.it/). Courses are organized by degree year and use a shared LaTeX class.
 
-Courses are organized by degree year and share the same LaTeX system for structure, typography, metadata, and reproducible builds. Source files live in Git; compiled PDFs are published separately through GitHub Releases.
+Source files live here; compiled course PDFs are published through GitHub Releases where they can be downloaded or viewed on the [notes website](https://simonesiega.github.io/unipd-computer-engineering/). You do not need to clone or build the repository to read a published edition.
 
 ## Browse the notes
 
@@ -74,7 +69,9 @@ Courses are organized by degree year and share the same LaTeX system for structu
 
 **[Download published compiled notes from GitHub Releases](https://github.com/simonesiega/unipd-computer-engineering/releases).**
 
-When available, the rolling `notes-latest` release tracks the latest successfully published `main` commit. Reviewed editions are published as immutable snapshot releases, while pull-request builds are available temporarily through GitHub Actions for review. If no release is listed below, build the notes locally instead.
+Choose a snapshot for a fixed edition, or the rolling `notes-latest` release, when available, for the latest manually published build from `main`. Neither is updated on every source change. Course README download links point to `notes-latest` and may be unavailable before its first publication; the release table below links directly to published editions.
+
+Pull-request PDFs are temporary GitHub Actions artifacts for review. If the material you need has not been published, build it locally.
 
 Weekly generated changelogs under [`CHANGELOG/`](CHANGELOG/) record committed course-source changes and link them to the corresponding commits.
 
@@ -114,30 +111,24 @@ Clone the repository and build a course with the pinned TeX Live environment use
 ```bash
 git clone https://github.com/simonesiega/unipd-computer-engineering.git
 cd unipd-computer-engineering
-docker compose run --rm texlive python3 latex/tools/build.py 1/course-name
+docker compose run --rm texlive python3 latex/tools/build.py 1/analisi-matematica-1
 ```
 
-For daily work, use the shorter Make target:
+With GNU Make installed, the same build is:
 
 ```bash
-make build COURSE=1/course-name
+make build COURSE=1/analisi-matematica-1
 ```
 
 Generated PDFs stay under `.build/<year>/<course>/main.pdf` and must not be committed.
 
-See [Installation](docs/md/getting-started/installation.md), [Docker builds](docs/md/getting-started/docker.md), and [Building documents](docs/md/getting-started/building-documents.md) for the complete setup and build workflow.
+See [Installation](docs/guides/getting-started/installation.md), [Docker builds](docs/guides/getting-started/docker.md), and [Building documents](docs/guides/getting-started/building-documents.md) for the complete setup and build workflow.
 
 ## Documentation
 
-Start with the [documentation hub](docs/md/README.md), or jump directly to the area you need:
+The [project-wide documentation router](docs/README.md) links contributor guides, LaTeX references, tools, tests, policies, and agent instructions. Start there to find the most specific guide for a task.
 
-| Area | Guides |
-|---|---|
-| Getting started | [Installation](docs/md/getting-started/installation.md) · [Docker builds](docs/md/getting-started/docker.md) · [Creating a course](docs/md/getting-started/creating-a-course.md) · [Building documents](docs/md/getting-started/building-documents.md) |
-| Writing notes | [Course structure](docs/md/user-guide/course-structure.md) · [Writing notes](docs/md/user-guide/writing-notes.md) · [Metadata](docs/md/user-guide/metadata.md) |
-| LaTeX reference | [Document class](docs/md/reference/unipd-notes-class.md) · [Components](latex/components/README.md) · [Fonts](latex/fonts/README.md) |
-| Repository development | [Architecture](docs/md/development/architecture.md) · [Build system](docs/md/development/build-system.md) · [Validation, tests, and CI](docs/md/development/tool-test-and-ci.md) · [AI-assisted development](docs/md/development/ai-assisted-development.md) |
-| Project policies | [Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md) |
+The [documentation site](https://simonesiega.github.io/unipd-computer-engineering/) adds search, navigation, course contents, and published-PDF readers after Pages is enabled. For local preview and deployment, use [Documentation site](docs/guides/development/documentation-site.md).
 
 ## Contributing
 
@@ -145,7 +136,7 @@ Contributions to the study material, LaTeX system, documentation, and repository
 
 Before opening an issue or pull request, read [`CONTRIBUTING.md`](CONTRIBUTING.md) for the project workflow, quality standards, validation steps, licensing requirements, and academic-integrity rules. All participation must follow the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
-AI-assisted contributions remain subject to human review. Contributors are responsible for correctness, originality, citations, licensing, and disclosing uncertainty or unverified material. See [AI-assisted development](docs/md/development/ai-assisted-development.md) for the full policy.
+AI-assisted work needs the same review as any other contribution. See [AI-assisted development](docs/guides/development/ai-assisted-development.md) for review and disclosure requirements.
 
 Security vulnerabilities involving scripts, dependencies, automation, or configuration should be reported according to [`SECURITY.md`](SECURITY.md).
 

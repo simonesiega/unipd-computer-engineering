@@ -40,7 +40,7 @@ docker compose run --rm --no-deps texlive \
   python3 latex/tools/build.py --all --keep-going --check-generated
 ```
 
-`--changed-from` requires a locally available reliable revision; do not assume `origin/main` exists. Explicit targets and `--all` are alternatives. For further options, consult `docs/md/getting-started/building-documents.md` or `build.py --help`. Use the build tool instead of ad hoc `latexmk`/LuaLaTeX commands unless debugging the tool itself.
+`--changed-from` requires a locally available reliable revision; do not assume `origin/main` exists. Explicit targets and `--all` are alternatives. For further options, consult `docs/guides/getting-started/building-documents.md` or `build.py --help`. Use the build tool instead of ad hoc `latexmk`/LuaLaTeX commands unless debugging the tool itself.
 
 ## Diagnose compilation and generation
 

@@ -2,7 +2,7 @@
 
 [← Documentation](../README.md) · [Course structure](course-structure.md) · [Metadata](metadata.md) · [LaTeX components](../../../latex/components/README.md)
 
-This guide defines the content and authoring conventions for course notes. File organization, metadata, and build commands belong to their dedicated guides.
+Write notes that a student can follow without the original lecture beside them. These conventions cover prose, notation, examples, and attribution; see [Course structure](course-structure.md) for files and [Building documents](../getting-started/building-documents.md) for checks.
 
 ## Language and consistency
 
@@ -14,7 +14,7 @@ Follow the course’s established notation unless there is a clear reason to imp
 
 ## Structure and prose
 
-Organize topics in a logical learning order using `\chapter`, `\section`, `\subsection`, and `\subsubsection`. Do not skip heading levels. Preserve each course's chosen organization: numbered, dated lectures are appropriate for some courses, while topic-based chapters suit others. Lecture numbering is not a repository-wide requirement.
+Organize topics in a logical learning order using `\chapter`, `\section`, `\subsection`, and `\subsubsection`; do not skip heading levels. Preserve the course's [source organization](course-structure.md#organizing-source-files) rather than imposing a universal lecture sequence.
 
 Write explanatory prose rather than a transcript of the lecture. State assumptions, connect related ideas, and explain non-obvious steps.
 
@@ -53,7 +53,16 @@ Do not use callout environments merely for decoration.
 
 Use the shared [LaTeX components](../../../latex/components/README.md) and inspect their examples before introducing custom formatting.
 
-Use the `unipdcode` and `unipdterminal` environments for source listings and terminal sessions. The older generic names `code` and `terminal` remain compatibility aliases, but new documents should use the prefixed interfaces.
+Use the `unipdcode` and `unipdterminal` environments for source listings and terminal sessions. Both accept `listings` options, for example:
+
+```latex
+\begin{unipdcode}[language=Python,caption={An identity function},label={lst:identity}]
+def identity(value):
+    return value
+\end{unipdcode}
+```
+
+The older names `code` and `terminal` remain compatibility aliases; use the prefixed names for new material.
 
 Code and algorithms should be relevant, readable, and accompanied by enough explanation to understand their purpose. Identify the language or notation when it is not obvious.
 
@@ -75,13 +84,15 @@ lst:cache-simulation
 alg:replacement-policy
 ```
 
-Place labels close to the element they identify and use LaTeX cross-references instead of hard-coded numbers such as “the figure above” or “Section 3.”
+For educational blocks, use descriptive prefixes such as `def:`, `thm:`, `prop:`, `lem:`, `cor:`, or `ex:` as appropriate.
+
+Place figure, table, and algorithm labels after their captions; place heading and theorem labels immediately after the heading or environment begins. Use `\cref{label}` in a sentence and `\Cref{label}` at its start for localized element names. Prefer these to positional descriptions such as “the figure above” or hard-coded numbers such as “Section 3.”
 
 ## Sources and attribution
 
 Cite borrowed definitions, results, data, diagrams, quotations, and substantial factual claims. Use `references.bib` when a course needs a bibliography and enable the document class's [bibliography option](../reference/unipd-notes-class.md#bibliography).
 
-Prefer original explanations. Do not copy textbooks, restricted course material, solution manuals, or third-party assets without permission and a compatible license.
+Prefer original explanations and follow the contribution policy's [redistribution and licensing requirements](../../../CONTRIBUTING.md#licensing-and-attribution).
 
 Use only measurements and datasets whose origin and meaning can be verified. When synthetic or hypothetical values are useful for an example, label them explicitly and never present them as observed results.
 
@@ -94,7 +105,6 @@ Before contributing notes:
 - read the affected section from a student’s perspective;
 - verify terminology, notation, examples, and solutions;
 - check citations and third-party licenses;
-- compile in the [canonical Docker environment](../getting-started/docker.md) and visually inspect the PDF;
-- run the generated-state check and commit only the tracked generated files that belong to the change; never commit a generated course `main.pdf`.
+- check that explanations, figures, and code agree and that no unverified claim is presented as established.
 
-Continue with [Metadata](metadata.md) for document information or [Building documents](../getting-started/building-documents.md) for compilation and validation.
+Then follow [Building documents](../getting-started/building-documents.md) for compilation, PDF review, generated-state checks, and validation. [Metadata](metadata.md) owns document information.

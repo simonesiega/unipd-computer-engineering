@@ -60,7 +60,7 @@ Then register and print the bibliography normally:
 \end{document}
 ```
 
-Bibliography builds require Biber, which `latexmk` invokes automatically.
+Bibliography builds require Biber, which `latexmk` invokes automatically. Without the `bibliography` option, `\printcoursebibliography` does nothing; citation commands from BibLaTeX are not loaded.
 
 Other class options are forwarded to the underlying `scrreprt` class.
 
@@ -80,19 +80,7 @@ Shared page and heading behavior should remain centralized in the class and its 
 
 ## Loaded components
 
-The class loads the shared components below:
-
-| Area | Components |
-|---|---|
-| Document information and presentation | `metadata`, `typography`, `page-style`, `navigation` |
-| General content | `lists`, `mathematics`, `figures-tables`, `diagrams` |
-| Educational material | `environments`, `code`, `algorithms` |
-| Document organization | `document-structure`, `cover`, `table-of-contents` |
-| Supporting material | `references`, `glossary`, `front-back-matter` |
-
-Course documents should use the public interfaces exposed by these components rather than loading component `.sty` files directly.
-
-See the [component reference](../../../latex/components/README.md) for component-specific APIs and examples.
+The class loads the shared packages in the dependency order recorded in [`unipd-notes.cls`](../../../latex/unipd-notes.cls). Use their public interfaces rather than loading `.sty` files directly. [COMPONENTS.md](../../../latex/components/COMPONENTS.md#component-catalogue) owns the API catalogue; the [component router](../../../latex/components/README.md#component-catalogue) links isolated examples.
 
 ## Document lifecycle
 
@@ -122,50 +110,20 @@ For example:
 \printcourselists[figures,listings]
 ```
 
-The [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example shows the complete lifecycle in context.
+Without an option list, `\printcourselists` prints all four lists. The [`front-back-matter`](../../../latex/components/front-back-matter/example/main.tex) example shows these phases in context.
 
 ## Minimal course document
 
-```latex
-\documentclass[english]{unipd-notes}
+Use [Creating a course](../getting-started/creating-a-course.md) for a complete localized scaffold. [Metadata: course setup](../user-guide/metadata.md#course-setup) owns the illustrative `\unipdsetup` block and field reference; place that setup before the document environment.
 
-\unipdsetup{
-  course = {Official Course Name},
-  short-course = {Course Name},
-  course-code = {IN0000225},
-  channel = {B},
-  professor = {Prof. Ada Lovelace},
-  academic-year = {2026--2027},
-  degree-year = {1},
-  semester = {1},
-  document-type = {Lecture notes},
-  author = {Ada Lovelace},
-  date = {28 September 2026},
-  version = {0.1.0}
-}
+For a complete composed example rather than another template here, inspect the [English integration source](../../../latex/integration/english/main.tex) or [Italian integration source](../../../latex/integration/italian/main.tex). [Writing notes](../user-guide/writing-notes.md) owns content conventions.
 
-\begin{document}
+## Numbering and contents
 
-\makecoursefrontmatter
-\makecoursemainmatter
+Headings are numbered through `\subsubsection` (`secnumdepth=3`); the contents page includes through `\subsection` by default (`tocdepth=2`). Set a literal `\setcounter{tocdepth}{N}` in the preamble if a course needs a different contents depth. The generated README respects that explicit setting too.
 
-\chapter{Introduction}
-
-Course content.
-
-\end{document}
-```
-
-For the complete `\unipdsetup` field reference, see [Metadata](../user-guide/metadata.md).
-
-For note-writing conventions, see [Writing notes](../user-guide/writing-notes.md).
+Equations and numbered educational environments use chapter-based numbering. Each numbered environment has its own counter: theorem and definition numbers do not share a sequence. The `proof` environment is unnumbered.
 
 ## Extending the class
 
-Shared behavior should be added to the component that owns that responsibility.
-
-Create a new component only when the feature has a distinct concern that does not fit an existing package.
-
-Changes to the class or shared components affect every course and example, so they require a complete canonical build and generated-state verification.
-
-Do not use or redefine internal class path commands from course documents.
+Follow [Component development](../../../latex/components/COMPONENTS.md#adding-or-changing-a-component) for ownership, dependency ordering, examples, and validation. Do not use or redefine internal class path commands from course documents.

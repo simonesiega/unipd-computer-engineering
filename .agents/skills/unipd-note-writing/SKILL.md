@@ -9,7 +9,7 @@ description: Draft, extend, edit, or academically review course notes and course
 
 1. Establish whether the request is to draft new content, revise existing material, or conduct a correctness-only review. Follow the requested scope; review is not permission to rewrite everything.
 2. Read the relevant course `main.tex`, surrounding sections, existing notation, and any supplied lecture material before making changes. For a whole-course review, inspect the complete included text and relevant assets rather than isolated excerpts.
-3. Consult `docs/md/user-guide/writing-notes.md` and the relevant course README when necessary. Treat the course's documented conventions and explicit maintainer decisions as authoritative for that course; do not infer dates, channels, versions, or completeness from external expectations.
+3. Consult `docs/guides/user-guide/writing-notes.md` and the relevant course README when necessary. Treat the course's documented conventions and explicit maintainer decisions as authoritative for that course; do not infer dates, channels, versions, or completeness from external expectations.
 4. Separate what supplied materials establish from independent verification or added explanation. When lectures or external sources are missing or ambiguous, report the gap rather than inventing content.
 5. Preserve the course language (`italian` or `english`), intended level, terminology, structure, and existing valid labels. These skills apply to every course and must not impose conventions borrowed from a different subject.
 

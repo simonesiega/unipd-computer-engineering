@@ -26,7 +26,7 @@ pre-commit run --all-files --show-diff-on-failure
 git diff --check
 ```
 
-Use `python3` or an appropriate platform launcher (for example `py` in PowerShell). If the pinned `pre-commit` command is missing, use the environment setup instructions in `docs/md/development/tool-test-and-ci.md`; do not claim the full suite passed based on `check_repository.py` or `git diff --check` alone. `--all-files` runs hooks on Git-tracked files, not newly untracked files: check the latter separately (the repository validator scans them for Markdown links). Pre-commit can modify source files: inspect automatic edits and rerun the relevant checks.
+Use `python3` or an appropriate platform launcher (for example `py` in PowerShell). If the pinned `pre-commit` command is missing, use the environment setup instructions in `docs/guides/development/tool-test-and-ci.md`; do not claim the full suite passed based on `check_repository.py` or `git diff --check` alone. `--all-files` runs hooks on Git-tracked files, not newly untracked files: check the latter separately (the repository validator scans them for Markdown links). Pre-commit can modify source files: inspect automatic edits and rerun the relevant checks.
 
 ## Structural invariants
 
