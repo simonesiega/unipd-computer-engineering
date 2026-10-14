@@ -20,22 +20,7 @@ latex/integration/
 
 Each discovered `main.tex` is treated as one buildable document.
 
-Build output mirrors the source path under `.build/`:
-
-```text
-1/course-name/main.tex
-└── .build/1/course-name/main.pdf
-
-latex/components/code/example/main.tex
-└── .build/latex/components/code/example/main.pdf
-
-latex/integration/english/main.tex
-└── .build/latex/integration/english/main.pdf
-```
-
-Course PDFs remain under `.build/` and are never copied into course directories.
-
-Tracked component and integration example PDFs are maintained separately as generated fixtures.
+[Review the output](../getting-started/building-documents.md#review-the-output) owns output-path examples, course-PDF policy, and fixture replacement. This reference describes the underlying selection and generation behavior.
 
 ## Target selection
 
@@ -48,7 +33,7 @@ Exactly one selection mode is required:
 | `--changed-from REVISION` | Documents affected by changes from `REVISION` to `HEAD` |
 | `--changed-file-list FILE` | Documents affected by NUL-terminated repository-relative paths listed in a file |
 
-`--changed-to` may be used with `--changed-from` to change the end revision from its default of `HEAD`.
+`--changed-to` may be used with `--changed-from` to change the end revision from its default of `HEAD`. Both revisions must be available locally. This selects from committed differences only; it does not discover staged, unstaged, or untracked edits. Compilation still reads the current working tree, not a checkout of the selected revision.
 
 Both changed-file modes preserve accented filenames, spaces, and embedded newlines. Moves are treated as a deletion plus an addition so both the original and receiving documents are selected. To prepare a file list outside the TeX container:
 
@@ -67,14 +52,14 @@ Changed-file selection is intentionally conservative:
 | File inside one course | That course |
 | File inside one component example | That example |
 | File inside one integration example | That integration project |
-| Shared class, component package, font, build environment, or build tooling | Every document |
+| Shared class, `.sty` component package, `.otf`/`.ttf` font, `compose.yaml`, `build.py`, `latex_source.py`, or validation/publication workflow | Every document |
 | Unrelated documentation or policy | No LaTeX document |
 
 Complete archive publication uses `--all`; reduced selection is only an optimization for development and validation.
 
 ## Compilation
 
-Each selected document is compiled with `latexmk` and LuaLaTeX in a mirrored `.build/` directory.
+Each selected document is compiled with `latexmk` and LuaLaTeX into a mirrored `.build/` directory. The tool deletes that document's previous output directory first, so builds do not reuse auxiliary state. Compilation runs from the source directory, which keeps course-relative includes working.
 
 The effective compilation uses:
 
@@ -114,13 +99,15 @@ For courses and integration projects, `build.py` reads the compiled `main.toc` a
 
 Content outside those markers is preserved.
 
-Course README sections link to the stable asset published through the rolling `notes-latest` release and include non-empty `course-code` and `channel` metadata. Integration projects may link to their tracked local PDF. Component examples do not receive generated README content.
+Course README sections link to the stable asset name in the rolling `notes-latest` release and include non-empty `course-code` and `channel` metadata. The link does not guarantee that the asset has been published or matches the local build. Integration projects link to their tracked local PDF. Component examples do not receive generated README content.
+
+The README includes supported `.toc` entries, including unnumbered entries added with `\addcontentsline`. A literal preamble `\setcounter{tocdepth}{N}` filters entries to the requested depth; if several occur, the last is used.
 
 Do not edit generated sections manually.
 
 ## Generated-state verification
 
-`--check-generated` verifies that tracked generated content matches what the current sources produce.
+`--check-generated` recompiles and compares README content and example PDFs byte for byte against the working-tree fixtures. It does not modify those fixtures or check whether a fixture is staged; repository and Git review handle tracking separately.
 
 It checks:
 
@@ -136,7 +123,7 @@ Repository validation separately rejects generated course PDFs that are forced i
 
 | Option | Behavior |
 |---|---|
-| `--no-compile` | Reuse existing PDF and `.toc` output when available |
+| `--no-compile` | Reuse existing `.build/` PDF and `.toc`; examples may fall back to a source-adjacent PDF, and `.toc` may fall back to a source-adjacent file |
 | `--no-readme` | Compile without updating generated README content |
 | `--keep-going` | Continue through all selected documents and report failures afterward |
 | `--clean` | Remove the repository-level `.build/` directory after success |
@@ -163,7 +150,7 @@ The packaging step:
 
 - discovers direct course entry points under `1/`, `2/`, and `3/`;
 - requires the matching compiled PDF under `.build/`;
-- derives stable asset names such as `1-calculus-1.pdf`;
+- derives stable asset names such as `1-analisi-matematica-1.pdf`;
 - rejects invalid paths and naming collisions;
 - copies the built PDF bytes without modifying them;
 - reads canonical course metadata from `\unipdsetup`;
@@ -171,7 +158,9 @@ The packaging step:
 - generates SHA-256 checksums;
 - succeeds with an empty manifest and explanatory release index when the course archive is empty.
 
-A discovered course with no matching compiled PDF, malformed canonical metadata, or invalid release metadata causes packaging to fail.
+A discovered course with no matching compiled PDF, a missing or unreadable non-empty `course` name, or invalid release metadata causes packaging to fail. Full course-metadata validation is a separate earlier check.
+
+Packaging clears `.build/release/` before assembling assets. It does not compile, verify PDF freshness, or prove that PDF bytes correspond to `--source-commit`; the publishing workflow ensures a clean checkout and complete build first.
 
 The release staging directory contains:
 

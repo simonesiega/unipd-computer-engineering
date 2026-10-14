@@ -18,26 +18,21 @@ The repository is mounted inside the container at:
 /workspace
 ```
 
-Generated files remain available on the host under `.build/`.
+The bind mount makes generated output available on the host. [Review the output](building-documents.md#review-the-output) explains which files a build creates or replaces.
 
-Native TeX installations are useful for quick editor previews, but canonical review and release output should use Docker.
+The service has `network_mode: none`: install or pull dependencies before building. The container cannot fetch remote images, datasets, or packages during compilation.
+
+For editor-only alternatives, see [Optional native TeX setup](installation.md#optional-native-tex-setup).
 
 ## Prerequisites
 
-Install Git and Docker:
-
-| Platform | Recommended setup |
-|---|---|
-| Windows | Docker Desktop with Linux containers |
-| macOS | Docker Desktop |
-| Linux | Docker Engine with the Compose v2 plugin |
+Install the tools listed in [Installation requirements](installation.md#requirements).
 
 Confirm Docker is available:
 
 ```bash
 docker --version
 docker compose version
-docker info
 ```
 
 Run all repository commands from the project root.
@@ -63,48 +58,11 @@ Each command creates a temporary container and removes it when finished.
 
 ## Build with Docker
 
-Build one course:
-
-```bash
-docker compose run --rm texlive \
-  python3 latex/tools/build.py 1/course-name
-```
-
-Build every document:
-
-```bash
-docker compose run --rm texlive \
-  python3 latex/tools/build.py --all --keep-going
-```
-
-Build only documents affected since `origin/main`:
-
-```bash
-docker compose run --rm texlive \
-  python3 latex/tools/build.py \
-    --changed-from origin/main \
-    --keep-going
-```
-
-Generated PDFs are written under the mirrored `.build/` path.
-
-For the full build workflow and available options, see [Building documents](building-documents.md) and [Build system](../development/build-system.md).
+Use [Build a document](building-documents.md#build-a-document) for course, component, and integration commands, or [Build only changed documents](building-documents.md#build-only-changed-documents) for revision-based selection. The [build-system reference](../development/build-system.md#target-selection) owns option semantics.
 
 ## Verify generated state
 
-Run the canonical generated-file check:
-
-```bash
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py \
-    --all \
-    --keep-going \
-    --check-generated
-```
-
-This verifies generated README sections and tracked component/integration fixtures.
-
-Course PDFs remain under `.build/` and should be reviewed visually rather than committed.
+Follow [Validate your changes](building-documents.md#validate-your-changes) for the canonical generated-state command and required follow-up checks.
 
 ## Platform notes
 
@@ -116,11 +74,7 @@ The repository must be stored in a location Docker Desktop can access. Docker co
 
 Examples in this documentation use the POSIX `\` line continuation. In PowerShell, either run the command on one line or replace each trailing `\` with a backtick.
 
-If Docker cannot connect to the daemon, confirm Docker Desktop has finished starting:
-
-```bash
-docker info
-```
+If the client cannot connect, follow [Docker is not running](#docker-is-not-running) after Docker Desktop starts.
 
 ### Linux
 
@@ -135,7 +89,7 @@ docker compose run --rm \
   python3 latex/tools/build.py --all --keep-going
 ```
 
-Prefer configuring normal non-root Docker access instead of permanently adding `sudo` to repository commands.
+Running the container as your user controls output-file ownership; permission to access the Docker daemon is a separate setting. Follow Docker's installation guidance for your system, and remember that membership in the `docker` group grants root-level privileges.
 
 ### macOS
 
@@ -157,13 +111,7 @@ Start Docker Desktop or Docker Engine if necessary.
 
 ### The image cannot be pulled
 
-Retry:
-
-```bash
-docker compose pull texlive
-```
-
-Do not replace the pinned digest with an unpinned image tag as a workaround.
+Retry the pull in [Prepare the environment](#prepare-the-environment). Do not replace the pinned digest with an unpinned image tag as a workaround.
 
 ### Repository files are missing
 
@@ -184,9 +132,7 @@ The second should show the repository contents.
 
 ### Generated output is stale
 
-Run a normal canonical build, inspect the changed generated files, then rerun `--check-generated`.
-
-Do not copy a course PDF from `.build/` into `1/`, `2/`, or `3/`.
+Follow [generated-state verification](building-documents.md#validate-your-changes) for stale fixtures and [output ownership](building-documents.md#review-the-output) for files that may be replaced.
 
 ### Remove build output
 
@@ -204,19 +150,10 @@ Windows PowerShell:
 Remove-Item -Recurse -Force .build
 ```
 
-You can also use the build tool's `--clean` option after a successful build.
+For automatic cleanup and its scope, see [`--clean` in the build options](../development/build-system.md#build-options). Review or save any PDFs you need before cleanup.
 
 ## Updating the pinned image
 
 Changing the TeX Live image digest affects the whole repository.
 
-After updating `compose.yaml`:
-
-1. pull the new image;
-2. rebuild every document;
-3. visually review generated PDFs;
-4. rerun `--check-generated`;
-5. run the repository validation pipeline;
-6. commit the environment change and affected generated source-owned files, but no generated course PDF.
-
-For repository-wide validation and CI behavior, see [Validation, tests, and CI](../development/tool-test-and-ci.md).
+After updating `compose.yaml`, pull the new image and follow the complete [build, PDF-review, and generated-state workflow](building-documents.md). An environment change selects the full archive under the [selection rules](../development/build-system.md#target-selection). Include its required tracked outputs in the same change, following [output ownership](building-documents.md#review-the-output).

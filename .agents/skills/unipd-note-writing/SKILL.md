@@ -9,7 +9,7 @@ description: Draft, extend, edit, or academically review course notes and course
 
 1. Establish whether the request is to draft new content, revise existing material, or conduct a correctness-only review. Follow the requested scope; review is not permission to rewrite everything.
 2. Read the relevant course `main.tex`, surrounding sections, existing notation, and any supplied lecture material before making changes. For a whole-course review, inspect the complete included text and relevant assets rather than isolated excerpts.
-3. Consult `docs/md/user-guide/writing-notes.md` and the relevant course README when necessary. Treat the course's documented conventions and explicit maintainer decisions as authoritative for that course; do not infer dates, channels, versions, or completeness from external expectations.
+3. Consult [Writing notes](../../../docs/guides/user-guide/writing-notes.md) and the relevant course README when necessary. Treat the course's documented conventions and explicit maintainer decisions as authoritative for that course; do not infer dates, channels, versions, or completeness from external expectations.
 4. Separate what supplied materials establish from independent verification or added explanation. When lectures or external sources are missing or ambiguous, report the gap rather than inventing content.
 5. Preserve the course language (`italian` or `english`), intended level, terminology, structure, and existing valid labels. These skills apply to every course and must not impose conventions borrowed from a different subject.
 
@@ -44,13 +44,9 @@ Independently check every changed or reviewed mathematical statement, calculatio
 
 ## Course structure and shared LaTeX
 
-- Preserve each course's own organization: dated lecture chapters, topical chapters, tutorials, and appendices are all legitimate. Do not require dates or lecture numbers in topic-organized courses.
-- Keep `main.tex` concerned with class language, metadata, document order, and front/back matter; keep substantial course material in the established `sections/` and course assets under `assets/`.
-- Use shared semantic environments (`definition`, `theorem`, `proposition`, `lemma`, `corollary`, `proof`, `example`, `remark`, `exercise`, `solution`, `important`, `warning`) only when their meaning fits. Not every statement needs a callout or heading.
-- Use `unipdcode`, `unipdterminal`, and the existing diagram/algorithm facilities. Do not add per-course typography, geometry, fonts, colors, or duplicate shared macros to solve a common LaTeX problem.
-- Keep mathematical notation and equation alignment meaningful. Use `\given` and `\suchthat`, or scaled variants inside scalable delimiters, as documented. Number equations only if later referenced.
-- Use stable, descriptive lowercase labels (`chap:`, `sec:`, `def:`, `thm:`, `prop:`, `lem:`, `cor:`, `ex:`, `eq:`, `fig:`, `tab:`, `lst:`, `alg:`) when useful; preserve existing valid labels. Prefer `\cref` to manually repeated numbers, hard-coded page numbers, or duplicate proofs.
-- Keep glossaries or notation tables selective: include genuinely reusable or ambiguous symbols, not every definition in the course. First-use explanations remain mandatory.
+Apply [Course structure](../../../docs/guides/user-guide/course-structure.md) for file ownership and teaching organization, [Metadata](../../../docs/guides/user-guide/metadata.md) for document information, and [Writing notes](../../../docs/guides/user-guide/writing-notes.md) for environments, mathematics, code, figures, and labels. Consult the [component router](../../../latex/components/README.md) for actual examples rather than inventing local interfaces.
+
+Preserve existing valid labels and the course's own organization. Keep glossaries selective and first-use explanations explicit. If the required behavior is genuinely shared, hand it off to component development instead of adding course-local typography patches.
 
 ## Sources, authorship, and minimal edits
 

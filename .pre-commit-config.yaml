@@ -10,6 +10,11 @@ repos:
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: check-yaml
+        exclude: '^mkdocs\.yml$'
+      - id: check-yaml
+        name: check MkDocs YAML syntax
+        args: [--unsafe]
+        files: '^mkdocs\.yml$'
       - id: end-of-file-fixer
         exclude: '\.(?:otf|ttf|pdf|png|jpe?g|gif|webp|bmp)$'
       - id: mixed-line-ending
@@ -45,6 +50,13 @@ repos:
         additional_dependencies: [coverage==7.15.3, mypy==2.3.0]
         pass_filenames: false
         files: '(^latex/tools/.*\.py$|^mypy\.ini$|^\.pre-commit-config\.yaml$)'
+      - id: documentation-site
+        name: build documentation and check rendered links
+        entry: python latex/tools/build_docs.py
+        language: python
+        additional_dependencies: [mkdocs==1.6.1, mkdocs-material==9.7.7]
+        pass_filenames: false
+        files: '(\.md$|^docs/|^mkdocs\.yml$|^latex/tools/.*\.py$|^\.github/requirements-docs\.txt$|^\.pre-commit-config\.yaml$)'
       - id: latex-repository-check
         name: validate LaTeX repository and Markdown links
         entry: python latex/tools/check_repository.py

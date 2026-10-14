@@ -27,7 +27,7 @@ Place `\unipdsetup` in `main.tex` after `\documentclass` and before `\begin{docu
 }
 ```
 
-Use the official course title and accurate information for the specific edition of the notes. Select `italian` or `english` as a document-class option; shared labels and language-dependent defaults follow that selection.
+This setup illustrates the metadata format. Verify the title, course code, channel, instructor, author, date, and version for your edition. Select `italian` or `english` as a class option; shared labels follow that selection.
 
 ## Course-specific fields
 
@@ -48,13 +48,15 @@ Use the official course title and accurate information for the specific edition 
 
 Set `author` explicitly. Its shared default is empty to prevent accidental attribution; the cover omits the author field when it is empty. Repository validation rejects empty or placeholder authors in course documents.
 
+Write each course metadata entry on its own line with a braced value, as shown above. The repository's source readers expect this format; arbitrary macros or a compact one-line setup may compile but are not reliably read by validation and README generation.
+
 Repository course validation requires `course`, `academic-year`, `degree-year`, `semester`, `author`, `date`, and `version`. The course name and version must be non-empty; the author must also be non-placeholder. The degree year must match the parent directory, and the academic year must match the repository cohort (`2026--2027`, `2027--2028`, or `2028--2029`).
 
 `short-course`, `course-code`, `channel`, `professor`, and `document-type` are optional at the metadata layer and may be omitted when they are unknown or not applicable. The course-creation tool intentionally requires `short-course` and `professor` when scaffolding a new course so the initial document is complete.
 
 When available, write `course-code` as the canonical uppercase University activity code: two to four letters followed by seven or eight digits, such as `IN0000225` or `IN10100190`. Write `channel` as a concise uppercase identifier such as `B`, `1`, or `A-K`. Repository validation checks the format of non-empty values but does not require either optional field. Both values appear on the cover and in the generated section of the course README when supplied.
 
-Set `date` explicitly to the course start date, or use `date = {}` explicitly to hide it. `create_course.py` accepts a valid ISO input such as `2026-09-28` and writes the localized form into `main.tex`; manually maintained metadata uses the displayed localized text. The field has no automatic value because it represents the course schedule rather than the document build time. Blank optional fields are not displayed on the cover.
+Set `date` to the displayed localized course-start text, or use `date = {}` explicitly to hide it. The field has no automatic value because it represents the course schedule rather than document build time. The [course generator](../getting-started/creating-a-course.md#generator-options) provides ISO-date input and localization. Blank optional fields are not displayed on the cover.
 
 ## Shared defaults
 
@@ -68,7 +70,7 @@ The metadata system defines language-dependent institutional defaults:
 | `license` | CC BY-SA 4.0 | CC BY-SA 4.0 |
 | `unofficial-notice` | Materiale didattico non ufficiale, non approvato né pubblicato dall'Università degli Studi di Padova. | Unofficial teaching material, not approved or published by the University of Padua. |
 
-These values keep every course consistent. Override them only when the document genuinely requires different information.
+For this cohort's course notes, keep these institutional and licensing defaults. Do not remove the unofficial notice or change the license as a formatting choice.
 
 ## Using metadata
 
@@ -88,6 +90,6 @@ Use `\unipdifmetadata` when content should appear only if a field is present:
 
 `\unipdheadcourse` returns `short-course` when available and otherwise falls back to `course`.
 
-Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping. Update the channel, professor, and course start date when documenting a different course edition; update the version when publishing a revision of the notes.
+Keep metadata in `main.tex`; do not repeat it in section files. Keep the academic year aligned with the archive's fixed degree-year mapping. Update the channel, professor, and course start date when documenting a different course edition; update the version when publishing a revision of the notes. The validator requires a non-empty version but does not enforce semantic versioning or increment it automatically.
 
 Continue with [Writing notes](writing-notes.md) for content conventions or [Building documents](../getting-started/building-documents.md) to regenerate and review the PDF.

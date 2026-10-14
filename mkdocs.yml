@@ -1,0 +1,111 @@
+site_name: UniPD Computer Engineering
+site_url: https://simonesiega.github.io/unipd-computer-engineering/
+site_description: Course notes, published PDFs, and contributor guides for the 2026–2029 cohort.
+repo_url: https://github.com/simonesiega/unipd-computer-engineering
+repo_name: simonesiega/unipd-computer-engineering
+edit_uri: ''
+docs_dir: !ENV UNIPD_DOCS_DIR
+site_dir: .build/docs-site
+use_directory_urls: false
+strict: true
+
+nav:
+  - Notes and PDFs: README.md
+  - Courses: courses.md
+  - Documentation index: docs/README.md
+  - Guides:
+      - Start here: docs/guides/README.md
+      - Getting started:
+          - Installation: docs/guides/getting-started/installation.md
+          - Docker builds: docs/guides/getting-started/docker.md
+          - Creating a course: docs/guides/getting-started/creating-a-course.md
+          - Building documents: docs/guides/getting-started/building-documents.md
+      - Writing notes:
+          - Course structure: docs/guides/user-guide/course-structure.md
+          - Writing notes: docs/guides/user-guide/writing-notes.md
+          - Metadata: docs/guides/user-guide/metadata.md
+      - LaTeX reference:
+          - Overview: latex/README.md
+          - Directory structure: latex/LATEX.md
+          - Document class: docs/guides/reference/unipd-notes-class.md
+          - Components: latex/components/README.md
+          - Component reference: latex/components/COMPONENTS.md
+          - Fonts: latex/fonts/README.md
+          - Font reference: latex/fonts/FONTS.md
+          - Font licenses: latex/fonts/FONT-LICENSE.md
+          - English integration example: latex/integration/english/README.md
+          - Italian integration example: latex/integration/italian/README.md
+      - Repository development:
+          - Python tool index: latex/tools/TOOLS.md
+          - Test catalogue: latex/tools/test/TESTS.md
+          - Architecture: docs/guides/development/architecture.md
+          - Build system: docs/guides/development/build-system.md
+          - Validation, tests, and CI: docs/guides/development/tool-test-and-ci.md
+          - Documentation site: docs/guides/development/documentation-site.md
+          - AI-assisted development: docs/guides/development/ai-assisted-development.md
+          - Release description template: docs/guides/release/example.md
+  - Release archive: RELEASES.md
+  - Course changelogs: changelogs.md
+  - Contributing and policies:
+      - Contributing: CONTRIBUTING.md
+      - Pull request template: PULL_REQUEST_TEMPLATE.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Security: SECURITY.md
+      - Notes license: LICENSE.md
+      - Software license: LICENSE-MIT.md
+  - Agent guidance:
+      - Repository instructions: AGENTS.md
+      - Note writing: agents/skills/unipd-note-writing/SKILL.md
+      - LaTeX components: agents/skills/unipd-latex-component-development/SKILL.md
+      - Python tools: agents/skills/unipd-python-tool-development/SKILL.md
+      - LaTeX builds: agents/skills/unipd-latex-build/SKILL.md
+      - PDF review: agents/skills/unipd-pdf-review/SKILL.md
+      - Repository validation: agents/skills/unipd-repository-validation/SKILL.md
+
+validation:
+  nav:
+    omitted_files: info
+  links:
+    not_found: warn
+    anchors: warn
+    unrecognized_links: warn
+
+theme:
+  name: material
+  language: en
+  logo: docs/assets/unipd.png
+  font: false
+  features:
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra_css:
+  - docs/assets/site.css
+markdown_extensions:
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+plugins:
+  - search:
+      lang: [en, it]

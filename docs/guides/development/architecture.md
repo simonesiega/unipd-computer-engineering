@@ -7,35 +7,32 @@ The repository separates course-owned material from shared typesetting, tooling,
 ## System overview
 
 ```text
-Course archives
-1/   2/   3/
- │    │    │
- └────┴────┴───┐
-               │
-               v
-     latex/unipd-notes.cls
-               │
-               ├───────────────┐
-               │               │
-               v               v
-     latex/components/   latex/integration/
-               │               │
-               └───────┬───────┘
-                       │
-                       v
-                  latex/tools/
-                       │
-                       v
-                    .build/
-                       │
-                       v
-          GitHub Actions / Releases
-
-
-docs/                         Documentation and reference material
-.github/                      Repository automation
-root files                    Policies, licenses, and project entry points
+Documents                       Shared typesetting
+  1/, 2/, 3/                      latex/unipd-notes.cls
+  component examples              latex/components/<name>/<name>.sty
+  integration examples            latex/fonts/
+         │                               │
+         └───────────────┬───────────────┘
+                         v
+                  latex/tools/build.py
+                  (pinned TeX container)
+                         │
+                         v
+                 .build/<document>/
+                         │
+                   course PDFs only
+                         v
+              latex/tools/package_notes.py
+                         │
+                         v
+                  .build/release/
+                         │
+                 manual publication
+                         v
+                  GitHub Releases
 ```
+
+GitHub Actions runs the same tools for validation and publication. Normal builds also refresh tracked README sections and example PDF fixtures; check mode verifies them without replacement.
 
 The shared LaTeX layer is reusable across every course. Repository tools discover, build, validate, and package documents, while GitHub Actions orchestrates those tools rather than reimplementing their behavior.
 
@@ -50,7 +47,7 @@ The shared LaTeX layer is reusable across every course. Repository tools discove
 | Fonts | `latex/fonts/` | Bundled typefaces, configuration, attribution, and licenses. |
 | Repository tools | `latex/tools/` | Course creation, document discovery, compilation, validation, changelogs, packaging, and generated state. |
 | Build environment | `compose.yaml` | Canonical pinned TeX Live environment used locally and in CI. |
-| Documentation | `docs/` | User guides, reference material, contributor documentation, and development guides. |
+| Documentation | `docs/guides/`, `docs/assets/`, `mkdocs.yml` | Markdown guides, public assets, and the MkDocs Material website configuration. |
 | Automation | `.github/`, `.pre-commit-config.yaml` | CI orchestration, release publication, dependency updates, and local quality hooks. |
 | Project policies | Root Markdown and license files | Public project entry point, contribution rules, conduct, security, and licensing. |
 
@@ -62,7 +59,7 @@ The repository distinguishes between files edited by contributors and files owne
 |---|---|---|
 | Source-owned | Course sources, `latex/`, `docs/`, tools, workflows, configuration | Edited and reviewed through normal Git history. |
 | Tracked generated content | Generated README sections, `RELEASES.md`, `CHANGELOG/`, tracked component and integration fixtures | Updated only through the tool that owns them. |
-| Build-owned output | `.build/<document>/` | Disposable local or CI output; never treated as source. |
+| Build-owned output | `.build/<document>/`, `.build/docs-site/` | Disposable document and website output; never treated as source. |
 | Release staging | `.build/release/` | Temporary packaging area owned by the release tooling. |
 | Published artifacts | GitHub Release assets | Distributions produced from validated repository sources. |
 
@@ -84,23 +81,15 @@ Every course uses a single `<year>/<course>/main.tex` entry point. Component exa
 
 ## Course compatibility contract
 
-Adding a course in this archive must be a content operation, not an architectural migration. The supported scope is all three degree years of the 2026–2029 cohort, either semester, and either Italian or English. There is no list of supported course names: creation, validation, build selection, README generation, and packaging work from the standard course path and metadata.
+Adding a course should not require infrastructure changes. The supported scope is all three degree years of the 2026–2029 cohort, either semester, and either Italian or English. There is no list of supported course names: creation, validation, build selection, README generation, and packaging work from the standard course path and metadata.
 
-A new course therefore needs no registration in the class, build tool, or CI workflows. Its generated README and release asset name follow the same rules as existing courses. Publication still requires a separate maintainer action; discovering a course does not approve its academic content or exam coverage.
+A new course needs no registration in the class, build tool, or CI workflows. Its generated README and release asset name follow the same rules as existing courses. Publication still requires a separate maintainer action; discovering a course does not approve its academic content or exam coverage.
 
 ### Content capabilities
 
-The existing [components](../../../latex/components/README.md) supply subject-independent primitives rather than one template per subject:
+The [component API catalogue](../../../latex/components/COMPONENTS.md#component-catalogue) supplies subject-independent primitives rather than one template per subject. Its [example router](../../../latex/components/README.md#component-catalogue) shows their use.
 
-| Material | Existing support |
-|---|---|
-| Mathematical, probabilistic, and numerical material | Equations, matrices, operators, units, definitions, results, proofs, and exercises |
-| Physics and electrical material | Mathematical notation, quantities and units, figures, tables, TikZ, and CircuitikZ |
-| Programming and algorithms | Source listings, terminal sessions, pseudocode, and cross-references |
-| Architecture, systems, networks, and control diagrams | Graphs, automata, flowcharts, architecture/UML styles, circuits, and general TikZ drawing |
-| Supporting material | Bibliography, glossary, acronyms, appendices, and document lists |
-
-These capabilities do not prescribe how a course is taught. Topic-based chapters, numbered lectures, laboratories, and mixed organizations use the same document hierarchy and build pipeline.
+These capabilities do not prescribe a teaching sequence. Course-local organization follows [Course structure](../user-guide/course-structure.md#organizing-source-files) while retaining the same document hierarchy and build pipeline.
 
 ### Course-local extension points
 
@@ -109,9 +98,9 @@ These capabilities do not prescribe how a course is taught. Topic-based chapters
 - A specialized LaTeX package or TikZ library may be loaded in the course preamble when compatible with the class and available in the pinned TeX environment. Verify it with a canonical build; storing an asset does not imply that LuaLaTeX can include its format directly or run an external converter.
 - Promote a genuinely reusable typesetting feature into its existing component owner when needed. Do not introduce a course-specific class, build script, workflow branch, or shared component merely because a new subject is being added.
 
-The course-creation tests exercise all twelve year/semester/language combinations through validation, discovery, affected-path selection, localized README generation, and packaging. Their PDF/TOC inputs are synthetic; actual rendering remains covered separately by canonical builds and PDF review.
+The [course-creation test catalogue](../../../latex/tools/test/TESTS.md#course-creation) documents the cross-tool compatibility cases and the limits of their synthetic outputs.
 
-This contract avoids per-course infrastructure work; it is not a promise that every future package will be compatible or that dependencies will never need maintenance. New languages, cohorts, degree structures, or external preprocessing requirements need an explicit infrastructure review rather than hidden exceptions in course sources.
+This does not guarantee compatibility with every additional package. New languages, cohorts, degree structures, or external preprocessing requirements need an explicit infrastructure review rather than hidden exceptions in course sources.
 
 ## Where to go next
 
@@ -122,4 +111,7 @@ This contract avoids per-course infrastructure work; it is not a promise that ev
 | Document discovery, selection, compilation, generated README content, and packaging | [Build system](build-system.md) |
 | Repository checks, tests, CI artifacts, workflows, and release publication | [Validation, tests, and CI](tool-test-and-ci.md) |
 | Canonical local TeX environment | [Docker builds](../getting-started/docker.md) |
-| Contributor rules and generated-file expectations | [Contributing](../../../CONTRIBUTING.md) |
+| Public documentation staging, website builds, and Pages deployment | [Documentation site](documentation-site.md) |
+| Contributor rules | [Contributing](../../../CONTRIBUTING.md) |
+| Physical shared-LaTeX directory tree | [LATEX.md](../../../latex/LATEX.md) |
+| Tool files and individual test assertions | [TOOLS.md](../../../latex/tools/TOOLS.md) · [TESTS.md](../../../latex/tools/test/TESTS.md) |

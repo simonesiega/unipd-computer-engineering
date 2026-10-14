@@ -22,8 +22,8 @@ body:
     id: location
     attributes:
       label: Location
-      description: Give the repository path and, if applicable, the chapter, section, equation, or PDF page.
-      placeholder: e.g. 1/analisi-1/sections/limits.tex, section 2.3, PDF page 18
+      description: Give the repository path and chapter, section, equation, or PDF page. For a published PDF, include the release tag; page numbers can differ between editions.
+      placeholder: e.g. 1/analisi-matematica-1/sections/settimana-01/01-lezione.tex, section 1.4
     validations:
       required: true
 

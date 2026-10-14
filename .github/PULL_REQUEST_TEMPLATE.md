@@ -19,13 +19,14 @@
 
 ## Validation
 
-<!-- List the exact commands run and their results. Use "Not applicable" with a reason where appropriate. -->
+<!-- List exact commands/results and explain unavailable tools, failures, or skipped checks. Choose the applicable workflow from [Contribution validation](../CONTRIBUTING.md#validation); do not mark inapplicable checks passed. For website changes, describe browser checks. -->
 
 - [ ] Affected documents compile successfully in the canonical Docker environment.
 - [ ] Affected PDFs were reviewed visually.
 - [ ] Tracked example PDFs and course or integration README sections pass `--check-generated`.
 - [ ] Generated course PDFs are not tracked; the PR build artifact is available for review where applicable.
 - [ ] Relevant repository and pre-commit checks pass.
+- [ ] Documentation changes pass the strict site build and rendered-link checks, if applicable.
 
 ## Sources, licensing, and integrity
 
@@ -36,7 +37,7 @@
 
 ## AI-assisted work
 
-<!-- State which tools were used and what was reviewed, or write "Not used". Never treat generated academic content as authoritative. -->
+<!-- Name the tools used, what they contributed, and what you verified yourself, or write "Not used". Never treat generated academic content as authoritative. -->
 
 ## Additional notes
 

@@ -40,8 +40,8 @@ body:
       description: Include the operating system, Docker and Compose versions, canonical image digest, or native Python and TeX versions when relevant.
       placeholder: |
         OS: Windows 11
-        Docker: 29.4.2
-        Docker Compose: 5.1.3
+        Docker: paste `docker --version`
+        Docker Compose: paste `docker compose version`
         Build mode: canonical Docker environment
     validations:
       required: true

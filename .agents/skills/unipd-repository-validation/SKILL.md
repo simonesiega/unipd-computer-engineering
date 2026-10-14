@@ -13,30 +13,15 @@ Validation checks hygiene, paths, metadata shape, links, and generated-file owne
 
 ## Standard checks
 
-From the repository root:
+Run the commands maintained in [Local quality checks](../../../docs/guides/development/tool-test-and-ci.md#local-quality-checks), using [Installation](../../../docs/guides/getting-started/installation.md#install-validation-dependencies) for missing dependencies. That guide owns all-file versus untracked-file coverage and automatic-fixer behavior.
 
-```bash
-# Repository structure and links
-python3 latex/tools/check_repository.py
-
-# Canonical all-file local quality pipeline
-pre-commit run --all-files --show-diff-on-failure
-
-# Unstaged diff hygiene
-git diff --check
-```
-
-Use `python3` or an appropriate platform launcher (for example `py` in PowerShell). If the pinned `pre-commit` command is missing, use the environment setup instructions in `docs/md/development/tool-test-and-ci.md`; do not claim the full suite passed based on `check_repository.py` or `git diff --check` alone. `--all-files` runs hooks on Git-tracked files, not newly untracked files: check the latter separately (the repository validator scans them for Markdown links). Pre-commit can modify source files: inspect automatic edits and rerun the relevant checks.
+Inspect fixer edits against the initial working tree, check new files separately, and report partial checks as partial—not as a complete pre-commit pass.
 
 ## Structural invariants
 
-- Year roots are `1/`, `2/`, and `3/`. Course sources reside directly in `<year>/<course-name>/`, with valid kebab-case naming and a `main.tex` and `README.md`.
-- A course entry point declares one supported class language (`italian` or `english`), a complete document environment, and required `\unipdsetup` metadata. Course code and channel are optional subject to their format constraints; the date key may be intentionally empty.
-- Validate metadata **structure**, consistency of degree year and academic cohort, and mandatory fields. Do not replace legitimate professor, channel, start date, course version, or intentional course-coverage decisions based solely on external expectations; escalate plausible factual conflicts for maintainer confirmation.
-- Course and integration README generated content belongs between exactly one correctly ordered `<!-- GENERATED:START -->` / `<!-- GENERATED:END -->` marker pair. Check that links and GitHub-style heading anchors resolve, including headings outside fenced code.
-- Course PDFs under `1/**/main.pdf`, `2/**/main.pdf`, and `3/**/main.pdf` must not be **tracked**. An ignored `.build/` PDF is valid. If an accidental course PDF is staged/tracked, correct the index without deleting the local file (`git rm --cached -- <path>`); do not force-add the file or rewrite history.
-- Components use a package plus isolated tracked source/PDF example; integration examples follow their documented structure. Check requirements against the current validator rather than imposing additional files.
-- Source hygiene includes UTF-8, LF endings, trailing/newline rules, tabs, merge markers, YAML validity, case conflicts, link targets, and file-size limits. Exempt binary fonts, images, and PDFs from text normalization.
+Use the [validator responsibility table](../../../docs/guides/development/tool-test-and-ci.md#repository-validation), [course layout](../../../docs/guides/user-guide/course-structure.md), [metadata rules](../../../docs/guides/user-guide/metadata.md), [component structure](../../../latex/components/COMPONENTS.md#component-structure), and [integration layout](../../../latex/LATEX.md#integration-examples). The current implementation remains the source of truth for diagnostics; do not invent extra layout requirements.
+
+Validate metadata structure, not externally guessed professor/channel/date/version or coverage status. Escalate factual conflicts. Follow [protected-output policy](../../../AGENTS.md#generated-and-protected-content) and the [accidentally tracked PDF remedy](../../../docs/guides/getting-started/building-documents.md#if-a-course-pdf-was-accidentally-tracked), preserving local files and user work. Never normalize binary fixtures as text.
 
 ## Triage and repair
 
@@ -51,7 +36,7 @@ Routing:
 
 - Academic writing, calculations, formal proofs, programming examples → `unipd-note-writing`.
 - Source compilation or stale canonical outputs → `unipd-latex-build`.
-- Actual rendered-page layout and readability → `unipd-pdf-review`.
+- Actual PDF layout and readability → `unipd-pdf-review`.
 - Shared `.cls`, `.sty`, fonts, localization, public LaTeX interfaces → `unipd-latex-component-development`.
 - Repository Python tooling or failing unit tests requiring code changes → `unipd-python-tool-development`.
 

@@ -30,7 +30,7 @@ Please include, when possible:
 
 Use sanitized examples. Do not include real credentials, access tokens, personal information, or unrelated sensitive data.
 
-If GitHub Private Vulnerability Reporting is unavailable, open a public [issue](https://github.com/simonesiega/unipd-computer-engineering/issues) requesting a private reporting channel without disclosing vulnerability details.
+If private vulnerability reporting is unavailable, use the [general-question form](https://github.com/simonesiega/unipd-computer-engineering/issues/new?template=general-question.yml) only to request a private contact channel. Do not include vulnerability details.
 
 ## What to expect
 
@@ -42,11 +42,7 @@ Reporters may be credited in a security advisory or release notes when appropria
 
 ## Content errors
 
-The notes in this repository are unofficial, student-created material and may contain errors, omissions, outdated information, or inaccurate AI-assisted content.
-
-These are not security vulnerabilities unless they create an actual security risk.
-
-For incorrect notes, broken links, documentation problems, or PDF compilation and rendering issues, use the relevant public [issue form](https://github.com/simonesiega/unipd-computer-engineering/issues/new/choose) or open a Pull Request. Include a reliable source when appropriate.
+Factual or editorial mistakes are not security vulnerabilities unless they create an actual security risk. Use [Contributing: issues and getting help](CONTRIBUTING.md#issues-and-getting-help) for content, link, build, or documentation reports. The [academic disclaimer](README.md#academic-disclaimer) explains the status of the study material.
 
 ## Related policies
 

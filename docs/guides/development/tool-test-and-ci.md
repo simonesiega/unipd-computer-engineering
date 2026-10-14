@@ -16,36 +16,20 @@ python3 latex/tools/check_repository.py
 
 On Windows PowerShell, use `py` instead of `python3`.
 
-To reproduce the repository quality checks:
+Create and activate the validation environment described in [Installation](../getting-started/installation.md), then run:
 
 ```bash
-python3 -m pip install -r .github/requirements-ci.txt
 pre-commit run --all-files --show-diff-on-failure
+git diff --check
 ```
 
-Pre-commit pins its hooks and tool dependencies. Dependabot monitors CI requirements, hooks, GitHub Actions, and the canonical Docker image.
+Pre-commit pins its hooks and tool dependencies. Its first run needs network access to create the hook environments. Some hooks fix files; inspect those changes and rerun the command. `--all-files` checks Git-tracked files, not new untracked files. The repository validator independently scans new source and Markdown files.
+
+Dependabot monitors CI requirements, hooks, GitHub Actions, and the Docker image. CI uses Python 3.13; repository tools support Python 3.10+.
 
 ## Python tool tests
 
-Repository tools use standard-library `unittest`, deterministic inputs, temporary directories and repositories, and no network access.
-
-| Test file | Main responsibility |
-|---|---|
-| `test_course_creation.py` | Course creation, metadata, duplicate handling, cleanup, CLI validation, and cross-tool compatibility for every year/semester/language combination |
-| `test_build_selection.py` | Document discovery, affected paths, generated README behavior, and build selection |
-| `test_notes_packaging.py` | Release asset naming, metadata, manifests, checksums, ordering, and packaging failures |
-| `test_release_catalog.py` | Published-release parsing, exam coverage, recent README releases, and the complete release archive |
-| `test_gitignore.py` | Course-PDF ignore rules without globally ignoring PDF files |
-| `test_changelog_generation.py` | Per-course history generation, baselines, renames, dates, and placeholders |
-| `test_repository_validation.py` | Repository structure, source hygiene, Markdown links, metadata, and generated-output rules |
-
-Run the complete test suite with:
-
-```bash
-python3 -m unittest discover -s latex/tools/test -p 'test_*.py'
-```
-
-CI uses `latex/tools/run_tool_tests.py` to add branch coverage and enforce the repository's minimum coverage threshold.
+[TESTS.md](../../../latex/tools/test/TESTS.md) owns the file-by-file test catalogue, isolation contract, commands for all/focused tests, and coverage threshold. Its [Running tests](../../../latex/tools/test/TESTS.md#running-tests) section also explains the pinned coverage hook. This guide owns how those checks participate in local validation and CI.
 
 ## Repository validation
 
@@ -56,8 +40,8 @@ CI uses `latex/tools/run_tool_tests.py` to add branch coverage and enforce the r
 | Courses | Direct course layout, kebab-case names, supported language/class, required metadata, optional `course-code`/`channel` formats, cohort-consistent academic year, and generated README markers |
 | Course outputs | No tracked `1/**/main.pdf`, `2/**/main.pdf`, or `3/**/main.pdf` |
 | Components | Expected package and isolated tracked example structure |
-| Integration examples | Expected source, generated README, and tracked example PDF structure |
-| Sources | UTF-8, LF line endings, final newlines, and no tabs, trailing whitespace, or merge-conflict markers |
+| Integration examples | Both language directories, source language option, required README/PDF files, and no unexpected entries |
+| LaTeX and bibliography sources | UTF-8, LF line endings, final newlines, and no tabs, trailing whitespace, or merge-conflict markers |
 | Documentation | Existing repository-relative targets and valid GitHub-style heading anchors |
 
 The tracked-course-PDF rule checks the Git index rather than local `.build/` output, so normal local compilation does not fail validation.
@@ -76,7 +60,8 @@ It includes:
 - Ruff and mypy for Python tooling;
 - Python tool tests and coverage;
 - repository structure validation;
-- Markdown link and anchor validation.
+- Markdown link and anchor validation;
+- a strict documentation-site build and rendered-link check.
 
 Binary fonts, PDFs, and images are excluded from text-only fixers where appropriate.
 
@@ -89,10 +74,11 @@ The repository separates validation from publication:
 | `ci.yml` | Pull requests, pushes to `main`, and optional manual validation |
 | `publish-notes.yml` | Manually requested rolling releases and immutable snapshots |
 | `Course changelogs` | Weekly generated per-course source histories |
+| `documentation.yml` | Strict site builds, review artifacts, and trusted `main` deployments to GitHub Pages |
 
-Validation jobs use read-only repository permissions. In `publish-notes.yml`, only the trusted publication stage receives write access. The separate `Course changelogs` workflow has write access only to publish its generated recap.
+Validation jobs have read-only repository permissions. In `publish-notes.yml`, only the `publish` job receives `contents: write`; its responsibilities include release assets, tags, and catalogue commits. The separate `Course changelogs` workflow also has `contents: write` to commit its generated recap.
 
-The workflows do not use `pull_request_target`, do not expose repository secrets to pull-request code, and do not require custom publication secrets.
+The workflows do not use `pull_request_target`, do not expose repository secrets to pull-request code, and do not require custom publication secrets. [Documentation site](documentation-site.md#enable-github-pages) owns Pages permissions, setup, and post-publication refresh.
 
 ## Pull requests and `main`
 
@@ -104,7 +90,7 @@ Successful PDFs are uploaded as temporary review artifacts:
 latex-pdfs-<commit-sha>
 ```
 
-They are retained for approximately 14 days and are intended only for review.
+They are retained for 14 days and are intended only for review. Documentation-only changes may select no documents and produce no PDF artifact.
 
 When compilation fails, available LaTeX logs are uploaded separately as:
 
@@ -112,13 +98,17 @@ When compilation fails, available LaTeX logs are uploaded separately as:
 latex-logs-<commit-sha>
 ```
 
+Log artifacts are retained for 7 days. A failed build step does not upload the normal PDF artifact, even if some documents compiled.
+
 Neither pull requests nor normal pushes to `main` publish or modify a GitHub Release.
 
 If CI cannot determine a reliable comparison base, it falls back to validating the complete document set.
 
 ## Release publication
 
-Release publication is always manual and uses the complete validated archive. A maintainer starts it from **Actions → Publish compiled notes → Run workflow** on the intended `main` commit.
+Release publication is manual and uses the complete archive. A maintainer starts it from **Actions → Publish compiled notes → Run workflow** and selects the intended source ref.
+
+For rolling publication, this must resolve to the latest `main` commit. For snapshots, project practice is to select the reviewed `main` revision, but the workflow does not enforce `main`: it publishes the dispatched ref. Check that ref before starting the run.
 
 Two publication modes are supported:
 
@@ -127,7 +117,9 @@ Two publication modes are supported:
 | `rolling` | Refresh the moving `notes-latest` release with the current complete archive |
 | `snapshot` | Publish an immutable, maintainer-approved archive |
 
-Both modes run the complete quality checks, build every document, package course assets, verify generated metadata and checksums, and only then publish the staged release assets.
+Both modes run the complete quality checks, build every document with `--check-generated`, package course assets, check that the manifest parses and the release notes are non-empty, and verify checksums before publication. Stale README sections or tracked example PDFs must be regenerated and committed beforehand; publication does not repair them.
+
+These automated checks do not review academic correctness or PDF layout. Complete those reviews before dispatching a snapshot.
 
 ### Rolling release
 
@@ -152,15 +144,19 @@ Select `snapshot` and provide:
 - a non-empty `release_title`;
 - optionally, a repository-relative `release_description_file` that identifies a committed Markdown file.
 
-Use the [release description questionnaire](../release/example.md) as the starting point. Replace every placeholder and remove sections that do not apply. The workflow rejects absolute paths, paths outside the repository, missing files, unsafe tags, the reserved `notes-latest` tag, and any tag or release that already exists.
+Use the [release description template](../release/example.md) as the starting point. Replace every placeholder and remove sections that do not apply. Commit the completed description before dispatching. The workflow checks that the path is repository-relative, resolves inside the repository, and names an existing UTF-8 file; it does not enforce a `.md` extension or detect leftover placeholders.
 
-Published snapshots are never moved or overwritten. If an upload fails, its draft remains non-public; inspect it and explicitly delete only that failed draft and tag before retrying the same snapshot identifier. Never delete a published snapshot merely to replace its contents.
+Snapshot tags must start with an ASCII letter or digit and contain only letters, digits, dots, underscores, or hyphens. The workflow rejects the reserved `notes-latest` tag and any existing tag or release.
+
+Snapshots are immutable by project policy: this workflow refuses to reuse an existing snapshot tag or release. It does not enable GitHub's separate immutable-release setting. Never move a published snapshot tag or replace its assets.
+
+If an upload fails, its draft remains non-public; inspect it and explicitly delete only that failed draft and tag before retrying the same snapshot identifier. Never delete a published snapshot merely to replace its contents.
 
 Publishing a snapshot explicitly approves every included course PDF as covered. Packaging includes every course in the archive, including scaffolds and unfinished notes; the release description does not filter this set. Use rolling publication until every included course is sufficiently complete and reviewed. The rolling `notes-latest` release does not establish exam coverage by itself.
 
 ## Release catalogue
 
-After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated catalogue in the root README and the complete [release archive](../../../RELEASES.md). The README shows at most the five newest published releases in the same table format as the archive; when fewer exist, it shows all of them. Both listings include published rolling releases, while drafts are excluded.
+After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated catalogue in the root README and the complete [release archive](../../../RELEASES.md). The README shows at most the five newest published releases in the same table format as the archive; when fewer exist, it shows all of them. Both listings include published rolling releases, while drafts are excluded. In the covered-exams table, **Read online** opens a course's stable website reader for the latest published PDF; **Compiled notes** retains the specific snapshot download. Historical courses without a current reader keep their download link but have no online-reader link.
 
 The generated section is bounded by:
 
@@ -169,9 +165,11 @@ The generated section is bounded by:
 <!-- RELEASE-CATALOG:END -->
 ```
 
-Immutable snapshots establish covered exams; the rolling release does not contribute to coverage. `RELEASES.md` is wholly tool-owned and must not be edited manually. The updater changes only the generated README section and `RELEASES.md`; the publication workflow commits them together with `[skip ci]` when either changes. The rolling tag remains attached to the source/build commit rather than moving to this later catalogue-only commit.
+The catalogue treats published, non-prerelease releases other than `notes-latest` as snapshots for coverage; it does not inspect GitHub's immutable-release setting or academic review evidence. Creating such a release is therefore a maintainer approval decision, not a status inferred from prose in its description. The rolling release and prereleases do not contribute to coverage. `RELEASES.md` is wholly tool-owned and must not be edited manually. The updater changes only the generated README section and `RELEASES.md`; the publication workflow commits them together with `[skip ci]` when either changes. The rolling tag remains attached to the source/build commit rather than moving to this later catalogue-only commit.
 
-The weekly `Course changelogs` workflow separately regenerates protected files under `CHANGELOG/` from complete Git history and commits them only when their generated content changes. When `CHANGELOG/BASELINE` exists, only course commits after that recorded commit are included.
+## Course changelogs
+
+The `Course changelogs` workflow runs on Sundays at 00:00 UTC or on manual dispatch. It regenerates protected files under `CHANGELOG/` from complete Git history and preserves degree-year placeholders. It commits only when generated files or placeholders change. When `CHANGELOG/BASELINE` exists, only course commits after that recorded commit are included.
 
 A maintainer can intentionally start a fresh changelog period with:
 
