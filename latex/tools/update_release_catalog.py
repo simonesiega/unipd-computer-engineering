@@ -19,6 +19,7 @@ PDF_ASSET = re.compile(r"^([123])-([a-z0-9]+(?:-[a-z0-9]+)*)\.pdf$")
 YEARS = (1, 2, 3)
 YEAR_LABELS = {1: "First year", 2: "Second year", 3: "Third year"}
 RECENT_RELEASE_LIMIT = 5
+SITE_URL = "https://simonesiega.github.io/unipd-computer-engineering/"
 
 
 @dataclass(frozen=True)
@@ -181,12 +182,12 @@ def render_catalog(root: Path, releases: list[PublishedRelease]) -> str:
             "",
             "Current covered exams:",
             "",
-            "| Year | Exam | Course archive | Compiled notes |",
-            "|---:|---|---|---|",
+            "| Year | Exam | Course archive | Compiled notes | Read online |",
+            "|---:|---|---|---|---|",
         )
     )
     if not covered:
-        lines.append("| — | _No exams covered yet_ | — | — |")
+        lines.append("| — | _No exams covered yet_ | — | — | — |")
     else:
         for (year, slug), pdf in sorted(
             covered.items(),
@@ -199,9 +200,14 @@ def render_catalog(root: Path, releases: list[PublishedRelease]) -> str:
                 if pdf.download_url
                 else f"`{pdf.filename}`"
             )
+            online = (
+                f"[Read online]({SITE_URL}{slug}/index.html)"
+                if (source / "README.md").is_file() and (source / "main.tex").is_file()
+                else "—"
+            )
             lines.append(
                 f"| {year} | {_markdown(course_name(root, year, slug))} | "
-                f"{archive} | {compiled} |"
+                f"{archive} | {compiled} | {online} |"
             )
 
     lines.extend(

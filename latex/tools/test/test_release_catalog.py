@@ -117,6 +117,12 @@ class ReleaseCatalogTests(unittest.TestCase):
                 "\\unipdsetup{course = {Analisi Matematica 1}}\n",
                 encoding="utf-8",
             )
+            (course / "README.md").write_text("# Calculus\n", encoding="utf-8")
+            for year, slug in ((2, "algorithms"), (3, "control")):
+                directory = root / str(year) / slug
+                directory.mkdir(parents=True)
+                (directory / "main.tex").write_text("% Example\n", encoding="utf-8")
+                (directory / "README.md").write_text("# Example\n", encoding="utf-8")
             releases = parse_releases(
                 [
                     self.release(
@@ -127,7 +133,7 @@ class ReleaseCatalogTests(unittest.TestCase):
                     self.release(
                         "2026-2027-semester-1",
                         "2027-02-01T10:00:00Z",
-                        ["1-calculus-1.pdf"],
+                        ["1-calculus-1.pdf", "2-algorithms.pdf", "3-control.pdf"],
                     ),
                 ]
             )
@@ -135,7 +141,13 @@ class ReleaseCatalogTests(unittest.TestCase):
             catalog = render_catalog(root, releases)
 
             self.assertIn("| First year | 1 |", catalog)
-            self.assertIn("| **Total** | **1** |", catalog)
+            self.assertIn("| **Total** | **3** |", catalog)
+            self.assertIn("| Course archive | Compiled notes | Read online |", catalog)
+            for slug in ("calculus-1", "algorithms", "control"):
+                self.assertIn(
+                    f"[Read online](https://simonesiega.github.io/unipd-computer-engineering/{slug}/index.html)",
+                    catalog,
+                )
             self.assertIn("Analisi Matematica 1", catalog)
             self.assertNotIn("In Progress |", catalog)
             self.assertIn("`notes-latest`", catalog)
@@ -158,7 +170,7 @@ class ReleaseCatalogTests(unittest.TestCase):
 
             self.assertTrue(update_readme(readme, catalog))
             content = readme.read_text(encoding="utf-8")
-            self.assertIn("No exams covered yet", content)
+            self.assertIn("| — | _No exams covered yet_ | — | — | — |", content)
             self.assertIn("No releases published yet", content)
             self.assertTrue(content.startswith("Before\n"))
             self.assertTrue(content.endswith("\nAfter\n"))
@@ -179,6 +191,7 @@ class ReleaseCatalogTests(unittest.TestCase):
             )
             catalog = render_catalog(root, releases)
             archive_text = render_archive(releases)
+            self.assertNotIn("[Read online]", catalog)
             self.assertEqual(catalog.count("| [`snapshot-"), 5)
             self.assertEqual(archive_text.count("| [`snapshot-"), 7)
             introduction = (

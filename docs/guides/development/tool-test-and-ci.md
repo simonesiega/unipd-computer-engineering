@@ -156,7 +156,7 @@ Publishing a snapshot explicitly approves every included course PDF as covered. 
 
 ## Release catalogue
 
-After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated catalogue in the root README and the complete [release archive](../../../RELEASES.md). The README shows at most the five newest published releases in the same table format as the archive; when fewer exist, it shows all of them. Both listings include published rolling releases, while drafts are excluded.
+After successful publication, `update_release_catalog.py` reads published GitHub Releases and refreshes the generated catalogue in the root README and the complete [release archive](../../../RELEASES.md). The README shows at most the five newest published releases in the same table format as the archive; when fewer exist, it shows all of them. Both listings include published rolling releases, while drafts are excluded. In the covered-exams table, **Read online** opens a course's stable website reader for the latest published PDF; **Compiled notes** retains the specific snapshot download. Historical courses without a current reader keep their download link but have no online-reader link.
 
 The generated section is bounded by:
 

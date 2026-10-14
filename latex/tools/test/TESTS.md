@@ -204,9 +204,9 @@ These tests use prepared JSON-like release records; they do not query GitHub or 
 | `test_parser_handles_slurped_pages_and_ignores_drafts_and_non_course_assets` | Flattens paginated/slurped release input and ignores draft releases and non-course assets. |
 | `test_parser_rejects_non_array_release_and_asset_data` | Rejects non-array release input and non-array asset collections. |
 | `test_only_immutable_snapshots_cover_exams_and_duplicates_are_removed` | Excludes rolling releases from coverage, deduplicates courses across snapshots, and selects the newest snapshot asset. |
-| `test_catalog_contains_counts_courses_and_recent_published_releases` | Renders snapshot-derived counts and course names while retaining published rolling releases in the newest-first releases table. |
-| `test_empty_catalog_and_atomic_readme_update` | Renders empty states, preserves manual README text around the generated block, and makes an unchanged rerun a no-op. |
-| `test_recent_releases_and_complete_archive_share_rows` | Limits the README to five recent releases, retains all archive entries, shares row formatting, and supports changed/unchanged/empty archive updates. |
+| `test_catalog_contains_counts_courses_and_recent_published_releases` | Renders snapshot-derived counts, course names, and online-reader links across all three years while retaining rolling releases in the newest-first releases table. |
+| `test_empty_catalog_and_atomic_readme_update` | Renders correctly sized empty-table rows, preserves manual README text around the generated block, and makes an unchanged rerun a no-op. |
+| `test_recent_releases_and_complete_archive_share_rows` | Limits the README to five recent releases, retains all archive entries, omits reader links for absent historical courses, shares row formatting, and supports changed/unchanged/empty archive updates. |
 
 ## Repository validation
 

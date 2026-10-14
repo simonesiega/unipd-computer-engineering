@@ -89,10 +89,10 @@ An exam is considered **covered** only when its intended notes are sufficiently 
 
 Current covered exams:
 
-| Year | Exam | Course archive | Compiled notes |
-|---:|---|---|---|
-| 1 | Analisi Matematica 1 | [`1/analisi-matematica-1`](1/analisi-matematica-1/) | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-analisi-matematica-1.pdf) |
-| 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-fondamenti-di-informatica.pdf) |
+| Year | Exam | Course archive | Compiled notes | Read online |
+|---:|---|---|---|---|
+| 1 | Analisi Matematica 1 | [`1/analisi-matematica-1`](1/analisi-matematica-1/) | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-analisi-matematica-1.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/analisi-matematica-1/index.html) |
+| 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-fondamenti-di-informatica.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/fondamenti-di-informatica/index.html) |
 
 ## Releases
 
