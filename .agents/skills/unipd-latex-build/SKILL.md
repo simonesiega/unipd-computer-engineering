@@ -7,40 +7,11 @@ description: Select, compile, and diagnose affected UniPD LaTeX documents throug
 
 ## Identify the correct scope
 
-Inspect the working tree, changed paths, and document dependencies before building. Use the smallest sound selection while respecting transitive effects:
-
-- A course-local content, figure, or `main.tex` change normally affects that course.
-- A component example change affects at least that example; a shared component/class change can affect every course and integration fixture.
-- Shared class, component packages, fonts, canonical Docker/Compose environment, and build-tool logic require repository-wide verification.
-- Use affected-document selection based on a reliable Git comparison when appropriate; if the base is unavailable, prefer a complete build over claiming the selection was exhaustive.
+Inspect the working tree, changed paths, and document dependencies. Apply the [target-selection contract](../../../docs/guides/development/build-system.md#target-selection) to choose the smallest sound scope, including transitive shared effects. If a reliable comparison base is unavailable, prefer a complete build over claiming the selection was exhaustive.
 
 Preserve each course's source layout and language; builds must not infer a common lecture numbering scheme or force a particular discipline's content.
 
-Run from the repository root using the **pinned Docker Compose environment**, which is the reference for CI and releases:
-
-```bash
-# One course
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py <year>/<course-name>
-
-# Component example
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py latex/components/<component>/example
-
-# Integration example
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py latex/integration/<language>
-
-# Affected documents since a known base
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py --changed-from origin/main --keep-going
-
-# Complete archive and tracked generated-state verification
-docker compose run --rm --no-deps texlive \
-  python3 latex/tools/build.py --all --keep-going --check-generated
-```
-
-`--changed-from` requires a locally available reliable revision; do not assume `origin/main` exists. Explicit targets and `--all` are alternatives. For further options, consult `docs/guides/getting-started/building-documents.md` or `build.py --help`. Use the build tool instead of ad hoc `latexmk`/LuaLaTeX commands unless debugging the tool itself.
+Use the canonical commands in [Building documents](../../../docs/guides/getting-started/building-documents.md), with environment setup from [Docker builds](../../../docs/guides/getting-started/docker.md). Read the selection reference before using revision-based modes; it distinguishes committed comparisons from working-tree compilation. Use the repository build tool rather than ad hoc `latexmk`/LuaLaTeX calls unless debugging that tool.
 
 ## Diagnose compilation and generation
 
@@ -55,17 +26,9 @@ A green build proves that the selected documents compiled. It does **not** prove
 
 ## Generated-file ownership
 
-The tool may produce:
+Follow [AGENTS.md: protected content](../../../AGENTS.md#generated-and-protected-content), [output ownership](../../../docs/guides/getting-started/building-documents.md#review-the-output), and [README generation](../../../docs/guides/development/build-system.md#generated-readme-content). Correct sources or tools and regenerate; preserve manual README prose and prior user work.
 
-- courses: `.build/<year>/<course-name>/main.pdf` and generated content inside `<year>/<course-name>/README.md`;
-- component examples: tracked `latex/components/<component>/example/main.pdf`;
-- integration examples: tracked `latex/integration/<language>/main.pdf` and tool-owned README regions.
-
-Do not edit generated README blocks between `<!-- GENERATED:START -->` and `<!-- GENERATED:END -->` manually. Instead correct the source/tool and regenerate. Preserve hand-authored README content outside these markers.
-
-Course PDFs are ignored outputs. Never place or stage `main.pdf` within `1/`, `2/`, or `3/`, or override ignore rules with `git add -f`. Component and integration fixture PDFs may be tracked and should reflect the canonical build.
-
-The publishing workflow, not the build skill, owns `.build/release/`, asset naming, manifests, checksums, releases, tags, and publication. Never publish or commit as a side effect of compiling.
+Compilation does not authorize [release packaging](../../../docs/guides/development/build-system.md#release-packaging), publication, staging, or commits.
 
 ## Generated-state and release readiness
 

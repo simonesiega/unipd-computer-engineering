@@ -10,10 +10,12 @@ description: Visually inspect freshly compiled UniPD course, component, and inte
 Use a PDF produced **after the latest relevant source changes**:
 
 - courses: `.build/<year>/<course-name>/main.pdf` or the matching CI PDF artifact;
-- component examples: `latex/components/<component>/example/main.pdf`;
-- language integration examples: `latex/integration/<language>/main.pdf`.
+- component examples: `.build/latex/components/<component>/example/main.pdf`;
+- language integration examples: `.build/latex/integration/<language>/main.pdf`.
 
-Confirm its source revision and build provenance when available. Never review an outdated document as evidence for current changes. Course PDFs are ignored build/release outputs; do not copy them into course source folders or track them. Component and integration PDFs are intentional tracked fixtures.
+Tracked source-adjacent example PDFs are also valid only when regenerated from the current sources. Check-mode builds leave those fixtures unchanged; prefer their fresh `.build/` PDFs for review.
+
+Confirm its source revision and build provenance when available. Never review an outdated document as evidence for current changes. Follow [output ownership](../../../docs/guides/getting-started/building-documents.md#review-the-output) and the [protected-content rules](../../../AGENTS.md#generated-and-protected-content).
 
 If no current PDF exists, request or delegate a build to `unipd-latex-build`; this skill does not itself own compilation or LaTeX source edits.
 

@@ -10,6 +10,7 @@ This repository archives University of Padua Computer Engineering note sources, 
 - Make the smallest coherent change that satisfies the request.
 - Preserve existing language, terminology, notation, structure, and architecture.
 - Follow repository conventions; do not create parallel systems.
+- Use [docs/README.md](docs/README.md) as the project-wide documentation router. Keep folder READMEs navigational and detailed instructions in the most specific owning reference; link instead of copying procedures.
 - Do not modify unrelated files or revert pre-existing user changes.
 - Never edit generated outputs directly; regenerate them with the owning repository tool.
 - Never claim a build, test, validation, or visual review passed unless it completed successfully.
@@ -57,12 +58,12 @@ Use the most specific skill available; a task may require several.
 
 | Skill | Use for |
 |---|---|
-| `unipd-note-writing` | Course content and course-specific diagrams under `1/`, `2/`, or `3/` |
-| `unipd-latex-component-development` | `latex/unipd-notes.cls`, `latex/components/`, and `latex/fonts/` |
-| `unipd-python-tool-development` | Development and tests under `latex/tools/` and `latex/tools/test/` |
-| `unipd-latex-build` | Selecting and compiling affected documents; regenerating outputs without staging course PDFs |
-| `unipd-pdf-review` | Visual inspection of local `.build/` PDFs or CI artifacts |
-| `unipd-repository-validation` | `check_repository.py`, pre-commit, tracked-PDF policy, structure, and source hygiene |
+| [`unipd-note-writing`](.agents/skills/unipd-note-writing/SKILL.md) | Course content and course-specific diagrams under `1/`, `2/`, or `3/` |
+| [`unipd-latex-component-development`](.agents/skills/unipd-latex-component-development/SKILL.md) | `latex/unipd-notes.cls`, `latex/components/`, and `latex/fonts/` |
+| [`unipd-python-tool-development`](.agents/skills/unipd-python-tool-development/SKILL.md) | Development and tests under `latex/tools/` and `latex/tools/test/` |
+| [`unipd-latex-build`](.agents/skills/unipd-latex-build/SKILL.md) | Selecting and compiling affected documents; regenerating outputs without staging course PDFs |
+| [`unipd-pdf-review`](.agents/skills/unipd-pdf-review/SKILL.md) | Visual inspection of local `.build/` PDFs or CI artifacts |
+| [`unipd-repository-validation`](.agents/skills/unipd-repository-validation/SKILL.md) | `check_repository.py`, pre-commit, tracked-PDF policy, structure, and source hygiene |
 
 For documentation, automation, or CI without a matching skill, follow the global rules and inspect the relevant documentation or configuration.
 
@@ -93,8 +94,9 @@ Documentation, policy, skill, or agent-instruction change:
 
 1. inspect the authoritative implementation or workflow for every behavioral claim;
 2. preserve generated Markdown regions and legal notices;
-3. run repository validation, including local-link and heading-anchor checks;
-4. skip LaTeX compilation and PDF review unless the documentation change accompanies behavior that affects rendered documents.
+3. run repository validation, including local-link and heading-anchor checks, and the strict documentation-site build (`latex/tools/build_docs.py` or the pre-commit `documentation-site` hook);
+4. for website changes, review rendered desktop/mobile pages and keep MkDocs staging restricted to public inputs; never point `docs_dir` at the repository root;
+5. skip LaTeX compilation and PDF review unless the documentation change accompanies behavior that affects rendered documents.
 
 A task that changes course sources normally requires rebuilding and visually reviewing the affected `.build/` PDF. Workflow steps may be omitted only when irrelevant; report the reason. Explicitly report unavailable Docker, skipped builds, unavailable artifacts, and PDFs that were not visually reviewed.
 

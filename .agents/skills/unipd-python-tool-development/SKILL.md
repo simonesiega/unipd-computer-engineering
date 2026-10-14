@@ -8,7 +8,7 @@ description: Implement, review, and test repository Python tools in latex/tools/
 ## Establish observable behavior
 
 1. Identify the tool and the public behavior being added, corrected, or reviewed. Read its current implementation, CLI behavior, related helpers, and closest tests.
-2. Consult `docs/guides/development/tool-test-and-ci.md` and `docs/guides/development/build-system.md` if selection, generation, packaging, or CI ownership is unclear.
+2. Consult [Validation, tests, and CI](../../../docs/guides/development/tool-test-and-ci.md) and [Build system](../../../docs/guides/development/build-system.md) if selection, generation, packaging, or CI ownership is unclear.
 3. Reproduce a reported failure before modifying code when practical. Identify expectations from existing tests and project policy, not assumptions based on one particular course.
 4. Preserve the layout and language support of all course years, supported semesters, dated or topical structures, and allowed class languages. Do not hard-code course names, professors, course topics, lecture schedules, or temporary snapshot dates.
 
@@ -16,7 +16,7 @@ description: Implement, review, and test repository Python tools in latex/tools/
 
 Tests live under `latex/tools/test/`, follow `test_*.py`, and use only Python's standard-library test infrastructure. Prefer `unittest`, `tempfile`, `pathlib`, `subprocess`, `unittest.mock`, and local fake repositories. Put regression tests near the responsible feature; add new test modules only when responsibilities are genuinely separate.
 
-Do **not** introduce pytest, Hypothesis/property-testing frameworks, third-party test fixtures, external network dependencies, or test-side coverage imports without an explicit approved migration. `latex/tools/run_tool_tests.py` owns Coverage.py integration and enforces the repository's aggregate **80% minimum**; design tests for real behavioral coverage, not merely a percentage.
+Do **not** introduce pytest, Hypothesis/property-testing frameworks, third-party test fixtures, external network dependencies, or test-side coverage imports without an explicit approved migration. [Running tests](../../../latex/tools/test/TESTS.md#running-tests) owns the coverage-runner contract and threshold; design tests for real behavioral coverage, not merely a percentage.
 
 ## Implementation quality
 
@@ -42,20 +42,9 @@ Key cases to cover when relevant: absent/invalid arguments; existing target file
 
 ## Commands
 
-From the repository root, use the available Python launcher (`python3` on typical Unix systems, `py` on Windows PowerShell):
+Use [TESTS.md: running tests](../../../latex/tools/test/TESTS.md#running-tests) for focused, complete, and coverage-enforced commands. Update the [test catalogue](../../../latex/tools/test/TESTS.md#maintaining-this-catalogue) when methods change.
 
-```bash
-# A focused test module
-python3 latex/tools/test/test_<name>.py
-
-# All standard-library unit tests
-python3 -m unittest discover -s latex/tools/test -p 'test_*.py'
-
-# Canonical test runner with branch coverage, after pinned dependencies are installed
-python3 latex/tools/run_tool_tests.py
-```
-
-If dependencies are unavailable, report which command could not run; a bare unittest pass is not equivalent to a passing coverage-enforced run. Repository-wide Ruff/mypy/pre-commit verification belongs to `unipd-repository-validation`; generated-state compilation belongs to `unipd-latex-build`.
+Report unavailable dependencies and incomplete coverage checks explicitly. Delegate Ruff/mypy/pre-commit verification to `unipd-repository-validation` and generated-state compilation to `unipd-latex-build`.
 
 ## Completion
 
