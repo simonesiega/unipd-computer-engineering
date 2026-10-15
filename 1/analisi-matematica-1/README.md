@@ -28,7 +28,6 @@
   - 4.1 Densità dei numeri razionali — p. 21
   - 4.2 Intervalli della retta reale — p. 22
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 23
-    - 4.3.1 Esempi fondamentali — p. 24
   - 4.4 Massimo e minimo — p. 24
   - 4.5 Estremo superiore ed estremo inferiore — p. 25
   - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 26
@@ -44,5 +43,10 @@
   - 6.4 Controimmagine di un sottoinsieme — p. 38
   - 6.5 Applicazioni suriettive, iniettive e biiettive — p. 39
   - 6.6 Tre applicazioni definite dal quadrato — p. 40
-- A Tutorato 1 --- 8 ottobre 2026 — p. 42
+- 7 Lezione 7 --- 14 ottobre 2026 — p. 42
+  - 7.1 Numerabilità degli insiemi — p. 42
+  - 7.2 Operazioni sulle funzioni — p. 43
+  - 7.3 Grafici e trasformazioni delle funzioni — p. 45
+  - 7.4 Intorni e punti di accumulazione — p. 48
+- A Tutorato 1 --- 8 ottobre 2026 — p. 52
 <!-- GENERATED:END -->

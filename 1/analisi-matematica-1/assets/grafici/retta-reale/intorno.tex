@@ -1,0 +1,13 @@
+\begin{tikzpicture}[unipd/diagram,x=1.6cm]
+  \draw[->,unipd-muted] (-3,0) -- (3.2,0) node[right] {\(x\)};
+  \draw[very thick,unipd-primary] (-2,0) -- (2,0);
+  \foreach \x in {-2,2} {
+    \draw[unipd-primary,fill=white,thick] (\x,0) circle (2.4pt);
+  }
+  \fill[unipd-primary] (0,0) circle (1.8pt);
+  \node[below=5pt] at (-2,0) {\(x_0-\delta\)};
+  \node[below=5pt] at (0,0) {\(x_0\)};
+  \node[below=5pt] at (2,0) {\(x_0+\delta\)};
+  \draw[<->,unipd-muted] (-2,.5) -- (0,.5) node[midway,above] {\(\delta\)};
+  \draw[<->,unipd-muted] (0,.5) -- (2,.5) node[midway,above] {\(\delta\)};
+\end{tikzpicture}
