@@ -1,0 +1,843 @@
+\chapter[Lezione 7 --- 14 ottobre 2026]{Lezione 7: numerabilità, operazioni sulle funzioni e punti di accumulazione}
+\label{chap:lezione-07}
+
+\section{Numerabilità degli insiemi}
+\label{sec:lez07-numerabilita}
+
+La nozione di applicazione biiettiva, introdotta nella
+\cref{def:lez06-biettiva}, permette di confrontare insiemi
+anche quando contengono infiniti elementi. Due insiemi
+hanno la stessa \emph{cardinalità} se esiste una biiezione
+tra essi.
+
+\begin{definition}[Insieme numerabile]
+\label{def:lez07-numerabilita}
+Un insieme \(A\) si dice \emph{numerabile} se esiste
+un'applicazione biiettiva
+\[
+  \varphi\colon\N\longrightarrow A.
+\]
+Un insieme infinito che non ammette una tale biiezione
+si dice \emph{non numerabile}.
+\end{definition}
+
+\begin{proposition}[Numerabilità dei naturali pari]
+\label{prop:lez07-pari}
+L'insieme dei numeri naturali pari
+\[
+  P:=\{2m:m\in\N\}
+\]
+è numerabile. In particolare, l'applicazione
+\[
+  \varphi\colon\N\longrightarrow P,
+  \qquad m\longmapsto 2m,
+\]
+è biiettiva.
+\end{proposition}
+
+\begin{proof}
+Si verificano separatamente la suriettività e
+l'iniettività dell'applicazione.
+
+\emph{Suriettività.}
+Sia \(p\in P\) arbitrario. Per definizione di \(P\),
+esiste \(m\in\N\) tale che
+\[
+  p=2m=\varphi(m).
+\]
+Ogni elemento di \(P\) possiede quindi almeno un
+antecedente in \(\N\). Per la
+\cref{def:lez06-suriettiva}, \(\varphi\) è suriettiva.
+
+\emph{Iniettività.}
+Siano \(m_1,m_2\in\N\) con \(m_1\ne m_2\).
+Supponiamo per assurdo che
+\(\varphi(m_1)=\varphi(m_2)\). Allora
+\[
+  2m_1=2m_2
+  \quad\Longrightarrow\quad
+  m_1=m_2,
+\]
+in contraddizione con l'ipotesi \(m_1\ne m_2\).
+Pertanto \(\varphi(m_1)\ne\varphi(m_2)\),
+quindi \(\varphi\) è iniettiva.
+
+Essendo sia suriettiva sia iniettiva,
+\(\varphi\) è biiettiva.
+\end{proof}
+
+Analogamente, l'insieme dei naturali dispari
+\[
+  D:=\{2m+1:m\in\N\}
+\]
+è numerabile mediante l'applicazione
+\[
+  \psi\colon\N\longrightarrow D,
+  \qquad m\longmapsto 2m+1.
+\]
+La suriettività segue dalla definizione di \(D\);
+l'iniettività dall'implicazione
+\[
+  2m_1+1=2m_2+1
+  \quad\Longrightarrow\quad
+  m_1=m_2.
+\]
+
+Poiché \(P\subsetneq\N\) (infatti \(1\notin P\)),
+la \cref{prop:lez07-pari} mostra che può esistere
+una biiezione tra un insieme infinito e un suo
+sottoinsieme proprio.
+
+\begin{proposition}[Numerabilità degli insiemi numerici]
+\label{prop:lez07-insiemi-numerici}
+Gli insiemi \(\N\), \(\Z\) e \(\Q\) sono numerabili,
+mentre \(\R\) non è numerabile.
+\end{proposition}
+
+Per \(\N\) è sufficiente considerare l'applicazione
+identità. La numerabilità di \(\Z\) e \(\Q\) e la
+non numerabilità di \(\R\) sono qui enunciate
+senza dimostrazione. Quest'ultimo risultato
+è dovuto a Cantor.
+
+La numerabilità non va confusa con la densità:
+in particolare, \(\Q\) è numerabile pur essendo
+denso in \(\R\), come stabilito nel
+\cref{thm:densita-razionali}.
+
+\begin{example}[Albergo di Hilbert]
+\label{ex:lez07-hilbert}
+Si consideri un albergo con infinite camere,
+numerate mediante i numeri naturali, tutte occupate.
+
+Sebbene non vi siano camere libere, è possibile
+accogliere un nuovo ospite trasferendo
+simultaneamente ciascun occupante dalla camera
+\(n\) alla camera \(n+1\), per ogni \(n\in\N\).
+
+L'assegnazione
+\[
+  n\longmapsto n+1
+\]
+è iniettiva, quindi nessuna camera riceve più
+di un ospite. Dopo lo spostamento, la camera
+\(0\) rimane libera e può accogliere il nuovo
+arrivato.
+
+L'assegnazione costituisce una biiezione tra
+\(\N\) e \(\N\setminus\{0\}\).
+
+\begin{figure}[H]
+  \centering
+  \input{assets/grafici/insiemi/albergo-hilbert}
+  \caption{Schema dell'albergo di Hilbert: dopo lo
+  spostamento \(n\mapsto n+1\), la camera \(0\)
+  risulta libera. Le crocette indicano le camere
+  occupate.}
+  \label{fig:lez07-hilbert}
+\end{figure}
+\end{example}
+
+
+\section{Operazioni sulle funzioni}
+\label{sec:lez07-operazioni}
+
+Si considerino due funzioni a valori reali
+\[
+  \psi\colon A\longrightarrow\R,\qquad
+  \varphi\colon B\longrightarrow\R,
+  \qquad A,B\subseteq\R.
+\]
+Per la \cref{def:lez06-dominio-codominio}, i domini
+di \(\psi\) e \(\varphi\) sono rispettivamente \(A\)
+e \(B\). La somma e il prodotto dei loro valori
+possono quindi essere calcolati per ogni
+\(x\in A\cap B\).
+
+Le funzioni così ottenute hanno codominio
+\(\R\), mentre la loro immagine, secondo la
+\cref{def:lez06-immagine}, è costituita dai
+valori effettivamente assunti.
+
+\begin{definition}[Somma di funzioni]
+\label{def:lez07-somma}
+La \emph{somma} di \(\psi\) e \(\varphi\)
+è la funzione
+\[
+  \psi+\varphi\colon A\cap B\longrightarrow\R,
+  \qquad
+  (\psi+\varphi)(x):=\psi(x)+\varphi(x).
+\]
+In particolare,
+\(D(\psi+\varphi)=D(\psi)\cap D(\varphi)\).
+\end{definition}
+
+La somma è definita punto per punto mediante
+l'addizione in \(\R\). La proprietà commutativa,
+già introdotta per \(\N\) nella
+\cref{sec:lez01-numeri-naturali}, vale anche in
+\(\R\). Poiché le funzioni \(\psi+\varphi\) e
+\(\varphi+\psi\) hanno lo stesso dominio e
+codominio, per ogni \(x\in A\cap B\) si ha
+\[
+  (\psi+\varphi)(x)
+  =\psi(x)+\varphi(x)
+  =\varphi(x)+\psi(x)
+  =(\varphi+\psi)(x).
+\]
+Pertanto \(\psi+\varphi=\varphi+\psi\).
+
+\begin{example}[Somma di una radice e di una funzione lineare]
+\label{ex:lez07-somma-radice}
+Siano \(\varphi\colon[0,+\infty)\to\R\),
+\(\varphi(x)=\sqrt{x}\), e
+\(\psi\colon\R\to\R\), \(\psi(x)=2x\). Si ha
+\[
+  D(\psi+\varphi)
+  =\R\cap[0,+\infty)
+  =[0,+\infty),
+\]
+e, per ogni \(x\ge0\),
+\[
+  (\psi+\varphi)(x)=2x+\sqrt{x}.
+\]
+La somma non è definita per \(x<0\), poiché
+tali valori non appartengono al dominio
+di \(\varphi\).
+\end{example}
+
+\begin{definition}[Prodotto di funzioni]
+\label{def:lez07-prodotto}
+Il \emph{prodotto} di \(\psi\) e \(\varphi\)
+è la funzione
+\[
+  \psi\varphi\colon A\cap B\longrightarrow\R,
+  \qquad
+  (\psi\varphi)(x):=\psi(x)\varphi(x).
+\]
+In particolare,
+\(D(\psi\varphi)=D(\psi)\cap D(\varphi)\).
+\end{definition}
+
+Il prodotto è definito punto per punto mediante
+la moltiplicazione in \(\R\), che è commutativa.
+Come per la somma, le funzioni \(\psi\varphi\) e
+\(\varphi\psi\) hanno lo stesso dominio e
+codominio e, per ogni \(x\in A\cap B\), si ha
+\[
+  (\psi\varphi)(x)
+  =\psi(x)\varphi(x)
+  =\varphi(x)\psi(x)
+  =(\varphi\psi)(x).
+\]
+Pertanto \(\psi\varphi=\varphi\psi\).
+
+\begin{definition}[Rapporto di funzioni]
+\label{def:lez07-quoziente}
+Il \emph{rapporto} di \(\psi\) e \(\varphi\)
+è la funzione
+\[
+  \frac{\psi}{\varphi}\colon
+  (A\cap B)\setminus Z_\varphi
+  \longrightarrow\R,
+  \qquad
+  \left(\frac{\psi}{\varphi}\right)(x)
+  :=\frac{\psi(x)}{\varphi(x)},
+\]
+dove
+\[
+  Z_\varphi:=\{x\in D(\varphi):\varphi(x)=0\}
+\]
+è l'insieme degli zeri di \(\varphi\).
+In particolare,
+\[
+  D(\psi/\varphi)
+  =(D(\psi)\cap D(\varphi))\setminus Z_\varphi.
+\]
+\end{definition}
+
+Il denominatore deve essere diverso da zero:
+per questo gli zeri di \(\varphi\) sono esclusi
+dal dominio comune.
+
+Scambiando numeratore e denominatore si ottiene
+\[
+  D(\varphi/\psi)
+  =(D(\psi)\cap D(\varphi))\setminus Z_\psi,
+\]
+dove \(Z_\psi\) indica l'insieme degli zeri
+di \(\psi\).
+
+A differenza della somma e del prodotto, il rapporto
+non è commutativo: i due domini possono essere
+diversi e, anche nei punti in cui entrambi i
+rapporti sono definiti, i loro valori non
+coincidono in generale.
+
+\section{Grafici e trasformazioni delle funzioni}
+\label{sec:lez07-trasformazioni}
+
+Nella \cref{sec:lez06-applicazioni}, il grafico
+di un'applicazione è stato introdotto come insieme
+delle coppie ordinate che la rappresentano.
+Si considera ora il caso delle funzioni reali
+di variabile reale.
+
+\begin{definition}[Grafico di una funzione]
+\label{def:lez07-grafico}
+Sia \(\varphi\colon A\to\R\), con \(A\subseteq\R\).
+Il \emph{grafico} di \(\varphi\) è l'insieme
+\[
+  G(\varphi):=\{(x,\varphi(x)):x\in A\}
+  \subseteq\R^2.
+\]
+\end{definition}
+
+Ogni punto del grafico ha ascissa \(x\in A\) e
+ordinata \(\varphi(x)\). Le trasformazioni considerate
+nel seguito agiscono sulle ascisse o sulle ordinate,
+permettendo di ottenere nuovi grafici a partire da
+\(G(\varphi)\).
+
+\subsection{Traslazione rigida}
+\label{sec:lez07-traslazioni-verticali}
+
+Sia \(\varphi\colon A\longrightarrow\R\), con
+\(A\subseteq\R\), e sia \(c\in\R\). Si consideri
+la funzione
+\[
+  \varphi+c\colon A\longrightarrow\R,
+  \qquad
+  (\varphi+c)(x):=\varphi(x)+c.
+\]
+Poiché la costante si somma ai valori di
+\(\varphi\), il dominio rimane invariato:
+\[
+  D(\varphi+c)=D(\varphi)=A.
+\]
+
+Per la \cref{def:lez07-grafico}, il grafico
+della nuova funzione è
+\[
+  G(\varphi+c)
+  =\{(x,\varphi(x)+c):x\in A\}.
+\]
+A ogni punto \((x,\varphi(x))\in G(\varphi)\)
+corrisponde quindi il punto
+\[
+  (x,\varphi(x)+c)=(x,\varphi(x))+(0,c).
+\]
+Viceversa, ogni punto di \(G(\varphi+c)\)
+si ottiene in questo modo da un punto di
+\(G(\varphi)\). Il nuovo grafico è pertanto
+ottenuto mediante una \emph{traslazione rigida}
+verticale secondo il vettore \((0,c)\).
+
+Se \(c>0\), si ha
+\[
+  \varphi(x)+c>\varphi(x),
+\]
+e il grafico viene traslato verso l'alto.
+Se \(c<0\), la disuguaglianza si inverte
+e la traslazione avviene verso il basso.
+
+In entrambi i casi, la distanza verticale
+tra i punti corrispondenti è costante:
+\[
+  |(\varphi+c)(x)-\varphi(x)|=|c|.
+\]
+Per \(c=0\), la funzione e il suo grafico
+rimangono invariati.
+
+\subsection{Riscalamento verticale e ribaltamento}
+\label{sec:lez07-riscalamento}
+
+Sia \(\varphi\colon A\longrightarrow\R\), con
+\(A\subseteq\R\), e sia \(b\in\R\). Si consideri
+la funzione
+\[
+  b\varphi\colon A\longrightarrow\R,
+  \qquad
+  (b\varphi)(x):=b\,\varphi(x).
+\]
+Poiché il coefficiente \(b\) moltiplica i valori
+di \(\varphi\), il dominio rimane invariato:
+\[
+  D(b\varphi)=D(\varphi)=A.
+\]
+
+Per la \cref{def:lez07-grafico}, il grafico
+della nuova funzione è
+\[
+  G(b\varphi)=\{(x,b\varphi(x)):x\in A\}.
+\]
+La corrispondenza tra i due grafici è quindi
+\[
+  (x,\varphi(x))\longmapsto(x,b\varphi(x)).
+\]
+L'ascissa rimane invariata, mentre l'ordinata
+viene moltiplicata per \(b\).
+
+La distanza di un punto dall'asse delle ascisse
+passa da \(|\varphi(x)|\) a
+\[
+  |b\varphi(x)|=|b|\,|\varphi(x)|.
+\]
+Ne segue che, se \(|b|>1\), il grafico subisce
+una dilatazione verticale; se \(0<|b|<1\), si ha
+invece una compressione verticale. I punti di
+ordinata nulla rimangono fissi.
+
+Se \(b<0\), oltre al riscalamento si ha un
+cambiamento di segno delle ordinate. In
+particolare, per \(b=-1\) si ottiene la funzione
+\[
+  -\varphi\colon A\longrightarrow\R,
+  \qquad
+  (-\varphi)(x)=-\varphi(x),
+\]
+e il grafico corrispondente si ottiene mediante
+un \emph{ribaltamento} rispetto all'asse delle
+ascisse.
+
+Per \(b=1\), il grafico rimane invariato. Per
+\(b=0\), si ottiene invece
+\[
+  G(0\varphi)=\{(x,0):x\in A\},
+\]
+ossia la parte dell'asse delle ascisse le cui
+ascisse appartengono al dominio di \(\varphi\).
+
+Non si può dedurre da \(b>1\) che
+\(b\varphi(x)>\varphi(x)\) per ogni \(x\), poiché
+il confronto dipende dal segno di \(\varphi(x)\).
+La distanza verticale tra i punti corrispondenti
+dei grafici di \(\varphi\) e \(b\varphi\) è
+\[
+  |b\varphi(x)-\varphi(x)|
+  =|b-1|\,|\varphi(x)|.
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/trasformazioni-verticali}
+  \caption{A sinistra, traslazione rigida del
+  grafico di \(\varphi(x)=x^2\) verso l'alto di
+  un'unità; a destra, ribaltamento rispetto
+  all'asse delle ascisse, da \(\varphi(x)=x^2\)
+  a \(-\varphi(x)=-x^2\). Le curve sono
+  rappresentate per \(x\in[-1,1]\).}
+  \label{fig:lez07-verticali}
+\end{figure}
+
+\subsection{Traslazione orizzontale}
+\label{sec:lez07-traslazioni-orizzontali}
+
+Sia \(\varphi\colon A\longrightarrow\R\), con
+\(A\subseteq\R\), e sia \(c\in\R\). Si consideri
+la funzione
+\[
+  \psi\colon A_c\longrightarrow\R,
+  \qquad
+  \psi(x):=\varphi(x+c),
+\]
+dove
+\[
+  A_c:=\{x\in\R:x+c\in A\}
+      =\{t-c:t\in A\}.
+\]
+Poiché l'argomento di \(\varphi\) deve appartenere
+ad \(A\), il dominio della nuova funzione è
+\[
+  D(\psi)=A_c.
+\]
+
+Per la \cref{def:lez07-grafico}, il grafico
+della nuova funzione è
+\[
+  G(\psi)=\{(t-c,\varphi(t)):t\in A\}.
+\]
+A ogni punto \((t,\varphi(t))\in G(\varphi)\)
+corrisponde quindi il punto
+\[
+  (t-c,\varphi(t))
+  =(t,\varphi(t))+(-c,0).
+\]
+Viceversa, ogni punto di \(G(\psi)\) si ottiene
+in questo modo da un punto di \(G(\varphi)\).
+Il nuovo grafico è pertanto ottenuto mediante
+una \emph{traslazione rigida} orizzontale secondo
+il vettore \((-c,0)\).
+
+Se \(c>0\), il grafico viene traslato verso
+sinistra; se \(c<0\), la traslazione avviene
+verso destra. In entrambi i casi, la distanza
+orizzontale tra i punti corrispondenti è
+\[
+  |(t-c)-t|=|c|.
+\]
+Per \(c=0\), la funzione e il suo grafico
+rimangono invariati.
+
+\begin{example}[Traslazione del dominio di un intervallo]
+\label{ex:lez07-dominio-traslato}
+Sia \(\varphi\colon[-1,1]\longrightarrow\R\).
+Si considerino le funzioni
+\[
+  \psi_1(x):=\varphi(x+2),
+  \qquad
+  \psi_2(x):=\varphi(x-2).
+\]
+
+Per \(\psi_1\), la condizione sull'argomento è
+\[
+  -1\le x+2\le1
+  \quad\Longleftrightarrow\quad
+  -3\le x\le-1,
+\]
+quindi
+\[
+  D(\psi_1)=[-3,-1].
+\]
+
+Analogamente, per \(\psi_2\) si ha
+\[
+  -1\le x-2\le1
+  \quad\Longleftrightarrow\quad
+  1\le x\le3,
+\]
+da cui
+\[
+  D(\psi_2)=[1,3].
+\]
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/trasformazioni-orizzontali}
+  \caption{Traslazioni orizzontali del grafico
+  di \(\varphi(x)=x^2\), con dominio \([-1,1]\).
+  La funzione \(\psi_1(x)=\varphi(x+2)\) ha dominio
+  \([-3,-1]\), mentre \(\psi_2(x)=\varphi(x-2)\)
+  ha dominio \([1,3]\). I punti pieni indicano
+  gli estremi inclusi.}
+  \label{fig:lez07-orizzontali}
+\end{figure}
+
+\section{Intorni e punti di accumulazione}
+\label{sec:lez07-intorni-accumulazione}
+
+Per studiare il comportamento di una funzione
+in prossimità di un punto, si introducono le
+nozioni di intorno e di punto di accumulazione,
+che saranno utilizzate nella definizione di limite.
+
+\subsection{Intorni di punti reali e dell'infinito}
+\label{sec:lez07-intorni}
+
+\begin{definition}[Intorno circolare]
+\label{def:lez07-intorno}
+Siano \(x_0\in\R\) e \(\delta>0\).
+L'\emph{intorno circolare} di centro \(x_0\)
+e raggio \(\delta\) è l'insieme
+\[
+  D(x_0,\delta)
+  :=\{x\in\R:|x-x_0|<\delta\}
+  =(x_0-\delta,x_0+\delta).
+\]
+\end{definition}
+
+La condizione \(|x-x_0|<\delta\) individua
+i punti della retta reale la cui distanza
+da \(x_0\) è inferiore a \(\delta\).
+Il centro appartiene all'intorno, mentre
+gli estremi \(x_0-\delta\) e \(x_0+\delta\)
+sono esclusi.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/intorno}
+  \caption{Intorno circolare di centro \(x_0\)
+  e raggio \(\delta>0\).}
+  \label{fig:lez07-intorno}
+\end{figure}
+
+\begin{definition}[Intorni di infinito]
+\label{def:lez07-intorni-infinito}
+Si dice \emph{intorno di \(+\infty\)}
+ogni intervallo della forma
+\[
+  (a,+\infty)=\{x\in\R:x>a\},
+  \qquad a\in\R.
+\]
+Analogamente, si dice \emph{intorno di \(-\infty\)}
+ogni intervallo della forma
+\[
+  (-\infty,a)=\{x\in\R:x<a\},
+  \qquad a\in\R.
+\]
+\end{definition}
+
+A differenza degli intorni circolari,
+gli intorni di infinito sono intervalli
+illimitati della retta reale. I simboli
+\(+\infty\) e \(-\infty\) non rappresentano
+numeri reali e non appartengono agli
+intervalli così definiti.
+
+\begin{definition}[Retta reale estesa]
+\label{def:lez07-retta-estesa}
+La \emph{retta reale estesa} è l'insieme
+\[
+  \overline{\R}:=\R\cup\{-\infty,+\infty\},
+\]
+ordinato ponendo
+\[
+  -\infty<x<+\infty
+  \qquad\forall x\in\R.
+\]
+\end{definition}
+
+\begin{example}[Estremi di intervalli illimitati]
+\label{ex:lez07-estremi-infiniti}
+Per ogni \(a\in\R\), secondo le convenzioni
+introdotte nella \cref{sec:lez04-estremi}, si ha
+\[
+  \sup(a,+\infty)=+\infty,
+  \qquad
+  \inf(a,+\infty)=a,
+\]
+\[
+  \sup(-\infty,a)=a,
+  \qquad
+  \inf(-\infty,a)=-\infty.
+\]
+
+L'intervallo \((a,+\infty)\) non è
+superiormente limitato, mentre
+\((-\infty,a)\) non è inferiormente limitato.
+Gli estremi infiniti appartengono alla
+retta reale estesa, mentre gli estremi
+finiti coincidono con \(a\), che non
+appartiene a nessuno dei due intervalli.
+
+Pertanto, nessuno dei due intervalli
+ammette massimo o minimo.
+\end{example}
+
+
+\subsection{Punti di accumulazione}
+\label{sec:lez07-punti-accumulazione}
+
+\begin{definition}[Punto di accumulazione]
+\label{def:lez07-accumulazione}
+Sia \(A\subseteq\R\) non vuoto. Un punto
+\(x_0\in\R\) si dice \emph{punto di accumulazione}
+di \(A\) se
+\[
+  \forall\delta>0,\qquad
+  \bigl(D(x_0,\delta)\cap A\bigr)\setminus\{x_0\}
+  \neq\varnothing.
+\]
+L'insieme dei punti di accumulazione di \(A\)
+si indica con \(A'\).
+\end{definition}
+
+Per la \cref{def:lez07-intorno}, la condizione
+richiede che ogni intorno circolare di centro
+\(x_0\) contenga almeno un elemento di \(A\)
+distinto dal centro. Equivalentemente,
+\[
+  \forall\delta>0\ \exists a\in A:
+  \qquad 0<|a-x_0|<\delta.
+\]
+
+La definizione non richiede che \(x_0\in A\).
+Un punto può quindi essere di accumulazione
+anche senza appartenere all'insieme.
+
+Viceversa, un punto \(x_0\in A\) si dice
+\emph{isolato} se esiste un intorno circolare
+che non contiene altri elementi di \(A\).
+In generale, negando la condizione della
+\cref{def:lez07-accumulazione}, si ottiene
+\[
+  x_0\notin A'
+  \quad\Longleftrightarrow\quad
+  \exists\delta>0:
+  \bigl(D(x_0,\delta)\cap A\bigr)
+  \setminus\{x_0\}=\varnothing.
+\]
+
+Per dimostrare che un punto è di accumulazione
+occorre dunque verificare la condizione per
+ogni \(\delta>0\); per escluderlo è sufficiente
+individuare un solo raggio positivo per cui
+la condizione non sia soddisfatta.
+
+\begin{example}[Un intervallo aperto e un punto isolato]
+\label{ex:lez07-accumulazione-intervallo}
+Sia
+\[
+  A=(1,2)\cup\{3\}.
+\]
+L'insieme dei suoi punti di accumulazione è
+\[
+  A'=[1,2].
+\]
+\end{example}
+
+\begin{proof}
+Si dimostra anzitutto che ogni punto di
+\([1,2]\) è di accumulazione.
+
+Sia \(x_0\in(1,2)\). Per ogni \(\delta>0\),
+si ponga
+\[
+  \eta=
+  \min\left\{
+    \frac{\delta}{2},
+    \frac{2-x_0}{2}
+  \right\},
+  \qquad
+  a=x_0+\eta.
+\]
+Poiché \(\eta>0\), si ha \(a\in(1,2)\)
+e
+\[
+  0<|a-x_0|=\eta<\delta.
+\]
+Per la \cref{def:lez07-accumulazione},
+\(x_0\in A'\).
+
+Anche gli estremi \(1\) e \(2\) sono punti
+di accumulazione. Per ogni \(\delta>0\),
+posto
+\[
+  \eta=\min\left\{\frac{\delta}{2},
+                  \frac12\right\},
+\]
+i punti \(1+\eta\) e \(2-\eta\) appartengono
+ad \(A\) e distano rispettivamente da
+\(1\) e da \(2\) una quantità positiva
+minore di \(\delta\).
+
+Pertanto
+\[
+  [1,2]\subseteq A'.
+\]
+
+Si dimostra ora che nessun punto esterno
+a \([1,2]\) è di accumulazione.
+
+Se \(x_0<1\), scegliendo
+\[
+  \delta=\frac{1-x_0}{2}>0
+\]
+si ottiene
+\[
+  D(x_0,\delta)\cap A=\varnothing.
+\]
+Quindi \(x_0\notin A'\).
+
+Se \(x_0>2\) e \(x_0\ne3\), si scelga
+\[
+  \delta=
+  \frac12\min\{x_0-2,|x_0-3|\}>0.
+\]
+L'intorno \(D(x_0,\delta)\) non interseca
+l'intervallo \((1,2)\) e non contiene
+il punto \(3\). Pertanto
+\[
+  D(x_0,\delta)\cap A=\varnothing,
+\]
+da cui \(x_0\notin A'\).
+
+Infine, per \(x_0=3\), scegliendo
+\(\delta=1/2\) si ha
+\[
+  D(3,1/2)\cap A=\{3\},
+\]
+quindi
+\[
+  \bigl(D(3,1/2)\cap A\bigr)
+  \setminus\{3\}=\varnothing.
+\]
+Il punto \(3\) è dunque isolato e non
+è di accumulazione.
+
+Si è così dimostrato che
+\(A'\subseteq[1,2]\). Dalla doppia
+inclusione segue
+\[
+  A'=[1,2].
+\]
+\end{proof}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/accumulazione-intervallo}
+  \caption{L'insieme \(A=(1,2)\cup\{3\}\)
+  e il suo insieme dei punti di accumulazione
+  \(A'=[1,2]\). I cerchi vuoti indicano
+  estremi esclusi, mentre i punti pieni
+  indicano elementi inclusi.}
+  \label{fig:lez07-accumulazione}
+\end{figure}
+
+\begin{exercise}[Verifica dei punti di accumulazione]
+\label{ex:lez07-verifica-accumulazione}
+Per \(A=(1,2)\cup\{3\}\), verificare direttamente
+che \(2\) e ogni \(x_0\in(1,2)\) sono punti
+di accumulazione, mentre ogni \(x_0>2\),
+con \(x_0\ne3\), non lo è.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Nella dimostrazione dell'\cref{ex:lez07-accumulazione-intervallo},
+per ogni \(x_0\in(1,2]\) e ogni \(\delta>0\)
+è stato costruito un elemento \(a\in A\) tale che
+\(0<|a-x_0|<\delta\). Per \(x_0>2\), con
+\(x_0\ne3\), è stato invece individuato un
+intorno disgiunto da \(A\). Le conclusioni
+seguono quindi dalla \cref{def:lez07-accumulazione}.
+\end{proof}
+
+\begin{exercise}[Variante con estremi inclusi]
+\label{ex:lez07-accumulazione-chiuso}
+Ripetere la verifica dell'\cref{ex:lez07-verifica-accumulazione}
+per l'insieme
+\[
+  B=[1,2]\cup\{3\}
+\]
+e determinarne tutti i punti di accumulazione.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Si ha ancora
+\[
+  B'=[1,2].
+\]
+
+Infatti, poiché \((1,2)\subseteq B\),
+le costruzioni utilizzate nella dimostrazione
+dell'\cref{ex:lez07-accumulazione-intervallo}
+rimangono valide per ogni \(x_0\in[1,2]\).
+Anche per gli estremi \(1\) e \(2\), gli elementi
+scelti sono distinti dal centro dell'intorno.
+
+Se \(x_0<1\) oppure \(x_0>2\), con \(x_0\ne3\),
+gli stessi raggi consentono di individuare
+un intorno disgiunto da \(B\).
+
+Infine,
+\[
+  D(3,1/2)\cap B=\{3\},
+\]
+quindi \(3\) è ancora un punto isolato.
+
+L'inclusione degli estremi nell'intervallo
+modifica la loro appartenenza all'insieme,
+ma non la loro proprietà di essere punti
+di accumulazione.
+\end{proof}

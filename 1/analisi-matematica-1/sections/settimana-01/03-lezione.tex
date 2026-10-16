@@ -4,47 +4,37 @@
 \section{Coefficienti binomiali}
 \label{sec:lez03-coefficienti-binomiali}
 
-La definizione del fattoriale introdotta nella \cref{def:fattoriale}
-permette di definire i coefficienti binomiali. Essi saranno considerati
-per ogni coppia di numeri naturali.
+La nozione di fattoriale, introdotta nella \cref{def:fattoriale},
+permette di definire i coefficienti binomiali per ogni coppia di
+numeri naturali.
 
 \begin{definition}[Coefficiente binomiale]
 \label{def:coefficiente-binomiale}
-Siano \(n,k\in\N\). Si definisce
+Siano \(n,k\in\N\). Il \emph{coefficiente binomiale} è definito da
 \[
   \binom{n}{k}
   :=
   \begin{cases}
-    \displaystyle\frac{n!}{k!(n-k)!}, & \text{se } k\le n,\\[8pt]
-    0, & \text{se } k>n.
+    \displaystyle\frac{n!}{k!(n-k)!}, & \text{se }k\le n,\\[8pt]
+    0, & \text{se }k>n.
   \end{cases}
 \]
 \end{definition}
 
-Dalla \cref{def:coefficiente-binomiale} si ricavano immediatamente alcuni
-casi particolari. Per
-ogni \(n\in\N\),
+Dalla \cref{def:coefficiente-binomiale} si ricavano alcuni casi
+particolari. Per ogni \(n\in\N\), poiché \(0!=1\), si ha
 \[
-  \binom{n}{0}
-  =\frac{n!}{0!\,n!}
-  =1
-\]
-e
-\[
-  \binom{n}{n}
-  =\frac{n!}{n!\,0!}
-  =1.
+  \binom{n}{0}=\frac{n!}{0!\,n!}=1,
+  \qquad
+  \binom{n}{n}=\frac{n!}{n!\,0!}=1.
 \]
 Inoltre, per ogni \(n\in\N\) con \(n\ge1\),
-\begin{align*}
+\[
   \binom{n}{n-1}
-    &=\frac{n!}{(n-1)!\,(n-(n-1))!}\\
-    &=\frac{n!}{(n-1)!\,1!}\\
-    &=n.
-\end{align*}
-
-Una prima proprietà fondamentale dei coefficienti binomiali è la loro
-simmetria rispetto agli indici \(k\) e \(n-k\).
+  =\frac{n!}{(n-1)!\,(n-(n-1))!}
+  =\frac{n!}{(n-1)!\,1!}
+  =n.
+\]
 
 \begin{proposition}[Simmetria dei coefficienti binomiali]
 \label{prop:simmetria-coefficienti-binomiali}
@@ -55,25 +45,18 @@ Per ogni \(n,k\in\N\) con \(k\le n\) vale
 \end{proposition}
 
 \begin{proof}
-Per la \cref{def:coefficiente-binomiale},
+Per la \cref{def:coefficiente-binomiale} e la commutatività
+della moltiplicazione, si ha
 \[
-  \binom{n}{k}
-  =\frac{n!}{k!(n-k)!}.
-\]
-D'altra parte,
-\begin{align*}
   \binom{n}{n-k}
-    &=\frac{n!}{(n-k)!\,(n-(n-k))!}\\
-    &=\frac{n!}{(n-k)!\,k!}.
-\end{align*}
-Poiché il prodotto è commutativo, i due denominatori coincidono e quindi
-\[
-  \binom{n}{k}=\binom{n}{n-k}.
+  =\frac{n!}{(n-k)!\,k!}
+  =\frac{n!}{k!(n-k)!}
+  =\binom{n}{k}.
 \]
 \end{proof}
 
-Un'altra relazione fondamentale è l'identità di Pascal, che esprime un
-coefficiente binomiale come somma di due coefficienti della riga
+Un'altra proprietà fondamentale è l'identità di Pascal, che esprime
+un coefficiente binomiale come somma di due coefficienti della riga
 precedente.
 
 \begin{proposition}[Identità di Pascal]
@@ -86,44 +69,30 @@ Per ogni \(n,k\in\N\) con \(n\ge1\) e \(1\le k\le n\) vale
 \end{proposition}
 
 \begin{proof}
-Si considera anzitutto il caso \(1\le k\le n-1\). Applicando la
-\cref{def:coefficiente-binomiale}, si ottiene
+Si considera anzitutto il caso \(1\le k\le n-1\).
+Per la \cref{def:fattoriale} si ha
+\[
+  k!=k(k-1)!,
+  \qquad (n-k)!=(n-k)(n-k-1)!.
+\]
+Queste identità permettono di ridurre allo stesso denominatore
+i due addendi della \cref{def:coefficiente-binomiale}:
 \begin{align*}
   \binom{n-1}{k-1}+\binom{n-1}{k}
     &=\frac{(n-1)!}{(k-1)!(n-k)!}
-      +\frac{(n-1)!}{k!(n-k-1)!}.
+      +\frac{(n-1)!}{k!(n-k-1)!}\\
+    &=\frac{k(n-1)!}{k!(n-k)!}
+      +\frac{(n-k)(n-1)!}{k!(n-k)!}\\
+    &=\frac{\bigl(k+(n-k)\bigr)(n-1)!}{k!(n-k)!}\\
+    &=\frac{n!}{k!(n-k)!}
+     =\binom{n}{k}.
 \end{align*}
 
-Poiché, per la \cref{def:fattoriale},
-\[
-  (n-k)!=(n-k)(n-k-1)!
-  \qquad\text{e}\qquad
-  k!=k(k-1)!,
-\]
-si può raccogliere il fattore comune
-\[
-  \frac{(n-1)!}{(k-1)!(n-k-1)!}
-\]
-e ottenere
-\begin{align*}
-  \binom{n-1}{k-1}+\binom{n-1}{k}
-    &=\frac{(n-1)!}{(k-1)!(n-k-1)!}
-      \left(\frac{1}{n-k}+\frac{1}{k}\right)\\
-    &=\frac{(n-1)!}{(k-1)!(n-k-1)!}
-      \frac{n}{k(n-k)}\\
-    &=\frac{n!}{k!(n-k)!}\\
-    &=\binom{n}{k}.
-\end{align*}
-
-Resta il caso \(k=n\). Per la \cref{def:coefficiente-binomiale},
+Resta il caso \(k=n\). Per definizione,
 \[
   \binom{n-1}{n}=0,
-\]
-mentre
-\[
-  \binom{n-1}{n-1}=1
-  \qquad\text{e}\qquad
-  \binom{n}{n}=1.
+  \qquad
+  \binom{n-1}{n-1}=\binom{n}{n}=1.
 \]
 Pertanto anche in questo caso
 \[
@@ -132,69 +101,67 @@ Pertanto anche in questo caso
 \]
 \end{proof}
 
-Benché la formula della \cref{def:coefficiente-binomiale} sia espressa
-come rapporto di fattoriali, il suo valore è sempre un numero naturale:
+Sebbene la \cref{def:coefficiente-binomiale} sia espressa mediante
+un rapporto di fattoriali, il coefficiente binomiale è sempre un
+numero naturale:
 \[
   \binom{n}{k}\in\N
-  \qquad
-  \forall n,k\in\N.
+  \qquad\forall n,k\in\N.
 \]
-La dimostrazione di questa proprietà non viene sviluppata in questa sede.
-
-\clearpage
+Questa proprietà viene qui enunciata senza dimostrazione.
 
 \section{Numeri reali}
 \label{sec:lez03-numeri-reali}
 
-Gli insiemi numerici introdotti finora sono legati dalla catena di
-inclusioni
+Gli insiemi numerici introdotti nelle lezioni precedenti soddisfano
+le inclusioni
 \[
   \N\subseteq\Z\subseteq\Q.
 \]
-Come mostrato nel \cref{thm:irrazionalita-radice-due}, l'equazione
-\(x^2-2=0\) non ammette soluzioni razionali. Si introduce pertanto un
-insieme numerico più ampio, l'insieme dei numeri reali \(\R\), ottenendo
+Come mostrato nel \cref{thm:irrazionalita-radice-due},
+l'equazione \(x^2=2\) non ammette soluzioni razionali.
+Si considera quindi l'insieme dei numeri reali \(\R\),
+più ampio di \(\Q\), per il quale vale la catena di inclusioni
 \[
   \N\subseteq\Z\subseteq\Q\subseteq\R.
 \]
-Nella \cref{sec:lez03-completezza-radice-due} si tornerà sull'equazione
-\(x^2=2\) per giustificare l'esistenza in \(\R\) della sua soluzione non
-negativa.
+L'esistenza in \(\R\) di un numero non negativo il cui quadrato
+sia \(2\) sarà ripresa nella
+\cref{sec:lez03-completezza-radice-due}.
 
-Nel seguito si utilizza una proprietà di completezza di \(\R\), formulata
-mediante il cosiddetto assioma di separazione.
+Una proprietà fondamentale di \(\R\) è la completezza, che in
+questa sede viene formulata mediante l'assioma di separazione.
 
-Siano \(A,B\subseteq\R\) due insiemi non vuoti. Si dice che \(A\) e \(B\)
-sono \emph{separati}, con \(A\) a sinistra di \(B\), se
+Siano \(A,B\subseteq\R\) due insiemi non vuoti. Si dice che
+\(A\) e \(B\) sono \emph{separati}, con \(A\) a sinistra di
+\(B\), se
 \[
   a\le b
-  \qquad
-  \forall a\in A,\ \forall b\in B.
+  \qquad\forall a\in A,\ \forall b\in B.
 \]
 
 \phantomsection
 \label{ass:assioma-separazione}
 \textbf{Assioma di separazione.}
-Se \(A,B\subseteq\R\) sono non vuoti e separati, allora esiste almeno un
-numero reale \(x\) tale che
+Se \(A,B\subseteq\R\) sono non vuoti e separati, allora esiste
+almeno un numero reale \(\lambda\) tale che
 \[
-  a\le x\le b
-  \qquad
-  \forall a\in A,\ \forall b\in B.
+  a\le\lambda\le b
+  \qquad\forall a\in A,\ \forall b\in B.
 \]
-Un tale numero \(x\) è detto \emph{elemento separatore} degli insiemi
+Il numero \(\lambda\) si dice \emph{elemento separatore} di
 \(A\) e \(B\).
 
-L'assioma di separazione esprime una proprietà caratteristica dei numeri
-reali. Esistono altre formulazioni equivalenti della completezza di
-\(\R\), ma non vengono sviluppate in questa sede.
+L'assioma esprime una proprietà di completezza dei numeri reali.
+Le altre formulazioni equivalenti non vengono considerate in
+questa sede.
 
 \section{Proprietà archimedea}
 \label{sec:lez03-proprieta-archimedea}
 
-L'\hyperref[ass:assioma-separazione]{assioma di separazione} permette di
-dimostrare che i numeri naturali non
-sono superiormente limitati nell'insieme dei reali.
+L'\hyperref[ass:assioma-separazione]{assioma di separazione}
+permette di dimostrare che l'insieme dei numeri naturali non è
+superiormente limitato in \(\R\).
 
 \begin{theorem}[Proprietà archimedea]
 \label{thm:proprieta-archimedea}
@@ -202,106 +169,62 @@ Per ogni \(x\in\R\) esiste \(n\in\N\) tale che
 \[
   n>x.
 \]
-Equivalentemente,
-\[
-  \forall x\in\R\;\exists n\in\N:\ n>x.
-\]
 \end{theorem}
 
 \begin{proof}
-Sia \(x\in\R\).
+Sia \(x\in\R\). Se \(x\le0\), è sufficiente scegliere
+\(n=1\). Si consideri quindi \(x>0\) e si ponga
+\[
+  A:=\{n\in\N:n\le x\}.
+\]
+Poiché \(0\in A\), l'insieme \(A\) è non vuoto.
+Se \(A\ne\N\), esiste \(n\in\N\setminus A\), per il quale
+\(n>x\). Resta dunque da escludere il caso \(A=\N\).
 
-Se \(x\le0\), è sufficiente scegliere \(n=1\), poiché
+Si supponga per assurdo che \(A=\N\) e si ponga
 \[
-  1>x.
+  B:=\{y\in\R:n\le y\ \text{per ogni }n\in\N\}.
 \]
-
-Si considera quindi il caso \(x>0\) e si pone
+Dall'ipotesi \(A=\N\) segue che \(n\le x\) per ogni
+\(n\in\N\). Pertanto \(x\in B\), e anche \(B\) è non vuoto.
+Inoltre, per definizione di \(B\),
 \[
-  A=\{n\in\N:n\le x\}.
+  n\le y
+  \qquad\forall n\in A=\N,\ \forall y\in B.
 \]
-Poiché \(0\le x\), si ha \(0\in A\), dunque \(A\neq\varnothing\).
-L'obiettivo è mostrare che \(A\neq\N\). Infatti, da questa disuguaglianza
-seguirebbe l'esistenza di un naturale \(n\notin A\), cioè di un naturale
-per cui \(n>x\).
-
-Si procede per assurdo supponendo
-\[
-  A=\N.
-\]
-Si definisce allora
-\[
-  B=\{y\in\R:y\ge n\ \text{per ogni }n\in\N\}.
-\]
-Dall'ipotesi \(A=\N\) segue che
-\[
-  n\le x
-  \qquad
-  \forall n\in\N,
-\]
-perciò \(x\in B\) e quindi \(B\neq\varnothing\).
-
-Inoltre, per ogni \(n\in A=\N\) e per ogni \(y\in B\), dalla definizione
-di \(B\) si ha
-\[
-  n\le y.
-\]
-Gli insiemi \(A\) e \(B\) sono dunque separati. Per
-l'\hyperref[ass:assioma-separazione]{assioma di separazione} esiste
-\(\lambda\in\R\) tale che
+Gli insiemi \(A\) e \(B\) sono quindi separati. Per
+l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+esiste \(\lambda\in\R\) tale che
 \[
   n\le\lambda\le y
-  \qquad
-  \forall n\in A,\ \forall y\in B.
+  \qquad\forall n\in\N,\ \forall y\in B.
 \]
 
-Poiché \(A=\N\), per ogni \(n\in\N\) anche \(n+1\in A\). Dalla proprietà
-di separazione segue quindi
+Poiché \(\lambda\) maggiora ogni naturale e
+\(n+1\in\N\) per ogni \(n\in\N\), si ha
 \[
-  n+1\le\lambda,
-\]
-da cui
-\[
+  n+1\le\lambda
+  \quad\Longrightarrow\quad
   n\le\lambda-1
-  \qquad
-  \forall n\in\N.
+  \qquad\forall n\in\N.
 \]
-Per definizione di \(B\), ciò implica
-\[
-  \lambda-1\in B.
-\]
-
-D'altra parte, essendo \(\lambda\) un elemento separatore, vale
-\[
-  \lambda\le y
-  \qquad
-  \forall y\in B.
-\]
-Scegliendo in particolare \(y=\lambda-1\), si ottiene
+Per definizione di \(B\), ciò implica \(\lambda-1\in B\).
+D'altra parte, essendo \(\lambda\) un elemento separatore,
+\(\lambda\le y\) per ogni \(y\in B\). Scegliendo
+\(y=\lambda-1\), si ottiene
 \[
   \lambda\le\lambda-1,
 \]
-ovvero
-\[
-  1\le0,
-\]
-che è assurdo.
-
-L'ipotesi \(A=\N\) è pertanto falsa. Esiste quindi almeno un
-\(n\in\N\setminus A\), e dalla definizione di \(A\) segue
-\[
-  n>x.
-\]
+una contraddizione. Pertanto \(A\ne\N\), ed esiste
+\(n\in\N\setminus A\) tale che \(n>x\).
 \end{proof}
-
-\clearpage
 
 \section{Parte intera, floor e ceiling}
 \label{sec:lez03-parte-intera}
 
-Il \cref{thm:proprieta-archimedea} conduce a un'importante
-caratterizzazione della
-posizione di un numero reale rispetto agli interi consecutivi.
+Il \cref{thm:proprieta-archimedea} conduce alla seguente
+proprietà, che individua la posizione di ogni numero reale
+rispetto a due interi consecutivi.
 
 \begin{proposition}[Proprietà della parte intera]
 \label{prop:parte-intera}
@@ -309,49 +232,35 @@ Per ogni \(x\in\R\) esiste un unico \(n\in\Z\) tale che
 \[
   n\le x<n+1.
 \]
-In simboli,
-\[
-  \forall x\in\R\;\exists!\,n\in\Z:\ n\le x<n+1.
-\]
 \end{proposition}
 
-La dimostrazione della \cref{prop:parte-intera} non viene sviluppata in
-questa sede.
+La dimostrazione della \cref{prop:parte-intera} non viene
+sviluppata in questa sede.
 
-La \cref{prop:parte-intera} garantisce quindi che ogni numero reale
-\(x\) individua un unico intero \(n\) che non supera \(x\), mentre
-l'intero successivo \(n+1\) lo supera strettamente. Tale intero coincide
-con il più grande intero minore o uguale a \(x\) e viene chiamato
+L'intero \(n\) individuato dalla \cref{prop:parte-intera} è
+il massimo intero minore o uguale a \(x\) e prende il nome di
 \emph{parte intera} di \(x\).
-
-Questa proprietà permette di introdurre una funzione che associa a ogni
-numero reale la sua parte intera.
 
 \begin{definition}[Funzione floor]
 \label{def:floor}
 Per ogni \(x\in\R\), si definisce
 \[
-  \lfloor x\rfloor=n,
+  \lfloor x\rfloor:=n,
 \]
-dove \(n\in\Z\) è l'unico intero individuato dalla
-\cref{prop:parte-intera}.
-
+dove \(n\in\Z\) è l'unico intero tale che
+\[
+  n\le x<n+1.
+\]
 Equivalentemente,
 \[
   \lfloor x\rfloor\le x<\lfloor x\rfloor+1.
 \]
 \end{definition}
 
-La funzione floor associa quindi a ogni numero reale il più grande intero
-che non lo supera. Nel seguito si utilizza la consueta notazione degli
-intervalli reali, che sarà formalizzata nella \cref{sec:lez04-intervalli}.
-Per esempio,
-\[
-  \lfloor x\rfloor=0
-  \qquad
-  \text{per ogni }x\in[0,1).
-\]
-Più in generale, per ogni \(n\in\Z\),
+La funzione floor associa a ogni numero reale il più grande
+intero che non lo supera. Utilizzando la notazione degli
+intervalli, formalizzata nella \cref{sec:lez04-intervalli},
+per ogni \(n\in\Z\) si ha
 \[
   \lfloor x\rfloor=n
   \quad\Longleftrightarrow\quad
@@ -359,6 +268,8 @@ Più in generale, per ogni \(n\in\Z\),
   \quad\Longleftrightarrow\quad
   x\in[n,n+1).
 \]
+In particolare, \(\lfloor x\rfloor=0\) per ogni
+\(x\in[0,1)\).
 
 \begin{figure}[htbp]
   \centering
@@ -377,15 +288,24 @@ Più in generale, per ogni \(n\in\Z\),
   \label{fig:floor}
 \end{figure}
 
-In modo analogo alla \cref{def:floor} si introduce la funzione ceiling,
-che associa a ogni
-numero reale il più piccolo intero maggiore o uguale al numero stesso.
+Applicando la \cref{prop:parte-intera} a \(-x\),
+per ogni \(x\in\R\) esiste un unico \(n\in\Z\) tale che
+\[
+  n\le-x<n+1.
+\]
+Cambiando segno e invertendo i versi delle disuguaglianze,
+si ottiene
+\[
+  -n-1<x\le-n.
+\]
+Ponendo \(m=-n\), segue \(m-1<x\le m\),
+con \(m\in\Z\) unico.
 
 \begin{definition}[Funzione ceiling]
 \label{def:ceiling}
 Per ogni \(x\in\R\), si definisce
 \[
-  \lceil x\rceil=m,
+  \lceil x\rceil:=m,
 \]
 dove \(m\in\Z\) è l'unico intero tale che
 \[
@@ -397,14 +317,8 @@ Equivalentemente,
 \]
 \end{definition}
 
-La funzione ceiling associa quindi a ogni numero reale il più piccolo intero
-maggiore o uguale al numero stesso. Per esempio,
-\[
-  \lceil x\rceil=1
-  \qquad
-  \text{per ogni }x\in(0,1].
-\]
-Più in generale, per ogni \(m\in\Z\),
+La funzione ceiling associa a ogni numero reale il più piccolo
+intero maggiore o uguale a esso. Per ogni \(m\in\Z\) si ha
 \[
   \lceil x\rceil=m
   \quad\Longleftrightarrow\quad
@@ -412,6 +326,8 @@ Più in generale, per ogni \(m\in\Z\),
   \quad\Longleftrightarrow\quad
   x\in(m-1,m].
 \]
+In particolare, \(\lceil x\rceil=1\) per ogni
+\(x\in(0,1]\).
 
 \begin{figure}[htbp]
   \centering
@@ -435,38 +351,40 @@ Più in generale, per ogni \(m\in\Z\),
 \label{sec:lez03-completezza-radice-due}
 
 Nel \cref{thm:irrazionalita-radice-due} è stato dimostrato che
-\[
-  \sqrt{2}\notin\Q.
-\]
+l'equazione \(x^2=2\) non ammette soluzioni razionali.
+Si illustra ora come l'assioma di separazione permetta di
+motivare l'esistenza di una soluzione reale non negativa.
 
-Per motivare l'esistenza in \(\R\) di un numero reale non negativo il cui
-quadrato sia \(2\), si considerano gli insiemi
+Si considerino gli insiemi
 \[
-  A=\{x\in\R:x\ge0,\ x^2<2\},
+  A:=\{x\in\R:x\ge0,\ x^2<2\},
   \qquad
-  B=\{x\in\R:x\ge0,\ x^2>2\}.
+  B:=\{x\in\R:x\ge0,\ x^2>2\}.
 \]
-
-Gli insiemi \(A\) e \(B\) sono non vuoti, poiché \(0\in A\) e \(2\in B\).
-Resta da verificare che siano separati. Una volta verificata questa condizione,
-l'\hyperref[ass:assioma-separazione]{assioma di separazione} garantisce
-l'esistenza di un elemento separatore
-\(\lambda\in\R\). Geometricamente, tale elemento si colloca tra i due insiemi
+Entrambi sono non vuoti, poiché \(0\in A\) e \(2\in B\).
+Inoltre, per ogni \(a\in A\) e \(b\in B\),
+\[
+  0\le a,\ b,
+  \qquad a^2<2<b^2
+  \quad\Longrightarrow\quad a<b.
+\]
+Pertanto \(A\) e \(B\) sono separati. Per
+l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+esiste \(\lambda\in\R\) tale che
 \[
   a\le\lambda\le b
-  \qquad
-  \forall a\in A,\ \forall b\in B.
+  \qquad\forall a\in A,\ \forall b\in B.
 \]
+Poiché \(0\in A\), si ha anche \(\lambda\ge0\).
 
-Il passaggio conclusivo consiste nel mostrare che
+Per concludere occorrerebbe dimostrare che
 \[
   \lambda^2=2.
 \]
-
-Completando le verifiche omesse, ossia la separazione di \(A\) e \(B\) e
-l'identità \(\lambda^2=2\), si ottiene \(\lambda\ge0\) e
-\(\lambda^2=2\), dunque \(\lambda=\sqrt{2}\). Insieme al
-\cref{thm:irrazionalita-radice-due}, ciò mostra che
+Questa verifica non viene sviluppata in questa sede.
+Una volta stabilita l'identità, \(\lambda\) è la radice
+quadrata non negativa di \(2\). Insieme al
+\cref{thm:irrazionalita-radice-due}, si ottiene quindi
 \[
   \sqrt{2}\in\R\setminus\Q.
 \]

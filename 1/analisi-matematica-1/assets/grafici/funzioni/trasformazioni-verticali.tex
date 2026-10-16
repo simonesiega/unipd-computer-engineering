@@ -1,0 +1,27 @@
+\begin{tikzpicture}[unipd/diagram,x=1.2cm,y=1.2cm]
+  \begin{scope}
+    \draw[->,unipd-muted] (-1.4,0) -- (1.65,0) node[right] {\(x\)};
+    \draw[->,unipd-muted] (0,-.3) -- (0,2.5) node[above] {\(y\)};
+    \draw[very thick,unipd-primary,domain=-1:1,samples=50]
+      plot (\x,{\x*\x});
+    \draw[very thick,unipd-accent,domain=-1:1,samples=50]
+      plot (\x,{\x*\x+1});
+    \draw[->,unipd-muted,dashed] (.65,.4225) -- (.65,1.4225);
+    \node[right=5pt,text=unipd-primary] at (1.02,1.08) {\(\varphi\)};
+    \node[right=5pt,text=unipd-accent] at (1.02,2.08) {\(\varphi+1\)};
+    \draw[unipd-muted] (.05,1) -- (-.05,1);
+    \node[below left=3pt] at (0,1) {\(1\)};
+  \end{scope}
+  \begin{scope}[xshift=6.5cm]
+    \draw[->,unipd-muted] (-1.4,0) -- (1.65,0) node[right] {\(x\)};
+    \draw[->,unipd-muted] (0,-1.4) -- (0,1.5) node[above] {\(y\)};
+    \draw[very thick,unipd-primary,domain=-1:1,samples=50]
+      plot (\x,{\x*\x});
+    \draw[very thick,unipd-accent,domain=-1:1,samples=50]
+      plot (\x,{-\x*\x});
+    \node[right=5pt,text=unipd-primary] at (1.02,1.08) {\(\varphi\)};
+    \node[right=5pt,text=unipd-accent] at (1.02,-1.08) {\(-\varphi\)};
+    \draw[unipd-muted] (.05,1) -- (-.05,1) node[left] {\(1\)};
+    \draw[unipd-muted] (.05,-1) -- (-.05,-1) node[left] {\(-1\)};
+  \end{scope}
+\end{tikzpicture}
