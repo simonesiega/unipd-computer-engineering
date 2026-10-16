@@ -4,34 +4,35 @@
 \section{Numeri interi}
 \label{sec:lez02-numeri-interi}
 
-Dato un insieme \(A\), si indica con \(-A\) l'insieme degli opposti dei
-suoi elementi:
+Dato un insieme numerico \(A\), si indica con \(-A\) l'insieme degli
+opposti dei suoi elementi:
 \[
-  -A=\{-a:a\in A\}.
+  -A:=\{-a:a\in A\}.
 \]
-Poiché \(0\in\N\), l'insieme \(-\N\) contiene \(0\) e gli opposti dei
-naturali positivi. L'unione di \(\N\) e \(-\N\) permette quindi di
-introdurre l'insieme dei numeri interi.
+Poiché \(0\in\N\), l'insieme \(-\N\) contiene lo zero e gli opposti
+dei naturali positivi. L'unione di \(\N\) e \(-\N\) permette quindi
+di introdurre i numeri interi.
 
 \begin{definition}[Numeri interi]
 \label{def:numeri-interi}
+L'insieme dei \emph{numeri interi} è
 \[
-  \Z=\N\cup(-\N).
+  \Z:=\N\cup(-\N).
 \]
 \end{definition}
 
-Si assume l'\emph{assioma di esistenza e unicità dell'opposto}, secondo cui
-ogni intero ammette un unico opposto, anch'esso appartenente a \(\Z\). In
-forma più precisa, vale
+Si assume l'\emph{assioma di esistenza e unicità dell'opposto}: per ogni
+\(m\in\Z\) esiste un unico \(n\in\Z\) tale che
 \[
-  \forall m\in\Z\;\exists!\,n\in\Z
-  \quad\text{tale che}\quad
   m+n=0.
 \]
-Tale unico intero è indicato con \(-m\) ed è detto \emph{opposto} di \(m\).
+Tale elemento si indica con \(-m\) ed è detto \emph{opposto} di \(m\).
 
-L'ordinamento è compatibile con la moltiplicazione per un intero positivo;
-se invece il fattore è negativo, il verso della disuguaglianza si inverte.
+L'ordinamento dei naturali, introdotto nella
+\cref{sec:lez01-ordine-naturali}, si estende agli interi. La
+moltiplicazione per un intero positivo conserva il verso delle
+disuguaglianze, mentre la moltiplicazione per un intero negativo
+lo inverte.
 
 \begin{proposition}[Compatibilità dell'ordine in \(\Z\)]
 \label{prop:compatibilita-ordine-interi}
@@ -43,31 +44,23 @@ Per ogni \(a,b,c\in\Z\), se \(a\le b\), allora
 \]
 \end{proposition}
 
-In particolare, moltiplicare una disuguaglianza per un numero negativo
-inverte il verso. Se \(c=0\), invece, si ha
-\[
-  ac=bc=0.
-\]
+Per \(c=0\) si ha invece \(ac=bc=0\). La dimostrazione della
+\cref{prop:compatibilita-ordine-interi} non viene sviluppata
+in questa sede.
 
-La dimostrazione della \cref{prop:compatibilita-ordine-interi} non viene
-sviluppata in questa sede.
-
-Si pone allora il problema di stabilire se, dato \(a\in\Z\), esista
-\(b\in\Z\) tale che
+Si consideri ora il problema di determinare, per \(a\in\Z\), un
+intero \(b\) tale che
 \[
   ab=1.
 \]
-Quando un tale elemento esiste, esso è detto \emph{inverso moltiplicativo}
-di \(a\) e viene indicato con \(a^{-1}\), ossia
-\[
-  a^{-1}:=b.
-\]
-In \(\Z\), tuttavia, l'inverso moltiplicativo non esiste per ogni elemento.
+Quando esiste, tale elemento è detto \emph{inverso moltiplicativo}
+di \(a\) e si indica con \(a^{-1}\). Negli interi, tuttavia, non
+ogni elemento ammette un inverso moltiplicativo.
 
 \begin{proposition}[Inversi moltiplicativi in \(\Z\)]
 \label{prop:inversi-interi}
-Gli unici interi che ammettono un inverso moltiplicativo in \(\Z\) sono
-\(-1\) e \(1\). In particolare,
+Gli unici interi che ammettono un inverso moltiplicativo in
+\(\Z\) sono \(-1\) e \(1\). In particolare,
 \[
   (-1)^{-1}=-1,
   \qquad
@@ -76,74 +69,65 @@ Gli unici interi che ammettono un inverso moltiplicativo in \(\Z\) sono
 \end{proposition}
 
 \begin{proof}
-Siano \(a,b\in\Z\) tali che \(ab=1\). Il prodotto è positivo, perciò
-\(a\) e \(b\) hanno lo stesso segno. Se sono entrambi positivi, sono
-interi almeno uguali a \(1\); affinché il loro prodotto sia \(1\), devono
-quindi essere entrambi uguali a \(1\). Se sono entrambi negativi, gli
-interi positivi \(-a\) e \(-b\) hanno prodotto \(1\), perciò
-\(a=b=-1\). Viceversa, \((-1)(-1)=1\) e \(1\cdot1=1\), da cui seguono
-le uguaglianze enunciate.
+Siano \(a,b\in\Z\) tali che \(ab=1\). Il prodotto è positivo,
+quindi \(a\) e \(b\) hanno lo stesso segno.
+
+Se entrambi sono positivi, si ha \(a,b\ge1\). Poiché \(ab=1\),
+necessariamente \(a=b=1\). Se entrambi sono negativi, gli interi
+positivi \(-a\) e \(-b\) soddisfano \((-a)(-b)=1\), da cui
+\(a=b=-1\).
+
+Viceversa, \(1\cdot1=1\) e \((-1)(-1)=1\), quindi entrambi gli
+interi indicati ammettono un inverso moltiplicativo in \(\Z\).
 \end{proof}
 
 \section{Numeri razionali}
 \label{sec:lez02-numeri-razionali}
 
-Come mostrato nella \cref{prop:inversi-interi}, in \(\Z\) soltanto
-\(-1\) e \(1\) ammettono un inverso moltiplicativo. Ciò motiva
-l'introduzione di un insieme numerico più ampio, nel quale sia possibile
-rappresentare anche rapporti tra numeri interi.
+La \cref{prop:inversi-interi} mostra che in \(\Z\) soltanto
+\(-1\) e \(1\) ammettono un inverso moltiplicativo. Si introduce
+pertanto un insieme numerico più ampio, nel quale sia possibile
+rappresentare i rapporti tra interi con denominatore non nullo.
 
-Nella definizione dei numeri razionali sarà utile escludere lo zero
-dall'insieme dei possibili denominatori. A questo scopo, per due insiemi
-\(A\) e \(B\), si introduce la differenza insiemistica
+Per due insiemi \(A\) e \(B\), la \emph{differenza insiemistica}
+è definita da
 \[
-  A\setminus B=\{x\in A:x\notin B\},
+  A\setminus B:=\{x\in A:x\notin B\}.
 \]
-ossia l'insieme degli elementi di \(A\) che non appartengono a \(B\).
-
-In particolare,
-\[
-  \N\setminus\{0\}
-\]
-indica l'insieme dei numeri naturali diversi da zero.
+In particolare, \(\N\setminus\{0\}\) è l'insieme dei naturali
+strettamente positivi.
 
 \begin{definition}[Numeri razionali]
 \label{def:numeri-razionali}
-L'insieme dei numeri razionali è
+L'insieme dei \emph{numeri razionali} è
 \[
-  \Q=\left\{\frac{m}{n}:m\in\Z,\ n\in\N\setminus\{0\}\right\}.
+  \Q:=\left\{\frac{m}{n}:m\in\Z,\ n\in\N\setminus\{0\}\right\}.
 \]
 \end{definition}
 
-L'introduzione dei numeri razionali estende quindi gli insiemi numerici
-considerati finora, secondo la catena di inclusioni
+Si ottiene così la catena di inclusioni
 \[
   \N\subseteq\Z\subseteq\Q.
 \]
 
-Il denominatore viene scelto positivo; un eventuale segno negativo si
-riporta quindi al numeratore. Uno stesso numero razionale può essere
-rappresentato da frazioni diverse, come \(\frac12=\frac24\). Riducendo
-la frazione ai minimi termini si ottiene una rappresentazione con
-\(\operatorname{mcd}(m,n)=1\), dove il massimo comune divisore è inteso
-come quello positivo di \(|m|\) e \(n\). Con il denominatore positivo,
-questa forma ridotta è unica; in particolare, lo zero si rappresenta
-come \(\frac01\).
-
-In \(\Q\), invece, si assume l'\emph{assioma dell'inverso moltiplicativo}:
+Il denominatore è scelto positivo, riportando l'eventuale segno
+negativo al numeratore. Uno stesso razionale può essere rappresentato
+da frazioni diverse, per esempio \(\frac12=\frac24\). Riducendo
+una frazione ai minimi termini si ottiene una rappresentazione
 \[
-  \forall a\in\Q\setminus\{0\}\;\exists!\,b\in\Q
-  \quad\text{tale che}\quad
-  ab=1.
+  \frac{m}{n},\qquad \operatorname{mcd}(m,n)=1,
 \]
-Con la notazione \(a^{-1}\) introdotta nella
-\cref{sec:lez02-numeri-interi}, tale unico elemento si indica con
-\[
-  b=a^{-1}.
-\]
+dove il massimo comune divisore è quello positivo di \(|m|\) e \(n\).
+Con \(n>0\), la rappresentazione ridotta è unica; in particolare,
+lo zero si rappresenta mediante \(\frac01\).
 
-L'inverso moltiplicativo di un numero razionale non nullo è detto anche
-\emph{reciproco}. Per esempio,
+In \(\Q\) si assume l'\emph{assioma dell'inverso moltiplicativo}:
+\[
+  \forall a\in\Q\setminus\{0\}\;\exists!\,b\in\Q:
+  \quad ab=1.
+\]
+L'unico elemento \(b\) che soddisfa questa condizione si indica
+con \(a^{-1}\) ed è detto anche \emph{reciproco} di \(a\). Per esempio,
 \[
   2^{-1}=\frac12.
 \]
@@ -151,22 +135,26 @@ L'inverso moltiplicativo di un numero razionale non nullo è detto anche
 \section[Irrazionalità della radice quadrata di 2]{Irrazionalità di \(\sqrt{2}\)}
 \label{sec:lez02-irrazionalita-radice-due}
 
-La costruzione dei razionali non è sufficiente a descrivere tutti i numeri
-che emergono naturalmente nelle equazioni. Si consideri il polinomio
+L'insieme dei razionali non è sufficiente a risolvere tutte le
+equazioni polinomiali. Si consideri, per esempio, il polinomio
 \[
   p(x)=x^2-2,
-  \qquad p\in\Q[x].
+  \qquad p\in\Q[x],
 \]
-La notazione \(\Q[x]\) indica l'insieme dei polinomi nella variabile \(x\)
-con coefficienti razionali. L'equazione \(x^2-2=0\) non ammette soluzioni
-razionali. Nel seguito questo risultato sarà anche scritto nella forma
-\(\sqrt{2}\notin\Q\): l'esistenza in \(\R\) del numero reale non negativo
-il cui quadrato è \(2\), e quindi la legittimità di tale notazione, sarà
-giustificata nella \cref{sec:lez03-completezza-radice-due}.
+dove \(\Q[x]\) indica l'insieme dei polinomi nella variabile
+\(x\) a coefficienti razionali. Si dimostrerà che l'equazione
+\(x^2-2=0\) non ammette soluzioni razionali. Il risultato sarà
+anche espresso nella forma \(\sqrt{2}\notin\Q\): l'esistenza
+della radice quadrata reale non negativa di \(2\) sarà giustificata
+nella \cref{sec:lez03-completezza-radice-due}.
 
-Per affrontare la dimostrazione di questo risultato, si introduce anzitutto
-la nozione di parità di un intero, che verrà utilizzata in seguito.
+Si richiamano anzitutto le nozioni di numero pari e dispari,
+necessarie per la dimostrazione.
 
+\clearpage
+
+\begin{definition}[Numeri pari e dispari]
+\label{def:lez02-pari-dispari}
 Un intero \(m\) si dice \emph{pari} se esiste \(k\in\Z\) tale che
 \[
   m=2k,
@@ -175,8 +163,10 @@ mentre si dice \emph{dispari} se esiste \(k\in\Z\) tale che
 \[
   m=2k+1.
 \]
-Ogni intero è pari oppure dispari, e le due possibilità sono mutuamente
-esclusive.
+\end{definition}
+
+Ogni intero è pari oppure dispari, e le due possibilità sono
+mutuamente esclusive.
 
 \begin{lemma}[Parità del quadrato]
 \label{lem:quadrato-pari}
@@ -184,9 +174,9 @@ Per ogni \(m\in\Z\), se \(m^2\) è pari, allora \(m\) è pari.
 \end{lemma}
 
 \begin{proof}
-Richiamando la contronominale introdotta nella
-\cref{sec:lez01-insiemi-dimostrazioni}, è sufficiente dimostrare che, se
-\(m\) è dispari, allora \(m^2\) è dispari. Poiché \(m\) è dispari, esiste \(k\in\Z\) tale che
+Si dimostra la contronominale, secondo lo schema introdotto nella
+\cref{sec:lez01-insiemi-dimostrazioni}. Sia \(m\) dispari. Per la
+\cref{def:lez02-pari-dispari}, esiste \(k\in\Z\) tale che
 \[
   m=2k+1.
 \]
@@ -195,24 +185,16 @@ Pertanto
   m^2
     &=(2k+1)^2\\
     &=4k^2+4k+1\\
-    &=4k(k+1)+1.
+    &=2\bigl(2k(k+1)\bigr)+1.
 \end{align*}
-Ponendo
-\[
-  \ell=2k(k+1)\in\Z,
-\]
-si ottiene
-\[
-  m^2=2\ell+1,
-\]
-quindi \(m^2\) è dispari. La contronominale è pertanto verificata e il
-lemma segue.
+Poiché \(2k(k+1)\in\Z\), il quadrato \(m^2\) è dispari.
+La contronominale è verificata e il lemma segue.
 \end{proof}
 
 \begin{theorem}[Irrazionalità di \(\sqrt{2}\)]
 \label{thm:irrazionalita-radice-due}
-L'equazione \(x^2-2=0\) non ammette soluzioni \(x\in\Q\). Con la
-notazione anticipata sopra, equivalentemente,
+L'equazione \(x^2-2=0\) non ammette soluzioni in \(\Q\).
+Equivalentemente, con la notazione introdotta sopra,
 \[
   \sqrt{2}\notin\Q.
 \]
@@ -230,58 +212,44 @@ Scrivendo \(x\) in forma ridotta, esistono \(m\in\Z\) e
   \qquad
   \operatorname{mcd}(m,n)=1.
 \]
-Pertanto
+Sostituendo la rappresentazione di \(x\) nell'uguaglianza
+\(x^2=2\), si ottiene
 \[
   \left(\frac{m}{n}\right)^2=2.
 \]
-Poiché \(n\neq0\), si può moltiplicare per \(n^2\) e ottenere
+Moltiplicando per \(n^2>0\), segue
 \[
   m^2=2n^2.
 \]
-Di conseguenza, \(m^2\) è pari e, per il \cref{lem:quadrato-pari}, anche
-\(m\) è pari. Esiste quindi \(h\in\Z\) tale che \(m=2h\). Sostituendo
-nell'uguaglianza precedente,
-\begin{align*}
-  4h^2&=2n^2,\\
-  n^2&=2h^2.
-\end{align*}
-Pertanto anche \(n^2\) è pari e, applicando nuovamente il
+Di conseguenza, \(m^2\) è pari e, per il \cref{lem:quadrato-pari},
+anche \(m\) è pari. Esiste quindi \(h\in\Z\) tale che \(m=2h\).
+Sostituendo nell'uguaglianza precedente,
+\[
+  4h^2=2n^2
+  \quad\Longrightarrow\quad
+  n^2=2h^2.
+\]
+Anche \(n^2\) è pari e, applicando nuovamente il
 \cref{lem:quadrato-pari}, si conclude che \(n\) è pari.
 
-Entrambi gli interi \(m\) e \(n\) sono dunque divisibili per \(2\), in
-contraddizione con \(\operatorname{mcd}(m,n)=1\). La contraddizione mostra
-che l'ipotesi iniziale è falsa. L'equazione \(x^2-2=0\) non ammette
-quindi soluzioni razionali; in particolare,
-\[
-  \sqrt{2}\notin\Q.
-\]
-
-Dal punto di vista logico, la dimostrazione segue lo schema per assurdo
-descritto nella \cref{sec:lez01-insiemi-dimostrazioni}. Indicando con
-\[
-  B:\quad x^2-2=0 \text{ non ammette soluzioni in }\Q,
-\]
-si assume la negazione \(\neg B\) e da questa si ricava una contraddizione.
-Pertanto \(\neg B\) è falsa e la tesi \(B\) è vera.
+Gli interi \(m\) e \(n\) sono dunque entrambi divisibili per \(2\),
+in contraddizione con \(\operatorname{mcd}(m,n)=1\).
+L'ipotesi iniziale è falsa: l'equazione \(x^2-2=0\) non ammette
+soluzioni razionali.
 \end{proof}
 
-Nel risultato appena dimostrato compare il numero \(2\), che è un numero
-primo. Prima di formulare la generalizzazione, si richiama la relativa
-definizione.
+Si richiama ora la nozione di numero primo per enunciare
+una generalizzazione del risultato precedente.
 
 \begin{definition}[Numero primo]
 \label{def:numero-primo}
-Un numero naturale \(p>1\) è primo se i suoi unici divisori positivi sono
-\(1\) e \(p\).
+Un numero naturale \(p>1\) si dice \emph{primo} se i suoi unici
+divisori positivi sono \(1\) e \(p\).
 \end{definition}
 
-Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è perché
-ammette \(2\) come divisore oltre a \(1\) e a sé stesso. Il numero \(1\)
-non è primo, poiché la definizione richiede \(p>1\).
-
-Con questa terminologia, il risultato del
-\cref{thm:irrazionalita-radice-due} si generalizza alla radice quadrata
-di ogni numero primo.
+Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è,
+poiché è divisibile anche per \(2\). Il numero \(1\) non è primo,
+come stabilito dalla definizione.
 
 \begin{proposition}[Irrazionalità della radice di un numero primo]
 \label{prop:irrazionalita-radice-primo}
@@ -289,9 +257,9 @@ Sia \(p\in\N\) un numero primo. L'equazione
 \[
   x^2-p=0
 \]
-non ammette soluzioni razionali. Quando si usa la consueta notazione
-\(\sqrt{p}\) per la radice quadrata reale non negativa di \(p\), il risultato
-si esprime nella forma
+non ammette soluzioni in \(\Q\). Indicando con \(\sqrt{p}\) la
+radice quadrata reale non negativa di \(p\), il risultato si esprime
+nella forma
 \[
   \sqrt{p}\notin\Q.
 \]
@@ -300,17 +268,13 @@ si esprime nella forma
 La dimostrazione della \cref{prop:irrazionalita-radice-primo} non viene
 sviluppata in questa sede.
 
-\clearpage
-
 \section{Fattoriale}
 \label{sec:lez02-fattoriale}
 
-Per definire il fattoriale si fissa anzitutto il valore iniziale in
-\(n=0\) e si specifica poi come ricavare il valore al naturale successivo.
-
 \begin{definition}[Fattoriale]
 \label{def:fattoriale}
-Il fattoriale è definito ricorsivamente dalle condizioni
+Il \emph{fattoriale} di un numero naturale è definito ricorsivamente
+dalle condizioni
 \[
   0!:=1,
   \qquad
@@ -319,23 +283,17 @@ Il fattoriale è definito ricorsivamente dalle condizioni
 \]
 \end{definition}
 
-Applicando la \cref{def:fattoriale} si ottengono, per esempio,
+Applicando la \cref{def:fattoriale}, si ottiene
 \begin{align*}
   0!&=1,\\
   1!&=1\cdot0!=1,\\
   2!&=2\cdot1!=2,\\
   3!&=3\cdot2!=3\cdot2\cdot1.
 \end{align*}
-Per \(n\ge1\), il fattoriale può essere scritto anche nella forma esplicita
+Per \(n\ge1\), il fattoriale ammette anche la rappresentazione
 \[
-  n!=1\cdot2\cdot3\cdots n=\prod_{i=1}^{n}i.
+  n!=1\cdot2\cdot\ldots\cdot n=\prod_{i=1}^{n}i.
 \]
-Il caso \(n=0\) è specificato separatamente da \(0!=1\). La ricorrenza
-costruisce il prodotto aggiungendo a ogni passo il fattore successivo.
-
-A partire dalla \cref{def:fattoriale} è possibile ricavare alcune
-semplici proprietà del fattoriale. In particolare, il fattoriale di un
-numero naturale è sempre maggiore o uguale al numero stesso.
 
 \begin{proposition}[Una disuguaglianza per il fattoriale]
 \label{prop:fattoriale-maggiore-n}
@@ -346,78 +304,40 @@ Per ogni \(n\in\N\) vale
 \end{proposition}
 
 \begin{proof}
-Per applicare il \cref{thm:principio-induzione}, introdotto nella
-\cref{sec:lez01-induzione}, si considera l'insieme dei numeri naturali
-per i quali la disuguaglianza è verificata:
+Si consideri l'insieme
 \[
-  A=\{n\in\N:n!\ge n\}.
+  A:=\{n\in\N:n!\ge n\}.
 \]
-
-\emph{Passo base.}
-Si verifica anzitutto la proprietà per \(n=0\). Per la
-\cref{def:fattoriale},
+Per \(n=0\), dalla \cref{def:fattoriale} si ha
 \[
   0!=1\ge0,
 \]
-quindi \(0\in A\) e il passo base è verificato.
+quindi \(0\in A\).
+
+Si procede per induzione su \(n\ge1\), applicando il
+\cref{thm:principio-induzione} con valore iniziale \(p=1\).
+
+\emph{Passo base.}
+Per \(n=1\), si ha
+\[
+  1!=1\ge1.
+\]
 
 \emph{Passo induttivo.}
-Si deve dimostrare che
-\[
-  n\in A\Longrightarrow n+1\in A.
-\]
-Il caso \(n=0\) viene verificato direttamente:
-\[
-  1!=1\ge1,
-\]
-quindi \(1\in A\).
-
-Si consideri ora \(n\ge1\) e si supponga \(n\in A\). Per definizione di
-\(A\), vale l'ipotesi induttiva
+Sia \(n\ge1\) e si supponga che valga l'ipotesi induttiva
 \[
   n!\ge n.
 \]
-Poiché \(n+1>0\), per la \cref{prop:compatibilita-ordine}, moltiplicando
-entrambi i membri per \(n+1\) il verso della disuguaglianza non cambia.
-Si ottiene quindi
+Per la \cref{def:fattoriale} e la compatibilità dell'ordine
+rispetto alla moltiplicazione per un numero positivo
+(\cref{prop:compatibilita-ordine}), si ottiene
 \[
-  (n+1)n!\ge(n+1)n.
+  (n+1)!=(n+1)n!\ge(n+1)n\ge n+1,
 \]
-Per la \cref{def:fattoriale},
-\[
-  (n+1)!=(n+1)n!,
-\]
-e pertanto
-\[
-  (n+1)!\ge(n+1)n.
-\]
+poiché \(n+1>0\) e \(n\ge1\). Il passo induttivo è quindi
+verificato.
 
-Resta da confrontare \((n+1)n\) con \(n+1\). Poiché \(n\ge1\) e
-\(n+1>0\), moltiplicando la disuguaglianza \(n\ge1\) per \(n+1\) si
-ottiene
-\[
-  (n+1)n\ge(n+1)\cdot1=n+1.
-\]
-Combinando le due disuguaglianze,
-\[
-  (n+1)!\ge(n+1)n\ge n+1.
-\]
-Si è quindi dimostrato che \(n+1\in A\).
-
-Il passo induttivo è dunque verificato sia per \(n=0\), tramite controllo
-diretto, sia per ogni \(n\ge1\). Essendo verificati il passo base e il
-passo induttivo, per il \cref{thm:principio-induzione}, con valore
-iniziale \(p=0\), si conclude che
-\[
-  \N\subseteq A.
-\]
-Poiché, per definizione, \(A\subseteq\N\), segue che
-\[
-  A=\N.
-\]
-Di conseguenza,
-\[
-  n!\ge n
-\]
-per ogni \(n\in\N\).
+Per il principio di induzione, la disuguaglianza vale per ogni
+\(n\ge1\). Poiché è verificata anche per \(n=0\), si conclude
+che \(A=\N\), e dunque la tesi.
 \end{proof}

@@ -10,74 +10,61 @@ Si considera l'insieme dei numeri naturali
 \]
 adottando la convenzione \(0\in\N\).
 
-Su \(\N\) sono definite le operazioni di somma e prodotto. Entrambe sono
-operazioni binarie, ossia applicazioni che a ogni coppia ordinata
-\((a,b)\in\N\times\N\) associano un elemento di \(\N\):
+Su \(\N\) si considerano le operazioni di somma e prodotto, entrambe
+\emph{operazioni binarie}, ossia applicazioni che associano a ogni
+coppia ordinata di numeri naturali un numero naturale:
 \[
-  +\colon\N\times\N\to\N,
-  \qquad
-  (a,b)\mapsto a+b,
+  +\colon\N\times\N\longrightarrow\N,
+  \qquad (a,b)\longmapsto a+b,
 \]
 \[
-  \cdot\colon\N\times\N\to\N,
-  \qquad
-  (a,b)\mapsto ab.
+  \cdot\colon\N\times\N\longrightarrow\N,
+  \qquad (a,b)\longmapsto ab.
 \]
-L'insieme \(\N\times\N\) costituisce pertanto l'insieme di partenza,
-mentre \(\N\) è l'insieme di arrivo delle due operazioni.
+L'insieme \(\N\times\N\) è l'insieme di partenza di entrambe
+le operazioni, mentre \(\N\) è il loro insieme di arrivo.
 
-Le proprietà fondamentali della somma e del prodotto introdotte di seguito
-vengono assunte come \emph{assiomi} e costituiscono il punto di
-partenza per i successivi sviluppi, senza essere dimostrate.
+Le proprietà fondamentali delle due operazioni vengono assunte come
+\emph{assiomi}, senza dimostrazione.
 
-Per ogni \(a,b,c\in\N\), la somma è commutativa, ossia l'ordine degli
-addendi non modifica il risultato, e associativa, ossia il modo in cui
-gli addendi vengono raggruppati non modifica la somma:
+La somma è \emph{commutativa}, ossia l'ordine degli addendi
+non modifica il risultato, e \emph{associativa}, ossia il
+raggruppamento degli addendi non modifica la somma.
+Per ogni \(a,b,c\in\N\) si ha
 \[
   a+b=b+a,
   \qquad
   (a+b)+c=a+(b+c).
 \]
-La somma ammette un unico elemento neutro \(e_0\), caratterizzato
-dalla proprietà
+Ammette inoltre un unico \emph{elemento neutro} \(e_0\in\N\),
+caratterizzato dalla proprietà
 \[
-  \exists!\,e_0\in\N
-  \quad\text{tale che}\quad
   \forall a\in\N,\qquad a+e_0=a.
 \]
-Tale elemento è
-\[
-  e_0=0.
-\]
+Tale elemento è \(e_0=0\).
 
-Per ogni \(a,b,c\in\N\), il prodotto è commutativo, ossia l'ordine dei
-fattori non modifica il risultato, e associativo, ossia il modo in cui i
-fattori vengono raggruppati non modifica il prodotto:
+Analogamente, il prodotto è \emph{commutativo} e
+\emph{associativo}: l'ordine dei fattori e il loro
+raggruppamento non modificano il risultato.
+Per ogni \(a,b,c\in\N\) vale
 \[
   ab=ba,
   \qquad
   (ab)c=a(bc).
 \]
-Il prodotto ammette un unico elemento neutro \(e_1\), caratterizzato
-dalla proprietà
+Il suo unico \emph{elemento neutro} \(e_1\in\N\) soddisfa
 \[
-  \exists!\,e_1\in\N
-  \quad\text{tale che}\quad
-  \forall a\in\N,\qquad ae_1=a.
+  \forall a\in\N,\qquad ae_1=a,
 \]
-Tale elemento è
-\[
-  e_1=1.
-\]
+ed è \(e_1=1\).
 
-Infine, il prodotto è distributivo rispetto alla somma: per ogni
-\(a,b,c\in\N\) vale
+Il prodotto è infine \emph{distributivo} rispetto alla somma:
+per ogni \(a,b,c\in\N\),
 \[
-  a(b+c)=ab+ac.
-\]
-Per la commutatività del prodotto, equivalentemente,
-\[
-  (a+b)c=ac+bc.
+  \begin{aligned}
+    a(b+c) &= ab+ac,\\
+    (a+b)c &= ac+bc.
+  \end{aligned}
 \]
 
 \clearpage
@@ -85,10 +72,9 @@ Per la commutatività del prodotto, equivalentemente,
 \section{Ordinamento totale dei numeri naturali}
 \label{sec:lez01-ordine-naturali}
 
-Per \(a,b\in\N\), si definisce la relazione \(\le\) nel modo seguente.
-
 \begin{definition}[Ordine naturale]
 \label{def:ordine-naturali}
+Per \(a,b\in\N\), si pone
 \[
   a\le b
   \quad\Longleftrightarrow\quad
@@ -96,25 +82,20 @@ Per \(a,b\in\N\), si definisce la relazione \(\le\) nel modo seguente.
 \]
 \end{definition}
 
-La relazione \(a\le b\) esprime quindi il fatto che è possibile ottenere
-\(b\) aggiungendo ad \(a\) un opportuno numero naturale. Tale relazione
-soddisfa quattro proprietà fondamentali.
+La condizione \(a\le b\) esprime la possibilità di ottenere \(b\)
+sommando ad \(a\) un opportuno numero naturale. La relazione
+soddisfa le seguenti proprietà.
 
-\textbf{Riflessività.}
-Ogni numero naturale è minore o uguale a sé stesso; per ogni \(a\in\N\)
-vale
+\emph{Riflessività.}
+Per ogni \(a\in\N\),
 \[
   a\le a.
 \]
-Infatti, nella \cref{def:ordine-naturali} è sufficiente scegliere \(c=0\),
-poiché
-\[
-  a+0=a.
-\]
+Infatti, nella \cref{def:ordine-naturali} è sufficiente
+scegliere \(c=0\), poiché \(a+0=a\).
 
-\textbf{Antisimmetria.}
-Se due numeri naturali sono ciascuno minore o uguale dell'altro, allora
-coincidono. Per ogni \(a,b\in\N\),
+\emph{Antisimmetria.}
+Per ogni \(a,b\in\N\),
 \[
   a\le b
   \quad\text{e}\quad
@@ -123,9 +104,7 @@ coincidono. Per ogni \(a,b\in\N\),
   a=b.
 \]
 
-\textbf{Transitività.}
-Se un numero naturale è minore o uguale a un secondo numero e quest'ultimo
-è minore o uguale a un terzo, allora il primo è minore o uguale al terzo.
+\emph{Transitività.}
 Per ogni \(a,b,c\in\N\),
 \[
   a\le b
@@ -135,22 +114,19 @@ Per ogni \(a,b,c\in\N\),
   a\le c.
 \]
 
-\textbf{Dicotomia.}
-Ogni coppia di numeri naturali è confrontabile: per ogni \(a,b\in\N\)
-vale
+\emph{Dicotomia.}
+Per ogni \(a,b\in\N\),
 \[
   a\le b
   \quad\text{oppure}\quad
   b\le a.
 \]
-Le due possibilità non sono necessariamente esclusive: quando \(a=b\),
-entrambe le relazioni risultano vere.
+Le due possibilità non sono esclusive quando \(a=b\),
+poiché in tal caso valgono entrambe le disuguaglianze.
 
-Le proprietà precedenti caratterizzano la relazione \(\le\) come un
-ordinamento totale su \(\N\).
-
-La relazione d'ordine è inoltre compatibile con le operazioni di somma e
-prodotto.
+Queste proprietà caratterizzano \(\le\) come un \emph{ordinamento
+totale} su \(\N\). L'ordine è inoltre compatibile con le
+operazioni di somma e prodotto.
 
 \begin{proposition}[Compatibilità dell'ordine]
 \label{prop:compatibilita-ordine}
@@ -164,69 +140,63 @@ Inoltre, se \(c>0\), vale
 \]
 \end{proposition}
 
-La prima proprietà afferma che l'aggiunta dello stesso numero naturale ai
-due membri preserva la relazione d'ordine; la seconda esprime l'analoga
-compatibilità rispetto alla moltiplicazione per un numero naturale
-strettamente positivo.
-
-Se \(c=0\), si ha \(ac=bc=0\), per cui la disuguaglianza non stretta
-rimane comunque valida.
-
-La dimostrazione della \cref{prop:compatibilita-ordine} non viene
-sviluppata in questa sede.
-
-\clearpage
+La somma di uno stesso numero naturale preserva quindi
+l'ordinamento, così come il prodotto per un numero naturale
+positivo. Per \(c=0\), si ha invece \(ac=bc=0\).
+La dimostrazione della \cref{prop:compatibilita-ordine}
+non viene sviluppata in questa sede.
 
 \section{Richiami su insiemi e dimostrazioni}
 \label{sec:lez01-insiemi-dimostrazioni}
 
-Siano \(A\) e \(B\) due insiemi. Tra le operazioni fondamentali sugli
-insiemi si considerano l'intersezione, che raccoglie gli elementi comuni,
-e l'unione, che raccoglie gli elementi appartenenti ad almeno uno dei due:
-
+Siano \(A\) e \(B\) due insiemi. La loro \emph{intersezione}
+raccoglie gli elementi comuni, mentre l'\emph{unione} comprende
+gli elementi che appartengono ad almeno uno dei due:
 \[
-  A\cap B=\{x:x\in A\text{ e }x\in B\},\qquad
+  A\cap B=\{x:x\in A\text{ e }x\in B\},
+  \qquad
   A\cup B=\{x:x\in A\text{ oppure }x\in B\}.
 \]
 
-La \cref{fig:venn-operazioni} rappresenta le regioni corrispondenti:
+\clearpage
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/insiemi/venn-operazioni}
-  \caption{Intersezione (a sinistra) e unione (a destra) di due insiemi.}
+  \caption{Intersezione (a sinistra) e unione (a destra)
+  di due insiemi.}
   \label{fig:venn-operazioni}
 \end{figure}
 
-Accanto alla notazione insiemistica, è necessario fissare il linguaggio
-impiegato negli enunciati matematici e nelle relative dimostrazioni.
-
-Un teorema ha la forma
+Negli enunciati matematici si distinguono le \emph{ipotesi},
+che si assumono valide, e la \emph{tesi}, che si intende dimostrare.
+Un teorema può essere formulato nella forma
 \[
   \text{IPOTESI}\Longrightarrow\text{TESI}.
 \]
-Una dimostrazione deduce la tesi dalle ipotesi mediante passaggi logicamente
-validi. Per proposizioni \(A\) e \(B\), l'implicazione
-\(A\Longrightarrow B\) asserisce che, se \(A\) è vera, allora è vera
-anche \(B\). Nella logica classica essa è equivalente alla propria
-contronominale:
+Per due proposizioni \(P\) e \(Q\), l'implicazione
+\(P\Longrightarrow Q\) afferma che dalla verità di \(P\)
+segue quella di \(Q\). Essa è logicamente equivalente alla
+propria \emph{contronominale}:
 \[
-  A\Longrightarrow B\quad\Longleftrightarrow\quad\neg B\Longrightarrow\neg A.
+  P\Longrightarrow Q
+  \quad\Longleftrightarrow\quad
+  \neg Q\Longrightarrow\neg P.
 \]
-La dimostrazione per assurdo è distinta: mantenendo valide le ipotesi, si
-assume la negazione della tesi e da tali assunzioni si ricava una
-contraddizione, ossia una proposizione \(C\) e, contemporaneamente, la sua
-negazione \(\neg C\).
+
+Nella \emph{dimostrazione per assurdo} si assumono le ipotesi e
+la negazione della tesi, ricavandone una contraddizione, ossia
+una proposizione \(C\) insieme alla sua negazione \(\neg C\).
 
 \section{Principio di induzione}
 \label{sec:lez01-induzione}
 
-Il principio di induzione consente di dimostrare che una determinata
-proprietà vale per tutti i numeri naturali a partire da un valore iniziale
-\(p\). Si verifica anzitutto la proprietà per \(p\) e si dimostra che la
-sua validità per un generico naturale \(n\) implica la validità per il
-successivo \(n+1\). Ne segue così la propagazione della proprietà da
-\(p\) a \(p+1\), quindi a \(p+2\), e così via.
+Il principio di induzione permette di dimostrare che una proprietà
+vale per tutti i numeri naturali a partire da un valore iniziale
+\(p\). Il procedimento consiste nel verificarla per \(p\) e nel
+mostrare che la sua validità per un generico \(n\ge p\) implica
+quella per \(n+1\). La proprietà passa così da \(p\) a
+\(p+1\), poi a \(p+2\) e a tutti i naturali successivi.
 
 \begin{theorem}[Principio di induzione]
 \label{thm:principio-induzione}
@@ -242,89 +212,63 @@ allora
 \]
 \end{theorem}
 
-\clearpage
+La prima condizione, \(p\in A\), costituisce il \emph{passo base}.
+La seconda, \(n\in A\Longrightarrow n+1\in A\), costituisce
+il \emph{passo induttivo}: permette di estendere l'appartenenza
+ad \(A\) da un naturale al suo successivo.
 
-La prima condizione è
+Per dimostrare che una proprietà \(P(n)\) vale per ogni
+\(n\ge p\), si considera l'insieme
 \[
-  p\in A.
+  A:=\{n\in\N:n\ge p\text{ e }P(n)\text{ è vera}\}.
 \]
-Essa costituisce il \emph{passo base} e fissa il punto iniziale
-dell'induzione. La seconda condizione è
-\[
-  n\in A\Longrightarrow n+1\in A.
-\]
-Essa costituisce il \emph{passo induttivo} e permette di estendere
-l'appartenenza ad \(A\) da un naturale al suo successivo.
-
-Se \(P(n)\) è una proprietà dipendente da \(n\) e si intende dimostrarne
-la validità per ogni \(n\ge p\), si può porre
-\[
-  A=\{n\in\N:n\ge p \text{ e } P(n)\text{ è vera}\}.
-\]
-Dimostrare che \(P(n)\) vale per ogni \(n\ge p\) equivale allora a
-verificare
-\[
-  P(p)
-\]
-e a dimostrare, per un generico \(n\ge p\),
+L'applicazione del \cref{thm:principio-induzione} richiede
+di verificare \(P(p)\) e di dimostrare, per un generico
+\(n\ge p\), che
 \[
   P(n)\Longrightarrow P(n+1).
 \]
 
-Si considerano ora due applicazioni del \cref{thm:principio-induzione}:
-nell'\cref{ex:somma-primi-naturali} si dimostra la formula per la somma
-dei primi \(n\) naturali positivi, mentre nell'\cref{ex:somma-geometrica-finita}
-si considera la somma geometrica finita.
-Nel secondo esempio compare l'insieme \(\R\) dei numeri reali, che sarà
-introdotto nella \cref{sec:lez03-numeri-reali}.
+Si considerano due applicazioni del principio: la somma dei
+primi naturali positivi e la somma geometrica finita.
+Nel secondo esempio compare l'insieme dei numeri reali \(\R\),
+che sarà introdotto nella \cref{sec:lez03-numeri-reali}.
 
 \begin{example}[Somma dei primi \(n\) naturali positivi]
 \label{ex:somma-primi-naturali}
-Per ogni \(n\in\N\) con \(n\ge1\) vale
+Per ogni \(n\in\N\) con \(n\ge1\), vale
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
-La formula fornisce quindi un'espressione chiusa per la somma
-\[
-  1+2+\cdots+n
-\]
-dei primi \(n\) numeri naturali positivi.
+La formula esprime la somma \(1+2+\cdots+n\) in funzione di \(n\).
 \end{example}
 
 \begin{proof}
-Per applicare il \cref{thm:principio-induzione} si considera l'insieme dei naturali
-per i quali la proprietà risulta vera:
+Si applica il \cref{thm:principio-induzione} con valore
+iniziale \(p=1\), considerando l'insieme
 \[
-  A=\left\{n\in\N:n\ge1,\;
+  A:=\left\{n\in\N:n\ge1\text{ e }
     \sum_{i=1}^{n}i=\frac{n(n+1)}2\right\}.
 \]
-L'obiettivo è mostrare che ogni numero naturale maggiore o uguale a \(1\)
-appartiene ad \(A\).
 
 \emph{Passo base.}
-Si verifica anzitutto la proprietà per \(n=1\). Si ha
+Per \(n=1\) si ha
 \[
-  \sum_{i=1}^{1}i=1
-  \qquad\text{e}\qquad
-  \frac{1(1+1)}2=1.
+  \sum_{i=1}^{1}i=1=\frac{1(1+1)}2,
 \]
-I due membri coincidono; pertanto \(1\in A\) e il passo base è verificato.
+quindi \(1\in A\).
 
 \emph{Passo induttivo.}
-Sia \(n\in A\). Per definizione di \(A\), si ha \(n\ge1\) e vale
-l'ipotesi induttiva
+Sia \(n\ge1\) e si supponga che valga l'ipotesi induttiva
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
-Si deve dimostrare che anche il naturale successivo appartiene ad \(A\),
-ossia che \(n+1\in A\). Poiché \(n+1\ge1\), la tesi induttiva consiste
-nel verificare
+Si deve dimostrare che la formula vale anche per \(n+1\), ossia
 \[
   \sum_{i=1}^{n+1}i=\frac{(n+1)(n+2)}2.
 \]
-
-Separando dalla sommatoria l'ultimo addendo e applicando l'ipotesi
-induttiva, si ottiene
+Separando l'ultimo addendo e applicando l'ipotesi induttiva,
+si ottiene
 \begin{align*}
   \sum_{i=1}^{n+1}i
     &=\sum_{i=1}^{n}i+(n+1)\\
@@ -332,22 +276,18 @@ induttiva, si ottiene
     &=\frac{n(n+1)+2(n+1)}2\\
     &=\frac{(n+1)(n+2)}2.
 \end{align*}
-L'ultima espressione coincide con quella richiesta dalla tesi induttiva;
-pertanto \(n+1\in A\). Risulta quindi verificata l'implicazione
-\[
-  n\in A\Longrightarrow n+1\in A.
-\]
+Pertanto \(n\in A\Longrightarrow n+1\in A\).
 
-Essendo verificati sia il passo base sia il passo induttivo, per il
-\cref{thm:principio-induzione}, con valore iniziale \(p=1\), si conclude che
+Essendo verificati il passo base e il passo induttivo,
+per il \cref{thm:principio-induzione} si conclude che
 \[
-  \{n\in\N:n\ge1\}\subseteq A.
+  \{n\in\N:n\ge1\}\subseteq A,
 \]
-Di conseguenza,
+e dunque
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2
+  \qquad\forall n\in\N,\ n\ge1.
 \]
-per ogni \(n\in\N\) con \(n\ge1\).
 \end{proof}
 
 \begin{example}[Somma geometrica finita]
@@ -356,68 +296,53 @@ Sia \(q\in\R\setminus\{1\}\). Per ogni \(n\in\N\) vale
 \[
   \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
 \]
-Con la convenzione \(q^0=1\), il membro sinistro rappresenta la somma
+Con la convenzione \(q^0=1\), anche per \(q=0\), il membro
+sinistro rappresenta la somma
 \[
   1+q+q^2+\cdots+q^n.
 \]
-La formula fornisce quindi un'espressione chiusa per la somma dei primi
-\(n+1\) termini della progressione geometrica di ragione \(q\).
-
-In particolare, per \(q=0\) tutti i termini con esponente positivo sono
-nulli e si ha
+Per \(q=0\), il termine con \(k=0\) vale \(1\) per convenzione,
+mentre tutti gli eventuali termini con \(k\ge1\) sono nulli.
+Pertanto, per ogni \(n\in\N\),
 \[
-  \sum_{k=0}^{n}0^k
-  =1+0+\cdots+0
-  =1.
+  \sum_{k=0}^{n}0^k=1
+  =\frac{1-0^{n+1}}{1-0}.
 \]
-D'altra parte,
-\[
-  \frac{1-0^{n+1}}{1-0}=1.
-\]
-Il caso \(q=0\) soddisfa quindi la formula. Il valore \(q=1\) è escluso
-dalla formula precedente perché annulla il denominatore; in tal caso,
-direttamente,
+Il caso \(q=1\) è escluso perché annulla il denominatore;
+in tal caso si ha direttamente
 \[
   \sum_{k=0}^{n}1^k=n+1.
 \]
 \end{example}
 
 \begin{proof}
-Fissato \(q\in\R\setminus\{1\}\), si considera l'insieme dei naturali
-per i quali la proprietà risulta vera:
+Fissato \(q\in\R\setminus\{1\}\), si applica il
+\cref{thm:principio-induzione} con valore iniziale \(p=0\),
+considerando l'insieme
 \[
-  A=\left\{n\in\N:
+  A:=\left\{n\in\N:
     \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}\right\}.
 \]
-L'obiettivo è mostrare che ogni numero naturale appartiene ad \(A\),
-ossia che \(A=\N\).
 
 \emph{Passo base.}
-Si verifica anzitutto la proprietà per \(n=0\). Si ha
+Per \(n=0\), poiché \(q\ne1\), si ha
 \[
   \sum_{k=0}^{0}q^k=q^0=1
+  =\frac{1-q}{1-q},
 \]
-e, poiché \(q\neq1\),
-\[
-  \frac{1-q^{0+1}}{1-q}
-  =\frac{1-q}{1-q}
-  =1.
-\]
-I due membri coincidono; pertanto \(0\in A\) e il passo base è verificato.
+quindi \(0\in A\).
 
 \emph{Passo induttivo.}
-Sia \(n\in A\). Per definizione di \(A\), vale l'ipotesi induttiva
+Sia \(n\in\N\) e si supponga che valga l'ipotesi induttiva
 \[
   \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
 \]
-Si deve dimostrare che anche il naturale successivo appartiene ad \(A\),
-ossia che \(n+1\in A\). La tesi induttiva consiste quindi nel verificare
+La tesi per il naturale successivo è
 \[
   \sum_{k=0}^{n+1}q^k=\frac{1-q^{n+2}}{1-q}.
 \]
-
-Separando dalla sommatoria l'ultimo addendo e applicando l'ipotesi
-induttiva, si ottiene
+Separando l'ultimo addendo e applicando l'ipotesi induttiva,
+si ottiene
 \begin{align*}
   \sum_{k=0}^{n+1}q^k
     &=\sum_{k=0}^{n}q^k+q^{n+1}\\
@@ -426,20 +351,11 @@ induttiva, si ottiene
     &=\frac{1-q^{n+1}+q^{n+1}-q^{n+2}}{1-q}\\
     &=\frac{1-q^{n+2}}{1-q}.
 \end{align*}
-L'ultima espressione coincide con quella richiesta dalla tesi induttiva;
-pertanto \(n+1\in A\). Risulta quindi verificata l'implicazione
-\[
-  n\in A\Longrightarrow n+1\in A.
-\]
+Pertanto \(n\in A\Longrightarrow n+1\in A\).
 
-Essendo verificati sia il passo base sia il passo induttivo, per il
-\cref{thm:principio-induzione}, con valore iniziale \(p=0\), si conclude che
-\[
-  A=\N.
-\]
-Poiché \(q\in\R\setminus\{1\}\) era arbitrario, si conclude che
-\[
-  \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}
-\]
-per ogni \(n\in\N\) e per ogni \(q\in\R\setminus\{1\}\).
+Essendo verificati il passo base e il passo induttivo,
+per il \cref{thm:principio-induzione} si conclude che
+\(A=\N\). Poiché \(q\in\R\setminus\{1\}\) era arbitrario,
+la formula vale per ogni \(n\in\N\) e per ogni
+\(q\in\R\setminus\{1\}\).
 \end{proof}

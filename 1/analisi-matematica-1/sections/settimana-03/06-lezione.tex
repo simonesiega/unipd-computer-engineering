@@ -4,8 +4,9 @@
 \section{Un esercizio sugli estremi di insiemi separati}
 \label{sec:lez06-insiemi-separati}
 
-La nozione di insiemi separati introdotta nella \cref{sec:lez03-numeri-reali}
-si può esprimere anche mediante gli estremi studiati nella
+La nozione di insiemi separati, introdotta nella
+\cref{sec:lez03-numeri-reali}, può essere espressa
+mediante gli estremi studiati nella
 \cref{sec:lez04-estremi}.
 
 \begin{exercise}[Estremi di insiemi separati]
@@ -18,22 +19,23 @@ Dimostrare che \(\sup A\le\inf B\).
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Poiché \(B\neq\varnothing\), si può scegliere \(b_0\in B\). Per ipotesi
-\(a\le b_0\) per ogni \(a\in A\): dunque \(b_0\) è un maggiorante
-reale di \(A\), secondo la \cref{def:maggiorante}, e \(A\) è
-superiormente limitato. Analogamente, scegliendo \(a_0\in A\), si ha
-\(a_0\le b\) per ogni \(b\in B\). Per la \cref{def:minorante}, \(a_0\)
-è un minorante reale di \(B\), che è quindi inferiormente limitato.
-Entrambi gli estremi richiesti sono perciò numeri reali.
+Poiché \(B\neq\varnothing\), si può scegliere
+\(b_0\in B\). Per ipotesi, \(a\le b_0\) per ogni
+\(a\in A\), quindi \(b_0\) è un maggiorante reale
+di \(A\), secondo la \cref{def:maggiorante}.
+Analogamente, scegliendo \(a_0\in A\), si ha
+\(a_0\le b\) per ogni \(b\in B\); pertanto \(a_0\)
+è un minorante reale di \(B\), per la
+\cref{def:minorante}. Entrambi gli estremi
+richiesti sono quindi numeri reali.
 
-Ogni \(b\in B\) è un maggiorante di \(A\), ancora per ipotesi.
-Essendo \(\sup A\) il minimo dei maggioranti, per la
-\cref{def:estremo-superiore} si ottiene
+Ogni \(b\in B\) è un maggiorante di \(A\).
+Per la \cref{def:estremo-superiore}, si ha
 \[
   \sup A\le b\qquad\forall b\in B.
 \]
-Pertanto \(\sup A\) è un minorante di \(B\). Per la
-\cref{def:estremo-inferiore}, esso non supera il massimo dei minoranti:
+Ne segue che \(\sup A\) è un minorante di \(B\).
+Per la \cref{def:estremo-inferiore}, si conclude
 \[
   \sup A\le\inf B.
 \]
@@ -42,75 +44,93 @@ Pertanto \(\sup A\) è un minorante di \(B\). Per la
 \section{Prodotto cartesiano e applicazioni}
 \label{sec:lez06-applicazioni}
 
-Per descrivere una corrispondenza tra due insiemi occorre considerare le
-coppie ordinate formate dai loro elementi.
+Per descrivere una corrispondenza tra due insiemi
+si considerano le coppie ordinate formate dai
+rispettivi elementi.
 
 \begin{definition}[Prodotto cartesiano]
 \label{def:lez06-prodotto-cartesiano}
-Siano \(A\) e \(B\) due insiemi. Il loro \emph{prodotto cartesiano} è
+Siano \(A\) e \(B\) due insiemi. Il loro
+\emph{prodotto cartesiano} è l'insieme
 \[
   A\times B:=\{(a,b):a\in A,\ b\in B\}.
 \]
 \end{definition}
 
-Un sottoinsieme \(\Phi\subseteq A\times B\) raccoglie coppie di
-corrispondenti: \((a,b)\in\Phi\) indica che ad \(a\) è associato \(b\).
-Non ogni insieme di coppie definisce però un'applicazione.
+Un sottoinsieme \(\Phi\subseteq A\times B\)
+descrive una corrispondenza tra gli elementi
+di \(A\) e quelli di \(B\). Non ogni insieme
+di coppie ordinate definisce tuttavia
+un'applicazione.
 
 \begin{definition}[Applicazione]
 \label{def:lez06-applicazione}
-Un insieme \(\Phi\subseteq A\times B\) si dice \emph{applicazione}
-da \(A\) a \(B\) se
+Un insieme \(\Phi\subseteq A\times B\) si dice
+\emph{applicazione} da \(A\) a \(B\) se
 \[
-  \forall a\in A\;\exists!\,b\in B:\ (a,b)\in\Phi.
+  \forall a\in A\;\exists!\,b\in B:
+  (a,b)\in\Phi.
 \]
 \end{definition}
 
-In termini operativi, un'applicazione associa a ogni elemento di \(A\)
-uno e un solo elemento di \(B\). L'elemento \(b\) individuato dalla
-\cref{def:lez06-applicazione} si indica con \(\phi(a)\); si scrive
+La condizione richiede che a ogni elemento di
+\(A\) sia associato uno e un solo elemento di
+\(B\). Indicando tale elemento con \(\phi(a)\),
+si scrive
 \[
   \phi\colon A\longrightarrow B,
   \qquad a\longmapsto\phi(a).
 \]
-Per ogni \(a\in A\) e \(b\in B\),
+Per ogni \(a\in A\) e \(b\in B\), si ha
 \[
-  \phi(a)=b\quad\Longleftrightarrow\quad(a,b)\in\Phi.
+  \phi(a)=b
+  \quad\Longleftrightarrow\quad
+  (a,b)\in\Phi.
 \]
-L'insieme \(\Phi\) è dunque il \emph{grafico} dell'applicazione \(\phi\):
+L'insieme \(\Phi\) costituisce quindi il
+\emph{grafico} dell'applicazione \(\phi\):
 \[
   \Phi=\{(a,\phi(a)):a\in A\}.
 \]
 
-Nella \cref{fig:lez06-relazioni} la prima corrispondenza non è
-un'applicazione perché un elemento di \(A\) rimane senza valore; la
-seconda non lo è perché a un elemento di \(A\) sono associati due
-valori. Solo la terza è un'applicazione: elementi distinti di \(A\)
-possono avere la stessa immagine.
+Nella \cref{fig:lez06-relazioni}, la prima
+corrispondenza non assegna alcun valore a un
+elemento di \(A\), mentre la seconda ne assegna
+due allo stesso elemento. Solo la terza soddisfa
+entrambe le condizioni della
+\cref{def:lez06-applicazione}; elementi distinti
+del dominio possono comunque avere la stessa
+immagine.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/relazioni-applicazioni}
-  \caption{Solo la corrispondenza a destra è un'applicazione; le altre
-  violano rispettivamente l'esistenza e l'unicità del valore.}
+  \caption{Solo la corrispondenza a destra è
+  un'applicazione; le altre violano rispettivamente
+  l'esistenza e l'unicità del valore associato.}
   \label{fig:lez06-relazioni}
 \end{figure}
 
-Per una corrispondenza nel piano, il test della retta verticale verifica
-l'unicità: nessuna retta verticale deve intersecare il grafico più di
-una volta. Nella \cref{fig:lez06-test-verticale} la parabola
-\(y=x^2\), sul dominio rappresentato \([-1,1]\), soddisfa tale
-condizione; la curva \(x=y^2\) e la circonferenza la violano.
-Per ottenere un'applicazione occorre inoltre che ogni retta con
-ascissa nel dominio dichiarato intersechi il grafico \emph{almeno}
-una volta.
+Per una corrispondenza rappresentata nel piano,
+il \emph{test della retta verticale} permette
+di verificare l'unicità del valore associato:
+nessuna retta verticale deve intersecare il
+grafico in più di un punto. Nella
+\cref{fig:lez06-test-verticale}, la parabola
+\(y=x^2\), sul dominio rappresentato \([-1,1]\),
+soddisfa tale condizione, mentre la curva
+\(x=y^2\) e la circonferenza la violano.
+Per definire un'applicazione occorre inoltre
+che ogni retta con ascissa nel dominio
+intersechi il grafico almeno una volta.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/test-retta-verticale}
-  \caption{Test della retta verticale: la prima curva ha un'unica
-  intersezione per ogni ascissa del suo dominio; le altre due ne
-  hanno due per le ascisse evidenziate.}
+  \caption{Test della retta verticale: la prima
+  curva presenta un'unica intersezione per ogni
+  ascissa del dominio; le altre due ne presentano
+  più di una per le ascisse evidenziate.}
   \label{fig:lez06-test-verticale}
 \end{figure}
 
@@ -119,14 +139,16 @@ una volta.
 
 \begin{definition}[Dominio e codominio]
 \label{def:lez06-dominio-codominio}
-Nella dichiarazione \(f\colon A\to B\), l'insieme \(A\) è il
-\emph{dominio} di \(f\), indicato con \(D(f)=A\); l'insieme \(B\) è il
-\emph{codominio}, indicato con \(C(f)=B\).
+Sia \(f\colon A\longrightarrow B\). L'insieme
+\(A\) si dice \emph{dominio} di \(f\) e si indica
+con \(D(f)=A\); l'insieme \(B\) si dice
+\emph{codominio} e si indica con \(C(f)=B\).
 \end{definition}
 
-L'espressione che calcola \(f(a)\) da sola non determina un'applicazione:
-è necessario precisare da quali elementi si parte e in quale insieme
-si considerano i valori. Si confrontino, per esempio,
+L'espressione che determina i valori di una
+funzione non basta a individuarla: occorre
+specificarne anche il dominio e il codominio.
+Si considerino, ad esempio, le applicazioni
 \[
   \begin{aligned}
     f\colon\R&\longrightarrow\R,
@@ -137,224 +159,297 @@ si considerano i valori. Si confrontino, per esempio,
       &x&\longmapsto x^2.
   \end{aligned}
 \]
-Le tre applicazioni hanno la stessa espressione algebrica, ma \(f\) e
-\(g\) hanno codomini diversi, mentre \(g\) e \(h\) hanno domini diversi.
+Le tre applicazioni hanno la stessa espressione
+algebrica, ma \(f\) e \(g\) hanno codomini
+diversi, mentre \(g\) e \(h\) hanno domini
+diversi.
 
 \begin{definition}[Immagine di un'applicazione]
 \label{def:lez06-immagine}
-Per \(f\colon A\to B\), l'\emph{immagine} di \(f\) è l'insieme
+L'\emph{immagine} di \(f\colon A\to B\)
+è l'insieme
 \[
   \operatorname{Im}(f)
-    :=\{b\in B:\exists a\in A,\ f(a)=b\}
-    =f(A).
+  :=\{b\in B:\exists a\in A,\ f(a)=b\}
+  =f(A).
 \]
 \end{definition}
 
-Dalla \cref{def:lez06-immagine} segue immediatamente
-\(\operatorname{Im}(f)\subseteq C(f)=B\); l'inclusione può essere
-stretta. Nei tre casi precedenti,
+Per la \cref{def:lez06-immagine}, si ha
 \[
-  \operatorname{Im}(f)=\operatorname{Im}(g)
+  \operatorname{Im}(f)\subseteq C(f)=B,
+\]
+e l'inclusione può essere stretta. Per le tre
+applicazioni precedenti,
+\[
+  \operatorname{Im}(f)
+  =\operatorname{Im}(g)
   =\operatorname{Im}(h)=[0,+\infty).
 \]
-Infatti ogni quadrato reale è non negativo e ogni \(y\ge0\) è il
-quadrato di \(\sqrt y\in[0,+\infty)\). Il grafico nella
-\cref{fig:lez06-quadrato} mostra la parabola e, per \(f\), distingue
-l'immagine dal codominio \(\R\).
+Infatti, il quadrato di un numero reale è
+non negativo e, per ogni \(y\ge0\), si ha
+\(y=(\sqrt y)^2\). La \cref{fig:lez06-quadrato}
+mostra il grafico del quadrato e distingue,
+nel caso di \(f\), l'immagine dal codominio.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/quadrato-immagine-controimmagine}
-  \caption{Per \(f\colon\R\to\R\), l'immagine \([0,+\infty)\)
-  è distinta dal codominio \(\R\). Alla fascia \(S=[1,4]\)
-  corrispondono le ascisse \([-2,-1]\cup[1,2]\).}
+  \caption{Per \(f\colon\R\to\R\), l'immagine
+  \([0,+\infty)\) è distinta dal codominio \(\R\).
+  All'intervallo \(S=[1,4]\) corrispondono
+  le ascisse \([-2,-1]\cup[1,2]\).}
   \label{fig:lez06-quadrato}
 \end{figure}
 
 \section{Controimmagine di un sottoinsieme}
 \label{sec:lez06-controimmagine}
 
-Dato \(S\subseteq B\), si possono raccogliere tutti gli elementi del
-dominio di \(f\colon A\to B\) i cui valori appartengono a \(S\).
+Per un'applicazione \(f\colon A\to B\) e un
+sottoinsieme \(S\subseteq B\), si considerano
+gli elementi del dominio i cui valori
+appartengono a \(S\).
 
 \begin{definition}[Controimmagine]
 \label{def:lez06-controimmagine}
-La \emph{controimmagine} di \(S\subseteq B\) mediante \(f\) è
+Sia \(f\colon A\longrightarrow B\) e sia
+\(S\subseteq B\). La \emph{controimmagine}
+di \(S\) mediante \(f\) è l'insieme
 \[
   f^{-1}(S):=\{a\in A:f(a)\in S\}.
 \]
 \end{definition}
 
-\clearpage
-
-La \cref{fig:lez06-controimmagine-insiemi} mostra che appartengono a
-\(f^{-1}(S)\) precisamente gli elementi del dominio la cui freccia
-termina in \(S\); gli altri elementi di \(A\) ne restano esclusi.
+La \cref{fig:lez06-controimmagine-insiemi}
+illustra la costruzione: appartengono a
+\(f^{-1}(S)\) precisamente gli elementi
+di \(A\) la cui immagine appartiene a \(S\).
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/controimmagine-insiemi}
   \caption{Per \(S=\{b_1,b_2\}\subseteq B\) si ha
-  \(f^{-1}(S)=\{a_1,a_2\}\subseteq A\), anche se \(f\) non è iniettiva.}
+  \(f^{-1}(S)=\{a_1,a_2\}\subseteq A\), anche se
+  \(f\) non è iniettiva.}
   \label{fig:lez06-controimmagine-insiemi}
 \end{figure}
 
-Si indica con \(\mathcal P(A):=\{S:S\subseteq A\}\) l'insieme delle
-parti di \(A\), e analogamente con \(\mathcal P(B)\) quello delle
-parti di \(B\). Per ogni \(S\in\mathcal P(B)\), la
-\cref{def:lez06-controimmagine} determina un unico sottoinsieme di
-\(A\), anche quando è vuoto. La costruzione definisce dunque
-un'applicazione tra insiemi di parti:
+Si indica con
+\[
+  \mathcal P(A):=\{S:S\subseteq A\}
+\]
+l'\emph{insieme delle parti} di \(A\), e
+analogamente con \(\mathcal P(B)\) quello di
+\(B\). Per ogni \(S\in\mathcal P(B)\), la
+\cref{def:lez06-controimmagine} determina
+un unico sottoinsieme di \(A\), eventualmente
+vuoto. Si ottiene quindi un'applicazione
+tra insiemi delle parti:
 \[
   f^{-1}\colon\mathcal P(B)\longrightarrow\mathcal P(A),
   \qquad S\longmapsto f^{-1}(S).
 \]
-In particolare, se \(S\cap f(A)=\varnothing\), nessun valore di \(f\)
-appartiene a \(S\), e quindi \(f^{-1}(S)=\varnothing\).
+In particolare, se \(S\cap\operatorname{Im}(f)
+=\varnothing\), allora \(f^{-1}(S)=\varnothing\).
 
 \begin{example}[Controimmagini del quadrato]
 \label{ex:lez06-controimmagini-quadrato}
-Per \(f\colon\R\to\R\) definita sopra si ha
+Per l'applicazione \(f\colon\R\to\R\) definita
+nella \cref{sec:lez06-dominio-immagine}, si ha
 \[
   f^{-1}(\{-1\})=\varnothing,
   \qquad
   f^{-1}(\{0\})=\{0\},
-  \qquad
+\]
+\[
   f^{-1}([1,4])=[-2,-1]\cup[1,2].
 \]
-La controimmagine dell'intervallo è evidenziata nella
-\cref{fig:lez06-quadrato}. L'equazione \(z^2=-1\) ha invece soluzioni
-complesse, ma \(z\mapsto z^2\) non è un'applicazione
-\(\C\to\R\): per esempio \((1+\imaginaryunit)^2=2\imaginaryunit\notin\R\).
-Dichiarando \(q\colon\C\to\C\), \(z\mapsto z^2\), si ottiene
-correttamente \(q^{-1}(\{-1\})=\{\imaginaryunit,-\imaginaryunit\}\).
+La controimmagine dell'intervallo è
+rappresentata nella \cref{fig:lez06-quadrato}.
+
+L'equazione \(z^2=-1\) ammette soluzioni
+complesse, ma \(z\mapsto z^2\) non definisce
+un'applicazione da \(\C\) a \(\R\): ad esempio,
+\[
+  (1+\imaginaryunit)^2
+  =2\imaginaryunit\notin\R.
+\]
+Considerando invece l'applicazione
+\(q\colon\C\to\C\), \(q(z)=z^2\), si ottiene
+\[
+  q^{-1}(\{-1\})
+  =\{\imaginaryunit,-\imaginaryunit\}.
+\]
 \end{example}
 
-La notazione \(f^{-1}(S)\) indica una controimmagine anche quando
-\(f\) non è iniettiva né biiettiva. Non presuppone l'esistenza di
-un'applicazione inversa da \(B\) ad \(A\).
+La notazione \(f^{-1}(S)\) indica una
+controimmagine anche quando \(f\) non è
+iniettiva né biiettiva. Non presuppone
+l'esistenza di un'applicazione inversa
+\(B\to A\).
 
 \section{Applicazioni suriettive, iniettive e biiettive}
 \label{sec:lez06-proprieta-applicazioni}
 
 \begin{definition}[Suriettività]
 \label{def:lez06-suriettiva}
-Un'applicazione \(f\colon A\to B\) è \emph{suriettiva} se
+Un'applicazione \(f\colon A\longrightarrow B\)
+si dice \emph{suriettiva} se
 \(\operatorname{Im}(f)=B\), ossia se
 \[
-  \forall b\in B\;\exists a\in A:\ f(a)=b.
+  \forall b\in B\;\exists a\in A:
+  f(a)=b.
 \]
 \end{definition}
 
-La suriettività dipende dal codominio dichiarato: \(f\colon\R\to\R\)
-non è suriettiva, poiché \(-1\notin\operatorname{Im}(f)\), mentre
+La suriettività dipende dal codominio:
+\(f\colon\R\to\R\) non è suriettiva, poiché
+\(-1\notin\operatorname{Im}(f)\), mentre
 \(g\colon\R\to[0,+\infty)\) e
-\(h\colon[0,+\infty)\to[0,+\infty)\) lo sono. La controimmagine di ogni
-singleton del codominio di un'applicazione suriettiva è non vuota.
+\(h\colon[0,+\infty)\to[0,+\infty)\) lo sono.
+Per la \cref{def:lez06-controimmagine},
+la controimmagine di ogni insieme \(\{b\}\),
+con \(b\in B\), è non vuota se \(f\) è
+suriettiva.
 
 \begin{definition}[Iniettività]
 \label{def:lez06-iniettiva}
-Un'applicazione \(f\colon A\to B\) è \emph{iniettiva} se, per ogni
+Un'applicazione \(f\colon A\longrightarrow B\)
+si dice \emph{iniettiva} se, per ogni
 \(a_1,a_2\in A\), vale
 \[
-  a_1\neq a_2\quad\Longrightarrow\quad f(a_1)\neq f(a_2).
+  a_1\ne a_2
+  \quad\Longrightarrow\quad
+  f(a_1)\ne f(a_2).
 \]
 \end{definition}
 
-La stessa proprietà si può verificare partendo dall'uguaglianza dei
-valori: se due elementi del dominio hanno la stessa immagine, allora
-sono uguali. L'equivalenza delle due formulazioni è l'oggetto del
-seguente esercizio.
+La stessa proprietà può essere espressa
+mediante l'implicazione contrapposta: se
+due elementi del dominio hanno la stessa
+immagine, allora coincidono.
 
 \begin{exercise}[Caratterizzazione dell'iniettività]
 \label{ex:lez06-equivalenza-iniettiva}
-Dimostrare che \(f\colon A\to B\) è iniettiva se e solo se, per ogni
-\(a_1,a_2\in A\),
+Dimostrare che \(f\colon A\to B\) è iniettiva
+se e solo se, per ogni \(a_1,a_2\in A\),
 \[
-  f(a_1)=f(a_2)\quad\Longrightarrow\quad a_1=a_2.
+  f(a_1)=f(a_2)
+  \quad\Longrightarrow\quad
+  a_1=a_2.
 \]
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Siano \(a_1,a_2\in A\) arbitrari. Se \(f\) è iniettiva e
-\(f(a_1)=f(a_2)\), non può valere \(a_1\neq a_2\): altrimenti la
-\cref{def:lez06-iniettiva} darebbe \(f(a_1)\neq f(a_2)\). Pertanto
-\(a_1=a_2\).
+Siano \(a_1,a_2\in A\) arbitrari.
 
-Viceversa, si supponga che \(f(a_1)=f(a_2)\) implichi \(a_1=a_2\)
-per ogni coppia. Se \(a_1\neq a_2\), allora non può valere
-\(f(a_1)=f(a_2)\), perché l'implicazione supposta imporrebbe
-\(a_1=a_2\). Dunque \(f(a_1)\neq f(a_2)\), e \(f\) è iniettiva.
-In entrambi i versi si è usata la contrapposizione dell'implicazione.
+Se \(f\) è iniettiva e
+\(f(a_1)=f(a_2)\), non può valere
+\(a_1\ne a_2\): altrimenti, per la
+\cref{def:lez06-iniettiva}, si avrebbe
+\(f(a_1)\ne f(a_2)\). Pertanto \(a_1=a_2\).
+
+Viceversa, si supponga che
+\(f(a_1)=f(a_2)\) implichi \(a_1=a_2\)
+per ogni coppia di elementi di \(A\).
+Se \(a_1\ne a_2\), non può valere
+\(f(a_1)=f(a_2)\), perché si avrebbe
+\(a_1=a_2\). Quindi \(f(a_1)\ne f(a_2)\)
+e \(f\) è iniettiva.
 \end{proof}
 
 \begin{definition}[Biiettività]
 \label{def:lez06-biettiva}
-Un'applicazione \(f\colon A\to B\) è \emph{biiettiva} se è sia
-iniettiva sia suriettiva.
+Un'applicazione \(f\colon A\longrightarrow B\)
+si dice \emph{biiettiva} se è sia iniettiva
+sia suriettiva.
 \end{definition}
 
-Equivalentemente, per ogni \(b\in B\) esiste un unico \(a\in A\) tale
-che \(f(a)=b\). Infatti la \cref{def:lez06-suriettiva} assicura
-l'esistenza di almeno un tale \(a\), mentre l'iniettività ne assicura
-l'unicità; viceversa, l'esistenza per ogni \(b\) dà la suriettività e
-l'unicità dà l'implicazione dell'\cref{ex:lez06-equivalenza-iniettiva}.
-La \cref{fig:lez06-proprieta} illustra separatamente le tre situazioni.
+Per le \cref{def:lez06-suriettiva,def:lez06-iniettiva},
+un'applicazione è biiettiva se e solo se
+ogni elemento del codominio possiede uno
+e un solo antecedente nel dominio:
+\[
+  \forall b\in B\;\exists!\,a\in A:
+  f(a)=b.
+\]
+Infatti, la suriettività garantisce
+l'esistenza dell'antecedente, mentre
+l'iniettività ne garantisce l'unicità.
+Viceversa, l'esistenza per ogni \(b\in B\)
+implica la suriettività e l'unicità implica
+l'iniettività, per l'\cref{ex:lez06-equivalenza-iniettiva}.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/iniettivita-suriettivita}
-  \caption{Da sinistra: applicazione iniettiva non suriettiva,
-  suriettiva non iniettiva e biiettiva. Le frecce rappresentano
-  l'associazione di ogni elemento del dominio a un solo valore.}
+  \caption{Da sinistra: applicazione iniettiva
+  non suriettiva, suriettiva non iniettiva e
+  biiettiva.}
   \label{fig:lez06-proprieta}
 \end{figure}
 
 \section{Tre applicazioni definite dal quadrato}
 \label{sec:lez06-esempi-quadrato}
 
-Si riprendono \(f\), \(g\) e \(h\) della
-\cref{sec:lez06-dominio-immagine}. Hanno tutte immagine
-\([0,+\infty)\), ma proprietà diverse rispetto ai domini e ai
+Si considerino nuovamente le applicazioni
+\(f\), \(g\) e \(h\) della
+\cref{sec:lez06-dominio-immagine}. Esse hanno
+la stessa immagine \([0,+\infty)\), ma
+proprietà diverse rispetto ai domini e ai
 codomini scelti.
 
 \begin{example}[Dominio e codominio del quadrato]
 \label{ex:lez06-quadrato-proprieta}
-Le applicazioni \(f\) e \(g\) non sono iniettive, poiché
-\(1\neq-1\) e \(1^2=(-1)^2\). Inoltre \(f\) non è suriettiva su
-\(\R\), mentre \(g\) è suriettiva su \([0,+\infty)\). Nessuna delle
-due è dunque biiettiva. Per ogni \(a>0\), entrambi i domini contengono
-le due radici reali, e si ha
+Le applicazioni \(f\) e \(g\) non sono
+iniettive, poiché \(1\ne-1\) e
+\(1^2=(-1)^2\). Inoltre, \(f\) non è
+suriettiva su \(\R\), mentre \(g\) è
+suriettiva su \([0,+\infty)\). Nessuna
+delle due è quindi biiettiva.
+
+Per ogni \(a>0\), entrambi i domini
+contengono le due radici reali di \(a\),
+per cui
 \[
-  f^{-1}(\{a\})=g^{-1}(\{a\})=\{-\sqrt a,\sqrt a\}.
+  f^{-1}(\{a\})=g^{-1}(\{a\})
+  =\{-\sqrt a,\sqrt a\}.
 \]
-Per \(a=0\) le controimmagini sono \(\{0\}\). Se \(a<0\), caso
-possibile solo nel codominio di \(f\), si ha
+Per \(a=0\), le controimmagini sono
+\(\{0\}\); se \(a<0\), caso possibile
+soltanto nel codominio di \(f\), si ha
 \(f^{-1}(\{a\})=\varnothing\).
 
-Restringendo il dominio a \([0,+\infty)\), l'applicazione \(h\) è
-iniettiva: per \(x_1,x_2\ge0\), se \(x_1^2=x_2^2\), allora
-\((x_1-x_2)(x_1+x_2)=0\). Se \(x_1+x_2=0\), entrambi sono nulli;
-altrimenti è \(x_1-x_2=0\). In ogni caso \(x_1=x_2\). Poiché ogni
-\(a\ge0\) è \(h(\sqrt a)\),
-\(h\) è anche suriettiva e quindi biiettiva. Precisamente,
+Restringendo il dominio a \([0,+\infty)\),
+l'applicazione \(h\) è iniettiva.
+Infatti, se \(x_1,x_2\ge0\) e
+\(x_1^2=x_2^2\), allora
 \[
-  h^{-1}(\{a\})=
-  \begin{cases}
-    \{\sqrt a\}, & a>0,\\
-    \{0\}, & a=0.
-  \end{cases}
-  \qquad(a\in[0,+\infty)).
+  (x_1-x_2)(x_1+x_2)=0.
+\]
+Se \(x_1+x_2=0\), entrambi i numeri
+sono nulli; altrimenti, \(x_1-x_2=0\).
+In ogni caso, \(x_1=x_2\).
+
+Poiché ogni \(a\ge0\) è immagine di
+\(\sqrt a\in[0,+\infty)\), l'applicazione
+\(h\) è anche suriettiva e quindi biiettiva.
+In particolare, per ogni \(a\ge0\),
+\[
+  h^{-1}(\{a\})=\{\sqrt a\}.
 \]
 \end{example}
 
-Per \(h\) esiste quindi anche l'\emph{applicazione inversa}, distinta
-dalla costruzione sulle parti della \cref{sec:lez06-controimmagine}:
+Per \(h\) esiste quindi anche
+l'\emph{applicazione inversa}, distinta
+dalla costruzione sulle parti introdotta
+nella \cref{sec:lez06-controimmagine}:
 \[
   h^{-1}\colon[0,+\infty)\longrightarrow[0,+\infty),
   \qquad y\longmapsto\sqrt y.
 \]
-Essa associa a ciascun valore il suo unico antecedente; quando
-l'argomento di \(h^{-1}\) è invece un sottoinsieme, come in
-\(h^{-1}(\{a\})\), la notazione indica la controimmagine di tale
-sottoinsieme.
+L'applicazione inversa associa a ogni
+valore il suo unico antecedente.
+La scrittura \(h^{-1}(\{a\})\), in cui
+l'argomento è un insieme, indica invece
+la controimmagine di tale insieme.

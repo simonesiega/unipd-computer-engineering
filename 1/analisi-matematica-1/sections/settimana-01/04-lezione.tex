@@ -6,8 +6,7 @@
 
 La proprietà archimedea e la proprietà della parte intera, introdotte
 rispettivamente nel \cref{thm:proprieta-archimedea,prop:parte-intera},
-permettono di mostrare che ogni numero reale può essere approssimato
-arbitrariamente da numeri razionali.
+permettono di approssimare ogni numero reale mediante numeri razionali.
 
 \begin{theorem}[Densità di \(\Q\) in \(\R\)]
 \label{thm:densita-razionali}
@@ -18,44 +17,27 @@ Per ogni \(x\in\R\) e per ogni \(\varepsilon>0\) esiste \(z\in\Q\) tale che
 \end{theorem}
 
 \begin{proof}
-Siano \(x\in\R\) ed \(\varepsilon>0\). Poiché
+Siano \(x\in\R\) e \(\varepsilon>0\). Per il
+\cref{thm:proprieta-archimedea} esiste \(q\in\N\) tale che
 \[
-  \frac{1}{\varepsilon}>0,
+  q>\frac{1}{\varepsilon}>0.
 \]
-per il \cref{thm:proprieta-archimedea} esiste \(q\in\N\) tale che
-\[
-  q>\frac{1}{\varepsilon}.
-\]
-In particolare \(q>0\).
 
-Si considera allora il numero reale \(qx\). Per la
-\cref{prop:parte-intera} esiste \(p\in\Z\) tale che
+Applicando la \cref{prop:parte-intera} al numero reale \(qx\),
+esiste \(p\in\Z\) tale che
 \[
   p\le qx<p+1.
 \]
-Dividendo per \(q>0\), il verso delle disuguaglianze non cambia e si
-ottiene
-\[
-  \frac{p}{q}\le x<\frac{p+1}{q}
-  =\frac{p}{q}+\frac{1}{q}.
-\]
-
-Dalla scelta di \(q\) segue
-\[
-  \frac{1}{q}<\varepsilon.
-\]
-Pertanto
+Dividendo per \(q>0\), il verso delle disuguaglianze
+rimane invariato. Tenendo conto che \(1/q<\varepsilon\),
+si ottiene
 \[
   \frac{p}{q}\le x
-  <\frac{p}{q}+\frac{1}{q}
+  <\frac{p+1}{q}
+  =\frac{p}{q}+\frac{1}{q}
   <\frac{p}{q}+\varepsilon.
 \]
-
-Ponendo
-\[
-  z=\frac{p}{q},
-\]
-si ha \(z\in\Q\) e quindi
+Ponendo \(z=p/q\), si ha \(z\in\Q\) e quindi
 \[
   z\le x<z+\varepsilon.
 \]
@@ -64,83 +46,69 @@ si ha \(z\in\Q\) e quindi
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/retta-reale/densita-razionali}
-  \caption{Interpretazione geometrica del \cref{thm:densita-razionali}: il
-  numero razionale \(z\) dista da \(x\) meno di \(\varepsilon\).}
+  \caption{Interpretazione geometrica del \cref{thm:densita-razionali}:
+  il numero razionale \(z\) dista da \(x\) meno di \(\varepsilon\).}
   \label{fig:densita-razionali}
 \end{figure}
 
-Un'ulteriore conseguenza del \cref{thm:densita-razionali}, insieme
-all'esistenza di numeri irrazionali discussa nella
-\cref{sec:lez03-completezza-radice-due}, è che tra due numeri reali
-distinti esistono sia numeri razionali sia numeri irrazionali.
+La densità dei razionali, insieme all'esistenza di numeri irrazionali
+considerata nella \cref{sec:lez03-completezza-radice-due}, conduce
+al seguente risultato.
 
 \begin{theorem}[Razionali e irrazionali tra due reali]
 \label{thm:razionali-irrazionali-tra-reali}
 Siano \(a,b\in\R\) con \(a<b\). Allora:
 \begin{enumerate}
-  \item esiste \(r\in\Q\) tale che
-  \[
-    a<r<b;
-  \]
-  \item esiste \(\alpha\in\R\setminus\Q\) tale che
-  \[
-    a<\alpha<b.
-  \]
+  \item esiste \(r\in\Q\) tale che \(a<r<b\);
+  \item esiste \(\alpha\in\R\setminus\Q\) tale che \(a<\alpha<b\).
 \end{enumerate}
 \end{theorem}
 
-La dimostrazione del \cref{thm:razionali-irrazionali-tra-reali} non viene
-sviluppata in questa sede.
+La dimostrazione del \cref{thm:razionali-irrazionali-tra-reali}
+non viene sviluppata in questa sede.
 
 \section{Intervalli della retta reale}
 \label{sec:lez04-intervalli}
 
-Siano \(a,b\in\R\) con \(a<b\). Si introducono le seguenti notazioni:
+Siano \(a,b\in\R\) con \(a<b\). Si introducono le notazioni
 \[
-  (a,b)=\{x\in\R:a<x<b\},
-\]
-\[
-  [a,b]=\{x\in\R:a\le x\le b\},
-\]
-\[
-  [a,b)=\{x\in\R:a\le x<b\},
-\]
-\[
-  (a,b]=\{x\in\R:a<x\le b\}.
+\begin{aligned}
+  (a,b)  &=\{x\in\R:a<x<b\},\\
+  [a,b]  &=\{x\in\R:a\le x\le b\},\\
+  [a,b)  &=\{x\in\R:a\le x<b\},\\
+  (a,b]  &=\{x\in\R:a<x\le b\}.
+\end{aligned}
 \]
 
 \begin{definition}[Intervallo della retta reale]
 \label{def:intervallo-retta-reale}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\). L'insieme \(A\) si dice
-\emph{intervallo} se e solo se, per ogni \(x_1,x_2\in A\) con \(x_1<x_2\),
+Sia \(A\subseteq\R\) non vuoto. L'insieme \(A\) si dice
+\emph{intervallo} se, per ogni \(x_1,x_2\in A\) con \(x_1<x_2\),
 vale
 \[
   \{x\in\R:x_1<x<x_2\}\subseteq A.
 \]
 \end{definition}
 
-In altri termini, se due punti appartengono a un intervallo, allora anche
-ogni punto reale compreso strettamente tra essi appartiene allo stesso
-insieme.
+La condizione richiede che ogni punto reale compreso tra due elementi
+di \(A\) appartenga a sua volta ad \(A\).
 
-\begin{example}
+\begin{example}[Un insieme che non è un intervallo]
 \label{ex:insieme-non-intervallo}
 Si consideri
 \[
   A=(0,1)\cup\{2\}.
 \]
-L'insieme \((0,1)\) è un intervallo, mentre \(A\) non lo è. Infatti si
-possono scegliere, per esempio,
+L'insieme \((0,1)\) è un intervallo, mentre \(A\) non lo è.
+Infatti, scegliendo
 \[
   x_1=\frac12\in A,
-  \qquad
-  x_2=2\in A,
+  \qquad x_2=2\in A,
 \]
-ma
+si ha
 \[
-  \frac32\in\left(\frac12,2\right)
-  \qquad\text{e}\qquad
-  \frac32\notin A.
+  \frac32\in\left(\frac12,2\right),
+  \qquad \frac32\notin A.
 \]
 La condizione della \cref{def:intervallo-retta-reale} non è quindi
 soddisfatta.
@@ -149,9 +117,9 @@ soddisfatta.
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/retta-reale/non-intervallo}
-  \caption{L'insieme \(A=(0,1)\cup\{2\}\) non è un intervallo: tra
-  \(\frac12\) e \(2\) esistono punti, come \(\frac32\), che non
-  appartengono ad \(A\).}
+  \caption{L'insieme \(A=(0,1)\cup\{2\}\) non è un intervallo:
+  tra \(\frac12\) e \(2\) esistono punti, come \(\frac32\),
+  che non appartengono ad \(A\).}
   \label{fig:insieme-non-intervallo}
 \end{figure}
 
@@ -162,239 +130,196 @@ Si consideri un insieme non vuoto \(A\subseteq\R\).
 
 \begin{definition}[Maggiorante]
 \label{def:maggiorante}
-Un numero reale \(x\in\R\) si dice \emph{maggiorante} di \(A\) se e solo se
+Un numero reale \(x\in\R\) si dice \emph{maggiorante} di \(A\) se
 \[
-  a\le x
-  \qquad
-  \forall a\in A.
+  a\le x\qquad\forall a\in A.
 \]
 \end{definition}
-
-Un maggiorante non deve necessariamente appartenere ad \(A\).
 
 \begin{definition}[Minorante]
 \label{def:minorante}
-Un numero reale \(x\in\R\) si dice \emph{minorante} di \(A\) se e solo se
+Un numero reale \(x\in\R\) si dice \emph{minorante} di \(A\) se
 \[
-  x\le a
-  \qquad
-  \forall a\in A.
+  x\le a\qquad\forall a\in A.
 \]
 \end{definition}
 
-Anche un minorante non deve necessariamente appartenere ad \(A\).
-
-Per l'insieme considerato nell'\cref{ex:insieme-non-intervallo},
+Un maggiorante o un minorante non deve necessariamente appartenere
+all'insieme considerato. Per esempio, per
 \[
   A=(0,1)\cup\{2\},
 \]
-il numero \(2\) è un maggiorante e anche \(3\) è un maggiorante. Analogamente,
-\(0\) e \(-\frac12\) sono minoranti.
+i numeri \(2\) e \(3\) sono maggioranti, mentre \(0\) e
+\(-\frac12\) sono minoranti.
 
 \begin{definition}[Limitatezza superiore e inferiore]
 \label{def:limitatezza-superiore-inferiore}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
+Sia \(A\subseteq\R\) non vuoto.
 \begin{enumerate}
-  \item \(A\) si dice \emph{inferiormente limitato} se ammette almeno un
-  minorante;
-  \item \(A\) si dice \emph{superiormente limitato} se ammette almeno un
-  maggiorante.
+  \item \(A\) si dice \emph{inferiormente limitato} se ammette
+  almeno un minorante;
+  \item \(A\) si dice \emph{superiormente limitato} se ammette
+  almeno un maggiorante.
 \end{enumerate}
 \end{definition}
 
 \begin{definition}[Insieme limitato]
 \label{def:insieme-limitato}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\). Si dice che \(A\) è
+Sia \(A\subseteq\R\) non vuoto. L'insieme \(A\) si dice
 \emph{limitato} se è sia inferiormente sia superiormente limitato.
 \end{definition}
 
-L'insieme \(A=(0,1)\cup\{2\}\) è quindi limitato.
-
-La limitatezza si conserva passando a un sottoinsieme non vuoto.
+In particolare, l'insieme \(A=(0,1)\cup\{2\}\) è limitato.
 
 \begin{proposition}[Limitatezza dei sottoinsiemi]
 \label{prop:limitatezza-sottoinsiemi}
 Siano \(A,B\subseteq\R\), con \(B\neq\varnothing\) e \(B\subseteq A\).
 \begin{enumerate}
-  \item Se \(A\) è inferiormente limitato, allora \(B\) è inferiormente
-  limitato.
-  \item Se \(A\) è superiormente limitato, allora \(B\) è superiormente
-  limitato.
+  \item Se \(A\) è inferiormente limitato, allora \(B\) è
+  inferiormente limitato.
+  \item Se \(A\) è superiormente limitato, allora \(B\) è
+  superiormente limitato.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-Si dimostra il primo punto. Se \(A\) è inferiormente limitato, esiste un
-minorante \(x\in\R\) di \(A\), cioè
+Si dimostra il primo punto. Poiché \(A\) è inferiormente limitato,
+esiste \(x\in\R\) tale che
 \[
-  x\le a
-  \qquad
-  \forall a\in A.
+  x\le a\qquad\forall a\in A.
 \]
-Poiché \(B\subseteq A\), per ogni \(b\in B\) vale anche
+Dall'inclusione \(B\subseteq A\) segue
 \[
-  x\le b.
+  x\le b\qquad\forall b\in B.
 \]
-Il numero \(x\) è dunque un minorante di \(B\), e quindi \(B\) è
+Il numero \(x\) è quindi un minorante di \(B\), che risulta
 inferiormente limitato.
 
-Il secondo punto si dimostra in modo analogo sostituendo i minoranti con
-i maggioranti.
+Il secondo punto si dimostra analogamente, sostituendo i minoranti
+con i maggioranti.
 \end{proof}
-
-\clearpage
 
 \subsection{Esempi fondamentali}
 \label{subsec:lez04-esempi-limitatezza}
 
-Per ogni \(n\in\N\) si ha
-\[
-  0\le n.
-\]
-Il numero \(0\) è quindi un minorante di \(\N\), e pertanto \(\N\) è
-inferiormente limitato.
+Per ogni \(n\in\N\) si ha \(0\le n\). Pertanto \(0\) è un
+minorante di \(\N\), che risulta inferiormente limitato.
 
-L'insieme \(\N\) non è invece superiormente limitato. Infatti, se esistesse
-\(x\in\R\) tale che
+L'insieme \(\N\) non è invece superiormente limitato. Infatti,
+l'esistenza di un numero reale \(x\) tale che
 \[
-  n\le x
-  \qquad
-  \forall n\in\N,
+  n\le x\qquad\forall n\in\N
 \]
-si avrebbe un maggiorante reale di \(\N\), in contraddizione con il
-\cref{thm:proprieta-archimedea}.
+contraddirebbe il \cref{thm:proprieta-archimedea}.
 
-Anche \(\Z\) non è superiormente limitato. Se lo fosse, poiché
-\[
-  \N\subseteq\Z,
-\]
-dalla \cref{prop:limitatezza-sottoinsiemi} seguirebbe che anche \(\N\)
-sarebbe superiormente limitato, contro quanto appena dimostrato.
+Anche \(\Z\) non è superiormente limitato. In caso contrario,
+poiché \(\N\subseteq\Z\), dalla
+\cref{prop:limitatezza-sottoinsiemi} seguirebbe la limitatezza
+superiore di \(\N\), già esclusa.
 
-L'insieme \(\Z\) non è neppure inferiormente limitato. Supponendo per
-assurdo che esista \(b\in\R\) tale che
+L'insieme \(\Z\) non è neppure inferiormente limitato. Supponendo
+per assurdo che esista \(b\in\R\) tale che
 \[
-  b\le z
-  \qquad
-  \forall z\in\Z,
+  b\le z\qquad\forall z\in\Z,
 \]
-cambiando segno a entrambi i membri, per le proprietà dell'ordine
-in \(\R\) si ottiene
+cambiando segno si ottiene
 \[
-  -z\le -b
-  \qquad
-  \forall z\in\Z.
+  -z\le-b\qquad\forall z\in\Z.
 \]
-Poiché, al variare di \(z\in\Z\), anche \(-z\) descrive tutti gli interi,
-\(-b\) sarebbe un maggiorante di \(\Z\), in contraddizione con il fatto
-che \(\Z\) non è superiormente limitato.
+Poiché \(-z\) descrive tutti gli interi al variare di \(z\in\Z\),
+\(-b\) sarebbe un maggiorante di \(\Z\), in contraddizione
+con quanto dimostrato.
 
-Poiché
+Infine, dalle inclusioni
 \[
-  \Z\subseteq\Q\subseteq\R,
+  \Z\subseteq\Q\subseteq\R
 \]
-se \(\Q\) o \(\R\) fossero limitati superiormente oppure inferiormente,
-la \cref{prop:limitatezza-sottoinsiemi} imporrebbe la corrispondente
-limitatezza anche a \(\Z\). Ne segue che \(\Q\) e \(\R\) non sono né
-superiormente né inferiormente limitati.
+e dalla \cref{prop:limitatezza-sottoinsiemi} segue che né \(\Q\)
+né \(\R\) sono superiormente o inferiormente limitati.
 
 \section{Massimo e minimo}
 \label{sec:lez04-massimo-minimo}
 
-Nelle \cref{def:maggiorante,def:minorante} non si richiede che il
-maggiorante o il minorante appartengano all'insieme. Per massimo e minimo,
-invece, l'appartenenza è essenziale.
+A differenza di un maggiorante o di un minorante, il massimo
+e il minimo devono appartenere all'insieme considerato.
 
 \begin{definition}[Massimo e minimo]
 \label{def:massimo-minimo}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
+Sia \(A\subseteq\R\) non vuoto.
 \begin{enumerate}
   \item \(A\) ammette \emph{massimo} se esiste \(x_0\in A\) tale che
   \[
-    a\le x_0
-    \qquad
-    \forall a\in A.
+    a\le x_0\qquad\forall a\in A.
   \]
   In tal caso si scrive \(x_0=\max A\).
 
   \item \(A\) ammette \emph{minimo} se esiste \(x_0\in A\) tale che
   \[
-    x_0\le a
-    \qquad
-    \forall a\in A.
+    x_0\le a\qquad\forall a\in A.
   \]
   In tal caso si scrive \(x_0=\min A\).
 \end{enumerate}
 \end{definition}
 
-Si può quindi interpretare il massimo come un maggiorante che appartiene
-all'insieme stesso e il minimo come un minorante che appartiene
-all'insieme stesso.
+Il massimo è quindi un maggiorante che appartiene ad \(A\),
+mentre il minimo è un minorante che appartiene ad \(A\).
 
 Per esempio, se
 \[
   A=(0,1],
 \]
-allora
+allora \(\max A=1\), mentre \(A\) non ammette minimo.
+Infatti, per ogni \(a\in A\), si ha
 \[
-  \max A=1.
+  0<\frac a2<a\le1,
 \]
-L'insieme non ammette invece minimo. Infatti, per ogni \(a\in A\) si ha
-\(0<a/2<a\le1\), dunque \(a/2\in A\) e \(a/2<a\); nessun elemento di
-\(A\) può quindi essere il minimo.
+quindi \(a/2\in A\) e \(a/2<a\). Nessun elemento di
+\(A\) può pertanto essere il minimo.
 
-Per descrivere in modo sistematico maggioranti e minoranti si introducono
-i due insiemi
+Si introducono gli insiemi dei maggioranti e dei minoranti di \(A\):
 \[
   M_A:=\{x\in\R:x\text{ è un maggiorante di }A\},
 \]
 \[
   m_A:=\{x\in\R:x\text{ è un minorante di }A\}.
 \]
-
-Nel caso \(A=(0,1]\),
+Per \(A=(0,1]\), si ha
 \[
   M_A=\{x\in\R:x\ge1\},
+  \qquad
+  m_A=\{x\in\R:x\le0\},
 \]
-mentre
+e pertanto
 \[
-  m_A=\{x\in\R:x\le0\}.
+  \min M_A=1,
+  \qquad
+  \max m_A=0.
 \]
-In particolare,
-\[
-  1=\min M_A
-  \qquad\text{e}\qquad
-  0=\max m_A.
-\]
-
-Si osserva quindi che \(M_A\) raccoglie tutti i maggioranti di \(A\),
-mentre \(m_A\) raccoglie tutti i suoi minoranti. Nel caso considerato,
-\(1\) è il più piccolo tra tutti i maggioranti e \(0\) è il più grande
-tra tutti i minoranti.
 
 \begin{theorem}[Estremi degli insiemi di maggioranti e minoranti]
 \label{thm:estremi-maggioranti-minoranti}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
+Sia \(A\subseteq\R\) non vuoto.
 \begin{enumerate}
   \item Se \(A\) è superiormente limitato, allora \(M_A\) ammette minimo.
   \item Se \(A\) è inferiormente limitato, allora \(m_A\) ammette massimo.
 \end{enumerate}
 \end{theorem}
 
-La dimostrazione del \cref{thm:estremi-maggioranti-minoranti} non viene
-sviluppata in questa sede.
+La dimostrazione del \cref{thm:estremi-maggioranti-minoranti}
+non viene sviluppata in questa sede.
 
 \section{Estremo superiore ed estremo inferiore}
 \label{sec:lez04-estremi}
 
-Il \cref{thm:estremi-maggioranti-minoranti} permette di definire i due
-estremi fondamentali di un insieme reale non vuoto.
+Il \cref{thm:estremi-maggioranti-minoranti} garantisce l'esistenza
+degli estremi di un insieme reale non vuoto, quando esso è limitato
+nella direzione corrispondente.
 
 \begin{definition}[Estremo inferiore]
 \label{def:estremo-inferiore}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\), inferiormente limitato.
-Si chiama \emph{estremo inferiore} di \(A\), e si indica con
-\(\inf A\), il massimo dell'insieme dei minoranti:
+Sia \(A\subseteq\R\) non vuoto e inferiormente limitato.
+L'\emph{estremo inferiore} di \(A\), indicato con \(\inf A\),
+è il massimo dell'insieme dei minoranti:
 \[
   \inf A:=\max m_A.
 \]
@@ -402,9 +327,9 @@ Si chiama \emph{estremo inferiore} di \(A\), e si indica con
 
 \begin{definition}[Estremo superiore]
 \label{def:estremo-superiore}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\), superiormente limitato.
-Si chiama \emph{estremo superiore} di \(A\), e si indica con
-\(\sup A\), il minimo dell'insieme dei maggioranti:
+Sia \(A\subseteq\R\) non vuoto e superiormente limitato.
+L'\emph{estremo superiore} di \(A\), indicato con \(\sup A\),
+è il minimo dell'insieme dei maggioranti:
 \[
   \sup A:=\min M_A.
 \]
@@ -419,14 +344,13 @@ mentre, se \(A\) non è inferiormente limitato, si scrive
   \inf A=-\infty.
 \]
 I simboli \(+\infty\) e \(-\infty\) non rappresentano numeri reali;
-sono utilizzati qui esclusivamente come convenzione notazionale.
-
-Massimo e minimo, quando esistono, coincidono rispettivamente con estremo
-superiore ed estremo inferiore.
+sono qui utilizzati come convenzioni notazionali e saranno
+introdotti formalmente nella \emph{retta reale estesa}
+(\cref{def:lez07-retta-estesa}).
 
 \begin{proposition}[Relazione tra estremi, massimo e minimo]
 \label{prop:relazione-estremi-massimo-minimo}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
+Sia \(A\subseteq\R\) non vuoto.
 \begin{enumerate}
   \item Se \(\sup A\in A\), allora
   \[
@@ -439,43 +363,41 @@ Sia \(A\subseteq\R\), con \(A\neq\varnothing\).
 \end{enumerate}
 \end{proposition}
 
-La dimostrazione della \cref{prop:relazione-estremi-massimo-minimo} non viene
-sviluppata in questa sede.
+La dimostrazione della \cref{prop:relazione-estremi-massimo-minimo}
+non viene sviluppata in questa sede.
 
 \section{Caratterizzazione di estremo superiore e inferiore}
 \label{sec:lez04-caratterizzazione-estremi}
 
-Le definizioni precedenti possono essere espresse mediante condizioni che
-descrivono quanto gli elementi dell'insieme possano avvicinarsi ai suoi
+Le definizioni precedenti possono essere espresse mediante condizioni
+che descrivono l'avvicinamento degli elementi di un insieme ai suoi
 estremi.
 
 \begin{theorem}[Caratterizzazione dell'estremo superiore]
 \label{thm:caratterizzazione-sup}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\), superiormente limitato.
-Per \(x\in\R\),
+Sia \(A\subseteq\R\) non vuoto e superiormente limitato.
+Per \(x\in\R\), l'uguaglianza
 \[
   x=\sup A
 \]
-se e solo se valgono entrambe le condizioni
+vale se e solo se sono soddisfatte entrambe le condizioni
 \[
-  x\ge a
-  \qquad
-  \forall a\in A
+  x\ge a\qquad\forall a\in A
 \]
 e
 \[
-  \forall\varepsilon>0\;\exists\bar a\in A
-  \quad\text{tale che}\quad
-  \bar a>x-\varepsilon.
+  \forall\varepsilon>0\;\exists\bar a\in A:
+  \quad\bar a>x-\varepsilon.
 \]
 \end{theorem}
 
-La prima condizione afferma, secondo la \cref{def:maggiorante}, che
-\(x\) è un maggiorante di \(A\). La seconda garantisce che nessun numero
-strettamente minore di \(x\) possa essere un maggiorante. Poiché ogni
-elemento di \(A\) è minore o uguale a \(x\), le due condizioni insieme
-equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
-\(\bar a\in A\) tale che
+La prima condizione, secondo la \cref{def:maggiorante}, richiede
+che \(x\) sia un maggiorante di \(A\). La seconda garantisce
+che gli elementi di \(A\) possano avvicinarsi a \(x\) dal basso
+quanto si desidera, escludendo che un numero minore di \(x\)
+sia ancora un maggiorante.
+Insieme, esse equivalgono a richiedere che, per ogni
+\(\varepsilon>0\), esista \(\bar a\in A\) tale che
 \[
   x-\varepsilon<\bar a\le x.
 \]
@@ -483,140 +405,84 @@ equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/retta-reale/caratterizzazione-sup}
-  \caption{Interpretazione della caratterizzazione di \(x=\sup A\): per
-  ogni \(\varepsilon>0\) esiste \(\bar a\in A\) con
+  \caption{Caratterizzazione di \(x=\sup A\): per ogni
+  \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
   \(x-\varepsilon<\bar a\le x\).}
   \label{fig:caratterizzazione-sup}
 \end{figure}
 
-\begin{proof}[Dimostrazione del \cref{thm:caratterizzazione-sup}]
+\begin{proof}
 Si dimostrano separatamente le due implicazioni.
 
 \emph{Prima implicazione \((\Rightarrow)\).}
-Si supponga
+Si supponga \(x=\sup A\). Per la
+\cref{def:estremo-superiore}, si ha
 \[
-  x=\sup A.
+  x=\min M_A.
 \]
-Per la \cref{def:estremo-superiore},
+Quindi \(x\in M_A\), ossia
 \[
-  x=\min M_A,
+  x\ge a\qquad\forall a\in A.
 \]
-quindi \(x\in M_A\). Per la \cref{def:maggiorante}, ciò equivale a
-\[
-  x\ge a
-  \qquad
-  \forall a\in A,
-\]
-e la prima condizione è verificata.
-
-Sia ora \(\varepsilon>0\). Poiché
+Per ogni \(\varepsilon>0\), inoltre,
 \[
   x-\varepsilon<x=\min M_A,
 \]
-si ha
-\[
-  x-\varepsilon\notin M_A.
-\]
-Per definizione di \(M_A\), un numero \(\alpha\in\R\) appartiene a \(M_A\)
-se e solo se \(\alpha\ge a\) per ogni \(a\in A\). Pertanto
-\(x-\varepsilon\notin M_A\) significa che esiste \(\bar a\in A\) tale che
+perciò \(x-\varepsilon\notin M_A\). Dalla definizione di maggiorante
+segue che esiste \(\bar a\in A\) tale che
 \[
   x-\varepsilon<\bar a.
 \]
-Essendo \(\varepsilon>0\) arbitrario, anche la seconda condizione è
-verificata.
+Entrambe le condizioni sono quindi verificate.
 
 \emph{Seconda implicazione \((\Leftarrow)\).}
-Si supponga ora che valgano
+Si supponga che valgano le due condizioni. La prima implica
+\(x\in M_A\). Poiché \(A\) è superiormente limitato,
+per il \cref{thm:estremi-maggioranti-minoranti} esiste
 \[
-  x\ge a
-  \qquad
-  \forall a\in A
+  y:=\min M_A=\sup A,
 \]
-e
-\[
-  \forall\varepsilon>0\;\exists\bar a\in A
-  \quad\text{tale che}\quad
-  x-\varepsilon<\bar a.
-\]
-La prima condizione implica, per la \cref{def:maggiorante}, che
-\(x\in M_A\).
+e, per definizione di minimo, \(y\le x\).
 
-Poiché \(A\) è superiormente limitato, per il
-\cref{thm:estremi-maggioranti-minoranti} l'insieme \(M_A\) ammette minimo.
-Si pone
+Se fosse \(y<x\), scegliendo \(\varepsilon=x-y>0\),
+la seconda condizione fornirebbe \(\bar a\in A\) tale che
 \[
-  y:=\min M_A=\sup A.
+  \bar a>x-\varepsilon=y,
 \]
-Dalla seconda condizione segue che, per ogni \(\varepsilon>0\),
+in contraddizione con il fatto che \(y\) è un maggiorante di
+\(A\). Pertanto \(y\ge x\) e, insieme a \(y\le x\), si ottiene
 \[
-  x-\varepsilon\notin M_A.
-\]
-Infatti, per ciascun \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
-\(x-\varepsilon<\bar a\), mentre un maggiorante di \(A\) dovrebbe essere
-maggiore o uguale a ogni elemento di \(A\).
-
-Poiché \(y=\min M_A\), si ha \(y\in M_A\). Inoltre, ogni numero reale
-\(t\ge y\) appartiene a \(M_A\): infatti, essendo \(y\) un maggiorante,
-\[
-  a\le y\le t
-  \qquad
-  \forall a\in A.
-\]
-Di conseguenza, da \(x-\varepsilon\notin M_A\) segue necessariamente
-\[
-  x-\varepsilon<y
-  \qquad
-  \forall\varepsilon>0.
-\]
-
-Se fosse \(y<x\), scegliendo
-\[
-  \varepsilon=x-y>0
-\]
-si otterrebbe
-\[
-  x-\varepsilon=y<y,
-\]
-che è assurdo. Deve quindi essere \(y\ge x\).
-
-D'altra parte, essendo \(x\in M_A\) e \(y=\min M_A\), vale
-\[
-  y\le x.
-\]
-Pertanto \(x=y\). Poiché \(y=\sup A\), si conclude
-\[
-  x=\sup A.
+  x=y=\sup A.
 \]
 \end{proof}
 
+\clearpage
+
 \begin{theorem}[Caratterizzazione dell'estremo inferiore]
 \label{thm:caratterizzazione-inf}
-Sia \(A\subseteq\R\), con \(A\neq\varnothing\), inferiormente limitato.
-Per \(x\in\R\),
+Sia \(A\subseteq\R\) non vuoto e inferiormente limitato.
+Per \(x\in\R\), l'uguaglianza
 \[
   x=\inf A
 \]
-se e solo se valgono entrambe le condizioni
+vale se e solo se sono soddisfatte entrambe le condizioni
 \[
-  x\le a
-  \qquad
-  \forall a\in A
+  x\le a\qquad\forall a\in A
 \]
 e
 \[
-  \forall\varepsilon>0\;\exists\bar a\in A
-  \quad\text{tale che}\quad
-  \bar a<x+\varepsilon.
+  \forall\varepsilon>0\;\exists\bar a\in A:
+  \quad\bar a<x+\varepsilon.
 \]
 \end{theorem}
 
-La prima condizione afferma, secondo la \cref{def:minorante}, che
-\(x\) è un minorante di \(A\). La seconda garantisce che nessun numero
-strettamente maggiore di \(x\) possa essere un minorante. Poiché ogni
-elemento di \(A\) è maggiore o uguale a \(x\), le due condizioni insieme
-equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
-\(\bar a\in A\) tale che
+La prima condizione, secondo la \cref{def:minorante}, richiede
+che \(x\) sia un minorante di \(A\). La seconda garantisce
+che gli elementi di \(A\) possano avvicinarsi a \(x\) dall'alto
+quanto si desidera, escludendo che un numero maggiore di \(x\)
+sia ancora un minorante.
+Insieme, esse equivalgono a richiedere che, per ogni
+\(\varepsilon>0\), esista \(\bar a\in A\) tale che
 \[
   x\le\bar a<x+\varepsilon.
 \]
@@ -624,128 +490,63 @@ equivalgono a richiedere che, per ogni \(\varepsilon>0\), esista
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/retta-reale/caratterizzazione-inf}
-  \caption{Interpretazione della caratterizzazione di \(x=\inf A\): per
-  ogni \(\varepsilon>0\) esiste \(\bar a\in A\) con
+  \caption{Caratterizzazione di \(x=\inf A\): per ogni
+  \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
   \(x\le\bar a<x+\varepsilon\).}
   \label{fig:caratterizzazione-inf}
 \end{figure}
 
-
-La dimostrazione del \cref{thm:caratterizzazione-inf} viene lasciata al
-lettore come esercizio, in modo da ripercorrere in forma simmetrica il
-ragionamento appena svolto.
-
 \begin{exercise}[Dimostrazione della caratterizzazione dell'estremo inferiore]
 \label{ex:caratterizzazione-inf}
-Dimostrare il \cref{thm:caratterizzazione-inf}. Si suggerisce di seguire i
-due versi della dimostrazione del \cref{thm:caratterizzazione-sup},
-sostituendo all'insieme \(M_A\) dei maggioranti l'insieme \(m_A\) dei
-minoranti e utilizzando
+Dimostrare il \cref{thm:caratterizzazione-inf} seguendo le due
+implicazioni della dimostrazione del \cref{thm:caratterizzazione-sup}.
+Si utilizzi l'insieme \(m_A\) dei minoranti e la relazione
 \[
   \inf A=\max m_A.
 \]
 \end{exercise}
 
-Dopo aver svolto autonomamente l'esercizio, si può confrontare il proprio
-ragionamento con la seguente soluzione.
-
 \begin{proof}[Soluzione dell'esercizio]
 Si dimostrano separatamente le due implicazioni.
 
 \emph{Prima implicazione \((\Rightarrow)\).}
-Si supponga
+Si supponga \(x=\inf A\). Per la
+\cref{def:estremo-inferiore}, si ha
 \[
-  x=\inf A.
+  x=\max m_A.
 \]
-Per la \cref{def:estremo-inferiore},
+Quindi \(x\in m_A\), ossia
 \[
-  x=\max m_A,
+  x\le a\qquad\forall a\in A.
 \]
-quindi \(x\in m_A\). Per la \cref{def:minorante}, ciò equivale a
-\[
-  x\le a
-  \qquad
-  \forall a\in A,
-\]
-e la prima condizione è verificata.
-
-Sia ora \(\varepsilon>0\). Poiché
+Per ogni \(\varepsilon>0\), inoltre,
 \[
   x+\varepsilon>x=\max m_A,
 \]
-si ha
-\[
-  x+\varepsilon\notin m_A.
-\]
-Per definizione di \(m_A\), un numero \(\alpha\in\R\) appartiene a \(m_A\)
-se e solo se \(\alpha\le a\) per ogni \(a\in A\). Pertanto
-\(x+\varepsilon\notin m_A\) significa che esiste \(\bar a\in A\) tale che
+perciò \(x+\varepsilon\notin m_A\). Dalla definizione di minorante
+segue che esiste \(\bar a\in A\) tale che
 \[
   \bar a<x+\varepsilon.
 \]
-Essendo \(\varepsilon>0\) arbitrario, anche la seconda condizione è
-verificata.
+Entrambe le condizioni sono quindi verificate.
 
 \emph{Seconda implicazione \((\Leftarrow)\).}
-Si supponga ora che valgano
+Si supponga che valgano le due condizioni. La prima implica
+\(x\in m_A\). Poiché \(A\) è inferiormente limitato,
+per il \cref{thm:estremi-maggioranti-minoranti} esiste
 \[
-  x\le a
-  \qquad
-  \forall a\in A
+  y:=\max m_A=\inf A,
 \]
-e
-\[
-  \forall\varepsilon>0\;\exists\bar a\in A
-  \quad\text{tale che}\quad
-  \bar a<x+\varepsilon.
-\]
-La prima condizione implica, per la \cref{def:minorante}, che
-\(x\in m_A\).
+e, per definizione di massimo, \(x\le y\).
 
-Poiché \(A\) è inferiormente limitato, per il
-\cref{thm:estremi-maggioranti-minoranti} l'insieme \(m_A\) ammette massimo.
-Si pone
+Se fosse \(y>x\), scegliendo \(\varepsilon=y-x>0\),
+la seconda condizione fornirebbe \(\bar a\in A\) tale che
 \[
-  y:=\max m_A=\inf A.
+  \bar a<x+\varepsilon=y,
 \]
-Dalla seconda condizione segue che, per ogni \(\varepsilon>0\),
+in contraddizione con il fatto che \(y\) è un minorante di
+\(A\). Pertanto \(y\le x\) e, insieme a \(x\le y\), si ottiene
 \[
-  x+\varepsilon\notin m_A.
-\]
-Infatti, per ciascun \(\varepsilon>0\) esiste \(\bar a\in A\) tale che
-\(\bar a<x+\varepsilon\), mentre un minorante di \(A\) dovrebbe essere
-minore o uguale a ogni elemento di \(A\).
-
-Poiché \(y=\max m_A\), si ha \(y\in m_A\). Inoltre, ogni numero reale
-\(t\le y\) appartiene a \(m_A\): infatti, essendo \(y\) un minorante,
-\[
-  t\le y\le a
-  \qquad
-  \forall a\in A.
-\]
-Di conseguenza, da \(x+\varepsilon\notin m_A\) segue necessariamente
-\[
-  y<x+\varepsilon
-  \qquad
-  \forall\varepsilon>0.
-\]
-
-Se fosse \(y>x\), scegliendo
-\[
-  \varepsilon=y-x>0
-\]
-si otterrebbe
-\[
-  y<x+\varepsilon=y,
-\]
-che è assurdo. Deve quindi essere \(y\le x\).
-
-D'altra parte, essendo \(x\in m_A\) e \(y=\max m_A\), vale
-\[
-  x\le y.
-\]
-Pertanto \(x=y\). Poiché \(y=\inf A\), si conclude
-\[
-  x=\inf A.
+  x=y=\inf A.
 \]
 \end{proof}

@@ -1,4 +1,3 @@
-
 \chapter[Lezione 7 --- 14 ottobre 2026]{Lezione 7: numerabilità, operazioni sulle funzioni e punti di accumulazione}
 \label{chap:lezione-07}
 
@@ -126,9 +125,7 @@ di un ospite. Dopo lo spostamento, la camera
 arrivato.
 
 L'assegnazione costituisce una biiezione tra
-\(\N\) e \(\N\setminus\{0\}\), fornendo un ulteriore
-esempio di corrispondenza biunivoca tra un insieme
-infinito e un suo sottoinsieme proprio.
+\(\N\) e \(\N\setminus\{0\}\).
 
 \begin{figure}[H]
   \centering
@@ -223,12 +220,10 @@ In particolare,
 \end{definition}
 
 Il prodotto è definito punto per punto mediante
-la moltiplicazione in \(\R\). La proprietà
-commutativa, già introdotta per \(\N\) nella
-\cref{sec:lez01-numeri-naturali}, vale anche in
-\(\R\). Poiché le funzioni \(\psi\varphi\) e
+la moltiplicazione in \(\R\), che è commutativa.
+Come per la somma, le funzioni \(\psi\varphi\) e
 \(\varphi\psi\) hanno lo stesso dominio e
-codominio, per ogni \(x\in A\cap B\) si ha
+codominio e, per ogni \(x\in A\cap B\), si ha
 \[
   (\psi\varphi)(x)
   =\psi(x)\varphi(x)
@@ -261,10 +256,9 @@ In particolare,
 \]
 \end{definition}
 
-Il rapporto è definito punto per punto mediante
-la divisione in \(\R\), che richiede un
-denominatore diverso da zero. Dal dominio comune
-si escludono quindi gli zeri di \(\varphi\).
+Il denominatore deve essere diverso da zero:
+per questo gli zeri di \(\varphi\) sono esclusi
+dal dominio comune.
 
 Scambiando numeratore e denominatore si ottiene
 \[
@@ -375,17 +369,14 @@ di \(\varphi\), il dominio rimane invariato:
 Per la \cref{def:lez07-grafico}, il grafico
 della nuova funzione è
 \[
-  G(b\varphi)
-  =\{(x,b\varphi(x)):x\in A\}.
+  G(b\varphi)=\{(x,b\varphi(x)):x\in A\}.
 \]
-A ogni punto \((x,\varphi(x))\in G(\varphi)\)
-corrisponde quindi il punto
+La corrispondenza tra i due grafici è quindi
 \[
-  (x,b\varphi(x))
+  (x,\varphi(x))\longmapsto(x,b\varphi(x)).
 \]
-del grafico di \(b\varphi\). L'ascissa rimane
-invariata, mentre l'ordinata viene moltiplicata
-per \(b\).
+L'ascissa rimane invariata, mentre l'ordinata
+viene moltiplicata per \(b\).
 
 La distanza di un punto dall'asse delle ascisse
 passa da \(|\varphi(x)|\) a
@@ -803,30 +794,18 @@ con \(x_0\ne3\), non lo è.
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Per \(x_0\in(1,2]\), la costruzione effettuata
-nella dimostrazione dell'
-\cref{ex:lez07-accumulazione-intervallo}
-fornisce, per ogni \(\delta>0\), un elemento
-\(a\in A\) tale che
-\[
-  0<|a-x_0|<\delta.
-\]
-Pertanto \(x_0\in A'\).
-
-Per \(x_0>2\), con \(x_0\ne3\), scegliendo
-\[
-  \delta=
-  \frac12\min\{x_0-2,|x_0-3|\}
-\]
-si ottiene invece
-\(D(x_0,\delta)\cap A=\varnothing\),
-quindi \(x_0\notin A'\).
+Nella dimostrazione dell'\cref{ex:lez07-accumulazione-intervallo},
+per ogni \(x_0\in(1,2]\) e ogni \(\delta>0\)
+è stato costruito un elemento \(a\in A\) tale che
+\(0<|a-x_0|<\delta\). Per \(x_0>2\), con
+\(x_0\ne3\), è stato invece individuato un
+intorno disgiunto da \(A\). Le conclusioni
+seguono quindi dalla \cref{def:lez07-accumulazione}.
 \end{proof}
 
 \begin{exercise}[Variante con estremi inclusi]
 \label{ex:lez07-accumulazione-chiuso}
-Ripetere la verifica dell'
-\cref{ex:lez07-verifica-accumulazione}
+Ripetere la verifica dell'\cref{ex:lez07-verifica-accumulazione}
 per l'insieme
 \[
   B=[1,2]\cup\{3\}
@@ -862,4 +841,3 @@ modifica la loro appartenenza all'insieme,
 ma non la loro proprietà di essere punti
 di accumulazione.
 \end{proof}
-
