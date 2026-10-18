@@ -38,6 +38,7 @@ Use the shared environments according to their meaning:
 | Environment | Use |
 |---|---|
 | `definition` | A precise term or concept |
+| `axiom` | A foundational assumption |
 | `theorem`, `proposition`, `lemma`, `corollary` | Formal mathematical results |
 | `proof` | A proof of a stated result |
 | `example` | A worked application or illustration |

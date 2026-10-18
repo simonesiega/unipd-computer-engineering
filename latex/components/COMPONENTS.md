@@ -35,7 +35,7 @@ Courses load the [document class](../../docs/guides/reference/unipd-notes-class.
 | `cover` | `\makecoursecover`, using the document's metadata. |
 | `diagrams` | `unipd/...` TikZ and CircuitikZ styles for graphs, automata, flowcharts, architecture, UML, and circuits. |
 | `document-structure` | Heading hierarchy, numbering, and `\courseappendices`. |
-| `environments` | Definitions, results, proofs, examples, remarks, warnings, exercises, and solutions. |
+| `environments` | Definitions, axioms, results, proofs, examples, remarks, warnings, exercises, and solutions. |
 | `figures-tables` | Figures, tables, captions, `L`/`C` columns, `\figuresource`, and `\tablesource`. |
 | `front-back-matter` | `coursepreface`, `revisionhistory`, `\revision`, `\printcourselists`, and front/main-matter transitions. |
 | `glossary` | `\newcourseterm`, `\newcourseacronym`, `\gls`, and `\printcourseglossary`, without an external indexing step. |
