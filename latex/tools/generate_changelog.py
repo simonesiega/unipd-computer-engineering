@@ -136,7 +136,7 @@ def reset_baseline(root: Path) -> str:
     baseline = run_git(root, "rev-parse", "HEAD").strip()
     if COMMIT_SHA.fullmatch(baseline) is None:
         raise ValueError(f"Git returned an invalid HEAD commit ID: {baseline!r}")
-    ensure_preserved_directory(root / CHANGELOG_DIRECTORY)
+    (root / CHANGELOG_DIRECTORY).mkdir(parents=True, exist_ok=True)
     baseline_path(root).write_text(baseline + "\n", encoding="utf-8", newline="\n")
     return baseline
 
@@ -291,10 +291,12 @@ def discover_repository_url(root: Path) -> str | None:
 
 
 def ensure_preserved_directory(path: Path) -> None:
-    """Create a directory and its tracked empty-directory placeholder."""
+    """Keep a tracked placeholder only when the directory is otherwise empty."""
     path.mkdir(parents=True, exist_ok=True)
     keep_file = path / ".gitkeep"
-    if not keep_file.exists():
+    if any(entry != keep_file for entry in path.iterdir()):
+        keep_file.unlink(missing_ok=True)
+    elif not keep_file.exists():
         keep_file.write_text("", encoding="utf-8", newline="\n")
 
 
@@ -305,11 +307,11 @@ def write_changelogs(
 ) -> None:
     """Synchronize generated files and all required placeholder directories."""
     changelog_root = root / CHANGELOG_DIRECTORY
-    ensure_preserved_directory(changelog_root)
+    changelog_root.mkdir(parents=True, exist_ok=True)
     for year in YEARS:
         ensure_preserved_directory(root / year)
         year_directory = changelog_root / year
-        ensure_preserved_directory(year_directory)
+        year_directory.mkdir(parents=True, exist_ok=True)
 
         expected = {
             year_directory / f"{slug}.md"
@@ -328,6 +330,10 @@ def write_changelogs(
             encoding="utf-8",
             newline="\n",
         )
+
+    for year in YEARS:
+        ensure_preserved_directory(changelog_root / year)
+    ensure_preserved_directory(changelog_root)
 
 
 def parse_arguments() -> argparse.Namespace:

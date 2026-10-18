@@ -217,6 +217,30 @@ class ChangelogGenerationTests(unittest.TestCase):
         self.assertIn(("1", "old-course"), histories)
         self.assertIn(("2", "new-course"), histories)
 
+    def test_placeholders_follow_directory_contents(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            course = root / "1" / "example"
+            course.mkdir(parents=True)
+            write_changelogs(root, {}, None)
+            histories = build_course_histories(parse_history(
+                f"{RECORD_SEPARATOR}{'a' * 40}{FIELD_SEPARATOR}"
+                f"2026-08-01T09:00:00Z{FIELD_SEPARATOR}Create course\n\n"
+                "A\t1/example/main.tex\n"
+            ))
+
+            for _ in range(2):
+                write_changelogs(root, histories, None)
+                self.assertFalse((root / "1" / ".gitkeep").exists())
+                self.assertFalse((root / "CHANGELOG" / ".gitkeep").exists())
+                self.assertFalse((root / "CHANGELOG" / "1" / ".gitkeep").exists())
+                self.assertTrue((root / "CHANGELOG" / "1" / "example.md").is_file())
+                self.assertTrue((root / "CHANGELOG" / "2" / ".gitkeep").is_file())
+
+            write_changelogs(root, {}, None)
+            self.assertTrue((root / "CHANGELOG" / "1" / ".gitkeep").is_file())
+            self.assertFalse((root / "CHANGELOG" / "1" / "example.md").exists())
+
     def test_required_empty_directories_are_preserved(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -226,7 +250,7 @@ class ChangelogGenerationTests(unittest.TestCase):
             for year in ("1", "2", "3"):
                 self.assertTrue((root / year / ".gitkeep").is_file())
                 self.assertTrue((root / "CHANGELOG" / year / ".gitkeep").is_file())
-            self.assertTrue((root / "CHANGELOG" / ".gitkeep").is_file())
+            self.assertFalse((root / "CHANGELOG" / ".gitkeep").exists())
 
 
 if __name__ == "__main__":

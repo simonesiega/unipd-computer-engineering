@@ -93,7 +93,8 @@ These tests exercise Git-history parsing and generated course histories, includi
 | `test_shallow_repository_is_rejected_before_reading_history` | Refuses incomplete history before attempting changelog generation. |
 | `test_history_is_split_by_course_and_includes_every_changed_file` | Groups commits by course, retains all relevant files, and renders date groups, statuses, and commit links. |
 | `test_rename_is_recorded_in_both_course_histories` | Attributes a cross-course rename to both its old and new course. |
-| `test_required_empty_directories_are_preserved` | Creates `.gitkeep` placeholders for course years and changelog directories even with no history. |
+| `test_placeholders_follow_directory_contents` | Removes unnecessary placeholders, remains stable on repeated generation, and restores placeholders when stale changelogs are removed. |
+| `test_required_empty_directories_are_preserved` | Preserves empty course years and changelog year directories without adding a placeholder to the populated changelog root. |
 
 ## Course creation
 
