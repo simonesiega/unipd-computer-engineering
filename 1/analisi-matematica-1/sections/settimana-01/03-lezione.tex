@@ -113,11 +113,6 @@ Questa proprietà viene qui enunciata senza dimostrazione.
 \section{Numeri reali}
 \label{sec:lez03-numeri-reali}
 
-Gli insiemi numerici introdotti nelle lezioni precedenti soddisfano
-le inclusioni
-\[
-  \N\subseteq\Z\subseteq\Q.
-\]
 Come mostrato nel \cref{thm:irrazionalita-radice-due},
 l'equazione \(x^2=2\) non ammette soluzioni razionali.
 Si considera quindi l'insieme dei numeri reali \(\R\),
@@ -140,9 +135,8 @@ Siano \(A,B\subseteq\R\) due insiemi non vuoti. Si dice che
   \qquad\forall a\in A,\ \forall b\in B.
 \]
 
-\phantomsection
+\begin{axiom}[Separazione]
 \label{ass:assioma-separazione}
-\textbf{Assioma di separazione.}
 Se \(A,B\subseteq\R\) sono non vuoti e separati, allora esiste
 almeno un numero reale \(\lambda\) tale che
 \[
@@ -151,10 +145,10 @@ almeno un numero reale \(\lambda\) tale che
 \]
 Il numero \(\lambda\) si dice \emph{elemento separatore} di
 \(A\) e \(B\).
+\end{axiom}
 
-L'assioma esprime una proprietà di completezza dei numeri reali.
-Le altre formulazioni equivalenti non vengono considerate in
-questa sede.
+Non si considerano qui altre formulazioni equivalenti
+della completezza.
 
 \section{Proprietà archimedea}
 \label{sec:lez03-proprieta-archimedea}
@@ -237,29 +231,22 @@ Per ogni \(x\in\R\) esiste un unico \(n\in\Z\) tale che
 La dimostrazione della \cref{prop:parte-intera} non viene
 sviluppata in questa sede.
 
-L'intero \(n\) individuato dalla \cref{prop:parte-intera} è
-il massimo intero minore o uguale a \(x\) e prende il nome di
-\emph{parte intera} di \(x\).
+L'intero della \cref{prop:parte-intera} prende il nome
+di \emph{parte intera}.
 
 \begin{definition}[Funzione floor]
 \label{def:floor}
 Per ogni \(x\in\R\), si definisce
 \[
   \lfloor x\rfloor:=n,
+  \qquad n\le x<n+1,
 \]
-dove \(n\in\Z\) è l'unico intero tale che
-\[
-  n\le x<n+1.
-\]
-Equivalentemente,
-\[
-  \lfloor x\rfloor\le x<\lfloor x\rfloor+1.
-\]
+dove \(n\in\Z\) è l'unico intero che soddisfa
+la disuguaglianza. In particolare,
+\(\lfloor x\rfloor\le x<\lfloor x\rfloor+1\).
 \end{definition}
 
-La funzione floor associa a ogni numero reale il più grande
-intero che non lo supera. Utilizzando la notazione degli
-intervalli, formalizzata nella \cref{sec:lez04-intervalli},
+Con la notazione degli intervalli della \cref{sec:lez04-intervalli},
 per ogni \(n\in\Z\) si ha
 \[
   \lfloor x\rfloor=n
@@ -306,19 +293,14 @@ con \(m\in\Z\) unico.
 Per ogni \(x\in\R\), si definisce
 \[
   \lceil x\rceil:=m,
+  \qquad m-1<x\le m,
 \]
-dove \(m\in\Z\) è l'unico intero tale che
-\[
-  m-1<x\le m.
-\]
-Equivalentemente,
-\[
-  \lceil x\rceil-1<x\le\lceil x\rceil.
-\]
+dove \(m\in\Z\) è l'unico intero che soddisfa
+la disuguaglianza. In particolare,
+\(\lceil x\rceil-1<x\le\lceil x\rceil\).
 \end{definition}
 
-La funzione ceiling associa a ogni numero reale il più piccolo
-intero maggiore o uguale a esso. Per ogni \(m\in\Z\) si ha
+Per ogni \(m\in\Z\) si ha
 \[
   \lceil x\rceil=m
   \quad\Longleftrightarrow\quad
@@ -328,6 +310,8 @@ intero maggiore o uguale a esso. Per ogni \(m\in\Z\) si ha
 \]
 In particolare, \(\lceil x\rceil=1\) per ogni
 \(x\in(0,1]\).
+
+\clearpage
 
 \begin{figure}[htbp]
   \centering
@@ -350,10 +334,10 @@ In particolare, \(\lceil x\rceil=1\) per ogni
 {Cenno su \(\sqrt{2}\in\R\setminus\Q\)}
 \label{sec:lez03-completezza-radice-due}
 
-Nel \cref{thm:irrazionalita-radice-due} è stato dimostrato che
-l'equazione \(x^2=2\) non ammette soluzioni razionali.
-Si illustra ora come l'assioma di separazione permetta di
-motivare l'esistenza di una soluzione reale non negativa.
+Si illustra come l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+motivi l'esistenza di una soluzione reale non negativa di
+\(x^2=2\), già esclusa da \(\Q\) nel
+\cref{thm:irrazionalita-radice-due}.
 
 Si considerino gli insiemi
 \[

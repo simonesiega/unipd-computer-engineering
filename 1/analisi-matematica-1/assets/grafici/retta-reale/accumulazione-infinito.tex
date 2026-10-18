@@ -1,0 +1,14 @@
+\begin{tikzpicture}[unipd/diagram]
+  \draw[->,unipd-muted] (-.8,0) -- (7.5,0) node[right] {\(x\)};
+  \draw[very thick,unipd-primary,<-] (-.65,0) -- (2.7,0);
+  \draw[unipd-primary,fill=white,thick] (2.7,0) circle (2.4pt);
+  \draw[very thick,unipd-accent,->] (4.4,0) -- (7.25,0);
+  \draw[unipd-accent,fill=white,thick] (4.4,0) circle (2.4pt);
+  \draw[unipd-muted] (2.7,-.1) -- (2.7,.1);
+  \draw[unipd-muted] (4.4,-.1) -- (4.4,.1);
+  \node[below=6pt] at (2.7,0) {\(\lambda\)};
+  \node[below=6pt] at (4.4,0) {\(b\)};
+  \node[above=7pt,text=unipd-primary] at (.9,0) {\(A\)};
+  \node[above=7pt,text=unipd-accent] at (5.8,0) {\((b,+\infty)\)};
+  \node[below=21pt] at (3.55,0) {\(A\cap(b,+\infty)=\varnothing\)};
+\end{tikzpicture}

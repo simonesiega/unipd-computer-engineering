@@ -4,9 +4,8 @@
 \section{Disuguaglianza di Bernoulli}
 \label{sec:lez05-bernoulli}
 
-La disuguaglianza di Bernoulli costituisce un'applicazione del
-\cref{thm:principio-induzione} e permette di confrontare la potenza
-\((1+x)^n\) con l'espressione \(1+nx\).
+La disuguaglianza di Bernoulli si dimostra tramite il
+\cref{thm:principio-induzione}.
 
 \begin{theorem}[Disuguaglianza di Bernoulli]
 \label{thm:disuguaglianza-bernoulli}
@@ -64,8 +63,7 @@ Per ogni \(a,b\in\R\) e per ogni \(n\in\N\) vale
 Si adotta la convenzione \(t^0=1\), anche per \(t=0\).
 \end{theorem}
 
-La sommatoria comprende \(n+1\) termini, corrispondenti agli indici
-\(k=0,1,\ldots,n\). Per \(n\ge4\), lo sviluppo assume la forma
+Per \(n\ge4\), lo sviluppo assume la forma
 \[
   (a+b)^n
   =b^n+nab^{n-1}+\cdots+na^{n-1}b+a^n.
@@ -86,9 +84,8 @@ nell'\cref{ex:tutorato01-binomio-newton} del primo tutorato.
 \section{Esercizi sul fattoriale}
 \label{sec:lez05-esercizi-fattoriale}
 
-La definizione ricorsiva del fattoriale, introdotta nella
-\cref{def:fattoriale}, permette di confrontare \(n!\) con
-alcune potenze mediante il principio di induzione.
+Si applica il \cref{thm:principio-induzione} alla
+\cref{def:fattoriale}.
 
 \begin{exercise}[Confronto tra fattoriale e potenza di \(2\)]
 \label{ex:fattoriale-maggiore-due-n}
@@ -131,8 +128,8 @@ Poiché \(n+1\ge5>2\), si ha inoltre
 \]
 Pertanto \((n+1)!>2^{n+1}\), e il passo induttivo è verificato.
 
-Per il principio di induzione, la disuguaglianza vale per ogni
-\(n\ge4\).
+Per il \cref{thm:principio-induzione}, la disuguaglianza
+vale per ogni \(n\ge4\).
 \end{proof}
 
 \begin{exercise}[Confronto tra fattoriale e quadrato]
@@ -172,26 +169,18 @@ segue \(n^2>n+1\). Pertanto
 \[
   (n+1)!>(n+1)n^2>(n+1)^2.
 \]
-Il passo induttivo è verificato e, per il principio di induzione,
-la disuguaglianza vale per ogni \(n\ge4\).
+Il passo induttivo è verificato. Per il
+\cref{thm:principio-induzione}, la disuguaglianza
+vale per ogni \(n\ge4\).
 \end{proof}
 
 \section{Esercizi sugli estremi}
 \label{sec:lez05-esercizi-estremi}
 
-Le \cref{def:estremo-inferiore,def:estremo-superiore} permettono di
-confrontare gli estremi di insiemi legati da un'inclusione e di
-studiarne il comportamento rispetto al cambiamento di segno.
-Nei casi non limitati si adottano le convenzioni della
-\cref{sec:lez04-estremi}, interpretando i confronti nell'ordinamento
-esteso, per il quale
-\[
-  -\infty<t<+\infty
-  \qquad\forall t\in\R.
-\]
-I simboli \(\pm\infty\) non rappresentano numeri reali;
-sono invece elementi della \emph{retta reale estesa}
-(\cref{def:lez07-retta-estesa}).
+Negli esercizi si utilizzano le
+\cref{def:estremo-inferiore,def:estremo-superiore} e le
+convenzioni per gli estremi infiniti della \cref{sec:lez04-estremi},
+con l'ordinamento della \cref{def:lez07-retta-estesa}.
 
 \begin{exercise}[Estremi e inclusione]
 \label{ex:estremi-inclusione}
@@ -211,13 +200,10 @@ L'appartenenza \(\sup A\in B\) non è garantita, neppure quando
   A=(0,1),\qquad B=(0,1)\cup\{2\}.
 \]
 Si ha \(A\subseteq B\), ma \(\sup A=1\notin B\).
-Infatti, \(1\) è un maggiorante di \(A\) e, per ogni
-\(\varepsilon>0\), il numero
-\[
-  \bar a=1-\min\left\{\frac{\varepsilon}{2},\frac12\right\}
-\]
-appartiene ad \(A\) e soddisfa \(\bar a>1-\varepsilon\).
-Per il \cref{thm:caratterizzazione-sup}, si ha dunque \(\sup A=1\).
+Per ogni \(\varepsilon>0\), il numero
+\(\bar a=1-\min\{\varepsilon/2,1/2\}\) appartiene ad \(A\)
+e soddisfa \(1-\varepsilon<\bar a<1\). Quindi
+\(\sup A=1\) per il \cref{thm:caratterizzazione-sup}.
 Se \(A\) non è superiormente limitato, \(\sup A=+\infty\)
 non può appartenere a \(B\subseteq\R\).
 
@@ -258,11 +244,8 @@ si conclude
 
 \begin{exercise}[Estremi dell'insieme degli opposti]
 \label{ex:estremi-insieme-opposto}
-Sia \(A\subseteq\R\) non vuoto. Con la notazione introdotta nella
-\cref{sec:lez02-numeri-interi}, si pone
-\[
-  -A=\{-a:a\in A\}.
-\]
+Sia \(A\subseteq\R\) non vuoto e si consideri l'insieme
+\(-A\) definito nella \cref{sec:lez02-numeri-interi}.
 Dimostrare che
 \[
   \inf(-A)=-\sup A,
@@ -274,14 +257,9 @@ Per gli estremi infiniti si adottano le convenzioni
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-L'insieme \(-A\) è non vuoto, poiché \(A\) lo è.
-Come già osservato per gli interi nella
-\cref{prop:compatibilita-ordine-interi}, il cambiamento di segno
-inverte il verso delle disuguaglianze. La stessa proprietà vale
-per i reali, poiché \(a\le t\) equivale a \(t-a\ge0\), e dunque
-\[
-  a\le t\quad\Longleftrightarrow\quad -a\ge-t.
-\]
+Poiché \(A\) è non vuoto, lo è anche \(-A\). Si usa inoltre
+la proprietà \(a\le t\Longleftrightarrow-a\ge-t\),
+analoga alla \cref{prop:compatibilita-ordine-interi}.
 
 \emph{Prima identità.}
 Si supponga che \(A\) sia superiormente limitato e si ponga

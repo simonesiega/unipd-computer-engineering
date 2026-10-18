@@ -9,10 +9,6 @@ opposti dei suoi elementi:
 \[
   -A:=\{-a:a\in A\}.
 \]
-Poiché \(0\in\N\), l'insieme \(-\N\) contiene lo zero e gli opposti
-dei naturali positivi. L'unione di \(\N\) e \(-\N\) permette quindi
-di introdurre i numeri interi.
-
 \begin{definition}[Numeri interi]
 \label{def:numeri-interi}
 L'insieme dei \emph{numeri interi} è
@@ -28,11 +24,8 @@ Si assume l'\emph{assioma di esistenza e unicità dell'opposto}: per ogni
 \]
 Tale elemento si indica con \(-m\) ed è detto \emph{opposto} di \(m\).
 
-L'ordinamento dei naturali, introdotto nella
-\cref{sec:lez01-ordine-naturali}, si estende agli interi. La
-moltiplicazione per un intero positivo conserva il verso delle
-disuguaglianze, mentre la moltiplicazione per un intero negativo
-lo inverte.
+L'ordinamento della \cref{sec:lez01-ordine-naturali} si estende
+a \(\Z\), con la seguente compatibilità rispetto al prodotto.
 
 \begin{proposition}[Compatibilità dell'ordine in \(\Z\)]
 \label{prop:compatibilita-ordine-interi}
@@ -44,9 +37,8 @@ Per ogni \(a,b,c\in\Z\), se \(a\le b\), allora
 \]
 \end{proposition}
 
-Per \(c=0\) si ha invece \(ac=bc=0\). La dimostrazione della
-\cref{prop:compatibilita-ordine-interi} non viene sviluppata
-in questa sede.
+La dimostrazione della \cref{prop:compatibilita-ordine-interi}
+non viene sviluppata in questa sede.
 
 Si consideri ora il problema di determinare, per \(a\in\Z\), un
 intero \(b\) tale che
@@ -72,10 +64,9 @@ Gli unici interi che ammettono un inverso moltiplicativo in
 Siano \(a,b\in\Z\) tali che \(ab=1\). Il prodotto è positivo,
 quindi \(a\) e \(b\) hanno lo stesso segno.
 
-Se entrambi sono positivi, si ha \(a,b\ge1\). Poiché \(ab=1\),
-necessariamente \(a=b=1\). Se entrambi sono negativi, gli interi
-positivi \(-a\) e \(-b\) soddisfano \((-a)(-b)=1\), da cui
-\(a=b=-1\).
+Se \(a,b>0\), essendo \(a,b\ge1\) e \(ab=1\), segue
+\(a=b=1\). Se \(a,b<0\), gli interi positivi \(-a\) e
+\(-b\) soddisfano \((-a)(-b)=1\), da cui \(a=b=-1\).
 
 Viceversa, \(1\cdot1=1\) e \((-1)(-1)=1\), quindi entrambi gli
 interi indicati ammettono un inverso moltiplicativo in \(\Z\).
@@ -84,18 +75,11 @@ interi indicati ammettono un inverso moltiplicativo in \(\Z\).
 \section{Numeri razionali}
 \label{sec:lez02-numeri-razionali}
 
-La \cref{prop:inversi-interi} mostra che in \(\Z\) soltanto
-\(-1\) e \(1\) ammettono un inverso moltiplicativo. Si introduce
-pertanto un insieme numerico più ampio, nel quale sia possibile
-rappresentare i rapporti tra interi con denominatore non nullo.
+La \cref{prop:inversi-interi} motiva l'introduzione di
+un insieme numerico che comprenda i rapporti tra interi
+con denominatore non nullo.
 
-Per due insiemi \(A\) e \(B\), la \emph{differenza insiemistica}
-è definita da
-\[
-  A\setminus B:=\{x\in A:x\notin B\}.
-\]
-In particolare, \(\N\setminus\{0\}\) è l'insieme dei naturali
-strettamente positivi.
+\clearpage
 
 \begin{definition}[Numeri razionali]
 \label{def:numeri-razionali}
@@ -147,11 +131,6 @@ dove \(\Q[x]\) indica l'insieme dei polinomi nella variabile
 anche espresso nella forma \(\sqrt{2}\notin\Q\): l'esistenza
 della radice quadrata reale non negativa di \(2\) sarà giustificata
 nella \cref{sec:lez03-completezza-radice-due}.
-
-Si richiamano anzitutto le nozioni di numero pari e dispari,
-necessarie per la dimostrazione.
-
-\clearpage
 
 \begin{definition}[Numeri pari e dispari]
 \label{def:lez02-pari-dispari}
@@ -247,9 +226,7 @@ Un numero naturale \(p>1\) si dice \emph{primo} se i suoi unici
 divisori positivi sono \(1\) e \(p\).
 \end{definition}
 
-Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è,
-poiché è divisibile anche per \(2\). Il numero \(1\) non è primo,
-come stabilito dalla definizione.
+Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è.
 
 \begin{proposition}[Irrazionalità della radice di un numero primo]
 \label{prop:irrazionalita-radice-primo}
@@ -283,14 +260,8 @@ dalle condizioni
 \]
 \end{definition}
 
-Applicando la \cref{def:fattoriale}, si ottiene
-\begin{align*}
-  0!&=1,\\
-  1!&=1\cdot0!=1,\\
-  2!&=2\cdot1!=2,\\
-  3!&=3\cdot2!=3\cdot2\cdot1.
-\end{align*}
-Per \(n\ge1\), il fattoriale ammette anche la rappresentazione
+Per esempio, \(0!=1\), \(1!=1\), \(2!=2\) e \(3!=3\cdot2!=6\).
+Per \(n\ge1\), la \cref{def:fattoriale} equivale al prodotto
 \[
   n!=1\cdot2\cdot\ldots\cdot n=\prod_{i=1}^{n}i.
 \]
@@ -304,18 +275,12 @@ Per ogni \(n\in\N\) vale
 \end{proposition}
 
 \begin{proof}
-Si consideri l'insieme
+Per \(n=0\) vale \(0!=1\ge0\). Per \(n\ge1\) si applica
+il \cref{thm:principio-induzione}, con valore iniziale \(p=1\),
+all'insieme
 \[
-  A:=\{n\in\N:n!\ge n\}.
+  A:=\{n\in\N:n\ge1\text{ e }n!\ge n\}.
 \]
-Per \(n=0\), dalla \cref{def:fattoriale} si ha
-\[
-  0!=1\ge0,
-\]
-quindi \(0\in A\).
-
-Si procede per induzione su \(n\ge1\), applicando il
-\cref{thm:principio-induzione} con valore iniziale \(p=1\).
 
 \emph{Passo base.}
 Per \(n=1\), si ha
@@ -337,7 +302,6 @@ rispetto alla moltiplicazione per un numero positivo
 poiché \(n+1>0\) e \(n\ge1\). Il passo induttivo è quindi
 verificato.
 
-Per il principio di induzione, la disuguaglianza vale per ogni
-\(n\ge1\). Poiché è verificata anche per \(n=0\), si conclude
-che \(A=\N\), e dunque la tesi.
+Per il \cref{thm:principio-induzione}, la disuguaglianza vale
+per ogni \(n\ge1\); unita al caso \(n=0\), dà la tesi.
 \end{proof}

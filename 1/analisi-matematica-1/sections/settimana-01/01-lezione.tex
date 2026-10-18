@@ -21,16 +21,15 @@ coppia ordinata di numeri naturali un numero naturale:
   \cdot\colon\N\times\N\longrightarrow\N,
   \qquad (a,b)\longmapsto ab.
 \]
-L'insieme \(\N\times\N\) è l'insieme di partenza di entrambe
-le operazioni, mentre \(\N\) è il loro insieme di arrivo.
+La notazione \(\N\times\N\) indica le coppie ordinate
+di naturali (\cref{def:lez06-prodotto-cartesiano}).
 
 Le proprietà fondamentali delle due operazioni vengono assunte come
 \emph{assiomi}, senza dimostrazione.
 
-La somma è \emph{commutativa}, ossia l'ordine degli addendi
-non modifica il risultato, e \emph{associativa}, ossia il
-raggruppamento degli addendi non modifica la somma.
-Per ogni \(a,b,c\in\N\) si ha
+La somma è \emph{commutativa} (l'ordine degli addendi è irrilevante)
+e \emph{associativa} (lo è il raggruppamento): per ogni
+\(a,b,c\in\N\) si ha
 \[
   a+b=b+a,
   \qquad
@@ -43,10 +42,8 @@ caratterizzato dalla proprietà
 \]
 Tale elemento è \(e_0=0\).
 
-Analogamente, il prodotto è \emph{commutativo} e
-\emph{associativo}: l'ordine dei fattori e il loro
-raggruppamento non modificano il risultato.
-Per ogni \(a,b,c\in\N\) vale
+Anche il prodotto è commutativo e associativo: per ogni
+\(a,b,c\in\N\) vale
 \[
   ab=ba,
   \qquad
@@ -82,9 +79,8 @@ Per \(a,b\in\N\), si pone
 \]
 \end{definition}
 
-La condizione \(a\le b\) esprime la possibilità di ottenere \(b\)
-sommando ad \(a\) un opportuno numero naturale. La relazione
-soddisfa le seguenti proprietà.
+La relazione della \cref{def:ordine-naturali} soddisfa le seguenti
+proprietà.
 
 \emph{Riflessività.}
 Per ogni \(a\in\N\),
@@ -140,9 +136,7 @@ Inoltre, se \(c>0\), vale
 \]
 \end{proposition}
 
-La somma di uno stesso numero naturale preserva quindi
-l'ordinamento, così come il prodotto per un numero naturale
-positivo. Per \(c=0\), si ha invece \(ac=bc=0\).
+Per \(c=0\) vale comunque \(ac=bc=0\).
 La dimostrazione della \cref{prop:compatibilita-ordine}
 non viene sviluppata in questa sede.
 
@@ -191,12 +185,8 @@ una proposizione \(C\) insieme alla sua negazione \(\neg C\).
 \section{Principio di induzione}
 \label{sec:lez01-induzione}
 
-Il principio di induzione permette di dimostrare che una proprietà
-vale per tutti i numeri naturali a partire da un valore iniziale
-\(p\). Il procedimento consiste nel verificarla per \(p\) e nel
-mostrare che la sua validità per un generico \(n\ge p\) implica
-quella per \(n+1\). La proprietà passa così da \(p\) a
-\(p+1\), poi a \(p+2\) e a tutti i naturali successivi.
+Il principio di induzione consente di dimostrare una proprietà
+per tutti i naturali a partire da un valore iniziale \(p\).
 
 \begin{theorem}[Principio di induzione]
 \label{thm:principio-induzione}
@@ -212,10 +202,8 @@ allora
 \]
 \end{theorem}
 
-La prima condizione, \(p\in A\), costituisce il \emph{passo base}.
-La seconda, \(n\in A\Longrightarrow n+1\in A\), costituisce
-il \emph{passo induttivo}: permette di estendere l'appartenenza
-ad \(A\) da un naturale al suo successivo.
+Le due ipotesi sono dette rispettivamente \emph{passo base}
+e \emph{passo induttivo}.
 
 Per dimostrare che una proprietà \(P(n)\) vale per ogni
 \(n\ge p\), si considera l'insieme
@@ -240,7 +228,6 @@ Per ogni \(n\in\N\) con \(n\ge1\), vale
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
-La formula esprime la somma \(1+2+\cdots+n\) in funzione di \(n\).
 \end{example}
 
 \begin{proof}
@@ -263,10 +250,6 @@ Sia \(n\ge1\) e si supponga che valga l'ipotesi induttiva
 \[
   \sum_{i=1}^{n}i=\frac{n(n+1)}2.
 \]
-Si deve dimostrare che la formula vale anche per \(n+1\), ossia
-\[
-  \sum_{i=1}^{n+1}i=\frac{(n+1)(n+2)}2.
-\]
 Separando l'ultimo addendo e applicando l'ipotesi induttiva,
 si ottiene
 \begin{align*}
@@ -278,16 +261,9 @@ si ottiene
 \end{align*}
 Pertanto \(n\in A\Longrightarrow n+1\in A\).
 
-Essendo verificati il passo base e il passo induttivo,
-per il \cref{thm:principio-induzione} si conclude che
-\[
-  \{n\in\N:n\ge1\}\subseteq A,
-\]
-e dunque
-\[
-  \sum_{i=1}^{n}i=\frac{n(n+1)}2
-  \qquad\forall n\in\N,\ n\ge1.
-\]
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\{n\in\N:n\ge1\}\), ossia che la formula
+vale per ogni \(n\ge1\).
 \end{proof}
 
 \begin{example}[Somma geometrica finita]
@@ -296,20 +272,9 @@ Sia \(q\in\R\setminus\{1\}\). Per ogni \(n\in\N\) vale
 \[
   \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
 \]
-Con la convenzione \(q^0=1\), anche per \(q=0\), il membro
-sinistro rappresenta la somma
-\[
-  1+q+q^2+\cdots+q^n.
-\]
-Per \(q=0\), il termine con \(k=0\) vale \(1\) per convenzione,
-mentre tutti gli eventuali termini con \(k\ge1\) sono nulli.
-Pertanto, per ogni \(n\in\N\),
-\[
-  \sum_{k=0}^{n}0^k=1
-  =\frac{1-0^{n+1}}{1-0}.
-\]
-Il caso \(q=1\) è escluso perché annulla il denominatore;
-in tal caso si ha direttamente
+Si adotta la convenzione \(q^0=1\) anche per \(q=0\);
+in particolare, \(\sum_{k=0}^n0^k=1\) e la formula resta valida.
+Per \(q=1\), escluso perché annulla il denominatore, si ha
 \[
   \sum_{k=0}^{n}1^k=n+1.
 \]
@@ -337,10 +302,6 @@ Sia \(n\in\N\) e si supponga che valga l'ipotesi induttiva
 \[
   \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
 \]
-La tesi per il naturale successivo è
-\[
-  \sum_{k=0}^{n+1}q^k=\frac{1-q^{n+2}}{1-q}.
-\]
 Separando l'ultimo addendo e applicando l'ipotesi induttiva,
 si ottiene
 \begin{align*}
@@ -348,14 +309,12 @@ si ottiene
     &=\sum_{k=0}^{n}q^k+q^{n+1}\\
     &=\frac{1-q^{n+1}}{1-q}+q^{n+1}\\
     &=\frac{1-q^{n+1}+q^{n+1}(1-q)}{1-q}\\
-    &=\frac{1-q^{n+1}+q^{n+1}-q^{n+2}}{1-q}\\
     &=\frac{1-q^{n+2}}{1-q}.
 \end{align*}
 Pertanto \(n\in A\Longrightarrow n+1\in A\).
 
-Essendo verificati il passo base e il passo induttivo,
-per il \cref{thm:principio-induzione} si conclude che
-\(A=\N\). Poiché \(q\in\R\setminus\{1\}\) era arbitrario,
-la formula vale per ogni \(n\in\N\) e per ogni
-\(q\in\R\setminus\{1\}\).
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\N\), ossia che la formula vale per ogni \(n\in\N\).
+Poiché \(q\in\R\setminus\{1\}\) era arbitrario,
+essa vale per ogni \(q\in\R\setminus\{1\}\).
 \end{proof}

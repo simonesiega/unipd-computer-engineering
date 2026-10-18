@@ -1,0 +1,525 @@
+\chapter[Lezione 8 --- 15 ottobre 2026]{Lezione 8: punti isolati, accumulazione all'infinito e limiti di funzioni}
+\label{chap:lezione-08}
+
+\section{Punti isolati e accumulazione all'infinito}
+\label{sec:lez08-accumulazione-infinito}
+
+La \cref{def:lez07-accumulazione} si completa introducendo
+i punti isolati e l'accumulazione nei punti infiniti della
+\cref{def:lez07-retta-estesa}.
+
+\subsection{Punti isolati}
+\label{sec:lez08-isolati}
+
+\begin{definition}[Punto isolato]
+\label{def:lez08-isolato}
+Sia \(A\subseteq\R\) non vuoto. Un punto \(x_0\in A\)
+si dice \emph{isolato} in \(A\) se esiste \(\delta>0\)
+tale che
+\[
+  D(x_0,\delta)\cap A=\{x_0\}.
+\]
+\end{definition}
+
+Negando la condizione della \cref{def:lez07-accumulazione},
+per ogni \(x_0\in\R\) si ottiene
+\[
+  x_0\notin A'
+  \quad\Longleftrightarrow\quad
+  \exists\delta>0:
+  \bigl(D(x_0,\delta)\cap A\bigr)
+  \setminus\{x_0\}=\varnothing.
+\]
+Se \(x_0\in A\), questa condizione equivale alla
+\cref{def:lez08-isolato}, poiché il centro appartiene
+a ogni suo intorno circolare. Si ottiene quindi, per ogni \(x_0\in A\), l'equivalenza
+\[
+  x_0\text{ è isolato in }A
+  \quad\Longleftrightarrow\quad
+  x_0\notin A'.
+\]
+L'ipotesi \(x_0\in A\) è essenziale: si confrontino i punti
+\(3\) e \(1\) nell'\cref{ex:lez07-accumulazione-intervallo}:
+il primo è isolato in \(A=(1,2)\cup\{3\}\),
+mentre il secondo è di accumulazione pur non appartenendo ad \(A\).
+
+\subsection{Punti di accumulazione infiniti}
+\label{sec:lez08-accumulazione-estesa}
+
+Gli intorni di \(+\infty\) e \(-\infty\), introdotti nella
+\cref{def:lez07-intorni-infinito}, permettono di estendere
+la \cref{def:lez07-accumulazione} ai punti infiniti. In questo
+caso non occorre escludere il centro dell'intorno, poiché
+\(+\infty\) e \(-\infty\) non sono numeri reali.
+
+\begin{definition}[Punti di accumulazione infiniti]
+\label{def:lez08-accumulazione-infinito}
+Sia \(A\subseteq\R\) non vuoto. Il simbolo \(+\infty\) si dice
+\emph{punto di accumulazione} di \(A\) se
+\[
+  \forall b\in\R,\qquad A\cap(b,+\infty)\ne\varnothing.
+\]
+Analogamente, \(-\infty\) si dice \emph{punto di accumulazione}
+di \(A\) se
+\[
+  \forall b\in\R,\qquad A\cap(-\infty,b)\ne\varnothing.
+\]
+\end{definition}
+
+Il collegamento con la \cref{def:limitatezza-superiore-inferiore}
+è dato dalla seguente proposizione.
+
+\begin{proposition}[Punti di accumulazione infiniti e limitatezza]
+\label{prop:lez08-accumulazione-limitatezza}
+Sia \(A\subseteq\R\) non vuoto. Allora:
+\begin{enumerate}
+  \item \(+\infty\) è un punto di accumulazione di \(A\) se e solo
+  se \(A\) non è superiormente limitato;
+  \item \(-\infty\) è un punto di accumulazione di \(A\) se e solo
+  se \(A\) non è inferiormente limitato.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Primo punto.}
+Se \(A\) è superiormente limitato, per la \cref{def:maggiorante}
+esiste \(\lambda\in\R\) tale che
+\[
+  a\le\lambda \qquad \forall a\in A.
+\]
+Scegliendo \(b=\lambda+1\), si ottiene
+\[
+  A\cap(b,+\infty)=\varnothing.
+\]
+Per la \cref{def:lez08-accumulazione-infinito},
+\(+\infty\) non è quindi di accumulazione.
+
+Viceversa, se \(+\infty\) non è di accumulazione,
+per la \cref{def:lez08-accumulazione-infinito}
+esiste \(b\in\R\) tale che
+\[
+  A\cap(b,+\infty)=\varnothing.
+\]
+Ne segue che \(a\le b\) per ogni \(a\in A\).
+Il numero \(b\) è dunque un maggiorante di \(A\),
+che risulta superiormente limitato.
+
+\emph{Secondo punto.}
+Se \(A\) è inferiormente limitato, per la \cref{def:minorante}
+esiste \(\mu\in\R\) tale che
+\[
+  \mu\le a \qquad \forall a\in A.
+\]
+Scegliendo \(b=\mu-1\), si ottiene
+\[
+  A\cap(-\infty,b)=\varnothing.
+\]
+Per la \cref{def:lez08-accumulazione-infinito},
+\(-\infty\) non è quindi di accumulazione.
+
+Viceversa, se \(-\infty\) non è di accumulazione,
+per la \cref{def:lez08-accumulazione-infinito}
+esiste \(b\in\R\) tale che
+\[
+  A\cap(-\infty,b)=\varnothing.
+\]
+Ne segue che \(b\le a\) per ogni \(a\in A\).
+Il numero \(b\) è dunque un minorante di \(A\),
+che risulta inferiormente limitato.
+\end{proof}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/accumulazione-infinito}
+  \caption{Un insieme \(A=(-\infty,\lambda)\) superiormente limitato
+  non interseca l'intorno \((b,+\infty)\) di \(+\infty\), con
+  \(b>\lambda\). Pertanto \(+\infty\) non è un suo punto di
+  accumulazione.}
+  \label{fig:lez08-accumulazione-infinito}
+\end{figure}
+
+La \cref{prop:lez08-accumulazione-limitatezza} non richiede
+l'esistenza di massimi o minimi: ad esempio,
+\((-\infty,\lambda)\) non ammette massimo
+(\cref{fig:lez08-accumulazione-infinito}).
+
+\section{Definizione generale di limite}
+\label{sec:lez08-limiti-definizione}
+
+Gli intorni della \cref{sec:lez07-intorni} e le nozioni di
+accumulazione introdotte nelle
+\cref{def:lez07-accumulazione,def:lez08-accumulazione-infinito}
+permettono ora di definire il limite di una funzione.
+
+\begin{definition}[Limite di una funzione]
+\label{def:lez08-limite}
+Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
+non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
+accumulazione per \(A\). Si dice che \(f\) \emph{ammette limite}
+\(\ell\in\overline{\R}\) per \(x\) che tende a \(x_0\),
+e si scrive
+\[
+  \lim_{x\to x_0}f(x)=\ell,
+\]
+se, per ogni intorno \(V_\ell\) di \(\ell\), esiste un intorno
+\(U_{x_0}\) di \(x_0\) tale che
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+\end{definition}
+
+Non è necessario che \(x_0\in A\); anche quando
+\(x_0\in A\), il valore \(f(x_0)\) non influisce sul limite.
+Per \(x_0=\pm\infty\), l'esclusione del centro è superflua
+poiché \(A\subseteq\R\).
+
+L'ordine dei quantificatori è essenziale: per \emph{ogni}
+intorno del valore limite deve esistere un intorno di
+\(x_0\) nel quale \emph{tutti} i valori di \(f\) nei
+punti ammessi del dominio, distinti da \(x_0\),
+appartengano all'intorno assegnato.
+
+\subsection{Limite finito in un punto reale}
+\label{sec:lez08-limite-finito}
+
+Nel caso \(x_0,\ell\in\R\), per la \cref{def:lez07-intorno},
+si possono scegliere gli intorni circolari
+\[
+  V_\ell=(\ell-\varepsilon,\ell+\varepsilon),
+  \qquad
+  U_{x_0}=D(x_0,\delta)=(x_0-\delta,x_0+\delta),
+\]
+con \(\varepsilon,\delta>0\). La \cref{def:lez08-limite}
+assume pertanto la forma
+\[
+  \forall\varepsilon>0\;\exists\delta_\varepsilon>0:
+  \quad
+  0<|x-x_0|<\delta_\varepsilon
+  \ \Longrightarrow\ |f(x)-\ell|<\varepsilon
+  \quad\forall x\in A.
+\]
+Il raggio \(\delta_\varepsilon\) può dipendere da
+\(\varepsilon\), mentre il centro \(x_0\) resta escluso.
+
+La \cref{fig:lez08-limite-finito} rappresenta questa condizione
+per una funzione razionale, il cui limite sarà verificato
+nell'\cref{ex:lez08-razionale-finito}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/limite-finito}
+  \caption{Rappresentazione della condizione di limite finito:
+  per \(0<|x-x_0|<\delta\), i valori \(f(x)\) appartengono
+  alla fascia \((\ell-\varepsilon,\ell+\varepsilon)\).
+  Il grafico illustra \(f(x)=(2x-1)/(x+2)\) in prossimità
+  di \(x_0=2\), con \(\ell=3/4\), \(\varepsilon=1/4\) e
+  \(\delta=1/2\).}
+  \label{fig:lez08-limite-finito}
+\end{figure}
+
+\subsection{Altri casi particolari}
+\label{sec:lez08-limite-casi}
+
+Poiché \(x_0,\ell\in\overline{\R}\), la
+\cref{def:lez08-limite} comprende nove casi, secondo che
+ciascuno dei due elementi sia reale, \(+\infty\) o
+\(-\infty\). Il caso \(x_0,\ell\in\R\) è stato
+esplicitato nella \cref{sec:lez08-limite-finito};
+gli altri si ricavano dagli intorni della
+\cref{def:lez07-intorni-infinito}.
+
+\begin{exercise}[Forme esplicite della definizione di limite]
+\label{ex:lez08-casi-limite}
+Scrivere la \cref{def:lez08-limite} per gli altri otto casi
+possibili, distinguendo punti di accumulazione finiti e
+infiniti e valori limite finiti e infiniti.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Si assume in ogni caso che \(x_0\) sia di accumulazione
+per \(A\) e che le implicazioni valgano per ogni \(x\in A\).
+Quando \(x_0\in\R\), il punto \(x=x_0\) deve essere escluso.
+
+\emph{Punto \(x_0\in\R\), limite infinito.}
+La condizione \(\lim_{x\to x_0}f(x)=+\infty\) equivale a
+\[
+  \forall M\in\R\;\exists\delta>0:\quad
+  0<|x-x_0|<\delta\ \Longrightarrow\ f(x)>M.
+\]
+Analogamente, per \(\lim_{x\to x_0}f(x)=-\infty\), si richiede
+\[
+  \forall M\in\R\;\exists\delta>0:\quad
+  0<|x-x_0|<\delta\ \Longrightarrow\ f(x)<M.
+\]
+
+\emph{Punto \(x_0=+\infty\).}
+Per \(\ell\in\R\), si richiede
+\[
+  \forall\varepsilon>0\;\exists b\in\R:\quad
+  x>b\ \Longrightarrow\ |f(x)-\ell|<\varepsilon.
+\]
+Per i due limiti infiniti si ottengono rispettivamente
+\[
+  \forall M\in\R\;\exists b\in\R:\quad
+  x>b\ \Longrightarrow\ f(x)>M
+\]
+e
+\[
+  \forall M\in\R\;\exists b\in\R:\quad
+  x>b\ \Longrightarrow\ f(x)<M.
+\]
+
+\emph{Punto \(x_0=-\infty\).}
+Per \(\ell\in\R\), si richiede
+\[
+  \forall\varepsilon>0\;\exists b\in\R:\quad
+  x<b\ \Longrightarrow\ |f(x)-\ell|<\varepsilon.
+\]
+Per i due limiti infiniti si ottengono rispettivamente
+\[
+  \forall M\in\R\;\exists b\in\R:\quad
+  x<b\ \Longrightarrow\ f(x)>M
+\]
+e
+\[
+  \forall M\in\R\;\exists b\in\R:\quad
+  x<b\ \Longrightarrow\ f(x)<M.
+\]
+In tutti i casi si applica la \cref{def:lez08-limite}
+con gli intorni del punto \(x_0\) e del valore limite \(\ell\).
+\end{proof}
+
+\section{Esercizi sulla definizione di limite}
+\label{sec:lez08-esercizi-limiti}
+
+Nelle verifiche della \cref{def:lez08-limite} occorre
+anzitutto controllare il dominio e la condizione
+di accumulazione.
+
+\begin{exercise}[Un punto non di accumulazione del dominio]
+\label{ex:lez08-radice-meno-infinito}
+Stabilire se, nel senso della \cref{def:lez08-limite},
+è possibile considerare il limite
+\[
+  \lim_{x\to-\infty}\frac{2x-1}{\sqrt{x+2}}.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Perché il denominatore sia reale e non nullo, occorre
+\[
+  x+2>0\quad\Longleftrightarrow\quad x>-2.
+\]
+Il dominio naturale della funzione è pertanto
+\[
+  A=(-2,+\infty).
+\]
+Essendo \(A\) inferiormente limitato, per la
+\cref{prop:lez08-accumulazione-limitatezza} il punto
+\(-\infty\) non è di accumulazione. Manca quindi
+un'ipotesi della \cref{def:lez08-limite}.
+\end{proof}
+
+\begin{exercise}[Verifica di un limite finito]
+\label{ex:lez08-razionale-finito}
+Per la funzione
+\[
+  f(x)=\frac{2x-1}{x+2},
+\]
+verificare mediante la \cref{def:lez08-limite} che
+\[
+  \lim_{x\to2}f(x)=\frac34.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Dominio e punto di accumulazione.}
+La funzione è definita esattamente quando \(x+2\ne0\),
+quindi
+\[
+  A=\R\setminus\{-2\}
+   =(-\infty,-2)\cup(-2,+\infty).
+\]
+Il punto \(2\) è di accumulazione per \(A\). Infatti,
+per ogni \(\delta>0\) il numero \(a=2+\delta/2\)
+appartiene ad \(A\) e soddisfa
+\[
+  0<|a-2|=\frac{\delta}{2}<\delta.
+\]
+Più in generale, ogni punto di \(\overline{\R}\) è di
+accumulazione per \(A\): per ogni \(t\in\R\) e
+\(\delta>0\), almeno uno dei punti \(t-\delta/2\)
+e \(t+\delta/2\) appartiene ad \(A\) ed è distinto
+da \(t\). Inoltre, \(A\) è illimitato nei due versi,
+quindi \(\pm\infty\) sono di accumulazione per la
+\cref{prop:lez08-accumulazione-limitatezza}.
+
+\emph{Verifica delle disuguaglianze.}
+Fissato \(\varepsilon>0\), occorre trovare
+\(\delta_\varepsilon>0\) tale che
+\[
+  \left|\frac{2x-1}{x+2}-\frac34\right|<\varepsilon
+  \qquad\forall x\in A:\ 0<|x-2|<\delta_\varepsilon.
+\]
+Equivale al sistema
+\begin{equation*}
+  \begin{cases}
+    \displaystyle\frac34-\varepsilon
+      <\frac{2x-1}{x+2}, &\text{(I)},\\[7pt]
+    \displaystyle\frac{2x-1}{x+2}
+      <\frac34+\varepsilon, &\text{(II)}.
+  \end{cases}
+\end{equation*}
+Si cercherà un raggio \(\delta_\varepsilon\le1\),
+in modo che \(|x-2|<\delta_\varepsilon\) implichi
+\(x>1\), e quindi \(x+2>0\). In tale intorno il
+denominatore è positivo e si possono risolvere le
+disuguaglianze senza considerare il ramo \(x<-2\)
+del dominio.
+
+Per la disuguaglianza (I), moltiplicando per
+\(4(x+2)>0\) si ottiene
+\begin{align*}
+  (3-4\varepsilon)(x+2)&<4(2x-1)\\
+  3x-4\varepsilon x+6-8\varepsilon&<8x-4\\
+  10-8\varepsilon&<(5+4\varepsilon)x\\
+  x&>\frac{10-8\varepsilon}{5+4\varepsilon}.
+\end{align*}
+Poiché \(5+4\varepsilon>0\),
+\[
+  2-\frac{10-8\varepsilon}{5+4\varepsilon}
+  =\frac{16\varepsilon}{5+4\varepsilon}>0.
+\]
+Per la disuguaglianza (II), con lo stesso vincolo \(x+2>0\),
+si ha
+\begin{align*}
+  4(2x-1)&<(3+4\varepsilon)(x+2)\\
+  8x-4&<3x+4\varepsilon x+6+8\varepsilon\\
+  (5-4\varepsilon)x&<10+8\varepsilon.
+\end{align*}
+Per risolvere quest'ultima disuguaglianza occorre
+considerare il segno di \(5-4\varepsilon\):
+\begin{enumerate}
+  \item Se \(0<\varepsilon<5/4\), si ottiene
+  \[
+    x<\frac{10+8\varepsilon}{5-4\varepsilon},
+  \]
+  e la soglia è maggiore di \(2\), poiché
+  \[
+    \frac{10+8\varepsilon}{5-4\varepsilon}-2
+    =\frac{16\varepsilon}{5-4\varepsilon}>0.
+  \]
+  \item Se \(\varepsilon=5/4\), la disuguaglianza si
+  riduce a \(0<20\), verificata per ogni \(x>1\).
+  \item Se \(\varepsilon>5/4\), il coefficiente è
+  negativo e il verso si inverte:
+  \[
+    x>\frac{10+8\varepsilon}{5-4\varepsilon}.
+  \]
+  La soglia è negativa, quindi la condizione è
+  soddisfatta in particolare per ogni \(x>1\).
+\end{enumerate}
+
+\emph{Scelta del raggio e conclusione.}
+Per scegliere un raggio valido per ogni
+\(\varepsilon>0\), si ponga
+\[
+  \eta:=\min\{\varepsilon,1\}.
+\]
+Poiché \(0<\eta\le1<5/4\), è sufficiente
+soddisfare entrambe le disuguaglianze con \(\eta\)
+al posto di \(\varepsilon\). Le soglie appena calcolate
+permettono di scegliere
+\[
+  \delta_\varepsilon:=\min\left\{
+    1,\frac{16\eta}{5+4\eta},
+      \frac{16\eta}{5-4\eta}
+  \right\}>0.
+\]
+Se \(x\in A\) e \(0<|x-2|<\delta_\varepsilon\), allora
+\[
+  2-\delta_\varepsilon<x<2+\delta_\varepsilon,
+\]
+e, per la scelta del raggio,
+\[
+  x>\frac{10-8\eta}{5+4\eta},
+  \qquad
+  x<\frac{10+8\eta}{5-4\eta}.
+\]
+Sono quindi verificate entrambe le disuguaglianze
+con \(\eta\) al posto di \(\varepsilon\), e ne segue
+\[
+  \left|\frac{2x-1}{x+2}-\frac34\right|
+  <\eta\le\varepsilon.
+\]
+Poiché \(\varepsilon>0\) era arbitrario, per la
+\cref{def:lez08-limite} si conclude
+\[
+  \lim_{x\to2}\frac{2x-1}{x+2}=\frac34.
+\]
+\end{proof}
+
+\begin{exercise}[Verifica di un limite infinito]
+\label{ex:lez08-razionale-meno-infinito}
+Verificare mediante la \cref{def:lez08-limite} che
+\[
+  \lim_{x\to-4}\frac{-2}{(x+4)^2}=-\infty.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Dominio e punto di accumulazione.}
+La funzione
+\[
+  f(x):=\frac{-2}{(x+4)^2}
+\]
+ha dominio
+\[
+  A=\R\setminus\{-4\}
+   =(-\infty,-4)\cup(-4,+\infty).
+\]
+Per ogni \(\delta>0\), il punto
+\(a=-4+\delta/2\) appartiene ad \(A\) e verifica
+\(0<|a+4|<\delta\). Pertanto \(-4\) è di
+accumulazione per \(A\), secondo la
+\cref{def:lez07-accumulazione}.
+
+\emph{Verifica della definizione.}
+Per dimostrare che il limite vale \(-\infty\),
+per ogni \(K\in\R\) si deve trovare \(\delta_K>0\)
+tale che
+\[
+  \frac{-2}{(x+4)^2}<K
+  \qquad\forall x\in A:\ 0<|x+4|<\delta_K.
+\]
+Poiché \(x\in A\), si ha \(x\ne-4\) e quindi
+\((x+4)^2>0\). Moltiplicando per tale numero,
+il verso della disuguaglianza rimane invariato:
+\[
+  \frac{-2}{(x+4)^2}<K
+  \quad\Longleftrightarrow\quad
+  -2<K(x+4)^2.
+\]
+
+Se \(K\ge0\), quest'ultima disuguaglianza è vera
+per ogni \(x\in A\), poiché il membro destro è
+non negativo. Basta quindi scegliere, ad esempio,
+\(\delta_K=1\).
+
+Se \(K<0\), dividendo per \(K\) si inverte il verso:
+\[
+  (x+4)^2<\frac{-2}{K}
+  \quad\Longleftrightarrow\quad
+  |x+4|<\sqrt{\frac{-2}{K}}.
+\]
+Poiché \(-2/K>0\), è sufficiente scegliere
+\[
+  \delta_K:=\sqrt{\frac{-2}{K}}>0.
+\]
+In entrambi i casi esiste il raggio richiesto.
+Pertanto, per la \cref{def:lez08-limite}, si conclude
+\[
+  \lim_{x\to-4}\frac{-2}{(x+4)^2}=-\infty.
+\]
+\end{proof}
