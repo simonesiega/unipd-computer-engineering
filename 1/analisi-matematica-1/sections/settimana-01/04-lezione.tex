@@ -82,16 +82,13 @@ Siano \(a,b\in\R\) con \(a<b\). Si introducono le notazioni
 
 \begin{definition}[Intervallo della retta reale]
 \label{def:intervallo-retta-reale}
-Sia \(A\subseteq\R\) non vuoto. L'insieme \(A\) si dice
-\emph{intervallo} se, per ogni \(x_1,x_2\in A\) con \(x_1<x_2\),
-vale
+Sia \(A\subseteq\R\) non vuoto. Si dice che \(A\) è un
+\emph{intervallo} se, per ogni coppia \(x_1,x_2\in A\) con
+\(x_1<x_2\), vale
 \[
   \{x\in\R:x_1<x<x_2\}\subseteq A.
 \]
 \end{definition}
-
-La condizione richiede che ogni punto reale compreso tra due elementi
-di \(A\) appartenga a sua volta ad \(A\).
 
 \begin{example}[Un insieme che non è un intervallo]
 \label{ex:insieme-non-intervallo}
@@ -110,8 +107,7 @@ si ha
   \frac32\in\left(\frac12,2\right),
   \qquad \frac32\notin A.
 \]
-La condizione della \cref{def:intervallo-retta-reale} non è quindi
-soddisfatta.
+Ciò contraddice la \cref{def:intervallo-retta-reale}.
 \end{example}
 
 \begin{figure}[htbp]
@@ -156,10 +152,10 @@ i numeri \(2\) e \(3\) sono maggioranti, mentre \(0\) e
 \label{def:limitatezza-superiore-inferiore}
 Sia \(A\subseteq\R\) non vuoto.
 \begin{enumerate}
-  \item \(A\) si dice \emph{inferiormente limitato} se ammette
-  almeno un minorante;
   \item \(A\) si dice \emph{superiormente limitato} se ammette
-  almeno un maggiorante.
+  almeno un maggiorante;
+  \item \(A\) si dice \emph{inferiormente limitato} se ammette
+  almeno un minorante.
 \end{enumerate}
 \end{definition}
 
@@ -169,34 +165,35 @@ Sia \(A\subseteq\R\) non vuoto. L'insieme \(A\) si dice
 \emph{limitato} se è sia inferiormente sia superiormente limitato.
 \end{definition}
 
-In particolare, l'insieme \(A=(0,1)\cup\{2\}\) è limitato.
-
 \begin{proposition}[Limitatezza dei sottoinsiemi]
 \label{prop:limitatezza-sottoinsiemi}
 Siano \(A,B\subseteq\R\), con \(B\neq\varnothing\) e \(B\subseteq A\).
 \begin{enumerate}
-  \item Se \(A\) è inferiormente limitato, allora \(B\) è
-  inferiormente limitato.
   \item Se \(A\) è superiormente limitato, allora \(B\) è
   superiormente limitato.
+  \item Se \(A\) è inferiormente limitato, allora \(B\) è
+  inferiormente limitato.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-Si dimostra il primo punto. Poiché \(A\) è inferiormente limitato,
-esiste \(x\in\R\) tale che
+\emph{Primo punto.}
+Se \(A\) è superiormente limitato, per la \cref{def:maggiorante}
+esiste \(u\in\R\) tale che
 \[
-  x\le a\qquad\forall a\in A.
+  a\le u\qquad\forall a\in A.
 \]
-Dall'inclusione \(B\subseteq A\) segue
-\[
-  x\le b\qquad\forall b\in B.
-\]
-Il numero \(x\) è quindi un minorante di \(B\), che risulta
-inferiormente limitato.
+Poiché \(B\subseteq A\), si ha \(b\le u\) per ogni \(b\in B\):
+quindi \(B\) è superiormente limitato.
 
-Il secondo punto si dimostra analogamente, sostituendo i minoranti
-con i maggioranti.
+\emph{Secondo punto.}
+Se \(A\) è inferiormente limitato, per la \cref{def:minorante}
+esiste \(\ell\in\R\) tale che
+\[
+  \ell\le a\qquad\forall a\in A.
+\]
+Poiché \(B\subseteq A\), si ha \(\ell\le b\) per ogni \(b\in B\):
+quindi \(B\) è inferiormente limitato.
 \end{proof}
 
 \subsection{Esempi fondamentali}
@@ -261,9 +258,6 @@ Sia \(A\subseteq\R\) non vuoto.
 \end{enumerate}
 \end{definition}
 
-Il massimo è quindi un maggiorante che appartiene ad \(A\),
-mentre il minimo è un minorante che appartiene ad \(A\).
-
 Per esempio, se
 \[
   A=(0,1],
@@ -311,9 +305,8 @@ non viene sviluppata in questa sede.
 \section{Estremo superiore ed estremo inferiore}
 \label{sec:lez04-estremi}
 
-Il \cref{thm:estremi-maggioranti-minoranti} garantisce l'esistenza
-degli estremi di un insieme reale non vuoto, quando esso è limitato
-nella direzione corrispondente.
+Il \cref{thm:estremi-maggioranti-minoranti} consente di definire
+gli estremi superiore e inferiore di un insieme non vuoto.
 
 \begin{definition}[Estremo inferiore]
 \label{def:estremo-inferiore}
@@ -324,7 +317,6 @@ L'\emph{estremo inferiore} di \(A\), indicato con \(\inf A\),
   \inf A:=\max m_A.
 \]
 \end{definition}
-
 \begin{definition}[Estremo superiore]
 \label{def:estremo-superiore}
 Sia \(A\subseteq\R\) non vuoto e superiormente limitato.
@@ -334,6 +326,7 @@ L'\emph{estremo superiore} di \(A\), indicato con \(\sup A\),
   \sup A:=\min M_A.
 \]
 \end{definition}
+
 
 Per convenzione, se \(A\) non è superiormente limitato si scrive
 \[
@@ -369,9 +362,8 @@ non viene sviluppata in questa sede.
 \section{Caratterizzazione di estremo superiore e inferiore}
 \label{sec:lez04-caratterizzazione-estremi}
 
-Le definizioni precedenti possono essere espresse mediante condizioni
-che descrivono l'avvicinamento degli elementi di un insieme ai suoi
-estremi.
+Le \cref{def:estremo-superiore,def:estremo-inferiore}
+ammettono le seguenti caratterizzazioni.
 
 \begin{theorem}[Caratterizzazione dell'estremo superiore]
 \label{thm:caratterizzazione-sup}
@@ -391,13 +383,9 @@ e
 \]
 \end{theorem}
 
-La prima condizione, secondo la \cref{def:maggiorante}, richiede
-che \(x\) sia un maggiorante di \(A\). La seconda garantisce
-che gli elementi di \(A\) possano avvicinarsi a \(x\) dal basso
-quanto si desidera, escludendo che un numero minore di \(x\)
-sia ancora un maggiorante.
-Insieme, esse equivalgono a richiedere che, per ogni
-\(\varepsilon>0\), esista \(\bar a\in A\) tale che
+Per la \cref{def:maggiorante}, le due condizioni equivalgono
+a richiedere che, per ogni \(\varepsilon>0\), esista
+\(\bar a\in A\) tale che
 \[
   x-\varepsilon<\bar a\le x.
 \]
@@ -456,8 +444,6 @@ in contraddizione con il fatto che \(y\) è un maggiorante di
 \]
 \end{proof}
 
-\clearpage
-
 \begin{theorem}[Caratterizzazione dell'estremo inferiore]
 \label{thm:caratterizzazione-inf}
 Sia \(A\subseteq\R\) non vuoto e inferiormente limitato.
@@ -476,13 +462,9 @@ e
 \]
 \end{theorem}
 
-La prima condizione, secondo la \cref{def:minorante}, richiede
-che \(x\) sia un minorante di \(A\). La seconda garantisce
-che gli elementi di \(A\) possano avvicinarsi a \(x\) dall'alto
-quanto si desidera, escludendo che un numero maggiore di \(x\)
-sia ancora un minorante.
-Insieme, esse equivalgono a richiedere che, per ogni
-\(\varepsilon>0\), esista \(\bar a\in A\) tale che
+Per la \cref{def:minorante}, le due condizioni equivalgono
+a richiedere che, per ogni \(\varepsilon>0\), esista
+\(\bar a\in A\) tale che
 \[
   x\le\bar a<x+\varepsilon.
 \]

@@ -16,8 +16,7 @@ Per la \cref{def:fattoriale},
   \qquad
   (n+3)!=(n+3)(n+2)(n+1)!.
 \]
-Raccogliendo \((n+1)!\) al numeratore e semplificando i fattori
-comuni, si ottiene
+Raccogliendo \((n+1)!\) al numeratore e semplificando, si ottiene
 \begin{align*}
   \frac{(n+2)!+(n+1)!}{(n+3)!}
     &=\frac{\bigl((n+2)+1\bigr)(n+1)!}
@@ -25,9 +24,8 @@ comuni, si ottiene
     &=\frac{(n+3)(n+1)!}{(n+3)(n+2)(n+1)!}\\
     &=\frac{1}{n+2}.
 \end{align*}
-Per ogni \(n\in\N\), il denominatore iniziale e i fattori
-semplificati sono strettamente positivi; le divisioni sono quindi
-lecite anche per \(n=0\).
+Le semplificazioni sono lecite anche per \(n=0\), poiché i
+fattori eliminati sono positivi per ogni \(n\in\N\).
 \end{proof}
 
 \begin{exercise}[Somma dei primi \(n\) numeri dispari positivi]
@@ -39,8 +37,8 @@ Dimostrare che, per ogni \(n\in\N\) con \(n\ge1\), vale
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Si procede per induzione, applicando il \cref{thm:principio-induzione}
-con valore iniziale \(p=1\).
+Si applica il \cref{thm:principio-induzione} con valore
+iniziale \(p=1\).
 
 \emph{Passo base.}
 Per \(n=1\),
@@ -61,8 +59,8 @@ si ottiene
     &=n^2+2n+1\\
     &=(n+1)^2.
 \end{align*}
-Il passo induttivo è quindi verificato. Per il principio di
-induzione, l'identità vale per ogni \(n\ge1\).
+Per il \cref{thm:principio-induzione}, l'identità vale per
+ogni \(n\ge1\).
 \end{proof}
 
 \begin{exercise}[Somma dei quadrati dei primi \(n\) naturali positivi]
@@ -74,8 +72,8 @@ Dimostrare che, per ogni \(n\in\N\) con \(n\ge1\), vale
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Si procede per induzione, applicando il \cref{thm:principio-induzione}
-con valore iniziale \(p=1\).
+Si applica il \cref{thm:principio-induzione} con valore
+iniziale \(p=1\).
 
 \emph{Passo base.}
 Per \(n=1\),
@@ -98,11 +96,8 @@ si ottiene
     &=\frac{n+1}{6}(2n^2+7n+6)\\
     &=\frac{(n+1)(n+2)(2n+3)}6.
 \end{align*}
-Nell'ultimo passaggio si è utilizzata la fattorizzazione
-\(2n^2+7n+6=(n+2)(2n+3)\). Poiché \(2n+3=2(n+1)+1\),
-l'espressione ottenuta è quella richiesta per \(n+1\).
-Il passo induttivo è quindi verificato. Per il principio di
-induzione, la formula vale per ogni \(n\ge1\).
+Per il \cref{thm:principio-induzione}, la formula vale per
+ogni \(n\ge1\).
 \end{proof}
 
 \begin{exercise}[Dimostrazione del binomio di Newton]
@@ -115,10 +110,8 @@ Dimostrare per induzione il \cref{thm:binomio-newton}: per ogni
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Siano \(a,b\in\R\) fissati. Si procede per induzione su \(n\),
-applicando il \cref{thm:principio-induzione} con valore iniziale
-\(p=0\). Si adotta la convenzione \(t^0=1\), anche per \(t=0\),
-richiamata nel \cref{thm:binomio-newton}.
+Siano \(a,b\in\R\) fissati. Si applica il
+\cref{thm:principio-induzione} con valore iniziale \(p=0\).
 
 \emph{Passo base.}
 Per la \cref{def:coefficiente-binomiale}, \(\binom{0}{0}=1\).
@@ -141,26 +134,17 @@ si ottiene
     &=\sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k}
       +\sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}.
 \end{align*}
-Nella prima somma si effettua il cambio di indice \(j=k+1\):
-quando \(k\) varia da \(0\) a \(n\), l'indice \(j\) varia da
-\(1\) a \(n+1\). Poiché \(k=j-1\) e \(n-k=n+1-j\), si ha
-\[
-  \sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k}
-  =\sum_{j=1}^{n+1}\binom{n}{j-1}a^j b^{n+1-j}.
-\]
-Rinominando \(j\) come \(k\), si ottiene
+Nella prima somma si pone \(j=k+1\), cosicché l'indice varia
+da \(1\) a \(n+1\). Rinominando poi \(j\) come \(k\), si ottiene
 \[
   (a+b)^{n+1}
   =\sum_{k=1}^{n+1}\binom{n}{k-1}a^k b^{n+1-k}
     +\sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}.
 \]
-I termini con indice \(1\le k\le n\) compaiono in entrambe le
-somme. Il termine con \(k=n+1\) compare soltanto nella prima
-e vale \(a^{n+1}\), mentre quello con \(k=0\) compare soltanto
-nella seconda e vale \(b^{n+1}\), poiché
-\(\binom{n}{n}=\binom{n}{0}=1\).
-Separando i termini estremi e raccogliendo i fattori comuni
-negli altri, si ottiene
+Per \(1\le k\le n\) si raccolgono i termini delle due somme;
+gli estremi \(k=0\) e \(k=n+1\), presenti una sola volta, valgono
+rispettivamente \(b^{n+1}\) e \(a^{n+1}\), poiché
+\(\binom{n}{0}=\binom{n}{n}=1\). Pertanto
 \[
   (a+b)^{n+1}
   =b^{n+1}
@@ -171,21 +155,17 @@ negli altri, si ottiene
 Per \(n=0\), la somma interna è vuota e vale \(0\); pertanto
 l'uguaglianza resta valida anche in questo caso.
 
-Per ogni \(1\le k\le n\), l'identità di Pascal, dimostrata nella
-\cref{prop:identita-pascal}, fornisce
+Per \(1\le k\le n\), la \cref{prop:identita-pascal} fornisce
 \[
   \binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}.
 \]
-Per la \cref{def:coefficiente-binomiale}, anche i termini estremi
-hanno coefficienti \(\binom{n+1}{0}=\binom{n+1}{n+1}=1\).
-Ne segue
+Poiché anche \(\binom{n+1}{0}=\binom{n+1}{n+1}=1\), segue
 \begin{align*}
   (a+b)^{n+1}
     &=b^{n+1}+\sum_{k=1}^{n}\binom{n+1}{k}a^k b^{n+1-k}
       +a^{n+1}\\
     &=\sum_{k=0}^{n+1}\binom{n+1}{k}a^k b^{n+1-k}.
 \end{align*}
-Il passo induttivo è quindi verificato. Per il principio di
-induzione, la formula vale per ogni \(n\in\N\).
-Poiché \(a,b\in\R\) erano arbitrari, segue la tesi.
+Per il \cref{thm:principio-induzione}, la formula vale per
+ogni \(n\in\N\). Poiché \(a,b\in\R\) erano arbitrari, segue la tesi.
 \end{proof}
