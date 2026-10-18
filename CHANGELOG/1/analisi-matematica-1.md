@@ -6,6 +6,59 @@ Committed changes for `1/analisi-matematica-1` and every file below it.
 
 Newest changes appear first.
 
+## 16/10/2026
+
+### [`628d8e1`](https://github.com/simonesiega/unipd-computer-engineering/commit/628d8e18fa371812657453b9efdadd08d9a9df1a) — feat(analisi-1): add lecture 7 notes (#20)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/trasformazioni-orizzontali.tex`
+- **Added** `assets/grafici/funzioni/trasformazioni-verticali.tex`
+- **Added** `assets/grafici/insiemi/albergo-hilbert.tex`
+- **Added** `assets/grafici/retta-reale/accumulazione-intervallo.tex`
+- **Modified** `assets/grafici/retta-reale/caratterizzazione-inf.tex`
+- **Added** `assets/grafici/retta-reale/intorno.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/notazione.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+- **Modified** `sections/settimana-02/05-lezione.tex`
+- **Modified** `sections/settimana-03/06-lezione.tex`
+- **Added** `sections/settimana-03/07-lezione.tex`
+- **Modified** `sections/tutorato/01-tutorato.tex`
+
+## 14/10/2026
+
+### [`f2a4914`](https://github.com/simonesiega/unipd-computer-engineering/commit/f2a4914b1066360cf960eb10ec846cf066c0fd71) — feat(analisi-1): add lecture 6 notes (#18)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/controimmagine-insiemi.tex`
+- **Added** `assets/grafici/funzioni/iniettivita-suriettivita.tex`
+- **Added** `assets/grafici/funzioni/quadrato-immagine-controimmagine.tex`
+- **Added** `assets/grafici/funzioni/relazioni-applicazioni.tex`
+- **Added** `assets/grafici/funzioni/test-retta-verticale.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Added** `sections/settimana-03/06-lezione.tex`
+
+## 13/10/2026
+
+### [`dfbf889`](https://github.com/simonesiega/unipd-computer-engineering/commit/dfbf8897b80618b33ef250bffc31f6cdf34babca) — docs(fdi & analisi-1): review and refine week 2 notes (#16)
+
+- **Modified** `README.md`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+
+## 12/10/2026
+
+### [`7c781f8`](https://github.com/simonesiega/unipd-computer-engineering/commit/7c781f87a9467a97705b1f40c744c80fc51182a3) — feat(analisi-1): add 1 lecture 5 + tutoring 1 notes (#15)
+
+- **Modified** `README.md`
+- **Modified** `main.tex`
+- **Added** `sections/settimana-02/05-lezione.tex`
+- **Added** `sections/tutorato/01-tutorato.tex`
+
 ## 7/10/2026
 
 ### [`e75cb22`](https://github.com/simonesiega/unipd-computer-engineering/commit/e75cb222726532ca201e24754ebe4ff6966d8b03) — docs(analisi-1): review and refine week 1 notes (#11)
