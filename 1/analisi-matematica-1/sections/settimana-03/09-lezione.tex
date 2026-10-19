@@ -31,40 +31,35 @@ Poiché \(A\) non è superiormente limitato,
 in virtù della \cref{prop:lez08-accumulazione-limitatezza}.
 
 \emph{Verifica della definizione.}
-Per il caso \(x\to+\infty\) e limite finito della
-\cref{sec:lez08-limite-casi}, occorre verificare che
+Fissato \(\varepsilon>0\), occorre trovare
+\(k_\varepsilon\in\R\) tale che
 \[
-  \forall\varepsilon>0\;\exists k_\varepsilon\in\R:\quad
   \left|\frac{3x-1}{x+2}-3\right|<\varepsilon
   \qquad\forall x\in A\cap(k_\varepsilon,+\infty).
 \]
-Fissato \(\varepsilon>0\), si considera \(x>-2\), cosicché
-\(x+2>0\). Si ha
-\begin{align*}
-  \left|\frac{3x-1}{x+2}-3\right|<\varepsilon
-  &\iff 3-\varepsilon<\frac{3x-1}{x+2}<3+\varepsilon\\
-  &\iff (3-\varepsilon)(x+2)<3x-1
-          <(3+\varepsilon)(x+2)\\
-  &\iff
-  \begin{cases}
-    \varepsilon x>7-2\varepsilon,\\
-    \varepsilon x>-7-2\varepsilon
-  \end{cases}\\
-  &\iff
-  \begin{cases}
-    x>-2+\dfrac7\varepsilon,\\[5pt]
-    x>-2-\dfrac7\varepsilon.
-  \end{cases}
-\end{align*}
-Poiché \(\varepsilon>0\), la prima condizione implica
-la seconda e garantisce anche \(x>-2\). È quindi
-sufficiente porre
+Per ogni \(x\in A\), si ha
+\[
+  \left|\frac{3x-1}{x+2}-3\right|
+  =\left|\frac{-7}{x+2}\right|
+  =\frac7{|x+2|}.
+\]
+Se \(x>-2\), allora \(|x+2|=x+2\), e la condizione
+\[
+  \frac7{x+2}<\varepsilon
+\]
+è equivalente a \(x>-2+7/\varepsilon\). È pertanto
+sufficiente scegliere
 \[
   k_\varepsilon:=-2+\frac7\varepsilon.
 \]
-Per ogni \(x\in A\cap(k_\varepsilon,+\infty)\) vale
-la disuguaglianza richiesta. Per la
-\cref{def:lez08-limite}, si conclude
+Infatti, per ogni \(x\in A\cap(k_\varepsilon,+\infty)\)
+si ha \(x>-2\) e
+\[
+  \left|f(x)-3\right|
+  =\frac7{x+2}<\varepsilon.
+\]
+Poiché \(\varepsilon>0\) era arbitrario, per la
+\cref{def:lez08-limite} si conclude
 \[
   \lim_{x\to+\infty}\frac{3x-1}{x+2}=3.
 \]
@@ -210,7 +205,7 @@ come \(\varphi\), dunque valgono entrambe le identità.
 \end{proof}
 
 Considerando la stessa legge di \(\varphi\) con codominio
-\(\operatorname{Im}(\varphi)\), si ottiene l\'applicazione
+\(\operatorname{Im}(\varphi)\), si ottiene l'applicazione
 \(\widetilde{\varphi}\colon A\to\operatorname{Im}(\varphi)\).
 Per la \cref{prop:lez09-identita-composizione} vale anche
 \[

@@ -36,21 +36,22 @@ L'insieme dei numeri naturali pari
 \end{proposition}
 
 \begin{proof}
-\emph{Suriettività.}
-Per ogni \(p\in P\), dalla definizione di \(P\)
-esiste \(m\in\N\) tale che
-\[
-  p=2m=\varphi(m).
-\]
-Quindi \(\varphi\) è suriettiva per la \cref{def:lez06-suriettiva}.
-
 \emph{Iniettività.}
 Siano \(m_1,m_2\in\N\). Se \(\varphi(m_1)=\varphi(m_2)\), allora
 \[
   2m_1=2m_2\quad\Longrightarrow\quad m_1=m_2.
 \]
 Per l'\cref{ex:lez06-equivalenza-iniettiva},
-\(\varphi\) è iniettiva, dunque biiettiva.
+\(\varphi\) è iniettiva.
+
+\emph{Suriettività.}
+Per ogni \(p\in P\), dalla definizione di \(P\)
+esiste \(m\in\N\) tale che
+\[
+  p=2m=\varphi(m).
+\]
+Quindi \(\varphi\) è suriettiva per la \cref{def:lez06-suriettiva},
+e dunque biiettiva.
 \end{proof}
 
 Analogamente, l'insieme dei naturali dispari
@@ -62,13 +63,13 @@ Analogamente, l'insieme dei naturali dispari
   \psi\colon\N\longrightarrow D,
   \qquad m\longmapsto 2m+1.
 \]
-La suriettività segue dalla definizione di \(D\);
-l'iniettività dall'implicazione
+L'iniettività segue dall'implicazione
 \[
   2m_1+1=2m_2+1
   \quad\Longrightarrow\quad
-  m_1=m_2.
+  m_1=m_2,
 \]
+mentre la suriettività segue dalla definizione di \(D\).
 
 Poiché \(P\subsetneq\N\) (infatti \(1\notin P\)),
 la \cref{prop:lez07-pari} mostra che può esistere
