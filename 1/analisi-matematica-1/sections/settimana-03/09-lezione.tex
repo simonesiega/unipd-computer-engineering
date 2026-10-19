@@ -1,0 +1,311 @@
+\chapter[Lezione 9 --- 16 ottobre 2026]{Lezione 9: limiti all'infinito, composizione e applicazioni inverse}
+\label{chap:lezione-09}
+
+\section[Verifica di un limite all'infinito]{Verifica di un limite per \(x\to+\infty\)}
+\label{sec:lez09-limite-infinito}
+
+Si completa lo studio degli esempi della \cref{sec:lez08-esercizi-limiti}
+considerando un limite finito per \(x\to+\infty\).
+
+\begin{exercise}[Verifica di un limite all'infinito]
+\label{ex:lez09-limite-razionale-infinito}
+Verificare mediante la \cref{def:lez08-limite} che
+\[
+  \lim_{x\to+\infty}\frac{3x-1}{x+2}=3.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Dominio e punto di accumulazione.}
+La funzione
+\[
+  f(x):=\frac{3x-1}{x+2}
+\]
+ha dominio
+\[
+  A=\R\setminus\{-2\}
+   =(-\infty,-2)\cup(-2,+\infty).
+\]
+Poiché \(A\) non è superiormente limitato,
+\(+\infty\) è un punto di accumulazione per \(A\)
+in virtù della \cref{prop:lez08-accumulazione-limitatezza}.
+
+\emph{Verifica della definizione.}
+Per il caso \(x\to+\infty\) e limite finito della
+\cref{sec:lez08-limite-casi}, occorre verificare che
+\[
+  \forall\varepsilon>0\;\exists k_\varepsilon\in\R:\quad
+  \left|\frac{3x-1}{x+2}-3\right|<\varepsilon
+  \qquad\forall x\in A\cap(k_\varepsilon,+\infty).
+\]
+Fissato \(\varepsilon>0\), si considera \(x>-2\), cosicché
+\(x+2>0\). Si ha
+\begin{align*}
+  \left|\frac{3x-1}{x+2}-3\right|<\varepsilon
+  &\iff 3-\varepsilon<\frac{3x-1}{x+2}<3+\varepsilon\\
+  &\iff (3-\varepsilon)(x+2)<3x-1
+          <(3+\varepsilon)(x+2)\\
+  &\iff
+  \begin{cases}
+    \varepsilon x>7-2\varepsilon,\\
+    \varepsilon x>-7-2\varepsilon
+  \end{cases}\\
+  &\iff
+  \begin{cases}
+    x>-2+\dfrac7\varepsilon,\\[5pt]
+    x>-2-\dfrac7\varepsilon.
+  \end{cases}
+\end{align*}
+Poiché \(\varepsilon>0\), la prima condizione implica
+la seconda e garantisce anche \(x>-2\). È quindi
+sufficiente porre
+\[
+  k_\varepsilon:=-2+\frac7\varepsilon.
+\]
+Per ogni \(x\in A\cap(k_\varepsilon,+\infty)\) vale
+la disuguaglianza richiesta. Per la
+\cref{def:lez08-limite}, si conclude
+\[
+  \lim_{x\to+\infty}\frac{3x-1}{x+2}=3.
+\]
+\end{proof}
+
+\clearpage
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/limite-razionale-infinito}
+  \caption{La soglia \(k_\varepsilon=-2+7/\varepsilon\)
+  individua un intorno di \(+\infty\) nel quale
+  \(x+2>0\) e \(|f(x)-3|<\varepsilon\).}
+  \label{fig:lez09-limite-razionale-infinito}
+\end{figure}
+
+\section{Composizione di applicazioni}
+\label{sec:lez09-composizione}
+
+\begin{definition}[Applicazione composta]
+\label{def:lez09-composizione}
+Siano \(A,B,C,D\) insiemi non vuoti e siano
+\[
+  \varphi\colon A\longrightarrow B,
+  \qquad \psi\colon C\longrightarrow D,
+\]
+tali che \(\operatorname{Im}(\varphi)\subseteq C\).
+Si definisce \emph{applicazione composta} di \(\varphi\)
+e \(\psi\) l'applicazione
+\[
+  \psi\circ\varphi\colon A\longrightarrow D,
+  \qquad a\longmapsto\psi\bigl(\varphi(a)\bigr).
+\]
+\end{definition}
+
+L'ordine della composizione è indicato nella
+\cref{fig:lez09-composizione}: si applica prima \(\varphi\)
+e successivamente \(\psi\).
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/composizione-applicazioni}
+  \caption{Composizione \(\psi\circ\varphi\), con
+  \(\operatorname{Im}(\varphi)\subseteq D(\psi)=C\).}
+  \label{fig:lez09-composizione}
+\end{figure}
+
+\begin{example}[L'ordine della composizione]
+\label{ex:lez09-ordine-composizione}
+Si considerino le applicazioni
+\[
+  \varphi\colon\R\longrightarrow\R,
+  \quad x\longmapsto x^2,
+  \qquad
+  \psi\colon\R\longrightarrow\R,
+  \quad x\longmapsto x+1.
+\]
+Entrambe le composizioni sono definite e, per ogni \(x\in\R\),
+\[
+  (\psi\circ\varphi)(x)=\psi(x^2)=x^2+1,
+  \qquad
+  (\varphi\circ\psi)(x)=\varphi(x+1)=(x+1)^2.
+\]
+Per \(x=10\), in particolare,
+\[
+  (\psi\circ\varphi)(10)=101,
+  \qquad (\varphi\circ\psi)(10)=121.
+\]
+Pertanto \(\psi\circ\varphi\ne\varphi\circ\psi\):
+la composizione non è, in generale, commutativa.
+\end{example}
+
+L'esistenza delle due composizioni richiede inoltre
+condizioni distinte, come mostra l'esempio seguente.
+
+\clearpage
+
+\begin{example}[Composizione non definita]
+\label{ex:lez09-composizione-non-definita}
+Siano
+\[
+  \varphi\colon\N\longrightarrow\Q,
+  \quad n\longmapsto\frac n2,
+  \qquad
+  \psi\colon\N\longrightarrow\R,
+  \quad n\longmapsto n^2.
+\]
+Poiché \(\operatorname{Im}(\psi)\subseteq\N=D(\varphi)\),
+la composizione \(\varphi\circ\psi\) è definita e
+\[
+  (\varphi\circ\psi)(n)=\frac{n^2}{2}
+  \qquad\forall n\in\N.
+\]
+Viceversa, \(\varphi(1)=1/2\notin\N=D(\psi)\);
+pertanto \(\operatorname{Im}(\varphi)\not\subseteq D(\psi)\)
+e \(\psi\circ\varphi\) non è definita su tutto \(\N\).
+\end{example}
+
+\section{Applicazione identità}
+\label{sec:lez09-identita}
+
+\begin{definition}[Applicazione identità]
+\label{def:lez09-identita}
+Sia \(A\) un insieme non vuoto. Si chiama
+\emph{applicazione identità} su \(A\) l'applicazione
+\[
+  \operatorname{id}_A\colon A\longrightarrow A,
+  \qquad a\longmapsto a.
+\]
+\end{definition}
+
+Per \(A=\R\), il grafico definito nella
+\cref{def:lez07-grafico} è
+\[
+  G(\operatorname{id}_{\R})
+  =\{(a,a):a\in\R\}.
+\]
+
+\begin{proposition}[Identità e composizione]
+\label{prop:lez09-identita-composizione}
+Sia \(\varphi\colon A\longrightarrow B\) un'applicazione
+tra insiemi non vuoti. Allora
+\[
+  \varphi\circ\operatorname{id}_A=\varphi,
+  \qquad
+  \operatorname{id}_B\circ\varphi=\varphi.
+\]
+\end{proposition}
+
+\begin{proof}
+Per ogni \(a\in A\), applicando le
+\cref{def:lez09-composizione,def:lez09-identita}, si ha
+\[
+  (\varphi\circ\operatorname{id}_A)(a)
+  =\varphi(\operatorname{id}_A(a))=\varphi(a),
+\]
+\[
+  (\operatorname{id}_B\circ\varphi)(a)
+  =\operatorname{id}_B(\varphi(a))=\varphi(a).
+\]
+Le due composizioni hanno dominio \(A\) e codominio \(B\),
+come \(\varphi\), dunque valgono entrambe le identità.
+\end{proof}
+
+Considerando la stessa legge di \(\varphi\) con codominio
+\(\operatorname{Im}(\varphi)\), si ottiene l\'applicazione
+\(\widetilde{\varphi}\colon A\to\operatorname{Im}(\varphi)\).
+Per la \cref{prop:lez09-identita-composizione} vale anche
+\[
+  \operatorname{id}_{\operatorname{Im}(\varphi)}
+  \circ\widetilde{\varphi}=\widetilde{\varphi}.
+\]
+
+\begin{figure}[H]
+  \centering
+  \input{assets/grafici/funzioni/identita-composizione}
+  \caption{L'applicazione identità è elemento neutro
+  a destra e a sinistra per la composizione.}
+  \label{fig:lez09-identita-composizione}
+\end{figure}
+
+\clearpage
+
+\section{Applicazione inversa}
+\label{sec:lez09-inversa}
+
+Per invertire un'applicazione occorre poter risalire
+in modo univoco da ogni elemento dell'immagine al suo
+antecedente. La \cref{def:lez06-iniettiva} assicura tale unicità.
+
+\begin{example}[Ostacolo all'esistenza dell'inversa]
+\label{ex:lez09-non-iniettiva-inversa}
+Per l'applicazione
+\(\varphi\colon\R\to\R\), \(\varphi(x)=x^2\), si ha
+\[
+  \varphi(-1)=\varphi(1)=1.
+\]
+La \cref{def:lez06-controimmagine} fornisce
+\[
+  \varphi^{-1}(\{1\})=\{-1,1\}.
+\]
+Il valore \(1\) possiede quindi due antecedenti distinti:
+non è possibile definirne un'inversa che associ a \(1\)
+un unico elemento di \(\R\).
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/inversa-non-iniettiva}
+  \caption{La funzione \(\varphi(x)=x^2\) non è iniettiva:
+  \(-1\) e \(1\) hanno la stessa immagine.}
+  \label{fig:lez09-inversa-non-iniettiva}
+\end{figure}
+
+\begin{definition}[Applicazione inversa]
+\label{def:lez09-inversa}
+Siano \(A,B\) insiemi non vuoti e sia
+\(\varphi\colon A\longrightarrow B\) iniettiva.
+Si chiama \emph{applicazione inversa} di \(\varphi\)
+l'applicazione
+\[
+  \varphi^{-1}\colon\operatorname{Im}(\varphi)
+  \longrightarrow A,
+  \qquad b\longmapsto a,
+\]
+dove \(a\in A\) è l'unico elemento tale che
+\(\varphi(a)=b\).
+\end{definition}
+
+L'esistenza di \(a\) segue dalla
+\cref{def:lez06-immagine}, mentre l'unicità segue dalla
+\cref{def:lez06-iniettiva}. In particolare,
+\(D(\varphi^{-1})=\operatorname{Im}(\varphi)\) e
+\(C(\varphi^{-1})=A\).
+
+\begin{figure}[H]
+  \centering
+  \input{assets/grafici/funzioni/composizione-inversa}
+  \caption{L'applicazione inversa riporta
+  \(\varphi(a)\) ad \(a\), realizzando
+  \(\varphi^{-1}\circ\varphi=\operatorname{id}_A\).}
+  \label{fig:lez09-composizione-inversa}
+\end{figure}
+
+\begin{proposition}[Composizione con l'applicazione inversa]
+\label{prop:lez09-inversa-composizione}
+Sia \(\varphi\colon A\longrightarrow B\) iniettiva. Allora
+\[
+  \varphi^{-1}\circ\varphi=\operatorname{id}_A.
+\]
+\end{proposition}
+
+\begin{proof}
+Poiché \(\operatorname{Im}(\varphi)=D(\varphi^{-1})\),
+la composizione è definita. Per ogni \(a\in A\),
+dalla \cref{def:lez09-inversa} si ottiene
+\[
+  (\varphi^{-1}\circ\varphi)(a)
+  =\varphi^{-1}(\varphi(a))=a
+  =\operatorname{id}_A(a).
+\]
+L'uguaglianza delle applicazioni segue dalla
+\cref{def:lez09-identita}.
+\end{proof}

@@ -299,7 +299,7 @@ di accumulazione.
 
 \begin{exercise}[Un punto non di accumulazione del dominio]
 \label{ex:lez08-radice-meno-infinito}
-Stabilire se, nel senso della \cref{def:lez08-limite},
+Stabilire mediante la \cref{def:lez08-limite} se
 è possibile considerare il limite
 \[
   \lim_{x\to-\infty}\frac{2x-1}{\sqrt{x+2}}.
@@ -307,11 +307,16 @@ Stabilire se, nel senso della \cref{def:lez08-limite},
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Perché il denominatore sia reale e non nullo, occorre
+\emph{Dominio e punto di accumulazione.}
+La funzione
+\[
+  f(x):=\frac{2x-1}{\sqrt{x+2}}
+\]
+è definita quando il denominatore è reale e non nullo, ossia
 \[
   x+2>0\quad\Longleftrightarrow\quad x>-2.
 \]
-Il dominio naturale della funzione è pertanto
+Il suo dominio è quindi
 \[
   A=(-2,+\infty).
 \]
@@ -323,20 +328,19 @@ un'ipotesi della \cref{def:lez08-limite}.
 
 \begin{exercise}[Verifica di un limite finito]
 \label{ex:lez08-razionale-finito}
-Per la funzione
+Verificare mediante la \cref{def:lez08-limite} che
 \[
-  f(x)=\frac{2x-1}{x+2},
-\]
-verificare mediante la \cref{def:lez08-limite} che
-\[
-  \lim_{x\to2}f(x)=\frac34.
+  \lim_{x\to2}\frac{2x-1}{x+2}=\frac34.
 \]
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
 \emph{Dominio e punto di accumulazione.}
-La funzione è definita esattamente quando \(x+2\ne0\),
-quindi
+La funzione
+\[
+  f(x):=\frac{2x-1}{x+2}
+\]
+ha dominio
 \[
   A=\R\setminus\{-2\}
    =(-\infty,-2)\cup(-2,+\infty).
@@ -355,104 +359,39 @@ da \(t\). Inoltre, \(A\) è illimitato nei due versi,
 quindi \(\pm\infty\) sono di accumulazione per la
 \cref{prop:lez08-accumulazione-limitatezza}.
 
-\emph{Verifica delle disuguaglianze.}
+\emph{Verifica della definizione.}
 Fissato \(\varepsilon>0\), occorre trovare
 \(\delta_\varepsilon>0\) tale che
 \[
   \left|\frac{2x-1}{x+2}-\frac34\right|<\varepsilon
   \qquad\forall x\in A:\ 0<|x-2|<\delta_\varepsilon.
 \]
-Equivale al sistema
-\begin{equation*}
-  \begin{cases}
-    \displaystyle\frac34-\varepsilon
-      <\frac{2x-1}{x+2}, &\text{(I)},\\[7pt]
-    \displaystyle\frac{2x-1}{x+2}
-      <\frac34+\varepsilon, &\text{(II)}.
-  \end{cases}
-\end{equation*}
-Si cercherà un raggio \(\delta_\varepsilon\le1\),
-in modo che \(|x-2|<\delta_\varepsilon\) implichi
-\(x>1\), e quindi \(x+2>0\). In tale intorno il
-denominatore è positivo e si possono risolvere le
-disuguaglianze senza considerare il ramo \(x<-2\)
-del dominio.
-
-Per la disuguaglianza (I), moltiplicando per
-\(4(x+2)>0\) si ottiene
+Per ogni \(x\in A\), si ha
 \begin{align*}
-  (3-4\varepsilon)(x+2)&<4(2x-1)\\
-  3x-4\varepsilon x+6-8\varepsilon&<8x-4\\
-  10-8\varepsilon&<(5+4\varepsilon)x\\
-  x&>\frac{10-8\varepsilon}{5+4\varepsilon}.
-\end{align*}
-Poiché \(5+4\varepsilon>0\),
-\[
-  2-\frac{10-8\varepsilon}{5+4\varepsilon}
-  =\frac{16\varepsilon}{5+4\varepsilon}>0.
-\]
-Per la disuguaglianza (II), con lo stesso vincolo \(x+2>0\),
-si ha
-\begin{align*}
-  4(2x-1)&<(3+4\varepsilon)(x+2)\\
-  8x-4&<3x+4\varepsilon x+6+8\varepsilon\\
-  (5-4\varepsilon)x&<10+8\varepsilon.
-\end{align*}
-Per risolvere quest'ultima disuguaglianza occorre
-considerare il segno di \(5-4\varepsilon\):
-\begin{enumerate}
-  \item Se \(0<\varepsilon<5/4\), si ottiene
-  \[
-    x<\frac{10+8\varepsilon}{5-4\varepsilon},
-  \]
-  e la soglia è maggiore di \(2\), poiché
-  \[
-    \frac{10+8\varepsilon}{5-4\varepsilon}-2
-    =\frac{16\varepsilon}{5-4\varepsilon}>0.
-  \]
-  \item Se \(\varepsilon=5/4\), la disuguaglianza si
-  riduce a \(0<20\), verificata per ogni \(x>1\).
-  \item Se \(\varepsilon>5/4\), il coefficiente è
-  negativo e il verso si inverte:
-  \[
-    x>\frac{10+8\varepsilon}{5-4\varepsilon}.
-  \]
-  La soglia è negativa, quindi la condizione è
-  soddisfatta in particolare per ogni \(x>1\).
-\end{enumerate}
-
-\emph{Scelta del raggio e conclusione.}
-Per scegliere un raggio valido per ogni
-\(\varepsilon>0\), si ponga
-\[
-  \eta:=\min\{\varepsilon,1\}.
-\]
-Poiché \(0<\eta\le1<5/4\), è sufficiente
-soddisfare entrambe le disuguaglianze con \(\eta\)
-al posto di \(\varepsilon\). Le soglie appena calcolate
-permettono di scegliere
-\[
-  \delta_\varepsilon:=\min\left\{
-    1,\frac{16\eta}{5+4\eta},
-      \frac{16\eta}{5-4\eta}
-  \right\}>0.
-\]
-Se \(x\in A\) e \(0<|x-2|<\delta_\varepsilon\), allora
-\[
-  2-\delta_\varepsilon<x<2+\delta_\varepsilon,
-\]
-e, per la scelta del raggio,
-\[
-  x>\frac{10-8\eta}{5+4\eta},
-  \qquad
-  x<\frac{10+8\eta}{5-4\eta}.
-\]
-Sono quindi verificate entrambe le disuguaglianze
-con \(\eta\) al posto di \(\varepsilon\), e ne segue
-\[
   \left|\frac{2x-1}{x+2}-\frac34\right|
-  <\eta\le\varepsilon.
+  &=\left|\frac{4(2x-1)-3(x+2)}{4(x+2)}\right|\\
+  &=\left|\frac{5x-10}{4(x+2)}\right|\\
+  &=\frac{5|x-2|}{4|x+2|}.
+\end{align*}
+Se \(0<|x-2|<1\), allora \(1<x<3\),
+quindi \(x+2>3\). Ne segue che
+\[
+  \frac{5|x-2|}{4|x+2|}
+  <\frac{5|x-2|}{12}.
 \]
+È pertanto sufficiente scegliere
+\[
+  \delta_\varepsilon:=\min\left\{1,\frac{12\varepsilon}{5}\right\}>0.
+\]
+Infatti, per ogni \(x\in A\) tale che
+\(0<|x-2|<\delta_\varepsilon\), si ottiene
+\begin{align*}
+  \left|f(x)-\frac34\right|
+  &=\frac{5|x-2|}{4|x+2|}\\
+  &<\frac{5|x-2|}{12}\\
+  &<\frac{5\delta_\varepsilon}{12}\\
+  &\le\varepsilon.
+\end{align*}
 Poiché \(\varepsilon>0\) era arbitrario, per la
 \cref{def:lez08-limite} si conclude
 \[

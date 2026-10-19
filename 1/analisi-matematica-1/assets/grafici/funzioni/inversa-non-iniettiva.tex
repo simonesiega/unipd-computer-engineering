@@ -1,0 +1,17 @@
+\begin{tikzpicture}[unipd/diagram]
+  \draw[unipd/edge] (0,0) ellipse (1 and 1.35);
+  \draw[unipd/edge] (4.5,0) ellipse (.9 and 1.35);
+  \node at (0,1.65) {\(\R\)};
+  \node at (4.5,1.65) {\(\R\)};
+  \fill[unipd-primary] (0,.65) circle (2pt);
+  \fill[unipd-primary] (0,-.65) circle (2pt);
+  \fill[unipd-primary] (4.5,0) circle (2pt);
+  \node[left=5pt] at (0,.65) {\(-1\)};
+  \node[left=5pt] at (0,-.65) {\(1\)};
+  \node[right=5pt] at (4.5,0) {\(1\)};
+  \draw[unipd/directed edge] (.15,.62) -- (4.35,.04);
+  \draw[unipd/directed edge] (.15,-.62) -- (4.35,-.04);
+  \node at (2.25,1.05) {\(\varphi(x)=x^2\)};
+  \node[align=center,text=unipd-accent!80!black] at (2.25,-1.65)
+    {due preimmagini dello stesso valore};
+\end{tikzpicture}
