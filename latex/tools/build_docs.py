@@ -17,7 +17,7 @@ from urllib.parse import quote, unquote, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
 from build import strip_latex
-from check_repository import EXCLUDED_DIRECTORIES, MARKDOWN_LINK
+from check_repository import EXCLUDED_DIRECTORIES, MARKDOWN_LINK, markdown_lines
 from create_course import DEGREE_START_YEAR
 from package_notes import asset_filename, course_metadata, sha256_file
 from update_release_catalog import PDF_ASSET, ReleasedPdf
@@ -191,23 +191,8 @@ def rewrite_document(
 ) -> str:
     """Rewrite links only in staged prose, leaving fenced examples and sources intact."""
     lines: list[str] = []
-    fence = ""
-    for line in content.splitlines(keepends=True):
-        stripped = line.lstrip()
-        marker = re.match(r"`{3,}|~{3,}", stripped)
-        if marker:
-            run = marker.group()
-            if not fence:
-                fence = run
-            elif (
-                run[0] == fence[0]
-                and len(run) >= len(fence)
-                and not stripped[len(run):].strip()
-            ):
-                fence = ""
-            lines.append(line)
-            continue
-        if fence:
+    for line, prose in markdown_lines(content):
+        if not prose:
             lines.append(line)
             continue
 

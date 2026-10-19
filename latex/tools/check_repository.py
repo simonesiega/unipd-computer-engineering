@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
@@ -84,38 +85,53 @@ def validate_source(path: Path, root: Path) -> list[str]:
     return errors
 
 
+def markdown_lines(content: str) -> Iterator[tuple[str, bool]]:
+    """Yield unchanged lines with a flag identifying prose outside fenced code."""
+    fence = ""
+    for line in content.splitlines(keepends=True):
+        stripped = line.lstrip()
+        marker = re.match(r"`{3,}|~{3,}", stripped)
+        if marker:
+            run = marker.group()
+            if not fence:
+                fence = run
+            elif (
+                run[0] == fence[0]
+                and len(run) >= len(fence)
+                and not stripped[len(run):].strip()
+            ):
+                fence = ""
+            yield line, False
+        else:
+            yield line, not fence
+
+
 def markdown_anchors(content: str) -> set[str]:
     """Return GitHub-style anchors for ATX headings outside fenced code blocks."""
     anchors: set[str] = set()
-    occurrences: dict[str, int] = {}
-    in_fence = False
-    fence_marker = ""
-    for line in content.splitlines():
-        stripped = line.lstrip()
-        if stripped.startswith(("```", "~~~")):
-            marker = stripped[:3]
-            if not in_fence:
-                in_fence = True
-                fence_marker = marker
-            elif marker == fence_marker:
-                in_fence = False
-            continue
-        if in_fence:
+    for line, prose in markdown_lines(content):
+        if not prose:
             continue
         match = MARKDOWN_HEADING.match(line)
         if match is None:
             continue
         heading = re.sub(r"<[^>]+>", "", match.group(1)).casefold()
         base = MARKDOWN_ANCHOR_PUNCTUATION.sub("", heading).replace(" ", "-")
-        count = occurrences.get(base, 0)
-        occurrences[base] = count + 1
-        anchors.add(base if count == 0 else f"{base}-{count}")
+        anchor = base
+        count = 0
+        while anchor in anchors:
+            count += 1
+            anchor = f"{base}-{count}"
+        anchors.add(anchor)
     return anchors
 
 
 def validate_markdown_links(path: Path, root: Path) -> list[str]:
     """Report missing repository-relative Markdown targets and heading anchors."""
-    content = path.read_text(encoding="utf-8")
+    content = "".join(
+        line if prose else "\n"
+        for line, prose in markdown_lines(path.read_text(encoding="utf-8"))
+    )
     errors: list[str] = []
     for match in MARKDOWN_LINK.finditer(content):
         target = unquote(match.group(1) or match.group(2))

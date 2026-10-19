@@ -15,8 +15,6 @@ YEARS = ("1", "2", "3")
 CHANGELOG_DIRECTORY = "CHANGELOG"
 BASELINE_FILENAME = "BASELINE"
 COMMIT_SHA = re.compile(r"^[0-9a-f]{40}$")
-RECORD_SEPARATOR = "\x1e"
-FIELD_SEPARATOR = "\x1f"
 
 
 @dataclass(frozen=True)
@@ -53,42 +51,43 @@ def repository_root() -> Path:
 def run_git(root: Path, *arguments: str) -> str:
     """Run Git in *root* and return UTF-8 output."""
     result = subprocess.run(
-        ("git", "-c", "core.quotepath=false", *arguments),
+        ("git", *arguments),
         cwd=root,
         check=True,
         capture_output=True,
-        text=True,
-        encoding="utf-8",
     )
-    return result.stdout
+    return result.stdout.decode("utf-8", errors="surrogateescape")
 
 
 def parse_history(output: str) -> list[Commit]:
-    """Parse the record-separated output produced by :func:`read_history`."""
+    """Parse NUL-delimited headers and unquoted name-status records from Git."""
+    if output and not output.endswith("\0"):
+        raise ValueError("Git changelog output must be NUL-terminated")
+    fields = output.split("\0")
     commits: list[Commit] = []
-    for record in output.split(RECORD_SEPARATOR):
-        record = record.lstrip("\n")
-        if not record:
-            continue
-
-        header, separator, body = record.partition("\n")
-        if not separator:
-            body = ""
-        fields = header.split(FIELD_SEPARATOR, maxsplit=2)
-        if len(fields) != 3:
+    cursor = 0
+    while cursor < len(fields) - 1:
+        # An empty token marks each header; Git paths cannot contain NULs.
+        if fields[cursor] or len(fields) - cursor < 5:
             raise ValueError("Could not parse Git changelog commit metadata")
-        sha, committed_at, subject = fields
+        sha, committed_at, subject = fields[cursor + 1:cursor + 4]
+        if COMMIT_SHA.fullmatch(sha) is None:
+            raise ValueError("Could not parse Git changelog commit metadata")
+        cursor += 4
 
         changes: list[FileChange] = []
-        for line in body.splitlines():
-            if not line.strip():
-                continue
-            parts = line.split("\t")
-            status = parts[0]
+        while cursor < len(fields) - 1 and fields[cursor]:
+            status = fields[cursor].removeprefix("\n")
             expected_paths = 2 if status[:1] in {"R", "C"} else 1
-            if len(parts) != expected_paths + 1:
-                raise ValueError(f"Could not parse Git name-status line: {line!r}")
-            changes.append(FileChange(status, tuple(parts[1:])))
+            paths = fields[cursor + 1:cursor + 1 + expected_paths]
+            if (
+                re.fullmatch(r"[ACDMRTUXB][0-9]*", status) is None
+                or len(paths) != expected_paths
+                or not all(paths)
+            ):
+                raise ValueError(f"Could not parse Git name-status record: {status!r}")
+            changes.append(FileChange(status, tuple(paths)))
+            cursor += 1 + expected_paths
 
         timestamp = datetime.fromisoformat(committed_at.replace("Z", "+00:00"))
         commits.append(Commit(sha, timestamp.date(), subject, tuple(changes)))
@@ -148,8 +147,9 @@ def read_history(root: Path, baseline: str | None = None) -> list[Commit]:
     output = run_git(
         root,
         "log",
-        f"--format={RECORD_SEPARATOR}%H{FIELD_SEPARATOR}%cI{FIELD_SEPARATOR}%s",
+        "--format=%x00%H%x00%cI%x00%s",
         "--name-status",
+        "-z",
         "--find-renames",
         revision,
         "--",
@@ -188,10 +188,20 @@ def build_course_histories(
     return histories
 
 
+def visible_text(value: str) -> str:
+    """Display control characters as escapes rather than Markdown line breaks."""
+    return "".join(
+        character if character.isprintable() else repr(character)[1:-1]
+        for character in value
+    )
+
+
 def markdown_code(value: str) -> str:
-    """Wrap a short value in Markdown inline-code delimiters."""
-    delimiter = "``" if "`" in value else "`"
-    return f"{delimiter}{value}{delimiter}"
+    """Wrap a short value with safe Markdown inline-code delimiters."""
+    value = visible_text(value)
+    delimiter = "`" * (max((len(run) for run in re.findall(r"`+", value)), default=0) + 1)
+    padding = " " if value.startswith("`") or value.endswith("`") else ""
+    return f"{delimiter}{padding}{value}{padding}{delimiter}"
 
 
 def display_path(path: str, course: tuple[str, str]) -> str:
@@ -258,7 +268,7 @@ def render_changelog(
         commit_label = markdown_code(short_sha)
         if base_url:
             commit_label = f"[{commit_label}]({base_url}/commit/{quote(commit.sha)})"
-        subject = commit.subject.replace("\\", "\\\\").replace("`", "\\`")
+        subject = visible_text(commit.subject).replace("\\", "\\\\").replace("`", "\\`")
         lines.extend(["", f"### {commit_label} — {subject}", ""])
         lines.extend(render_change(change, course) for change in course_commit.changes)
 
