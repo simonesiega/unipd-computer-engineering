@@ -6,6 +6,25 @@ Committed changes for `1/analisi-matematica-1` and every file below it.
 
 Newest changes appear first.
 
+## 19/10/2026
+
+### [`f45d6ec`](https://github.com/simonesiega/unipd-computer-engineering/commit/f45d6ecc625e4ef70f96045a74dcdf2f067bd792) — feat(analisi-1): add lecture 8 notes (#25)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/limite-finito.tex`
+- **Added** `assets/grafici/retta-reale/accumulazione-infinito.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/notazione.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+- **Modified** `sections/settimana-02/05-lezione.tex`
+- **Modified** `sections/settimana-03/06-lezione.tex`
+- **Modified** `sections/settimana-03/07-lezione.tex`
+- **Added** `sections/settimana-03/08-lezione.tex`
+- **Modified** `sections/tutorato/01-tutorato.tex`
+
 ## 16/10/2026
 
 ### [`628d8e1`](https://github.com/simonesiega/unipd-computer-engineering/commit/628d8e18fa371812657453b9efdadd08d9a9df1a) — feat(analisi-1): add lecture 7 notes (#20)

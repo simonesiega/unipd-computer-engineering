@@ -1,0 +1,30 @@
+\begin{tikzpicture}[unipd/diagram]
+  \foreach \yy in {0,-2.05} {
+    \foreach \xx in {0,3.35,6.7} {
+      \draw[unipd/edge] (\xx,\yy) ellipse (.65 and .65);
+      \fill[unipd-primary] (\xx,\yy) circle (2pt);
+    }
+  }
+  \node at (0,.9) {\(A\)};
+  \node at (3.35,.9) {\(A\)};
+  \node at (6.7,.9) {\(B\)};
+  \node at (0,-1.15) {\(A\)};
+  \node at (3.35,-1.15) {\(B\)};
+  \node at (6.7,-1.15) {\(B\)};
+  \draw[unipd/directed edge] (.15,.12) -- (3.2,.12)
+    node[midway,above] {\(\operatorname{id}_A\)};
+  \draw[unipd/directed edge] (3.5,.12) -- (6.55,.12)
+    node[midway,above] {\(\varphi\)};
+  \draw[unipd/directed edge] (.15,-1.93) -- (3.2,-1.93)
+    node[midway,above] {\(\varphi\)};
+  \draw[unipd/directed edge] (3.5,-1.93) -- (6.55,-1.93)
+    node[midway,above] {\(\operatorname{id}_B\)};
+  \foreach \xx in {0,3.35} {
+    \node[below=5pt] at (\xx,0) {\(a\)};
+  }
+  \node[below=5pt] at (6.7,0) {\(\varphi(a)\)};
+  \node[below=5pt] at (0,-2.05) {\(a\)};
+  \foreach \xx in {3.35,6.7} {
+    \node[below=5pt] at (\xx,-2.05) {\(\varphi(a)\)};
+  }
+\end{tikzpicture}

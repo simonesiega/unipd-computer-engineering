@@ -429,6 +429,47 @@ class RepositoryValidationTests(unittest.TestCase):
             anchors, {"installation--setup", "repeated", "repeated-1"}
         )
 
+    def test_markdown_fences_ignore_examples_and_preserve_link_line_numbers(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            for marker in ("`", "~"):
+                with self.subTest(marker=marker):
+                    page = root / "page.md"
+                    page.write_text(
+                        "# Page\n"
+                        f"{marker * 4}markdown\n"
+                        f"{marker * 3}\n"
+                        "# Example heading\n"
+                        "[Example](absent.md)\n"
+                        f"{marker * 3}\n"
+                        f"{marker * 4}not-a-closing-fence\n"
+                        "[Still an example](absent.md)\n"
+                        f"{marker * 5}\n"
+                        "## Actual heading\n"
+                        "[Valid](#actual-heading)\n"
+                        "[Missing](missing.md)\n",
+                        encoding="utf-8",
+                    )
+
+                    self.assertEqual(
+                        markdown_anchors(page.read_text(encoding="utf-8")),
+                        {"page", "actual-heading"},
+                    )
+                    self.assertEqual(
+                        validate_markdown_links(page, root),
+                        ["page.md:12: broken Markdown link: missing.md"],
+                    )
+
+    def test_markdown_anchor_suffixes_do_not_collide_with_literal_headings(self) -> None:
+        self.assertEqual(
+            markdown_anchors("# A\n# A\n# A-1\n# A\n# A-1\n"),
+            {"a", "a-1", "a-1-1", "a-2", "a-1-2"},
+        )
+        self.assertEqual(
+            markdown_anchors("# A-1\n# A\n# A\n"),
+            {"a-1", "a", "a-2"},
+        )
+
     def test_source_hygiene_errors_are_reported(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

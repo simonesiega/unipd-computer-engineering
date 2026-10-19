@@ -54,7 +54,7 @@ These tests exercise `build.py` with temporary sources, real temporary Git histo
 | Test | What it checks |
 |---|---|
 | `test_build_argument_validation_rejects_conflicting_modes` | Rejects incompatible generated-check flags, missing selection modes, and simultaneous explicit targets/`--all`. |
-| `test_keep_going_collects_partial_build_failures` | Records a failed document while continuing to process the next target. |
+| `test_keep_going_collects_partial_build_failures` | Verifies that keep-going mode processes both targets and records the first failure, while default mode propagates the failure without processing the second target. |
 | `test_build_main_cleans_outputs_after_success` | Removes `.build/` after a successful run with `--clean`. |
 | `test_build_main_reports_failures_and_empty_selection` | Returns failure and reports failed targets; rejects an explicit selection that discovers no documents. |
 | `test_changed_file_selection_can_be_a_valid_no_op` | Returns the no-op selection when a changed-file list contains only an unrelated README. |
@@ -64,6 +64,8 @@ These tests exercise `build.py` with temporary sources, real temporary Git histo
 | `test_changed_file_list_rejects_legacy_or_truncated_records` | Rejects newline-delimited legacy input and an unterminated final record. |
 | `test_reference_warning_failure_preserves_published_outputs` | Uses strict `latexmk` warning handling and leaves existing course/component PDFs and README content unchanged after failure. |
 | `test_successful_strict_build_keeps_course_pdf_in_build_directory` | Requires strict compilation and retains course PDFs under `.build/`, including generated-state checks, without copying them beside sources. |
+| `test_example_build_publishes_fixture_but_generated_check_is_read_only` | Publishes component/integration PDF fixtures after a successful mocked build, then rejects stale generated PDFs without replacing the fixture or README and leaves no temporary PDF. |
+| `test_generated_readme_respects_last_preamble_tocdepth` | Filters README entries at each supported contents depth using the last literal preamble setting, ignoring commented settings and settings in the document body. |
 | `test_document_discovery_finds_courses_and_component_examples` | Discovers course, component-example, and integration entry points. |
 | `test_explicit_document_must_remain_inside_repository` | Rejects an explicit target outside the repository. |
 | `test_course_change_selects_only_that_course` | Maps a course-section edit to its owning course only. |
@@ -88,12 +90,16 @@ These tests exercise Git-history parsing and generated course histories, includi
 | Test | What it checks |
 |---|---|
 | `test_real_git_history_is_read_newest_first` | Reads actual commits in newest-first order with the expected changed-file status and path. |
+| `test_real_git_history_preserves_quoted_paths_and_control_characters` | Reads actual Git-index paths with accents, spaces, quotes, tabs, newlines, and control separators without losing course attribution; preserves subject separators and displays control characters safely in generated Markdown. |
 | `test_history_can_start_after_a_baseline_commit` | Excludes the baseline commit and older history. |
 | `test_reset_baseline_records_head_and_can_be_read` | Writes the current `HEAD` to `CHANGELOG/BASELINE` and reads it back. |
 | `test_shallow_repository_is_rejected_before_reading_history` | Refuses incomplete history before attempting changelog generation. |
 | `test_history_is_split_by_course_and_includes_every_changed_file` | Groups commits by course, retains all relevant files, and renders date groups, statuses, and commit links. |
-| `test_rename_is_recorded_in_both_course_histories` | Attributes a cross-course rename to both its old and new course. |
-| `test_required_empty_directories_are_preserved` | Creates `.gitkeep` placeholders for course years and changelog directories even with no history. |
+| `test_renames_and_copies_are_recorded_in_both_course_histories` | Attributes cross-course renames/copies to both courses and renders their statuses and course-relative old/new paths. |
+| `test_placeholders_follow_directory_contents` | Removes unnecessary placeholders, remains stable on repeated generation, and restores placeholders when stale changelogs are removed. |
+| `test_required_empty_directories_are_preserved` | Preserves empty course years and changelog year directories without adding a placeholder to the populated changelog root. |
+| `test_history_parser_rejects_truncated_or_malformed_records` | Rejects unterminated NUL records, malformed headers/statuses, and missing ordinary/rename paths while accepting empty history and commits without file changes. |
+| `test_changelog_inline_code_preserves_backticks_and_control_characters` | Uses delimiters longer than embedded backtick runs, pads edge backticks, and displays control characters as visible escapes. |
 
 ## Course creation
 
@@ -181,7 +187,7 @@ These tests use synthetic compiled bytes to check packaging and output ownership
 
 | Test | What it checks |
 |---|---|
-| `test_slug_and_asset_names_are_url_safe_and_stable` | Produces stable normalized slugs/asset names and rejects invalid slugs or degree years. |
+| `test_asset_names_preserve_validated_slugs_and_reject_unsafe_names` | Preserves canonical slugs in stable PDF asset names for all degree years and rejects accented, traversing, malformed, or empty slugs and invalid years. |
 | `test_course_metadata_ignores_comments_and_preserves_escaped_percent` | Ignores commented setup blocks while retaining an escaped percent sign in active metadata. |
 | `test_packaging_rejects_missing_or_malformed_course_metadata` | Rejects missing, unclosed, or empty course-name metadata. |
 | `test_release_timestamp_must_be_an_iso_datetime_with_offset` | Accepts a trimmed offset-aware ISO timestamp and rejects blank, date-only, naive, or malformed values. |
@@ -231,6 +237,8 @@ These tests construct valid and invalid source/layout fixtures and inspect the v
 | `test_integration_projects_require_source_pdf_and_readme` | Requires both language examples, their expected files, and no extra integration output. |
 | `test_markdown_link_validation_reports_missing_local_targets` | Accepts valid local/external links and reports missing files/fragments with source line numbers. |
 | `test_markdown_anchor_generation_handles_duplicates_and_fences` | Generates punctuation-normalized and duplicate-suffixed heading anchors while ignoring fenced examples. |
+| `test_markdown_fences_ignore_examples_and_preserve_link_line_numbers` | Ignores headings/links inside long backtick and tilde fences, refuses shorter or non-whitespace-suffixed closing fences, and resumes validation with original source line numbers. |
+| `test_markdown_anchor_suffixes_do_not_collide_with_literal_headings` | Keeps repeated-heading suffixes unique even when literal headings already use those suffixes, in either order. |
 | `test_source_hygiene_errors_are_reported` | Reports CRLF, missing final newline, conflict markers, tabs, and trailing whitespace. |
 
 ## Maintaining this catalogue

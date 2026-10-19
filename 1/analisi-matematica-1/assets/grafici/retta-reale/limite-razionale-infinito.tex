@@ -1,0 +1,18 @@
+\begin{tikzpicture}[unipd/diagram,scale=0.95]
+  \draw[unipd/directed edge] (-4.5,0) -- (6.2,0);
+  \node[below] at (6.1,-.02) {\(x\)};
+  \coordinate (excluded) at (-2.6,0);
+  \coordinate (threshold) at (.65,0);
+  \draw[unipd-accent,line width=2.7pt,opacity=.45] (threshold) -- (5.85,0);
+  \draw[unipd-accent,line width=.75pt,dashed] (.65,0) -- (.65,1.05);
+  \draw[unipd-primary,line width=.75pt] (-2.6,-.10) -- (-2.6,.10);
+  \draw[unipd-primary,line width=.75pt] (.65,-.10) -- (.65,.10);
+  \fill[white] (-2.6,0) circle (2.9pt);
+  \draw[unipd-primary,line width=.75pt] (-2.6,0) circle (2.9pt);
+  \fill[white] (.65,0) circle (2.9pt);
+  \draw[unipd-accent,line width=.75pt] (.65,0) circle (2.9pt);
+  \node[below=6pt] at (-2.6,0) {\(-2\)};
+  \node[below=6pt] at (.65,0) {\(k_\varepsilon=-2+\dfrac7\varepsilon\)};
+  \node[above,text=unipd-primary] at (-2.6,.18) {punto escluso};
+  \node[above,text=unipd-accent!80!black] at (3.15,.18) {\(x>k_\varepsilon\)};
+\end{tikzpicture}

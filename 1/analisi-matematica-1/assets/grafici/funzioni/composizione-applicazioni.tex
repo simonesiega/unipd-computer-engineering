@@ -1,0 +1,19 @@
+\begin{tikzpicture}[unipd/diagram]
+  \foreach \pos/\set in {0/A,4.3/C,8.6/D} {
+    \draw[unipd/edge] (\pos,0) ellipse (.83 and 1.0);
+    \node at (\pos,1.26) {\(\set\)};
+    \fill[unipd-primary] (\pos,0) circle (2pt);
+  }
+  \node[below=7pt] at (0,0) {\(a\)};
+  \node[below=7pt] at (4.3,0) {\(\varphi(a)\)};
+  \node[below=7pt] at (8.6,0) {\(\psi(\varphi(a))\)};
+  \draw[unipd/directed edge] (.25,.20) -- (4.05,.20)
+    node[midway,above=3pt] {\(\varphi\)};
+  \draw[unipd/directed edge] (4.55,.20) -- (8.35,.20)
+    node[midway,above=3pt] {\(\psi\)};
+  \draw[unipd-accent,dashed,-{Latex[length=2.2mm]},line width=.85pt]
+    (.08,1.46) to[bend left=22]
+    node[midway,above=1pt] {\(\psi\circ\varphi\)} (8.52,1.46);
+  \node[below=7pt,text=unipd-primary] at (4.3,-1.06)
+    {\(\operatorname{Im}(\varphi)\subseteq C\)};
+\end{tikzpicture}

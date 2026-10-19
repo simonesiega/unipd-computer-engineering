@@ -22,7 +22,6 @@ from package_notes import (
     course_metadata,
     package_release,
     sha256_file,
-    slugify,
 )
 
 
@@ -52,11 +51,14 @@ class NotesPackagingTests(unittest.TestCase):
             built.write_bytes(pdf)
         return main
 
-    def test_slug_and_asset_names_are_url_safe_and_stable(self) -> None:
-        self.assertEqual(slugify("Probabilità e Statistica"), "probabilita-e-statistica")
-        self.assertEqual(asset_filename(1, "calculus-1"), "1-calculus-1.pdf")
-        with self.assertRaisesRegex(ValueError, "kebab-case"):
-            asset_filename(1, "Invalid Course")
+    def test_asset_names_preserve_validated_slugs_and_reject_unsafe_names(self) -> None:
+        for year in (1, 2, 3):
+            for slug in ("calculus-1", "probabilita-e-statistica", "a0-b2", "x"):
+                with self.subTest(year=year, slug=slug):
+                    self.assertEqual(asset_filename(year, slug), f"{year}-{slug}.pdf")
+        for invalid in ("Invalid Course", "probabilità", "../course", "a--b", "-a", ""):
+            with self.subTest(slug=invalid), self.assertRaisesRegex(ValueError, "kebab-case"):
+                asset_filename(1, invalid)
         with self.assertRaisesRegex(ValueError, "degree year"):
             asset_filename(4, "course")
 

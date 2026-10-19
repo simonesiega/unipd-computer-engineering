@@ -14,7 +14,6 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 
-from create_course import kebab_case as slugify
 from latex_source import is_escaped, strip_comments
 
 YEARS = ("1", "2", "3")
@@ -67,7 +66,7 @@ def asset_filename(degree_year: int, course_slug: str) -> str:
         raise ValueError(
             f"Invalid course slug {course_slug!r}; expected lowercase kebab-case"
         )
-    return f"{degree_year}-{slugify(course_slug)}.pdf"
+    return f"{degree_year}-{course_slug}.pdf"
 
 
 def sha256_file(path: Path) -> str:
@@ -188,7 +187,7 @@ def discover_courses(root: Path) -> list[Path]:
     return courses
 
 
-def _course_name(main_file: Path, _fallback_slug: str) -> str:
+def _course_name(main_file: Path) -> str:
     """Return the required canonical course name from unipdsetup metadata."""
     name = course_metadata(main_file).get("course", "").strip()
     if not name:
@@ -328,7 +327,7 @@ def _discover_course_builds(root: Path) -> list[CourseBuild]:
         builds.append(
             CourseBuild(
                 degree_year=year,
-                course_name=_course_name(main_file, slug),
+                course_name=_course_name(main_file),
                 course_slug=slug,
                 source_directory=source_directory,
                 built_pdf=built_pdf,

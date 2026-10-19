@@ -52,5 +52,10 @@
   - 8.1 Punti isolati e accumulazione all'infinito — p. 41
   - 8.2 Definizione generale di limite — p. 42
   - 8.3 Esercizi sulla definizione di limite — p. 44
-- A Tutorato 1 --- 8 ottobre 2026 — p. 48
+- 9 Lezione 9 --- 16 ottobre 2026 — p. 47
+  - 9.1 Verifica di un limite all'infinito — p. 47
+  - 9.2 Composizione di applicazioni — p. 48
+  - 9.3 Applicazione identità — p. 49
+  - 9.4 Applicazione inversa — p. 50
+- A Tutorato 1 --- 8 ottobre 2026 — p. 52
 <!-- GENERATED:END -->

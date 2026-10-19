@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from collections.abc import Iterator
 from pathlib import Path
 from unittest.mock import patch
 
@@ -79,12 +80,24 @@ class BuildSelectionTests(unittest.TestCase):
                 build_module,
                 "process_document",
                 side_effect=[OSError("broken output"), None],
-            ):
+            ) as process:
                 failures = process_documents(root, [first, second], arguments)
+                self.assertEqual(
+                    [call.args[1] for call in process.call_args_list], [first, second]
+                )
 
             self.assertEqual(len(failures), 1)
             self.assertEqual(failures[0][0], Path("1/first/main.tex"))
             self.assertIn("broken output", str(failures[0][1]))
+
+            with (
+                patch.object(
+                    build_module, "process_document", side_effect=OSError("stop here")
+                ) as process,
+                self.assertRaisesRegex(OSError, "stop here"),
+            ):
+                process_documents(root, [first, second], self.arguments())
+            self.assertEqual([call.args[1] for call in process.call_args_list], [first])
 
     def test_build_main_cleans_outputs_after_success(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -292,6 +305,75 @@ class BuildSelectionTests(unittest.TestCase):
 
             self.assertTrue((output / "main.pdf").is_file())
             self.assertFalse((document.parent / "main.pdf").exists())
+
+    def test_example_build_publishes_fixture_but_generated_check_is_read_only(self) -> None:
+        for target in ("latex/components/code/example", "latex/integration/english"):
+            with self.subTest(target=target), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve()
+                document = self.create_document(root, target)
+                output = build_module.build_directory(root, document)
+                payloads = iter((b"current fixture", b"changed fixture"))
+
+                def latexmk(
+                    command: list[str], output: Path = output,
+                    payloads: Iterator[bytes] = payloads, **kwargs: object,
+                ) -> None:
+                    self.assertIn("-Werror", command)
+                    (output / "main.pdf").write_bytes(next(payloads))
+                    (output / "main.toc").write_text("", encoding="utf-8")
+
+                with (
+                    patch.object(build_module.shutil, "which", return_value="latexmk"),
+                    patch.object(build_module.subprocess, "run", side_effect=latexmk),
+                ):
+                    process_document(root, document, True, True, False)
+                    fixture = document.parent / "main.pdf"
+                    self.assertEqual(fixture.read_bytes(), b"current fixture")
+                    readme = document.parent / "README.md"
+                    original_readme = readme.read_bytes() if readme.exists() else None
+
+                    with self.assertRaisesRegex(RuntimeError, "Generated outputs do not match"):
+                        process_document(root, document, True, True, True)
+
+                self.assertEqual(fixture.read_bytes(), b"current fixture")
+                self.assertEqual((output / "main.pdf").read_bytes(), b"changed fixture")
+                self.assertEqual(
+                    readme.read_bytes() if readme.exists() else None, original_readme
+                )
+                self.assertFalse((document.parent / "main.pdf.tmp").exists())
+
+    def test_generated_readme_respects_last_preamble_tocdepth(self) -> None:
+        levels = (
+            ("part", -1), ("chapter", 0), ("section", 1),
+            ("subsection", 2), ("subsubsection", 3),
+        )
+        for depth in (-1, 0, 1, 2, 3):
+            with self.subTest(depth=depth), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve()
+                document = self.create_document(root, "1/course")
+                document.write_text(
+                    "\\documentclass[english]{unipd-notes}\n"
+                    "\\setcounter{tocdepth}{3}\n"
+                    f"\\setcounter{{tocdepth}}{{{depth}}}\n"
+                    "% \\setcounter{tocdepth}{-2}\n"
+                    "\\begin{document}\n\\setcounter{tocdepth}{-2}\n"
+                    "\\end{document}\n",
+                    encoding="utf-8",
+                )
+                output = build_module.build_directory(root, document)
+                output.mkdir(parents=True)
+                (output / "main.pdf").write_bytes(b"synthetic PDF")
+                (output / "main.toc").write_text(
+                    "".join(
+                        f"\\contentsline {{{level}}}{{Title-{level}}}{{1}}{{{level}.1}}\n"
+                        for level, _ in levels
+                    ),
+                    encoding="utf-8",
+                )
+                process_document(root, document, False, True, False)
+                readme = (document.parent / "README.md").read_text(encoding="utf-8")
+                for level, level_depth in levels:
+                    self.assertEqual(f"- Title-{level} — p. 1" in readme, level_depth <= depth)
 
     def test_document_discovery_finds_courses_and_component_examples(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
