@@ -1,0 +1,19 @@
+\begin{tikzpicture}[unipd/diagram,x=1.12cm,y=1.12cm]
+  \clip (-2.35,-2.35) rectangle (4.35,4.25);
+  \draw[->,unipd-muted] (-2.25,0) -- (4.23,0)
+    node[below right] {\(x\)};
+  \draw[->,unipd-muted] (0,-2.25) -- (0,4.12)
+    node[above left] {\(y\)};
+  \draw[unipd-muted,densely dashed,thick] (-2.15,-2.15) -- (4.05,4.05)
+    node[above left] {\(y=x\)};
+  \draw[very thick,unipd-primary,domain=-2.2:1.39,samples=110]
+    plot (\x,{exp(\x)});
+  \draw[very thick,unipd-accent,domain=.11:4.13,samples=110]
+    plot (\x,{ln(\x)});
+  \fill[unipd-primary] (0,1) circle (1.9pt);
+  \fill[unipd-accent] (1,0) circle (1.9pt);
+  \node[left=4pt] at (0,1) {\((0,1)\)};
+  \node[below=5pt] at (1,0) {\((1,0)\)};
+  \node[text=unipd-primary,above left] at (1.32,3.74) {\(y=e^x\)};
+  \node[text=unipd-accent,above left] at (3.65,1.28) {\(y=\log x\)};
+\end{tikzpicture}

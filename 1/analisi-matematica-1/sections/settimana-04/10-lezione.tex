@@ -1,0 +1,280 @@
+\chapter[Lezione 10 --- 20 ottobre 2026]{Lezione 10: applicazioni inverse e monotonia}
+\label{chap:lezione-10}
+
+\section{Dominio, immagine e grafico dell'applicazione inversa}
+\label{sec:lez10-proprieta-inversa}
+
+La \cref{def:lez09-inversa} permette di precisare il rapporto
+tra dominio e immagine di un'applicazione iniettiva e della sua inversa.
+
+\begin{proposition}[Dominio e immagine dell'applicazione inversa]
+\label{prop:lez10-dominio-immagine-inversa}
+Siano \(A,B\) insiemi non vuoti e
+\(\varphi\colon A\longrightarrow B\) un'applicazione iniettiva.
+Allora
+\[
+  D(\varphi^{-1})=\operatorname{Im}(\varphi),
+  \qquad
+  \operatorname{Im}(\varphi^{-1})=D(\varphi).
+\]
+\end{proposition}
+
+\begin{proof}
+\emph{Prima uguaglianza.}
+Segue direttamente dalla \cref{def:lez09-inversa}.
+
+\emph{Seconda uguaglianza.}
+Poiché \(C(\varphi^{-1})=A=D(\varphi)\),
+per la \cref{def:lez06-immagine} si ha
+\[
+  \operatorname{Im}(\varphi^{-1})\subseteq D(\varphi).
+\]
+Viceversa, sia \(a_0\in D(\varphi)\).
+Ponendo \(b_0:=\varphi(a_0)\), si ottiene
+\(b_0\in\operatorname{Im}(\varphi)=D(\varphi^{-1})\).
+Dalla \cref{def:lez09-inversa} segue
+\[
+  \varphi^{-1}(b_0)=a_0,
+\]
+quindi \(a_0\in\operatorname{Im}(\varphi^{-1})\).
+Pertanto \(D(\varphi)\subseteq\operatorname{Im}(\varphi^{-1})\),
+da cui la seconda uguaglianza.
+\end{proof}
+
+\begin{example}[Esponenziale e logaritmo]
+\label{ex:lez10-dominio-immagine-logaritmo}
+L'applicazione
+\[
+  \varphi\colon\R\longrightarrow(0,+\infty),
+  \qquad x\longmapsto e^x,
+\]
+è invertibile e la sua inversa è
+\[
+  \varphi^{-1}\colon(0,+\infty)\longrightarrow\R,
+  \qquad y\longmapsto\log y.
+\]
+In accordo con la \cref{prop:lez10-dominio-immagine-inversa},
+\[
+  D(\varphi^{-1})=(0,+\infty),
+  \qquad \operatorname{Im}(\varphi^{-1})=\R.
+\]
+\end{example}
+
+Se \(A,B\subseteq\R\), il grafico dell'inversa si ottiene
+scambiando le coordinate dei punti del grafico originario.
+Infatti, per la \cref{def:lez07-grafico},
+\[
+\begin{aligned}
+  G(\varphi)
+    &=\{(a,\varphi(a)):a\in A\},\\
+  G(\varphi^{-1})
+    &=\{(b,\varphi^{-1}(b)):b\in\operatorname{Im}(\varphi)\}\\
+    &=\{(\varphi(a),a):a\in A\}.
+\end{aligned}
+\]
+
+\clearpage
+
+I due grafici sono quindi simmetrici rispetto alla retta
+\(y=x\), rappresentata nella \cref{fig:lez10-grafico-inversa}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/inversa-esponenziale-logaritmo}
+  \caption{I grafici di \(e^x\) e \(\log x\) sono simmetrici
+  rispetto alla retta \(y=x\).}
+  \label{fig:lez10-grafico-inversa}
+\end{figure}
+
+\section{Monotonia delle funzioni}
+\label{sec:lez10-monotonia}
+
+Siano \(A\subseteq\R\) non vuoto,
+\(\varphi\colon A\longrightarrow\R\) e
+\(S\subseteq A\) non vuoto. Le definizioni seguenti
+si applicano, in particolare, quando \(S=I\) è un intervallo,
+nel senso della \cref{def:intervallo-retta-reale}.
+
+\begin{definition}[Crescenza, decrescenza e monotonia]
+\label{def:lez10-monotonia}
+Per ogni \(x_1,x_2\in S\) con \(x_1<x_2\),
+si dice che \(\varphi\) è su \(S\):
+\begin{enumerate}
+  \item \emph{strettamente crescente} se
+  \(\varphi(x_1)<\varphi(x_2)\);
+  \item \emph{debolmente crescente} se
+  \(\varphi(x_1)\le\varphi(x_2)\);
+  \item \emph{strettamente decrescente} se
+  \(\varphi(x_1)>\varphi(x_2)\);
+  \item \emph{debolmente decrescente} se
+  \(\varphi(x_1)\ge\varphi(x_2)\).
+\end{enumerate}
+Si dice che \(\varphi\) è \emph{strettamente monotona} su \(S\)
+se è strettamente crescente oppure strettamente decrescente,
+e \emph{debolmente monotona} su \(S\) se è debolmente crescente
+oppure debolmente decrescente.
+\end{definition}
+
+\begin{example}[Un'unione che non è un intervallo]
+\label{ex:lez10-unione-non-intervallo}
+L'insieme
+\[
+  J=(1,2)\cup(2,4)
+\]
+non è un intervallo, benché sia unione di due intervalli.
+Infatti, scegliendo
+\[
+  x_1=\frac32\in J,
+  \qquad x_2=3\in J,
+\]
+si ha \(x_1<2<x_2\) ma \(2\notin J\),
+in contrasto con la \cref{def:intervallo-retta-reale}.
+\end{example}
+
+\clearpage
+
+\begin{proposition}[Monotonia della funzione opposta]
+\label{prop:lez10-monotonia-opposta}
+Siano \(I\subseteq\R\) un intervallo non vuoto e
+\(\varphi\colon I\longrightarrow\R\).
+
+Se \(\varphi\) è debolmente crescente su \(I\),
+allora \(-\varphi\) è debolmente decrescente su \(I\).
+Se \(\varphi\) è debolmente decrescente su \(I\),
+allora \(-\varphi\) è debolmente crescente su \(I\).
+Le stesse proprietà valgono per la monotonia stretta.
+\end{proposition}
+
+\begin{proof}
+Siano \(x_1,x_2\in I\) con \(x_1<x_2\).
+
+\emph{Caso crescente.}
+Se \(\varphi(x_1)\le\varphi(x_2)\), cambiando
+segno a entrambi i membri si inverte il verso
+della disuguaglianza e si ottiene
+\[
+  (-\varphi)(x_1)=-\varphi(x_1)
+  \ge-\varphi(x_2)=(-\varphi)(x_2).
+\]
+Pertanto \(-\varphi\) è debolmente decrescente.
+
+\emph{Caso decrescente.}
+Se \(\varphi(x_1)\ge\varphi(x_2)\),
+con lo stesso procedimento si ottiene
+\[
+  (-\varphi)(x_1)=-\varphi(x_1)
+  \le-\varphi(x_2)=(-\varphi)(x_2).
+\]
+Pertanto \(-\varphi\) è debolmente crescente.
+Se le disuguaglianze iniziali sono strette,
+restano strette anche quelle ottenute moltiplicando per \(-1\).
+\end{proof}
+
+\begin{proposition}[Monotonia del prodotto di funzioni non negative]
+\label{prop:lez10-monotonia-prodotto}
+Siano \(I\subseteq\R\) un intervallo non vuoto e
+\(\varphi,\psi\colon I\longrightarrow\R\), con
+\[
+  \operatorname{Im}(\varphi)\subseteq[0,+\infty),
+  \qquad
+  \operatorname{Im}(\psi)\subseteq[0,+\infty).
+\]
+Se \(\varphi\) e \(\psi\) sono entrambe debolmente crescenti
+su \(I\), allora il prodotto \(\varphi\psi\) è debolmente
+crescente su \(I\).
+
+Se \(\varphi\) e \(\psi\) sono entrambe debolmente decrescenti
+su \(I\), allora il prodotto \(\varphi\psi\) è debolmente
+decrescente su \(I\).
+\end{proposition}
+
+\begin{proof}
+Siano \(x_1,x_2\in I\) con \(x_1<x_2\).
+
+\emph{Caso crescente.}
+Per ipotesi,
+\[
+  0\le\varphi(x_1)\le\varphi(x_2),
+  \qquad 0\le\psi(x_1)\le\psi(x_2).
+\]
+Ne segue che
+\[
+  \varphi(x_1)\psi(x_1)
+  \le\varphi(x_2)\psi(x_1)
+  \le\varphi(x_2)\psi(x_2),
+\]
+quindi \(\varphi\psi\) è debolmente crescente.
+
+\emph{Caso decrescente.}
+Per ipotesi,
+\[
+  \varphi(x_1)\ge\varphi(x_2)\ge0,
+  \qquad \psi(x_1)\ge\psi(x_2)\ge0.
+\]
+Ne segue che
+\[
+  \varphi(x_1)\psi(x_1)
+  \ge\varphi(x_2)\psi(x_1)
+  \ge\varphi(x_2)\psi(x_2),
+\]
+quindi \(\varphi\psi\) è debolmente decrescente.
+\end{proof}
+
+Quando una funzione è crescente e l'altra decrescente,
+non si può dedurre, in generale, la monotonia del prodotto.
+Ad esempio, su \(I=[0,1]\) le funzioni non negative
+\(\varphi(x)=x\) e \(\psi(x)=1-x\) sono rispettivamente
+crescenti e decrescenti, ma
+\[
+  (\varphi\psi)(0)=(\varphi\psi)(1)=0,
+  \qquad (\varphi\psi)\!\left(\frac12\right)=\frac14,
+\]
+per cui il prodotto non è monotono su \(I\).
+
+\begin{proposition}[Monotonia stretta e applicazione inversa]
+\label{prop:lez10-monotonia-inversa}
+Siano \(I\subseteq\R\) un intervallo non vuoto e
+\(\varphi\colon I\longrightarrow\R\) strettamente monotona su \(I\).
+Allora:
+\begin{enumerate}
+  \item \(\varphi\) è iniettiva;
+  \item l'applicazione inversa
+  \(\varphi^{-1}\colon\operatorname{Im}(\varphi)\longrightarrow I\)
+  è strettamente monotona su \(\operatorname{Im}(\varphi)\).
+  In particolare, se \(\varphi\) è strettamente crescente,
+  anche \(\varphi^{-1}\) è strettamente crescente;
+  se \(\varphi\) è strettamente decrescente,
+  anche \(\varphi^{-1}\) è strettamente decrescente.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Dimostrazione del primo punto]
+Siano \(x_1,x_2\in I\) distinti.
+Se \(x_1<x_2\), la stretta monotonia implica
+\(\varphi(x_1)<\varphi(x_2)\), nel caso crescente, e
+\(\varphi(x_1)>\varphi(x_2)\), nel caso decrescente.
+Se \(x_2<x_1\) si procede analogamente.
+In entrambi i casi \(\varphi(x_1)\ne\varphi(x_2)\),
+dunque \(\varphi\) è iniettiva per la
+\cref{def:lez06-iniettiva}.
+\end{proof}
+
+La seconda affermazione della
+\cref{prop:lez10-monotonia-inversa} è enunciata senza dimostrazione.
+
+\begin{example}[Monotonia del logaritmo]
+\label{ex:lez10-logaritmo-monotono}
+Per ogni \(a>1\), la funzione
+\[
+  \varphi\colon\R\longrightarrow(0,+\infty),
+  \qquad x\longmapsto a^x,
+\]
+è strettamente crescente su \(\R\).
+La sua inversa
+\[
+  \varphi^{-1}\colon(0,+\infty)\longrightarrow\R,
+  \qquad x\longmapsto\log_a x,
+\]
+è quindi strettamente crescente su \((0,+\infty)\)
+per la \cref{prop:lez10-monotonia-inversa}.
+\end{example}
