@@ -286,21 +286,70 @@ L'esistenza di \(a\) segue dalla
 
 \begin{proposition}[Composizione con l'applicazione inversa]
 \label{prop:lez09-inversa-composizione}
-Sia \(\varphi\colon A\longrightarrow B\) iniettiva. Allora
+Sia \(\varphi\colon A\longrightarrow B\) iniettiva.
+Con la notazione introdotta nella \cref{sec:lez09-identita},
+si ha
 \[
-  \varphi^{-1}\circ\varphi=\operatorname{id}_A.
+  \varphi^{-1}\circ\varphi=\operatorname{id}_A,
+  \qquad
+  \widetilde{\varphi}\circ\varphi^{-1}
+  =\operatorname{id}_{\operatorname{Im}(\varphi)}.
 \]
 \end{proposition}
 
 \begin{proof}
-Poiché \(\operatorname{Im}(\varphi)=D(\varphi^{-1})\),
-la composizione è definita. Per ogni \(a\in A\),
-dalla \cref{def:lez09-inversa} si ottiene
+Le due composizioni sono definite rispettivamente
+da \(A\) in \(A\) e da \(\operatorname{Im}(\varphi)\)
+in sé.
+
+Per ogni \(a\in A\), dalla \cref{def:lez09-inversa}
+si ottiene
 \[
   (\varphi^{-1}\circ\varphi)(a)
   =\varphi^{-1}(\varphi(a))=a
   =\operatorname{id}_A(a).
 \]
-L'uguaglianza delle applicazioni segue dalla
-\cref{def:lez09-identita}.
+Analogamente, per ogni \(b\in\operatorname{Im}(\varphi)\),
+\[
+  (\widetilde{\varphi}\circ\varphi^{-1})(b)
+  =\widetilde{\varphi}(\varphi^{-1}(b))=b
+  =\operatorname{id}_{\operatorname{Im}(\varphi)}(b).
+\]
+Seguono entrambe le uguaglianze.
 \end{proof}
+
+\begin{example}[Esponenziale e logaritmo]
+\label{ex:lez09-inversa-esponenziale}
+Si considerino le applicazioni inverse
+\[
+  \varphi\colon\R\longrightarrow(0,+\infty),
+  \quad x\longmapsto e^x,
+\]
+\[
+  \varphi^{-1}\colon(0,+\infty)\longrightarrow\R,
+  \quad y\longmapsto\log y.
+\]
+Per ogni \(x\in\R\), si ha
+\[
+  (\varphi^{-1}\circ\varphi)(x)
+  =\log(e^x)=x.
+\]
+Analogamente, per ogni \(y\in(0,+\infty)\),
+\[
+  (\varphi\circ\varphi^{-1})(y)
+  =e^{\log y}=y.
+\]
+Pertanto
+\[
+  \varphi^{-1}\circ\varphi=\operatorname{id}_{\R},
+  \qquad
+  \varphi\circ\varphi^{-1}
+  =\operatorname{id}_{(0,+\infty)}.
+\]
+Le due composizioni hanno domini differenti:
+\[
+  D(\varphi^{-1}\circ\varphi)=\R,
+  \qquad
+  D(\varphi\circ\varphi^{-1})=(0,+\infty).
+\]
+\end{example}
