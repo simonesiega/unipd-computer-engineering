@@ -57,5 +57,8 @@
   - 9.2 Composizione di applicazioni — p. 48
   - 9.3 Applicazione identità — p. 49
   - 9.4 Applicazione inversa — p. 50
-- A Tutorato 1 --- 8 ottobre 2026 — p. 52
+- 10 Lezione 10 --- 20 ottobre 2026 — p. 52
+  - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 52
+  - 10.2 Monotonia delle funzioni — p. 53
+- A Tutorato 1 --- 8 ottobre 2026 — p. 56
 <!-- GENERATED:END -->
