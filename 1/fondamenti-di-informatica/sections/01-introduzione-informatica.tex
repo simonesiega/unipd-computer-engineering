@@ -1,838 +1,539 @@
 \chapter{Introduzione all'informatica}
 \label{chap:introduzione-informatica}
 
-L'informatica studia il trattamento automatico dell'informazione e i
-processi di calcolo che lo rendono possibile. Il suo oggetto non è
-soltanto il calcolatore come dispositivo fisico, ma anche la formulazione
-dei problemi, la progettazione dei procedimenti risolutivi e i limiti
-della loro esecuzione. Per comprendere come un programma trasformi i
-dati in risultati occorre distinguere il problema da risolvere, il
-metodo scelto e la macchina che lo esegue.\footnote{Riferimento didattico:
-S. Canazza, \emph{Presentazione del corso}, file
+L'informatica studia i processi algoritmici che rappresentano e trasformano
+l'informazione. Per descrivere un'elaborazione occorre distinguere il
+problema, il procedimento risolutivo e il programma che lo implementa
+su un calcolatore.\footnote{Materiale di riferimento:
+S. Canazza, \emph{Presentazione del corso},
 \nolinkurl{2026_FI_00_canazza.pdf}.}
 
 \section{Informazione, calcolo e programmazione}
 \label{sec:fi-informatica-calcolo}
 
-Un \emph{dato} è una rappresentazione utilizzabile per conservare,
-trasmettere o elaborare informazione. Il suo significato dipende dalle
-convenzioni adottate: una sequenza di simboli può descrivere, per esempio,
-un importo oppure un testo. L'elaborazione opera sulle rappresentazioni,
-mentre l'interpretazione dei risultati deve rimanere coerente con il
-problema originario. Le convenzioni per rappresentare numeri e caratteri
-sono sviluppate nel \cref{chap:rappresentazione-informazioni}.
+Un \emph{dato} rappresenta un'informazione secondo convenzioni che ne
+determinano il significato. La codifica di numeri e caratteri è
+trattata nel \cref{chap:rappresentazione-informazioni}.
 
-Il significato di un dato non coincide, tuttavia, con la quantità di
-informazione che esso può trasmettere. Nel modello introdotto da Claude
-Shannon, la quantità di informazione associata a un evento dipende dalla
-sua probabilità, indipendentemente dal significato del messaggio.
-Un evento poco probabile fornisce, quando si verifica, una quantità
-di informazione maggiore rispetto a uno più
-probabile. Per un esito di probabilità \(0<p\le1\), il contenuto
-informativo è
+Nella teoria dell'informazione di Shannon, il contenuto informativo di un
+evento di probabilità \(0<p\le1\) è
 \[
-  I(p)=-\log_2 p.
+  I(p):=-\log_2 p.
 \]
-Il logaritmo in base due esprime questa quantità in \emph{bit}: un esito
-fra due alternative equiprobabili fornisce un bit, mentre un esito certo
-fornisce zero bit. Per esempio, conoscere l'esito di un esperimento con
-quattro risultati equiprobabili fornisce \(-\log_2(1/4)=2\) bit.
-Per esiti con probabilità \(p_1,\ldots,p_r\), la cui somma è uno,
-l'\emph{entropia di Shannon} misura il contenuto informativo medio:
+
+Il contenuto informativo diminuisce all'aumentare della probabilità:
+a eventi meno probabili corrisponde una maggiore quantità di informazione,
+come mostra la \cref{fig:fi-contenuto-informativo}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/informazione/contenuto-informativo}
+  \caption{Andamento del contenuto informativo \(I(p)=-\log_2 p\) al variare della probabilità \(p\).}
+  \label{fig:fi-contenuto-informativo}
+\end{figure}
+
+Il contenuto informativo si misura in \emph{bit}: un esito tra due alternative
+equiprobabili fornisce un bit, mentre un evento certo fornisce zero bit.
+Per una sorgente con esiti di probabilità \(p_1,\ldots,p_r\), con
+\(\sum_{i=1}^r p_i=1\), l'\emph{entropia di Shannon} è il contenuto
+informativo medio:
 \[
-  H=-\sum_{i=1}^{r}p_i\log_2 p_i,
+  H:=-\sum_{i=1}^{r}p_i\log_2p_i,
 \]
-con contributo nullo per gli esiti di probabilità zero. Il bit come unità
-di informazione non coincide concettualmente con una \emph{cifra binaria}:
-quest'ultima è un simbolo \(0\) o \(1\). Una cifra binaria aleatoria
-ha entropia di un bit solo se i due valori sono equiprobabili; se il
-valore è già noto, la sua entropia è nulla.\footnote{C. E. Shannon,
+con la convenzione \(0\log_2 0=0\). Il bit come unità di informazione va
+distinto dalla cifra binaria \(0\) o \(1\), impiegata per rappresentare
+i dati (\cref{sec:fi-conversioni-binarie}).\footnote{C. E. Shannon,
 \emph{A Mathematical Theory of Communication}, \emph{Bell System
-Technical Journal}, 1948, parte I: misura dell'informazione ed entropia
-per sorgenti discrete.}
+Technical Journal}, 1948.}
 
-L'elaborazione automatica dei dati è affidata a un \emph{computer},
-o \emph{calcolatore}, ossia un dispositivo fisico programmabile che
-memorizza dati, esegue istruzioni e scambia informazioni con l'esterno.
-Una \emph{computazione} è invece un processo di trasformazione dei dati
-secondo regole specificate. Il dispositivo e il processo sono concetti
-distinti: lo stesso calcolatore può eseguire computazioni diverse,
-e lo stesso procedimento può essere realizzato su macchine differenti.
-Le componenti fisiche costituiscono l'\emph{hardware}, mentre i
-programmi costituiscono il \emph{software}.
+Un \emph{calcolatore} è un dispositivo programmabile che memorizza dati,
+esegue istruzioni e comunica con l'esterno. Le sue componenti fisiche
+costituiscono l'\emph{hardware}; i programmi costituiscono il
+\emph{software}. Una \emph{computazione} è un'elaborazione eseguita
+secondo regole determinate, indipendentemente dal dispositivo utilizzato.
+Fra i calcolatori rientrano anche sistemi integrati in oggetti e
+ambienti, spesso collegati in rete: questa diffusione prende il nome di
+\emph{informatica pervasiva}.
 
-Per stabilire quale elaborazione debba essere eseguita, occorre
-anzitutto definire il \emph{problema di calcolo}, specificando i dati
-ammissibili in ingresso e il risultato richiesto per ciascuno di essi.
-Una particolare scelta dei dati costituisce un'\emph{istanza} del
-problema. La specifica chiarisce che cosa ottenere, ma non come
-ottenerlo: il procedimento risolutivo è un \emph{algoritmo}, mentre
-un \emph{programma} ne esprime una realizzazione in un linguaggio di
-programmazione. Uno stesso algoritmo può avere più implementazioni,
-differenti per linguaggio o organizzazione interna, senza modificare
-il problema risolto.
+Un \emph{problema di calcolo} specifica gli ingressi ammissibili e il
+risultato richiesto. Una particolare scelta dei dati di ingresso
+costituisce un'\emph{istanza} del problema. La soluzione viene descritta
+mediante un \emph{algoritmo} (\cref{def:fi-algoritmo}), mentre un
+\emph{programma} ne costituisce un'implementazione in un linguaggio
+di programmazione.
+La \emph{programmazione} comprende la progettazione, la scrittura e la
+verifica del programma rispetto alle specifiche del problema.
 
-La distinzione fra problema, algoritmo e programma permette di precisare
-il ruolo della \emph{programmazione}, che comprende la progettazione,
-l'implementazione e la verifica dei programmi rispetto alle specifiche.
-Essa richiede di individuare rappresentazioni dei dati e procedimenti
-risolutivi appropriati, traducendoli in istruzioni conformi al linguaggio
-utilizzato. Il calcolatore esegue tali istruzioni secondo le regole
-del linguaggio e dell'ambiente di esecuzione, senza correggerle
-autonomamente sulla base delle intenzioni del programmatore.
-
-A livello della macchina, anche i procedimenti più articolati si
-riconducono a operazioni elementari, come trasferimenti di dati,
-calcoli, confronti e scelte della prossima istruzione. La loro
-combinazione mediante sequenze, selezioni fra percorsi alternativi
-e ripetizioni permette di realizzare elaborazioni complesse a partire
-da un insieme limitato di operazioni fondamentali.
+Un processore esegue operazioni elementari, come trasferimenti,
+operazioni aritmetiche e confronti. Sequenze, selezioni e ripetizioni
+permettono di combinarle in elaborazioni più complesse
+(\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
 
 \section{Algoritmi e risoluzione dei problemi}
 \label{sec:fi-algoritmi}
 
-La descrizione di un metodo deve precisare tanto le operazioni quanto
-il loro ordine e le condizioni che determinano il proseguimento del
-calcolo. Un'indicazione come «ripetere finché il risultato è adeguato»
-non è sufficiente se non viene stabilito un criterio verificabile di
-adeguatezza. Analogamente, chiedere di individuare il paesaggio «più
-rilassante» richiede prima di definire un criterio preciso di confronto.
-
-\begin{definition}[Algoritmo per un problema di calcolo]
+\begin{definition}[Algoritmo]
 \label{def:fi-algoritmo}
-Un algoritmo è una descrizione finita e non ambigua di un procedimento,
-composto da passi effettivamente eseguibili, che termina dopo un numero
-finito di passi per ogni ingresso del dominio previsto. Per risolvere
-correttamente un problema, il procedimento deve inoltre produrre il
-risultato prescritto per ciascun ingresso ammissibile.
+Un \emph{algoritmo} è un procedimento descritto mediante un numero finito
+di istruzioni non ambigue ed effettivamente eseguibili, che termina dopo
+un numero finito di passi per ogni ingresso ammissibile. Un algoritmo
+risolve un problema se restituisce il risultato richiesto per ogni
+ingresso previsto.
 \end{definition}
 
-L'\emph{eseguibilità} richiede che ogni passo possa essere svolto mediante
-operazioni definite, senza richiedere informazioni non disponibili o
-procedure di cui non sia specificato il funzionamento.
-L'\emph{assenza di ambiguità} riguarda sia il significato delle operazioni
-sia la scelta del passo successivo. La \emph{terminazione} riguarda
-ogni ingresso ammissibile: una descrizione di poche istruzioni può
-imporre una ripetizione senza fine, quindi la finitezza del testo non
-assicura la finitezza dell'esecuzione.
+L'eseguibilità, l'assenza di ambiguità e la terminazione sono condizioni
+distinte dalla \emph{correttezza} del risultato. In particolare, la
+finitezza della descrizione non garantisce la terminazione di una
+ripetizione (si veda anche la \cref{sec:fi-ricorsione-terminazione}).
+Inoltre, la specifica del problema deve stabilire criteri
+verificabili: individuare il paesaggio «più rilassante», per esempio,
+non definisce un problema di calcolo finché non viene precisato
+come confrontare i paesaggi.
 
-La terminazione non impone lo stesso numero di passi per tutti gli
-ingressi, né garantisce che il risultato sia corretto. Correttezza e
-terminazione devono essere giustificate rispetto alle ipotesi del
-problema. Un programma che implementa un algoritmo deve inoltre
-rispettarne tali ipotesi; errori nella traduzione o limiti della
-rappresentazione dei dati possono alterare il risultato.
-
-Un semplice problema numerico permette di esaminare insieme
-terminazione e correttezza di un procedimento iterativo.
-
-\noindent\begin{minipage}{\linewidth}
 \begin{example}[Raddoppio di un capitale]
 \label{ex:fi-interesse-composto}
-Si vuole determinare il primo anno in cui un capitale di \(20\,000\) euro
-raggiunge almeno \(40\,000\) euro, con interesse annuo costante del \(5\%\)
-capitalizzato a fine anno. Si escludono versamenti, prelievi, imposte e
-arrotondamenti intermedi. Il procedimento è il seguente:
+Un capitale iniziale di \(20\,000\) euro produce un interesse annuo
+costante del \(5\%\), capitalizzato alla fine di ogni anno. Senza
+versamenti, prelievi o arrotondamenti intermedi, si vuole determinare
+il primo anno in cui il saldo raggiunge almeno \(40\,000\) euro.
+
+Il procedimento è il seguente:
 \begin{enumerate}
-  \item inizializzare il numero di anni \(n=0\) e il saldo \(S=20\,000\);
-  \item finché \(S<40\,000\), sostituire \(S\) con \(1{,}05S\) e aumentare
-        \(n\) di uno;
+  \item porre \(n=0\) e \(S=20\,000\);
+  \item finché \(S<40\,000\), porre \(S=1{,}05S\) e \(n=n+1\);
   \item restituire \(n\).
 \end{enumerate}
-Dopo \(n\) ripetizioni il saldo è \(S_n=20\,000(1{,}05)^n\): ogni passo
-aggiunge al saldo il \(5\%\) del suo valore corrente. Finché la soglia
-non viene raggiunta, il saldo è almeno \(20\,000\) euro e aumenta di
-almeno \(1\,000\) euro all'anno. La soglia viene quindi raggiunta in
-non più di venti ripetizioni, garantendo la terminazione.
+\end{example}
 
-Poiché la condizione viene controllata prima di ogni aggiornamento,
-il valore restituito corrisponde al primo anno in cui il capitale
-raggiunge la soglia. In particolare,
+\begin{proof}[Verifica del procedimento]
+Dopo \(n\) ripetizioni il saldo è
+\[
+  S_n=20\,000(1{,}05)^n.
+\]
+Finché la condizione del ciclo è vera, \(S_n\ge20\,000\) e l'aumento
+annuo è almeno \(1\,000\) euro. L'algoritmo termina dunque in non più
+di venti ripetizioni. Poiché la soglia è controllata prima di ogni
+aggiornamento, il valore restituito è il primo anno richiesto.
+In particolare,
 \[
   S_{14}\approx39\,598{,}63<40\,000,
-  \qquad S_{15}\approx41\,578{,}56>40\,000,
+  \qquad
+  S_{15}\approx41\,578{,}56>40\,000.
 \]
-e il risultato è \(15\) anni. Le approssimazioni mostrate non sostituiscono
-l'ipotesi di calcolo esatto del modello.
-\end{example}
-\end{minipage}\par
-
-L'\cref{ex:fi-interesse-composto} mostra come sia possibile descrivere
-un procedimento e giustificarne terminazione e correttezza senza
-ricorrere a un particolare linguaggio di programmazione. La sua
-implementazione richiede invece di tradurre inizializzazione,
-confronto, aggiornamento e ripetizione nelle istruzioni previste
-dal linguaggio scelto.
-
-Il controllo di un algoritmo può anche essere rappresentato mediante
-un diagramma di flusso. Quello seguente illustra un semplice conteggio.
-
-\noindent\begin{minipage}[c]{0.40\linewidth}
-  \centering
-  \input{assets/diagrammi/flusso/conteggio}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.56\linewidth}
-Un \emph{diagramma di flusso} rappresenta graficamente il controllo
-di un algoritmo: ovali indicano inizio e fine, rettangoli le operazioni,
-rombi le decisioni e frecce l'ordine dei passi. Le uscite da una
-decisione corrispondono ai possibili esiti della condizione; una
-freccia che ritorna a un passo precedente indica una ripetizione.
-Il diagramma descrive quindi l'ordine delle operazioni, ma non
-costituisce di per sé una prova della loro correttezza o terminazione.
-\end{minipage}\par
-
-Una volta precisato come descrivere un algoritmo e verificarne
-le proprietà, occorre distinguere due questioni più generali:
-l'esistenza di una soluzione algoritmica e le risorse necessarie
-per eseguirla.
-
-Un problema è \emph{calcolabile} se esiste un procedimento algoritmico
-che lo risolve per tutti gli ingressi ammissibili. La calcolabilità
-riguarda quindi l'esistenza del procedimento, indipendentemente
-dal fatto che esso sia già noto. L'\emph{efficienza} riguarda invece
-le risorse richieste dalla soluzione, soprattutto tempo e memoria,
-al variare dei dati. La \emph{complessità computazionale} studia
-queste risorse in funzione della dimensione dell'ingresso, secondo
-un modello di calcolo specificato; non coincide necessariamente
-con il tempo misurato su un particolare computer.
+Il risultato richiesto è quindi \(15\) anni.
+\end{proof}
 
 \clearpage
 
-Anche un algoritmo che termina correttamente può richiedere risorse
-troppo grandi per un impiego pratico. La possibilità teorica di
-risolvere un problema e quella di farlo con le risorse disponibili
-sono dunque questioni distinte.
+\begin{figure}[htbp]
+  \begin{minipage}[c]{0.57\textwidth}
+    Il ciclo dell'\cref{ex:fi-interesse-composto} è un esempio di
+    ripetizione, che sarà esaminata nella \cref{sec:fi-python-cicli}.
+    Il controllo di un algoritmo può essere rappresentato mediante un
+    \emph{diagramma di flusso}: i rettangoli indicano le operazioni, i
+    rombi le decisioni, gli ovali l'inizio e la fine, mentre le frecce
+    indicano il passaggio fra istruzioni. Un diagramma descrive il flusso
+    di controllo, ma non ne dimostra la correttezza. La
+    \cref{fig:fi-diagramma-conteggio} ne mostra un esempio.
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.32\textwidth}
+    \centering
+    \resizebox{0.85\linewidth}{!}{%
+      \input{assets/diagrammi/flusso/conteggio}%
+    }
+    \caption{Diagramma di flusso di un procedimento iterativo di conteggio.}
+    \label{fig:fi-diagramma-conteggio}
+  \end{minipage}
+\end{figure}
+
+L'\emph{esistenza} di un algoritmo risolutivo riguarda la
+\emph{calcolabilità} del problema, approfondita nella
+\cref{sec:fi-macchina-turing}.
+La \emph{complessità computazionale} riguarda invece le risorse
+necessarie, principalmente tempo e memoria, in funzione della
+dimensione dell'ingresso. Un problema può essere calcolabile senza
+ammettere una soluzione praticabile con le risorse disponibili.
 
 \section{La macchina di Turing e i limiti del calcolo}
 \label{sec:fi-macchina-turing}
 
-La questione della calcolabilità, introdotta nella
-\cref{sec:fi-algoritmi}, richiede un modello preciso del significato
-di «procedimento eseguibile».
-Nel contesto delle ricerche sui fondamenti della matematica promosse
-da Hilbert, il problema della decisione chiedeva un metodo generale
+Per precisare il concetto di procedimento effettivo si utilizza la
+\emph{macchina di Turing}, un modello astratto introdotto nel 1936
+nello studio dei fondamenti del calcolo. Il problema della decisione,
+posto nel programma di Hilbert, chiedeva se esistesse un procedimento generale
 per stabilire la validità delle formule della logica del primo ordine.
-Nel 1936 Church e Turing ottennero, con approcci diversi, risultati
-negativi su questa possibilità. Turing introdusse un modello di calcolo
-astratto, oggi chiamato \emph{macchina di Turing}, che permette di
-studiare il calcolo indipendentemente dalla tecnologia di una macchina
-fisica.\footnote{Per il modello, il contesto storico, l'universalità e
-il problema dell'arresto: L. De Mol,
+Church e Turing dimostrarono, con metodi diversi, che tale procedimento
+non esiste.\footnote{L. De Mol,
 \href{https://plato.stanford.edu/entries/turing-machine/}
-{\emph{Turing Machines}},
-\emph{Stanford Encyclopedia of Philosophy}, §§ 1--2 e 5.}
+{\emph{Turing Machines}}, \emph{Stanford Encyclopedia of Philosophy}.}
 
-Nella versione deterministica qui considerata, la macchina dispone di
-un nastro diviso in celle, ciascuna contenente un simbolo di un alfabeto
-finito che comprende un simbolo di bianco. Il nastro è teoricamente
-illimitato: non viene imposto un limite alla memoria utilizzabile.
-L'ingresso occupa inizialmente un tratto finito, mentre le altre celle
-sono bianche. Una testina legge e scrive una cella alla volta e può
-spostarsi alla cella adiacente a destra o a sinistra.
-
-Il controllo della macchina ha un insieme finito di \emph{stati}, fra
-cui uno iniziale e uno di arresto. Le \emph{regole di transizione}
-stabiliscono, in base allo stato corrente e al simbolo letto, quale
-simbolo scrivere, dove spostare la testina e quale stato assumere.
-Per ogni coppia di stato e simbolo per la quale è definita una regola,
-l'azione è determinata senza ambiguità. Scrivere può anche significare
-lasciare invariato il simbolo della cella.
+Una macchina di Turing deterministica comprende un nastro teoricamente
+illimitato, suddiviso in celle, una testina di lettura e scrittura e
+un controllo con un numero finito di stati. Una \emph{regola di
+transizione} associa allo stato corrente e al simbolo letto il simbolo
+da scrivere, lo spostamento della testina e lo stato successivo.
+L'ingresso occupa inizialmente un tratto finito del nastro,
+come illustrato nella \cref{fig:fi-nastro-turing}.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/modelli-di-calcolo/macchina-di-turing}
-  \caption{Un tratto del nastro e la posizione della testina.
-    Il simbolo \(\mdlgwhtsquare\) indica il bianco; \(q\) è lo stato corrente.}
+  \caption{Nastro e testina di una macchina di Turing: \(q\) indica
+  lo stato corrente e \(\mdlgwhtsquare\) il simbolo di bianco.}
   \label{fig:fi-nastro-turing}
 \end{figure}
 
-La \cref{fig:fi-nastro-turing} mostra soltanto una parte del nastro,
-non un limite alla sua estensione. Una \emph{configurazione} completa
-comprende il contenuto del nastro, la posizione della testina e lo
-stato del controllo. L'applicazione di una regola trasforma una
-configurazione nella successiva; una computazione è la successione di
-questi passi. Quando viene raggiunto lo stato di arresto, il risultato
-si ricava dal nastro secondo la convenzione scelta. La macchina può
-anche continuare indefinitamente. La finitezza dell'insieme degli stati
-di controllo non impone un limite alla lunghezza del nastro; ogni
-esecuzione che termina, tuttavia, visita soltanto un numero finito di celle.
+Una \emph{configurazione} è determinata dal contenuto del nastro,
+dalla posizione della testina e dallo stato. L'esecuzione consiste
+in una successione di configurazioni; può arrestarsi oppure proseguire
+indefinitamente. Il nastro illimitato è un'idealizzazione e non
+rappresenta la memoria di un calcolatore fisico.
 
-Una \emph{macchina universale di Turing} riceve una descrizione codificata
-di un'altra macchina e il suo ingresso, e ne simula l'esecuzione.
-Le regole della macchina universale rimangono fisse: cambiando la
-descrizione sul nastro cambia il procedimento simulato. Il programma
-può quindi essere trattato come un dato. Universalità significa
-capacità di simulare ogni macchina del modello, non capacità di risolvere
-qualsiasi problema concepibile, né garanzia che la simulazione termini.
-
+Una \emph{macchina universale} riceve la descrizione codificata di
+un'altra macchina e un ingresso, simulandone il comportamento.
+L'universalità riguarda la possibilità di simulare ogni macchina
+del modello, non la capacità di risolvere ogni problema.
 La \emph{tesi di Church--Turing} identifica la nozione intuitiva di
-procedimento effettivo con la calcolabilità mediante macchina di Turing.
-È una tesi sul significato del calcolo algoritmico, non un teorema
-secondo cui ogni problema sarebbe risolvibile. Il modello fornisce
-così un riferimento comune per distinguere problemi calcolabili e
-problemi che non ammettono una soluzione algoritmica generale.
+procedimento effettivo con quella di procedimento calcolabile da una
+macchina di Turing.
 
-Fra questi rivestono particolare importanza i \emph{problemi di decisione},
-che richiedono una risposta fra due alternative, convenzionalmente
-«sì» e «no». Un problema di decisione è \emph{decidibile} se esiste
-un algoritmo che termina per ogni ingresso ammissibile e fornisce
-sempre la risposta corretta; in caso contrario è \emph{indecidibile}.
-La decidibilità riguarda quindi l'esistenza di un procedimento
-generale, non la possibilità di risolvere una singola istanza.
-
-Un esempio fondamentale è il \emph{problema dell'arresto}: stabilire
-se un programma, eseguito su un determinato ingresso, terminerà
-oppure continuerà indefinitamente. Non basta osservare che una
-particolare esecuzione termina; per decidere il problema occorrerebbe
-un procedimento capace di fornire una risposta corretta in entrambi
-i casi, per qualunque programma e ingresso.
+\begin{definition}[Problema decidibile]
+\label{def:fi-decidibilita}
+Un \emph{problema di decisione} richiede una risposta «sì» oppure «no».
+Si dice \emph{decidibile} se esiste un algoritmo che termina per ogni
+ingresso ammissibile e restituisce sempre la risposta corretta;
+altrimenti si dice \emph{indecidibile}.
+\end{definition}
 
 \begin{proposition}[Indecidibilità del problema dell'arresto]
 \label{prop:fi-problema-arresto}
-Non esiste un algoritmo che, ricevuti la descrizione di una macchina di
-Turing arbitraria e un suo ingresso, termini sempre e stabilisca
-correttamente se quella macchina si arresterà su quell'ingresso.
+Non esiste un algoritmo che, ricevuti la descrizione di una macchina
+di Turing arbitraria e un suo ingresso, termini sempre e stabilisca
+correttamente se la macchina si arresterà su tale ingresso.
 \end{proposition}
 
-\noindent\emph{Dimostrazione (per assurdo).}
-Si supponga che esista un algoritmo, chiamato \emph{osservatore},
-capace di stabilire se un qualsiasi programma terminerà su un dato
-ingresso. Indichiamo con \(O(p,x)\) il risultato dell'osservatore,
-dove \(p\) è la descrizione codificata di un programma e \(x\)
-è il suo ingresso. Per ipotesi, l'osservatore termina sempre
-e restituisce
+\begin{proof}
+Si supponga per assurdo che esista un algoritmo \(O\) che termina
+sempre e, ricevuti la descrizione \(p\) di un programma e un ingresso
+\(x\), restituisca
 \[
   O(p,x)=
   \begin{cases}
-    1 & \text{se il programma descritto da \(p\) termina su \(x\)},\\
-    0 & \text{se il programma descritto da \(p\) non termina su \(x\)}.
+    1, & \text{se il programma \(p\) termina su \(x\)},\\
+    0, & \text{se il programma \(p\) non termina su \(x\)}.
   \end{cases}
 \]
 
-L'ipotesi è più forte della semplice simulazione: l'osservatore
-deve rispondere in tempo finito anche quando il programma esaminato
-non si arresta.
-
-Utilizzando l'osservatore, si costruisce un nuovo programma \(D\)
-che riceve come ingresso la descrizione \(p\) di un programma.
-Il programma \(D\) chiede all'osservatore se il programma descritto
-da \(p\), eseguito sulla propria descrizione \(p\), terminerà.
-Successivamente si comporta in modo opposto alla previsione:
+Mediante \(O\) si costruisce un programma \(D\) che, ricevuta la
+descrizione \(p\), si comporta nel modo seguente:
 \[
-  D(p):
+  D(p):\quad
   \begin{cases}
-    \text{esegue un ciclo senza fine}
-      & \text{se } O(p,p)=1,\\
-    \text{termina immediatamente}
-      & \text{se } O(p,p)=0.
+    \text{esegue un ciclo infinito}, & \text{se } O(p,p)=1,\\
+    \text{termina}, & \text{se } O(p,p)=0.
   \end{cases}
 \]
+Sia \(d\) la descrizione del programma \(D\) e si consideri
+\(D(d)\). Si distinguono due casi.
 
-La costruzione è possibile sotto l'ipotesi iniziale: \(D\) utilizza
-l'osservatore come parte del proprio procedimento e sceglie quale
-comportamento adottare in base alla risposta ricevuta.
+\emph{Primo caso.}
+Se \(O(d,d)=1\), l'osservatore prevede che \(D(d)\) termini,
+ma per costruzione \(D(d)\) non termina.
 
-Poiché anche \(D\) è un programma, possiede una descrizione codificata.
-Indichiamola con \(d\) e consideriamo l'esecuzione \(D(d)\), cioè
-il programma \(D\) applicato alla propria descrizione. Si presentano
-due possibilità:
+\emph{Secondo caso.}
+Se \(O(d,d)=0\), l'osservatore prevede che \(D(d)\) non termini,
+ma per costruzione \(D(d)\) termina.
 
-\begin{enumerate}
-  \item Se \(O(d,d)=1\), l'osservatore prevede che \(D(d)\) termini.
-        Per costruzione, però, \(D\) esegue un ciclo senza fine,
-        contraddicendo la previsione.
+In entrambi i casi si ottiene una contraddizione. Pertanto un
+algoritmo \(O\) con le proprietà supposte non esiste.
+\end{proof}
 
-  \item Se \(O(d,d)=0\), l'osservatore prevede che \(D(d)\) non termini.
-        Per costruzione, invece, \(D\) termina immediatamente,
-        contraddicendo nuovamente la previsione.
-\end{enumerate}
-
-Entrambe le risposte possibili conducono a una contraddizione.
-L'ipotesi dell'esistenza di un osservatore algoritmico sempre
-terminante e corretto è quindi falsa: il problema dell'arresto
-non è decidibile in generale.
-
-La contraddizione nasce dalla possibilità di trattare la descrizione
-di un programma come un dato, consentendo di applicare \(D\)
-alla propria descrizione. Non è necessario che il programma modifichi
-il proprio codice durante l'esecuzione.
-
-Questo risultato non impedisce di stabilire la terminazione di
-programmi particolari. Se un programma termina, per esempio, una
-simulazione completa permette di verificarlo. Se invece continua
-indefinitamente, la sola simulazione non permette di concludere
-in un tempo finito che non terminerà mai. La
-\cref{prop:fi-problema-arresto} esclude un algoritmo capace di
-risolvere correttamente tutti i casi possibili, non la possibilità
-di analizzarne singoli casi mediante altri ragionamenti.
-
-Il problema dell'arresto mostra dunque un limite intrinseco del
-calcolo algoritmico, indipendente dalla potenza della macchina
-utilizzata. Il nastro illimitato della macchina di Turing è infatti
-un'idealizzazione: un computer reale dispone di memoria finita,
-tempi di esecuzione limitati e risorse fisiche. Può simulare passi
-del modello entro le risorse disponibili, ma non coincide letteralmente
-con una macchina a memoria illimitata. Un limite di calcolabilità
-non va pertanto confuso con un'insufficienza di memoria o con un
-tempo di esecuzione eccessivo.
+La \cref{prop:fi-problema-arresto} esclude un decisore generale,
+non la possibilità di verificare la terminazione di singoli programmi.
+Questo limite di calcolabilità è distinto dai limiti di tempo e memoria
+considerati nella \cref{sec:fi-algoritmi}.
 
 \section{Architettura del calcolatore ed esecuzione delle istruzioni}
 \label{sec:fi-architettura-calcolatore}
 
-Il modello della macchina di Turing chiarisce i limiti teorici del calcolo;
-per comprendere come i programmi vengano eseguiti dai calcolatori reali
-occorre invece esaminarne l'architettura. Questa descrive l'organizzazione
-delle componenti hardware e le modalità con cui cooperano.
-Tra i modelli classici si distinguono l'\emph{architettura di von Neumann}
-e l'\emph{architettura Harvard}.
+A differenza del modello astratto della \cref{sec:fi-macchina-turing},
+l'\emph{architettura di von Neumann} descrive l'organizzazione di un
+calcolatore in cui istruzioni e dati sono conservati nella stessa
+memoria, accessibile dalla CPU mediante collegamenti condivisi.
+Il \emph{principio del programma memorizzato} consente di cambiare le
+istruzioni eseguite senza modificare i circuiti del calcolatore.
+Nell'\emph{architettura Harvard}, invece, memorie e percorsi
+di accesso per istruzioni e dati sono separati. I processori moderni
+possono adottare soluzioni che combinano i due modelli.
 
-Nel modello di von Neumann, la CPU, la memoria centrale e i dispositivi
-di ingresso e uscita comunicano attraverso collegamenti condivisi.
-Istruzioni e dati risiedono nella stessa memoria e utilizzano il
-medesimo percorso di accesso. Il \emph{principio del programma memorizzato}
-prevede che anche le istruzioni siano conservate in memoria, consentendo
-di cambiare il programma eseguito senza modificare i circuiti della
-macchina. Tale principio non è esclusivo dell'architettura di von Neumann.
-
-L'architettura Harvard distingue invece le memorie e i percorsi di
-accesso destinati alle istruzioni da quelli riservati ai dati,
-permettendo di effettuare i due tipi di accesso contemporaneamente.
-Le architetture moderne possono combinare caratteristiche di entrambi
-i modelli: per esempio, molti processori dispongono di uno spazio di
-indirizzamento unificato e di cache separate per istruzioni e dati.
-
-La \emph{CPU} (\emph{Central Processing Unit}) preleva ed esegue le
-istruzioni. Al suo interno, l'\emph{unità di controllo} interpreta le
-istruzioni e coordina le operazioni richieste, mentre l'\emph{unità
-logico-aritmetica}, o \emph{ALU} (\emph{Arithmetic Logic Unit}), esegue
-operazioni aritmetiche e logiche, come somme e confronti.
-I \emph{registri} sono piccole memorie interne alla CPU, rapidamente
-accessibili, che conservano temporaneamente dati, indirizzi e altre
-informazioni necessarie all'esecuzione.
-
-\clearpage
-
-La \cref{fig:fi-von-neumann} rappresenta i principali blocchi funzionali
-del modello di von Neumann.
+La \emph{CPU} (\emph{Central Processing Unit}) comprende l'\emph{unità
+di controllo}, che coordina l'esecuzione, l'\emph{unità
+logico-aritmetica} (ALU), che esegue operazioni aritmetiche e logiche,
+e i \emph{registri}, che conservano temporaneamente dati e informazioni
+di controllo. La CPU è realizzata mediante circuiti integrati a transistor
+e può comprendere più \emph{core}, capaci di eseguire flussi di
+istruzioni distinti. La \cref{fig:fi-von-neumann} schematizza
+le componenti principali.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/architettura/architettura-von-neumann}
-  \caption{Organizzazione funzionale di von Neumann. Il collegamento
-    condiviso comprende segnali di dati, indirizzi e controllo;
-    le frecce indicano lo scambio complessivo, non la direzione di ogni segnale.}
+  \caption{Modello funzionale di von Neumann: CPU, memoria e
+  dispositivi di ingresso e uscita.}
   \label{fig:fi-von-neumann}
 \end{figure}
 
-Le comunicazioni fra le componenti sono rappresentate mediante
-\emph{bus}, ossia canali che consentono il trasferimento di informazioni
-secondo regole condivise. Si distinguono funzionalmente:
-\begin{itemize}
-  \item il \emph{bus dei dati}, che trasferisce dati e istruzioni;
-  \item il \emph{bus degli indirizzi}, che identifica la locazione di
-        memoria o il dispositivo interessato;
-  \item il \emph{bus di controllo}, che trasporta i segnali necessari
-        a coordinare operazioni come lettura e scrittura.
-\end{itemize}
-La distinzione riguarda la funzione dei segnali e non implica
-necessariamente la presenza di tre collegamenti fisici separati.
-Per leggere un valore dalla memoria, per esempio, si specifica
-l'indirizzo, si richiede l'operazione mediante i segnali di controllo
-e si trasferisce il risultato attraverso il canale dei dati.
-
-La condivisione dei collegamenti semplifica l'organizzazione del sistema,
-ma introduce un limite alle prestazioni: più richieste possono competere
-per la stessa risorsa. La \emph{banda}, cioè la quantità di dati
-trasferibile per unità di tempo, è limitata, e la CPU può dover attendere
-il completamento degli accessi alla memoria. Questo fenomeno è alla
-base del cosiddetto \emph{collo di bottiglia di von Neumann}.
-Il modello rappresentato è una descrizione funzionale; i calcolatori
-moderni possono utilizzare interconnessioni più articolate.
+I \emph{bus} permettono lo scambio di informazioni fra le componenti.
+Si distinguono, in base alla funzione, il \emph{bus dei dati}, che
+trasferisce valori e istruzioni, il \emph{bus degli indirizzi}, che
+identifica le locazioni interessate, e il \emph{bus di controllo},
+che coordina le operazioni. Un collegamento condiviso semplifica
+l'organizzazione e l'espansione del sistema, ma richiede di arbitrare
+gli accessi e può costituire un \emph{collo di bottiglia} fra CPU e memoria.
 
 Il registro \emph{program counter} (PC) contiene l'indirizzo della
-prossima istruzione da prelevare. Nel modello didattico, il
-\emph{registro istruzione} conserva l'istruzione corrente durante
-la sua interpretazione. L'esecuzione segue un ciclo fondamentale,
-articolato nelle seguenti fasi:
+prossima istruzione; il \emph{registro istruzione} conserva quella
+prelevata. In un modello didattico, l'esecuzione comprende quattro fasi:
 \begin{enumerate}
-  \item \emph{fetch}: l'istruzione individuata dal PC viene prelevata
-        dalla memoria;
-  \item \emph{decode}: l'unità di controllo identifica l'operazione
-        e gli operandi richiesti;
-  \item \emph{execute}: vengono svolte le operazioni previste
-        dall'istruzione, utilizzando gli operandi necessari;
-  \item \emph{write-back}: quando previsto, il risultato viene scritto
-        nella destinazione indicata, per esempio un registro o la memoria.
+  \item \emph{fetch}: prelievo dell'istruzione dalla memoria;
+  \item \emph{decode}: identificazione dell'operazione e degli operandi;
+  \item \emph{execute}: esecuzione dell'operazione;
+  \item \emph{write-back}: eventuale scrittura del risultato.
 \end{enumerate}
+Il PC viene normalmente aggiornato all'indirizzo dell'istruzione
+successiva; le istruzioni di salto possono invece modificarne il
+contenuto, permettendo di realizzare condizioni e cicli nei programmi
+(\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
 
-Durante l'esecuzione sequenziale, il PC viene aggiornato all'indirizzo
-dell'istruzione successiva, tenendo conto della sua lunghezza.
-Un'istruzione di salto può invece modificarlo, eventualmente in base
-all'esito di una condizione, permettendo di realizzare selezioni e cicli.
-Non tutte le istruzioni richiedono una scrittura del risultato.
+Il \emph{clock} scandisce le operazioni delle componenti sincrone.
+Per un segnale di periodo \(T\), la frequenza è \(f=1/T\) e si misura
+in hertz. Un ciclo di clock non coincide necessariamente con
+l'esecuzione completa di un'istruzione; la frequenza, da sola, non
+ne determina le prestazioni.
 
-Il \emph{clock} è un segnale periodico che scandisce il funzionamento
-delle componenti sincrone. La sua frequenza, misurata in hertz,
-indica il numero di cicli al secondo. Un ciclo di clock non coincide
-necessariamente con l'esecuzione completa di un'istruzione: la frequenza
-da sola non determina quindi le prestazioni di un processore.
-
-Per migliorare le prestazioni si può sfruttare il
-\emph{parallelismo a livello di istruzioni}
-(ILP, \emph{Instruction-Level Parallelism}), sovrapponendo
-l'elaborazione di istruzioni diverse.
-
-Nella \emph{pipeline}, l'esecuzione viene suddivisa in stadi.
-Mentre un'istruzione attraversa uno stadio, altre istruzioni possono
-occupare gli stadi precedenti o successivi. Una suddivisione didattica
-a cinque stadi comprende prelievo, decodifica, recupero degli operandi,
-esecuzione e scrittura del risultato, come illustrato nella
-\cref{fig:fi-pipeline}.
+Il \emph{parallelismo a livello di istruzioni} permette di
+sovrapporre operazioni appartenenti a istruzioni diverse.
+In una \emph{pipeline} ogni istruzione attraversa più stadi, che
+possono operare contemporaneamente su istruzioni differenti,
+come mostrato nella \cref{fig:fi-pipeline}.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/architettura/pipeline-istruzioni}
-  \caption{Pipeline ideale a cinque stadi, ciascuno della durata di un ciclo,
-    senza attese: F = prelievo, D = decodifica, O = recupero operandi,
-    E = esecuzione, W = scrittura. Dal quinto ciclo viene completata
-    un'istruzione per ciclo finché la pipeline rimane alimentata.}
+  \caption{Pipeline ideale a cinque stadi: prelievo (F), decodifica (D),
+  recupero operandi (O), esecuzione (E) e scrittura (W).}
   \label{fig:fi-pipeline}
 \end{figure}
 
-La pipeline può aumentare il numero di istruzioni completate per unità
-di tempo, senza necessariamente ridurre la durata di una singola
-istruzione. Dipendenze fra istruzioni e attese per le risorse possono
-inoltre impedire il funzionamento al ritmo ideale.
+La pipeline aumenta idealmente il numero di istruzioni completate
+per unità di tempo, non necessariamente la rapidità di ciascuna.
+Dipendenze e conflitti sulle risorse possono introdurre attese.
+Una \emph{CPU superscalare} dispone di più unità funzionali e può
+avviare più istruzioni nello stesso ciclo, se le dipendenze lo
+consentono. Pipeline e organizzazione superscalare sono compatibili.
+Il parallelismo può inoltre coinvolgere più \emph{core} o processori:
+nei \emph{multiprocessori} più CPU condividono la memoria, mentre nei
+\emph{multicalcolatori} i nodi hanno memorie proprie e comunicano
+mediante messaggi.
 
-Un processore \emph{superscalare} dispone di più unità funzionali e può
-avviare più istruzioni nello stesso ciclo, purché le dipendenze e
-le risorse disponibili lo consentano. La pipeline sovrappone stadi
-di istruzioni diverse, mentre l'organizzazione superscalare consente
-di sfruttare più unità funzionali nello stesso intervallo di tempo.
-Le due tecniche possono coesistere.
-
-Un'ulteriore forma di parallelismo riguarda l'impiego di più
-\emph{core} o processori. Un processore \emph{multicore} integra
-più core capaci di eseguire flussi di istruzioni; un sistema
-multiprocessore comprende più processori, eventualmente con memoria
-condivisa. Nei \emph{multicalcolatori}, invece, nodi dotati di memoria
-propria comunicano mediante messaggi. In tutti questi casi,
-l'accelerazione dipende dalla possibilità di distribuire il lavoro
-e dai costi di coordinamento: aggiungere unità di calcolo non rende
-automaticamente più veloce un procedimento sequenziale.
-
-La \emph{GPU} (\emph{Graphics Processing Unit}), originariamente
-sviluppata per la grafica, è adatta anche all'elaborazione parallela
-di grandi quantità di dati. Rispetto a una CPU, progettata per gestire
-in modo efficiente flussi di controllo complessi e operazioni con
-bassa latenza, una GPU privilegia l'esecuzione di numerose operazioni
-simili su dati differenti.
-
-Elaborazione di immagini, operazioni su matrici e simulazioni sono
-esempi di applicazioni che possono beneficiare di questa organizzazione.
-Il vantaggio dipende tuttavia dalla quantità di lavoro parallelizzabile,
-dalle dipendenze fra operazioni e dai trasferimenti dei dati.
-Le unità di calcolo di una GPU non sono direttamente equivalenti
-ai core di una CPU.
-
+Le \emph{GPU} (\emph{Graphics Processing Unit}) privilegiano
+l'esecuzione parallela di numerose operazioni su dati diversi.
 \emph{CUDA} (\emph{Compute Unified Device Architecture}) è una
-piattaforma NVIDIA per la programmazione del calcolo su GPU.
-In questo modello la CPU, detta \emph{host}, coordina il programma
-e avvia sulla GPU, detta \emph{device}, funzioni di calcolo chiamate
-\emph{kernel}.
-
-L'esecuzione di un kernel coinvolge numerosi \emph{thread}, organizzati
-in \emph{blocchi}; l'insieme dei blocchi costituisce una \emph{griglia}.
-Il modello SIMT (\emph{Single Instruction, Multiple Threads}) permette
-a gruppi di thread di eseguire istruzioni su dati differenti.
-Questo non implica che tutti i thread vengano eseguiti fisicamente
-nello stesso istante. CPU e GPU cooperano nell'elaborazione:
-CUDA è una piattaforma di programmazione, non un algoritmo né l'unica
-tecnologia disponibile per il calcolo su GPU.\footnote{NVIDIA,
-\href{https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/programming-model.html}
-{\emph{CUDA Programming Guide}, § 1.2, Programming Model},
-in particolare sistemi eterogenei, blocchi, griglie e SIMT.}
+piattaforma NVIDIA nella quale la CPU (\emph{host}) avvia sulla GPU
+(\emph{device}) funzioni dette \emph{kernel}. I \emph{thread} del
+kernel sono organizzati in \emph{blocchi}, raccolti in una
+\emph{griglia}; gruppi di thread eseguono istruzioni secondo il
+modello SIMT (\emph{Single Instruction, Multiple Threads}).
+Blocchi di thread sono assegnati alle unità di esecuzione della GPU,
+dette \emph{Streaming Multiprocessor}. Il modello SIMT non implica
+che tutti i thread avanzino sempre contemporaneamente: la convenienza
+dipende dal lavoro parallelizzabile e dai trasferimenti di dati.
+Altri ambienti di calcolo eterogeneo includono ROCm/HIP, OpenCL,
+SYCL, Vulkan Compute e Metal.
 
 \section{Memoria, archiviazione e dispositivi di ingresso e uscita}
 \label{sec:fi-memoria-archiviazione}
 
-L'esecuzione delle istruzioni dipende anche dal modo in cui dati e
-programmi vengono memorizzati e trasferiti. Nel contesto della
-memorizzazione, un \emph{bit} indica una cifra binaria, con valori
-convenzionali \(0\) e \(1\); un \emph{byte} è un gruppo di otto bit.
-Il bit come unità di informazione, introdotto nella
-\cref{sec:fi-informatica-calcolo}, è un concetto distinto.
-Queste unità descrivono la quantità di dati memorizzati, non il loro
-significato, che dipende dalle convenzioni illustrate nel
+Nella rappresentazione dei dati, un \emph{bit} è una cifra binaria
+che assume valore \(0\) oppure \(1\), e un \emph{byte} comprende otto
+bit. Le convenzioni di codifica sono esaminate nel
 \cref{chap:rappresentazione-informazioni}.
 
-La memoria è organizzata in \emph{locazioni}, ciascuna identificata
-da un \emph{indirizzo}. Un'operazione di lettura ne restituisce il
-contenuto, mentre una scrittura lo sostituisce con il dato fornito.
-Nelle architetture indirizzabili per byte, ogni indirizzo identifica
-un byte, anche se una singola operazione può trasferirne più di uno.
-L'unità minima indirizzabile non coincide quindi necessariamente
-con la quantità di dati trasferiti.
+La memoria è suddivisa in \emph{locazioni}, individuate mediante
+\emph{indirizzi}. Con \(a\) bit di indirizzo si possono distinguere
+\(2^a\) locazioni. Se ogni locazione corrisponde a un byte,
+\[
+  a=16\ \Longrightarrow\ 2^{16}\,\mathrm{B}=64\,\mathrm{KiB},
+  \qquad
+  a=32\ \Longrightarrow\ 2^{32}\,\mathrm{B}=4\,\mathrm{GiB}.
+\]
+Questi valori indicano lo spazio teoricamente indirizzabile,
+non necessariamente la quantità di RAM installata.
 
-Lo \emph{spazio di indirizzamento} è l'insieme degli indirizzi disponibili.
-Se gli indirizzi sono rappresentati mediante \(a\) bit, si possono
-distinguere al più \(2^a\) locazioni. Nel caso di memoria indirizzabile
-per byte, ciò corrisponde a \(2^a\) byte: con sedici bit si ottengono
-\(2^{16}\) byte, ossia \(64\) KiB, mentre con trentadue bit si raggiungono
-\(2^{32}\) byte, equivalenti a \(4\) GiB.
+I prefissi decimali e binari non sono equivalenti:
+\[
+  1\,\mathrm{kB}=10^3\,\mathrm{B},
+  \qquad
+  1\,\mathrm{KiB}=2^{10}\,\mathrm{B},
+\]
+\[
+  1\,\mathrm{GB}=10^9\,\mathrm{B},
+  \qquad
+  1\,\mathrm{GiB}=2^{30}\,\mathrm{B}.
+\]
 
-La capacità teoricamente indirizzabile non coincide necessariamente
-con la RAM installata: alcune regioni dello spazio di indirizzamento
-possono essere riservate ad altri dispositivi o non essere utilizzabili.
-Inoltre, la dimensione dei registri di un processore non determina
-necessariamente il numero di bit effettivamente impiegati per gli
-indirizzi di memoria.
+La \emph{memoria centrale} conserva istruzioni e dati in uso.
+La \emph{RAM} (\emph{Random Access Memory}) è normalmente volatile.
+Tra le principali tecnologie figurano SRAM e DRAM; a quest'ultima
+appartengono le varianti sincrone SDRAM e DDR SDRAM.
+La \emph{ROM} (\emph{Read-Only Memory}) è non volatile e viene
+utilizzata per conservare il firmware; PROM, EPROM ed EEPROM si
+distinguono per le possibilità di programmazione e cancellazione. Il
+firmware di molti sistemi moderni risiede in memoria flash riscrivibile.
 
-Per esprimere le capacità occorre distinguere i prefissi decimali
-da quelli binari. Il simbolo B indica il byte:
-\(1\) kB corrisponde a \(10^3\) B, \(1\) MB a \(10^6\) B e
-\(1\) GB a \(10^9\) B. I prefissi binari utilizzano invece potenze
-di due: \(1\) KiB vale \(2^{10}\) B, \(1\) MiB vale \(2^{20}\) B
-e \(1\) GiB vale \(2^{30}\) B. Le due convenzioni non sono
-intercambiabili e devono essere distinte quando si indicano
-capacità di memoria.\footnote{NIST,
-\href{https://physics.nist.gov/cuu/Units/binary.html}
-{\emph{Prefixes for binary multiples}},
-prefissi IEC e confronto con i prefissi SI.}
+La RAM è comunemente montata su moduli DIMM; nei sistemi che lo
+prevedono, la memoria \emph{ECC} permette di rilevare e correggere
+determinati errori di memorizzazione. I moduli SIMM rappresentano
+un'organizzazione precedente dei contatti.
 
-La \emph{memoria centrale} contiene dati e istruzioni necessari
-all'esecuzione dei programmi. La memoria \emph{RAM}
-(\emph{Random Access Memory}), utilizzata come memoria di lavoro,
-consente operazioni di lettura e scrittura ed è normalmente
-\emph{volatile}: il suo contenuto viene perso quando manca
-l'alimentazione. L'espressione «accesso casuale» indica che una
-locazione può essere raggiunta direttamente, senza dover attraversare
-quelle precedenti, e non che gli indirizzi vengano scelti casualmente.
-Ciò non implica che tutti gli accessi abbiano necessariamente
-la stessa latenza.
+La \emph{memoria secondaria} conserva dati e programmi in modo
+persistente. Durante l'esecuzione, programmi e dati necessari vengono
+caricati nella RAM; le modifiche destinate a permanere devono essere
+salvate su un supporto non volatile.
 
-La memoria \emph{ROM} (\emph{Read-Only Memory}) è invece non volatile
-ed è destinata principalmente alla lettura durante il normale
-funzionamento. Tradizionalmente viene utilizzata per conservare
-il \emph{firmware}, ossia il software strettamente legato al
-funzionamento di un dispositivo, comprese le procedure di avvio.
-Nei sistemi moderni il firmware può risiedere anche in memorie
-non volatili riprogrammabili, come quelle flash.
-La possibilità di modificare il contenuto e la capacità di
-conservarlo senza alimentazione sono quindi proprietà distinte.
+Un \emph{disco rigido} (HDD) registra dati su piatti magnetici,
+organizzati in tracce e settori. Il tempo di accesso dipende anche
+dallo spostamento della testina e dalla latenza di rotazione.
+Un'\emph{unità a stato solido} (SSD) utilizza memoria flash NAND,
+un \emph{controller} e interfacce quali SATA o NVMe su PCIe.
+Il controller gestisce anche la distribuzione delle scritture
+(\emph{wear leveling}) e la correzione degli errori. Gli SSD non hanno
+parti meccaniche in movimento e offrono generalmente minori tempi di
+accesso rispetto agli HDD.
 
-La \emph{memoria secondaria}, o \emph{memoria di massa}, permette
-di conservare dati e programmi anche quando non sono in esecuzione.
-Rispetto alla memoria centrale offre generalmente capacità maggiori,
-ma tempi di accesso più elevati. Tra i dispositivi più comuni si
-distinguono i dischi rigidi e le unità a stato solido.
+I \emph{nastri magnetici} sono supporti ad accesso sequenziale,
+adatti a backup e archiviazione di grandi quantità di dati; fra le
+famiglie impiegate figurano DLT e LTO. I \emph{supporti ottici},
+come CD, DVD e Blu-ray, impiegano un laser per rilevare variazioni
+della superficie o dello strato registrabile; nei dischi prestampati
+si distinguono \emph{pit} e \emph{land}. Le capacità tipiche di un
+disco a singolo strato sono circa 700 MB per un CD, 4,7 GB per un
+DVD e 25 GB per un Blu-ray. I \emph{floppy disk} sono un precedente
+esempio di memoria magnetica rimovibile.
 
-Un \emph{disco rigido} (HDD, \emph{Hard Disk Drive}) memorizza
-i dati magneticamente su piatti rotanti; l'accesso richiede il
-posizionamento delle testine e può comportare attese dovute alla
-rotazione. Un'\emph{unità a stato solido} (SSD, \emph{Solid State Drive})
-utilizza normalmente memoria flash, priva di parti meccaniche mobili,
-e offre in genere tempi di accesso inferiori. Entrambi i dispositivi
-sono non volatili, ma rimangono soggetti a guasti e perdita dei dati.
-
-Durante l'esecuzione, i dati necessari vengono trasferiti dalla
-memoria secondaria alla memoria centrale. Le modifiche presenti
-nella memoria di lavoro devono invece essere salvate su un
-supporto persistente per poter essere conservate dopo lo spegnimento.
-
-Le differenze di velocità, capacità e costo motivano
-l'organizzazione in una \emph{gerarchia di memoria}, che comprende
-registri, cache, memoria centrale e memoria secondaria.
-I livelli più vicini alla CPU offrono generalmente accessi più
-rapidi, ma capacità inferiori rispetto a quelli destinati
-all'archiviazione.
-
-La \emph{cache} è una memoria piccola e veloce che conserva copie
-di dati e istruzioni per ridurre la necessità di accedere a memorie
-più lente. La sua efficacia dipende dal comportamento dei programmi,
-che spesso presenta due forme di \emph{località}:
+Registri, \emph{cache}, RAM e memoria secondaria costituiscono la
+\emph{gerarchia di memoria}. I livelli più vicini alla CPU sono
+generalmente più veloci, meno capienti e più costosi per bit. La cache conserva
+copie di dati e istruzioni e sfrutta due proprietà:
 \begin{itemize}
-  \item \emph{località temporale}: un dato utilizzato recentemente
-        ha una maggiore probabilità di essere utilizzato nuovamente;
-  \item \emph{località spaziale}: l'accesso a una locazione è spesso
-        seguito dall'accesso a locazioni vicine.
+  \item \emph{località temporale}: un dato usato recentemente può
+        essere richiesto di nuovo;
+  \item \emph{località spaziale}: dopo una locazione possono essere
+        richieste locazioni vicine.
 \end{itemize}
-Queste proprietà permettono alla cache di migliorare le prestazioni
-quando i dati richiesti sono già disponibili al suo interno.
-Non costituiscono tuttavia garanzie valide per ogni programma
-o sequenza di accessi.
+La presenza di località dipende dal programma e non è garantita
+per ogni sequenza di accessi.
 
 I dispositivi di \emph{ingresso e uscita} (I/O, \emph{Input/Output})
-consentono lo scambio di dati fra il calcolatore e l'ambiente esterno.
-Una tastiera acquisisce informazioni, mentre uno schermo presenta
-i risultati dell'elaborazione. Altri dispositivi, come schede di rete
-e unità di archiviazione, svolgono entrambe le funzioni.
-Le periferiche possono comunicare anche con altri sistemi,
-senza richiedere necessariamente l'interazione di un utente.
+scambiano dati con l'esterno. Tastiera, mouse, microfono, scanner e
+sensori sono dispositivi di ingresso; monitor, stampante e altoparlanti
+di uscita. Touchscreen, schede di rete e unità di archiviazione
+consentono operazioni in entrambe le direzioni.
 
-Il trasferimento dei dati viene coordinato attraverso interfacce
-e meccanismi di controllo differenti.
+Nell'\emph{I/O programmato} la CPU gestisce il trasferimento e può
+controllare ripetutamente la disponibilità del dispositivo
+(\emph{polling}). Gli \emph{interrupt} permettono invece alla
+periferica di segnalare un evento, provocando l'esecuzione di una
+procedura di servizio. Il \emph{DMA} (\emph{Direct Memory Access})
+consente a un controller di trasferire dati fra memoria e periferiche
+senza coinvolgere la CPU in ogni singola operazione. Questi
+meccanismi possono essere impiegati congiuntamente.
 
-Nell'\emph{I/O programmato} la CPU esegue direttamente le istruzioni
-necessarie al trasferimento. Può inoltre verificare ripetutamente
-lo stato della periferica mediante \emph{polling}, occupando
-tempo di elaborazione durante l'attesa.
-
-Gli \emph{interrupt} permettono invece a un dispositivo di segnalare
-un evento che richiede attenzione. La CPU può interrompere il
-flusso corrente, conservare le informazioni necessarie a riprenderlo
-ed eseguire una procedura di servizio. Terminata la gestione
-dell'evento, può riprendere il lavoro precedentemente sospeso.
-
-Il \emph{DMA} (\emph{Direct Memory Access}) consente a un controller
-di trasferire blocchi di dati fra memoria e periferiche senza
-richiedere che la CPU esegua ogni singola operazione di trasferimento.
-La CPU configura l'operazione e può ricevere un interrupt quando
-questa è completata.
-
-Polling, interrupt e DMA svolgono dunque funzioni differenti e
-possono essere utilizzati in combinazione. In particolare,
-il DMA riduce il coinvolgimento diretto della CPU nei trasferimenti,
-ma richiede comunque il coordinamento nell'accesso alla memoria.
+La \emph{scheda madre} collega CPU, RAM e periferiche mediante
+socket, slot, chipset e controller. Ospita o collega anche espansioni
+PCI Express e dispositivi di memoria tramite SATA o M.2.
+Le \emph{porte fisiche} collegano periferiche esterne: USB,
+HDMI, DisplayPort, Ethernet e connettori audio svolgono funzioni
+diverse; USB-C è una forma di connettore che può supportare
+trasferimento dati, alimentazione e, quando previsto, video.
+Le \emph{porte logiche} dei protocolli di rete sono invece
+identificatori di servizi e non connettori fisici.
 
 \section{Linguaggi di programmazione e forme di esecuzione}
 \label{sec:fi-linguaggi-esecuzione}
 
-L'organizzazione dell'hardware chiarisce come vengono eseguite le
-operazioni, ma non come queste siano specificate in un programma.
-I linguaggi naturali permettono di esprimere concetti il cui significato
-può dipendere dal contesto e risultare ambiguo. Per descrivere istruzioni
-che un calcolatore possa interpretare secondo regole precise, si
-utilizzano invece linguaggi formali.
-
-Un \emph{linguaggio formale} è un insieme di stringhe costruite a
-partire da un \emph{alfabeto}, cioè un insieme finito di simboli.
-Una \emph{stringa} è una sequenza finita di simboli; la stringa vuota
-si indica con \(\varepsilon\). Se \(\Sigma\) è un alfabeto,
-\(\Sigma^*\) rappresenta l'insieme di tutte le stringhe finite
-costruibili sui suoi simboli, inclusa quella vuota. Un linguaggio
-formale è pertanto un sottoinsieme \(L\subseteq\Sigma^*\).
-
-Una \emph{grammatica formale} descrive come generare le stringhe
-di un linguaggio mediante simboli terminali, simboli non terminali,
-un simbolo iniziale e regole di produzione. I terminali costituiscono
-i simboli delle stringhe prodotte, mentre i non terminali vengono
-utilizzati durante la derivazione.
-
-Per esempio, considerando i terminali \(a,b\), il simbolo iniziale
-non terminale \(S\) e le produzioni
+\begin{definition}[Linguaggio formale]
+\label{def:fi-linguaggio-formale}
+Sia \(\Sigma\) un alfabeto finito e sia \(\Sigma^*\) l'insieme
+delle stringhe finite su \(\Sigma\), compresa la stringa vuota
+\(\varepsilon\). Un \emph{linguaggio formale} è un sottoinsieme
 \[
-  S\to aSb,
-  \qquad S\to ab,
+  L\subseteq\Sigma^*.
 \]
-si ottengono le stringhe \(ab,aabb,aaabbb,\ldots\).
-La prima regola aggiunge un simbolo \(a\) a sinistra e un simbolo
-\(b\) a destra; la seconda conclude la derivazione. Il linguaggio
-generato contiene quindi stringhe con lo stesso numero positivo di
-\(a\) e \(b\), disposti in quest'ordine.
+\end{definition}
 
-Noam Chomsky ha classificato le grammatiche in una gerarchia basata
-sulle restrizioni imposte alle produzioni. In ordine di potere
-espressivo crescente si distinguono:
-\begin{itemize}
-  \item i \emph{linguaggi regolari}, riconosciuti da automi finiti;
-  \item i \emph{linguaggi liberi dal contesto}, riconosciuti da
-        automi a pila;
-  \item i \emph{linguaggi sensibili al contesto}, riconosciuti da
-        macchine di Turing con memoria limitata linearmente
-        rispetto alla dimensione dell'ingresso;
-  \item i \emph{linguaggi di tipo zero}, riconosciuti da macchine
-        di Turing generali.
-\end{itemize}
-Ogni classe è contenuta nella successiva. La gerarchia mette in
-relazione la struttura delle grammatiche con le capacità dei modelli
-di calcolo. Occorre tuttavia distinguere il \emph{riconoscimento}
-dalla \emph{decisione}: una macchina di Turing che riconosce un
-linguaggio di tipo zero può non terminare quando riceve una stringa
-che non vi appartiene, mentre un procedimento decisore deve
-terminare per ogni ingresso.
+Una \emph{grammatica} specifica le stringhe di un linguaggio mediante
+simboli terminali, simboli non terminali, un simbolo iniziale e
+regole di produzione.
 
-Le grammatiche permettono di descrivere la struttura sintattica
-dei linguaggi di programmazione, ma non ne determinano da sole
-il significato e il comportamento.\footnote{Per la gerarchia
-di Chomsky: J. E. Hopcroft, R. Motwani e J. D. Ullman,
-\emph{Introduction to Automata Theory, Languages, and Computation},
-terza edizione, Pearson.}
+\begin{example}[Una grammatica formale]
+Siano \(a,b\) simboli terminali e \(S\) il simbolo iniziale,
+con le produzioni
+\[
+  S\to aSb,\qquad S\to ab.
+\]
+La grammatica genera \(ab,aabb,aaabbb,\ldots\), ossia le stringhe
+\(a^nb^n\) con \(n\ge1\).
+\end{example}
 
-Un processore esegue direttamente operazioni appartenenti al proprio
-\emph{insieme di istruzioni} (\emph{instruction set}), che ne definisce
-le operazioni disponibili e le relative codifiche. Il
-\emph{linguaggio macchina} esprime i programmi attraverso tali
-codifiche binarie. Le istruzioni possono specificare, per esempio,
-trasferimenti di dati, operazioni aritmetiche, confronti e salti.
-Poiché gli insiemi di istruzioni dipendono dall'architettura,
-un programma in linguaggio macchina non è necessariamente
-eseguibile su processori differenti.
+La \emph{gerarchia di Chomsky} distingue, in ordine di capacità
+espressiva crescente, i linguaggi \emph{regolari}, \emph{liberi dal
+contesto}, \emph{sensibili al contesto} e \emph{di tipo zero}.
+I rispettivi modelli di riconoscimento sono gli automi finiti,
+gli automi a pila, gli automi linearmente limitati e le macchine
+di Turing. Un riconoscitore può non arrestarsi sugli ingressi
+non appartenenti al linguaggio; un decisore, secondo la
+\cref{def:fi-decidibilita}, deve invece terminare sempre.
 
-Il \emph{linguaggio assembly} rappresenta le istruzioni macchina
-mediante nomi mnemonici e permette di utilizzare riferimenti
-simbolici per dati e indirizzi. Un programma detto
-\emph{assemblatore} traduce il codice assembly in codice macchina.
-Il linguaggio rimane strettamente legato all'architettura del
-processore, anche se non ogni riga del sorgente deve necessariamente
-corrispondere a una singola istruzione macchina: possono essere
-presenti direttive e altre costruzioni elaborate dall'assemblatore.
+L'esecuzione di un programma dipende dall'\emph{insieme di istruzioni}
+(\emph{instruction set}) supportato dal processore. Il
+\emph{linguaggio macchina} ne rappresenta le codifiche binarie:
+le categorie principali comprendono trasferimenti (\texttt{LOAD},
+\texttt{STORE}), operazioni aritmetiche e logiche (\texttt{ADD},
+\texttt{AND}) e salti incondizionati o condizionati
+(\texttt{JUMP}, \texttt{JZ}), che modificano il PC.
+Il \emph{linguaggio assembly} usa nomi mnemonici ed etichette
+simboliche per istruzioni e indirizzi; un \emph{assemblatore} lo
+traduce in codice macchina. L'insieme di istruzioni dipende
+dall'architettura del processore.
 
 I \emph{linguaggi ad alto livello}, come Python e Java, permettono
-invece di descrivere elaborazioni e strutture di controllo senza
-specificare direttamente le operazioni sui registri del processore.
-Una singola istruzione del linguaggio può richiedere numerose
-istruzioni macchina, rendendo necessaria una forma di traduzione
-o un ambiente capace di eseguirla.
+di descrivere operazioni senza specificare direttamente registri
+e istruzioni della CPU. Il testo scritto dal programmatore è il
+\emph{codice sorgente}; la \emph{sintassi} ne definisce le forme
+ammesse, mentre la \emph{semantica} ne determina il significato.
+La correttezza sintattica non implica la correttezza rispetto al problema
+(\cref{def:fi-algoritmo}).
 
-Il testo di un programma nel linguaggio scelto costituisce il
-\emph{codice sorgente}. La \emph{sintassi} stabilisce quali costruzioni
-sono ammesse, mentre la \emph{semantica} ne definisce il significato
-e il comportamento. Un programma può rispettare tutte le regole
-sintattiche senza essere corretto rispetto al problema che deve
-risolvere.
+Un \emph{compilatore} traduce il codice sorgente in codice macchina
+o in un \emph{codice intermedio}; durante questa fase può segnalare
+errori sintattici, senza garantire la correttezza dell'algoritmo.
+Un \emph{interprete} esegue le operazioni previste dal linguaggio,
+elaborando il sorgente o una rappresentazione intermedia.
+I due meccanismi possono coesistere.
 
-Per trasformare il codice sorgente in operazioni eseguibili si
-utilizzano differenti tecniche. Un \emph{compilatore} traduce un
-programma in un'altra rappresentazione, che può essere direttamente
-codice macchina oppure \emph{codice intermedio} destinato a
-ulteriori elaborazioni.
+Se la traduzione produce codice macchina, può seguire il
+\emph{collegamento} (\emph{linking}) con altri moduli e librerie;
+il sistema operativo provvede poi al caricamento e all'avvio.
+Lo stesso sorgente può essere compilato per architetture differenti,
+ma l'\emph{eseguibile nativo} dipende dall'architettura e
+dall'ambiente di destinazione.
 
-Quando la compilazione produce codice macchina destinato
-all'esecuzione nativa, può essere necessaria una fase di
-\emph{collegamento} (\emph{linking}) con altri moduli o librerie.
-Nei sistemi dotati di sistema operativo, l'eseguibile viene quindi
-caricato e avviato. Deve essere compatibile sia con l'architettura
-del processore sia con l'ambiente di esecuzione:
-la portabilità del codice sorgente non garantisce automaticamente
-quella del programma compilato.
-
-Un \emph{interprete} è invece un programma che realizza le
-operazioni previste da un linguaggio, elaborando direttamente
-il sorgente oppure una sua rappresentazione intermedia.
-L'interprete viene a sua volta eseguito dal processore e non
-ne sostituisce il funzionamento.
-
-\emph{Compilazione} e \emph{interpretazione} non sono necessariamente
-alternative: descrivono modalità di elaborazione ed esecuzione che
-possono essere combinate all'interno dello stesso ambiente.
-
-Per esempio, nell'implementazione di Python denominata
-\emph{CPython}, il codice sorgente viene tradotto in una
-rappresentazione intermedia chiamata \emph{bytecode}, successivamente
-eseguita dall'interprete. Nel percorso usuale di Java, il
-compilatore produce bytecode destinato alla
-\emph{Java Virtual Machine} (JVM).
-
-La JVM è un ambiente di esecuzione software, non un processore
-fisico: può interpretare il bytecode e tradurne alcune parti in
-codice macchina durante l'esecuzione. In entrambi i casi,
-fra il sorgente e le istruzioni effettivamente eseguite dalla CPU
-possono quindi esistere più livelli di rappresentazione e
-traduzione.\footnote{Per la distinzione fra rappresentazioni ed
-esecuzione: documentazione Python,
-\href{https://docs.python.org/3/glossary.html\#term-bytecode}
-{voce \emph{bytecode}}; Oracle,
-\emph{The Java Virtual Machine Specification},
-\href{https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-1.html\#jvms-1.2}
-{§ 1.2, The Java Virtual Machine}.}
+In \emph{CPython}, il sorgente Python viene tradotto in
+\emph{bytecode}, successivamente eseguito da un interprete
+(\cref{sec:fi-python-esecuzione}). In Java, il percorso usuale
+prevede la compilazione in bytecode per la \emph{Java Virtual Machine}
+(JVM), che può interpretarlo oppure tradurne parti in codice macchina
+durante l'esecuzione. La JVM è un ambiente di esecuzione software,
+non una CPU fisica.
