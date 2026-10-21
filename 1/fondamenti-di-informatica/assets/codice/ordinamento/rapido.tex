@@ -1,0 +1,17 @@
+\begin{unipdcode}[language=Python]
+def quicksort(a, inizio, fine):
+    if inizio < fine:
+        posizione_pivot = partiziona(a, inizio, fine)
+        quicksort(a, inizio, posizione_pivot - 1)
+        quicksort(a, posizione_pivot + 1, fine)
+
+def partiziona(a, inizio, fine):
+    pivot = a[fine]
+    i = inizio - 1
+    for j in range(inizio, fine):
+        if a[j] <= pivot:
+            i += 1
+            a[i], a[j] = a[j], a[i]
+    a[i + 1], a[fine] = a[fine], a[i + 1]
+    return i + 1
+\end{unipdcode}

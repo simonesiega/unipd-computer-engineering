@@ -1,0 +1,20 @@
+\begin{unipdcode}[language=Python]
+def find_max(v, v_size):
+    if v_size == 0:
+        raise ValueError("Lista vuota")
+    massimo = v[0]
+    for i in range(1, v_size):
+        if v[i] > massimo:
+            massimo = v[i]
+    return massimo
+
+
+def find_min(v, v_size):
+    if v_size == 0:
+        raise ValueError("Lista vuota")
+    minimo = v[0]
+    for i in range(1, v_size):
+        if v[i] < minimo:
+            minimo = v[i]
+    return minimo
+\end{unipdcode}

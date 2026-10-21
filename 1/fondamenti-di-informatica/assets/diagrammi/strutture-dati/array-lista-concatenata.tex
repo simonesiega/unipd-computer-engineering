@@ -1,0 +1,16 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[anchor=east,font=\small] at (-4.4,0.8) {Array};
+  \foreach \x/\v in {-3.6/A,-2.15/B,-0.7/C,0.75/D} {
+    \node[unipd/node,minimum width=1cm,minimum height=.65cm] at (\x,0.8) {\v};
+  }
+  \node[anchor=east,font=\small] at (-4.4,-0.9) {Lista concatenata};
+  \node[font=\scriptsize] (head) at (-4.1,-1.6) {\texttt{head}};
+  \foreach \x/\v/\id in {-3.1/A/a,-1.2/B/b,0.7/C/c} {
+    \node[unipd/node,minimum width=1.35cm,minimum height=.65cm] (\id) at (\x,-0.9) {\v\,\(\mid\)\,\scriptsize next};
+  }
+  \draw[unipd/directed edge] (head) -- (a.south);
+  \draw[unipd/directed edge] (a) -- (b);
+  \draw[unipd/directed edge] (b) -- (c);
+  \node[font=\scriptsize] (null) at (2.35,-0.9) {\texttt{None}};
+  \draw[unipd/directed edge] (c) -- (null);
+\end{tikzpicture}

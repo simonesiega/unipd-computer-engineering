@@ -31,8 +31,9 @@ terminale:
 
 \input{assets/codice/esecuzione/terminale}
 
-Il nome del comando può essere \texttt{python} oppure \texttt{python3},
-a seconda dell'ambiente; \texttt{python3 --version} ne mostra la versione.
+Il nome del comando può essere \texttt{python} oppure
+\texttt{python3}, a seconda dell'ambiente;
+\verb|python3 --version| ne mostra la versione.
 Gli esempi richiedono Python 3.9 o successivo.
 Il simbolo \texttt{\$} nel terminale identifica il prompt e non fa parte
 del comando.
@@ -42,8 +43,7 @@ interattiva, riconoscibile dal prompt \lstinline|>>>|. Questa modalità
 segue il ciclo \emph{REPL} (\emph{Read, Eval, Print, Loop}): valuta ogni
 istruzione inserita e mostra il risultato delle espressioni, quando
 previsto. In uno script, invece, le espressioni non vengono stampate
-automaticamente. Il programma viene normalmente sviluppato modificando,
-salvando ed eseguendo ripetutamente il file sorgente.
+automaticamente. 
 
 \section{Variabili, tipi di dato e ingresso/uscita}
 \label{sec:fi-python-variabili}
@@ -108,10 +108,8 @@ Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
 \input{assets/codice/variabili/somma-input}
 
-Il programma assume che le due stringhe inserite siano rappresentazioni
-valide di numeri interi. Le funzioni \texttt{print()} e \texttt{input()}
-operano rispettivamente sull'uscita e sull'ingresso standard del
-programma (\cref{sec:fi-memoria-archiviazione}).
+Il programma assume che le due stringhe inserite rappresentino
+numeri interi validi.
 
 \section{Logica booleana e istruzioni condizionali}
 \label{sec:fi-python-condizioni}
@@ -185,9 +183,8 @@ può quindi non essere eseguito neppure una volta.
 
 L'esempio richiede nuovamente l'età finché il valore è negativo. La
 terminazione dipende dall'inserimento di un intero non negativo; una
-stringa non convertibile provocherebbe \texttt{ValueError}. 
-Un ciclo \texttt{while} può risultare infinito se la condizione
-non diventa mai falsa.
+stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo \texttt{while} può non terminare se la condizione
+rimane sempre vera.
 
 Nei \emph{cicli con contatore} si distinguono inizializzazione,
 condizione e aggiornamento. L'istruzione \texttt{n += 1} abbrevia
@@ -229,7 +226,7 @@ ripetizione del calcolo, trattata nella
 \label{sec:fi-python-liste}
 
 I cicli possono elaborare anche sequenze di dati. Una \emph{lista} è
-una sequenza ordinata e modificabile di elementi, rappresentata mediante
+una sequenza modificabile di elementi, scritta nel codice tra
 parentesi quadre. Gli elementi possono avere tipi differenti e sono
 individuati dalla loro posizione, a partire dall'indice zero. \texttt{len(lista)} restituisce il numero di elementi:
 per una lista di lunghezza \(n\), gli indici non negativi validi sono
@@ -244,7 +241,8 @@ verifica la presenza di un valore.
 Lo \emph{slicing} \texttt{lista[i:j]} estrae una nuova lista con estremo
 iniziale incluso e finale escluso. \texttt{sorted(lista)} restituisce
 una nuova lista ordinata senza modificare quella originale, se gli
-elementi sono confrontabili.
+elementi sono confrontabili. Gli algoritmi impiegati per ordinare
+i dati sono studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
@@ -284,8 +282,8 @@ può utilizzarla così:
 L'istruzione \texttt{import geometria} rende disponibile il modulo;
 la chiamata \texttt{geometria.area\_rettangolo(8, 5)} ne usa la funzione.
 L'estensione \texttt{.py} non compare in \texttt{import}. Le funzioni
-ricorsive, introdotte nella \cref{sec:fi-ricorsione-terminazione}, seguono
-le stesse regole di definizione e chiamata.
+possono anche richiamare se stesse, come si vedrà nel
+\cref{chap:ricorsione}.
 
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}

@@ -1,0 +1,24 @@
+\begin{unipdcode}[language=Python]
+class Pila:
+    def __init__(self):
+        self._dati = []
+
+    def push(self, elemento):
+        self._dati.append(elemento)
+
+    def pop(self):
+        if self.is_empty():
+            raise IndexError("Pila vuota")
+        return self._dati.pop()
+
+    def top(self):
+        if self.is_empty():
+            raise IndexError("Pila vuota")
+        return self._dati[-1]
+
+    def is_empty(self):
+        return len(self._dati) == 0
+
+    def size(self):
+        return len(self._dati)
+\end{unipdcode}

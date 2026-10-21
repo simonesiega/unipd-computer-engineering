@@ -1,0 +1,12 @@
+\begin{unipdcode}[language=Python]
+def selection_sort_ricorsivo(v, inizio, v_size):
+    if inizio >= v_size - 1:
+        return
+    indice_min = inizio
+    for j in range(inizio + 1, v_size):
+        if v[j] < v[indice_min]:
+            indice_min = j
+    if indice_min != inizio:
+        v[inizio], v[indice_min] = v[indice_min], v[inizio]
+    selection_sort_ricorsivo(v, inizio + 1, v_size)
+\end{unipdcode}

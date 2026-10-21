@@ -99,7 +99,8 @@ Ogni invocazione mantiene un
 variabili locali e informazioni necessarie a riprendere il calcolo.
 Le invocazioni ancora attive costituiscono la \emph{pila delle chiamate}
 (\emph{call stack}), organizzata secondo l'ordine LIFO
-(\emph{Last In, First Out}).
+(\emph{Last In, First Out}), proprio dell'ADT pila della
+\cref{sec:fi-adt-pila}.
 
 \begin{example}[Traccia di \texttt{fattoriale(4)}]
 \label{ex:fi-traccia-fattoriale}
@@ -240,7 +241,8 @@ Dalle due relazioni segue per induzione \(C_n=2F_n-1\).
 Poiché \(F_{n+2}\ge2F_n\), il numero di chiamate cresce
 esponenzialmente con \(n\), a causa del ricalcolo degli stessi
 sottoproblemi. La profondità massima della pila cresce invece
-linearmente.
+linearmente. La stima dei costi temporali e spaziali è ripresa nella
+\cref{sec:fi-complessita-fibonacci}.
 
 Per evitare questi ricalcoli, un'implementazione iterativa conserva
 soltanto due termini successivi:
@@ -273,6 +275,10 @@ di dimensione crescente.
 >>> fib(10), fib_iterativo(10)
 (55, 55)
 \end{unipdterminal}
+
+La ricorsione multipla non comporta necessariamente ricalcoli:
+l'ordinamento per fusione della \cref{sec:fi-ordinamento-fusione}
+ne fornisce un esempio.
 
 \section{Esercizi di riepilogo}
 

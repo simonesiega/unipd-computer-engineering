@@ -1,0 +1,11 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \foreach \i/\v in {0/E,1/F,2/{},3/{},4/C,5/D} {
+    \node[unipd/node,minimum width=.85cm,minimum height=.68cm] (c\i) at ({(\i-2.5)*1.15},0) {\v};
+    \node[font=\scriptsize] at ({(\i-2.5)*1.15},-0.65) {\i};
+  }
+  \node[font=\small] (front) at (1.725,1.25) {\texttt{front}=4};
+  \draw[unipd/directed edge] (front) -- (c4.north);
+  \node[font=\small] (back) at (-.575,1.25) {\texttt{back}=2};
+  \draw[unipd/directed edge] (back) -- (c2.north);
+  \node[font=\small] at (0,-1.22) {Ordine logico: \(C,D,E,F\)};
+\end{tikzpicture}

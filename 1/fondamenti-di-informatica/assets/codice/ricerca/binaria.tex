@@ -1,0 +1,16 @@
+\begin{unipdcode}[language=Python]
+def binary_search(v, v_size, value):
+    return bin_search(v, 0, v_size - 1, value)
+
+
+def bin_search(v, from_index, to_index, value):
+    if from_index > to_index:
+        return -1
+
+    mid = (from_index + to_index) // 2
+    if v[mid] == value:
+        return mid
+    if v[mid] < value:
+        return bin_search(v, mid + 1, to_index, value)
+    return bin_search(v, from_index, mid - 1, value)
+\end{unipdcode}
