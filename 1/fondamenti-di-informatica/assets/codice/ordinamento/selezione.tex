@@ -1,0 +1,10 @@
+\begin{unipdcode}[language=Python]
+def selection_sort(v, v_size):
+    for i in range(v_size - 1):
+        indice_min = i
+        for j in range(i + 1, v_size):
+            if v[j] < v[indice_min]:
+                indice_min = j
+        if indice_min != i:
+            v[i], v[indice_min] = v[indice_min], v[i]
+\end{unipdcode}

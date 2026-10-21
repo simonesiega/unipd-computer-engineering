@@ -2,274 +2,194 @@
 \label{chap:rappresentazione-informazioni}
 
 Come anticipato nella \cref{sec:fi-informatica-calcolo}, un elaboratore
-conserva e manipola informazioni mediante sequenze di bit. Il significato
-di una sequenza non è determinato dai soli simboli che la compongono,
-ma dalla convenzione adottata per interpretarli: gli stessi bit
-possono descrivere un numero naturale, un intero negativo, un valore in
-virgola mobile oppure parte di un testo. Una rappresentazione stabilisce
-la corrispondenza fra tali configurazioni e gli oggetti rappresentati,
-insieme ai limiti entro i quali le operazioni conservano il significato
-matematico atteso.\footnote{Riferimento didattico:
-S. Canazza, \emph{Rappresentazione delle informazioni}, file
+memorizza l'informazione mediante sequenze di bit. L'interpretazione
+di una sequenza dipende dalla codifica adottata: gli stessi bit possono
+rappresentare numeri, caratteri oppure altri dati.\footnote{Riferimento didattico:
+S. Canazza, \emph{Rappresentazione delle informazioni},
 \nolinkurl{2026_FI_01_canazza_RappresentazioneInformazioni.pdf}.}
 
 \section{Sistemi di numerazione posizionali}
 \label{sec:fi-notazione-posizionale}
 
-Si adotta la convenzione \(\N=\{0,1,2,\ldots\}\). Il numero naturale e la
-scrittura utilizzata per esprimerlo sono oggetti distinti: il valore cento
-rimane lo stesso qualunque sia il sistema di numerazione, mentre cambiano
-le cifre e le loro posizioni. Nel sistema decimale sono disponibili dieci
-cifre, da \(0\) a \(9\). Il contributo di ciascuna cifra dipende dalla
-posizione occupata, il cui \emph{peso} è una potenza di dieci.
+Nei sistemi di numerazione \emph{posizionali} il valore di una cifra dipende
+dalla sua posizione e dalla base. Il sistema decimale impiega le cifre da
+\(0\) a \(9\); quello binario le cifre \(0\) e \(1\).
 
 \begin{definition}[Valore posizionale]
 \label{def:fi-valore-posizionale}
-Siano \(b\ge2\) una base intera, \(n\ge1\) il numero di cifre della parte
-intera e \(m\ge0\) il numero di cifre della parte frazionaria.
-Per cifre \(a_k\in\{0,1,\ldots,b-1\}\), la scrittura
-\((a_{n-1}\cdots a_0.a_{-1}\cdots a_{-m})_b\) rappresenta il valore
+Siano \(b\ge2\) una base intera e \(a_k\in\{0,\ldots,b-1\}\) le cifre di
+una rappresentazione con \(n\ge1\) cifre intere e \(m\ge0\) cifre
+frazionarie. Il valore della scrittura
 \[
-  x=\sum_{k=-m}^{n-1}a_k b^k
-   =\sum_{k=0}^{n-1}a_k b^k+\sum_{j=1}^{m}a_{-j}b^{-j}.
+  (a_{n-1}\cdots a_0.a_{-1}\cdots a_{-m})_b
 \]
-Se \(m=0\), la seconda somma è nulla e si omette il separatore.
+è
+\[
+  x=\sum_{k=0}^{n-1}a_kb^k+\sum_{j=1}^{m}a_{-j}b^{-j}.
+\]
+Per \(m=0\) la seconda somma è nulla e il separatore si omette.
 \end{definition}
 
-La cifra immediatamente a sinistra del separatore ha peso \(b^0=1\).
-Spostandosi a sinistra, i pesi vengono moltiplicati per \(b\); spostandosi
-a destra, vengono divisi per \(b\). La parte frazionaria ha pertanto pesi
-\(b^{-1},b^{-2},\ldots\), non potenze positive.
-Nel capitolo si usa il punto come separatore della parte frazionaria,
-come avviene comunemente nei linguaggi di programmazione. È una
-convenzione di scrittura, non una proprietà della notazione posizionale.
-Il pedice indica la base; un numero privo di pedice in un calcolo è
-inteso in base dieci.
+Si utilizza il punto come separatore della parte frazionaria e il pedice
+per indicare la base.
 
 \begin{example}[Pesi delle cifre decimali]
 \begin{align*}
-  (753)_{10}&=7\cdot10^2+5\cdot10^1+3\cdot10^0=700+50+3,\\
-  (2048)_{10}&=2\cdot10^3+0\cdot10^2+4\cdot10^1+8\cdot10^0,\\
-  (4.34)_{10}&=4\cdot10^0+3\cdot10^{-1}+4\cdot10^{-2}
-              =4+\frac3{10}+\frac4{100}.
+  (753)_{10}&=7\cdot10^2+5\cdot10+3=753,\\
+  (2048)_{10}&=2\cdot10^3+4\cdot10+8=2048,\\
+  (4.34)_{10}&=4+3\cdot10^{-1}+4\cdot10^{-2}.
 \end{align*}
-La cifra \(3\) contribuisce con \(300\) in \((345)_{10}\), ma con \(30\)
-in \((34.5)_{10}\): conta la sua posizione rispetto al separatore, non
-soltanto il simbolo utilizzato. Uno zero interno, come in \(2048\),
-mantiene le posizioni delle altre cifre pur avendo contributo nullo.
 \end{example}
 
 \section{Notazione binaria e conversioni}
 \label{sec:fi-conversioni-binarie}
 
-In base due sono ammesse soltanto le cifre \(0\) e \(1\), dette \emph{bit}
-(dall'inglese \emph{binary digit}). La scelta è adatta ai circuiti digitali:
-due intervalli distinguibili di una grandezza fisica, per esempio una
-tensione, possono essere associati ai due valori logici. Non è necessario
-che lo stato \(0\) corrisponda letteralmente a un circuito spento; è
-necessario poter distinguere in modo affidabile i due stati.
-
-I pesi binari della parte intera sono \(1,2,4,8,16,32,64,128,\ldots\);
-quelli della parte frazionaria sono \(1/2,1/4,1/8,\ldots\).
-La conversione in decimale applica direttamente la
+Il \emph{bit} (\emph{binary digit}) è una cifra binaria. La base due è
+adatta ai circuiti digitali, nei quali è possibile distinguere due stati
+logici. La conversione da binario a decimale si ottiene applicando la
 \cref{def:fi-valore-posizionale}.
 
 \begin{example}[Da binario a decimale]
 \begin{align*}
-  (1101)_2&=1\cdot2^3+1\cdot2^2+0\cdot2^1+1\cdot2^0
-           =8+4+1=13,\\
-  (1.101)_2&=1\cdot2^0+1\cdot2^{-1}+0\cdot2^{-2}+1\cdot2^{-3}\\
-           &=1+\frac12+\frac18=\frac{13}{8}=(1.625)_{10}.
+  (1101)_2&=2^3+2^2+1=13,\\
+  (1.101)_2&=1+2^{-1}+2^{-3}=1.625.
 \end{align*}
-Entrambe le uguaglianze sono esatte; la presenza di una parte frazionaria
-non implica di per sé un'approssimazione.
 \end{example}
 
-Per convertire in binario un valore non negativo, si trattano
-separatamente la parte intera e quella frazionaria, ricongiungendo
-poi le due scritture con il separatore. Le due parti richiedono
-procedimenti differenti.
+Viceversa, per convertire un numero decimale non negativo in binario
+si trattano separatamente la parte intera e quella frazionaria.
 
 \subsection{Divisioni successive per la parte intera}
 
-Sia \(N>0\) un numero naturale e si ponga \(q_0=N\). La divisione euclidea
-per due determina, a ogni passo, un quoziente e un resto:
+Sia \(N\in\N\), con la convenzione \(0\in\N\). Per \(N>0\), si divide
+ripetutamente per due, ottenendo quozienti \(q_i\) e resti \(r_i\):
 \[
-  q_i=2q_{i+1}+r_i,\qquad r_i\in\{0,1\}.
+  q_0=N,\qquad q_i=2q_{i+1}+r_i,
+  \qquad r_i\in\{0,1\}.
 \]
-Si prosegue con il quoziente fino a ottenere \(q_t=0\). Per sostituzione
-successiva si ricava
+Quando il quoziente diventa zero, la sequenza binaria è formata dai resti
+letti \emph{in ordine inverso}. Infatti, sostituendo successivamente i
+quozienti si ricava
 \[
-  N=r_0+2r_1+2^2r_2+\cdots+2^{t-1}r_{t-1}.
+  N=r_0+2r_1+\cdots+2^{t-1}r_{t-1}.
 \]
-\noindent\begin{minipage}{\linewidth}
-Il primo resto è dunque la cifra delle unità, mentre l'ultimo è la cifra
-più a sinistra. La scrittura binaria si ottiene leggendo i resti
-nell'ordine inverso a quello di produzione. Per \(N=0\) il risultato è
-semplicemente la cifra \(0\).
+Per \(N=0\) la rappresentazione è \(0\).
 
 \begin{example}[Conversione di cento]
-Le divisioni successive sono
 \begin{alignat*}{3}
-  100&=2\cdot50+0, &\qquad 50&=2\cdot25+0, &\qquad 25&=2\cdot12+1,\\
+  100&=2\cdot50+0, &\quad 50&=2\cdot25+0, &\quad25&=2\cdot12+1,\\
   12&=2\cdot6+0, & 6&=2\cdot3+0, & 3&=2\cdot1+1,\\
   1&=2\cdot0+1.
 \end{alignat*}
-I resti prodotti sono \(0,0,1,0,0,1,1\); letti in senso inverso danno
-\((100)_{10}=(1100100)_2\).
-La verifica è \(2^6+2^5+2^2=64+32+4=100\).
+Leggendo i resti dal basso verso l'alto,
+\[
+  (100)_{10}=(1100100)_2=2^6+2^5+2^2.
+\]
 \end{example}
-\end{minipage}\par
 
 \subsection{Moltiplicazioni successive per la parte frazionaria}
 
-Sia \(f_0\in[0,1)\) la parte frazionaria. A ogni passo si moltiplica per
-due, si registra la parte intera \(d_j\) e si conserva come nuovo valore
-la parte frazionaria \(f_j\):
+Sia \(f_0\in[0,1)\). Si moltiplica ripetutamente la frazione per due:
 \[
-  2f_{j-1}=d_j+f_j,\qquad d_j\in\{0,1\},\quad 0\le f_j<1.
+  2f_{j-1}=d_j+f_j,
+  \qquad d_j\in\{0,1\},\quad f_j\in[0,1).
 \]
-Se il prodotto è almeno uno, il bit è \(1\) e si sottrae uno; altrimenti
-il bit è \(0\). In particolare, un prodotto esattamente uguale a uno
-produce il bit \(1\) e una nuova frazione nulla. Iterando l'identità,
+Le parti intere \(d_j\) forniscono i bit frazionari, letti
+\emph{nell'ordine di produzione}. Dopo \(t\) passi,
 \[
-  f_0=\frac{d_1}{2}+\frac{d_2}{2^2}+\cdots+
-       \frac{d_t}{2^t}+\frac{f_t}{2^t}.
+  f_0=\sum_{j=1}^{t}d_j2^{-j}+f_t2^{-t}.
 \]
-Poiché \(0\le f_t<1\), il termine residuo \(f_t/2^t\) tende a zero
-per \(t\to\infty\). I bit si leggono nell'ordine di produzione,
-diversamente dai resti delle divisioni.
-Se \(f_t=0\), la conversione termina.
+La conversione termina se \(f_t=0\); se una frazione residua si ripete,
+la sequenza di bit è periodica da quel punto.
 
 \begin{example}[Frazione binaria finita]
-Per \(f_0=0.625\) si ottiene
-\begin{align*}
-  2\cdot0.625&=1+0.25,\\
-  2\cdot0.25&=0+0.5,\\
-  2\cdot0.5&=1+0.
-\end{align*}
-Pertanto \((0.625)_{10}=(0.101)_2=1/2+1/8\).
+\[
+  0.625\cdot2=1+0.25,\qquad
+  0.25\cdot2=0+0.5,\qquad
+  0.5\cdot2=1.
+\]
+Pertanto \((0.625)_{10}=(0.101)_2\).
 \end{example}
 
-\noindent\begin{minipage}{\linewidth}
 \begin{example}[Frazione binaria periodica]
 \label{ex:fi-frazione-periodica}
-Per \(0.35=7/20\) i prodotti, calcolati esattamente, sono
+Per \(0.35=7/20\) si ottiene
 \begin{align*}
   2\cdot0.35&=0+0.70, & 2\cdot0.70&=1+0.40,\\
   2\cdot0.40&=0+0.80, & 2\cdot0.80&=1+0.60,\\
   2\cdot0.60&=1+0.20, & 2\cdot0.20&=0+0.40.
 \end{align*}
-La frazione \(0.40\) ricompare dopo il sesto passo: i passi dal terzo
-al sesto si ripetono e producono il periodo \(0110\). Quindi
+Poiché \(0.40\) ricompare, il periodo è \(0110\). Quindi
 \[
   (0.35)_{10}=(0.01\overline{0110})_2,
   \qquad
   (100.35)_{10}=(1100100.01\overline{0110})_2.
 \]
-La barra indica le sole cifre ripetute indefinitamente. Una verifica
-indipendente usa la somma geometrica:
-\[
-  (0.01\overline{0110})_2
-   =\frac14+\frac{2^{-4}+2^{-5}}{1-2^{-4}}
-   =\frac14+\frac1{10}=\frac7{20}.
-\]
 \end{example}
-\end{minipage}\par
 
-Per una frazione \(p/q\in[0,1)\) ridotta ai minimi termini, con
-\(p\in\N\) e \(q\in\N\setminus\{0\}\),
-una rappresentazione finita in base due esiste se e solo se \(q\) è una
-potenza di due, includendo \(q=1\). Infatti, una scrittura con \(m\)
-cifre frazionarie ha valore \(K/2^m\) per un intero \(K\); il denominatore
-ridotto deve quindi dividere \(2^m\). Viceversa, se \(q=2^h\), sono
-sufficienti al più \(h\) cifre frazionarie.
+\begin{proposition}[Frazioni con rappresentazione binaria finita]
+\label{prop:fi-frazione-binaria-finita}
+Una frazione \(p/q\in[0,1)\), ridotta ai minimi termini e con \(q>0\),
+ammette una rappresentazione binaria finita se e solo se \(q\) è una
+potenza di due.
+\end{proposition}
 
-Negli altri casi la rappresentazione binaria è infinita e periodica
-a partire da una certa posizione. Nell'algoritmo le frazioni residue
-sono multipli di \(1/q\) compresi fra zero e uno: le possibilità sono
-finite. Se non si raggiunge zero, una frazione deve ricomparire e, da
-quel momento, si ripetono anche i bit successivi. Questo ragionamento
-presuppone calcoli esatti sui resti; un calcolo già arrotondato non è una
-verifica affidabile della periodicità.
+\begin{proof}
+Una scrittura con \(m\) cifre frazionarie ha valore \(K/2^m\), quindi
+il denominatore ridotto divide \(2^m\). Viceversa, se \(q=2^h\), bastano
+al più \(h\) cifre. Negli altri casi i resti della conversione assumono
+soltanto un numero finito di valori non nulli: uno si ripete e la
+rappresentazione è periodica da una certa posizione.
+\end{proof}
 
-\section{Numeri naturali e rappresentazione con modulo e segno}
+\section{Numeri senza segno e modulo e segno}
 \label{sec:fi-interi-rappresentazione}
 
-Le conversioni precedenti non impongono un numero prefissato di cifre.
-Nei formati numerici a lunghezza fissa, invece, il numero di bit
-disponibili è stabilito in anticipo. Per \(n\ge1\), una sequenza
-\(a_{n-1}\cdots a_0\) contiene \(n\) bit e ammette \(2^n\)
-configurazioni. Nell'interpretazione \emph{senza segno}, il suo valore è
+Fissata una lunghezza di \(n\ge1\) bit, si hanno \(2^n\) configurazioni.
+Nell'interpretazione \emph{senza segno}, la sequenza \(a_{n-1}\cdots a_0\) vale
 \[
-  U=\sum_{k=0}^{n-1}a_k2^k.
+  U=\sum_{k=0}^{n-1}a_k2^k,
+  \qquad U\in[0,2^n-1]\cap\Z.
 \]
-Il minimo è zero, ottenuto con tutti i bit nulli; il massimo è
-\(\sum_{k=0}^{n-1}2^k=2^n-1\), ottenuto con tutti i bit uguali a uno.
-Si rappresentano esattamente gli interi dell'intervallo
-\[
-  [0,2^n-1]\cap\Z,
-\]
-dove \(\Z=\{\ldots,-2,-1,0,1,2,\ldots\}\) è l'insieme degli interi.
-Con otto bit, ossia un \emph{byte}, sono disponibili \(256\)
-configurazioni, da \(0000\,0000\) a \(1111\,1111\), corrispondenti ai
-valori da \(0\) a \(255\). Gli spazi nelle sequenze servono soltanto a
-facilitarne la lettura.
-
-Il bit \(a_{n-1}\), a sinistra, è detto \emph{più significativo}
-(\emph{most significant bit}, MSB); il bit \(a_0\), a destra, è detto
-\emph{meno significativo} (\emph{least significant bit}, LSB).
-Nella rappresentazione senza segno essi hanno rispettivamente peso
-\(2^{n-1}\) e \(1\). L'estensione ai numeri negativi richiede una diversa
-regola di interpretazione delle configurazioni disponibili.
+Con otto bit si rappresentano quindi gli interi da \(0\) a \(255\).
+Il bit più a sinistra è detto \emph{più significativo} (MSB); quello
+più a destra \emph{meno significativo} (LSB).
 
 \begin{definition}[Modulo e segno]
-Per \(n\ge2\), nella rappresentazione con \emph{modulo e segno}, il primo
-bit \(s\) indica il segno e i rimanenti \(n-1\) bit esprimono il modulo:
+Per \(n\ge2\), nella rappresentazione con \emph{modulo e segno} il bit
+più significativo \(s\) indica il segno, mentre gli altri \(n-1\) bit
+rappresentano il modulo \(M\):
 \[
-  a=(-1)^s M,\qquad
+  a=(-1)^sM,\qquad
   M=\sum_{k=0}^{n-2}a_k2^k.
 \]
-Il bit \(s=0\) indica il segno positivo, mentre \(s=1\) indica il segno
-negativo.
 \end{definition}
 
-Per esempio, su sei bit \(001100\) rappresenta \(+12\) e \(101100\)
-rappresenta \(-12\), poiché in entrambi i casi il modulo è
-\((01100)_2=8+4\). Il massimo modulo è \(2^{n-1}-1\), per cui l'intervallo
-rappresentabile è
+Le sequenze \(001100\) e \(101100\) su sei bit rappresentano
+rispettivamente \(+12\) e \(-12\). L'intervallo dei valori è
 \[
-  [-(2^{n-1}-1),2^{n-1}-1]\cap\Z.
+  [-(2^{n-1}-1),\,2^{n-1}-1]\cap\Z.
 \]
-Esso contiene \(2^n-1\) interi distinti, non \(2^{n-1}\): fra le \(2^n\)
-configurazioni, \(00\cdots0\) e \(10\cdots0\) rappresentano entrambe zero,
-convenzionalmente indicato come \(+0\) e \(-0\). Su otto bit l'intervallo
-è dunque \([-127,127]\cap\Z\).
-
-La duplicazione dello zero non è l'unico inconveniente. Per sommare due
-valori di segno uguale occorre sommare i moduli e mantenere il segno,
-controllando che il nuovo modulo sia rappresentabile. Per segni opposti
-occorre invece confrontare i moduli, sottrarre il minore dal maggiore e
-scegliere il segno del valore con modulo maggiore. Se i moduli sono
-uguali, il risultato è zero e va scelta una sua rappresentazione.
-La semplice somma binaria delle sequenze non realizza tutte queste
-operazioni. Per questo motivo, le comuni architetture rappresentano
-gli interi con segno in complemento a due. Un campo di segno separato
-rimane tuttavia utile in altri formati.
+Le configurazioni sono \(2^n\), ma i valori distinti sono \(2^n-1\):
+\(00\cdots0\) e \(10\cdots0\) rappresentano entrambe zero.
+Inoltre, la somma richiede di distinguere operandi con segno uguale,
+per i quali si sommano i moduli, e con segno opposto, per i quali
+si confrontano e sottraggono i moduli.
 
 \section{Complemento a due}
 \label{sec:fi-complemento-due}
 
-Il complemento a due assegna un intero distinto a ogni configurazione e
-permette di usare la stessa addizione binaria per operandi positivi e
-negativi. La larghezza \(n\) fa parte della definizione: senza conoscerla
-non è possibile interpretare correttamente il segno e il valore.
+Il \emph{complemento a due} evita la doppia rappresentazione dello zero
+e permette di eseguire le somme mediante l'addizione binaria.
 
 \begin{definition}[Codifica in complemento a due]
 \label{def:fi-complemento-due}
-Fissato \(n\ge2\), sia
-\(a\in[-2^{n-1},2^{n-1}-1]\cap\Z\). La sua codifica è la scrittura
-senza segno su \(n\) bit dell'intero
+Sia \(n\ge2\). Per ogni intero
+\[
+  a\in[-2^{n-1},2^{n-1}-1]\cap\Z,
+\]
+la codifica in complemento a due è la rappresentazione senza segno
+su \(n\) bit di
 \[
   C_n(a)=
   \begin{cases}
@@ -279,112 +199,81 @@ senza segno su \(n\) bit dell'intero
 \]
 \end{definition}
 
-I non negativi occupano le configurazioni con MSB nullo; i negativi
-occupano quelle con MSB uguale a uno. Per decodificare una sequenza,
-si calcola il valore senza segno \(U\) e si usa la regola
+Per decodificare una sequenza di valore senza segno \(U\), si pone
 \[
-  a=
-  \begin{cases}
+  a=\begin{cases}
     U, & U<2^{n-1},\\
     U-2^n, & U\ge2^{n-1}.
   \end{cases}
 \]
-Equivalentemente, direttamente dai bit,
+Equivalentemente, il bit più significativo ha peso negativo:
 \begin{equation}
   a=-a_{n-1}2^{n-1}+\sum_{k=0}^{n-2}a_k2^k.
   \label{eq:fi-pesi-complemento-due}
 \end{equation}
-Infatti, se il primo bit vale uno, la sottrazione di \(2^n\) trasforma
-il suo peso \(+2^{n-1}\) in \(-2^{n-1}\). I bit rimanenti non
-rappresentano il modulo del numero negativo.
-
-Il minimo si ottiene con \(100\cdots0\) e vale \(-2^{n-1}\); il massimo
-si ottiene con \(011\cdots1\) e vale \(2^{n-1}-1\). L'intervallo è
-asimmetrico perché zero occupa una delle configurazioni con primo bit
-nullo. Lo zero ha una sola rappresentazione, \(00\cdots0\), mentre
-\(11\cdots1\) rappresenta \(-1\). Con otto bit l'intervallo è
-\([-128,127]\cap\Z\); con trentadue bit è
-\([-2147483648,2147483647]\cap\Z\), come per il tipo \texttt{int}
-di Java.\footnote{Oracle, \emph{The Java Language Specification},
-\href{https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html\#jls-4.2.1}{§ 4.2.1, Integral Types and Values}.}
+Il bit più significativo indica quindi il segno, ma gli altri bit di
+un numero negativo \emph{non} ne rappresentano il modulo. Gli estremi
+sono \(-2^{n-1}\) e \(2^{n-1}-1\); su otto bit si ha
+\([-128,127]\cap\Z\) e su trentadue bit
+\([-2147483648,2147483647]\cap\Z\), intervallo del tipo
+\texttt{int} di Java.
 
 \subsection{Codifica, inversione e decodifica}
 
-Per codificare \(-m\), con \(1\le m\le2^{n-1}\), è sufficiente calcolare
-\(2^n-m\) e scriverlo su \(n\) bit. Un procedimento equivalente parte
-dalla scrittura senza segno di \(m\), inverte tutti i bit e aggiunge uno,
-conservando soltanto \(n\) bit. L'inversione sostituisce ogni \(0\) con
-\(1\) e ogni \(1\) con \(0\); il valore senza segno diventa
-\((2^n-1)-m\). L'aggiunta di uno produce proprio \(2^n-m\).
+Per ottenere la codifica di \(-m\) su \(n\) bit, con
+\(1\le m\le2^{n-1}\), si calcola \(2^n-m\). Equivalentemente, si
+scrive \(m\) su \(n\) bit, si invertono tutti i bit e si aggiunge uno.
+Infatti, l'inversione produce \(2^n-1-m\).
 
 \begin{example}[Un intero negativo su otto bit]
-Per \(-13\), il metodo della \cref{def:fi-complemento-due} fornisce
+Per \(-13\) si ha
 \[
-  2^8-13=256-13=243=(1111\,0011)_2.
+  2^8-13=243=(1111\,0011)_2.
 \]
-Il metodo dell'inversione dà lo stesso risultato:
+Anche l'inversione con incremento fornisce
 \[
-  0000\,1101\ \longrightarrow\ 1111\,0010
-  \ \xrightarrow{+1}\ 1111\,0011.
+  0000\,1101\longrightarrow1111\,0010
+  \xrightarrow{+1}1111\,0011.
 \]
-La verifica con l'\cref{eq:fi-pesi-complemento-due} è
+Dall'\cref{eq:fi-pesi-complemento-due} segue
 \[
   -128+64+32+16+2+1=-13.
 \]
-Analogamente, \(-14\) è codificato da \(1111\,0010\), il cui valore
-è \(-128+64+32+16+2=-14\).
+Analogamente, \(-14\) corrisponde a \(1111\,0010\).
 \end{example}
 
-Per decodificare una sequenza negativa si può sottrarre \(2^n\) dal
-valore senza segno, oppure invertire i bit e aggiungere uno per ottenere
-il modulo come numero senza segno. Il caso estremo merita attenzione:
-\(100\cdots0\) ha modulo \(2^{n-1}\), che è rappresentabile senza segno
-ma non come intero positivo in complemento a due su \(n\) bit.
-La sua negazione matematica richiede quindi più bit.
-
-\begin{warning}[Formato e larghezza non sono intercambiabili]
+\begin{warning}[Il formato determina il valore]
 \label{warn:fi-larghezza-interi}
-La sequenza \(1111\,1111\) vale \(255\) senza segno, \(-127\) con
-modulo e segno e \(-1\) in complemento a due su otto bit.
-La sequenza su sedici bit \(0000\,0000\,1111\,1111\) vale invece
-\(+255\) in complemento a due. Gli zeri iniziali non possono essere
-omessi se ciò rende ambigua la larghezza del formato.
+La sequenza \(1111\,1111\) rappresenta \(255\) senza segno, \(-127\)
+con modulo e segno e \(-1\) in complemento a due su otto bit. In
+complemento a due su sedici bit, \(0000\,0000\,1111\,1111\) vale
+invece \(+255\). È necessario specificare formato e larghezza.
 \end{warning}
 
-Per aumentare la larghezza di un intero in complemento a due senza
-modificarne il valore, si replica il bit di segno a sinistra
-(\emph{estensione del segno}). Per esempio, \(-13\) passa da
-\(1111\,0011\) a \(1111\,1111\,1111\,0011\). Per un negativo,
-aumentando la larghezza da \(n\) a \(n+h\), il nuovo valore senza segno
-è \(U+(2^{n+h}-2^n)\); sottraendo \(2^{n+h}\) si ritrova \(U-2^n\).
-Per un non negativo si aggiungono invece zeri.
+Nell'\emph{estensione del segno} si replica il bit più significativo
+per aumentare la larghezza senza cambiare il valore. Per esempio,
+\(1111\,0011\) su otto bit rappresenta \(-13\); la sua estensione
+a sedici bit è
+\[
+  (1111\,1111\,1111\,0011)_2.
+\]
+La negazione di \(-2^{n-1}\) non è rappresentabile con \(n\)
+bit in complemento a due.
 
 \section{Aritmetica intera e overflow}
 \label{sec:fi-aritmetica-overflow}
 
-La somma binaria procede da destra a sinistra. Senza riporto entrante,
-\(0+0=0\), \(0+1=1\), \(1+0=1\) e \(1+1=(10)_2\): nell'ultimo
-caso si scrive zero e si riporta uno alla colonna successiva.
-Indicando con \(c_k\) il riporto entrante nella posizione \(k\) e con
-\(r_k\) il bit del risultato, la regola generale per due operandi con bit
-\(a_k,b_k\) è
+L'addizione binaria conserva \(n\) bit e scarta il riporto finale:
+il risultato è la somma delle codifiche \emph{modulo} \(2^n\).
+Nella colonna \(k\), con riporto entrante \(c_k\), vale
 \[
   a_k+b_k+c_k=r_k+2c_{k+1},\qquad c_0=0.
 \]
-La regola comprende anche \(1+1+1=(11)_2\).
-
-Su \(n\) bit il risultato conservato è il resto della somma senza segno
-divisa per \(2^n\); il riporto finale \(c_n\) viene scartato.
-Si parla di calcolo \emph{modulo \(2^n\)}: due interi sono congruenti
-quando differiscono per un multiplo di \(2^n\).
-Poiché \(C_n(a)\) è congruente ad \(a\), sommando le codifiche si
-ottiene una configurazione congruente ad \(a+b\). Se \(a+b\) appartiene
-all'intervallo della \cref{def:fi-complemento-due}, la decodifica dà
-esattamente la somma matematica; altrimenti si verifica
-\emph{overflow}, o trabocco.
+Se la somma matematica non appartiene all'intervallo rappresentabile,
+si verifica \emph{overflow} (trabocco).
 
 \begin{example}[Riporto scartato senza overflow]
-Su otto bit la somma \(5+(-2)=3\) è
+Su otto bit,
 \[
   \begin{array}{r@{\;}r}
       &0000\,0101\\
@@ -392,531 +281,350 @@ Su otto bit la somma \(5+(-2)=3\) è
     1 &0000\,0011
   \end{array}
 \]
-I valori senza segno sommano a \(5+254=259=256+3\).
-Scartato il riporto, rimane la codifica di \(3\), che è anche la somma
-corretta degli interi con segno. Il riporto finale non prova dunque
-l'esistenza di overflow con segno.
+rappresenta \(5+(-2)=3\). Il riporto finale viene scartato, ma
+non si verifica overflow con segno.
 \end{example}
 
 \begin{proposition}[Criterio di overflow nell'addizione]
 \label{prop:fi-overflow-somma}
-Nella somma su \(n\) bit di due interi in complemento a due si verifica
-overflow se e solo se gli operandi hanno lo stesso segno e il risultato
-conservato ha segno opposto. Equivalentemente, l'overflow si verifica
-se e solo se il riporto entrante nel bit di segno \(c_{n-1}\) è diverso
-dal riporto uscente \(c_n\).
+Nella somma di due interi su \(n\) bit in complemento a due,
+si verifica overflow se e solo se gli operandi hanno lo stesso segno
+e il risultato ha segno opposto. Equivalentemente, il riporto
+entrante nel bit di segno \(c_{n-1}\) è diverso dal riporto uscente
+\(c_n\).
 \end{proposition}
 
 \begin{proof}
-Due operandi di segno opposto hanno una somma compresa fra gli operandi
-stessi, quindi entro l'intervallo disponibile. Due non negativi possono
-superare soltanto il massimo: in tal caso la sequenza conservata ha
-primo bit uno. Due negativi possono scendere soltanto sotto il minimo:
-in tal caso la sequenza conservata ha primo bit zero.
-Per verificare il criterio dei riporti basta applicare la regola di
-somma alla colonna di segno: per segni \(00\) si ha overflow quando
-\(c_{n-1}=1,c_n=0\); per segni \(11\) quando \(c_{n-1}=0,c_n=1\).
-Per segni diversi i due riporti coincidono.
+La somma di interi con segno opposto è compresa fra gli operandi e non
+può eccedere l'intervallo disponibile. La somma di due non negativi
+può superare solo il massimo e produrre un primo bit uguale a uno;
+quella di due negativi può scendere sotto il minimo e produrre un
+primo bit nullo. Applicando la regola dell'addizione alla colonna di
+segno, i due casi corrispondono rispettivamente a
+\((c_{n-1},c_n)=(1,0)\) e \((0,1)\).
 \end{proof}
 
-\clearpage
-
 \begin{example}[Overflow positivo e negativo su quattro bit]
-L'intervallo disponibile è \([-8,7]\cap\Z\). Per \(6+2\),
+L'intervallo è \([-8,7]\cap\Z\). Si ha
 \[
-  0110+0010=1000.
+  0110+0010=1000,\qquad 1101+1001=1\,0110.
 \]
-La somma matematica è \(8\), non rappresentabile; la sequenza prodotta
-vale \(-8\), non \(+8\). Non vi è riporto finale, ma vi è riporto
-entrante nel bit di segno: \(c_3=1\), \(c_4=0\).
-
-Per \((-3)+(-7)\), le codifiche sono \(1101\) e \(1001\), poiché
-\(16-3=13\) e \(16-7=9\). Si ottiene
-\[
-  1101+1001=1\,0110.
-\]
-Scartato il riporto, \(0110\) vale \(+6\), mentre la somma matematica
-è \(-10\), inferiore a \(-8\). Qui \(c_3=0\), \(c_4=1\).
-I risultati conservati sono corretti modulo \(16\), ma non coincidono
-con le somme matematiche richieste.
+Nel primo caso \(6+2=8\) produce \(-8\); nel secondo
+\((-3)+(-7)=-10\) produce \(+6\) dopo lo scarto del riporto.
+Entrambi i risultati sono corretti modulo \(16\), ma non come
+somme di interi con segno.
 \end{example}
 
-Con otto bit gli analoghi casi di frontiera sono \(127+1\), che produce
-\(1000\,0000\), e \(-128+(-1)\), che produce, dopo lo scarto del
-riporto, \(0111\,1111\). La distinzione è essenziale: nell'addizione
-senza segno il riporto finale indica il superamento di \(2^n-1\);
-nell'addizione con segno si usa invece il criterio della
-\cref{prop:fi-overflow-somma}, non una semplice osservazione delle due
-cifre più a sinistra del risultato.
-
-Anche la sottrazione si realizza con l'addizione: si invertono i bit del
-sottraendo, si aggiunge uno e si somma al minuendo, conservando \(n\) bit.
-Per esempio, su otto bit \(5-7\) dà
-\[
-  0000\,0101+1111\,1001=1111\,1110,
-\]
-che rappresenta \(-2\). In una sottrazione \(a-b\) si verifica overflow
-quando \(a\) e \(b\) hanno segni opposti e il risultato ha segno diverso
-da quello di \(a\). Se \(b=-2^{n-1}\), la sua negazione non è
-rappresentabile nel formato: il procedimento sui bit rimane valido
-modulo \(2^n\), ma non va descritto come una negazione intermedia esatta
-su \(n\) bit. Il controllo del risultato resta indispensabile.
+La sottrazione \(a-b\) si esegue sommando ad \(a\) il complemento a
+due di \(b\). Si verifica overflow quando gli operandi della
+sottrazione hanno segni opposti e il risultato ha segno diverso da
+quello di \(a\). Il riporto finale, da solo, non determina l'overflow
+con segno (\cref{prop:fi-overflow-somma}).
 
 \section{Virgola fissa e virgola mobile}
 \label{sec:fi-virgola-mobile}
 
-Un formato con un numero finito di bit può distinguere soltanto un
-numero finito di valori. Non può quindi rappresentare tutti i razionali,
-e tanto meno tutti i reali, presenti in un intervallo non degenere.
-Alcuni valori, tuttavia, sono esattamente rappresentabili, come gli
-esempi finiti della \cref{sec:fi-conversioni-binarie}: l'approssimazione
-è una necessità generale, non una proprietà di ogni singolo valore.
+Con \(n\) bit si distinguono soltanto \(2^n\) configurazioni, quindi
+non tutti i numeri reali sono rappresentabili esattamente. Alcune
+frazioni, tuttavia, hanno una scrittura binaria finita, come mostrato
+nella \cref{sec:fi-conversioni-binarie}.
 
-Nella \emph{virgola fissa} il separatore ha una posizione prestabilita.
-Per esempio, usando \(n\) bit senza segno di cui \(m\) frazionari,
-con \(0\le m<n\), si rappresenta \(U\,2^{-m}\), con
-\(0\le U\le2^n-1\). Il passo fra valori consecutivi è sempre \(2^{-m}\),
-mentre il massimo è \((2^n-1)2^{-m}\). Aumentare le cifre frazionarie,
-a parità di larghezza, migliora la risoluzione ma riduce il massimo.
-La virgola fissa rimane utile quando è appropriata una scala costante;
-non è un formato escluso dall'uso nei calcolatori.
+Nella rappresentazione in \emph{virgola fissa} la posizione del
+separatore è prestabilita. Usando \(n\) bit senza segno, di cui
+\(m\) frazionari, si rappresentano valori \(U2^{-m}\), con
+\(0\le U\le2^n-1\), distanziati di \(2^{-m}\).
 
-La \emph{virgola mobile} separa invece un fattore significativo da un
-fattore di scala. In base \(b\), un valore non nullo si scrive
+Nella rappresentazione in \emph{virgola mobile} un numero finito non
+nullo è espresso nella forma
 \[
-  x=(-1)^s M b^E,
+  x=(-1)^sM\,b^E,
 \]
-dove \(s\in\{0,1\}\) indica il segno, \(M>0\) è il
-\emph{significando}, spesso chiamato \emph{mantissa}, ed \(E\in\Z\)
-è l'esponente. Per esempio,
-\((1024.3)_{10}=(1.0243)_{10}\cdot10^3\).
-Senza vincoli su \(M\), questa scrittura non è unica: moltiplicare il
-significando per la base e diminuire l'esponente di uno conserva il
-valore. La \emph{normalizzazione} impone \(1\le M<b\), scegliendo
-un'unica posizione del separatore per ogni valore non nullo.
-
-In base due il significando normalizzato ha dunque la forma
-\((1.f_1f_2\cdots)_2\). Per esempio,
+dove \(s\) indica il segno, \(M\) è il \emph{significando} (o
+\emph{mantissa}) ed \(E\) l'esponente. La \emph{normalizzazione}
+richiede \(1\le M<b\). In base due, per esempio,
 \[
   (10.5)_{10}=(1010.1)_2=(1.0101)_2\cdot2^3.
 \]
-L'esponente controlla l'ordine di grandezza, mentre il numero di cifre
-del significando controlla la precisione. Un formato concreto limita
-entrambi: la normalizzazione matematica non garantisce che qualunque
-valore possa esservi memorizzato.
+Il numero di cifre significative determina la precisione, mentre
+l'esponente determina l'ordine di grandezza.
 
 \subsection{I formati IEEE 754 binary32 e binary64}
 \label{sec:fi-ieee754}
 
-Lo standard IEEE 754 specifica formati e regole per l'aritmetica in
-virgola mobile. Fra i suoi formati binari, \emph{binary32} e
-\emph{binary64} sono comunemente detti singola e doppia precisione;
-non sono gli unici formati previsti dallo standard. I loro campi,
-nell'ordine dal più significativo, sono segno, esponente codificato e
-frazione del significando.\footnote{Per i campi, i valori limite e le
-regole di arrotondamento: Oracle, \emph{Numerical Computation Guide},
-\href{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_math.html}{capitolo 2, IEEE Arithmetic}.
-I formati indicati come \emph{single} e \emph{double} corrispondono
-rispettivamente a binary32 e binary64.}
-
-La \cref{tab:fi-formati-ieee} distingue i bit memorizzati per la frazione
-dalla precisione del significando normale, che comprende anche il bit
-iniziale implicito.
+Lo standard IEEE 754 definisce, fra gli altri, i formati \emph{binary32}
+e \emph{binary64}, rispettivamente a singola e doppia precisione.\footnote{
+Oracle, \emph{Numerical Computation Guide},
+\href{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_math.html}{capitolo 2, IEEE Arithmetic}.}
+Ciascuno comprende un bit di segno \(s\), un campo per l'esponente e
+uno per la frazione. I parametri sono riportati nella
+\cref{tab:fi-formati-ieee}.
 
 \begin{table}[htbp]
   \centering
-  \caption{Campi e parametri dei due formati binari IEEE 754.}
+  \caption{Parametri dei formati IEEE 754 binari.}
   \label{tab:fi-formati-ieee}
   \begin{tabular}{lcc}
     \toprule
     Parametro & binary32 & binary64 \\
     \midrule
     Bit complessivi & 32 & 64 \\
-    Bit di segno & 1 & 1 \\
-    Bit dell'esponente \(w\) & 8 & 11 \\
-    Bit della frazione \(t\) & 23 & 52 \\
+    Segno & 1 & 1 \\
+    Esponente \(w\) & 8 & 11 \\
+    Frazione \(t\) & 23 & 52 \\
     Bias \(B\) & 127 & 1023 \\
-    Precisione normale \(p=t+1\) & 24 & 53 \\
-    Esponenti normali \(E\) & \(-126\) a \(127\) & \(-1022\) a \(1023\) \\
+    Bit significativi normali & 24 & 53 \\
+    Esponenti normali & \(-126\) a \(127\) & \(-1022\) a \(1023\) \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Siano \(e\) il valore senza segno del campo esponente e \(F\) il valore
-senza segno del campo frazione, con \(0\le F<2^t\). La frazione binaria
-\((0.f_1\cdots f_t)_2\) vale \(F/2^t\).
-Il \emph{bias} è la costante \(B=2^{w-1}-1\): per i numeri normali
-l'esponente effettivo è \(E=e-B\). L'esponente codificato non è quindi
-un intero in complemento a due. I valori \(e=0\) ed \(e=2^w-1\)
-sono riservati e non si interpretano con questa stessa regola.
+Sia \(e\) il valore intero senza segno del campo esponente e \(F\)
+quello del campo frazione. Il \emph{bias} \(B=2^{w-1}-1\) permette di
+codificare gli esponenti senza usare il complemento a due: per i
+numeri normali l'esponente effettivo è \(E=e-B\). I campi
+\(e=0\) ed \(e=2^w-1\) sono riservati.
 
-\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Valori normali e subnormali]
 \label{def:fi-valori-ieee}
-Nei formati della \cref{tab:fi-formati-ieee}, se \(1\le e\le2^w-2\),
-il valore normale è
+Nei formati della \cref{tab:fi-formati-ieee}, per
+\(1\le e\le2^w-2\) il valore \emph{normale} è
 \[
   x=(-1)^s\left(1+\frac{F}{2^t}\right)2^{e-B}.
 \]
-Il bit iniziale \(1\) è implicito e non viene memorizzato.
-Se \(e=0\) e \(F\ne0\), il valore è invece \emph{subnormale}:
+Per \(e=0\) e \(F\ne0\), il valore \emph{subnormale} è
 \[
   x=(-1)^s\frac{F}{2^t}\,2^{1-B}.
 \]
-In questo caso il bit iniziale implicito è \(0\) e l'esponente di scala
-è \(1-B\), non \(-B\).
 \end{definition}
-\end{minipage}\par
 
-\clearpage
+Il bit iniziale \(1\) del significando normale è implicito;
+nei subnormali il bit iniziale è invece \(0\).
 
 \begin{example}[Codifica di un valore normale]
-Per \(10.5=(1.0101)_2\cdot2^3\) in binary32, il segno è \(s=0\),
-l'esponente codificato è \(e=3+127=130=(10000010)_2\) e il campo
-frazione è \(0101\) seguito da diciannove zeri:
+Il numero \(10.5=(1.0101)_2\cdot2^3\), codificato in binary32,
+ha \(s=0\), \(e=3+127=130=(10000010)_2\) e frazione
+\(0101\) seguita da diciannove zeri:
 \[
   \underbrace{0}_{s}\quad
   \underbrace{10000010}_{e}\quad
   \underbrace{01010000000000000000000}_{\text{frazione}}.
 \]
-La frazione vale \(2^{-2}+2^{-4}=5/16\), quindi la decodifica fornisce
-\((1+5/16)2^3=(21/16)8=10.5\), esattamente.
+La decodifica restituisce \((1+2^{-2}+2^{-4})2^3=10.5\).
 \end{example}
 
 \subsection{Valori limite, zeri e configurazioni speciali}
 
-Il più piccolo normale positivo si ottiene con \(e=1,F=0\) e vale
-\(2^{1-B}\). Il più piccolo subnormale positivo si ottiene invece con
-\(e=0,F=1\) e vale \(2^{1-B-t}\). Il massimo finito positivo ha
-\(e=2^w-2,F=2^t-1\), per cui vale
-\((2-2^{-t})2^{2^w-2-B}\). In particolare,
+Per i formati della \cref{tab:fi-formati-ieee}, il minimo normale
+positivo, il minimo subnormale positivo e il massimo finito positivo
+sono rispettivamente
+\[
+  2^{1-B},\qquad
+  2^{1-B-t},\qquad
+  (2-2^{-t})2^{2^w-2-B}.
+\]
+In binary32 valgono
 \begin{align*}
-  \text{binary32:}\quad
-  x_{\min,\mathrm{norm}}&=2^{-126}\approx1.17549435\cdot10^{-38},\\
-  x_{\min,\mathrm{sub}}&=2^{-149}\approx1.40129846\cdot10^{-45},\\
-  x_{\max}&=(2-2^{-23})2^{127}\approx3.40282347\cdot10^{38}.
+  x_{\min,\mathrm{norm}}&=2^{-126}\approx1.1755\cdot10^{-38},\\
+  x_{\min,\mathrm{sub}}&=2^{-149}\approx1.4013\cdot10^{-45},\\
+  x_{\max}&=(2-2^{-23})2^{127}\approx3.4028\cdot10^{38}.
 \end{align*}
-Per binary64 il minimo normale positivo vale \(2^{-1022}\),
-il minimo subnormale positivo \(2^{-1074}\) e il massimo finito
-positivo \((2-2^{-52})2^{1023}\).
-Le espressioni in potenze di due sono esatte; i valori decimali preceduti
-da \(\approx\) sono soltanto approssimazioni.
+In binary64 i corrispondenti estremi sono \(2^{-1022}\),
+\(2^{-1074}\) e \((2-2^{-52})2^{1023}\).
+I subnormali consentono un \emph{underflow graduale} verso zero,
+con una precisione relativa decrescente.
 
-I subnormali sono multipli di \(2^{1-B-t}\) e riempiono con passo
-costante la regione fra zero e il minimo normale. Il massimo subnormale
-positivo è \((1-2^{-t})2^{1-B}\), distante dal minimo normale proprio
-un passo. Questa estensione realizza il \emph{gradual underflow}, ossia
-l'avvicinamento graduale a zero, anziché un salto direttamente dal
-minimo normale a zero. La precisione relativa si riduce verso zero,
-poiché diminuisce il numero di cifre significative effettive. Su alcune
-architetture la gestione dei subnormali può anche avere un costo diverso
-da quella dei normali; non si tratta di una proprietà matematica del
-formato.
-
-Quando \(e=0,F=0\), il bit di segno distingue \(+0\) e \(-0\).
-Quando \(e=2^w-1,F=0\), si rappresentano \(+\infty\) e \(-\infty\).
-Se invece \(e=2^w-1,F\ne0\), si rappresenta un \emph{NaN}
-(\emph{Not a Number}). La \cref{tab:fi-valori-speciali} raccoglie
-questi casi senza applicare indebitamente la formula dei normali.
+Le configurazioni riservate sono riepilogate nella
+\cref{tab:fi-valori-speciali}.
 
 \begin{table}[htbp]
   \centering
-  \caption{Interpretazione dei campi riservati in binary32 e binary64.}
+  \caption{Interpretazione dei campi IEEE 754.}
   \label{tab:fi-valori-speciali}
   \begin{tabular}{lll}
     \toprule
-    Esponente codificato & Frazione & Interpretazione \\
+    Esponente & Frazione & Valore \\
     \midrule
-    \(e=0\) & \(F=0\) & Zero con segno \\
+    \(e=0\) & \(F=0\) & \(+0\) oppure \(-0\) \\
     \(e=0\) & \(F\ne0\) & Subnormale \\
-    \(1\le e\le2^w-2\) & Qualunque \(F\) & Normale \\
-    \(e=2^w-1\) & \(F=0\) & Infinito con segno \\
+    \(1\le e\le2^w-2\) & Qualsiasi \(F\) & Normale \\
+    \(e=2^w-1\) & \(F=0\) & \(+\infty\) oppure \(-\infty\) \\
     \(e=2^w-1\) & \(F\ne0\) & NaN \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Gli zeri con segno risultano uguali nei confronti numerici ordinari, ma
-il segno può influenzare alcune operazioni: nella gestione IEEE 754
-predefinita, \(1/(+0)\) produce \(+\infty\) e \(1/(-0)\) produce
-\(-\infty\), segnalando la divisione per zero. Un infinito può anche
-risultare da un overflow in virgola mobile, con esito dipendente dalla
-modalità di arrotondamento. Non è il massimo numero finito del formato.
-
-Un NaN segnala invece un risultato non numerico, come per \(0/0\),
-\(+\infty-(+\infty)\) o la radice quadrata di un numero negativo
-nell'aritmetica reale. Le operazioni che coinvolgono un NaN normalmente
-lo propagano; un confronto di uguaglianza con NaN è falso, anche se i
-due operandi sono lo stesso NaN. I dettagli di segnalazione e gestione degli errori
-possono dipendere dall'ambiente di esecuzione. In Python, per esempio,
-una divisione per zero con l'operatore \texttt{/} solleva
-\texttt{ZeroDivisionError} anche per operandi \texttt{float}, anziché
-restituire automaticamente un infinito o un NaN.
+\emph{NaN} (\emph{Not a Number}) rappresenta risultati non numerici,
+come \(0/0\) e \(+\infty-(+\infty)\) nell'aritmetica IEEE 754.
+Un confronto di uguaglianza con NaN è falso anche quando si confronta
+NaN con sé stesso. Il comportamento delle operazioni e la segnalazione
+degli errori dipendono anche dal linguaggio e dall'ambiente: in Python,
+per esempio, \texttt{1.0/0.0} solleva \texttt{ZeroDivisionError}.
 
 \section{Precisione e arrotondamento}
 \label{sec:fi-precisione-arrotondamento}
 
-Per i normali positivi compresi nell'intervallo
-\([2^E,2^{E+1})\), con esponente normale \(E\), incrementare \(F\) di
-uno aumenta il valore di
+Per i numeri normali positivi nell'intervallo
+\([2^E,2^{E+1})\), la distanza fra valori consecutivi è
 \[
-  \delta_E=2^{E-t}.
+  \delta_E=2^{E-t},
 \]
-Il passo dipende dunque dall'ordine di grandezza: raddoppia passando
-all'intervallo successivo. Vi sono \(2^t\) valori nell'intervallo
-\([2^E,2^{E+1})\), non fra due valori consecutivi.
-In binary32, a partire da \(2^{23}=8388608\), il successivo valore è
-\(8388609\); a partire da \(2^{27}=134217728\), è invece
-\(134217744\), con passo \(16\). Negli ultimi intervalli il formato
-non distingue più tutti gli interi, pur potendo rappresentare valori
-molto grandi. Nei subnormali il passo è invece costante.
+dove \(t\) è il numero di bit della frazione (\cref{tab:fi-formati-ieee}).
+In binary32 il passo è \(1\) in corrispondenza di \(2^{23}\) e
+\(16\) in corrispondenza di \(2^{27}\). Nei subnormali il passo
+resta \(2^{1-B-t}\).
 
-Quando un valore esatto non appartiene al formato, occorre selezionare
-un valore rappresentabile mediante \emph{arrotondamento}. La modalità
-predefinita per questi formati è al più vicino, con scelta del valore
-che ha l'ultima cifra significativa pari nei casi di equidistanza
-(\emph{round to nearest, ties to even}); in binario ciò significa un
-ultimo bit conservato uguale a zero. Sono previste anche modalità verso
-zero, verso \(+\infty\) e verso \(-\infty\). Arrotondare al più vicino
-non coincide in generale con troncare le cifre eccedenti.
-
-Per operandi finiti, le operazioni aritmetiche elementari IEEE 754,
-fra cui somma e prodotto, sono arrotondate come se si calcolasse prima
-il risultato esatto sugli operandi rappresentati e poi lo si convertisse
-nel formato di destinazione. Vanno quindi distinti l'errore iniziale
-di rappresentazione degli operandi e l'eventuale nuovo errore introdotto
-dall'operazione.
+Se un risultato non è rappresentabile esattamente, viene
+\emph{arrotondato}. La modalità predefinita IEEE 754 è
+\emph{al più vicino, con parità in caso di equidistanza}
+(\emph{ties to even}); sono previste anche le modalità verso zero,
+verso \(+\infty\) e verso \(-\infty\). L'aritmetica a precisione
+finita distingue l'errore di rappresentazione degli operandi da quello
+di arrotondamento del risultato.
 
 \begin{example}[Il valore decimale \(4.35\)]
 \label{ex:fi-arrotondamento-prodotto}
-La frazione \(4.35=87/20\) non ha una scrittura binaria finita,
-poiché il denominatore ridotto contiene il fattore \(5\).
-In binary64, con arrotondamento al più vicino, viene memorizzato il valore
-esatto
+Poiché \(4.35=87/20\), il valore non ha una rappresentazione binaria
+finita, per la \cref{prop:fi-frazione-binaria-finita}.
+In binary64, arrotondato al più vicino, vale
 \[
-  \widehat{x}=4.3499999999999996447286321199499070644378662109375.
+  \widehat{x}\approx4.3499999999999996.
 \]
-La sua scrittura abbreviata può essere visualizzata come \texttt{4.35},
-ma questo non rende esatto il valore memorizzato. Moltiplicando per il
-valore esatto \(100\) e arrotondando nuovamente in binary64 si ottiene
+La moltiplicazione, arrotondata nello stesso formato, produce
 \[
   \operatorname{fl}(\widehat{x}\cdot100)
-   =435-2^{-44}
-   \approx434.99999999999994,
+  =435-2^{-44}\approx434.99999999999994,
 \]
-dove \(\operatorname{fl}\) indica l'arrotondamento nel formato specificato.
-Il valore matematico \((87/20)\cdot100\) è invece esattamente \(435\).
-L'esito dipende dal formato: in binary32 il valore memorizzato di
-\(4.35\) è anch'esso leggermente inferiore al valore matematico, ma il
-prodotto arrotondato con \(100\) è esattamente \(435\).
-Non è quindi corretto attribuire a
-ogni rappresentazione in virgola mobile lo stesso risultato decimale.
+anziché \(435\). In binary32, invece, il prodotto arrotondato
+è \(435\): l'esito dipende dal formato.
 \end{example}
 
 \begin{example}[Allineamento degli esponenti e perdita di cifre]
-La somma dei valori esatti \(10.5\) e \(0.125\) richiede di usare lo
-stesso esponente:
 \begin{align*}
   10.5+0.125
     &=(1.0101)_2\cdot2^3+(1.0)_2\cdot2^{-3}\\
     &=\bigl((1.0101)_2+(0.000001)_2\bigr)2^3\\
     &=(1.010101)_2\cdot2^3=10.625.
 \end{align*}
-Il risultato richiede sette bit significativi complessivi, ossia uno
-iniziale e sei frazionari. In binary32 e binary64 è rappresentato
-esattamente, senza errore di somma.
-
-In un formato didattico con soli \(p=5\) bit significativi complessivi,
-entrambi gli operandi sono rappresentabili, ma nell'intervallo
-\([8,16)\) il passo è \(2^{3-(5-1)}=0.5\). Il risultato esatto
-\(10.625\) è più vicino a \(10.5\) che a \(11\), e viene quindi
-arrotondato a \(10.5\). Con \(p=6\) il passo è \(0.25\): \(10.625\)
-è a metà fra \(10.5\) e \(10.75\), e la regola di parità sceglie ancora
-\(10.5\). Il risultato dipende dunque dal numero di bit e dalla
-modalità di arrotondamento, non soltanto dal fatto che manchino cifre.
+Il risultato richiede sette bit significativi; in binary32 e binary64
+è esatto. In un formato didattico con cinque bit significativi e
+arrotondamento al più vicino, il passo presso \(10.5\) è \(0.5\):
+la somma viene arrotondata a \(10.5\).
 \end{example}
 
-L'addendo più piccolo può quindi non modificare il risultato memorizzato.
-Poiché gli arrotondamenti avvengono anche durante le operazioni,
-l'addizione in virgola mobile non è in generale associativa: cambiare
-l'ordine delle somme può modificare il risultato. Le proprietà
-dell'aritmetica reale non si trasferiscono dunque automaticamente
-al calcolo con precisione finita.
+Un addendo piccolo può dunque non modificare il valore memorizzato.
+Inoltre, l'addizione in virgola mobile non è, in generale, associativa:
+le approssimazioni possono variare con l'ordine delle operazioni.
 
 \section{Notazione esadecimale e ottale}
 \label{sec:fi-esadecimale-ottale}
 
-Le sequenze binarie dei formati descritti finora possono essere lunghe
-da leggere e trascrivere. Le basi sedici e otto permettono di abbreviarle
-conservando una corrispondenza immediata con gruppi di bit.
-In base sedici le cifre sono
-\(0,1,\ldots,9\) e \(\mathrm{A},\mathrm{B},\mathrm{C},\mathrm{D},\mathrm{E},\mathrm{F}\),
-con valori rispettivamente da \(0\) a \(15\); in particolare
-\(\mathrm{A}=10\), \(\mathrm{B}=11\), fino a \(\mathrm{F}=15\).
-La \cref{def:fi-valore-posizionale} rimane valida: per esempio,
-\[
-  (\mathrm{7F})_{16}=7\cdot16+15=127.
-\]
-
-Poiché \(16=2^4\), ogni cifra esadecimale corrisponde esattamente a un
-gruppo di quattro bit. Per la parte intera si formano i gruppi a partire
-dal separatore verso sinistra, aggiungendo, se necessario, zeri a sinistra
-dell'ultimo gruppo. Per la parte frazionaria si procede dal separatore
-verso destra e si completano i gruppi con zeri a destra.
-Questo deriva dai pesi: quattro spostamenti binari equivalgono a uno
-spostamento esadecimale. In senso inverso si sostituisce ogni cifra con
-la sua scrittura binaria di quattro bit, conservando gli zeri interni.
+Per scrivere più concisamente le sequenze binarie si usa anche la
+base sedici, che impiega le cifre
+\(0,\ldots,9,\mathrm{A},\ldots,\mathrm{F}\),
+con \(\mathrm{A}=10,\ldots,\mathrm{F}=15\). Poiché \(16=2^4\),
+una cifra esadecimale corrisponde a quattro bit. I gruppi si formano
+partendo dal separatore: verso sinistra per la parte intera, verso
+destra per quella frazionaria.
 
 \begin{example}[Raggruppamento in base sedici]
 \begin{align*}
-  (0111\,1111)_2&=(\mathrm{7F})_{16},\\
-  (10110110)_2&=(1011\;0110)_2=(\mathrm{B6})_{16},\\
-  (1101.101)_2&=(1101.1010)_2=(\mathrm{D.A})_{16}.
+  (0111\,1111)_2&=(\mathrm{7F})_{16}=127,\\
+  (1011\,0110)_2&=(\mathrm{B6})_{16},\\
+  (1101.101)_2&=(\mathrm{D.A})_{16}=13.625.
 \end{align*}
-Nell'ultimo caso la verifica è
-\(13+10/16=13.625=13+1/2+1/8\).
-La scrittura \texttt{0x7F}, comune nei linguaggi di programmazione,
-è un modo alternativo di indicare il valore esadecimale \((\mathrm{7F})_{16}\).
+Nell'ultimo esempio si aggiunge uno zero \emph{a destra} della
+parte frazionaria. La notazione \texttt{0x7F} indica comunemente
+\((\mathrm{7F})_{16}\).
 \end{example}
 
-La base otto utilizza le cifre da \(0\) a \(7\). Poiché \(8=2^3\),
-le conversioni con la base due si effettuano nello stesso modo, ma con
-gruppi di tre bit:
+La base otto impiega le cifre da \(0\) a \(7\). Poiché \(8=2^3\),
+si raggruppano i bit tre a tre:
 \begin{align*}
-  (100010)_2&=(100\;010)_2=(42)_8=4\cdot8+2=34,\\
-  (11100010)_2&=(011\;100\;010)_2=(342)_8\\
-              &=3\cdot8^2+4\cdot8+2=226,\\
+  (100010)_2&=(100\,010)_2=(42)_8=34,\\
+  (11100010)_2&=(011\,100\,010)_2=(342)_8=226,\\
   (31)_8&=3\cdot8+1=25.
 \end{align*}
-Per la conversione inversa, \((342)_8\) produce
-\(011\;100\;010\). Se si sta scrivendo un naturale senza larghezza
-fissata, lo zero iniziale è superfluo; se si descrive un formato con
-segno, rimane valida l'\cref{warn:fi-larghezza-interi}.
-
-La notazione esadecimale è particolarmente comoda per byte, indirizzi e
-configurazioni binarie: un byte corrisponde a due cifre esadecimali.
-La notazione ottale è utile quando la suddivisione naturale è in gruppi
-di tre bit, come nelle terne di permessi dei sistemi Unix.
-Nessuna delle due notazioni stabilisce da sola l'interpretazione con
-segno: \texttt{0xFF} descrive i bit di un byte, che possono valere
-\(255\) senza segno oppure \(-1\) in complemento a due.
+Nelle conversioni inverse si sostituisce ogni cifra esadecimale con
+quattro bit e ogni cifra ottale con tre bit. La base non determina
+il segno:
+per interpretare una sequenza come intero con segno occorre conoscere
+il formato (\cref{warn:fi-larghezza-interi}).
 
 \section{Rappresentazione dei caratteri}
 \label{sec:fi-caratteri}
 
-Per rappresentare un testo, anziché un numero, occorre associare ai
-caratteri codici numerici e specificare come questi si traducono in unità
-memorizzabili. Un \emph{repertorio} stabilisce quali caratteri sono
-previsti; un \emph{insieme di caratteri codificato} assegna loro codici;
-un \emph{formato di codifica} stabilisce le sequenze di unità, per
-esempio byte, che li rappresentano. Le convenzioni possono coincidere
-nei casi più semplici, ma vanno distinte per interpretare correttamente
-il testo scambiato fra sistemi diversi. Il codice identifica il
-carattere, non il suo disegno in un particolare font.
+Per rappresentare un testo si associano codici numerici ai suoi
+caratteri. Il \emph{punto di codice} identifica un carattere nel
+repertorio; il \emph{formato di codifica} stabilisce come quel valore
+viene memorizzato in byte. Uno stesso punto di codice può quindi avere
+rappresentazioni in byte diverse.
 
 \subsection{ASCII e codifiche a otto bit}
 
-ASCII, acronimo di \emph{American Standard Code for Information
-Interchange}, usa sette bit e definisce \(128\) codici, da \(0\) a
-\(127\). I codici da \(0\) a \(31\) e il codice \(127\), denominato
-\texttt{DEL}, sono di controllo. I codici da \(32\) a \(126\) sono
-stampabili, includendo lo spazio al codice \(32\). Non è quindi corretto
-includere \(127\) fra i caratteri stampabili.\footnote{V. G. Cerf,
-\href{https://www.rfc-editor.org/rfc/rfc20}{RFC 20, \emph{ASCII format for Network Interchange}},
-1969, tabella dei codici e descrizione dei caratteri di controllo.}
+Il codice \emph{ASCII} (\emph{American Standard Code for Information
+Interchange}) usa sette bit e comprende \(128\) codici, da \(0\) a
+\(127\). I codici \(0\)--\(31\) e \(127\) sono di controllo;
+i codici \(32\)--\(126\) sono stampabili.
 
 \begin{table}[htbp]
   \centering
-  \caption{Alcuni codici ASCII e intervalli fondamentali, in decimale.}
+  \caption{Codici e intervalli ASCII principali.}
   \label{tab:fi-ascii}
   \begin{tabular}{lll}
     \toprule
-    Codice & Carattere o intervallo & Significato \\
+    Codice & Simbolo & Significato \\
     \midrule
-    9 & \texttt{HT}, \texttt{\textbackslash t} & Tabulazione orizzontale \\
-    10 & \texttt{LF}, \texttt{\textbackslash n} & Avanzamento di riga \\
-    13 & \texttt{CR}, \texttt{\textbackslash r} & Ritorno a inizio riga \\
-    32 & Spazio & Separazione stampabile \\
+    9 & \texttt{\textbackslash t} & Tabulazione orizzontale (HT) \\
+    10 & \texttt{\textbackslash n} & Nuova riga (LF) \\
+    13 & \texttt{\textbackslash r} & Ritorno a inizio riga (CR) \\
+    32 & Spazio & Spazio \\
     48--57 & \texttt{0}--\texttt{9} & Cifre decimali \\
     65--90 & \texttt{A}--\texttt{Z} & Lettere maiuscole \\
     97--122 & \texttt{a}--\texttt{z} & Lettere minuscole \\
-    127 & \texttt{DEL} & Controllo di cancellazione \\
+    127 & \texttt{DEL} & Carattere di controllo \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Le notazioni con barra inversa nella \cref{tab:fi-ascii} sono sequenze
-di escape usate in molti linguaggi per esprimere un singolo carattere
-nel sorgente. Il ritorno a inizio riga \texttt{CR} non coincide con
-l'avanzamento di riga \texttt{LF}; i file di testo possono adottare
-convenzioni di fine riga diverse, fra cui \texttt{LF} e la coppia
-\texttt{CR LF}.
+I codici di \texttt{0} e \texttt{1} sono rispettivamente \(48\) e
+\(49\), distinti dai valori numerici zero e uno. Le sequenze
+\texttt{\textbackslash n}, \texttt{\textbackslash r} e
+\texttt{\textbackslash t} sono notazioni impiegate nei linguaggi di
+programmazione per indicare caratteri di controllo.
 
-Il carattere \texttt{0} ha codice \(48\), non il valore numerico zero.
-Analogamente, il testo \texttt{13} è una sequenza di due caratteri con
-codici \(49\) e \(51\), non la codifica intera del numero tredici.
-La distinzione fra testo e valore numerico spiega perché sia necessaria
-una conversione quando un programma legge un numero da una stringa.
-I restanti intervalli stampabili, \(33\)--\(47\), \(58\)--\(64\),
-\(91\)--\(96\) e \(123\)--\(126\), contengono segni di punteggiatura e
-altri simboli.
-
-ASCII non contiene le vocali accentate italiane. L'espressione
-\emph{ASCII esteso} non identifica un unico standard: è una denominazione
-informale per diverse codifiche a otto bit, come ISO-8859-1 e
-Windows-1252, che conservano i primi \(128\) codici e assegnano quelli
-successivi secondo tabelle differenti. Un byte ammette \(256\)
-configurazioni, ma non tutte devono corrispondere a caratteri stampabili
-o assegnati. Nessuna singola estensione copre necessariamente tutti
-gli alfabeti occidentali. Per esempio, il byte esadecimale \texttt{80}
-rappresenta il simbolo dell'euro in Windows-1252, ma un codice di
-controllo in ISO-8859-1: per interpretarlo occorre conoscere la codifica.\footnote{La
-\href{https://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1252.TXT}{tabella Windows-1252--Unicode}
-nell'archivio Unicode associa \texttt{80} a \texttt{U+20AC} (euro).}
+ASCII non comprende le lettere accentate. La denominazione
+\emph{ASCII esteso} indica diverse codifiche a otto bit, non uno
+standard unico: ISO-8859-1 e Windows-1252, per esempio, condividono
+i primi \(128\) codici, ma assegnano significati differenti ad alcuni
+byte successivi.
 
 \subsection{Unicode e formati UTF}
 
-Unicode definisce un repertorio molto più ampio e assegna ai caratteri
-valori detti \emph{punti di codice} (\emph{code point}). Si scrivono
-con il prefisso \texttt{U+} seguito dal valore esadecimale, come
-\texttt{U+0041} per \texttt{A}. Lo spazio dei codici va da
-\texttt{U+0000} a \texttt{U+10FFFF}; non tutti i punti sono assegnati
-a caratteri. I primi \(128\) hanno le stesse assegnazioni di ASCII.
-Unicode non si limita quindi a \(65536\) caratteri e non impone due
-byte per ciascun carattere.\footnote{Unicode Consortium,
-\emph{The Unicode Standard}, versione 17.0,
-\href{https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-2/}{capitolo 2},
-in particolare §§ 2.4--2.6 sui punti di codice e sui formati di codifica.}
+\emph{Unicode} assegna ai caratteri punti di codice indicati nella
+forma \texttt{U+XXXX}. Lo spazio dei punti di codice arriva a
+\texttt{U+10FFFF}; i primi \(128\) corrispondono ad ASCII.
+Unicode non prescrive due byte per carattere e non tutti i punti
+di codice sono assegnati.\footnote{Unicode Consortium,
+\emph{The Unicode Standard},
+\href{https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-2/}{capitolo 2}.}
+L'intervallo \texttt{U+D800}--\texttt{U+DFFF} è riservato ai surrogati.
 
-I punti da \texttt{U+D800} a \texttt{U+DFFF} sono riservati ai
-surrogati e non identificano caratteri autonomi. Gli altri punti dello
-spazio dei codici sono detti \emph{valori scalari Unicode}.
-I formati UTF traducono questi valori in sequenze di unità di codifica:
-UTF-8 usa da uno a quattro byte; UTF-16 usa una o due unità di sedici
-bit; UTF-32 usa un'unità di trentadue bit. Sono formati dello stesso
-sistema Unicode, non repertori alternativi.
-
-In UTF-8 i codici ASCII sono rappresentati da un unico byte con gli
-stessi sette bit, preceduti da zero: un testo esclusivamente ASCII
-ha quindi gli stessi byte anche in UTF-8. Per i codici successivi non
-vale più la corrispondenza fra un carattere e un byte.
-In UTF-16 i valori scalari fino a \texttt{U+FFFF} occupano un'unità;
-quelli superiori richiedono una \emph{coppia di surrogati}.
-Quando unità di sedici o trentadue bit vengono scritte come byte,
-va inoltre specificato l'ordine dei byte: per esempio, UTF-16BE e
-UTF-16LE usano rispettivamente prima il byte più significativo o
-quello meno significativo.
+I formati principali sono \emph{UTF-8}, che impiega da uno a quattro
+byte, \emph{UTF-16}, che impiega una o due unità di sedici bit, e
+\emph{UTF-32}, che impiega un'unità di trentadue bit. In UTF-8
+le sequenze ASCII restano invariate. UTF-16 utilizza coppie di
+surrogati per i punti di codice superiori a \texttt{U+FFFF};
+per la memorizzazione delle unità su più byte occorre specificare
+l'ordine dei byte.
 
 \begin{example}[Punto di codice e byte memorizzati]
-La lettera \texttt{A}, punto \texttt{U+0041}, è rappresentata in UTF-8
-dal byte \texttt{41}. La lettera \texttt{è}, punto \texttt{U+00E8},
-è rappresentata in UTF-8 dai due byte \texttt{C3 A8}, mentre in
-ISO-8859-1 usa il singolo byte \texttt{E8}. In UTF-16 la medesima
-lettera usa l'unità \texttt{00E8}, serializzata come \texttt{00 E8}
-in UTF-16BE oppure \texttt{E8 00} in UTF-16LE.
+La lettera \texttt{A}, punto di codice \texttt{U+0041}, occupa
+il byte \texttt{41} in UTF-8. La lettera \texttt{è}, punto di
+codice \texttt{U+00E8}, occupa \texttt{C3 A8} in UTF-8,
+\texttt{00 E8} in UTF-16BE e \texttt{E8 00} in UTF-16LE.
+In ISO-8859-1 occupa invece il byte \texttt{E8}.
 \end{example}
 
-Un carattere percepito può inoltre corrispondere a più punti di codice,
-come una lettera seguita da un segno combinante. Il numero di byte, di
-unità di codifica e di caratteri visualizzati non coincide quindi in
-generale: l'interpretazione dei bit richiede sempre un formato noto.
+Un carattere visualizzato può comprendere più punti di codice:
+numero di caratteri, punti di codice e byte non coincidono
+necessariamente.

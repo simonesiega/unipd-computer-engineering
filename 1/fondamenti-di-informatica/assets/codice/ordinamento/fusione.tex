@@ -1,0 +1,31 @@
+\begin{unipdcode}[language=Python]
+def merge_sort(v, v_size):
+    if v_size < 2:
+        return
+    mid = v_size // 2
+    left = v[:mid]
+    right = v[mid:v_size]
+    merge_sort(left, len(left))
+    merge_sort(right, len(right))
+    merge(v, left, right)
+
+
+def merge(v, v1, v2):
+    i = i1 = i2 = 0
+    while i1 < len(v1) and i2 < len(v2):
+        if v1[i1] <= v2[i2]:
+            v[i] = v1[i1]
+            i1 += 1
+        else:
+            v[i] = v2[i2]
+            i2 += 1
+        i += 1
+    while i1 < len(v1):
+        v[i] = v1[i1]
+        i += 1
+        i1 += 1
+    while i2 < len(v2):
+        v[i] = v2[i2]
+        i += 1
+        i2 += 1
+\end{unipdcode}

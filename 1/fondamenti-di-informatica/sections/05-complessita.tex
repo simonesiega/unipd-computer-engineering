@@ -1,0 +1,264 @@
+\chapter{Complessità computazionale}
+\label{chap:complessita}
+
+L'esistenza di un algoritmo risolutivo, discussa nella
+\cref{sec:fi-algoritmi}, non ne determina l'efficienza. La
+\emph{complessità computazionale} studia le risorse necessarie
+all'esecuzione in funzione della dimensione dell'ingresso: principalmente
+tempo e memoria. L'analisi permette di confrontare algoritmi che
+risolvono lo stesso problema e di prevederne il comportamento per
+ingressi non ancora elaborati.\footnote{Materiale di riferimento:
+S. Canazza, \emph{Complessità computazionale}, dispense del corso di
+Fondamenti di Informatica.}
+
+\section{Analisi sperimentale}
+\label{sec:fi-complessita-sperimentale}
+
+L'analisi sperimentale misura le prestazioni di un'implementazione
+eseguendola su ingressi di dimensione diversa. Se il tempo impiegato per
+un ingresso di dimensione \(n\) è \(t(n)\), il rapporto fra \(t(2n)\) e
+\(t(n)\) descrive l'effetto del raddoppio della dimensione.
+
+Nel modello \(t(n)=an^b\), con \(a>0\), si ha
+\[
+  \frac{t(2n)}{t(n)}=2^b,
+  \qquad
+  b=\log_2\!\left(\frac{t(2n)}{t(n)}\right).
+\]
+Un rapporto prossimo a \(4\) suggerisce quindi una crescita quadratica;
+un rapporto prossimo a \(2\) suggerisce una crescita lineare. La
+stima non costituisce, da sola, una dimostrazione della complessità.
+
+In Python, il modulo \texttt{time} offre \texttt{time.time()}, che
+restituisce un istante espresso in secondi, e
+\texttt{time.perf\_counter()}, adatto alla misura di intervalli di
+tempo. La durata si ottiene sottraendo le letture effettuate prima e
+dopo l'esecuzione. Per confrontare più dimensioni si possono registrare
+i risultati in formato CSV, utilizzando i file di testo introdotti
+nella \cref{sec:fi-python-file}. Un esempio completo di misurazione
+sarà presentato dopo le due implementazioni di \texttt{reverse}.
+
+Il tempo misurato dipende anche dai valori dei dati, dall'hardware,
+dall'interprete o compilatore, dal linguaggio, dall'implementazione e
+dalle condizioni di esecuzione. Ripetere gli esperimenti riduce
+l'influenza delle fluttuazioni, ma non elimina tali dipendenze. Per
+confrontare gli algoritmi indipendentemente da una particolare macchina
+si ricorre all'analisi teorica.
+
+\section{Analisi teorica e modello di costo}
+\label{sec:fi-complessita-modello}
+
+L'analisi teorica associa un costo alle operazioni eseguite, senza
+misurarne direttamente la durata. Nel \emph{modello di costo unitario},
+le operazioni primitive hanno costo costante: assegnamenti,
+operazioni aritmetiche e logiche, confronti e accessi a una posizione
+di una lista. Il costo dell'accesso per indice è giustificato
+dall'organizzazione mediante array della \cref{sec:fi-strutture-array}.
+Si tratta di un'astrazione, che presuppone operandi di
+dimensione limitata e operazioni elementari eseguibili in tempo
+costante.
+
+Non tutte le istruzioni Python hanno costo unitario. Su una lista,
+\texttt{len(lista)} richiede tempo costante, mentre la costruzione di
+\texttt{[0] * n} richiede tempo proporzionale a \(n\). Anche il costo
+di una funzione dipende dalle operazioni svolte al suo interno e non
+può essere identificato con quello della sola chiamata.
+
+Fissato il modello, si indica con \(T(x)\) il costo di esecuzione
+sull'ingresso \(x\). Per ingressi di dimensione \(n\), il costo può
+dipendere anche dal contenuto: si possono pertanto considerare il
+caso peggiore e il caso migliore. Nei programmi esaminati di seguito
+il numero delle operazioni considerate dipende soltanto dalla
+lunghezza \(n\) della lista.
+
+Nel conteggio dei passi si sommano i costi dei blocchi eseguiti in
+sequenza. Per un'istruzione condizionale si considera il ramo
+effettivamente percorso; per un limite superiore si può maggiorare
+il costo con quello del ramo più oneroso. Il costo di un ciclo è la
+somma dei costi delle sue iterazioni, che possono essere differenti.
+Il modello può essere semplificato ulteriormente scegliendo come passi
+base soltanto le operazioni rilevanti per il confronto in esame.
+
+La \emph{complessità temporale} riguarda il numero di operazioni;
+quella \emph{spaziale} riguarda la quantità di memoria richiesta. Le
+due risorse devono essere valutate separatamente.
+
+\section{Notazioni asintotiche}
+\label{sec:fi-complessita-asintotica}
+
+Per confrontare le funzioni di costo si studia il loro andamento per
+\(n\) sufficientemente grande. Le notazioni asintotiche trascurano i
+fattori moltiplicativi costanti e il comportamento su un numero finito
+di dimensioni iniziali.
+
+\begin{definition}[Notazioni \(O\), \(\Omega\) e \(\Theta\)]
+\label{def:fi-notazioni-asintotiche}
+Siano \(f,g\colon\N\longrightarrow[0,+\infty)\), con \(g(n)>0\)
+per \(n\) sufficientemente grande. Si definiscono
+\begin{align*}
+  f\in O(g)
+  &\iff \exists c>0\ \exists n_0\in\N:\
+      f(n)\le c\,g(n)\quad\forall n\ge n_0,\\
+  f\in\Omega(g)
+  &\iff \exists c>0\ \exists n_0\in\N:\
+      f(n)\ge c\,g(n)\quad\forall n\ge n_0,\\
+  f\in\Theta(g)
+  &\iff \exists c_1,c_2>0\ \exists n_0\in\N:\
+      c_1g(n)\le f(n)\le c_2g(n)\quad\forall n\ge n_0.
+\end{align*}
+\end{definition}
+
+La notazione \(O\) esprime un limite superiore asintotico, \(\Omega\)
+un limite inferiore e \(\Theta\) entrambi. In particolare,
+\[
+  f\in\Theta(g)
+  \iff f\in O(g)\ \text{e}\ f\in\Omega(g).
+\]
+Il significato delle notazioni è distinto dal numero esatto di
+operazioni e dalla durata misurata su una macchina.
+
+\begin{example}[Termine dominante]
+Per ogni \(n\ge1\),
+\[
+  3n^2\le 3n^2+10^4n+10^{1000}
+  \le (3+10^4+10^{1000})n^2.
+\]
+Pertanto
+\[
+  3n^2+10^4n+10^{1000}\in\Theta(n^2).
+\]
+Analogamente,
+\[
+  6\in\Theta(1),\qquad
+  n^2+3\log_2n+5\in\Theta(n^2),\qquad
+  3n^3+10n^2+5n\in\Theta(n^3).
+\]
+Poiché un'esponenziale di base maggiore di uno cresce più rapidamente
+di ogni potenza fissata di \(n\), si ha anche
+\[
+  3\cdot2^n+5n^{15}+100n\in\Theta(2^n).
+\]
+\end{example}
+
+\section{Un algoritmo quadratico per l'inversione di una lista}
+\label{sec:fi-complessita-reverse-quadratico}
+
+Si consideri il problema di costruire una nuova lista contenente gli
+elementi di una lista data in ordine inverso. Gli accessi e le
+operazioni sulle liste sono descritti nella \cref{sec:fi-python-liste}.
+La seguente implementazione inserisce ogni elemento all'inizio della
+lista di uscita, spostando verso destra quelli già inseriti.
+
+\input{assets/codice/complessita/reverse-quadratico}
+
+All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
+\texttt{output} contengono, in ordine inverso, i primi \(i\) elementi
+della lista di ingresso. Il ciclo interno li sposta di una posizione;
+l'assegnamento successivo inserisce \texttt{lista[i]} in posizione
+zero. Dopo \(n\) iterazioni si ottiene quindi la lista invertita.
+
+Per determinare il costo si adotta un conteggio semplificato:
+l'istruzione \texttt{n = len(lista)} e gli assegnamenti semplici
+valgono un passo ciascuno, mentre la costruzione di
+\texttt{[0] * n} costa \(n\) passi. Si trascurano i controlli
+e gli aggiornamenti impliciti dei cicli e la restituzione finale.
+L'inizializzazione costa pertanto \(n+3\) passi.
+
+Nel ciclo interno l'istruzione
+\texttt{output[j] = output[j - 1]} comporta una sottrazione,
+un accesso in lettura e uno in scrittura: tre passi. Poiché
+\texttt{output\_size} vale \(i\) all'inizio dell'iterazione esterna,
+questa istruzione viene eseguita \(i\) volte. Le istruzioni successive
+costano complessivamente altri tre passi: una lettura, una scrittura e
+un incremento. Ne segue
+\begin{align*}
+  T(n)
+    &=n+3+\sum_{i=0}^{n-1}(3i+3)\\
+    &=n+3+3\frac{n(n-1)}2+3n\\
+    &=\frac32n^2+\frac52n+3
+     \in\Theta(n^2).
+\end{align*}
+L'espressione è esatta nel modello di conteggio adottato; non è il
+numero effettivo di istruzioni macchina eseguite da Python. Il costo
+quadratico dipende dagli spostamenti ripetuti, non dai valori degli
+elementi. La lista di uscita occupa \(\Theta(n)\) spazio.
+
+\section{Un algoritmo lineare per lo stesso problema}
+\label{sec:fi-complessita-reverse-lineare}
+
+Gli spostamenti non sono necessari se ciascun elemento viene scritto
+direttamente nella propria posizione definitiva. Visitando gli indici
+in ordine crescente, si copia l'elemento di indice \(n-1-i\) nella
+posizione \(i\) della lista di uscita.
+
+\input{assets/codice/complessita/reverse-lineare}
+
+L'inizializzazione costa \(n+2\) passi nel modello precedente. Ogni
+iterazione esegue due sottrazioni, una lettura e una scrittura: quattro
+passi, indipendenti da \(n\). Si ottiene quindi
+\[
+  T(n)=n+2+4n=5n+2\in\Theta(n).
+\]
+Entrambe le implementazioni producono lo stesso risultato e richiedono
+\(\Theta(n)\) memoria per la lista di uscita, ma la seconda passa da
+un costo temporale quadratico a uno lineare.
+
+Per confrontarle sperimentalmente, il seguente programma registra in
+\texttt{tempi.csv} la durata delle esecuzioni su liste di dimensione
+crescente. Si assumono definite le due funzioni precedenti.
+
+\input{assets/codice/complessita/misurazione}
+
+Il file risultante contiene, per ogni misura, il nome dell'algoritmo,
+la dimensione dell'ingresso e il tempo in secondi. Le misure
+singole restano soggette alle fluttuazioni dell'esecuzione.
+Per input sufficientemente grandi, il rapporto teorico fra i costi dei
+due algoritmi cresce proporzionalmente a \(n\).
+
+\section{Ordini di crescita e trattabilità}
+\label{sec:fi-complessita-ordini}
+
+Fra gli ordini di crescita più comuni si distinguono quello costante
+\(\Theta(1)\), logaritmico \(\Theta(\log n)\), lineare \(\Theta(n)\),
+lineare-logaritmico \(\Theta(n\log n)\), quadratico \(\Theta(n^2)\)
+e, più in generale, polinomiale \(\Theta(n^k)\) per \(k>0\) fissato.
+Una crescita esponenziale come \(\Theta(2^n)\) supera asintoticamente
+qualsiasi polinomio di grado fissato; la funzione \(n^n\) cresce
+ancora più rapidamente.
+
+La distinzione fra crescita polinomiale ed esponenziale è importante
+per la trattabilità dei problemi, ma non determina da sola la
+praticabilità di un'implementazione: incidono anche la dimensione
+concreta dell'ingresso, i coefficienti e le risorse disponibili. In
+particolare, un algoritmo polinomiale con esponente elevato può essere
+impraticabile per dimensioni moderate. Le applicazioni alla ricerca e all'ordinamento sono
+esaminate nel \cref{chap:ricerca-ordinamento}.
+
+\section{Complessità della ricorsione di Fibonacci}
+\label{sec:fi-complessita-fibonacci}
+
+Le due implementazioni di Fibonacci sono presentate nella
+\cref{sec:fi-fibonacci}, dove si è stabilito che il numero complessivo
+delle invocazioni ricorsive è \(C_n=2F_n-1\).
+Nel modello a costo unitario, ogni invocazione compie un numero
+costante di operazioni, escluse quelle delle chiamate interne. Il
+tempo dell'algoritmo ricorsivo è dunque
+\[
+  T_{\mathrm{ric}}(n)\in\Theta(C_n)=\Theta(F_n).
+\]
+Dall'\cref{eq:fi-fibonacci} segue \(F_{n+2}\ge2F_n\). Per \(n\ge2\)
+si ottengono pertanto le stime
+\[
+  2^{\lfloor(n-1)/2\rfloor}\le F_n\le2^{n-2},
+\]
+che mostrano la crescita esponenziale del numero delle invocazioni.
+Il costo dipende dal ricalcolo degli stessi sottoproblemi, visibile
+nella \cref{fig:fi-fibonacci-albero}.
+
+La versione iterativa, invece, calcola ogni termine una sola volta:
+\(T_{\mathrm{iter}}(n)\in\Theta(n)\) e impiega \(\Theta(1)\) spazio
+ausiliario. La ricorsione raggiunge profondità \(\Theta(n)\) e richiede
+\(\Theta(n)\) spazio per la pila delle chiamate. Come nel confronto
+del fattoriale della \cref{sec:fi-pila-ricorsione}, queste stime
+contano le operazioni e le variabili senza includere il costo crescente
+dell'aritmetica su interi arbitrariamente grandi.

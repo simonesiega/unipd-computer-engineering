@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Python]
+import time
+
+with open("tempi.csv", "w", encoding="utf-8") as file:
+    file.write("algoritmo,n,secondi\n")
+    for n in (500, 1000, 2000, 4000, 8000):
+        dati = list(range(n))
+        for funzione in (reverse_quadratico, reverse_lineare):
+            inizio = time.perf_counter()
+            funzione(dati)
+            durata = time.perf_counter() - inizio
+            file.write(f"{funzione.__name__},{n},{durata:.8f}\n")
+\end{unipdcode}

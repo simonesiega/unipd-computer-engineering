@@ -1,0 +1,38 @@
+\begin{unipdcode}[language=Python]
+class CodaCircolare:
+    def __init__(self):
+        self._dati = [None] * 4
+        self._inizio = 0
+        self._dimensione = 0
+
+    def is_empty(self):
+        return self._dimensione == 0
+
+    def size(self):
+        return self._dimensione
+
+    def enqueue(self, elemento):
+        capacita = len(self._dati)
+        if self._dimensione == capacita:
+            nuovo = [None] * (2 * capacita)
+            for i in range(self._dimensione):
+                nuovo[i] = self._dati[(self._inizio + i) % capacita]
+            self._dati = nuovo
+            self._inizio = 0
+            capacita *= 2
+        indice = (self._inizio + self._dimensione) % capacita
+        self._dati[indice] = elemento
+        self._dimensione += 1
+
+    def first(self):
+        if self.is_empty():
+            raise IndexError("Coda vuota")
+        return self._dati[self._inizio]
+
+    def dequeue(self):
+        elemento = self.first()
+        self._dati[self._inizio] = None
+        self._inizio = (self._inizio + 1) % len(self._dati)
+        self._dimensione -= 1
+        return elemento
+\end{unipdcode}

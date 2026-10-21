@@ -1,0 +1,412 @@
+\chapter{Strutture dati e tipi di dato astratti}
+\label{chap:strutture-dati-adt}
+
+Gli algoritmi di ricerca e ordinamento del \cref{chap:ricerca-ordinamento}
+operano su collezioni di dati. La scelta di come organizzarle dipende
+sia dalle operazioni richieste dal problema, sia dal costo della loro
+esecuzione, studiato nel \cref{chap:complessita}. Si distinguono pertanto
+il comportamento del contenitore e la sua rappresentazione interna.\footnote{Materiale
+di riferimento: G. Baruzzo, \emph{Strutture dati e tipi di dati astratti},
+dispense del corso di Fondamenti di Informatica.}
+
+\section{Tipi di dato astratti e strutture dati}
+\label{sec:fi-adt-strutture}
+
+\begin{definition}[Tipo di dato astratto]
+\label{def:fi-adt}
+Un \emph{tipo di dato astratto} (\emph{Abstract Data Type}, ADT)
+specifica le operazioni su una collezione di dati e il loro
+comportamento, compresi risultati, precondizioni e casi di errore,
+senza imporne l'implementazione.
+\end{definition}
+
+Una \emph{struttura dati} stabilisce invece come gli elementi e le
+informazioni necessarie a collegarli siano organizzati in memoria.
+Più strutture possono realizzare lo stesso ADT, con costi temporali
+e spaziali differenti. Per esempio, una coda di richieste deve
+elaborare gli arrivi nell'ordine in cui si presentano: questo vincolo
+definisce il comportamento richiesto, ma non stabilisce come
+memorizzare le richieste.
+
+Nella progettazione si individua prima l'ADT adatto al problema,
+quindi se ne sceglie un'implementazione in base alle operazioni più
+frequenti.
+
+\section{Array e accesso diretto}
+\label{sec:fi-strutture-array}
+
+Un \emph{array} memorizza \(n\) elementi di dimensione fissa
+\(s\) in posizioni contigue. Indicando con \(b\) l'indirizzo del primo
+elemento, l'indirizzo dell'elemento di indice \(i\), per
+\(0\le i<n\), è
+\[
+  \operatorname{addr}(v[i])=b+i\,s.
+\]
+Il calcolo richiede un numero costante di operazioni: accesso e
+aggiornamento per indice hanno costo \(\Theta(1)\), nel modello della
+\cref{sec:fi-complessita-modello}. Gli elementi occupano \(ns\)
+byte, ai quali si aggiungono le informazioni di gestione.
+
+L'organizzazione contigua favorisce la località spaziale descritta
+nella \cref{sec:fi-memoria-archiviazione}. La \emph{lista} di Python
+della \cref{sec:fi-python-liste} è realizzata, in CPython, mediante
+un array dinamico di riferimenti agli oggetti: sono contigui i
+riferimenti, non necessariamente gli oggetti stessi.
+
+\subsection{Array statici e dinamici}
+\label{sec:fi-array-dinamici}
+
+Un array \emph{statico} ha lunghezza fissata; un array \emph{dinamico}
+può variare il numero degli elementi. Per quest'ultimo si distinguono
+la \emph{dimensione} \(n\), cioè il numero di elementi presenti, e la
+\emph{capacità} \(C\ge n\), cioè i posti disponibili nell'area
+allocata. Quando \(n=C\), un inserimento può richiedere un'area più
+grande, la copia degli \(n\) elementi e il rilascio della precedente:
+il singolo ridimensionamento costa \(\Theta(n)\).
+
+Se la capacità viene aumentata di un fattore costante maggiore di
+uno, per esempio raddoppiata, il costo complessivo delle copie
+su \(m\) inserimenti in coda è limitato da una somma geometrica:
+\[
+  1+2+4+\cdots+2^{\lfloor\log_2 m\rfloor}<2m.
+\]
+Il costo totale di \(m\) inserimenti è quindi \(\Theta(m)\), e il
+costo \emph{ammortizzato} di ciascuno è \(\Theta(1)\), anche se
+una singola operazione che provoca il ridimensionamento costa
+\(\Theta(n)\).
+
+Inserire un elemento all'indice \(i\) richiede di spostare verso
+destra i \(n-i\) elementi successivi; rimuovere quello di indice
+\(i\) richiede di spostare a sinistra i \(n-i-1\) elementi seguenti.
+A capacità sufficiente, i costi sono rispettivamente
+\(\Theta(n-i+1)\) e \(\Theta(n-i)\). L'inserimento in coda è
+un caso particolare, al quale si applica il costo ammortizzato
+precedente.
+
+\section{Liste concatenate}
+\label{sec:fi-liste-concatenate}
+
+Una \emph{lista concatenata} (\emph{linked list}) è composta da nodi,
+ciascuno contenente un elemento e uno o più riferimenti ad altri nodi.
+Nella \emph{lista semplicemente concatenata} ogni nodo contiene un
+riferimento \texttt{next} al successivo; un riferimento \texttt{head}
+individua il primo nodo e l'ultimo ha \texttt{next} nullo. I nodi
+non devono occupare locazioni contigue.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/strutture-dati/array-lista-concatenata}
+  \caption{Organizzazione contigua di un array e collegamenti tra i nodi di una lista semplicemente concatenata.}
+  \label{fig:fi-array-lista-concatenata}
+\end{figure}
+
+Nella \cref{fig:fi-array-lista-concatenata} l'array consente di
+raggiungere direttamente un indice, mentre nella lista concatenata
+occorre seguire i riferimenti a partire da \texttt{head}. Per
+raggiungere il nodo di indice \(i\) sono necessari \(i\) passaggi:
+considerando anche l'accesso al nodo iniziale, il costo è
+\(\Theta(i+1)\), e nel caso peggiore \(\Theta(n)\).
+
+\subsection{Inserimento, rimozione e varianti}
+\label{sec:fi-liste-concatenate-operazioni}
+
+Inserire un nodo all'inizio richiede di collegarlo alla vecchia testa
+e aggiornare \texttt{head}. Per rimuovere la testa è sufficiente
+spostare \texttt{head} al nodo successivo. Entrambe le operazioni
+costano \(\Theta(1)\), tenendo conto anche del caso di lista vuota.
+
+Se è noto il riferimento a un nodo \(p\), un nuovo nodo \(q\) può
+essere inserito \emph{dopo} \(p\) mediante i due aggiornamenti
+\[
+  q.\texttt{next}\gets p.\texttt{next},
+  \qquad p.\texttt{next}\gets q.
+\]
+Analogamente, per rimuovere il nodo \emph{successivo} a \(p\), se
+esiste, basta porre
+\[
+  p.\texttt{next}\gets p.\texttt{next.next}.
+\]
+L'aggiornamento dei collegamenti costa \(\Theta(1)\); se il nodo
+di riferimento deve prima essere cercato, si aggiunge il costo
+dell'attraversamento. In particolare, conoscere il nodo da
+rimuovere non è in generale sufficiente per eliminarlo in tempo
+costante da una lista semplicemente concatenata: può servire il
+riferimento al suo predecessore. Un riferimento diretto
+\texttt{tail} rende costante l'inserimento in fondo, ma non, da solo,
+la rimozione dell'ultimo nodo.
+
+In una \emph{lista doppiamente concatenata} ciascun nodo conserva
+anche il riferimento \texttt{prev} al precedente, permettendo
+l'attraversamento in entrambe le direzioni. In una \emph{lista
+circolare}, invece, il collegamento dell'ultimo nodo riporta al
+primo. Queste varianti modificano le operazioni disponibili e la
+memoria necessaria per i riferimenti.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Costi delle principali operazioni, con \(n\) elementi e indici da zero.}
+  \label{tab:fi-array-concatenata-costi}
+  \small
+  \begin{tabular}{lll}
+    \hline
+    Operazione & Array dinamico & Lista concatenata\\
+    \hline
+    Accesso all'indice \(i\) & \(\Theta(1)\) & \(\Theta(i+1)\)\\
+    Inserimento in testa & \(\Theta(n+1)\) & \(\Theta(1)\)\\
+    Rimozione in testa & \(\Theta(n)\) & \(\Theta(1)\)\\
+    Inserimento in posizione nota & \(O(n)\) & \(\Theta(1)\)\\
+    Inserimento in fondo & \(O(1)\) ammort. & \(\Theta(1)\) con \texttt{tail}\\
+    \hline
+  \end{tabular}
+\end{table}
+
+Nella riga relativa a una posizione nota, l'array riceve l'indice
+di inserimento, mentre per la lista concatenata è già disponibile
+il riferimento al nodo precedente.
+Le liste concatenate sono adatte a inserimenti e rimozioni presso
+nodi già individuati; gli array sono preferibili quando prevalgono
+gli accessi per indice. La scelta deve considerare anche il costo
+dei riferimenti e la località di memoria.
+
+\section{Pila: politica LIFO}
+\label{sec:fi-adt-pila}
+
+\begin{definition}[Pila]
+\label{def:fi-adt-pila}
+Una \emph{pila} (\emph{stack}) è un ADT in cui inserimento,
+rimozione e ispezione interessano soltanto la cima, secondo la
+politica \emph{LIFO} (\emph{Last In, First Out}).
+\end{definition}
+
+Le operazioni sono \texttt{push(e)}, che inserisce \(e\),
+\texttt{pop()}, che rimuove e restituisce la cima, e \texttt{top()},
+che la restituisce senza rimuoverla. Le operazioni
+\texttt{is\_empty()} e \texttt{size()} verificano rispettivamente
+se la pila è vuota e quanti elementi contiene. \texttt{pop()} e
+\texttt{top()} richiedono una pila non vuota: il comportamento in
+caso contrario deve essere specificato dall'interfaccia.
+
+\begin{example}[Ordine delle operazioni su una pila]
+Le operazioni \texttt{push(10)} e \texttt{push(20)} collocano
+\(20\) in cima. Una successiva \texttt{push(30)} porta in cima
+\(30\). Tre chiamate a \texttt{pop()} restituiscono nell'ordine
+\(30\), \(20\) e \(10\).
+\end{example}
+
+La pila delle chiamate della \cref{sec:fi-pila-ricorsione} segue
+questa stessa politica. Altre applicazioni comprendono la gestione
+delle operazioni di annullamento e il ritorno alle posizioni
+precedenti durante una navigazione.
+
+\subsection{Implementazioni della pila}
+\label{sec:fi-adt-pila-implementazioni}
+
+Con un array dinamico, la cima coincide con l'ultimo elemento
+presente. \texttt{push} aggiunge in fondo e \texttt{pop} rimuove
+l'ultimo elemento: entrambe le operazioni richiedono
+\(O(1)\) tempo ammortizzato. \texttt{top}, \texttt{is\_empty}
+e \texttt{size} richiedono \(\Theta(1)\).
+
+Una realizzazione in Python utilizza direttamente queste operazioni
+sulla lista:
+
+\input{assets/codice/strutture-dati/pila-lista}
+
+Con una lista semplicemente concatenata, la cima coincide con
+\texttt{head}: inserimento, rimozione e lettura in testa richiedono
+\(\Theta(1)\). Se si mantiene un contatore aggiornato a ogni modifica,
+anche \texttt{size()} costa \(\Theta(1)\); senza contatore, richiede
+\(\Theta(n)\) per attraversare la lista.
+
+\section{Coda: politica FIFO}
+\label{sec:fi-adt-coda}
+
+\begin{definition}[Coda]
+\label{def:fi-adt-coda}
+Una \emph{coda} (\emph{queue}) è un ADT in cui gli inserimenti
+avvengono in fondo e le rimozioni all'inizio, secondo la politica
+\emph{FIFO} (\emph{First In, First Out}).
+\end{definition}
+
+Le operazioni principali sono \texttt{enqueue(e)}, che aggiunge un
+elemento nel retro, \texttt{dequeue()}, che rimuove e restituisce
+il primo, e \texttt{first()}, che lo ispeziona senza rimuoverlo.
+Completano l'interfaccia \texttt{is\_empty()} e \texttt{size()}.
+Rimozione e ispezione richiedono una coda non vuota. Le code di stampa
+e l'elaborazione dei pacchetti di rete sono applicazioni della politica
+FIFO.
+
+\begin{example}[Ordine delle operazioni su una coda]
+Dopo \texttt{enqueue(A)}, \texttt{enqueue(B)} e
+\texttt{enqueue(C)}, la prima chiamata a \texttt{dequeue()}
+restituisce \(A\), la seconda \(B\). L'elemento \(C\) rimane
+all'inizio della coda.
+\end{example}
+
+\subsection{Implementazione mediante array circolare}
+\label{sec:fi-coda-circolare}
+
+Un array dinamico ordinario con rimozione dal primo indice
+richiederebbe di spostare tutti gli elementi successivi, con costo
+\(\Theta(n)\). Per evitarlo si usa un \emph{array circolare} con
+capacità \(C>0\), indice \(f\) del primo elemento e numero
+\(n\) di elementi presenti. La posizione logica \(i\) occupa
+l'indice fisico
+\[
+  (f+i)\bmod C,
+  \qquad 0\le i<n.
+\]
+In particolare, l'indice del prossimo inserimento è
+\[
+  b=(f+n)\bmod C.
+\]
+L'inserimento scrive in \(b\) e incrementa \(n\); la rimozione legge
+l'elemento in \(f\), pone \(f\gets(f+1)\bmod C\) e decrementa \(n\).
+Il resto permette di riutilizzare le posizioni liberate senza
+spostare gli elementi, come illustra la
+\cref{fig:fi-coda-circolare}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/strutture-dati/coda-circolare}
+  \caption{Coda circolare di capacità sei: \(f=4\), \(n=4\) e posizione del prossimo inserimento \(b=2\).}
+  \label{fig:fi-coda-circolare}
+\end{figure}
+
+Se la capacità si esaurisce, il ridimensionamento ricopia gli
+elementi nell'ordine logico a partire dal primo e aggiorna gli
+indici. Con la strategia della
+\cref{sec:fi-array-dinamici}, \texttt{enqueue} ha costo
+\(O(1)\) ammortizzato, mentre \texttt{dequeue},
+\texttt{first}, \texttt{is\_empty} e \texttt{size} hanno costo
+\(\Theta(1)\).
+
+La seguente implementazione in Python mantiene l'indice del primo
+elemento e il numero di elementi presenti. Quando la capacità è
+esaurita, raddoppia l'array ricopiando gli elementi nell'ordine logico.
+
+\input{assets/codice/strutture-dati/coda-circolare}
+
+\subsection{Implementazione mediante lista concatenata}
+\label{sec:fi-coda-concatenata}
+
+Una lista semplicemente concatenata può mantenere sia il riferimento
+\texttt{head}, corrispondente all'inizio, sia \texttt{tail},
+corrispondente all'ultimo nodo. \texttt{enqueue} collega il nuovo
+nodo dopo \texttt{tail}, mentre \texttt{dequeue} rimuove la testa.
+Entrambe le operazioni hanno costo \(\Theta(1)\), purché si
+aggiornino correttamente \texttt{head} e \texttt{tail} sia inserendo
+il primo elemento sia rimuovendo l'ultimo.
+Mantenendo un contatore, tutte le operazioni della coda hanno
+costo \(\Theta(1)\). Senza riferimento \texttt{tail}, invece,
+l'inserimento in fondo richiede \(\Theta(n)\).
+
+\section{Coda doppia}
+\label{sec:fi-adt-deque}
+
+Una \emph{coda doppia} (\emph{deque}, da \emph{double-ended queue})
+consente inserimenti, rimozioni e ispezioni a entrambe le estremità,
+senza accesso arbitrario agli elementi interni. Le operazioni
+\texttt{add\_first(e)} e \texttt{add\_last(e)} inseriscono rispettivamente
+all'inizio e alla fine; \texttt{delete\_first()} e
+\texttt{delete\_last()} rimuovono e restituiscono gli elementi
+alle stesse estremità. \texttt{first()}, \texttt{last()},
+\texttt{is\_empty()} e \texttt{size()} completano l'interfaccia.
+
+La deque generalizza pila e coda: limitando l'accesso a una sola
+estremità si ottiene la politica LIFO, mentre inserendo in fondo e
+rimuovendo in testa si ottiene FIFO. Può essere realizzata con
+un array circolare ridimensionabile oppure con una lista
+doppiamente concatenata e riferimenti a entrambi gli estremi,
+ottenendo inserimenti e rimozioni in \(O(1)\) ammortizzato
+per l'array e \(\Theta(1)\) per la lista concatenata.
+Fra le applicazioni figurano la gestione flessibile delle attività
+e il confronto dei caratteri alle due estremità di una sequenza
+per verificare se è palindroma.
+
+\section{Lista come tipo di dato astratto}
+\label{sec:fi-adt-lista}
+
+L'ADT \emph{lista} descrive una sequenza in cui la posizione di
+ciascun elemento è significativa. Gli elementi possono essere
+letti, aggiornati, inseriti e rimossi a indici specificati. Le operazioni
+\texttt{get(i)}, \texttt{set(i,e)}, \texttt{add(i,e)},
+\texttt{append(e)} e \texttt{remove(i)} svolgono rispettivamente
+lettura, sostituzione, inserimento, aggiunta in fondo e rimozione;
+\texttt{is\_empty()} e \texttt{size()} descrivono lo stato del
+contenitore. Nell'inserimento gli elementi successivi avanzano di
+una posizione; la rimozione restituisce l'elemento eliminato.
+Gli indici validi per l'accesso appartengono a \([0,n-1]\),
+mentre per l'inserimento è ammesso anche \(i=n\).
+
+La lista Python della \cref{sec:fi-python-liste} realizza queste
+funzionalità, ma con un'interfaccia diversa: \texttt{insert(i, e)}
+inserisce all'indice \(i\), \texttt{pop(i)} rimuove per indice,
+mentre \texttt{remove(e)} elimina la prima occorrenza di \(e\).
+La scelta tra array dinamico e lista concatenata dipende dal carico
+di operazioni, come mostra la
+\cref{tab:fi-array-concatenata-costi}: l'array privilegia l'accesso
+per indice, mentre una struttura concatenata permette aggiornamenti
+di collegamenti in tempo costante dopo aver individuato il nodo.
+
+\section{Mappa}
+\label{sec:fi-adt-mappa}
+
+L'ADT \emph{mappa} (\emph{map}) associa valori a chiavi distinte.
+Ogni chiave identifica al più un valore, mentre chiavi diverse
+possono avere valori uguali. L'operazione \texttt{put(k,v)}
+inserisce una nuova associazione o aggiorna il valore di una
+chiave esistente; \texttt{get(k)} ne recupera il valore e
+\texttt{remove(k)} elimina l'associazione. \texttt{contains(k)}
+verifica la presenza della chiave; \texttt{keys()},
+\texttt{values()} e \texttt{items()} espongono rispettivamente
+chiavi, valori e associazioni. \texttt{is\_empty()} e
+\texttt{size()} forniscono informazioni sul contenitore.
+Per \texttt{get(k)} e \texttt{remove(k)}, il comportamento quando
+la chiave è assente deve essere precisato dall'interfaccia.
+
+\begin{example}[Conteggio delle frequenze]
+Per ogni parola \(w\) letta in un testo, se \(w\) non è presente
+nella mappa si registra l'associazione \(w\mapsto1\); altrimenti
+si aggiorna il valore a \(\texttt{get}(w)+1\). Il risultato
+associa a ciascuna parola il numero delle sue occorrenze.
+\end{example}
+
+La ricerca per chiave non implica che gli elementi siano ordinati
+per chiave. Le complessità di accesso e aggiornamento dipendono
+dall'implementazione della mappa: l'interfaccia astratta non
+ne prescrive una specifica. In Python il tipo \texttt{dict}
+fornisce un'implementazione di questo comportamento.
+
+\section{Insieme}
+\label{sec:fi-adt-insieme}
+
+L'ADT \emph{insieme} (\emph{set}) contiene elementi distinti,
+senza associare loro valori né richiedere un ordinamento.
+\texttt{add(e)} inserisce \(e\) se assente,
+\texttt{remove(e)} lo elimina e \texttt{contains(e)}
+ne verifica l'appartenenza. L'interfaccia stabilisce il comportamento
+di \texttt{remove(e)} quando l'elemento è assente.
+Si considerano inoltre le operazioni
+di unione, intersezione e differenza:
+\[
+  A\cup B,\qquad A\cap B,\qquad A\setminus B,
+\]
+nonché la verifica di inclusione \(A\subseteq B\), la consultazione
+degli elementi e le operazioni \texttt{is\_empty()} e
+\texttt{size()}. L'ordine con cui si elencano gli elementi non
+fa parte della specifica astratta.
+
+\begin{example}[Eliminazione dei duplicati]
+Inserendo successivamente i valori \(4,2,2,8,6,2\) in un insieme,
+si ottiene \(\{2,4,6,8\}\). Una successiva inserzione di \(2\)
+non modifica il contenuto. Su insiemi di documenti, unione,
+intersezione e differenza permettono di combinare risultati di
+ricerca secondo la presenza di determinati termini.
+\end{example}
+
+L'ADT insieme è distinto dalla mappa: nel primo gli elementi
+sono unici, nella seconda lo sono le chiavi e non necessariamente
+i valori. Python offre il tipo \texttt{set}; anche in questo caso
+le prestazioni delle singole operazioni sono una proprietà della
+struttura dati adottata, non della definizione dell'ADT.

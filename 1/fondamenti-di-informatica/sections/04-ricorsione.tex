@@ -1,56 +1,44 @@
 \chapter{Ricorsione}
 \label{chap:ricorsione}
 
-La ricorsione permette di risolvere un problema mediante soluzioni
-di problemi della stessa natura, ma più semplici. Una definizione
-matematica ricorsiva può essere tradotta direttamente in una funzione
-Python. La concisione del codice non garantisce tuttavia la terminazione né
-l'efficienza: occorre comprendere come si susseguono le chiamate e
-quali operazioni rimangono in attesa.\footnote{Riferimento
-didattico: S. Canazza, \emph{Ricorsione}, file
+Le funzioni introdotte nella \cref{sec:fi-python-funzioni} possono
+richiamare se stesse per risolvere un problema attraverso sottoproblemi
+della stessa natura. Questa tecnica prende il nome di \emph{ricorsione}
+e richiede di individuare un caso base e di ricavare la soluzione dai
+risultati delle chiamate ricorsive.\footnote{Materiale
+di riferimento: S. Canazza, \emph{Ricorsione}, file
 \nolinkurl{2026_FI_03_canazza_Ricorsione.pdf}.}
 
 \section{Funzioni ricorsive e terminazione}
 \label{sec:fi-ricorsione-terminazione}
 
 \begin{definition}[Ricorsione]
-Una funzione è \emph{ricorsiva} quando la sua esecuzione può richiamare
-la funzione stessa. Nella ricorsione diretta il richiamo compare nel
-corpo della funzione. Un \emph{caso base} risolve direttamente
-un caso del problema, senza ulteriori chiamate ricorsive; il
-\emph{passo ricorsivo} riconduce il problema a uno o più sottoproblemi e ne utilizza i risultati.
+Una funzione è \emph{ricorsiva} se può invocare se stessa durante la
+propria esecuzione. Un \emph{caso base} fornisce un risultato senza
+ulteriori invocazioni ricorsive; un \emph{passo ricorsivo} esprime la
+soluzione mediante uno o più sottoproblemi della stessa natura.
 \end{definition}
 
-La definizione di una funzione è distinta dalle sue invocazioni
-(\cref{sec:fi-python-funzioni}): una stessa funzione può avere più
-chiamate non ancora concluse. Richiamarla non modifica la definizione,
-ma avvia una nuova esecuzione del suo corpo con parametri propri.
+Una chiamata ricorsiva avvia una nuova invocazione della funzione, con
+parametri propri, mentre l'invocazione corrente rimane sospesa.
+La presenza di un caso base non garantisce, da sola, la terminazione:
+per ogni ingresso ammissibile, ciascuna successione di chiamate deve
+raggiungere un caso base.
 
-Per giustificare la terminazione non basta individuare un caso base:
-occorre dimostrare che, per ogni ingresso ammissibile, le chiamate
-ricorsive restano nel dominio previsto e raggiungono un caso base.
-Un criterio sufficiente consiste nell'associare a ciascun problema
-una misura intera non negativa che diminuisca strettamente in ogni chiamata ricorsiva. Non esiste una successione
-infinita strettamente decrescente di interi non negativi. Se i casi
-terminali sono risolti dai casi base e anche le operazioni non ricorsive
-terminano, il procedimento termina. Nella ricorsione multipla il progresso
-va verificato per \emph{ogni} sottoproblema, non soltanto per uno.
-
-Un caso base assente o irraggiungibile può causare una successione
-illimitata di chiamate nel modello astratto, mentre un programma reale
-incontra prima i limiti dell'ambiente di esecuzione. Per esempio,
-sottrarre uno a un numero negativo non permette di raggiungere il caso
-base \(n=0\). La terminazione va sempre riferita agli ingressi
-ammissibili, come nella \cref{def:fi-algoritmo}; la
-correttezza richiede inoltre casi base corretti e una combinazione dei
-risultati coerente con la specifica.
+Un criterio sufficiente consiste nell'associare a ogni sottoproblema
+una misura intera non negativa, strettamente decrescente a ogni
+chiamata ricorsiva. Poiché non esistono successioni infinite strettamente
+decrescenti di interi non negativi, tutte le chiamate raggiungono un
+caso terminale, purché le singole operazioni non ricorsive terminino.
+La terminazione, richiesta dalla \cref{def:fi-algoritmo}, non basta
+a garantire la correttezza: occorre inoltre che i casi base e la
+combinazione dei risultati forniscano la soluzione prevista.
 
 \section{Il fattoriale: iterazione e ricorsione}
 \label{sec:fi-fattoriale}
 
-Per \(n\in\N\), il \emph{fattoriale} \(n!\) è il prodotto degli
-interi da uno a \(n\), con \(0!=1\). Il prodotto vuoto vale uno,
-elemento neutro della moltiplicazione. La definizione ricorsiva è
+Per \(n\in\N\), il \emph{fattoriale} è definito dal prodotto
+\(n!=1\cdot2\cdots n\), con \(0!=1\). Equivalentemente,
 \begin{equation}
   n!=\begin{cases}
     1, & n=0,\\
@@ -58,17 +46,11 @@ elemento neutro della moltiplicazione. La definizione ricorsiva è
   \end{cases}
   \label{eq:fi-fattoriale}
 \end{equation}
-Ne risultano \(1!=1\), \(2!=2\), \(3!=6\), \(4!=24\) e \(5!=120\).
-Il caso base è \(n=0\); il passo ricorsivo richiede \((n-1)!\) e lo
-moltiplica per \(n\). Per \(n>0\), \(n-1\) è ancora naturale ed è
-strettamente minore di \(n\): dopo \(n\) riduzioni si raggiunge zero.
-La relazione giustifica anche la correttezza: partendo da \(0!=1\),
-se il risultato per \(n-1\) è corretto, moltiplicarlo per \(n\)
-produce \(n!\).
 
-Le implementazioni seguenti assumono un argomento di tipo \texttt{int}.
-Per i valori negativi, \texttt{raise ValueError("n deve essere non negativo")}
-segnala un argomento non ammissibile e interrompe la funzione.
+La definizione precedente si traduce nelle due implementazioni
+seguenti, che calcolano lo stesso risultato per un intero non negativo:
+la prima utilizza un ciclo (\cref{sec:fi-python-cicli}), la seconda
+una chiamata ricorsiva.
 
 \begin{unipdcode}[language=Python]
 def fattoriale_iterativo(n):
@@ -79,7 +61,6 @@ def fattoriale_iterativo(n):
         risultato = risultato * i
     return risultato
 
-
 def fattoriale(n):
     if n < 0:
         raise ValueError("n deve essere non negativo")
@@ -88,127 +69,109 @@ def fattoriale(n):
     return n * fattoriale(n - 1)
 \end{unipdcode}
 
-Il ciclo conserva un prodotto parziale: dopo il fattore \texttt{i},
-\texttt{risultato} vale \(i!\). Con \(n=0\), \texttt{range(1, 1)} è
-vuoto e rimane il valore iniziale uno. La versione ricorsiva traduce
-invece direttamente l'\cref{eq:fi-fattoriale}; non occorre un
-\texttt{else} dopo il caso base, perché \texttt{return} conclude la
-chiamata. Senza il controllo sui negativi, il ciclo restituirebbe uno,
-mentre la versione ricorsiva continuerebbe con \(-1,-2,\ldots\)
-senza raggiungere il caso base. Il controllo di segno non verifica il tipo:
-la precondizione richiede comunque un numero intero.
+Nella prima funzione, dopo l'iterazione di indice \(i\), la variabile
+\texttt{risultato} vale \(i!\). Nella seconda, il caso base restituisce
+\(0!=1\), mentre il passo ricorsivo applica l'\cref{eq:fi-fattoriale}.
+La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero.
+La correttezza segue dalla stessa relazione: se la chiamata con \(n-1\)
+restituisce \((n-1)!\), quella con \(n\) restituisce \(n!\).
 
 \begin{unipdterminal}
->>> fattoriale(0), fattoriale(1), fattoriale(4)
-(1, 1, 24)
+>>> fattoriale(0), fattoriale(4)
+(1, 24)
 >>> fattoriale_iterativo(5), fattoriale(5)
 (120, 120)
 \end{unipdterminal}
 
+Entrambe le funzioni presuppongono un argomento di tipo \texttt{int}.
+Per \(n<0\) sollevano \texttt{ValueError}; senza tale controllo,
+la versione ricorsiva continuerebbe a decrementare \(n\) senza
+raggiungere il caso base.
+
 \section{Invocazioni sospese e pila delle chiamate}
 \label{sec:fi-pila-ricorsione}
 
-Una chiamata ricorsiva segue le regole di una chiamata ordinaria:
-l'invocante sospende la propria esecuzione, l'invocata esegue il corpo
-e, quando termina, restituisce il controllo all'invocante nel punto
-sospeso. Nel fattoriale il prodotto non è ancora completo quando viene
-avviata la chiamata interna: prima deve essere disponibile il suo risultato.
-
-Ogni invocazione dispone di un proprio \emph{record di attivazione},
-o \emph{frame}, che conserva parametri, variabili locali e informazioni
-necessarie a riprendere il calcolo. Il parametro \texttt{n} di
-\texttt{fattoriale(4)} non viene sostituito dal parametro \texttt{n}
-di \texttt{fattoriale(3)}: i due nomi appartengono a invocazioni distinte.
-
-Le invocazioni non concluse sono organizzate logicamente in una
-\emph{pila delle chiamate} (\emph{call stack}): l'ultima avviata è la
-prima a terminare, secondo l'ordine LIFO (\emph{Last In, First Out}).
-Ogni nuova invocazione aggiunge un frame alla sommità; alla sua
-conclusione il frame viene rimosso e riprende l'invocazione
-precedente. Le invocazioni sospese non eseguono simultaneamente
-istruzioni: ne viene conservato lo stato.
-
-\clearpage
+Per descrivere l'esecuzione ricorsiva occorre considerare anche le
+invocazioni non ancora terminate. Quando una funzione ne invoca un'altra,
+la prima sospende la propria esecuzione fino al ritorno della seconda.
+Ogni invocazione mantiene un
+\emph{record di attivazione}, o \emph{frame}, contenente parametri,
+variabili locali e informazioni necessarie a riprendere il calcolo.
+Le invocazioni ancora attive costituiscono la \emph{pila delle chiamate}
+(\emph{call stack}), organizzata secondo l'ordine LIFO
+(\emph{Last In, First Out}), proprio dell'ADT pila della
+\cref{sec:fi-adt-pila}.
 
 \begin{example}[Traccia di \texttt{fattoriale(4)}]
 \label{ex:fi-traccia-fattoriale}
-\begin{enumerate}
-  \item Con \(n=4\), il caso base è falso. La chiamata attende il
-        risultato di \texttt{fattoriale(3)} per moltiplicarlo per quattro.
-  \item Le chiamate con \(n=3,2,1\) si sospendono analogamente,
-        chiedendo rispettivamente il fattoriale di \(2,1,0\).
-  \item Con \(n=0\), \texttt{return 1} conclude il caso base.
-  \item Riprende \(n=1\): il risultato ricevuto è uno, quindi viene
-        restituito \(1\cdot1=1\).
-  \item Riprende \(n=2\), che restituisce \(2\cdot1=2\); poi \(n=3\)
-        restituisce \(3\cdot2=6\), e infine \(n=4\) restituisce
-        \(4\cdot6=24\) al chiamante esterno.
-\end{enumerate}
+Per valutare \texttt{fattoriale(4)}, le invocazioni con argomenti
+\(4,3,2,1\) rimangono sospese fino al caso base \(n=0\), che restituisce
+uno. Le chiamate riprendono quindi in ordine inverso:
+\[
+\begin{aligned}
+  \texttt{fattoriale(0)}&=1,\\
+  \texttt{fattoriale(1)}&=1\cdot1=1,\\
+  \texttt{fattoriale(2)}&=2\cdot1=2,\\
+  \texttt{fattoriale(3)}&=3\cdot2=6,\\
+  \texttt{fattoriale(4)}&=4\cdot6=24.
+\end{aligned}
+\]
 \end{example}
 
 \begin{figure}[htbp]
   \centering
   \input{assets/ricorsione/fattoriale-chiamate}
-  \caption{Discesa delle chiamate e risalita dei risultati per
-    \texttt{fattoriale(4)}. Ogni riga rappresenta un'invocazione distinta;
-    le moltiplicazioni sospese si completano dal basso verso l'alto.}
+  \caption{Invocazioni e ritorni nella valutazione di
+  \texttt{fattoriale(4)}.}
   \label{fig:fi-fattoriale-chiamate}
 \end{figure}
 
-Nella \cref{fig:fi-fattoriale-chiamate}, raggiunto il caso base,
-coesistono cinque frame del fattoriale: quattro sospesi e uno in
-esecuzione. Il risultato del caso base raggiunge in successione i
-chiamanti, ciascuno dei quali completa il proprio prodotto. Per
-\texttt{fattoriale(3)}, quattro invocazioni producono in risalita
-i valori \(1,1,2,6\). L'istruzione \texttt{return} restituisce un
-valore senza stamparlo: il REPL lo mostra automaticamente, mentre
-uno script può visualizzarlo con \texttt{print(fattoriale(4))}.
+Nella \cref{fig:fi-fattoriale-chiamate}, al raggiungimento del caso base
+sono presenti cinque frame. Le operazioni di moltiplicazione vengono
+completate durante il ritorno delle chiamate: l'espressione
+\texttt{n * fattoriale(n - 1)} richiede infatti il risultato della
+chiamata interna.
 
-Per un ingresso \(n\), entrambe le versioni eseguono \(n\)
-moltiplicazioni. La versione ricorsiva richiede però \(n+1\)
-invocazioni e un numero di frame proporzionale a \(n\); quella
-iterativa mantiene un
-solo frame e un numero fisso di variabili. Gestire le chiamate ha un costo
-aggiuntivo. Questo confronto conta operazioni e variabili, non byte:
-gli interi che rappresentano i prodotti diventano più grandi e anche
-il costo delle moltiplicazioni può crescere.
+Le due versioni del fattoriale effettuano \(n\) moltiplicazioni;
+tuttavia, quella ricorsiva richiede \(n+1\) invocazioni e una
+profondità di pila proporzionale a \(n\). La versione iterativa
+utilizza un numero fisso
+di variabili. Tale confronto considera il numero di operazioni e di
+variabili; la dimensione degli interi prodotti cresce con \(n\).
 
-\section{Ricorsione in coda e limiti di Python}
+\section{Ricorsione in coda ed eliminazione della ricorsione}
 \label{sec:fi-ricorsione-coda}
 
-Una chiamata ricorsiva è \emph{in coda} quando il suo risultato viene
-restituito senza ulteriori operazioni da parte dell'invocante. Non basta
-che la chiamata compaia nell'ultima riga: in
-\texttt{return n * fattoriale(n - 1)} rimane da eseguire il prodotto.
-Questa è ricorsione semplice, con una sola chiamata ricorsiva per passo,
-ma \emph{non} ricorsione in coda.
+La posizione della chiamata ricorsiva determina se rimangano
+operazioni da eseguire dopo il suo ritorno. Una chiamata è \emph{in coda}
+quando l'invocante non deve compiere ulteriori operazioni. La funzione
+\texttt{fattoriale} della \cref{sec:fi-fattoriale} non è in coda,
+poiché deve ancora moltiplicare il risultato per \texttt{n}.
 
-Per ottenere una versione in coda, si passa il prodotto parziale come
-parametro. La funzione seguente assume \(n\in\N\) e un accumulatore
-intero \texttt{acc}; la chiamata iniziale \texttt{fattoriale\_coda(n, 1)}
-calcola \(n!\).
+Una versione in coda trasferisce il prodotto parziale in un parametro
+\emph{accumulatore}:
 
-\noindent\begin{minipage}{\linewidth}
 \begin{unipdcode}[language=Python]
-def fattoriale_coda(n, acc):
+def fattoriale_coda(n, acc=1):
     if n < 0:
         raise ValueError("n deve essere non negativo")
     if n == 0:
         return acc
     return fattoriale_coda(n - 1, acc * n)
 \end{unipdcode}
-\end{minipage}\par
 
-Il prodotto viene eseguito \emph{prima} della chiamata: non rimane
-lavoro aritmetico al ritorno. Per esempio,
-\((4,1)\to(3,4)\to(2,12)\to(1,24)\to(0,24)\).
-Per ogni valore intero iniziale dell'accumulatore, il risultato è
-\(\texttt{acc}\cdot n!\).
-La trasformazione in un ciclo consiste nel sostituire il richiamo con
-l'aggiornamento dei parametri e nel ripetere il controllo del caso base:
+Il parametro \texttt{acc} ha valore iniziale \(1\). Per \(n=4\),
+i parametri evolvono secondo la successione
+\[
+  (4,1)\longrightarrow(3,4)\longrightarrow(2,12)
+  \longrightarrow(1,24)\longrightarrow(0,24).
+\]
+
+Poiché nessuna operazione rimane sospesa dopo la chiamata ricorsiva,
+questa forma si trasforma direttamente in un ciclo:
 
 \begin{unipdcode}[language=Python]
-def fattoriale_ciclo(n, acc):
+def fattoriale_ciclo(n, acc=1):
     if n < 0:
         raise ValueError("n deve essere non negativo")
     while n > 0:
@@ -217,99 +180,72 @@ def fattoriale_ciclo(n, acc):
     return acc
 \end{unipdcode}
 
-Il ciclo rende esplicita la successione degli stati senza accumulare
-chiamate. Anche la ricorsione non in coda può essere simulata senza
-richiami ricorsivi, conservando esplicitamente il lavoro sospeso quando
-necessario; la trasformazione non è sempre altrettanto immediata.
-L'esecuzione su un processore non impone al compilatore o all'interprete
-di sostituire ogni funzione ricorsiva con un ciclo: chiamate, ritorni
-e stato in memoria sono sufficienti a realizzarla.
+È possibile eliminare anche una ricorsione non in coda, conservando
+esplicitamente lo stato delle invocazioni sospese; in questo caso, però,
+la trasformazione può richiedere una pila ausiliaria.
 
-CPython non elimina le chiamate ricorsive in coda delle funzioni
-Python: anche \texttt{fattoriale\_coda} accumula frame. In ambienti che
-eliminano tali chiamate, invece, questo costo può essere evitato; la
-minore efficienza non è una proprietà universale della ricorsione in
-coda.\footnote{Documentazione Python, \emph{What's New in Python 3.14},
-\href{https://docs.python.org/3.14/whatsnew/3.14.html\#a-new-type-of-interpreter}{A new type of interpreter}:
-l'ottimizzazione delle chiamate in coda fra funzioni Python non è
-implementata in CPython.}
-
-La profondità delle chiamate ricorsive in CPython è limitata:
-superando il limite, si verifica \texttt{RecursionError}. Il limite
-dipende dall'ambiente e dalle chiamate già attive, quindi non stabilisce
-un valore massimo universale per \texttt{n}. Aumentarlo non corregge
-una ricorsione priva di progresso e può compromettere la stabilità
-del processo.\footnote{Documentazione Python, modulo \texttt{sys},
-\href{https://docs.python.org/3/library/sys.html\#sys.getrecursionlimit}{\emph{Recursion limit}}.}
-Un algoritmo matematicamente terminante può dunque non completarsi
-nell'ambiente concreto per insufficienza di risorse.
+L'implementazione CPython non elimina automaticamente le chiamate
+ricorsive in coda fra funzioni Python: ogni invocazione continua a
+occupare un frame. Superato il limite di profondità delle chiamate,
+l'interprete solleva \texttt{RecursionError}. Il limite dipende
+dall'ambiente e non garantisce che un algoritmo matematicamente
+terminante completi sempre l'esecuzione.\footnote{Documentazione Python,
+\href{https://docs.python.org/3/library/sys.html\#sys.getrecursionlimit}{\emph{sys.getrecursionlimit}}.}
 
 \section{Ricorsione multipla e numeri di Fibonacci}
 \label{sec:fi-fibonacci}
 
-Nella \emph{ricorsione multipla}, una stessa invocazione può effettuare
-più chiamate ricorsive. Un esempio è la successione di Fibonacci,
-qui definita per gli indici \(n\ge1\):
+Si parla di \emph{ricorsione multipla} quando una stessa invocazione
+può richiamare ricorsivamente la funzione più di una volta. Un esempio
+è il calcolo della successione di Fibonacci, definita per \(n\ge1\) da
 \begin{equation}
-  F_1=F_2=1,\qquad F_n=F_{n-1}+F_{n-2}\quad(n>2).
+  F_1=F_2=1,\qquad
+  F_n=F_{n-1}+F_{n-2}\quad(n>2).
   \label{eq:fi-fibonacci}
 \end{equation}
 
-\clearpage
+La traduzione diretta dell'\cref{eq:fi-fibonacci} richiede due casi
+base e due chiamate ricorsive:
 
-I primi termini sono \(1,1,2,3,5,8,13,\ldots\). La funzione
-ricorsiva traduce la definizione in due casi base e due chiamate
-per ogni indice maggiore di due:
-
-\noindent\begin{minipage}{\linewidth}
 \begin{unipdcode}[language=Python]
 def fib(n):
     if n < 1:
         raise ValueError("n deve essere almeno 1")
-    if n == 1 or n == 2:
+    if n <= 2:
         return 1
     return fib(n - 1) + fib(n - 2)
 \end{unipdcode}
-\end{minipage}\par
 
-L'argomento è assunto di tipo \texttt{int}. Per \(n>2\), entrambi gli
-indici ricorsivi sono positivi e minori di \(n\), quindi ogni ramo
-raggiunge uno dei casi base. Le due chiamate non avvengono in parallelo:
-Python valuta prima \texttt{fib(n - 1)}, poi \texttt{fib(n - 2)} e infine
-somma i risultati. Anche questa funzione non è in coda.
+Per \(n>2\), entrambi gli argomenti delle chiamate sono positivi e
+minori di \(n\); ogni ramo raggiunge quindi un caso base.
+L'esecuzione delle due chiamate è sequenziale, non parallela.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/ricorsione/fibonacci-albero}
-  \caption{Albero completo delle invocazioni di \texttt{fib(5)}.
-    I nodi sono chiamate, gli archi collegano invocante e invocata;
-    nodi con lo stesso argomento sono esecuzioni distinte.}
+  \caption{Albero delle nove invocazioni effettuate da
+  \texttt{fib(5)}.}
   \label{fig:fi-fibonacci-albero}
 \end{figure}
 
-La \cref{fig:fi-fibonacci-albero} contiene nove invocazioni:
-\texttt{fib(3)} viene calcolata due volte, \texttt{fib(2)} tre e
-\texttt{fib(1)} due. Le invocazioni con lo stesso argomento sono
-distinte, pur producendo il medesimo risultato. L'albero descrive
-l'intera esecuzione; la pila conserva invece soltanto le invocazioni non concluse lungo il percorso corrente,
-non tutti i nodi dell'albero contemporaneamente.
+La \cref{fig:fi-fibonacci-albero} evidenzia il ricalcolo di uno
+stesso termine: \texttt{fib(3)} viene eseguita due volte e
+\texttt{fib(2)} tre. L'albero rappresenta tutte le invocazioni,
+mentre la pila contiene soltanto quelle ancora attive.
 
-Indicando con \(C_n\) il numero totale di invocazioni per \texttt{fib(n)},
-inclusa la prima, vale
+Indicando con \(C_n\) il numero di invocazioni complessive, si ha
 \[
   C_1=C_2=1,\qquad C_n=1+C_{n-1}+C_{n-2}\quad(n>2).
 \]
-Per induzione si ottiene \(C_n=2F_n-1\): la formula vale per
-\(n=1,2\) e il passo segue dall'identità
-\(1+(2F_{n-1}-1)+(2F_{n-2}-1)=2F_n-1\).
-Per \(n=5\) si hanno nove chiamate; per \(n=10\), \(109\).
-Il numero di chiamate cresce esponenzialmente: per \(n\ge2\) valgono
-\(F_{n+2}\ge2F_n\) e \(F_{n+1}\le2F_n\). L'aumento è dovuto al
-calcolo ripetuto degli stessi sottoproblemi. La profondità massima
-della pila cresce invece linearmente con l'indice.
+Dalle due relazioni segue per induzione \(C_n=2F_n-1\).
+Poiché \(F_{n+2}\ge2F_n\), il numero di chiamate cresce
+esponenzialmente con \(n\), a causa del ricalcolo degli stessi
+sottoproblemi. La profondità massima della pila cresce invece
+linearmente. La stima dei costi temporali e spaziali è ripresa nella
+\cref{sec:fi-complessita-fibonacci}.
 
-Un ciclo calcola ciascun nuovo termine una sola volta e conserva soltanto
-i due precedenti:
+Per evitare questi ricalcoli, un'implementazione iterativa conserva
+soltanto due termini successivi:
 
 \begin{unipdcode}[language=Python]
 def fib_iterativo(n):
@@ -324,35 +260,38 @@ def fib_iterativo(n):
     return corrente
 \end{unipdcode}
 
-Prima dell'iterazione di indice \(i\), \texttt{precedente} vale
-\(F_{i-2}\) e \texttt{corrente} vale \(F_{i-1}\). Il valore temporaneo
-\texttt{nuovo} permette di aggiornare entrambi senza perdere un operando.
-Per \(n=1,2\) il ciclo è vuoto e restituisce uno; per \(n\ge3\)
-esegue \(n-2\) somme. Il numero di operazioni è quindi lineare e il
-numero di variabili è fisso, pur crescendo la dimensione degli interi.
-La versione ricorsiva segue direttamente l'\cref{eq:fi-fibonacci},
-ma quella iterativa evita di ripetere i calcoli già svolti.
+Prima dell'iterazione di indice \(i\), le variabili
+\texttt{precedente} e \texttt{corrente} valgono rispettivamente
+\(F_{i-2}\) e \(F_{i-1}\). Si eseguono \(n-2\) somme per \(n>2\),
+con un numero fisso di variabili, senza ricalcolare i termini.
+Anche qui il confronto non considera il costo aritmetico degli interi
+di dimensione crescente.
+
+\clearpage
 
 \begin{unipdterminal}
->>> fib(1), fib(2), fib(5), fib(10)
-(1, 1, 5, 55)
->>> fib_iterativo(5), fib_iterativo(10)
-(5, 55)
+>>> fib(5), fib_iterativo(5)
+(5, 5)
+>>> fib(10), fib_iterativo(10)
+(55, 55)
 \end{unipdterminal}
+
+La ricorsione multipla non comporta necessariamente ricalcoli:
+l'ordinamento per fusione della \cref{sec:fi-ordinamento-fusione}
+ne fornisce un esempio.
 
 \section{Esercizi di riepilogo}
 
 \begin{exercise}[Somma dei primi naturali]
 \label{ex:fi-somma-naturali}
 Scrivere una funzione ricorsiva che, per un intero \(n\ge0\), restituisca
-\(1+2+\cdots+n\), con somma nulla per \(n=0\). Identificare caso base,
-passo ricorsivo e misura che garantisce la terminazione.
+\(1+2+\cdots+n\), con somma nulla per \(n=0\). Identificare il caso
+base, il passo ricorsivo e una misura di terminazione.
 \end{exercise}
 
-\begin{solution}
-Il caso base è la somma vuota; il passo ricorsivo aggiunge \(n\)
-alla somma dei naturali fino a \(n-1\). La misura \(n\) diminuisce
-di un'unità a ogni chiamata, fino a raggiungere zero.
+\begin{proof}[Soluzione dell'esercizio]
+Il caso base restituisce zero; il passo ricorsivo aggiunge \(n\) alla
+somma dei primi \(n-1\) naturali.
 
 \begin{unipdcode}[language=Python]
 def somma_naturali(n):
@@ -363,26 +302,20 @@ def somma_naturali(n):
     return n + somma_naturali(n - 1)
 \end{unipdcode}
 
-Per \(n=4\) il risultato è \(10\); per \(n=0\) è zero. L'addizione
-rimane sospesa durante la chiamata ricorsiva: la ricorsione non
-è quindi in coda.
-\end{solution}
-
-\clearpage
+La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero.
+Per \(n=4\), la funzione restituisce \(10\).
+\end{proof}
 
 \begin{exercise}[Conto alla rovescia]
 \label{ex:fi-conto-rovescia}
 Scrivere una funzione ricorsiva che, per un intero \(n\ge0\), stampi
-gli interi da \(n\) a zero in ordine decrescente, uno per riga.
-Spiegare perché il problema diventa più semplice e distinguere i
-valori stampati dal valore restituito.
+in ordine decrescente tutti gli interi da \(n\) a zero, uno per riga.
+Distinguere i valori stampati da quello restituito.
 \end{exercise}
 
-\begin{solution}
-Ogni invocazione stampa il proprio argomento e, se questo è positivo,
-richiama la funzione con \(n-1\). La misura \(n\) diminuisce
-di un'unità a ogni chiamata, fino a raggiungere zero e la chiamata ricorsiva
-è in coda.
+\begin{proof}[Soluzione dell'esercizio]
+Ogni chiamata stampa \(n\) e, se \(n>0\), richiama la funzione con
+\(n-1\). Il caso base è \(n=0\).
 
 \begin{unipdcode}[language=Python]
 def conto_rovescia(n):
@@ -394,8 +327,8 @@ def conto_rovescia(n):
     return conto_rovescia(n - 1)
 \end{unipdcode}
 
-Con \texttt{conto\_rovescia(3)} vengono stampati \(3,2,1,0\), uno
-per riga e in quest'ordine; con zero viene stampato soltanto zero.
-Il valore restituito è \texttt{None}, non la sequenza stampata. Anche questa
-ricorsione in coda rimane soggetta ai limiti di profondità di CPython.
-\end{solution}
+La misura \(n\) decresce fino a zero. Per \(n=3\), la funzione
+stampa \(3,2,1,0\), uno per riga, e restituisce \texttt{None}.
+L'invocazione ricorsiva è in coda secondo la
+\cref{sec:fi-ricorsione-coda}.
+\end{proof}

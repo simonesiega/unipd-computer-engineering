@@ -1,0 +1,12 @@
+\begin{unipdcode}[language=Python]
+def reverse_quadratico(lista):
+    n = len(lista)
+    output = [0] * n
+    output_size = 0
+    for i in range(n):
+        for j in range(output_size, 0, -1):
+            output[j] = output[j - 1]
+        output[0] = lista[i]
+        output_size += 1
+    return output
+\end{unipdcode}

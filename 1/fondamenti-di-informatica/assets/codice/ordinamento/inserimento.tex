@@ -1,0 +1,10 @@
+\begin{unipdcode}[language=Python]
+def insertion_sort(v, v_size):
+    for i in range(1, v_size):
+        temp = v[i]
+        j = i
+        while j > 0 and temp < v[j - 1]:
+            v[j] = v[j - 1]
+            j -= 1
+        v[j] = temp
+\end{unipdcode}
