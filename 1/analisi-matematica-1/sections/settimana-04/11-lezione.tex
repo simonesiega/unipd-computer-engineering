@@ -1,0 +1,318 @@
+\chapter[Lezione 11 --- 21 ottobre 2026]{Lezione 11: intorni e proprietà dei limiti}
+\label{chap:lezione-11}
+
+\section{Intersezioni di intorni}
+\label{sec:lez11-intersezione-intorni}
+
+Sia \(x_0\in\overline{\R}\). L'intersezione di due intorni di
+\(x_0\) è ancora un intorno di \(x_0\).
+
+Se \(x_0\in\R\), per la \cref{def:lez07-intorno} si ha, per
+ogni \(\delta_1,\delta_2>0\),
+\[
+  D(x_0,\delta_1)\cap D(x_0,\delta_2)
+  =D\bigl(x_0,\min\{\delta_1,\delta_2\}\bigr).
+\]
+Se \(x_0=+\infty\), per la \cref{def:lez07-intorni-infinito},
+per ogni \(k_1,k_2\in\R\),
+\[
+  (k_1,+\infty)\cap(k_2,+\infty)
+  =(\max\{k_1,k_2\},+\infty).
+\]
+Analogamente, se \(x_0=-\infty\),
+\[
+  (-\infty,k_1)\cap(-\infty,k_2)
+  =(-\infty,\min\{k_1,k_2\}).
+\]
+In tutti i casi, l'intersezione è un intorno del medesimo
+punto. Applicando ripetutamente la stessa proprietà, si
+ottiene il risultato per l'intersezione di un numero finito di intorni di \(x_0\).
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/intersezione-intorni-infinito}
+  \caption{Intersezione di due intorni di \(+\infty\):
+  la semiretta comune inizia dalla maggiore delle due soglie,
+  qui con \(k_1<k_2\).}
+  \label{fig:lez11-intersezione-intorni-infinito}
+\end{figure}
+
+L'affermazione non si estende, in generale, alle intersezioni
+infinite, come mostra l'esempio seguente.
+
+\begin{example}[Intersezione di infiniti intorni]
+\label{ex:lez11-intersezione-infinita}
+Per ogni \(n\in\N\) con \(n\ge1\), si consideri
+\[
+  A_n:=D\!\left(0,\frac1n\right)
+       =\left(-\frac1n,\frac1n\right).
+\]
+Allora
+\[
+  B:=\bigcap_{n=1}^{\infty}A_n=\{0\}.
+\]
+L'insieme \(B\) non è quindi un intorno di \(0\), benché
+ciascun \(A_n\) lo sia.
+\end{example}
+
+\begin{proof}
+Poiché \(0\in A_n\) per ogni \(n\ge1\), si ha
+\(0\in B\).
+
+Si consideri l'insieme
+\[
+  E:=\left\{\frac1n:n\in\N,\ n\ge1\right\}.
+\]
+Il numero \(0\) è un minorante di \(E\). Inoltre, per
+ogni \(\varepsilon>0\), per il \cref{thm:proprieta-archimedea}
+esiste \(n\in\N\) tale che \(n>1/\varepsilon\);
+pertanto \(1/n<\varepsilon\). Per il
+\cref{thm:caratterizzazione-inf}, segue
+\[
+  \inf E=0.
+\]
+Dall'\cref{ex:estremi-insieme-opposto} si ricava anche
+\[
+  \sup(-E)=-\inf E=0.
+\]
+
+Sia ora \(x\in B\). Per definizione di intersezione,
+\[
+  -\frac1n<x<\frac1n
+  \qquad\forall n\in\N,\ n\ge1.
+\]
+Il numero \(x\) è dunque un minorante di \(E\) e un
+maggiorante di \(-E\). Ne segue che
+\[
+  x\le\inf E=0,
+  \qquad
+  x\ge\sup(-E)=0.
+\]
+Pertanto \(x=0\), e quindi \(B\subseteq\{0\}\).
+Insieme all'inclusione opposta, si conclude
+\[
+  B=\{0\}.
+\]
+\end{proof}
+
+\section{Unicità del limite}
+\label{sec:lez11-unicita-limite}
+
+La \cref{def:lez08-limite} non permette a una funzione
+di ammettere due limiti distinti nello stesso punto di
+accumulazione.
+
+\begin{theorem}[Unicità del limite]
+\label{thm:lez11-unicita-limite}
+Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
+non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
+accumulazione per \(A\). Se
+\[
+  \lim_{x\to x_0}f(x)=\ell_1,
+  \qquad
+  \lim_{x\to x_0}f(x)=\ell_2,
+\]
+con \(\ell_1,\ell_2\in\overline{\R}\), allora
+\[
+  \ell_1=\ell_2.
+\]
+\end{theorem}
+
+\begin{proof}
+Si procede per assurdo, supponendo
+\(\ell_1\ne\ell_2\).
+
+Esistono due intorni \(V_{\ell_1}\) e \(V_{\ell_2}\) dei
+rispettivi punti tali che
+\[
+  V_{\ell_1}\cap V_{\ell_2}=\varnothing.
+\]
+Infatti, se \(\ell_1,\ell_2\in\R\), si può supporre,
+senza perdita di generalità, \(\ell_1<\ell_2\) e porre
+\[
+  \delta:=\frac{\ell_2-\ell_1}{2}>0,
+  \qquad
+  V_{\ell_1}:=D(\ell_1,\delta),
+  \qquad
+  V_{\ell_2}:=D(\ell_2,\delta).
+\]
+I due intorni sono disgiunti, come illustrato nella
+\cref{fig:lez11-intorni-disgiunti}. Se almeno uno dei
+due limiti è infinito, si possono scegliere intorni
+disgiunti utilizzando la \cref{def:lez07-intorni-infinito}.
+
+Per la \cref{def:lez08-limite}, esistono intorni
+\(U_{x_0}\) e \(U'_{x_0}\) di \(x_0\) tali che
+\[
+  f(x)\in V_{\ell_1}
+  \quad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\},
+\]
+\[
+  f(x)\in V_{\ell_2}
+  \quad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Per la \cref{sec:lez11-intersezione-intorni},
+\(W_{x_0}:=U_{x_0}\cap U'_{x_0}\) è ancora un intorno
+di \(x_0\). Poiché \(x_0\) è di accumulazione per
+\(A\), esiste
+\[
+  x\in(W_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Per tale \(x\), entrambe le condizioni sul limite
+devono essere verificate, quindi
+\[
+  f(x)\in V_{\ell_1}\cap V_{\ell_2}=\varnothing,
+\]
+una contraddizione. Pertanto \(\ell_1=\ell_2\).
+\end{proof}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/intorni-disgiunti}
+  \caption{Due intorni circolari disgiunti di
+  \(\ell_1<\ell_2\), con raggio
+  \(\delta=(\ell_2-\ell_1)/2\).}
+  \label{fig:lez11-intorni-disgiunti}
+\end{figure}
+
+\begin{exercise}[Intorni disgiunti nella retta reale estesa]
+\label{ex:lez11-intorni-disgiunti}
+Verificare che si possono scegliere due intorni disgiunti
+anche quando \(\ell_1\ne\ell_2\) e almeno uno dei due
+appartiene a \(\{-\infty,+\infty\}\), distinguendo
+il caso in cui l'altro limite è reale da quello
+in cui i due limiti sono infiniti.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Si distinguono tre casi.
+
+\emph{Primo caso: \(\ell_1=+\infty\), \(\ell_2\in\R\).}
+Si scelgano gli intorni
+\[
+  V_{\ell_1}:=(\ell_2+1,+\infty),
+  \qquad
+  V_{\ell_2}:=D(\ell_2,1)
+  =(\ell_2-1,\ell_2+1).
+\]
+Poiché gli intervalli non hanno punti in comune,
+si ha \(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
+
+\emph{Secondo caso: \(\ell_1\in\R\), \(\ell_2=-\infty\).}
+Si scelgano gli intorni
+\[
+  V_{\ell_1}:=D(\ell_1,1)
+  =(\ell_1-1,\ell_1+1),
+  \qquad
+  V_{\ell_2}:=(-\infty,\ell_1-1).
+\]
+Anche in questo caso
+\(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
+
+\emph{Terzo caso: \(\ell_1=-\infty\), \(\ell_2=+\infty\).}
+Si scelgano gli intorni
+\[
+  V_{\ell_1}:=(-\infty,0),
+  \qquad
+  V_{\ell_2}:=(0,+\infty).
+\]
+Si ha nuovamente
+\(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
+
+Scambiando gli indici si ottengono i casi rimanenti.
+Pertanto, per ogni coppia di punti distinti della
+retta reale estesa, esistono due intorni disgiunti.
+\end{proof}
+
+\section{Permanenza del segno}
+\label{sec:lez11-permanenza-segno}
+
+\begin{theorem}[Permanenza del segno]
+\label{thm:lez11-permanenza-segno}
+Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
+non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
+accumulazione per \(A\).
+\begin{enumerate}
+  \item Se
+  \[
+    \lim_{x\to x_0}f(x)=\ell
+    \in(0,+\infty)\cup\{+\infty\},
+  \]
+  allora esistono \(k>0\) e un intorno \(U_{x_0}\)
+  di \(x_0\) tali che
+  \[
+    f(x)>k
+    \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+  \]
+  \item Se
+  \[
+    \lim_{x\to x_0}f(x)=\ell
+    \in(-\infty,0)\cup\{-\infty\},
+  \]
+  allora esistono \(k>0\) e un intorno \(U_{x_0}\)
+  di \(x_0\) tali che
+  \[
+    f(x)<-k
+    \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Dimostrazione del primo punto]
+Si distinguono i casi \(\ell=+\infty\) e
+\(\ell\in(0,+\infty)\).
+
+\emph{Caso \(\ell=+\infty\).}
+Per la \cref{def:lez08-limite}, per ogni \(K\in\R\)
+esiste un intorno \(U_{x_0}\) tale che
+\[
+  f(x)>K
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Scegliendo \(K=1\), si ottiene la tesi con \(k=1\).
+
+\emph{Caso \(\ell\in(0,+\infty)\).}
+Per la \cref{def:lez08-limite}, per ogni
+\(\varepsilon>0\) esiste un intorno \(U_{x_0}\)
+tale che
+\[
+  |f(x)-\ell|<\varepsilon
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Scegliendo \(\varepsilon=\ell/2>0\), segue
+\[
+  -\frac\ell2<f(x)-\ell<\frac\ell2,
+\]
+e quindi
+\[
+  f(x)>\frac\ell2>0
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+La tesi è verificata ponendo \(k=\ell/2\).
+\end{proof}
+
+Il secondo punto si dimostra analogamente, considerando
+\(\ell=-\infty\) e \(\ell\in(-\infty,0)\); la verifica
+non viene sviluppata in questa sede.
+
+\section{Limitatezza locale}
+\label{sec:lez11-limitatezza-locale}
+
+\begin{theorem}[Limitatezza locale]
+\label{thm:lez11-limitatezza-locale}
+Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
+non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
+accumulazione per \(A\). Se
+\[
+  \lim_{x\to x_0}f(x)=\ell\in\R,
+\]
+allora esiste un intorno \(U_{x_0}\) di \(x_0\)
+tale che l'insieme
+\[
+  \{f(x):x\in U_{x_0}\cap A\}
+\]
+è limitato.
+\end{theorem}
+
+La dimostrazione del \cref{thm:lez11-limitatezza-locale}
+non viene sviluppata in questa sede.

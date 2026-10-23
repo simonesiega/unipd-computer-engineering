@@ -60,5 +60,10 @@
 - 10 Lezione 10 --- 20 ottobre 2026 — p. 52
   - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 52
   - 10.2 Monotonia delle funzioni — p. 53
-- A Tutorato 1 --- 8 ottobre 2026 — p. 56
+- 11 Lezione 11 --- 21 ottobre 2026 — p. 56
+  - 11.1 Intersezioni di intorni — p. 56
+  - 11.2 Unicità del limite — p. 57
+  - 11.3 Permanenza del segno — p. 58
+  - 11.4 Limitatezza locale — p. 59
+- A Tutorato 1 --- 8 ottobre 2026 — p. 60
 <!-- GENERATED:END -->
