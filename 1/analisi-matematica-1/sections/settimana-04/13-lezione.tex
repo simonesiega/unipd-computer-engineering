@@ -1,0 +1,164 @@
+\chapter[Lezione 13 --- 23 ottobre 2026]{Lezione 13: funzione di Dirichlet e proprietà dei limiti}
+\label{chap:lezione-13}
+
+\section{Funzione di Dirichlet}
+\label{sec:lez13-dirichlet}
+
+\begin{example}[Funzione di Dirichlet]
+\label{ex:lez13-dirichlet}
+Si consideri la funzione \(f\colon\R\longrightarrow\R\) definita da
+\[
+  f(x):=
+  \begin{cases}
+    1, & x\in\R\setminus\Q,\\
+    -1, & x\in\Q.
+  \end{cases}
+\]
+Si ha \(f(0)=-1\), ma \(f\) non ammette limite per \(x\to0\).
+\end{example}
+
+\begin{proof}
+Il dominio è \(A=\R\). Per ogni \(\delta>0\), il punto
+\(a=\delta/2\) appartiene ad \(A\) e soddisfa
+\[
+  0<|a|=\frac{\delta}{2}<\delta.
+\]
+Pertanto \(0\) è punto di accumulazione per \(A\).
+Si supponga anzitutto che
+\[
+  \lim_{x\to0}f(x)=\ell\in\R.
+\]
+Per la \cref{def:lez08-limite}, scegliendo
+\(\varepsilon=1/2\), esiste \(\delta>0\) tale che
+\[
+  |f(x)-\ell|<\frac12
+  \qquad\forall x\in\R:\ 0<|x|<\delta.
+\]
+Per il \cref{thm:razionali-irrazionali-tra-reali}, esistono
+\(r\in\Q\) e \(s\in\R\setminus\Q\) tali che
+\(0<r,s<\delta\). Poiché \(f(r)=-1\) e \(f(s)=1\), si ottiene
+\[
+  |-1-\ell|<\frac12,
+  \qquad
+  |1-\ell|<\frac12.
+\]
+Per la disuguaglianza triangolare, ne segue
+\[
+  2=|(1-\ell)-(-1-\ell)|
+  \le |1-\ell|+|-1-\ell|<1,
+\]
+una contraddizione.
+
+Neppure \(+\infty\) e \(-\infty\) possono essere limiti:
+poiché \(-1\le f(x)\le1\) per ogni \(x\in\R\),
+la \cref{def:lez08-limite} non è soddisfatta scegliendo
+rispettivamente la soglia \(K=2\) o \(K=-2\).
+Pertanto \(f\) non ammette limite per \(x\to0\).
+\end{proof}
+
+\section{Proprietà elementari dei limiti}
+\label{sec:lez13-proprieta-limiti}
+
+\begin{proposition}[Proprietà elementari dei limiti]
+\label{prop:lez13-proprieta-limiti}
+Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
+non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
+accumulazione per \(A\). Allora:
+\begin{enumerate}
+  \item per ogni \(\ell\in\R\),
+  \[
+    \lim_{x\to x_0}f(x)=\ell
+    \quad\Longleftrightarrow\quad
+    \lim_{x\to x_0}(f(x)-\ell)=0;
+  \]
+  \item
+  \[
+    \lim_{x\to x_0}f(x)=0
+    \quad\Longleftrightarrow\quad
+    \lim_{x\to x_0}|f(x)|=0;
+  \]
+  \item per ogni \(\ell\in\R\setminus\{0\}\),
+  \[
+    \lim_{x\to x_0}f(x)=\ell
+    \quad\Longrightarrow\quad
+    \lim_{x\to x_0}|f(x)|=|\ell|;
+  \]
+  \item
+  \[
+    \lim_{x\to x_0}f(x)=0
+    \quad\Longleftrightarrow\quad
+    \lim_{x\to x_0}f(x)^2=0.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Primo punto.}
+Per ogni \(x\in A\) e \(\ell\in\R\),
+\[
+  |(f(x)-\ell)-0|=|f(x)-\ell|.
+\]
+Le due condizioni della \cref{def:lez08-limite}
+coincidono, quindi vale l'equivalenza.
+
+\emph{Secondo punto.}
+Per ogni \(x\in A\),
+\[
+  \bigl||f(x)|-0\bigr|=|f(x)-0|.
+\]
+Anche in questo caso le condizioni della
+\cref{def:lez08-limite} coincidono.
+
+\emph{Terzo punto.}
+Si supponga \(f(x)\to\ell\in\R\setminus\{0\}\)
+per \(x\to x_0\). Per la disuguaglianza triangolare inversa,
+\[
+  \bigl||f(x)|-|\ell|\bigr|\le|f(x)-\ell|.
+\]
+Dato \(\varepsilon>0\), per la \cref{def:lez08-limite}
+esiste un intorno \(U_{x_0}\) tale che
+\[
+  |f(x)-\ell|<\varepsilon
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Per gli stessi \(x\) si ha
+\[
+  \bigl||f(x)|-|\ell|\bigr|<\varepsilon,
+\]
+e quindi \(\lim_{x\to x_0}|f(x)|=|\ell|\).
+
+\emph{Quarto punto.}
+Si dimostrano separatamente le due implicazioni.
+
+\emph{Prima implicazione \((\Rightarrow)\).}
+Si supponga \(f(x)\to0\) per \(x\to x_0\).
+Per ogni \(\varepsilon>0\), applicando la
+\cref{def:lez08-limite} con \(\sqrt{\varepsilon}>0\),
+esiste un intorno \(U_{x_0}\) tale che
+\[
+  |f(x)|<\sqrt{\varepsilon}
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Ne segue
+\[
+  |f(x)^2|=|f(x)|^2<\varepsilon
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Pertanto \(\lim_{x\to x_0}f(x)^2=0\).
+
+\emph{Seconda implicazione \((\Leftarrow)\).}
+Si supponga \(f(x)^2\to0\) per \(x\to x_0\).
+Per ogni \(\varepsilon>0\), applicando la
+\cref{def:lez08-limite} con \(\varepsilon^2>0\),
+esiste un intorno \(U_{x_0}\) tale che
+\[
+  |f(x)^2|<\varepsilon^2
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Poiché \(|f(x)^2|=|f(x)|^2\), si ottiene
+\[
+  |f(x)|<\varepsilon
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Pertanto \(\lim_{x\to x_0}f(x)=0\).
+\end{proof}

@@ -1,0 +1,379 @@
+\chapter[Lezione 12 --- 22 ottobre 2026]{Lezione 12: teoremi del confronto e teorema delle tre funzioni}
+\label{chap:lezione-12}
+
+\section{Primo teorema del confronto}
+\label{sec:lez12-confronto-primo}
+
+\begin{theorem}[Primo teorema del confronto]
+\label{thm:lez12-confronto-primo}
+Siano \(f,g\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia
+\(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
+Valgono le seguenti affermazioni.
+\begin{enumerate}
+  \item Se
+  \[
+    \lim_{x\to x_0}f(x)=\ell_1\in\R,
+    \qquad
+    \lim_{x\to x_0}g(x)=\ell_2\in\R,
+    \qquad \ell_1<\ell_2,
+  \]
+  allora esiste un intorno \(U_{x_0}\) di \(x_0\) tale che
+  \[
+    f(x)<g(x)
+    \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+  \]
+  \item Se
+  \[
+    \lim_{x\to x_0}f(x)=-\infty,
+    \qquad
+    \lim_{x\to x_0}g(x)=\ell\in\R\cup\{+\infty\},
+  \]
+  allora esiste un intorno \(U_{x_0}\) di \(x_0\) tale che
+  \[
+    f(x)<g(x)
+    \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+  \]
+  \item Se
+  \[
+    \lim_{x\to x_0}f(x)=\ell\in\R,
+    \qquad
+    \lim_{x\to x_0}g(x)=+\infty,
+  \]
+  allora esiste un intorno \(U_{x_0}\) di \(x_0\) tale che
+  \[
+    f(x)<g(x)
+    \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Dimostrazione del primo punto]
+Poiché \(\ell_1<\ell_2\), si ponga
+\[
+  \varepsilon:=\frac{\ell_2-\ell_1}{2}>0.
+\]
+Per la \cref{def:lez08-limite}, esistono intorni
+\(U'_{x_0}\) e \(U''_{x_0}\) di \(x_0\) tali che
+\[
+  |f(x)-\ell_1|<\varepsilon
+  \qquad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\},
+\]
+\[
+  |g(x)-\ell_2|<\varepsilon
+  \qquad\forall x\in(U''_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Per la \cref{sec:lez11-intersezione-intorni},
+\[
+  U_{x_0}:=U'_{x_0}\cap U''_{x_0}
+\]
+è ancora un intorno di \(x_0\). Per ogni
+\(x\in(U_{x_0}\cap A)\setminus\{x_0\}\), si ottiene
+\[
+  f(x)<\ell_1+\varepsilon
+  =\frac{\ell_1+\ell_2}{2}
+  =\ell_2-\varepsilon<g(x).
+\]
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Casi con limiti infiniti]
+\label{ex:lez12-confronto-primo-infiniti}
+Dimostrare il secondo e il terzo punto del
+\cref{thm:lez12-confronto-primo} mediante la
+\cref{def:lez08-limite}.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Secondo punto.}
+Se \(\ell\in\R\), dalla \cref{def:lez08-limite},
+scegliendo \(\varepsilon=1\), esiste un intorno
+\(U'_{x_0}\) nel quale \(g(x)>\ell-1\).
+Poiché \(f(x)\to-\infty\), esiste un intorno
+\(U''_{x_0}\) nel quale \(f(x)<\ell-1\).
+Per ogni \(x\in(U'_{x_0}\cap U''_{x_0}\cap A)
+\setminus\{x_0\}\), segue
+\[
+  f(x)<\ell-1<g(x).
+\]
+Se \(\ell=+\infty\), esistono intorni
+\(U'_{x_0}\) e \(U''_{x_0}\) nei quali valgono
+rispettivamente \(f(x)<0\) e \(g(x)>0\).
+Per ogni \(x\in(U'_{x_0}\cap U''_{x_0}\cap A)\setminus\{x_0\}\),
+si ha
+\[
+  f(x)<0<g(x).
+\]
+
+\emph{Terzo punto.}
+Poiché \(f(x)\to\ell\in\R\), scegliendo
+\(\varepsilon=1\) esiste un intorno \(U'_{x_0}\)
+nel quale \(f(x)<\ell+1\).
+Poiché \(g(x)\to+\infty\), esiste un intorno
+\(U''_{x_0}\) nel quale \(g(x)>\ell+1\).
+Per ogni \(x\in(U'_{x_0}\cap U''_{x_0}\cap A)
+\setminus\{x_0\}\), segue
+\[
+  f(x)<\ell+1<g(x).
+\]
+In ciascun caso, l'intersezione dei due intorni è un
+intorno di \(x_0\) per la \cref{sec:lez11-intersezione-intorni}.
+\end{proof}
+
+\begin{example}[Limiti uguali e ordinamento variabile]
+\label{ex:lez12-limiti-uguali-ordine}
+Si considerino le funzioni su \(\R\)
+\[
+  f(x)=x^3,
+  \qquad g(x)=-x^3.
+\]
+Entrambe hanno limite \(0\) per \(x\to0\):
+per ogni \(\varepsilon>0\), scegliendo
+\(\delta=\varepsilon^{1/3}\), da \(0<|x|<\delta\)
+segue \(|x^3|<\varepsilon\).
+Tuttavia,
+\[
+  f(x)<g(x)\quad\text{se }x<0,
+  \qquad
+  f(x)>g(x)\quad\text{se }x>0.
+\]
+Ogni intorno bucato di \(0\) contiene punti nei quali
+si verifica ciascuna delle due disuguaglianze.
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/confronto-limiti-uguali}
+  \caption{Le funzioni \(x^3\) e \(-x^3\) hanno lo
+  stesso limite per \(x\to0\), ma il loro ordine si
+  inverte attraversando l'origine.}
+  \label{fig:lez12-limiti-uguali-ordine}
+\end{figure}
+
+\section{Secondo teorema del confronto}
+\label{sec:lez12-confronto-secondo}
+
+\begin{theorem}[Secondo teorema del confronto]
+\label{thm:lez12-confronto-secondo}
+Siano \(f,g\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia
+\(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
+Si supponga che esista un intorno \(U_{x_0}\) di
+\(x_0\) tale che
+\[
+  f(x)\le g(x)
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Allora:
+\begin{enumerate}
+  \item se
+  \[
+    \lim_{x\to x_0}f(x)=\ell_1\in\R,
+    \qquad
+    \lim_{x\to x_0}g(x)=\ell_2\in\R,
+  \]
+  si ha \(\ell_1\le\ell_2\);
+  \item se \(\displaystyle\lim_{x\to x_0}g(x)=-\infty\),
+  allora \(\displaystyle\lim_{x\to x_0}f(x)=-\infty\);
+  \item se \(\displaystyle\lim_{x\to x_0}f(x)=+\infty\),
+  allora \(\displaystyle\lim_{x\to x_0}g(x)=+\infty\).
+\end{enumerate}
+\end{theorem}
+
+La dimostrazione del \cref{thm:lez12-confronto-secondo}
+non viene sviluppata in questa sede.
+
+La disuguaglianza stretta \(f(x)<g(x)\)
+non garantisce \(\ell_1<\ell_2\).
+
+\begin{example}[Disuguaglianza stretta e limiti uguali]
+\label{ex:lez12-confronto-stretto-limiti-uguali}
+Si considerino le funzioni \(f,g\colon\R\longrightarrow\R\)
+definite da
+\[
+  f(x):=0,
+  \qquad
+  g(x):=
+  \begin{cases}
+    \dfrac1x, & x>0,\\[4pt]
+    0, & x=0,\\[4pt]
+    -\dfrac1x, & x<0.
+  \end{cases}
+\]
+Si ha \(f(x)<g(x)\) per ogni \(x\ne0\). Inoltre,
+per ogni \(\varepsilon>0\), scegliendo \(b=1/\varepsilon\),
+per \(x>b\) si ottiene \(0<g(x)=1/x<\varepsilon\).
+Pertanto
+\[
+  \lim_{x\to+\infty}f(x)
+  =\lim_{x\to+\infty}g(x)=0.
+\]
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/confronto-stretto-limiti-uguali}
+  \caption{La funzione \(g(x)>f(x)=0\) per ogni
+  \(x\ne0\), ma entrambe hanno limite \(0\) per
+  \(x\to+\infty\).}
+  \label{fig:lez12-stretto-limiti-uguali}
+\end{figure}
+
+\clearpage
+
+\begin{example}[Un limite infinito mediante confronto]
+\label{ex:lez12-limite-x-seno}
+Si consideri la funzione
+\[
+  g\colon\R\longrightarrow\R,
+  \qquad g(x)=x+\sin x.
+\]
+Poiché \(\sin x\ge-1\) per ogni \(x\in\R\), si ha
+\[
+  x-1\le x+\sin x
+  \qquad\forall x\in\R.
+\]
+Per \(f(x):=x-1\) si ha
+\[
+  \lim_{x\to+\infty}f(x)=+\infty,
+\]
+poiché, per ogni \(K\in\R\), la condizione \(x>K+1\)
+implica \(f(x)>K\). Per il terzo punto del
+\cref{thm:lez12-confronto-secondo}, segue
+\[
+  \lim_{x\to+\infty}(x+\sin x)=+\infty.
+\]
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/confronto-seno}
+  \caption{La funzione \(x+\sin x\) è compresa tra
+  \(x-1\) e \(x+1\). In particolare, il minorante
+  \(x-1\) tende a \(+\infty\).}
+  \label{fig:lez12-confronto-seno}
+\end{figure}
+
+\section{Teorema delle tre funzioni}
+\label{sec:lez12-tre-funzioni}
+
+\begin{theorem}[Teorema delle tre funzioni]
+\label{thm:lez12-tre-funzioni}
+Siano \(f,g,h\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia
+\(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
+Si supponga che
+\[
+  \lim_{x\to x_0}f(x)=\ell\in\R,
+  \qquad
+  \lim_{x\to x_0}g(x)=\ell,
+\]
+e che esista un intorno \(U_{x_0}\) di \(x_0\) tale che
+\[
+  f(x)\le h(x)\le g(x)
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Allora
+\[
+  \lim_{x\to x_0}h(x)=\ell.
+\]
+\end{theorem}
+
+\begin{proof}
+Sia \(\varepsilon>0\). Per la \cref{def:lez08-limite},
+esistono intorni \(U'_{x_0}\) e \(U''_{x_0}\) di
+\(x_0\) tali che
+\[
+  |f(x)-\ell|<\varepsilon
+  \qquad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\},
+\]
+\[
+  |g(x)-\ell|<\varepsilon
+  \qquad\forall x\in(U''_{x_0}\cap A)\setminus\{x_0\}.
+\]
+Per la \cref{sec:lez11-intersezione-intorni},
+\[
+  W_{x_0}:=U'_{x_0}\cap U''_{x_0}\cap U_{x_0}
+\]
+è ancora un intorno di \(x_0\). Per ogni
+\(x\in(W_{x_0}\cap A)\setminus\{x_0\}\) valgono
+simultaneamente le disuguaglianze
+\[
+  \ell-\varepsilon<f(x)\le h(x)
+  \le g(x)<\ell+\varepsilon.
+\]
+Quindi
+\[
+  |h(x)-\ell|<\varepsilon
+  \qquad\forall x\in(W_{x_0}\cap A)\setminus\{x_0\},
+\]
+e, per la \cref{def:lez08-limite}, si conclude
+\(\lim_{x\to x_0}h(x)=\ell\).
+\end{proof}
+
+\begin{exercise}[Limite di \(x\sin(1/x)\)]
+\label{ex:lez12-limite-seno-inverso}
+Verificare mediante il \cref{thm:lez12-tre-funzioni} che
+\[
+  \lim_{x\to0}\left|x\sin\frac1x\right|=0,
+  \qquad
+  \lim_{x\to0}x\sin\frac1x=0.
+\]
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/tre-funzioni-seno-inverso}
+  \caption{La funzione \(x\sin(1/x)\), non definita in
+  \(x=0\), rimane compresa tra \(-|x|\) e \(|x|\),
+  entrambe convergenti a \(0\) per \(x\to0\).}
+  \label{fig:lez12-seno-inverso}
+\end{figure}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Dominio e punto di accumulazione.}
+La funzione
+\[
+  h(x):=x\sin\frac1x
+\]
+ha dominio \(A=\R\setminus\{0\}\). Il punto \(0\) è di
+accumulazione per \(A\): per ogni \(\delta>0\), il
+numero \(a=\delta/2\) appartiene ad \(A\) e soddisfa
+\[
+  0<|a|=\frac\delta2<\delta.
+\]
+
+\emph{Applicazione del teorema.}
+Per ogni \(x\in A\), poiché
+\(\lvert\sin(1/x)\rvert\le1\), si ha
+\[
+  0\le\left|x\sin\frac1x\right|
+  =|x|\left|\sin\frac1x\right|\le|x|.
+\]
+Per ogni \(\varepsilon>0\), scegliendo
+\(\delta=\varepsilon\), si verifica
+\(|x|<\varepsilon\) quando \(0<|x|<\delta\).
+Pertanto
+\[
+  \lim_{x\to0}|x|=0,
+  \qquad
+  \lim_{x\to0}(-|x|)=0.
+\]
+Poiché anche la funzione costante nulla ha limite
+\(0\), applicando il \cref{thm:lez12-tre-funzioni}
+alla prima disuguaglianza si ottiene
+\[
+  \lim_{x\to0}\left|x\sin\frac1x\right|=0.
+\]
+Dalla medesima stima segue inoltre
+\[
+  -|x|\le x\sin\frac1x\le|x|
+  \qquad\forall x\in A.
+\]
+Applicando nuovamente il \cref{thm:lez12-tre-funzioni},
+si conclude
+\[
+  \lim_{x\to0}x\sin\frac1x=0.
+\]
+\end{proof}

@@ -11,11 +11,11 @@
 - 1 Lezione 1 --- 29 settembre 2026 — p. 2
   - 1.1 Numeri naturali e le loro operazioni — p. 2
   - 1.2 Ordinamento totale dei numeri naturali — p. 3
-  - 1.3 Richiami su insiemi e dimostrazioni — p. 3
+  - 1.3 Richiami su insiemi e dimostrazioni — p. 4
   - 1.4 Principio di induzione — p. 4
 - 2 Lezione 2 --- 30 settembre 2026 — p. 7
   - 2.1 Numeri interi — p. 7
-  - 2.2 Numeri razionali — p. 7
+  - 2.2 Numeri razionali — p. 8
   - 2.3 Irrazionalità della radice quadrata di 2 — p. 8
   - 2.4 Fattoriale — p. 10
 - 3 Lezione 3 --- 1 ottobre 2026 — p. 11
@@ -29,7 +29,7 @@
   - 4.2 Intervalli della retta reale — p. 17
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 17
   - 4.4 Massimo e minimo — p. 19
-  - 4.5 Estremo superiore ed estremo inferiore — p. 19
+  - 4.5 Estremo superiore ed estremo inferiore — p. 20
   - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 20
 - 5 Lezione 5 --- 6 ottobre 2026 — p. 23
   - 5.1 Disuguaglianza di Bernoulli — p. 23
@@ -60,5 +60,18 @@
 - 10 Lezione 10 --- 20 ottobre 2026 — p. 52
   - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 52
   - 10.2 Monotonia delle funzioni — p. 53
-- A Tutorato 1 --- 8 ottobre 2026 — p. 56
+- 11 Lezione 11 --- 21 ottobre 2026 — p. 56
+  - 11.1 Intersezioni di intorni — p. 56
+  - 11.2 Unicità del limite — p. 57
+  - 11.3 Permanenza del segno — p. 58
+  - 11.4 Limitatezza locale — p. 59
+- 12 Lezione 12 --- 22 ottobre 2026 — p. 60
+  - 12.1 Primo teorema del confronto — p. 60
+  - 12.2 Secondo teorema del confronto — p. 62
+  - 12.3 Teorema delle tre funzioni — p. 63
+- 13 Lezione 13 --- 23 ottobre 2026 — p. 66
+  - 13.1 Funzione di Dirichlet — p. 66
+  - 13.2 Proprietà elementari dei limiti — p. 66
+- A Tutorato 1 --- 8 ottobre 2026 — p. 68
+- B Tutorato 2 --- 22 ottobre 2026 — p. 71
 <!-- GENERATED:END -->

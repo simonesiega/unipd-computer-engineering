@@ -1,0 +1,18 @@
+\begin{tikzpicture}[unipd/diagram,x=.92cm,y=.62cm]
+  \draw[->,unipd-muted] (-.35,0) -- (7.2,0) node[right] {\(x\)};
+  \draw[->,unipd-muted] (0,-1.25) -- (0,8.25) node[above] {\(y\)};
+  \draw[unipd-muted,densely dashed,line width=.75pt]
+    plot[domain=0:6.25,samples=2] (\x,{\x+1});
+  \draw[unipd-accent,line width=1pt]
+    plot[domain=0:6.25,samples=2] (\x,{\x-1});
+  \draw[unipd-primary,line width=1.15pt]
+    plot[domain=0:6.25,samples=180,smooth]
+      (\x,{\x+sin(deg(\x))});
+  \node[font=\sffamily\footnotesize,text=unipd-muted,anchor=west]
+    at (6.3,7.25) {\(x+1\)};
+  \node[font=\sffamily\footnotesize,text=unipd-primary,anchor=west]
+    at (6.3,6.22) {\(x+\sin x\)};
+  \node[font=\sffamily\footnotesize,text=unipd-accent,anchor=west]
+    at (6.3,5.25) {\(x-1\)};
+  \node[below left] at (0,0) {\(0\)};
+\end{tikzpicture}

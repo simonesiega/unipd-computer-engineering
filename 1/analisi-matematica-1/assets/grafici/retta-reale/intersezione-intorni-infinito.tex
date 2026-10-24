@@ -1,0 +1,16 @@
+\begin{tikzpicture}[unipd/diagram]
+  \draw[->,unipd-muted] (-.6,-1.05) -- (8,-1.05) node[right] {\(x\)};
+  \draw[very thick,unipd-primary,->] (1.45,.85) -- (7.55,.85);
+  \draw[unipd-primary,fill=white,thick] (1.45,.85) circle (2.4pt);
+  \draw[very thick,unipd-accent,->] (3.45,.10) -- (7.55,.10);
+  \draw[unipd-accent,fill=white,thick] (3.45,.10) circle (2.4pt);
+  \draw[very thick,unipd-primary,->] (3.45,-.60) -- (7.55,-.60);
+  \draw[unipd-primary,fill=white,thick] (3.45,-.60) circle (2.4pt);
+  \draw[dashed,unipd-muted] (1.45,-1.13) -- (1.45,1.08);
+  \draw[dashed,unipd-muted] (3.45,-1.13) -- (3.45,1.08);
+  \node[below=6pt] at (1.45,-1.05) {\(k_1\)};
+  \node[below=6pt] at (3.45,-1.05) {\(k_2\)};
+  \node[above=4pt,text=unipd-primary] at (5.7,.85) {\((k_1,+\infty)\)};
+  \node[above=4pt,text=unipd-accent] at (5.7,.10) {\((k_2,+\infty)\)};
+  \node[above=4pt,text=unipd-primary] at (5.7,-.60) {\((\max\{k_1,k_2\},+\infty)\)};
+\end{tikzpicture}

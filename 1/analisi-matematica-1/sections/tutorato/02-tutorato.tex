@@ -1,0 +1,189 @@
+\chapter[Tutorato 2 --- 22 ottobre 2026]{Tutorato 2: estremi di insiemi e verifica di un limite}
+\label[appendix]{chap:tutorato-02}
+
+\begin{exercise}[Estremi di un insieme definito da una disequazione]
+\label{ex:disequazione-razionale}
+Sia
+\[
+  A:=\left\{x\in\R:\frac{2x-1}{x+2}<1\right\}.
+\]
+Determinare l'insieme \(A\), i suoi estremi superiore e inferiore
+ed eventuali massimo e minimo.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Per \(x\neq-2\), la disequazione equivale a
+\[
+  \frac{2x-1}{x+2}<1
+  \quad\Longleftrightarrow\quad
+  \frac{x-3}{x+2}<0.
+\]
+Il rapporto è negativo se numeratore e denominatore hanno segni
+opposti, ossia per \(-2<x<3\). Pertanto
+\[
+  A=(-2,3).
+\]
+Per ogni \(\varepsilon>0\), posto
+\[
+  t:=\min\left\{\frac{\varepsilon}{2},1\right\}>0,
+\]
+i punti \(-2+t\) e \(3-t\) appartengono ad \(A\) e verificano
+\[
+  -2<-2+t<-2+\varepsilon,
+  \qquad
+  3-\varepsilon<3-t<3.
+\]
+Per i \cref{thm:caratterizzazione-inf,thm:caratterizzazione-sup},
+si ha
+\[
+  \inf A=-2,\qquad \sup A=3.
+\]
+Poiché \(-2,3\notin A\), per la \cref{def:massimo-minimo}
+non esistono né \(\min A\) né \(\max A\).
+\end{proof}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/retta-reale/intervallo-aperto}
+  \caption{L'insieme \(A=(-2,3)\): gli estremi \(-2\) e \(3\)
+  non appartengono all'intervallo.}
+  \label{fig:intervallo-aperto}
+\end{figure}
+
+\begin{exercise}[Estremi di un insieme definito da termini indicizzati]
+\label{ex:estremi-termini}
+Sia
+\[
+  B:=\left\{1-\frac{(-1)^n}{n}:n\in\N,\ n\ge1\right\}.
+\]
+Determinare gli estremi superiore e inferiore di \(B\) e
+stabilire se sono rispettivamente massimo e minimo.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Posto
+\[
+  b_n:=1-\frac{(-1)^n}{n},\qquad n\ge1,
+\]
+i primi quattro termini sono
+\[
+  b_1=2,\quad b_2=\frac12,\quad
+  b_3=\frac43,\quad b_4=\frac34.
+\]
+Si distinguono i due casi, secondo che \(n\) sia pari o dispari:
+\[
+  b_n=\begin{cases}
+    1+\dfrac1n,&n\text{ dispari},\\[4pt]
+    1-\dfrac1n,&n\text{ pari}.
+  \end{cases}
+\]
+
+\emph{Indici dispari.}
+Per ogni \(n\ge1\) dispari,
+\[
+  b_{n+2}=1+\frac1{n+2}<1+\frac1n=b_n.
+\]
+I termini dispari sono quindi decrescenti e soddisfano
+\[
+  1<b_n\le b_1=2.
+\]
+
+\emph{Indici pari.}
+Per ogni \(n\ge2\) pari,
+\[
+  b_{n+2}=1-\frac1{n+2}>1-\frac1n=b_n.
+\]
+I termini pari sono quindi crescenti e soddisfano
+\[
+  \frac12=b_2\le b_n<1.
+\]
+In entrambi i casi, \(\lvert b_n-1\rvert=1/n\), quindi i termini si
+avvicinano a \(1\) al crescere di \(n\). Inoltre,
+\[
+  \frac12\le b_n\le2\qquad\forall n\ge1.
+\]
+Poiché \(b_1=2\) e \(b_2=\frac12\), per la
+\cref{def:massimo-minimo} si conclude
+\[
+  \sup B=\max B=2,\qquad
+  \inf B=\min B=\frac12.
+\]
+\end{proof}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/termini-dispari}
+  \caption{Termini di indice dispari di \(b_n\), decrescenti
+  a partire da \(b_1=2\).}
+  \label{fig:termini-dispari}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/termini-pari}
+  \caption{Termini di indice pari di \(b_n\), crescenti
+  a partire da \(b_2=\frac12\).}
+  \label{fig:termini-pari}
+\end{figure}
+
+\clearpage
+
+\begin{exercise}[Verifica di un limite finito]
+\label{ex:limite-lineare}
+Verificare mediante la \cref{def:lez08-limite} che
+\[
+  \lim_{x\to2}(4x-3)=5.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Dominio e punto di accumulazione.}
+La funzione \(f\colon\R\longrightarrow\R\), definita da
+\[
+  f(x):=4x-3,
+\]
+ha dominio \(A=\R\).
+
+Il punto \(2\) è di accumulazione per \(A\). Infatti, per ogni
+\(\delta>0\), il numero \(a=2+\delta/2\) appartiene ad \(A\)
+e soddisfa
+\[
+  0<|a-2|=\frac{\delta}{2}<\delta.
+\]
+
+\emph{Verifica della definizione.}
+Fissato \(\varepsilon>0\), occorre trovare \(\delta_\varepsilon>0\)
+tale che
+\[
+  |f(x)-5|<\varepsilon
+  \qquad\forall x\in A:
+  0<|x-2|<\delta_\varepsilon.
+\]
+Per ogni \(x\in A\), si ha
+\[
+  |f(x)-5|=|4x-8|=4|x-2|.
+\]
+È pertanto sufficiente scegliere
+\[
+  \delta_\varepsilon:=\frac{\varepsilon}{4}>0.
+\]
+Infatti, per ogni \(x\in A\) tale che
+\(0<|x-2|<\delta_\varepsilon\), si ottiene
+\[
+  |f(x)-5|=4|x-2|
+  <4\delta_\varepsilon=\varepsilon.
+\]
+Poiché \(\varepsilon>0\) era arbitrario, per la
+\cref{def:lez08-limite} si conclude
+\[
+  \lim_{x\to2}(4x-3)=5.
+\]
+\end{proof}
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/limite-lineare}
+  \caption{Verifica di \(\lim_{x\to2}(4x-3)=5\):
+  per \(\delta=\varepsilon/4\), la condizione
+  \(0<|x-2|<\delta\) implica \(|f(x)-5|<\varepsilon\).}
+  \label{fig:limite-lineare}
+\end{figure}
