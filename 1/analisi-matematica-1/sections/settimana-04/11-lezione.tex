@@ -24,9 +24,8 @@ Analogamente, se \(x_0=-\infty\),
   (-\infty,k_1)\cap(-\infty,k_2)
   =(-\infty,\min\{k_1,k_2\}).
 \]
-In tutti i casi, l'intersezione è un intorno del medesimo
-punto. Applicando ripetutamente la stessa proprietà, si
-ottiene il risultato per l'intersezione di un numero finito di intorni di \(x_0\).
+Per iterazione, la proprietà vale per ogni intersezione finita
+di intorni di \(x_0\).
 
 \begin{figure}[htbp]
   \centering
@@ -37,8 +36,7 @@ ottiene il risultato per l'intersezione di un numero finito di intorni di \(x_0\
   \label{fig:lez11-intersezione-intorni-infinito}
 \end{figure}
 
-L'affermazione non si estende, in generale, alle intersezioni
-infinite, come mostra l'esempio seguente.
+La proprietà non vale, in generale, per le intersezioni infinite.
 
 \begin{example}[Intersezione di infiniti intorni]
 \label{ex:lez11-intersezione-infinita}
@@ -98,10 +96,6 @@ Insieme all'inclusione opposta, si conclude
 \section{Unicità del limite}
 \label{sec:lez11-unicita-limite}
 
-La \cref{def:lez08-limite} non permette a una funzione
-di ammettere due limiti distinti nello stesso punto di
-accumulazione.
-
 \begin{theorem}[Unicità del limite]
 \label{thm:lez11-unicita-limite}
 Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
@@ -158,8 +152,7 @@ di \(x_0\). Poiché \(x_0\) è di accumulazione per
 \[
   x\in(W_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per tale \(x\), entrambe le condizioni sul limite
-devono essere verificate, quindi
+Pertanto
 \[
   f(x)\in V_{\ell_1}\cap V_{\ell_2}=\varnothing,
 \]
@@ -185,30 +178,20 @@ in cui i due limiti sono infiniti.
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Si distinguono tre casi.
-
 \emph{Primo caso: \(\ell_1=+\infty\), \(\ell_2\in\R\).}
 Si scelgano gli intorni
 \[
   V_{\ell_1}:=(\ell_2+1,+\infty),
   \qquad
-  V_{\ell_2}:=D(\ell_2,1)
-  =(\ell_2-1,\ell_2+1).
+  V_{\ell_2}:=D(\ell_2,1)=(\ell_2-1,\ell_2+1).
 \]
-Poiché gli intervalli non hanno punti in comune,
-si ha \(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
-
 \emph{Secondo caso: \(\ell_1\in\R\), \(\ell_2=-\infty\).}
 Si scelgano gli intorni
 \[
-  V_{\ell_1}:=D(\ell_1,1)
-  =(\ell_1-1,\ell_1+1),
+  V_{\ell_1}:=D(\ell_1,1)=(\ell_1-1,\ell_1+1),
   \qquad
   V_{\ell_2}:=(-\infty,\ell_1-1).
 \]
-Anche in questo caso
-\(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
-
 \emph{Terzo caso: \(\ell_1=-\infty\), \(\ell_2=+\infty\).}
 Si scelgano gli intorni
 \[
@@ -216,12 +199,8 @@ Si scelgano gli intorni
   \qquad
   V_{\ell_2}:=(0,+\infty).
 \]
-Si ha nuovamente
-\(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
-
+In ciascun caso \(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
 Scambiando gli indici si ottengono i casi rimanenti.
-Pertanto, per ogni coppia di punti distinti della
-retta reale estesa, esistono due intorni disgiunti.
 \end{proof}
 
 \section{Permanenza del segno}
@@ -259,9 +238,6 @@ accumulazione per \(A\).
 \end{theorem}
 
 \begin{proof}[Dimostrazione del primo punto]
-Si distinguono i casi \(\ell=+\infty\) e
-\(\ell\in(0,+\infty)\).
-
 \emph{Caso \(\ell=+\infty\).}
 Per la \cref{def:lez08-limite}, per ogni \(K\in\R\)
 esiste un intorno \(U_{x_0}\) tale che

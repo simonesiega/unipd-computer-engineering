@@ -1,0 +1,20 @@
+\begin{tikzpicture}[unipd/diagram,x=4.5cm,y=2.9cm]
+  \draw[->,unipd-muted] (-1.12,0) -- (1.15,0) node[right] {\(x\)};
+  \draw[->,unipd-muted] (0,-1.08) -- (0,1.09) node[above] {\(y\)};
+  \draw[unipd-accent,densely dashed,line width=.85pt]
+    (-.95,.95) -- (0,0) -- (.95,.95);
+  \draw[unipd-accent,densely dashed,line width=.85pt]
+    (-.95,-.95) -- (0,0) -- (.95,-.95);
+  \draw[unipd-primary,line width=1pt]
+    plot[domain=-.95:-.032,samples=350,smooth]
+      (\x,{\x*sin(deg(1/\x))});
+  \draw[unipd-primary,line width=1pt]
+    plot[domain=.032:.95,samples=350,smooth]
+      (\x,{\x*sin(deg(1/\x))});
+  \fill[white] (0,0) circle (2.2pt);
+  \draw[unipd-primary,line width=.85pt] (0,0) circle (2.2pt);
+  \node[font=\sffamily\footnotesize,text=unipd-accent,anchor=west]
+    at (.61,.86) {\(|x|\)};
+  \node[font=\sffamily\footnotesize,text=unipd-accent,anchor=west]
+    at (.62,-.88) {\(-|x|\)};
+\end{tikzpicture}

@@ -1,0 +1,14 @@
+\begin{tikzpicture}[unipd/diagram,x=2.25cm,y=1.28cm]
+  \draw[->,unipd-muted] (-1.55,0) -- (1.6,0) node[right] {\(x\)};
+  \draw[->,unipd-muted] (0,-2.75) -- (0,2.8) node[above] {\(y\)};
+  \draw[unipd-primary,line width=1.05pt]
+    plot[domain=-1.33:1.33,samples=100,smooth]
+      (\x,{\x*\x*\x});
+  \draw[unipd-accent,line width=1.05pt]
+    plot[domain=-1.33:1.33,samples=100,smooth]
+      (\x,{-\x*\x*\x});
+  \fill[unipd-muted] (0,0) circle (1.7pt);
+  \node[anchor=west,text=unipd-primary] at (1.03,1.78) {\(f(x)=x^3\)};
+  \node[anchor=west,text=unipd-accent] at (1.03,-1.78) {\(g(x)=-x^3\)};
+  \node[below left] at (0,0) {\(0\)};
+\end{tikzpicture}
