@@ -91,8 +91,8 @@ Current covered exams:
 
 | Year | Exam | Course archive | Compiled notes | Read online |
 |---:|---|---|---|---|
-| 1 | Analisi Matematica 1 | [`1/analisi-matematica-1`](1/analisi-matematica-1/) | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-analisi-matematica-1.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/analisi-matematica-1/index.html) |
-| 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-fondamenti-di-informatica.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/fondamenti-di-informatica/index.html) |
+| 1 | Analisi Matematica 1 | [`1/analisi-matematica-1`](1/analisi-matematica-1/) | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-month-01/1-analisi-matematica-1.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/analisi-matematica-1/index.html) |
+| 1 | Fondamenti di Informatica | [`1/fondamenti-di-informatica`](1/fondamenti-di-informatica/) | [1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-month-01/1-fondamenti-di-informatica.pdf) | [Read online](https://simonesiega.github.io/unipd-computer-engineering/fondamenti-di-informatica/index.html) |
 
 ## Releases
 
@@ -100,6 +100,7 @@ Browse the five most recent releases below, or [view all published releases](REL
 
 | Release | Date | Title | PDFs |
 |---|---|---|---|
+| [`2026-2027-month-01`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/2026-2027-month-01) | 2026-10-24 | Month 1 Snapshot | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-month-01/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-month-01/1-fondamenti-di-informatica.pdf) |
 | [`2026-2027-week-02`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/2026-2027-week-02) | 2026-10-13 | Week 2 Snapshot | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-02/1-fondamenti-di-informatica.pdf) |
 | [`2026-2027-week-01`](https://github.com/simonesiega/unipd-computer-engineering/releases/tag/2026-2027-week-01) | 2026-10-07 | Week 1 Snapshot | [1-analisi-matematica-1.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-analisi-matematica-1.pdf)<br>[1-fondamenti-di-informatica.pdf](https://github.com/simonesiega/unipd-computer-engineering/releases/download/2026-2027-week-01/1-fondamenti-di-informatica.pdf) |
 <!-- RELEASE-CATALOG:END -->
