@@ -11,11 +11,11 @@
 - 1 Lezione 1 --- 29 settembre 2026 — p. 2
   - 1.1 Numeri naturali e le loro operazioni — p. 2
   - 1.2 Ordinamento totale dei numeri naturali — p. 3
-  - 1.3 Richiami su insiemi e dimostrazioni — p. 3
+  - 1.3 Richiami su insiemi e dimostrazioni — p. 4
   - 1.4 Principio di induzione — p. 4
 - 2 Lezione 2 --- 30 settembre 2026 — p. 7
   - 2.1 Numeri interi — p. 7
-  - 2.2 Numeri razionali — p. 7
+  - 2.2 Numeri razionali — p. 8
   - 2.3 Irrazionalità della radice quadrata di 2 — p. 8
   - 2.4 Fattoriale — p. 10
 - 3 Lezione 3 --- 1 ottobre 2026 — p. 11
@@ -29,7 +29,7 @@
   - 4.2 Intervalli della retta reale — p. 17
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 17
   - 4.4 Massimo e minimo — p. 19
-  - 4.5 Estremo superiore ed estremo inferiore — p. 19
+  - 4.5 Estremo superiore ed estremo inferiore — p. 20
   - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 20
 - 5 Lezione 5 --- 6 ottobre 2026 — p. 23
   - 5.1 Disuguaglianza di Bernoulli — p. 23

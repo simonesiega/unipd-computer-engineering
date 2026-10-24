@@ -23,10 +23,18 @@ opposti, ossia per \(-2<x<3\). Pertanto
 \[
   A=(-2,3).
 \]
-Poiché ogni punto di \(A\) è compreso tra \(-2\) e \(3\), e
-ognuno dei due estremi può essere approssimato dall'interno di
-\(A\), per i
-\cref{thm:caratterizzazione-inf,thm:caratterizzazione-sup} si ha
+Per ogni \(\varepsilon>0\), posto
+\[
+  t:=\min\left\{\frac{\varepsilon}{2},1\right\}>0,
+\]
+i punti \(-2+t\) e \(3-t\) appartengono ad \(A\) e verificano
+\[
+  -2<-2+t<-2+\varepsilon,
+  \qquad
+  3-\varepsilon<3-t<3.
+\]
+Per i \cref{thm:caratterizzazione-inf,thm:caratterizzazione-sup},
+si ha
 \[
   \inf A=-2,\qquad \sup A=3.
 \]
@@ -62,7 +70,7 @@ i primi quattro termini sono
   b_1=2,\quad b_2=\frac12,\quad
   b_3=\frac43,\quad b_4=\frac34.
 \]
-Si distinguono i due casi per \(n\) sia pari o dispari:
+Si distinguono i due casi, secondo che \(n\) sia pari o dispari:
 \[
   b_n=\begin{cases}
     1+\dfrac1n,&n\text{ dispari},\\[4pt]
@@ -171,3 +179,11 @@ Poiché \(\varepsilon>0\) era arbitrario, per la
   \lim_{x\to2}(4x-3)=5.
 \]
 \end{proof}
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/limite-lineare}
+  \caption{Verifica di \(\lim_{x\to2}(4x-3)=5\):
+  per \(\delta=\varepsilon/4\), la condizione
+  \(0<|x-2|<\delta\) implica \(|f(x)-5|<\varepsilon\).}
+  \label{fig:limite-lineare}
+\end{figure}

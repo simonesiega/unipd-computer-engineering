@@ -1,21 +1,21 @@
 \begin{tikzpicture}[unipd/diagram,x=2.25cm,y=.57cm]
-  \fill[unipd-soft] (1.8,4.2) rectangle (2.2,5.8);
+  \fill[unipd-soft] (1.5,3) rectangle (2.5,7);
   \draw[->,unipd-muted] (.35,0) -- (3.15,0) node[right] {\(x\)};
   \draw[->,unipd-muted] (.5,0) -- (.5,8.6) node[above] {\(y\)};
-  \foreach \xx in {1.8,2,2.2} {
-    \draw[dashed,unipd-muted] (\xx,0) -- (\xx,6.65);
+  \foreach \xx in {1.5,2,2.5} {
+    \draw[dashed,unipd-muted] (\xx,0) -- (\xx,7.25);
   }
-  \foreach \yy in {4.2,5,5.8} {
+  \foreach \yy in {3,5,7} {
     \draw[densely dotted,unipd-muted] (.5,\yy) -- (2.82,\yy);
   }
   \draw[very thick,unipd-primary,domain=1.18:2.83,samples=2]
     plot (\x,{4*\x-3});
   \fill[unipd-primary] (2,5) circle (2pt);
-  \node[below=4pt] at (1.8,0) {\(2-\delta\)};
+  \node[below=4pt] at (1.5,0) {\(2-\delta\)};
   \node[below=4pt] at (2,0) {\(2\)};
-  \node[below=4pt] at (2.2,0) {\(2+\delta\)};
-  \node[left=5pt] at (.5,4.2) {\(5-\varepsilon\)};
+  \node[below=4pt] at (2.5,0) {\(2+\delta\)};
+  \node[left=5pt] at (.5,3) {\(5-\varepsilon\)};
   \node[left=5pt] at (.5,5) {\(5\)};
-  \node[left=5pt] at (.5,5.8) {\(5+\varepsilon\)};
+  \node[left=5pt] at (.5,7) {\(5+\varepsilon\)};
   \node[above left=3pt,text=unipd-primary] at (2.72,7.88) {\(f(x)=4x-3\)};
 \end{tikzpicture}
