@@ -70,4 +70,5 @@
   - 12.2 Secondo teorema del confronto — p. 62
   - 12.3 Teorema delle tre funzioni — p. 63
 - A Tutorato 1 --- 8 ottobre 2026 — p. 66
+- B Tutorato 2 --- 22 ottobre 2026 — p. 69
 <!-- GENERATED:END -->
