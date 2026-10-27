@@ -72,6 +72,10 @@
 - 13 Lezione 13 --- 23 ottobre 2026 — p. 66
   - 13.1 Funzione di Dirichlet — p. 66
   - 13.2 Proprietà elementari dei limiti — p. 66
-- A Tutorato 1 --- 8 ottobre 2026 — p. 68
-- B Tutorato 2 --- 22 ottobre 2026 — p. 71
+- 14 Lezione 14 --- 27 ottobre 2026 — p. 68
+  - 14.1 Teoremi sulle operazioni dei limiti — p. 68
+  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 71
+  - 14.3 Limiti destri e sinistri — p. 72
+- A Tutorato 1 --- 8 ottobre 2026 — p. 74
+- B Tutorato 2 --- 22 ottobre 2026 — p. 77
 <!-- GENERATED:END -->
