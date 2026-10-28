@@ -38,32 +38,36 @@
   - 4.3 Invocazioni sospese e pila delle chiamate — p. 25
   - 4.4 Ricorsione in coda ed eliminazione della ricorsione — p. 26
   - 4.5 Ricorsione multipla e numeri di Fibonacci — p. 26
-  - 4.6 Esercizi di riepilogo — p. 28
+  - 4.6 Esempi di funzioni ricorsive — p. 28
 - 5 Complessità computazionale — p. 29
   - 5.1 Analisi sperimentale — p. 29
   - 5.2 Analisi teorica e modello di costo — p. 29
   - 5.3 Notazioni asintotiche — p. 30
-  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 30
+  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 31
   - 5.5 Un algoritmo lineare per lo stesso problema — p. 31
-  - 5.6 Ordini di crescita e trattabilità — p. 32
-  - 5.7 Complessità della ricorsione di Fibonacci — p. 32
-- 6 Ricerca e ordinamento — p. 34
-  - 6.1 Ricerca lineare — p. 34
-  - 6.2 Ricerca binaria — p. 34
-  - 6.3 Ricerca del massimo e del minimo — p. 35
-  - 6.4 Ordinamento per selezione — p. 36
-  - 6.5 Ordinamento per fusione — p. 37
-  - 6.6 Ordinamento per inserimento — p. 39
-  - 6.7 Ordinamento rapido — p. 39
-  - 6.8 Confronto degli algoritmi — p. 40
-- 7 Strutture dati e tipi di dato astratti — p. 41
-  - 7.1 Tipi di dato astratti e strutture dati — p. 41
-  - 7.2 Array e accesso diretto — p. 41
-  - 7.3 Liste concatenate — p. 42
-  - 7.4 Pila: politica LIFO — p. 43
-  - 7.5 Coda: politica FIFO — p. 44
-  - 7.6 Coda doppia — p. 46
-  - 7.7 Lista come tipo di dato astratto — p. 46
-  - 7.8 Mappa — p. 46
-  - 7.9 Insieme — p. 47
+  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 32
+  - 5.7 Massima differenza fra elementi — p. 33
+  - 5.8 Riconoscimento di elementi duplicati — p. 34
+  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 34
+  - 5.10 Ordini di crescita e trattabilità — p. 35
+  - 5.11 Complessità della ricorsione di Fibonacci — p. 35
+- 6 Ricerca e ordinamento — p. 36
+  - 6.1 Ricerca lineare — p. 36
+  - 6.2 Ricerca binaria — p. 36
+  - 6.3 Ricerca del massimo e del minimo — p. 37
+  - 6.4 Ordinamento per selezione — p. 38
+  - 6.5 Ordinamento per fusione — p. 39
+  - 6.6 Ordinamento per inserimento — p. 41
+  - 6.7 Ordinamento rapido — p. 41
+  - 6.8 Confronto degli algoritmi — p. 42
+- 7 Strutture dati e tipi di dato astratti — p. 43
+  - 7.1 Tipi di dato astratti e strutture dati — p. 43
+  - 7.2 Array e accesso diretto — p. 43
+  - 7.3 Liste concatenate — p. 44
+  - 7.4 Pila: politica LIFO — p. 45
+  - 7.5 Coda: politica FIFO — p. 46
+  - 7.6 Coda doppia — p. 48
+  - 7.7 Lista come tipo di dato astratto — p. 48
+  - 7.8 Mappa — p. 49
+  - 7.9 Insieme — p. 49
 <!-- GENERATED:END -->

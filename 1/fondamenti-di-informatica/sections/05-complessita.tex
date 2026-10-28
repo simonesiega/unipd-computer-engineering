@@ -8,8 +8,8 @@ all'esecuzione in funzione della dimensione dell'ingresso: principalmente
 tempo e memoria. L'analisi permette di confrontare algoritmi che
 risolvono lo stesso problema e di prevederne il comportamento per
 ingressi non ancora elaborati.\footnote{Materiale di riferimento:
-S. Canazza, \emph{Complessità computazionale}, dispense del corso di
-Fondamenti di Informatica.}
+M. Ceccarello e C. Pizzi, \emph{Cenni di complessità
+computazionale}, dispense del corso di Fondamenti di Informatica.}
 
 \section{Analisi sperimentale}
 \label{sec:fi-complessita-sperimentale}
@@ -30,9 +30,8 @@ un rapporto prossimo a \(2\) suggerisce una crescita lineare. La
 stima non costituisce, da sola, una dimostrazione della complessità.
 
 In Python, il modulo \texttt{time} offre \texttt{time.time()}, che
-restituisce un istante espresso in secondi, e
-\texttt{time.perf\_counter()}, adatto alla misura di intervalli di
-tempo. La durata si ottiene sottraendo le letture effettuate prima e
+restituisce un istante espresso in secondi. Per misurare intervalli di
+tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene sottraendo le letture effettuate prima e
 dopo l'esecuzione. Per confrontare più dimensioni si possono registrare
 i risultati in formato CSV, utilizzando i file di testo introdotti
 nella \cref{sec:fi-python-file}. Un esempio completo di misurazione
@@ -74,8 +73,13 @@ lunghezza \(n\) della lista.
 Nel conteggio dei passi si sommano i costi dei blocchi eseguiti in
 sequenza. Per un'istruzione condizionale si considera il ramo
 effettivamente percorso; per un limite superiore si può maggiorare
-il costo con quello del ramo più oneroso. Il costo di un ciclo è la
-somma dei costi delle sue iterazioni, che possono essere differenti.
+il costo con quello del ramo più oneroso; per un limite inferiore
+valido in entrambi i rami, con il costo di quello meno oneroso.
+Il costo di un ciclo è la somma dei costi delle sue iterazioni,
+che possono essere differenti. Per esempio, due cicli annidati
+da \texttt{range(n)} eseguono il corpo interno \(n^2\) volte;
+se il secondo ciclo usa \texttt{range(i)}, il numero diventa
+\(\sum_{i=0}^{n-1}i=n(n-1)/2\).
 Il modello può essere semplificato ulteriormente scegliendo come passi
 base soltanto le operazioni rilevanti per il confronto in esame.
 
@@ -191,6 +195,8 @@ direttamente nella propria posizione definitiva. Visitando gli indici
 in ordine crescente, si copia l'elemento di indice \(n-1-i\) nella
 posizione \(i\) della lista di uscita.
 
+\clearpage
+
 \input{assets/codice/complessita/reverse-lineare}
 
 L'inizializzazione costa \(n+2\) passi nel modello precedente. Ogni
@@ -214,6 +220,137 @@ la dimensione dell'ingresso e il tempo in secondi. Le misure
 singole restano soggette alle fluttuazioni dell'esecuzione.
 Per input sufficientemente grandi, il rapporto teorico fra i costi dei
 due algoritmi cresce proporzionalmente a \(n\).
+
+
+\section{Somme prefisse: evitare calcoli ripetuti}
+\label{sec:fi-complessita-somme-prefisse}
+
+Data una lista di numeri \(v=[v_0,\ldots,v_{n-1}]\), si vuole
+costruire una lista \(s\) tale che
+\[
+  s_i=\sum_{j=0}^{i}v_j,\qquad 0\le i<n.
+\]
+Per esempio, da \([3,1,4,1,5]\) si ottiene
+\([3,4,8,9,14]\). Una prima soluzione ricalcola per ogni indice
+la somma dall'inizio; una seconda conserva la somma già raggiunta.
+
+\input{assets/codice/complessita/somme-prefisse}
+
+Nella prima versione, il ciclo interno viene eseguito \(i+1\)
+volte durante l'iterazione esterna di indice \(i\). Il numero
+totale degli addendi elaborati è
+\[
+  \sum_{i=0}^{n-1}(i+1)=\frac{n(n+1)}2
+  \in\Theta(n^2).
+\]
+Nella seconda versione, l'accumulatore \texttt{somma} contiene,
+all'inizio dell'iterazione di indice \(i\), la somma dei primi
+\(i\) elementi. L'aggiornamento lo porta a \(s_i\), che viene
+scritto nell'uscita. La proprietà vale inizialmente, quando la
+somma è zero, e si conserva a ogni iterazione. Il tempo diventa
+\(\Theta(n)\), mentre entrambe le soluzioni richiedono
+\(\Theta(n)\) spazio per il risultato. Per la lista vuota
+restituiscono entrambe una lista vuota.
+
+\section{Massima differenza fra elementi}
+\label{sec:fi-complessita-differenza}
+
+Si consideri il massimo di \(v_i-v_j\) su tutte le coppie di
+indici \(i,j\) di una lista non vuota. Gli indici non sono
+vincolati a un ordine particolare e possono coincidere. Per
+\([3,9,1,4]\) il risultato è \(9-1=8\). È possibile
+esaminare tutte le coppie, ma ciò richiede \(n^2\) confronti
+di differenze. L'osservazione decisiva è che
+\[
+  \max_{0\le i,j<n}(v_i-v_j)
+    =\max_{0\le i<n}v_i-\min_{0\le j<n}v_j.
+\]
+È sufficiente quindi individuare minimo e massimo con una
+sola scansione.
+
+\input{assets/codice/complessita/differenza-massima}
+
+La versione che visita tutte le coppie effettua due cicli di
+\(n\) iterazioni: il tempo è \(\Theta(n^2)\), anche se
+l'assegnamento condizionale del massimo non viene sempre eseguito.
+La versione basata sugli estremi mantiene, dopo ciascuna
+iterazione, il minimo e il massimo degli elementi già visitati.
+Al termine la loro differenza è quella richiesta e il tempo è
+\(\Theta(n)\). Entrambe impiegano \(\Theta(1)\) spazio
+ausiliario. Le funzioni richiedono una lista non vuota; per una
+lista di un solo elemento restituiscono zero.
+
+\section{Riconoscimento di elementi duplicati}
+\label{sec:fi-complessita-duplicati}
+
+Stabilire se una lista contiene valori ripetuti significa verificare
+se esistono indici distinti \(i,j\) tali che \(v_i=v_j\).
+Una soluzione confronta ciascun elemento con quelli successivi
+ed esce appena trova un'uguaglianza. Nel caso peggiore, con
+elementi tutti distinti, effettua
+\[
+  (n-1)+(n-2)+\cdots+1=\frac{n(n-1)}2
+  \in\Theta(n^2)
+\]
+confronti. Quando i primi due elementi coincidono e \(n\ge2\),
+invece, termina in tempo \(\Theta(1)\): il costo dipende dunque
+anche dal contenuto dell'ingresso.
+
+Ordinando prima una copia della lista, gli eventuali duplicati
+risultano adiacenti. Basta allora una scansione lineare della
+copia ordinata.
+
+\input{assets/codice/complessita/duplicati}
+
+L'ordinamento mediante \texttt{sorted()} ha costo \(O(n\log n)\)
+nel caso peggiore, e la scansione costa \(O(n)\). Il tempo
+complessivo è quindi \(O(n\log n)\) nel caso peggiore, un
+miglioramento rispetto ai confronti di tutte le coppie. Questo
+limite non implica che ogni esecuzione di \texttt{sorted()}
+richieda \(\Theta(n\log n)\) operazioni: la funzione può
+sfruttare l'ordine già presente nei dati. La copia ordinata
+richiede \(O(n)\) spazio aggiuntivo. La seconda soluzione
+presuppone che i valori siano confrontabili fra loro secondo
+un ordinamento coerente con l'uguaglianza da verificare.
+
+\section{Ricerca di una sottostringa e dimensioni multiple}
+\label{sec:fi-complessita-sottostringa}
+
+Date due stringhe \texttt{testo} e \texttt{modello}, si vuole
+restituire il primo indice in cui il modello compare nel testo,
+oppure \(-1\) in caso di assenza. Per esempio, cercare
+\texttt{"cad"} in \texttt{"abracadabra"} restituisce \(4\).
+Indicando con \(n\) e \(m\) le rispettive lunghezze, i possibili
+indici iniziali sono \(0,\ldots,n-m\), purché \(m\le n\).
+La ricerca diretta confronta tutti gli \(m\) caratteri del modello
+per ogni posizione candidata.
+
+\input{assets/codice/complessita/sottostringa}
+
+Per \(1\le m\le n\), l'algoritmo esegue, nel caso peggiore,
+\(m\) confronti per ciascuna delle \(n-m+1\) posizioni:
+\[
+  T(n,m)\in\Theta\bigl((n-m+1)m\bigr).
+\]
+Il limite si raggiunge, per esempio, quando nessuna posizione
+corrisponde al modello e tutti i confronti previsti vengono
+comunque eseguiti. Se \(m\) è costante si ottiene \(\Theta(n)\);
+se \(m=n-1\), soltanto due posizioni sono candidate e il costo
+è \(\Theta(n)\); se \(m\) è circa \(n/2\), il costo è
+\(\Theta(n^2)\). Se il modello è più lungo del testo, la
+ricerca restituisce immediatamente \(-1\); un modello vuoto
+compare per convenzione all'indice zero. La memoria ausiliaria
+è \(\Theta(1)\).
+
+L'algoritmo potrebbe interrompere il ciclo interno al primo
+carattere diverso, riducendo il lavoro su molti ingressi, ma
+senza eliminare il costo quadratico del caso peggiore. L'esempio
+mostra perché, quando un problema ha più parametri dimensionali,
+non è sufficiente esprimere la complessità in funzione della
+sola lunghezza del testo. Algoritmi più sofisticati, come
+Knuth--Morris--Pratt, possono ottenere un tempo
+\(O(n+m)\) nel caso peggiore, ma non sono necessari per
+comprendere il conteggio precedente.
 
 \section{Ordini di crescita e trattabilità}
 \label{sec:fi-complessita-ordini}

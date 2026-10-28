@@ -292,8 +292,15 @@ Oltre al codice organizzato in moduli, un programma può utilizzare file
 per conservare dati tra esecuzioni successive. I file sono memorizzati
 nella memoria di massa (\cref{sec:fi-memoria-archiviazione}). In un
 \emph{file di testo}, i caratteri sono memorizzati secondo una codifica,
-come UTF-8 (\cref{sec:fi-caratteri}). Quando il nome non contiene un percorso
-assoluto, il file viene cercato nella directory di lavoro corrente,
+come UTF-8 (\cref{sec:fi-caratteri}). Un file di testo interpreta
+le sequenze di byte mediante una codifica dei caratteri; un
+\emph{file binario} conserva invece byte che possono rappresentare
+immagini, dati numerici o altre strutture senza essere interpretati
+automaticamente come testo. In Python si distinguono le modalità
+di apertura testuali da quelle binarie, indicate per esempio con
+\lstinline|"rb"| e \lstinline|"wb"|.
+Quando il nome non contiene un percorso assoluto, il file viene
+cercato nella directory di lavoro corrente,
 che non coincide necessariamente con quella del programma.
 
 La funzione \texttt{open()} apre il file. Le modalità principali sono
@@ -305,8 +312,6 @@ e \lstinline|"a"| per aggiungere dati in fondo. La modalità
 Il costrutto \texttt{with open(...) as file:} chiude il file
 all'uscita dal blocco, anche se si verifica un errore. È opportuno
 specificare la codifica UTF-8 mediante il parametro \texttt{encoding}.
-
-\clearpage
 
 \input{assets/codice/file/scrittura}
 

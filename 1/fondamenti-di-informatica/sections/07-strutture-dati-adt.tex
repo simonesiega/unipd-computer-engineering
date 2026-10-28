@@ -133,11 +133,15 @@ rimuovere non è in generale sufficiente per eliminarlo in tempo
 costante da una lista semplicemente concatenata: può servire il
 riferimento al suo predecessore. Un riferimento diretto
 \texttt{tail} rende costante l'inserimento in fondo, ma non, da solo,
-la rimozione dell'ultimo nodo.
+la rimozione dell'ultimo nodo. L'attraversamento dei nodi mediante
+i riferimenti successivi è detto anche \emph{link hopping}.
 
 In una \emph{lista doppiamente concatenata} ciascun nodo conserva
 anche il riferimento \texttt{prev} al precedente, permettendo
-l'attraversamento in entrambe le direzioni. In una \emph{lista
+l'attraversamento in entrambe le direzioni. Se è già noto il
+riferimento al nodo da eliminare, i collegamenti ai due vicini
+possono essere aggiornati in \(\Theta(1)\); resta invece necessario
+il costo della ricerca quando il nodo non è noto. In una \emph{lista
 circolare}, invece, il collegamento dell'ultimo nodo riporta al
 primo. Queste varianti modificano le operazioni disponibili e la
 memoria necessaria per i riferimenti.
@@ -202,13 +206,18 @@ precedenti durante una navigazione.
 \label{sec:fi-adt-pila-implementazioni}
 
 Con un array dinamico, la cima coincide con l'ultimo elemento
-presente. \texttt{push} aggiunge in fondo e \texttt{pop} rimuove
+presente: si può conservarne esplicitamente l'indice
+\texttt{topIdx}, inizialmente \(-1\) nella pila vuota e aggiornato
+ad ogni inserimento o rimozione. \texttt{push} aggiunge in fondo
+e \texttt{pop} rimuove
 l'ultimo elemento: entrambe le operazioni richiedono
 \(O(1)\) tempo ammortizzato. \texttt{top}, \texttt{is\_empty}
 e \texttt{size} richiedono \(\Theta(1)\).
 
 Una realizzazione in Python utilizza direttamente queste operazioni
 sulla lista:
+
+\clearpage
 
 \input{assets/codice/strutture-dati/pila-lista}
 

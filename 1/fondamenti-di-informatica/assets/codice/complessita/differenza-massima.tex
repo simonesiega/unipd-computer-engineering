@@ -1,0 +1,46 @@
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione quadratica}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def differenza_massima_quadratica(valori):
+    if not valori:
+        raise ValueError("Lista vuota")
+    massimo = 0
+    for i in range(len(valori)):
+        for j in range(len(valori)):
+            differenza = valori[i] - valori[j]
+            if differenza > massimo:
+                massimo = differenza
+    return massimo
+\end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione lineare}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def differenza_massima_lineare(valori):
+    if not valori:
+        raise ValueError("Lista vuota")
+    minimo = massimo = valori[0]
+    for i in range(1, len(valori)):
+        valore = valori[i]
+        if valore < minimo:
+            minimo = valore
+        if valore > massimo:
+            massimo = valore
+    return massimo - minimo
+\end{unipdcode}
+\end{minipage}
+

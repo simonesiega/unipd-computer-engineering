@@ -1,0 +1,41 @@
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione quadratica}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def somme_prefisse_quadratiche(valori):
+    n = len(valori)
+    risultato = [0] * n
+    for i in range(n):
+        somma = 0
+        for j in range(i + 1):
+            somma += valori[j]
+        risultato[i] = somma
+    return risultato
+\end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione lineare}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def somme_prefisse_lineari(valori):
+    n = len(valori)
+    risultato = [0] * n
+    somma = 0
+    for i in range(n):
+        somma += valori[i]
+        risultato[i] = somma
+    return risultato
+\end{unipdcode}
+\end{minipage}
