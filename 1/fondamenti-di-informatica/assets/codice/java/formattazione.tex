@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Java]
+import java.util.Locale;
+
+public class FormatTester {
+    public static void main(String[] args) {
+        double total = 3.50;
+        final double TAX_RATE = 8.5;
+        double tax = total * TAX_RATE / 100;
+        System.out.printf(Locale.US, "Total:%5.2f%n", total);
+        System.out.printf(Locale.US, "Tax:  %5.2f%n", tax);
+    }
+}
+\end{unipdcode}

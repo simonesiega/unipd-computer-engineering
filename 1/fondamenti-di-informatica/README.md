@@ -70,4 +70,22 @@
   - 7.7 Lista come tipo di dato astratto — p. 48
   - 7.8 Mappa — p. 49
   - 7.9 Insieme — p. 49
+- 8 Introduzione a Java — p. 50
+  - 8.1 Portabilità, compilazione ed esecuzione — p. 50
+  - 8.2 Il primo programma: classe e metodo principale — p. 51
+  - 8.3 Uscita standard e invocazione dei metodi — p. 52
+  - 8.4 Errori e ciclo di sviluppo — p. 52
+  - 8.5 Variabili, tipi e assegnamento — p. 53
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 54
+  - 8.7 Variabili oggetto e riferimenti — p. 55
+- 9 Collaudo, tipi di dato e input in Java — p. 57
+  - 9.1 Programmi di collaudo e pacchetti — p. 57
+  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 58
+  - 9.3 Conversioni numeriche e arrotondamento — p. 59
+  - 9.4 Costanti ed espressioni aritmetiche — p. 60
+  - 9.5 La classe Math e i metodi statici — p. 61
+  - 9.6 Stringhe e conversioni testuali — p. 61
+  - 9.7 Caratteri e sequenze di escape — p. 62
+  - 9.8 Formattazione dell'output — p. 63
+  - 9.9 L'ingresso standard con Scanner — p. 64
 <!-- GENERATED:END -->

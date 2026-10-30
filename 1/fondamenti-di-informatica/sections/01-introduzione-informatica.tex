@@ -518,7 +518,9 @@ di descrivere operazioni senza specificare direttamente registri
 e istruzioni della CPU. Il testo scritto dal programmatore è il
 \emph{codice sorgente}; la \emph{sintassi} ne definisce le forme
 ammesse, mentre la \emph{semantica} ne determina il significato.
-La correttezza sintattica non implica la correttezza rispetto al problema
+Le regole sintattiche rigorose riducono le ambiguità che un traduttore
+non potrebbe risolvere in modo affidabile interpretando le intenzioni
+del programmatore. La correttezza sintattica non implica la correttezza rispetto al problema
 (\cref{def:fi-algoritmo}).
 
 Un \emph{compilatore} traduce il codice sorgente in codice macchina
@@ -542,3 +544,5 @@ prevede la compilazione in bytecode per la \emph{Java Virtual Machine}
 (JVM), che può interpretarlo oppure tradurne parti in codice macchina
 durante l'esecuzione. La JVM è un ambiente di esecuzione software,
 non una CPU fisica.
+La compilazione e l'esecuzione di un programma Java sono trattate
+nel \cref{chap:introduzione-java}.

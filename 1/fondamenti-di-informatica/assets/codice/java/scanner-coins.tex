@@ -1,0 +1,18 @@
+\begin{unipdcode}[language=Java]
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Coins6 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        in.useLocale(Locale.US);
+        System.out.println("Quante lire?");
+        int lit = in.nextInt();
+        System.out.println("Quanti euro?");
+        double euro = in.nextDouble();
+        System.out.printf(Locale.US, "Valore totale in euro %.2f%n",
+                          euro + lit / 1936.27);
+        in.close();
+    }
+}
+\end{unipdcode}

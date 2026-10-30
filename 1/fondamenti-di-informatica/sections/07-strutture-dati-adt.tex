@@ -401,9 +401,12 @@ di unione, intersezione e differenza:
 \[
   A\cup B,\qquad A\cap B,\qquad A\setminus B,
 \]
-nonché la verifica di inclusione \(A\subseteq B\), la consultazione
-degli elementi e le operazioni \texttt{is\_empty()} e
-\texttt{size()}. L'ordine con cui si elencano gli elementi non
+nonché la verifica di inclusione \(A\subseteq B\), che può
+essere esposta come \texttt{is\_subset(T)} per controllare
+se tutti gli elementi del contenitore appartengano anche a
+\texttt{T}. Completano l'interfaccia la consultazione degli elementi
+e le operazioni \texttt{is\_empty()} e \texttt{size()}.
+L'ordine con cui si elencano gli elementi non
 fa parte della specifica astratta.
 
 \begin{example}[Eliminazione dei duplicati]

@@ -282,8 +282,6 @@ ne fornisce un esempio.
 
 \section{Esempi di funzioni ricorsive}
 
-\begin{example}[Somma dei primi numeri naturali]
-\label{ex:fi-somma-naturali}
 Per un intero \(n\ge0\) si vuole calcolare
 \(1+2+\cdots+n\), assumendo che la somma sia nulla per \(n=0\).
 Il caso base restituisce zero; il passo ricorsivo aggiunge
@@ -300,10 +298,7 @@ def somma_naturali(n):
 
 La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero;
 per \(n=4\) la funzione restituisce \(10\).
-\end{example}
 
-\begin{example}[Conto alla rovescia]
-\label{ex:fi-conto-rovescia}
 Per stampare tutti gli interi da \(n\ge0\) fino a zero,
 si stampa il valore corrente e, se è positivo, si richiama la funzione
 con \(n-1\). La chiamata raggiunge necessariamente il caso base
@@ -322,4 +317,3 @@ def conto_rovescia(n):
 Con \(n=3\) vengono stampati \(3,2,1,0\), uno per riga;
 la funzione restituisce \texttt{None}. La chiamata ricorsiva
 è in coda secondo la \cref{sec:fi-ricorsione-coda}.
-\end{example}
