@@ -1,10 +1,12 @@
 \chapter{Introduzione all'informatica}
 \label{chap:introduzione-informatica}
 
-L'informatica studia i processi algoritmici che rappresentano e trasformano
-l'informazione. Per descrivere un'elaborazione occorre distinguere il
-problema, il procedimento risolutivo e il programma che lo implementa
-su un calcolatore.\footnote{Materiale di riferimento:
+L'informatica studia i metodi per rappresentare, memorizzare, elaborare
+e trasmettere l'informazione mediante procedimenti automatici.
+Nella risoluzione di un problema computazionale occorre distinguere
+il problema stesso, l'algoritmo che ne descrive il procedimento
+risolutivo e il programma che lo implementa su un calcolatore.
+\footnote{Materiale di riferimento:
 S. Canazza, \emph{Presentazione del corso},
 \nolinkurl{2026_FI_00_canazza.pdf}.}
 
@@ -12,8 +14,7 @@ S. Canazza, \emph{Presentazione del corso},
 \label{sec:fi-informatica-calcolo}
 
 Un \emph{dato} rappresenta un'informazione secondo convenzioni che ne
-determinano il significato. La codifica di numeri e caratteri è
-trattata nel \cref{chap:rappresentazione-informazioni}.
+determinano il significato.
 
 Nella teoria dell'informazione di Shannon, il contenuto informativo di un
 evento di probabilità \(0<p\le1\) è
@@ -57,17 +58,13 @@ ambienti, spesso collegati in rete: questa diffusione prende il nome di
 
 Un \emph{problema di calcolo} specifica gli ingressi ammissibili e il
 risultato richiesto. Una particolare scelta dei dati di ingresso
-costituisce un'\emph{istanza} del problema. La soluzione viene descritta
-mediante un \emph{algoritmo} (\cref{def:fi-algoritmo}), mentre un
-\emph{programma} ne costituisce un'implementazione in un linguaggio
-di programmazione.
+costituisce un'\emph{istanza} del problema. Un \emph{algoritmo}
+(\cref{def:fi-algoritmo}) descrive un procedimento risolutivo, mentre
+un \emph{programma} ne costituisce un'implementazione in un linguaggio
+di programmazione (ad esempio, Python e Java, trattati rispettivamente
+nei \cref{chap:introduzione-python,chap:introduzione-java}).
 La \emph{programmazione} comprende la progettazione, la scrittura e la
 verifica del programma rispetto alle specifiche del problema.
-
-Un processore esegue operazioni elementari, come trasferimenti,
-operazioni aritmetiche e confronti. Sequenze, selezioni e ripetizioni
-permettono di combinarle in elaborazioni più complesse
-(\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
 
 \section{Algoritmi e risoluzione dei problemi}
 \label{sec:fi-algoritmi}
@@ -147,7 +144,7 @@ Il risultato richiesto è quindi \(15\) anni.
   \end{minipage}
 \end{figure}
 
-L'\emph{esistenza} di un algoritmo risolutivo riguarda la
+L'esistenza di un algoritmo risolutivo riguarda la
 \emph{calcolabilità} del problema, approfondita nella
 \cref{sec:fi-macchina-turing}.
 La \emph{complessità computazionale} riguarda invece le risorse
@@ -239,11 +236,11 @@ Sia \(d\) la descrizione del programma \(D\) e si consideri
 \(D(d)\). Si distinguono due casi.
 
 \emph{Primo caso.}
-Se \(O(d,d)=1\), l'osservatore prevede che \(D(d)\) termini,
+Se \(O(d,d)=1\), l'algoritmo \(O\) dichiara che \(D(d)\) termina,
 ma per costruzione \(D(d)\) non termina.
 
 \emph{Secondo caso.}
-Se \(O(d,d)=0\), l'osservatore prevede che \(D(d)\) non termini,
+Se \(O(d,d)=0\), l'algoritmo \(O\) dichiara che \(D(d)\) non termina,
 ma per costruzione \(D(d)\) termina.
 
 In entrambi i casi si ottiene una contraddizione. Pertanto un
@@ -258,15 +255,20 @@ memoria studiati nel \cref{chap:complessita}.
 \section{Architettura del calcolatore ed esecuzione delle istruzioni}
 \label{sec:fi-architettura-calcolatore}
 
-A differenza del modello astratto della \cref{sec:fi-macchina-turing},
-l'\emph{architettura di von Neumann} descrive l'organizzazione di un
-calcolatore in cui istruzioni e dati sono conservati nella stessa
-memoria, accessibile dalla CPU mediante collegamenti condivisi.
-Il \emph{principio del programma memorizzato} consente di cambiare le
-istruzioni eseguite senza modificare i circuiti del calcolatore.
-Nell'\emph{architettura Harvard}, invece, memorie e percorsi
-di accesso per istruzioni e dati sono separati. I processori moderni
-possono adottare soluzioni che combinano i due modelli.
+A differenza della macchina di Turing descritta nella
+\cref{sec:fi-macchina-turing}, utilizzata per studiare i limiti
+teorici del calcolo, l'\emph{architettura di von Neumann} descrive
+l'organizzazione delle componenti di un calcolatore. In questo
+modello, istruzioni e dati sono conservati nella stessa memoria,
+alla quale la CPU accede mediante collegamenti condivisi.
+Il \emph{principio del programma memorizzato} permette di eseguire
+programmi diversi senza modificare i circuiti del calcolatore.
+
+Nell'\emph{architettura Harvard}, invece, istruzioni e dati
+sono conservati in memorie separate, accessibili attraverso
+percorsi distinti. I processori moderni possono combinare
+caratteristiche dei due modelli, mantenendo separati alcuni
+percorsi di accesso pur utilizzando una memoria principale comune.
 
 La \emph{CPU} (\emph{Central Processing Unit}) comprende l'\emph{unità
 di controllo}, che coordina l'esecuzione, l'\emph{unità
@@ -295,7 +297,7 @@ gli accessi e può costituire un \emph{collo di bottiglia} fra CPU e memoria.
 
 Il registro \emph{program counter} (PC) contiene l'indirizzo della
 prossima istruzione; il \emph{registro istruzione} conserva quella
-prelevata. In un modello didattico, l'esecuzione comprende quattro fasi:
+prelevata. In un modello semplificato, l'esecuzione comprende quattro fasi:
 \begin{enumerate}
   \item \emph{fetch}: prelievo dell'istruzione dalla memoria;
   \item \emph{decode}: identificazione dell'operazione e degli operandi;
@@ -319,6 +321,8 @@ In una \emph{pipeline} ogni istruzione attraversa più stadi, che
 possono operare contemporaneamente su istruzioni differenti,
 come mostrato nella \cref{fig:fi-pipeline}.
 
+\clearpage
+
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/architettura/pipeline-istruzioni}
@@ -333,7 +337,7 @@ Dipendenze e conflitti sulle risorse possono introdurre attese.
 Una \emph{CPU superscalare} dispone di più unità funzionali e può
 avviare più istruzioni nello stesso ciclo, se le dipendenze lo
 consentono. Pipeline e organizzazione superscalare sono compatibili.
-Il parallelismo può inoltre coinvolgere più \emph{core} o processori:
+Il parallelismo può inoltre coinvolgere più core o processori:
 nei \emph{multiprocessori} più CPU condividono la memoria, mentre nei
 \emph{multicalcolatori} i nodi hanno memorie proprie e comunicano
 mediante messaggi.
@@ -362,8 +366,7 @@ SYCL, Vulkan Compute e Metal.
 
 Nella rappresentazione dei dati, un \emph{bit} è una cifra binaria
 che assume valore \(0\) oppure \(1\), e un \emph{byte} comprende otto
-bit. Le convenzioni di codifica sono esaminate nel
-\cref{chap:rappresentazione-informazioni}.
+bit (\cref{chap:rappresentazione-informazioni}).
 
 La memoria è suddivisa in \emph{locazioni}, individuate mediante
 \emph{indirizzi}. Con \(a\) bit di indirizzo si possono distinguere
@@ -399,8 +402,8 @@ firmware di molti sistemi moderni risiede in memoria flash riscrivibile.
 
 La RAM è comunemente montata su moduli DIMM; nei sistemi che lo
 prevedono, la memoria \emph{ECC} permette di rilevare e correggere
-determinati errori di memorizzazione. I moduli SIMM rappresentano
-un'organizzazione precedente dei contatti.
+determinati errori di memorizzazione. I moduli SIMM costituiscono
+un formato precedente ai DIMM.
 
 La \emph{memoria secondaria} conserva dati e programmi in modo
 persistente. Durante l'esecuzione, programmi e dati necessari vengono
@@ -411,11 +414,11 @@ Un \emph{disco rigido} (HDD) registra dati su piatti magnetici,
 organizzati in tracce e settori. Il tempo di accesso dipende anche
 dallo spostamento della testina e dalla latenza di rotazione.
 Un'\emph{unità a stato solido} (SSD) utilizza memoria flash NAND,
-un \emph{controller} e interfacce quali SATA o NVMe su PCIe.
-Il controller gestisce anche la distribuzione delle scritture
-(\emph{wear leveling}) e la correzione degli errori. Gli SSD non hanno
-parti meccaniche in movimento e offrono generalmente minori tempi di
-accesso rispetto agli HDD.
+un \emph{controller} e collegamenti SATA oppure PCI Express con
+protocollo NVMe. Il controller gestisce anche la distribuzione
+delle scritture (\emph{wear leveling}) e la correzione degli errori.
+Gli SSD non hanno parti meccaniche in movimento e offrono generalmente
+minori tempi di accesso rispetto agli HDD.
 
 I \emph{nastri magnetici} sono supporti ad accesso sequenziale,
 adatti a backup e archiviazione di grandi quantità di dati; fra le
@@ -428,17 +431,32 @@ DVD e 25 GB per un Blu-ray. I \emph{floppy disk} sono un precedente
 esempio di memoria magnetica rimovibile.
 
 Registri, \emph{cache}, RAM e memoria secondaria costituiscono la
-\emph{gerarchia di memoria}. I livelli più vicini alla CPU sono
-generalmente più veloci, meno capienti e più costosi per bit. La cache conserva
-copie di dati e istruzioni e sfrutta due proprietà:
-\begin{itemize}
-  \item \emph{località temporale}: un dato usato recentemente può
-        essere richiesto di nuovo;
-  \item \emph{località spaziale}: dopo una locazione possono essere
-        richieste locazioni vicine.
-\end{itemize}
-La presenza di località dipende dal programma e non è garantita
-per ogni sequenza di accessi.
+\emph{gerarchia di memoria}, illustrata nella
+\cref{fig:fi-gerarchia-memoria}. I livelli più vicini alla CPU sono
+generalmente più veloci, meno capienti e più costosi per bit.
+La cache conserva copie di dati e istruzioni e sfrutta due forme di
+località, la cui presenza dipende dalla sequenza di accessi:
+\begin{figure}[htbp]
+  \begin{minipage}[c]{0.48\textwidth}
+    \begin{itemize}
+      \item \emph{località temporale}: un dato usato recentemente
+            tende a essere richiesto di nuovo;
+      \item \emph{località spaziale}: dopo l'accesso a una locazione
+            tendono a essere richieste locazioni vicine.
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.48\textwidth}
+    \centering
+    \resizebox{0.95\linewidth}{!}{%
+      \input{assets/diagrammi/architettura/gerarchia-memoria}%
+    }
+
+    \captionof{figure}{Gerarchia di memoria e tempi di accesso indicativi;
+    per la memoria secondaria si considerano SSD e HDD.}
+    \label{fig:fi-gerarchia-memoria}
+  \end{minipage}
+\end{figure}
 
 I dispositivi di \emph{ingresso e uscita} (I/O, \emph{Input/Output})
 scambiano dati con l'esterno. Tastiera, mouse, microfono, scanner e
@@ -464,6 +482,14 @@ diverse; USB-C è una forma di connettore che può supportare
 trasferimento dati, alimentazione e, quando previsto, video.
 Le \emph{porte logiche} dei protocolli di rete sono invece
 identificatori di servizi e non connettori fisici.
+
+Il \emph{sistema operativo} gestisce le risorse del calcolatore
+e fornisce l'ambiente necessario all'esecuzione dei programmi.
+Coordina i processi, la memoria, i file e l'accesso alle periferiche,
+oltre a gestire utenti e permessi. Nei sistemi multiprogrammati
+più processi possono avanzare durante lo stesso intervallo di tempo,
+alternandosi nell'utilizzo di un singolo core oppure eseguendo
+in parallelo su core distinti.
 
 \section{Linguaggi di programmazione e forme di esecuzione}
 \label{sec:fi-linguaggi-esecuzione}
@@ -496,10 +522,16 @@ La \emph{gerarchia di Chomsky} distingue, in ordine di capacità
 espressiva crescente, i linguaggi \emph{regolari}, \emph{liberi dal
 contesto}, \emph{sensibili al contesto} e \emph{di tipo zero}.
 I rispettivi modelli di riconoscimento sono gli automi finiti,
-gli automi a pila, gli automi linearmente limitati e le macchine
-di Turing. Un riconoscitore può non arrestarsi sugli ingressi
-non appartenenti al linguaggio; un decisore, secondo la
-\cref{def:fi-decidibilita}, deve invece terminare sempre.
+gli automi a pila non deterministici, gli automi linearmente
+limitati non deterministici e le macchine di Turing.
+
+Un \emph{riconoscitore} per un linguaggio \(L\) accetta ogni stringa
+appartenente a \(L\); per una stringa non appartenente a \(L\)
+può rifiutare oppure non terminare. Un \emph{decisore}, invece,
+termina per ogni stringa, accettandola se appartiene a \(L\)
+e rifiutandola altrimenti. Ogni decisore è quindi anche un
+riconoscitore, ma non vale necessariamente il contrario
+(\cref{def:fi-decidibilita}).
 
 L'esecuzione di un programma dipende dall'\emph{insieme di istruzioni}
 (\emph{instruction set}) supportato dal processore. Il
@@ -520,8 +552,8 @@ e istruzioni della CPU. Il testo scritto dal programmatore è il
 ammesse, mentre la \emph{semantica} ne determina il significato.
 Le regole sintattiche rigorose riducono le ambiguità che un traduttore
 non potrebbe risolvere in modo affidabile interpretando le intenzioni
-del programmatore. La correttezza sintattica non implica la correttezza rispetto al problema
-(\cref{def:fi-algoritmo}).
+del programmatore. La correttezza sintattica non implica la
+correttezza rispetto al problema (\cref{def:fi-algoritmo}).
 
 Un \emph{compilatore} traduce il codice sorgente in codice macchina
 o in un \emph{codice intermedio}; durante questa fase può segnalare
@@ -530,6 +562,21 @@ Un \emph{interprete} esegue le operazioni previste dal linguaggio,
 elaborando il sorgente o una rappresentazione intermedia.
 I due meccanismi possono coesistere.
 
+\begin{example}[Compilazione e interpretazione]
+Un programma Java con una classe \texttt{Saluto} e un metodo
+\texttt{main}, scritto nel file \texttt{Saluto.java}, può essere
+compilato mediante \texttt{javac Saluto.java}, producendo il file
+\texttt{Saluto.class}.
+Quest'ultimo contiene \emph{bytecode} destinato alla
+\emph{Java Virtual Machine} (JVM), che può interpretarlo oppure
+tradurlo in codice macchina durante l'esecuzione.
+
+In \emph{CPython}, il sorgente di un file \texttt{saluto.py}
+viene tradotto in bytecode, successivamente eseguito dall'interprete.
+In entrambi gli ambienti la traduzione e l'esecuzione sono fasi
+distinte, e compilazione e interpretazione possono coesistere.
+\end{example}
+
 Se la traduzione produce codice macchina, può seguire il
 \emph{collegamento} (\emph{linking}) con altri moduli e librerie;
 il sistema operativo provvede poi al caricamento e all'avvio.
@@ -537,12 +584,7 @@ Lo stesso sorgente può essere compilato per architetture differenti,
 ma l'\emph{eseguibile nativo} dipende dall'architettura e
 dall'ambiente di destinazione.
 
-In \emph{CPython}, il sorgente Python viene tradotto in
-\emph{bytecode}, successivamente eseguito da un interprete
-(\cref{sec:fi-python-esecuzione}). In Java, il percorso usuale
-prevede la compilazione in bytecode per la \emph{Java Virtual Machine}
-(JVM), che può interpretarlo oppure tradurne parti in codice macchina
-durante l'esecuzione. La JVM è un ambiente di esecuzione software,
-non una CPU fisica.
-La compilazione e l'esecuzione di un programma Java sono trattate
-nel \cref{chap:introduzione-java}.
+L'esecuzione dei programmi Python è approfondita nella
+\cref{sec:fi-python-esecuzione}, mentre la compilazione e
+l'esecuzione dei programmi Java sono trattate nel
+\cref{chap:introduzione-java}.

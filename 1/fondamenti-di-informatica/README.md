@@ -13,79 +13,79 @@
   - 1.3 La macchina di Turing e i limiti del calcolo — p. 3
   - 1.4 Architettura del calcolatore ed esecuzione delle istruzioni — p. 4
   - 1.5 Memoria, archiviazione e dispositivi di ingresso e uscita — p. 6
-  - 1.6 Linguaggi di programmazione e forme di esecuzione — p. 7
-- 2 Rappresentazione delle informazioni — p. 9
-  - 2.1 Sistemi di numerazione posizionali — p. 9
-  - 2.2 Notazione binaria e conversioni — p. 9
-  - 2.3 Numeri senza segno e modulo e segno — p. 11
-  - 2.4 Complemento a due — p. 11
-  - 2.5 Aritmetica intera e overflow — p. 12
-  - 2.6 Virgola fissa e virgola mobile — p. 13
-  - 2.7 Precisione e arrotondamento — p. 15
-  - 2.8 Notazione esadecimale e ottale — p. 16
-  - 2.9 Rappresentazione dei caratteri — p. 16
-- 3 Introduzione a Python — p. 18
-  - 3.1 Python e l'esecuzione dei programmi — p. 18
-  - 3.2 Variabili, tipi di dato e ingresso/uscita — p. 18
-  - 3.3 Logica booleana e istruzioni condizionali — p. 19
-  - 3.4 Cicli e iterazioni — p. 20
-  - 3.5 Liste — p. 21
-  - 3.6 Funzioni — p. 22
-  - 3.7 Gestione dei file di testo — p. 22
-- 4 Ricorsione — p. 24
-  - 4.1 Funzioni ricorsive e terminazione — p. 24
-  - 4.2 Il fattoriale: iterazione e ricorsione — p. 24
-  - 4.3 Invocazioni sospese e pila delle chiamate — p. 25
-  - 4.4 Ricorsione in coda ed eliminazione della ricorsione — p. 26
-  - 4.5 Ricorsione multipla e numeri di Fibonacci — p. 26
-  - 4.6 Esempi di funzioni ricorsive — p. 28
-- 5 Complessità computazionale — p. 29
-  - 5.1 Analisi sperimentale — p. 29
-  - 5.2 Analisi teorica e modello di costo — p. 29
-  - 5.3 Notazioni asintotiche — p. 30
-  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 31
-  - 5.5 Un algoritmo lineare per lo stesso problema — p. 31
-  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 32
-  - 5.7 Massima differenza fra elementi — p. 33
-  - 5.8 Riconoscimento di elementi duplicati — p. 34
-  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 34
-  - 5.10 Ordini di crescita e trattabilità — p. 35
-  - 5.11 Complessità della ricorsione di Fibonacci — p. 35
-- 6 Ricerca e ordinamento — p. 36
-  - 6.1 Ricerca lineare — p. 36
-  - 6.2 Ricerca binaria — p. 36
-  - 6.3 Ricerca del massimo e del minimo — p. 37
-  - 6.4 Ordinamento per selezione — p. 38
-  - 6.5 Ordinamento per fusione — p. 39
-  - 6.6 Ordinamento per inserimento — p. 41
-  - 6.7 Ordinamento rapido — p. 41
-  - 6.8 Confronto degli algoritmi — p. 42
-- 7 Strutture dati e tipi di dato astratti — p. 43
-  - 7.1 Tipi di dato astratti e strutture dati — p. 43
-  - 7.2 Array e accesso diretto — p. 43
-  - 7.3 Liste concatenate — p. 44
-  - 7.4 Pila: politica LIFO — p. 45
-  - 7.5 Coda: politica FIFO — p. 46
-  - 7.6 Coda doppia — p. 48
-  - 7.7 Lista come tipo di dato astratto — p. 48
-  - 7.8 Mappa — p. 49
-  - 7.9 Insieme — p. 49
-- 8 Introduzione a Java — p. 50
-  - 8.1 Portabilità, compilazione ed esecuzione — p. 50
-  - 8.2 Il primo programma: classe e metodo principale — p. 51
-  - 8.3 Uscita standard e invocazione dei metodi — p. 52
-  - 8.4 Errori e ciclo di sviluppo — p. 52
-  - 8.5 Variabili, tipi e assegnamento — p. 53
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 54
-  - 8.7 Variabili oggetto e riferimenti — p. 55
-- 9 Collaudo, tipi di dato e input in Java — p. 57
-  - 9.1 Programmi di collaudo e pacchetti — p. 57
-  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 58
-  - 9.3 Conversioni numeriche e arrotondamento — p. 59
-  - 9.4 Costanti ed espressioni aritmetiche — p. 60
-  - 9.5 La classe Math e i metodi statici — p. 61
-  - 9.6 Stringhe e conversioni testuali — p. 61
-  - 9.7 Caratteri e sequenze di escape — p. 62
-  - 9.8 Formattazione dell'output — p. 63
-  - 9.9 L'ingresso standard con Scanner — p. 64
+  - 1.6 Linguaggi di programmazione e forme di esecuzione — p. 8
+- 2 Rappresentazione delle informazioni — p. 10
+  - 2.1 Sistemi di numerazione posizionali — p. 10
+  - 2.2 Notazione binaria e conversioni — p. 10
+  - 2.3 Numeri senza segno e modulo e segno — p. 12
+  - 2.4 Complemento a due — p. 12
+  - 2.5 Aritmetica intera e overflow — p. 13
+  - 2.6 Virgola fissa e virgola mobile — p. 14
+  - 2.7 Precisione e arrotondamento — p. 16
+  - 2.8 Notazione esadecimale e ottale — p. 17
+  - 2.9 Rappresentazione dei caratteri — p. 17
+- 3 Introduzione a Python — p. 19
+  - 3.1 Python e l'esecuzione dei programmi — p. 19
+  - 3.2 Variabili, tipi di dato e ingresso/uscita — p. 19
+  - 3.3 Logica booleana e istruzioni condizionali — p. 20
+  - 3.4 Cicli e iterazioni — p. 21
+  - 3.5 Liste — p. 22
+  - 3.6 Funzioni — p. 23
+  - 3.7 Gestione dei file di testo — p. 23
+- 4 Ricorsione — p. 25
+  - 4.1 Funzioni ricorsive e terminazione — p. 25
+  - 4.2 Il fattoriale: iterazione e ricorsione — p. 25
+  - 4.3 Invocazioni sospese e pila delle chiamate — p. 26
+  - 4.4 Ricorsione in coda ed eliminazione della ricorsione — p. 27
+  - 4.5 Ricorsione multipla e numeri di Fibonacci — p. 27
+  - 4.6 Esempi di funzioni ricorsive — p. 29
+- 5 Complessità computazionale — p. 30
+  - 5.1 Analisi sperimentale — p. 30
+  - 5.2 Analisi teorica e modello di costo — p. 30
+  - 5.3 Notazioni asintotiche — p. 31
+  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 32
+  - 5.5 Un algoritmo lineare per lo stesso problema — p. 32
+  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 33
+  - 5.7 Massima differenza fra elementi — p. 34
+  - 5.8 Riconoscimento di elementi duplicati — p. 35
+  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 35
+  - 5.10 Ordini di crescita e trattabilità — p. 36
+  - 5.11 Complessità della ricorsione di Fibonacci — p. 36
+- 6 Ricerca e ordinamento — p. 37
+  - 6.1 Ricerca lineare — p. 37
+  - 6.2 Ricerca binaria — p. 37
+  - 6.3 Ricerca del massimo e del minimo — p. 38
+  - 6.4 Ordinamento per selezione — p. 39
+  - 6.5 Ordinamento per fusione — p. 40
+  - 6.6 Ordinamento per inserimento — p. 42
+  - 6.7 Ordinamento rapido — p. 42
+  - 6.8 Confronto degli algoritmi — p. 43
+- 7 Strutture dati e tipi di dato astratti — p. 44
+  - 7.1 Tipi di dato astratti e strutture dati — p. 44
+  - 7.2 Array e accesso diretto — p. 44
+  - 7.3 Liste concatenate — p. 45
+  - 7.4 Pila: politica LIFO — p. 46
+  - 7.5 Coda: politica FIFO — p. 47
+  - 7.6 Coda doppia — p. 49
+  - 7.7 Lista come tipo di dato astratto — p. 49
+  - 7.8 Mappa — p. 50
+  - 7.9 Insieme — p. 50
+- 8 Introduzione a Java — p. 51
+  - 8.1 Portabilità, compilazione ed esecuzione — p. 51
+  - 8.2 Il primo programma: classe e metodo principale — p. 52
+  - 8.3 Uscita standard e invocazione dei metodi — p. 53
+  - 8.4 Errori e ciclo di sviluppo — p. 53
+  - 8.5 Variabili, tipi e assegnamento — p. 54
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 55
+  - 8.7 Variabili oggetto e riferimenti — p. 56
+- 9 Collaudo, tipi di dato e input in Java — p. 58
+  - 9.1 Programmi di collaudo e pacchetti — p. 58
+  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 59
+  - 9.3 Conversioni numeriche e arrotondamento — p. 60
+  - 9.4 Costanti ed espressioni aritmetiche — p. 61
+  - 9.5 La classe Math e i metodi statici — p. 62
+  - 9.6 Stringhe e conversioni testuali — p. 62
+  - 9.7 Caratteri e sequenze di escape — p. 63
+  - 9.8 Formattazione dell'output — p. 64
+  - 9.9 L'ingresso standard con Scanner — p. 65
 <!-- GENERATED:END -->
