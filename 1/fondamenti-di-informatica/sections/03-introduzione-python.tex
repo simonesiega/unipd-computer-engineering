@@ -61,7 +61,9 @@ lettere, cifre e il carattere \texttt{\_}, ma non iniziare con una cifra.
 Distinguono maiuscole e minuscole e non possono coincidere con parole
 riservate, come \texttt{if} e \texttt{for}. Per i nomi composti si adotta
 generalmente la convenzione \emph{snake\_case}, ad esempio
-\texttt{prezzo\_unitario}.
+\texttt{prezzo\_unitario} (un'altra convenzione è \emph{camelCase},
+utilizzata generalmente in Java per variabili e metodi;
+\cref{sec:fi-java-identificatori}).
 
 In Python il tipo appartiene al valore, non al nome: un nome può essere
 riassegnato a valori di tipi diversi. I tipi fondamentali sono
@@ -84,8 +86,7 @@ si distinguono:
 \end{array}
 \]
 La divisione \texttt{/} produce un valore \texttt{float} anche quando il
-quoziente è intero; \texttt{//} arrotonda verso il basso e non sempre
-verso zero. La potenza precede la moltiplicazione, che precede
+quoziente è intero. La potenza precede la moltiplicazione, che precede
 l'addizione; le parentesi permettono di stabilire esplicitamente l'ordine
 delle operazioni.
 
@@ -107,9 +108,6 @@ restituisce una stringa, anche se l'utente ha digitato un numero.
 Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
 \input{assets/codice/variabili/somma-input}
-
-Il programma assume che le due stringhe inserite rappresentino
-numeri interi validi.
 
 \section{Logica booleana e istruzioni condizionali}
 \label{sec:fi-python-condizioni}
@@ -158,7 +156,9 @@ soltanto quando necessario (\emph{valutazione a cortocircuito}).
 L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 \texttt{elif} introduce condizioni successive e \texttt{else} il caso
 residuo. In una catena condizionale viene eseguito soltanto il blocco
-associato alla prima condizione soddisfatta.
+associato alla prima condizione soddisfatta. Analogamente, \texttt{match}, 
+disponibile da Python 3.10, seleziona il primo \texttt{case} applicabile, 
+senza richiedere \texttt{break}.
 
 \input{assets/codice/condizioni/esito}
 
@@ -177,14 +177,17 @@ Le istruzioni condizionali selezionano il blocco da eseguire; un
 \emph{ciclo} permette invece di ripeterlo. Ogni esecuzione del blocco
 è detta \emph{iterazione}. Il ciclo \texttt{while} controlla una condizione
 prima di ogni iterazione e termina quando essa diventa falsa. Il corpo
-può quindi non essere eseguito neppure una volta.
+può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
+\texttt{do...while} verifica la condizione dopo l'esecuzione del corpo,
+garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
+ma può essere simulato mediante \texttt{while True} e \texttt{break}.
 
 \input{assets/codice/cicli/validazione}
 
 L'esempio richiede nuovamente l'età finché il valore è negativo. La
 terminazione dipende dall'inserimento di un intero non negativo; una
-stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo \texttt{while} può non terminare se la condizione
-rimane sempre vera.
+stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo 
+\texttt{while} può non terminare se la condizione rimane sempre vera.
 
 Nei \emph{cicli con contatore} si distinguono inizializzazione,
 condizione e aggiornamento. L'istruzione \texttt{n += 1} abbrevia
@@ -218,9 +221,13 @@ l'aggiornamento manuale della variabile di iterazione.
 La variabile \texttt{totale} è un \emph{accumulatore}: contiene la somma
 parziale e viene aggiornata a ogni iterazione. In questo caso il ciclo
 somma gli interi da uno a cinque, individuati da \texttt{range(1, 6)},
-ottenendo \texttt{15}. La ricorsione fornisce un'altra forma di
-ripetizione del calcolo, trattata nella
-\cref{sec:fi-ricorsione-terminazione}.
+ottenendo \texttt{15}. La funzione \texttt{sum()} permette di ottenere
+lo stesso risultato mediante un'espressione generatrice:
+
+\input{assets/codice/cicli/accumulo-sum}
+
+La ricorsione fornisce un'altra forma di ripetizione del calcolo,
+trattata nella \cref{sec:fi-ricorsione-terminazione}.
 
 \section{Liste}
 \label{sec:fi-python-liste}
@@ -228,15 +235,21 @@ ripetizione del calcolo, trattata nella
 I cicli possono elaborare anche sequenze di dati. Una \emph{lista} è
 una sequenza modificabile di elementi, scritta nel codice tra
 parentesi quadre. Gli elementi possono avere tipi differenti e sono
-individuati dalla loro posizione, a partire dall'indice zero. \texttt{len(lista)} restituisce il numero di elementi:
+individuati dalla loro posizione, a partire dall'indice zero.
+\texttt{len(lista)} restituisce il numero di elementi:
 per una lista di lunghezza \(n\), gli indici non negativi validi sono
-\(0,\ldots,n-1\); \texttt{lista[-1]} indica l'ultimo elemento.
-Un indice non valido provoca \texttt{IndexError}.
+\(0,\ldots,n-1\). Gli indici negativi permettono di accedere agli
+elementi dalla fine: \texttt{lista[-1]} indica l'ultimo,
+\texttt{lista[-2]} il penultimo e \texttt{lista[-n]} il primo,
+quando tali posizioni esistono. Un indice non valido provoca \texttt{IndexError}.
 
 L'assegnamento \texttt{lista[i] = valore} modifica un elemento.
-Il metodo \texttt{append(valore)} aggiunge un elemento in fondo;
-\texttt{pop()} rimuove e restituisce l'ultimo. L'operatore \texttt{in}
-verifica la presenza di un valore.
+Il metodo \texttt{append(valore)} aggiunge un elemento in fondo,
+\texttt{insert(i, valore)} lo inserisce nella posizione indicata,
+\texttt{pop(i)} rimuove e restituisce l'elemento nella posizione
+indicata oppure l'ultimo se l'indice è omesso, mentre
+\texttt{remove(valore)} rimuove la prima occorrenza del valore
+specificato. L'operatore \texttt{in} verifica la presenza di un valore.
 
 Lo \emph{slicing} \texttt{lista[i:j]} estrae una nuova lista con estremo
 iniziale incluso e finale escluso. \texttt{sorted(lista)} restituisce
@@ -246,11 +259,10 @@ i dati sono studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
-L'esempio combina accessi agli elementi, modifica della lista, ricerca,
-ordinamento e accumulazione. Il ciclo visita i voti e calcola la media
-di quelli non inferiori a \texttt{24}; il controllo
-\texttt{if conteggio > 0} evita la divisione per zero quando nessun
-valore soddisfa la condizione.
+Il ciclo visita i voti e calcola la media di quelli non inferiori a 
+\texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione 
+per zero quando nessun valore soddisfa la condizione.
+
 
 \section{Funzioni}
 \label{sec:fi-python-funzioni}
@@ -258,9 +270,16 @@ valore soddisfa la condizione.
 Per organizzare operazioni riutilizzabili si impiegano le \emph{funzioni},
 che associano un nome a un blocco di istruzioni. Una funzione si definisce
 mediante \texttt{def}; la definizione non esegue il corpo, che viene
-eseguito soltanto quando la funzione è \emph{chiamata}. I nomi dichiarati nella definizione sono i
-\emph{parametri}; i valori forniti alla chiamata sono gli
-\emph{argomenti}.
+eseguito soltanto quando la funzione è \emph{chiamata}. I nomi dichiarati
+nella definizione sono i \emph{parametri}; i valori forniti alla chiamata
+sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per 
+i parametri e per il valore restituito. L'intestazione di una funzione può 
+assumere la forma
+\[
+  \text{\texttt{def somma(a: int, b: int) -> int:}}
+\]
+Le annotazioni non impongono controlli automatici sui tipi durante
+l'esecuzione.
 
 \input{assets/codice/funzioni/area}
 
@@ -271,6 +290,12 @@ scrive sull'uscita standard: una funzione che termina senza
 assegnate nel corpo della funzione sono di norma \emph{locali} alla
 chiamata. Una funzione può restituire un valore booleano, come
 nell'espressione \texttt{return numero \% 2 == 0}.
+
+Una funzione può essere definita anche all'interno di un'altra:
+si parla in questo caso di \emph{funzione annidata}. La funzione
+interna viene definita durante l'esecuzione di quella esterna,
+è normalmente accessibile soltanto nel suo ambito e può utilizzare
+i parametri e le variabili locali della funzione che la contiene.
 
 Le definizioni possono essere raccolte in \emph{moduli}, ossia file
 Python importabili. Salvando la definizione di
@@ -291,12 +316,10 @@ possono anche richiamare se stesse, come si vedrà nel
 Oltre al codice organizzato in moduli, un programma può utilizzare file
 per conservare dati tra esecuzioni successive. I file sono memorizzati
 nella memoria di massa (\cref{sec:fi-memoria-archiviazione}). In un
-\emph{file di testo}, i caratteri sono memorizzati secondo una codifica,
-come UTF-8 (\cref{sec:fi-caratteri}). Un file di testo interpreta
-le sequenze di byte mediante una codifica dei caratteri; un
-\emph{file binario} conserva invece byte che possono rappresentare
-immagini, dati numerici o altre strutture senza essere interpretati
-automaticamente come testo. In Python si distinguono le modalità
+\emph{file di testo}, i byte vengono interpretati come caratteri
+secondo una codifica, come UTF-8 (\cref{sec:fi-caratteri}); un
+\emph{file binario} viene invece trattato come una sequenza di byte,
+senza decodifica testuale automatica. In Python si distinguono le modalità
 di apertura testuali da quelle binarie, indicate per esempio con
 \lstinline|"rb"| e \lstinline|"wb"|.
 Quando il nome non contiene un percorso assoluto, il file viene

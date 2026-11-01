@@ -31,7 +31,7 @@
   - 3.4 Cicli e iterazioni — p. 22
   - 3.5 Liste — p. 23
   - 3.6 Funzioni — p. 24
-  - 3.7 Gestione dei file di testo — p. 24
+  - 3.7 Gestione dei file di testo — p. 25
 - 4 Ricorsione — p. 26
   - 4.1 Funzioni ricorsive e terminazione — p. 26
   - 4.2 Il fattoriale: iterazione e ricorsione — p. 26
