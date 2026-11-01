@@ -66,27 +66,27 @@
   - 7.2 Array e accesso diretto — p. 50
   - 7.3 Liste concatenate — p. 51
   - 7.4 Pila: politica LIFO — p. 52
-  - 7.5 Coda: politica FIFO — p. 53
-  - 7.6 Coda doppia — p. 55
-  - 7.7 Lista come tipo di dato astratto — p. 55
-  - 7.8 Mappa — p. 56
-  - 7.9 Insieme — p. 56
-- 8 Introduzione a Java — p. 57
-  - 8.1 Portabilità, compilazione ed esecuzione — p. 57
-  - 8.2 Il primo programma: classe e metodo principale — p. 58
-  - 8.3 Uscita standard e invocazione dei metodi — p. 59
-  - 8.4 Errori e ciclo di sviluppo — p. 59
-  - 8.5 Variabili, tipi e assegnamento — p. 60
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 61
-  - 8.7 Variabili oggetto e riferimenti — p. 62
-- 9 Collaudo, tipi di dato e input in Java — p. 64
-  - 9.1 Programmi di collaudo e pacchetti — p. 64
-  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 65
-  - 9.3 Conversioni numeriche e arrotondamento — p. 66
-  - 9.4 Costanti ed espressioni aritmetiche — p. 67
-  - 9.5 La classe Math e i metodi statici — p. 68
-  - 9.6 Stringhe e conversioni testuali — p. 68
-  - 9.7 Caratteri e sequenze di escape — p. 69
-  - 9.8 Formattazione dell'output — p. 70
-  - 9.9 L'ingresso standard con Scanner — p. 71
+  - 7.5 Coda: politica FIFO — p. 54
+  - 7.6 Coda doppia — p. 56
+  - 7.7 Lista come tipo di dato astratto — p. 56
+  - 7.8 Mappa — p. 57
+  - 7.9 Insieme — p. 57
+- 8 Introduzione a Java — p. 58
+  - 8.1 Portabilità, compilazione ed esecuzione — p. 58
+  - 8.2 Il primo programma: classe e metodo principale — p. 59
+  - 8.3 Uscita standard e invocazione dei metodi — p. 60
+  - 8.4 Errori e ciclo di sviluppo — p. 60
+  - 8.5 Variabili, tipi e assegnamento — p. 61
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 62
+  - 8.7 Variabili oggetto e riferimenti — p. 63
+- 9 Collaudo, tipi di dato e input in Java — p. 65
+  - 9.1 Programmi di collaudo e pacchetti — p. 65
+  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 66
+  - 9.3 Conversioni numeriche e arrotondamento — p. 67
+  - 9.4 Costanti ed espressioni aritmetiche — p. 68
+  - 9.5 La classe Math e i metodi statici — p. 69
+  - 9.6 Stringhe e conversioni testuali — p. 69
+  - 9.7 Caratteri e sequenze di escape — p. 70
+  - 9.8 Formattazione dell'output — p. 71
+  - 9.9 L'ingresso standard con Scanner — p. 72
 <!-- GENERATED:END -->

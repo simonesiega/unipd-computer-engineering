@@ -1,0 +1,16 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \foreach \x/\v/\id in {-1.15/A/a,0/B/b,1.15/C/c} {
+    \node[unipd/node,minimum width=.85cm,
+      minimum height=.7cm] (\id) at (\x,0) {\v};
+  }
+  \node[font=\scriptsize] at (-1.15,-.65) {inizio};
+  \node[font=\scriptsize] at (1.15,-.65) {fondo};
+  \draw[unipd/directed edge]
+    (-1.63,0) -- (-2.4,0);
+  \node[font=\scriptsize] at (-2.15,.55)
+    {\texttt{dequeue()}};
+  \draw[unipd/directed edge]
+    (2.4,0) -- (1.63,0);
+  \node[font=\scriptsize] at (2.15,.55)
+    {\texttt{enqueue(e)}};
+\end{tikzpicture}

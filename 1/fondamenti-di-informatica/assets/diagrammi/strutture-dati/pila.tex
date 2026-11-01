@@ -1,0 +1,12 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[anchor=east,font=\small] at (-2.2,1.7) {Pila};
+  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (a) at (0,0) {10};
+  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (b) at (0,0.8) {20};
+  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (c) at (0,1.6) {30};
+  \node[font=\scriptsize] (toplabel) at (2.0,1.6) {\texttt{top}};
+  \draw[unipd/directed edge] (toplabel.west) -- (c.east);
+  \node[font=\scriptsize] at (0,-0.65) {fondo};
+  \node[font=\scriptsize] at (2.15,2.2) {\texttt{push(e)}};
+  \node[font=\scriptsize] at (2.15,1.0) {\texttt{pop()}};
+  \node[font=\scriptsize] at (2.15,0.4) {\texttt{top()}};
+\end{tikzpicture}
