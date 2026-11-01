@@ -28,8 +28,9 @@ raggiungere un caso base.
 Un criterio sufficiente consiste nell'associare a ogni sottoproblema
 una misura intera non negativa, strettamente decrescente a ogni
 chiamata ricorsiva. Poiché non esistono successioni infinite strettamente
-decrescenti di interi non negativi, tutte le chiamate raggiungono un
-caso terminale, purché le singole operazioni non ricorsive terminino.
+decrescenti di interi non negativi, ogni catena di chiamate raggiunge
+un caso base, purché ciascuna invocazione esegua un numero finito
+di operazioni non ricorsive e generi un numero finito di chiamate.
 La terminazione, richiesta dalla \cref{def:fi-algoritmo}, non basta
 a garantire la correttezza: occorre inoltre che i casi base e la
 combinazione dei risultati forniscano la soluzione prevista.
@@ -52,22 +53,7 @@ seguenti, che calcolano lo stesso risultato per un intero non negativo:
 la prima utilizza un ciclo (\cref{sec:fi-python-cicli}), la seconda
 una chiamata ricorsiva.
 
-\begin{unipdcode}[language=Python]
-def fattoriale_iterativo(n):
-    if n < 0:
-        raise ValueError("n deve essere non negativo")
-    risultato = 1
-    for i in range(1, n + 1):
-        risultato = risultato * i
-    return risultato
-
-def fattoriale(n):
-    if n < 0:
-        raise ValueError("n deve essere non negativo")
-    if n == 0:
-        return 1
-    return n * fattoriale(n - 1)
-\end{unipdcode}
+\input{assets/codice/ricorsione/fattoriale-confronto}
 
 Nella prima funzione, dopo l'iterazione di indice \(i\), la variabile
 \texttt{risultato} vale \(i!\). Nella seconda, il caso base restituisce
@@ -85,8 +71,8 @@ restituisce \((n-1)!\), quella con \(n\) restituisce \(n!\).
 
 Entrambe le funzioni presuppongono un argomento di tipo \texttt{int}.
 Per \(n<0\) sollevano \texttt{ValueError}; senza tale controllo,
-la versione ricorsiva continuerebbe a decrementare \(n\) senza
-raggiungere il caso base.
+la versione ricorsiva non raggiungerebbe il caso base e, in CPython,
+terminerebbe con \texttt{RecursionError}.
 
 \section{Invocazioni sospese e pila delle chiamate}
 \label{sec:fi-pila-ricorsione}
@@ -99,8 +85,7 @@ Ogni invocazione mantiene un
 variabili locali e informazioni necessarie a riprendere il calcolo.
 Le invocazioni ancora attive costituiscono la \emph{pila delle chiamate}
 (\emph{call stack}), organizzata secondo l'ordine LIFO
-(\emph{Last In, First Out}), proprio dell'ADT pila della
-\cref{sec:fi-adt-pila}.
+(\emph{Last In, First Out}), proprio dell'ADT pila (\cref{sec:fi-adt-pila}).
 
 \begin{example}[Traccia di \texttt{fattoriale(4)}]
 \label{ex:fi-traccia-fattoriale}
@@ -120,7 +105,7 @@ uno. Le chiamate riprendono quindi in ordine inverso:
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/ricorsione/fattoriale-chiamate}
+  \input{assets/codice/ricorsione/fattoriale-chiamate}
   \caption{Invocazioni e ritorni nella valutazione di
   \texttt{fattoriale(4)}.}
   \label{fig:fi-fattoriale-chiamate}
@@ -135,9 +120,12 @@ chiamata interna.
 Le due versioni del fattoriale effettuano \(n\) moltiplicazioni;
 tuttavia, quella ricorsiva richiede \(n+1\) invocazioni e una
 profondità di pila proporzionale a \(n\). La versione iterativa
-utilizza un numero fisso
-di variabili. Tale confronto considera il numero di operazioni e di
-variabili; la dimensione degli interi prodotti cresce con \(n\).
+utilizza un numero fisso di variabili. Considerando costanti i costi
+delle operazioni aritmetiche, entrambe hanno una \emph{complessità
+temporale} lineare. In termini di \emph{complessità spaziale}
+ausiliaria, invece, la versione iterativa richiede spazio costante,
+mentre quella ricorsiva richiede spazio lineare per la pila delle
+chiamate. Queste nozioni sono approfondite nel \cref{chap:complessita}.
 
 \section{Ricorsione in coda ed eliminazione della ricorsione}
 \label{sec:fi-ricorsione-coda}
@@ -190,7 +178,8 @@ occupare un frame. Superato il limite di profondità delle chiamate,
 l'interprete solleva \texttt{RecursionError}. Il limite dipende
 dall'ambiente e non garantisce che un algoritmo matematicamente
 terminante completi sempre l'esecuzione.\footnote{Documentazione Python,
-\href{https://docs.python.org/3/library/sys.html\#sys.getrecursionlimit}{\emph{sys.getrecursionlimit}}.}
+\href{https://docs.python.org/3/library/sys.html\#sys.getrecursionlimit}
+{\emph{sys.getrecursionlimit}}.}
 
 \section{Ricorsione multipla e numeri di Fibonacci}
 \label{sec:fi-fibonacci}
@@ -222,7 +211,7 @@ L'esecuzione delle due chiamate è sequenziale, non parallela.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/ricorsione/fibonacci-albero}
+  \input{assets/codice/ricorsione/fibonacci-albero}
   \caption{Albero delle nove invocazioni effettuate da
   \texttt{fib(5)}.}
   \label{fig:fi-fibonacci-albero}
@@ -232,6 +221,8 @@ La \cref{fig:fi-fibonacci-albero} evidenzia il ricalcolo di uno
 stesso termine: \texttt{fib(3)} viene eseguita due volte e
 \texttt{fib(2)} tre. L'albero rappresenta tutte le invocazioni,
 mentre la pila contiene soltanto quelle ancora attive.
+I numeri sulle frecce indicano l'ordine in cui le chiamate ricorsive
+vengono effettuate durante l'esecuzione di \texttt{fib(5)}.
 
 Indicando con \(C_n\) il numero di invocazioni complessive, si ha
 \[
@@ -281,9 +272,10 @@ l'ordinamento per fusione della \cref{sec:fi-ordinamento-fusione}
 ne fornisce un esempio.
 
 \section{Esempi di funzioni ricorsive}
+\label{sec:fi-esempi-ricorsione}
 
-Per un intero \(n\ge0\) si vuole calcolare
-\(1+2+\cdots+n\), assumendo che la somma sia nulla per \(n=0\).
+Per un intero \(n\ge0\), si vuole calcolare la somma
+\(1+2+\cdots+n\), assumendo che sia nulla per \(n=0\).
 Il caso base restituisce zero; il passo ricorsivo aggiunge
 \(n\) alla somma dei primi \(n-1\) numeri.
 
@@ -299,10 +291,10 @@ def somma_naturali(n):
 La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero;
 per \(n=4\) la funzione restituisce \(10\).
 
-Per stampare tutti gli interi da \(n\ge0\) fino a zero,
-si stampa il valore corrente e, se è positivo, si richiama la funzione
-con \(n-1\). La chiamata raggiunge necessariamente il caso base
-\(n=0\).
+Per un intero \(n\ge0\), si vuole stampare tutti gli interi
+da \(n\) fino a zero in ordine decrescente, uno per riga.
+Il caso base stampa zero e termina; il passo ricorsivo stampa
+\(n\) e richiama la funzione con \(n-1\).
 
 \begin{unipdcode}[language=Python]
 def conto_rovescia(n):
@@ -314,6 +306,7 @@ def conto_rovescia(n):
     return conto_rovescia(n - 1)
 \end{unipdcode}
 
-Con \(n=3\) vengono stampati \(3,2,1,0\), uno per riga;
-la funzione restituisce \texttt{None}. La chiamata ricorsiva
+La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero;
+per \(n=3\) vengono stampati \(3,2,1,0\), uno per riga.
+La funzione restituisce \texttt{None} e la chiamata ricorsiva
 è in coda secondo la \cref{sec:fi-ricorsione-coda}.

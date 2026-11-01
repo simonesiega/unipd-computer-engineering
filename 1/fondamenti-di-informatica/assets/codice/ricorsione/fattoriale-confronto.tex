@@ -1,0 +1,41 @@
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione iterativa}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def fattoriale_iterativo(n):
+    if n < 0:
+        raise ValueError(
+            "n deve essere non negativo"
+        )
+    risultato = 1
+    for i in range(1, n + 1):
+        risultato = risultato * i
+    return risultato
+\end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione ricorsiva}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def fattoriale(n):
+    if n < 0:
+        raise ValueError(
+            "n deve essere non negativo"
+        )
+    if n == 0:
+        return 1
+    return n * fattoriale(n - 1)
+\end{unipdcode}
+\end{minipage}
