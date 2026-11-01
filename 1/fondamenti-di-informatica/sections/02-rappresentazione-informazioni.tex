@@ -171,8 +171,11 @@ rispettivamente \(+12\) e \(-12\). L'intervallo dei valori è
 Le configurazioni sono \(2^n\), ma i valori distinti sono \(2^n-1\):
 \(00\cdots0\) e \(10\cdots0\) rappresentano entrambe zero.
 Inoltre, la somma richiede di distinguere operandi con segno uguale,
-per i quali si sommano i moduli, e con segno opposto, per i quali
-si confrontano e sottraggono i moduli.
+per i quali si sommano i moduli mantenendo il segno comune, e con
+segno opposto, per i quali si sottrae il modulo minore da quello
+maggiore, attribuendo al risultato il segno dell'operando di
+modulo maggiore. Se i moduli sono uguali e i segni opposti,
+il risultato è zero.
 
 \section{Complemento a due}
 \label{sec:fi-complemento-due}

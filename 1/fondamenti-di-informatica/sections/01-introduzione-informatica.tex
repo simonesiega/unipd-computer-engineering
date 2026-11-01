@@ -47,6 +47,31 @@ i dati (\cref{sec:fi-conversioni-binarie}).\footnote{C. E. Shannon,
 \emph{A Mathematical Theory of Communication}, \emph{Bell System
 Technical Journal}, 1948.}
 
+\clearpage
+
+La teoria dell'informazione studia anche la trasmissione dei messaggi
+attraverso canali soggetti a \emph{rumore}, che può alterare i dati
+trasmessi. L'introduzione di \emph{ridondanza} mediante opportune
+codifiche permette di rilevare e, in determinati casi, correggere
+gli errori. La \emph{compressione} affronta invece il problema di
+rappresentare l'informazione utilizzando meno simboli, sfruttando
+le caratteristiche della sorgente.
+
+La \cref{fig:fi-trasmissione-informazione} schematizza il percorso
+del messaggio dalla sorgente alla destinazione, evidenziando
+l'intervento del rumore durante la trasmissione.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+    \input{assets/diagrammi/informazione/trasmissione-informazione}%
+  }
+  \caption{Schema della trasmissione dell'informazione: il messaggio
+  viene codificato, trasmesso attraverso un canale soggetto a rumore
+  e decodificato alla destinazione.}
+  \label{fig:fi-trasmissione-informazione}
+\end{figure}
+
 Un \emph{calcolatore} è un dispositivo programmabile che memorizza dati,
 esegue istruzioni e comunica con l'esterno. Le sue componenti fisiche
 costituiscono l'\emph{hardware}; i programmi costituiscono il
@@ -87,6 +112,8 @@ verificabili: individuare il paesaggio «più rilassante», per esempio,
 non definisce un problema di calcolo finché non viene precisato
 come confrontare i paesaggi.
 
+\clearpage
+
 \begin{example}[Raddoppio di un capitale]
 \label{ex:fi-interesse-composto}
 Un capitale iniziale di \(20\,000\) euro produce un interesse annuo
@@ -120,8 +147,6 @@ In particolare,
 Il risultato richiesto è quindi \(15\) anni.
 \end{proof}
 
-\clearpage
-
 \begin{figure}[htbp]
   \begin{minipage}[c]{0.57\textwidth}
     Il ciclo dell'\cref{ex:fi-interesse-composto} è un esempio di
@@ -152,6 +177,8 @@ necessarie, principalmente tempo e memoria, in funzione della
 dimensione dell'ingresso (\cref{chap:complessita}). Un problema può
 essere calcolabile senza ammettere una soluzione praticabile con le
 risorse disponibili.
+
+\clearpage
 
 \section{La macchina di Turing e i limiti del calcolo}
 \label{sec:fi-macchina-turing}
@@ -295,6 +322,8 @@ che coordina le operazioni. Un collegamento condiviso semplifica
 l'organizzazione e l'espansione del sistema, ma richiede di arbitrare
 gli accessi e può costituire un \emph{collo di bottiglia} fra CPU e memoria.
 
+\clearpage
+
 Il registro \emph{program counter} (PC) contiene l'indirizzo della
 prossima istruzione; il \emph{registro istruzione} conserva quella
 prelevata. In un modello semplificato, l'esecuzione comprende quattro fasi:
@@ -321,8 +350,6 @@ In una \emph{pipeline} ogni istruzione attraversa più stadi, che
 possono operare contemporaneamente su istruzioni differenti,
 come mostrato nella \cref{fig:fi-pipeline}.
 
-\clearpage
-
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/architettura/pipeline-istruzioni}
@@ -344,22 +371,32 @@ mediante messaggi.
 
 Le \emph{GPU} (\emph{Graphics Processing Unit}) privilegiano
 l'esecuzione parallela di numerose operazioni su dati diversi.
+Rispetto alla CPU, che dedica maggiori risorse per core alla gestione
+di flussi di controllo complessi, una GPU dispone di molte unità
+di calcolo progettate per eseguire operazioni simili in parallelo.
 Questa organizzazione è utile non soltanto per la grafica, ma anche
 per simulazioni numeriche, elaborazione di immagini e addestramento
 di reti neurali, quando il calcolo può essere suddiviso in molte
 operazioni indipendenti.
+
 \emph{CUDA} (\emph{Compute Unified Device Architecture}) è una
-piattaforma NVIDIA nella quale la CPU (\emph{host}) avvia sulla GPU
-(\emph{device}) funzioni dette \emph{kernel}. I \emph{thread} del
-kernel sono organizzati in \emph{blocchi}, raccolti in una
-\emph{griglia}; gruppi di thread eseguono istruzioni secondo il
-modello SIMT (\emph{Single Instruction, Multiple Threads}).
-Blocchi di thread sono assegnati alle unità di esecuzione della GPU,
-dette \emph{Streaming Multiprocessor}. Il modello SIMT non implica
-che tutti i thread avanzino sempre contemporaneamente: la convenienza
-dipende dal lavoro parallelizzabile e dai trasferimenti di dati.
+piattaforma NVIDIA nella quale la CPU (\emph{host}) prepara i dati
+e avvia sulla GPU (\emph{device}) funzioni dette \emph{kernel}.
+I \emph{thread} del kernel sono organizzati in \emph{blocchi},
+raccolti in una \emph{griglia}. I thread di uno stesso blocco
+possono collaborare mediante memoria condivisa e sincronizzazione.
+I blocchi sono assegnati alle unità di esecuzione della GPU,
+dette \emph{Streaming Multiprocessor}, che eseguono gruppi di thread
+secondo il modello SIMT (\emph{Single Instruction, Multiple Threads}).
+
+Il modello SIMT non implica che tutti i thread avanzino sempre
+contemporaneamente: l'efficienza dipende dal grado di parallelismo,
+dalle divergenze nel flusso di controllo e dai trasferimenti di dati.
 Altri ambienti di calcolo eterogeneo includono ROCm/HIP, OpenCL,
-SYCL, Vulkan Compute e Metal.
+SYCL, Vulkan Compute e Metal. Nei sistemi eterogenei possono inoltre
+essere presenti acceleratori specializzati, come le \emph{NPU}
+(\emph{Neural Processing Unit}), progettate per operazioni tipiche
+delle reti neurali.
 
 \section{Memoria, archiviazione e dispositivi di ingresso e uscita}
 \label{sec:fi-memoria-archiviazione}
@@ -415,8 +452,11 @@ organizzati in tracce e settori. Il tempo di accesso dipende anche
 dallo spostamento della testina e dalla latenza di rotazione.
 Un'\emph{unità a stato solido} (SSD) utilizza memoria flash NAND,
 un \emph{controller} e collegamenti SATA oppure PCI Express con
-protocollo NVMe. Il controller gestisce anche la distribuzione
-delle scritture (\emph{wear leveling}) e la correzione degli errori.
+protocollo NVMe. Le celle NAND conservano informazioni mediante
+cariche elettriche e supportano un numero limitato di cicli di
+programmazione e cancellazione. Per ridurre l'usura delle celle,
+il controller distribuisce le scritture mediante una tecnica detta
+\emph{wear leveling} e gestisce la correzione degli errori.
 Gli SSD non hanno parti meccaniche in movimento e offrono generalmente
 minori tempi di accesso rispetto agli HDD.
 
@@ -429,6 +469,8 @@ si distinguono \emph{pit} e \emph{land}. Le capacità tipiche di un
 disco a singolo strato sono circa 700 MB per un CD, 4,7 GB per un
 DVD e 25 GB per un Blu-ray. I \emph{floppy disk} sono un precedente
 esempio di memoria magnetica rimovibile.
+
+\clearpage
 
 Registri, \emph{cache}, RAM e memoria secondaria costituiscono la
 \emph{gerarchia di memoria}, illustrata nella
@@ -508,6 +550,8 @@ Una \emph{grammatica} specifica le stringhe di un linguaggio mediante
 simboli terminali, simboli non terminali, un simbolo iniziale e
 regole di produzione.
 
+\clearpage
+
 \begin{example}[Una grammatica formale]
 Siano \(a,b\) simboli terminali e \(S\) il simbolo iniziale,
 con le produzioni
@@ -569,7 +613,8 @@ compilato mediante \texttt{javac Saluto.java}, producendo il file
 \texttt{Saluto.class}.
 Quest'ultimo contiene \emph{bytecode} destinato alla
 \emph{Java Virtual Machine} (JVM), che può interpretarlo oppure
-tradurlo in codice macchina durante l'esecuzione.
+tradurlo in codice macchina durante l'esecuzione mediante compilazione
+\emph{Just-In-Time} (JIT).
 
 In \emph{CPython}, il sorgente di un file \texttt{saluto.py}
 viene tradotto in bytecode, successivamente eseguito dall'interprete.

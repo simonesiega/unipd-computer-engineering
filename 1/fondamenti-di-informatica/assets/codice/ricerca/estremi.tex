@@ -1,4 +1,13 @@
-\begin{unipdcode}[language=Python]
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Ricerca del massimo}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
 def find_max(v, v_size):
     if v_size == 0:
         raise ValueError("Lista vuota")
@@ -7,8 +16,18 @@ def find_max(v, v_size):
         if v[i] > massimo:
             massimo = v[i]
     return massimo
-
-
+\end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Ricerca del minimo}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
 def find_min(v, v_size):
     if v_size == 0:
         raise ValueError("Lista vuota")
@@ -18,3 +37,4 @@ def find_min(v, v_size):
             minimo = v[i]
     return minimo
 \end{unipdcode}
+\end{minipage}

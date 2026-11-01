@@ -15,9 +15,12 @@ computazionale}, dispense del corso di Fondamenti di Informatica.}
 \label{sec:fi-complessita-sperimentale}
 
 L'analisi sperimentale misura le prestazioni di un'implementazione
-eseguendola su ingressi di dimensione diversa. Se il tempo impiegato per
-un ingresso di dimensione \(n\) è \(t(n)\), il rapporto fra \(t(2n)\) e
-\(t(n)\) descrive l'effetto del raddoppio della dimensione.
+eseguendola su ingressi di dimensione diversa. Per esplorare un ampio
+intervallo di dimensioni con poche misurazioni, si procede generalmente
+raddoppiando la dimensione dell'ingresso a ogni prova. Se il tempo
+impiegato per un ingresso di dimensione \(n\) è \(t(n)\), il rapporto
+fra \(t(2n)\) e \(t(n)\) descrive l'effetto del raddoppio e permette
+di stimare l'ordine di crescita.
 
 Nel modello \(t(n)=an^b\), con \(a>0\), si ha
 \[
@@ -435,10 +438,19 @@ per ciascuna. La complessità temporale è pertanto
   T_{\mathrm{peggiore}}(n,m)
   \in\Theta\bigl((n-m+1)m\bigr).
 \]
+
 Se \(m\) è costante, il costo è \(\Theta(n)\); se \(m=n-1\),
 soltanto due posizioni sono candidate e il costo è ancora
 \(\Theta(n)\). Quando invece \(m\) è circa \(n/2\), il costo
 diventa \(\Theta(n^2)\).
+
+Nel caso migliore, quando la sottostringa cercata compare all'inizio
+del testo, viene esaminata una sola posizione candidata, confrontando
+\(m\) caratteri. La complessità temporale è pertanto
+\[
+  T_{\mathrm{migliore}}(n,m)
+  \in\Theta(m).
+\]
 
 L'implementazione richiede \(\Theta(1)\) spazio ausiliario.
 Se il modello è più lungo del testo, restituisce \(-1\) senza
@@ -462,14 +474,21 @@ positivo fissato. Una crescita esponenziale come \(\Theta(2^n)\)
 supera asintoticamente qualsiasi polinomio di grado fissato;
 la funzione \(n^n\) cresce ancora più rapidamente.
 
+La base del logaritmo è irrilevante nelle notazioni asintotiche:
+per \(a,b>1\), la formula del cambiamento di base
+\[
+  \log_a n=\frac{\log_b n}{\log_b a}
+\]
+mostra che i logaritmi differiscono soltanto per un fattore
+moltiplicativo costante. Pertanto
+\(\log_a n\in\Theta(\log_b n)\).
+
 La distinzione fra crescita polinomiale ed esponenziale è importante
 per la trattabilità dei problemi, ma non determina da sola la
 praticabilità di un'implementazione: incidono anche la dimensione
 concreta dell'ingresso, i coefficienti e le risorse disponibili.
 In particolare, un algoritmo polinomiale con esponente elevato può
 essere impraticabile per dimensioni moderate.
-
-\clearpage
 
 \section{Complessità della ricorsione di Fibonacci}
 \label{sec:fi-complessita-fibonacci}
@@ -507,4 +526,3 @@ Come nel confronto del fattoriale della
 \cref{sec:fi-pila-ricorsione}, queste stime considerano
 operazioni a costo unitario e non includono il costo crescente
 dell'aritmetica su interi arbitrariamente grandi.
-

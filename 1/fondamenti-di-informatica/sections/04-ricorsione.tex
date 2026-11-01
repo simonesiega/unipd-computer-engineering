@@ -117,6 +117,8 @@ completate durante il ritorno delle chiamate: l'espressione
 \texttt{n * fattoriale(n - 1)} richiede infatti il risultato della
 chiamata interna.
 
+\clearpage
+
 Le due versioni del fattoriale effettuano \(n\) moltiplicazioni;
 tuttavia, quella ricorsiva richiede \(n+1\) invocazioni e una
 profondità di pila proporzionale a \(n\). La versione iterativa
@@ -235,6 +237,8 @@ sottoproblemi. La profondità massima della pila cresce invece
 linearmente. La stima dei costi temporali e spaziali è ripresa nella
 \cref{sec:fi-complessita-fibonacci}.
 
+\clearpage
+
 Per evitare questi ricalcoli, un'implementazione iterativa conserva
 soltanto due termini successivi:
 
@@ -257,8 +261,6 @@ Prima dell'iterazione di indice \(i\), le variabili
 con un numero fisso di variabili, senza ricalcolare i termini.
 Anche qui il confronto non considera il costo aritmetico degli interi
 di dimensione crescente.
-
-\clearpage
 
 \begin{unipdterminal}
 >>> fib(5), fib_iterativo(5)

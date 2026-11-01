@@ -1,4 +1,14 @@
-\begin{unipdcode}[language=Python]
+
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione iterativa}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
 def selection_sort(v, v_size):
     for i in range(v_size - 1):
         indice_min = i
@@ -6,5 +16,36 @@ def selection_sort(v, v_size):
             if v[j] < v[indice_min]:
                 indice_min = j
         if indice_min != i:
-            v[i], v[indice_min] = v[indice_min], v[i]
+            v[i], v[indice_min] = (
+                v[indice_min], v[i]
+            )
 \end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Versione ricorsiva}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def selection_sort_ricorsivo(
+    v, inizio, v_size
+):
+    if inizio >= v_size - 1:
+        return
+    indice_min = inizio
+    for j in range(inizio + 1, v_size):
+        if v[j] < v[indice_min]:
+            indice_min = j
+    if indice_min != inizio:
+        v[inizio], v[indice_min] = (
+            v[indice_min], v[inizio]
+        )
+    selection_sort_ricorsivo(
+        v, inizio + 1, v_size
+    )
+\end{unipdcode}
+\end{minipage}

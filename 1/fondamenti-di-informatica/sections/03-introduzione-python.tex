@@ -56,6 +56,15 @@ precedente. L'operatore \texttt{=} non indica quindi l'uguaglianza
 matematica. Il riferimento a un nome non ancora definito provoca
 \texttt{NameError}.
 
+Per scambiare i valori di due variabili senza perdere quelli originali
+si può utilizzare una variabile temporanea: \texttt{tmp = a},
+\texttt{a = b}, \texttt{b = tmp}. Python permette anche l'assegnamento
+multiplo \texttt{a, b = b, a}, nel quale le espressioni a destra vengono
+valutate prima di effettuare gli assegnamenti. Nel caso di valori interi,
+lo scambio può essere realizzato anche mediante tre operazioni XOR
+bit a bit: \verb|a ^= b|, \verb|b ^= a|, \verb|a ^= b|,
+sfruttando la proprietà \(x \oplus x = 0\).
+
 I nomi delle variabili, detti \emph{identificatori}, possono contenere
 lettere, cifre e il carattere \texttt{\_}, ma non iniziare con una cifra.
 Distinguono maiuscole e minuscole e non possono coincidere con parole
@@ -100,6 +109,10 @@ tentare di sommare direttamente una stringa e un intero provoca
 In particolare, \texttt{int(3.9)} restituisce \texttt{3}, poiché
 la conversione tronca verso zero. Inoltre, \texttt{bool(0)} restituisce
 \texttt{False} e \texttt{bool(3)} restituisce \texttt{True}.
+Per i tipi qui considerati, la conversione \texttt{bool()} restituisce
+\texttt{False} anche per lo zero in virgola mobile, la stringa vuota,
+la lista vuota e \texttt{None}. Il valore speciale \texttt{None}, unico valore
+del tipo \texttt{NoneType}, rappresenta l'assenza di un valore.
 Una conversione non ammessa, come \lstinline|int("ciao")|,
 genera \texttt{ValueError}.
 
@@ -140,7 +153,8 @@ congiunzione, disgiunzione e negazione. Nelle seguenti tabelle di verità,
   \mathrm{V} & \mathrm{F}
 \end{array}
 \]
-La precedenza è \texttt{not}, poi \texttt{and}, infine \texttt{or}.
+Fra gli operatori considerati, i confronti hanno precedenza su
+\texttt{not}, che precede \texttt{and}, seguito da \texttt{or}.
 Le \emph{leggi di De Morgan} forniscono le equivalenze
 \[
 \begin{aligned}
@@ -152,6 +166,13 @@ Le \emph{leggi di De Morgan} forniscono le equivalenze
 \]
 Gli operatori \texttt{and} e \texttt{or} valutano il secondo operando
 soltanto quando necessario (\emph{valutazione a cortocircuito}).
+
+La valutazione procede da sinistra verso destra: con \texttt{and}, il
+secondo operando viene valutato soltanto se il primo è vero; con
+\texttt{or}, soltanto se il primo è falso. Questo comportamento permette
+anche di evitare operazioni non valide: nell'espressione
+\lstinline|x != 0 and 10 / x > 2|, la divisione non viene eseguita
+quando \texttt{x} vale zero.
 
 L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 \texttt{elif} introduce condizioni successive e \texttt{else} il caso
@@ -181,6 +202,8 @@ può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
 \texttt{do...while} verifica la condizione dopo l'esecuzione del corpo,
 garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
 ma può essere simulato mediante \texttt{while True} e \texttt{break}.
+
+\clearpage
 
 \input{assets/codice/cicli/validazione}
 
@@ -229,6 +252,8 @@ lo stesso risultato mediante un'espressione generatrice:
 La ricorsione fornisce un'altra forma di ripetizione del calcolo,
 trattata nella \cref{sec:fi-ricorsione-terminazione}.
 
+\clearpage
+
 \section{Liste}
 \label{sec:fi-python-liste}
 
@@ -252,10 +277,16 @@ indicata oppure l'ultimo se l'indice è omesso, mentre
 specificato. L'operatore \texttt{in} verifica la presenza di un valore.
 
 Lo \emph{slicing} \texttt{lista[i:j]} estrae una nuova lista con estremo
-iniziale incluso e finale escluso. \texttt{sorted(lista)} restituisce
-una nuova lista ordinata senza modificare quella originale, se gli
-elementi sono confrontabili. Gli algoritmi impiegati per ordinare
-i dati sono studiati nel \cref{chap:ricerca-ordinamento}.
+iniziale incluso e finale escluso. Se l'estremo iniziale è omesso,
+lo slicing parte dall'inizio; se è omesso quello finale, arriva fino
+alla fine della lista. A differenza delle liste, le stringhe non sono
+modificabili mediante assegnamento a un indice.
+
+\texttt{sorted(lista)} restituisce una nuova lista ordinata senza
+modificare quella originale, se gli elementi sono confrontabili;
+\texttt{lista.sort()} ordina invece la lista stessa e restituisce
+\texttt{None}. Gli algoritmi impiegati per ordinare i dati sono
+studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
@@ -263,15 +294,16 @@ Il ciclo visita i voti e calcola la media di quelli non inferiori a
 \texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione 
 per zero quando nessun valore soddisfa la condizione.
 
-
 \section{Funzioni}
 \label{sec:fi-python-funzioni}
 
 Per organizzare operazioni riutilizzabili si impiegano le \emph{funzioni},
 che associano un nome a un blocco di istruzioni. Una funzione si definisce
 mediante \texttt{def}; la definizione non esegue il corpo, che viene
-eseguito soltanto quando la funzione è \emph{chiamata}. I nomi dichiarati
-nella definizione sono i \emph{parametri}; i valori forniti alla chiamata
+eseguito soltanto quando la funzione è \emph{chiamata} e deve essere
+stata definita prima della chiamata, affinché il nome della
+funzione sia disponibile. I nomi dichiarati nella definizione sono i
+\emph{parametri}; i valori forniti alla chiamata
 sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per 
 i parametri e per il valore restituito. L'intestazione di una funzione può 
 assumere la forma
@@ -306,9 +338,19 @@ può utilizzarla così:
 
 L'istruzione \texttt{import geometria} rende disponibile il modulo;
 la chiamata \texttt{geometria.area\_rettangolo(8, 5)} ne usa la funzione.
-L'estensione \texttt{.py} non compare in \texttt{import}. Le funzioni
-possono anche richiamare se stesse, come si vedrà nel
-\cref{chap:ricorsione}.
+In alternativa, \lstinline|from geometria import area_rettangolo|
+importa direttamente il nome, consentendo la chiamata
+\lstinline|area_rettangolo(8, 5)|. 
+
+La parola chiave \texttt{as}
+permette di assegnare un alias al modulo o a un nome importato,
+così da poter utilizzare un identificatore alternativo nel codice,
+ad esempio \lstinline|from geometria import area_rettangolo as area|.
+
+L'estensione \texttt{.py} non compare in \texttt{import}.
+
+Le funzioni possono anche richiamare se stesse, come si vedrà
+nel \cref{chap:ricorsione}.
 
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}

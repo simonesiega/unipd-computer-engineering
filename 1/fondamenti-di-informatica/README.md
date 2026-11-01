@@ -10,9 +10,9 @@
 - 1 Introduzione all'informatica — p. 1
   - 1.1 Informazione, calcolo e programmazione — p. 1
   - 1.2 Algoritmi e risoluzione dei problemi — p. 2
-  - 1.3 La macchina di Turing e i limiti del calcolo — p. 3
-  - 1.4 Architettura del calcolatore ed esecuzione delle istruzioni — p. 4
-  - 1.5 Memoria, archiviazione e dispositivi di ingresso e uscita — p. 6
+  - 1.3 La macchina di Turing e i limiti del calcolo — p. 4
+  - 1.4 Architettura del calcolatore ed esecuzione delle istruzioni — p. 5
+  - 1.5 Memoria, archiviazione e dispositivi di ingresso e uscita — p. 7
   - 1.6 Linguaggi di programmazione e forme di esecuzione — p. 8
 - 2 Rappresentazione delle informazioni — p. 10
   - 2.1 Sistemi di numerazione posizionali — p. 10
@@ -29,63 +29,64 @@
   - 3.2 Variabili, tipi di dato e ingresso/uscita — p. 20
   - 3.3 Logica booleana e istruzioni condizionali — p. 21
   - 3.4 Cicli e iterazioni — p. 22
-  - 3.5 Liste — p. 23
+  - 3.5 Liste — p. 24
   - 3.6 Funzioni — p. 24
   - 3.7 Gestione dei file di testo — p. 25
-- 4 Ricorsione — p. 26
-  - 4.1 Funzioni ricorsive e terminazione — p. 26
-  - 4.2 Il fattoriale: iterazione e ricorsione — p. 26
-  - 4.3 Invocazioni sospese e pila delle chiamate — p. 27
-  - 4.4 Ricorsione in coda ed eliminazione della ricorsione — p. 28
-  - 4.5 Ricorsione multipla e numeri di Fibonacci — p. 28
-  - 4.6 Esempi di funzioni ricorsive — p. 30
-- 5 Complessità computazionale — p. 31
-  - 5.1 Analisi sperimentale — p. 31
-  - 5.2 Analisi teorica e modello di costo — p. 31
-  - 5.3 Notazioni asintotiche — p. 32
-  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 33
-  - 5.5 Un algoritmo lineare per lo stesso problema — p. 34
-  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 35
-  - 5.7 Massima differenza fra elementi — p. 36
-  - 5.8 Riconoscimento di elementi duplicati — p. 36
-  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 37
-  - 5.10 Ordini di crescita e trattabilità — p. 38
-  - 5.11 Complessità della ricorsione di Fibonacci — p. 39
-- 6 Ricerca e ordinamento — p. 40
-  - 6.1 Ricerca lineare — p. 40
-  - 6.2 Ricerca binaria — p. 40
-  - 6.3 Ricerca del massimo e del minimo — p. 41
-  - 6.4 Ordinamento per selezione — p. 42
-  - 6.5 Ordinamento per fusione — p. 43
-  - 6.6 Ordinamento per inserimento — p. 45
-  - 6.7 Ordinamento rapido — p. 45
-  - 6.8 Confronto degli algoritmi — p. 46
-- 7 Strutture dati e tipi di dato astratti — p. 47
-  - 7.1 Tipi di dato astratti e strutture dati — p. 47
-  - 7.2 Array e accesso diretto — p. 47
-  - 7.3 Liste concatenate — p. 48
-  - 7.4 Pila: politica LIFO — p. 49
-  - 7.5 Coda: politica FIFO — p. 50
-  - 7.6 Coda doppia — p. 52
-  - 7.7 Lista come tipo di dato astratto — p. 52
-  - 7.8 Mappa — p. 53
-  - 7.9 Insieme — p. 53
-- 8 Introduzione a Java — p. 54
-  - 8.1 Portabilità, compilazione ed esecuzione — p. 54
-  - 8.2 Il primo programma: classe e metodo principale — p. 55
-  - 8.3 Uscita standard e invocazione dei metodi — p. 56
-  - 8.4 Errori e ciclo di sviluppo — p. 56
-  - 8.5 Variabili, tipi e assegnamento — p. 57
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 58
-  - 8.7 Variabili oggetto e riferimenti — p. 59
-- 9 Collaudo, tipi di dato e input in Java — p. 61
-  - 9.1 Programmi di collaudo e pacchetti — p. 61
-  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 62
-  - 9.3 Conversioni numeriche e arrotondamento — p. 63
-  - 9.4 Costanti ed espressioni aritmetiche — p. 64
-  - 9.5 La classe Math e i metodi statici — p. 65
-  - 9.6 Stringhe e conversioni testuali — p. 65
-  - 9.7 Caratteri e sequenze di escape — p. 66
-  - 9.8 Formattazione dell'output — p. 67
-  - 9.9 L'ingresso standard con Scanner — p. 68
+- 4 Ricorsione — p. 27
+  - 4.1 Funzioni ricorsive e terminazione — p. 27
+  - 4.2 Il fattoriale: iterazione e ricorsione — p. 27
+  - 4.3 Invocazioni sospese e pila delle chiamate — p. 28
+  - 4.4 Ricorsione in coda ed eliminazione della ricorsione — p. 29
+  - 4.5 Ricorsione multipla e numeri di Fibonacci — p. 30
+  - 4.6 Esempi di funzioni ricorsive — p. 31
+- 5 Complessità computazionale — p. 32
+  - 5.1 Analisi sperimentale — p. 32
+  - 5.2 Analisi teorica e modello di costo — p. 32
+  - 5.3 Notazioni asintotiche — p. 33
+  - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 34
+  - 5.5 Un algoritmo lineare per lo stesso problema — p. 35
+  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 36
+  - 5.7 Massima differenza fra elementi — p. 37
+  - 5.8 Riconoscimento di elementi duplicati — p. 37
+  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 38
+  - 5.10 Ordini di crescita e trattabilità — p. 39
+  - 5.11 Complessità della ricorsione di Fibonacci — p. 40
+- 6 Ricerca e ordinamento — p. 41
+  - 6.1 Ricerca lineare — p. 41
+  - 6.2 Ricerca binaria — p. 41
+  - 6.3 Ricerca del massimo e del minimo — p. 42
+  - 6.4 Ordinamento per selezione — p. 43
+  - 6.5 Ordinamento per fusione — p. 44
+  - 6.6 Ordinamento per inserimento — p. 46
+  - 6.7 Ordinamento rapido — p. 46
+  - 6.8 Ricorrenze e teorema maestro — p. 47
+  - 6.9 Confronto degli algoritmi — p. 49
+- 7 Strutture dati e tipi di dato astratti — p. 50
+  - 7.1 Tipi di dato astratti e strutture dati — p. 50
+  - 7.2 Array e accesso diretto — p. 50
+  - 7.3 Liste concatenate — p. 51
+  - 7.4 Pila: politica LIFO — p. 52
+  - 7.5 Coda: politica FIFO — p. 53
+  - 7.6 Coda doppia — p. 55
+  - 7.7 Lista come tipo di dato astratto — p. 55
+  - 7.8 Mappa — p. 56
+  - 7.9 Insieme — p. 56
+- 8 Introduzione a Java — p. 57
+  - 8.1 Portabilità, compilazione ed esecuzione — p. 57
+  - 8.2 Il primo programma: classe e metodo principale — p. 58
+  - 8.3 Uscita standard e invocazione dei metodi — p. 59
+  - 8.4 Errori e ciclo di sviluppo — p. 59
+  - 8.5 Variabili, tipi e assegnamento — p. 60
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 61
+  - 8.7 Variabili oggetto e riferimenti — p. 62
+- 9 Collaudo, tipi di dato e input in Java — p. 64
+  - 9.1 Programmi di collaudo e pacchetti — p. 64
+  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 65
+  - 9.3 Conversioni numeriche e arrotondamento — p. 66
+  - 9.4 Costanti ed espressioni aritmetiche — p. 67
+  - 9.5 La classe Math e i metodi statici — p. 68
+  - 9.6 Stringhe e conversioni testuali — p. 68
+  - 9.7 Caratteri e sequenze di escape — p. 69
+  - 9.8 Formattazione dell'output — p. 70
+  - 9.9 L'ingresso standard con Scanner — p. 71
 <!-- GENERATED:END -->

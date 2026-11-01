@@ -27,41 +27,54 @@ per accedere alla lista.
 
 Prima di esaminare l'indice \(i\), nessuno degli elementi nelle
 posizioni da \(0\) a \(i-1\) è uguale a \(x\). Se il confronto riesce,
-l'indice restituito è pertanto la prima occorrenza; in caso contrario,
-l'algoritmo termina dopo aver esaminato l'intera lista.
+l'indice restituito è pertanto la prima occorrenza; se invece tutti
+i confronti falliscono, la funzione restituisce \(-1\).
 
-Se il valore cercato occupa la posizione \(i\), si effettuano \(i+1\)
-confronti; se è assente, se ne effettuano \(n\). Per \(n\ge1\) il caso
-migliore ha costo \(\Theta(1)\), mentre quello peggiore ha costo
-\(\Theta(n)\). Condizionatamente alla presenza del valore e assumendo
-che la prima occorrenza sia uniformemente distribuita fra le \(n\)
-posizioni, il numero medio di confronti è
+Se la prima occorrenza del valore cercato occupa la posizione \(i\),
+si effettuano \(i+1\) confronti; se il valore è assente, se ne
+effettuano \(n\). Per \(n\ge1\), il caso migliore richiede un solo
+confronto, mentre quello peggiore ne richiede \(n\).
+Condizionatamente alla presenza del valore e assumendo che la prima
+occorrenza sia uniformemente distribuita fra le \(n\) posizioni,
+il numero medio di confronti è
 \[
-  \frac{1+2+\cdots+n}{n}=\frac{n+1}{2}\in\Theta(n).
+  \frac{1}{n}\sum_{i=1}^{n}i=\frac{n+1}{2}.
 \]
-La ricerca richiede \(\Theta(1)\) memoria ausiliaria.
+Le complessità temporali nei tre casi sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(1),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n).
+\]
+
+La ricerca richiede \(\Theta(1)\) spazio ausiliario e restituisce
+\(-1\) anche quando la lista è vuota.
 
 \section{Ricerca binaria}
 \label{sec:fi-ricerca-binaria}
 
-Se la lista è ordinata in senso non decrescente, la ricerca può
-escludere a ogni confronto una parte degli elementi. La
-\emph{ricerca binaria} confronta il valore cercato con quello centrale
-dell'intervallo ancora da esaminare: se i valori differiscono,
-prosegue soltanto nella metà compatibile con l'ordine della lista.
-
-\clearpage
+Data una lista ordinata \(v\) e un valore \(x\), la
+\emph{ricerca binaria} confronta il valore cercato con l'elemento
+centrale dell'intervallo ancora da esaminare. Se i valori differiscono,
+esclude la metà incompatibile con l'ordinamento della lista.
+La tecnica si applica a liste ordinate in senso crescente o decrescente,
+anche in presenza di elementi uguali, adattando i confronti.
+L'implementazione seguente assume un ordinamento crescente
+e restituisce un indice contenente \(x\), oppure \(-1\) se il valore
+è assente.
 
 \input{assets/codice/ricerca/binaria}
 
 La procedura ricorsiva mantiene un intervallo di indici
-\([\ell,r]\). Se \(\ell>r\), l'intervallo è vuoto e il valore non è
-presente. Altrimenti, posto \(m=\lfloor(\ell+r)/2\rfloor\),
+\([\ell,r]\) nel quale deve trovarsi il valore cercato, se presente.
+Se \(\ell>r\), l'intervallo è vuoto e la funzione restituisce
+\(-1\). Altrimenti, posto \(m=\lfloor(\ell+r)/2\rfloor\),
 si confronta \(x\) con \(v[m]\). Quando \(v[m]<x\), tutti gli elementi
 di indice non superiore a \(m\) possono essere esclusi; quando
-\(v[m]>x\), si possono escludere quelli di indice non inferiore a
-\(m\). Questa proprietà, insieme alla terminazione su intervalli
-sempre più piccoli, giustifica la correttezza dell'algoritmo.
+\(v[m]>x\), si possono escludere quelli di indice non inferiore
+a \(m\). Se i valori coincidono, viene restituito \(m\).
+Ogni chiamata riduce l'intervallo, garantendo la terminazione
+e conservando la correttezza della ricerca.
 
 Per esempio, nella lista \([5,9,11,12,17,21]\), la ricerca di
 \(12\) confronta successivamente gli elementi di indici \(2\), \(4\)
@@ -69,79 +82,111 @@ e \(3\), restituendo quest'ultimo indice. In presenza di duplicati,
 la ricerca binaria non garantisce di individuare la prima occorrenza.
 
 Nel caso peggiore, dopo ogni confronto rimangono al più
-\(\lfloor n/2\rfloor\) elementi. Per un costo unitario del confronto,
-la ricorrenza si esprime, a meno dei termini costanti, come
+\(\lfloor n/2\rfloor\) elementi. Per un costo costante delle
+operazioni eseguite in ciascuna chiamata, la ricorrenza è
 \[
   T(n)=T(\lfloor n/2\rfloor)+\Theta(1).
 \]
 Dopo \(k\) riduzioni l'intervallo ha dimensione al più
-\(\lfloor n/2^k\rfloor\); bastano quindi \(\Theta(\log n)\)
-confronti nel caso peggiore. Il caso migliore richiede un solo
-confronto. La versione ricorsiva usa \(O(\log n)\) spazio per la
-pila delle chiamate, secondo il modello della
-\cref{sec:fi-pila-ricorsione}. L'ordinamento iniziale è una
-precondizione: se la lista non è ordinata, il procedimento può
-restituire erroneamente \(-1\).
+\(\lfloor n/2^k\rfloor\), quindi il numero di confronti nel caso
+peggiore cresce logaritmicamente. Il caso migliore richiede un
+solo confronto; nel caso medio, assumendo elementi distinti e
+che il valore cercato sia presente con uguale probabilità in
+ciascuna posizione, il numero di confronti è ancora di ordine
+logaritmico. Per \(n\ge2\), le complessità temporali sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(1),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(\log n),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(\log n).
+\]
+
+La versione ricorsiva richiede \(O(\log n)\) spazio ausiliario
+per la pila delle chiamate, secondo il modello della
+\cref{sec:fi-pila-ricorsione}. Per una lista vuota restituisce
+\(-1\). L'ordinamento iniziale è una precondizione: se la lista
+non è ordinata secondo il criterio previsto, il procedimento
+può restituire un risultato errato.
 
 \section{Ricerca del massimo e del minimo}
 \label{sec:fi-ricerca-estremi}
 
-La ricerca di un estremo in una lista non ordinata richiede di
-esaminare ogni elemento. Per una lista non vuota, si assume il primo
-valore come candidato e lo si aggiorna quando se ne incontra uno
-rispettivamente maggiore o minore.
+Data una lista non vuota \(v\), si vuole individuare il valore
+massimo oppure minimo fra i suoi elementi. Se la lista non è
+ordinata, occorre esaminare tutti gli elementi. La ricerca assume
+il primo valore come candidato e lo aggiorna quando incontra un
+elemento rispettivamente maggiore o minore.
 
 \input{assets/codice/ricerca/estremi}
 
-Dopo aver esaminato i primi \(i\) elementi, la variabile candidato
-contiene l'estremo di quella parte della lista. Al termine il
-risultato è quindi l'estremo dell'intera lista. In entrambi i casi
-si effettuano esattamente \(n-1\) confronti per \(n\ge1\): la
-complessità temporale è \(\Theta(n)\) e quella spaziale ausiliaria
-\(\Theta(1)\). La lista vuota non ammette massimo né minimo, e le
-funzioni segnalano tale condizione con \texttt{ValueError}.
+Dopo aver esaminato i primi \(i\) elementi, la variabile
+\texttt{massimo}, rispettivamente \texttt{minimo}, contiene
+l'estremo degli elementi visitati. Ogni confronto conserva
+questa proprietà, aggiornando il candidato quando necessario.
+Al termine della scansione, la funzione restituisce quindi
+il massimo oppure il minimo dell'intera lista.
+
+In entrambi gli algoritmi, per \(n\ge1\), vengono eseguiti
+esattamente \(n-1\) confronti, indipendentemente dai valori
+degli elementi. Le complessità temporali nei tre casi sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(n),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n).
+\]
+
+Entrambe le implementazioni richiedono \(\Theta(1)\) spazio
+ausiliario e restituiscono l'unico elemento quando la lista
+ha lunghezza uno. Per una lista vuota sollevano
+\texttt{ValueError}, poiché non esistono elementi di cui
+determinare il massimo o il minimo.
 
 \section{Ordinamento per selezione}
 \label{sec:fi-ordinamento-selezione}
 
 L'\emph{ordinamento per selezione} (\emph{Selection Sort}) dispone
-gli elementi in ordine non decrescente. A ogni iterazione individua
-il minimo nella parte non ancora ordinata e lo scambia con il primo
+gli elementi in ordine crescente. A ogni iterazione individua il
+minimo nella parte non ancora ordinata e lo scambia con il primo
 elemento di tale parte. La ricerca dell'estremo riprende il
 procedimento della \cref{sec:fi-ricerca-estremi}, limitandolo a un
-intervallo di indici.
+intervallo di indici. La strategia ammette sia un'implementazione
+iterativa sia una ricorsiva: nella seconda, dopo aver collocato
+il minimo, si ordina la parte rimanente.
 
 \input{assets/codice/ordinamento/selezione}
 
-All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi
-sono ordinati e contengono i \(i\) valori minori della lista, tenendo
-conto delle eventuali ripetizioni. La selezione del minimo nella
-parte restante conserva tale proprietà per \(i+1\); quando rimane
-un solo elemento, la lista è ordinata.
+Nella versione iterativa, all'inizio dell'iterazione di indice \(i\),
+i primi \(i\) elementi sono ordinati e contengono gli \(i\) valori
+minori della lista, tenendo conto delle eventuali ripetizioni.
+La selezione del minimo nella parte restante conserva tale
+proprietà per \(i+1\); quando rimane un solo elemento, la lista
+è ordinata. Nella versione ricorsiva, ogni chiamata colloca
+il minimo nella prima posizione della parte considerata e
+richiama la funzione sulla parte successiva. Il caso base
+corrisponde a una parte di lunghezza al più uno; per ordinare
+l'intera lista, il parametro \texttt{inizio} deve valere \(0\).
 
-Per esempio, la lista \( [11,9,17,5,12] \) viene trasformata in
-\( [5,9,11,12,17] \). Le ricerche del minimo richiedono
+Per esempio, entrambe le implementazioni trasformano la lista
+\([11,9,17,5,12]\) in \([5,9,11,12,17]\).
+Le ricerche del minimo richiedono complessivamente
 \[
-  (n-1)+(n-2)+\cdots+1
-  =\frac{n(n-1)}2\in\Theta(n^2)
+  (n-1)+(n-2)+\cdots+1=\frac{n(n-1)}2
 \]
-confronti, indipendentemente dalla disposizione iniziale. Gli scambi
-sono al più \(n-1\). L'algoritmo modifica la lista originale,
-richiede \(\Theta(1)\) spazio ausiliario e, nella forma mostrata,
-non è stabile: lo scambio può invertire l'ordine relativo di due
-elementi con chiave uguale.
+confronti, indipendentemente dalla disposizione iniziale.
+Per entrambe le versioni, le complessità temporali nei tre casi
+sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(n^2),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n^2),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n^2).
+\]
 
-La stessa strategia ammette una realizzazione ricorsiva: dopo aver
-fissato il minimo, si ordina la parte rimanente. Il caso base è
-una parte di lunghezza al più uno.
-
-\clearpage
-
-\input{assets/codice/ordinamento/selezione-ricorsiva}
-
-Anche questa versione effettua \(\Theta(n^2)\) confronti; la
-profondità delle chiamate cresce però come \(\Theta(n)\), anziché
-richiedere memoria ausiliaria costante.
+Entrambe le implementazioni modificano la lista originale ed
+effettuano al più \(n-1\) scambi. La versione iterativa richiede
+\(\Theta(1)\) spazio ausiliario, mentre quella ricorsiva utilizza
+\(\Theta(n)\) spazio per la pila delle chiamate
+(\cref{sec:fi-pila-ricorsione}). L'algoritmo non è \emph{stabile}:
+gli scambi possono modificare l'ordine relativo degli elementi
+con la stessa chiave.
 
 \section{Ordinamento per fusione}
 \label{sec:fi-ordinamento-fusione}
@@ -149,41 +194,40 @@ richiedere memoria ausiliaria costante.
 L'\emph{ordinamento per fusione} (\emph{MergeSort}) applica la
 strategia \emph{divide et impera}: divide la lista in due parti di
 lunghezza pressoché uguale, ordina ricorsivamente ciascuna parte e
-fonde i risultati. Una lista con meno di due elementi costituisce
-il caso base. La suddivisione dell'ingresso
-\([5,7,9,1,8]\) è illustrata nella
-\cref{fig:fi-merge-sort-suddivisione}.
+fonde i risultati. Una lista di lunghezza minore di due costituisce
+il caso base. La suddivisione dell'ingresso \([5,7,9,1,8]\) è
+illustrata nella \cref{fig:fi-merge-sort-suddivisione}.
 
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/algoritmi/merge-sort-suddivisione}
-  \caption{Suddivisione ricorsiva delle liste in MergeSort; la fusione
-  delle parti ordinate avviene risalendo l'albero.}
+  \caption{Suddivisione ricorsiva delle liste in MergeSort; i numeri
+  sugli archi indicano l'ordine di visita delle chiamate ricorsive,
+  mentre la fusione delle parti ordinate avviene risalendo l'albero.}
   \label{fig:fi-merge-sort-suddivisione}
 \end{figure}
 
 La \emph{fusione} (\emph{merge}) di due liste già ordinate confronta
 i rispettivi primi elementi ancora disponibili, copia il minore
 nella lista di destinazione e avanza l'indice corrispondente. Quando
-una parte è esaurita, copia gli elementi residui dell'altra.
-
-\clearpage
+una delle due parti è esaurita, copia gli elementi residui dell'altra.
 
 \input{assets/codice/ordinamento/fusione}
 
-Durante la fusione, la parte di destinazione già scritta è ordinata
-e contiene i più piccoli fra gli elementi finora considerati. Poiché
-le due parti sono ordinate, il prossimo elemento da copiare è uno
-dei loro primi elementi disponibili. La proprietà è conservata a
-ogni passo, e al termine tutti gli elementi sono stati copiati.
-La condizione \lstinline|<=| nella fusione privilegia, a parità di
-valore, l'elemento della parte sinistra: questa implementazione è
-quindi \emph{stabile}. Per \(v=[5,2,4,1,3]\), la chiamata
-\texttt{merge\_sort(v, len(v))} produce \(v=[1,2,3,4,5]\).
+Durante la fusione, la parte di destinazione già scritta contiene,
+in ordine, gli elementi più piccoli delle due sottoliste.
+Poiché le sottoliste sono ordinate, il prossimo elemento da copiare
+è uno dei loro primi elementi disponibili. Questa proprietà si
+conserva a ogni passo; al termine tutti gli elementi sono stati
+copiati in ordine. La correttezza complessiva segue per ricorsione:
+le chiamate ricorsive ordinano le due metà e la fusione produce
+da esse una lista ordinata.
 
+Per esempio, per \(v=[5,2,4,1,3]\), la chiamata
+\texttt{merge\_sort(v, len(v))} produce \(v=[1,2,3,4,5]\).
 La creazione delle due sottoliste e la loro fusione richiedono
 \(\Theta(n)\) operazioni complessive. Indicando con \(T(n)\) il costo
-per una lista di \(n\) elementi, si ottiene
+per una lista di \(n\) elementi, si ottiene, per \(n\ge2\),
 \[
   T(n)=T(\lfloor n/2\rfloor)
        +T(\lceil n/2\rceil)+\Theta(n),
@@ -193,132 +237,268 @@ Per \(n=2^k\), se il costo non ricorsivo è \(cn\), la ricorrenza
 si riduce a
 \[
   T(n)=2T(n/2)+cn
-      =2^kT(n/2^k)+kcn
-      =nT(1)+cn\log_2n.
+       =2^kT(n/2^k)+kcn
+       =nT(1)+cn\log_2 n.
 \]
-Ne segue \(T(n)\in\Theta(n\log n)\); la stessa stima vale per
-dimensioni non potenze di due, poiché l'albero delle chiamate ha
-\(\Theta(\log n)\) livelli e ciascun livello richiede nel complesso
-\(\Theta(n)\) lavoro. La base del logaritmo non influisce sulla
-classe asintotica, perché un cambiamento di base introduce soltanto
-un fattore costante. Il \emph{teorema maestro} fornisce un criterio
-generale per alcune ricorrenze della forma
-\(T(n)=aT(n/b)+f(n)\); in questo caso basta la sostituzione
-precedente. La suddivisione mediante slicing e la fusione
-richiedono \(\Theta(n)\) memoria ausiliaria complessiva al picco,
-oltre alla pila di profondità \(\Theta(\log n)\).
+La stessa stima vale anche quando \(n\) non è una potenza di due:
+i primi \(\lfloor\log_2 n\rfloor\) livelli richiedono ciascuno
+\(\Theta(n)\) lavoro, mentre gli eventuali livelli rimanenti
+richiedono complessivamente \(O(n)\) operazioni.
+
+Per \(n=2^k\), la stessa stima si ottiene anche applicando
+il teorema maestro della \cref{sec:fi-teorema-maestro}.
+
+Le complessità temporali nei tre casi sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(n\log n),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n\log n),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n\log n).
+\]
+
+L'algoritmo modifica la lista originale, ma la suddivisione mediante
+slicing e la fusione richiedono \(\Theta(n)\) spazio ausiliario
+complessivo al picco, oltre alla pila delle chiamate di profondità
+\(\Theta(\log n)\). La condizione \lstinline|<=| nella fusione
+privilegia, a parità di valore, l'elemento della parte sinistra:
+l'algoritmo è pertanto \emph{stabile}, a differenza dell'ordinamento
+per selezione della \cref{sec:fi-ordinamento-selezione}.
 
 \section{Ordinamento per inserimento}
 \label{sec:fi-ordinamento-inserimento}
 
-Nell'\emph{ordinamento per inserimento} (\emph{Insertion Sort}) la
-parte iniziale della lista è mantenuta ordinata. Ogni nuovo elemento
-viene conservato temporaneamente, mentre gli elementi maggiori
-vengono spostati verso destra fino a liberare la posizione corretta.
+L'\emph{ordinamento per inserimento} (\emph{Insertion Sort}) dispone
+gli elementi in ordine crescente, mantenendo ordinata la parte
+iniziale della lista. A ogni iterazione conserva temporaneamente
+l'elemento da inserire e sposta verso destra quelli maggiori,
+fino a individuare la posizione corretta.
 
 \input{assets/codice/ordinamento/inserimento}
 
-Prima dell'iterazione di indice \(i\), il prefisso di lunghezza \(i\)
-è ordinato. Il ciclo interno sposta soltanto elementi maggiori del
-valore da inserire; dopo l'inserimento, il prefisso di lunghezza
-\(i+1\) risulta ancora ordinato. L'uso del confronto stretto
-\lstinline|<| mantiene l'ordine relativo degli elementi uguali, rendendo
-l'algoritmo stabile.
+All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi
+sono ordinati. Il ciclo interno sposta soltanto gli elementi maggiori
+del valore da inserire, conservando l'ordine degli altri.
+L'inserimento nella posizione individuata mantiene tale proprietà
+per il prefisso di lunghezza \(i+1\); al termine, l'intera lista
+risulta ordinata.
 
-Quando la lista è già ordinata, il ciclo interno non compie
-spostamenti: il costo del caso migliore è \(\Theta(n)\).
-Se invece gli elementi sono in ordine strettamente decrescente,
-l'iterazione \(i\) richiede \(i\) spostamenti e il numero totale è
+Per esempio, la lista \([11,9,17,5,12]\) viene trasformata in
+\([5,9,11,12,17]\). Nel caso migliore, quando la lista è già ordinata,
+il ciclo interno non effettua spostamenti e il costo è lineare.
+Nel caso peggiore, con elementi in ordine strettamente decrescente,
+l'iterazione di indice \(i\) richiede \(i\) spostamenti, per un totale di
 \[
-  \sum_{i=1}^{n-1}i=\frac{n(n-1)}2\in\Theta(n^2).
+  \sum_{i=1}^{n-1}i=\frac{n(n-1)}2.
 \]
-Per una permutazione uniformemente casuale di valori distinti,
-ciascun nuovo elemento supera in media metà dei precedenti; il
-costo medio è pertanto \(\Theta(n^2)\). La memoria ausiliaria è
-\(\Theta(1)\). In presenza di pochi elementi fuori posizione,
-Insertion Sort può risultare vantaggioso rispetto a metodi con un
-costo indipendente dall'ordine iniziale.
+Nel caso medio, assumendo una distribuzione uniforme delle
+permutazioni di valori distinti, ogni elemento richiede mediamente
+lo spostamento di metà dei precedenti. Le complessità temporali
+nei tre casi sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(n),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n^2),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n^2).
+\]
+L'algoritmo modifica la lista originale e richiede \(\Theta(1)\)
+spazio ausiliario. Il confronto stretto \lstinline|<| impedisce
+di spostare elementi uguali, conservandone l'ordine relativo:
+l'implementazione è quindi \emph{stabile}. In presenza di pochi
+elementi fuori posizione, Insertion Sort può risultare vantaggioso
+rispetto ad algoritmi il cui costo non dipende dall'ordine iniziale.
 
 \section{Ordinamento rapido}
 \label{sec:fi-ordinamento-rapido}
 
-L'\emph{ordinamento rapido} (\emph{QuickSort}) è un altro algoritmo
+L'\emph{ordinamento rapido} (\emph{QuickSort}) applica la strategia
 \emph{divide et impera}. Scelto un elemento \emph{pivot}, la fase di
 \emph{partizione} riordina il tratto considerato ponendo a sinistra
 gli elementi minori o uguali al pivot e a destra quelli maggiori.
-Il pivot viene quindi collocato nella sua posizione definitiva e il
-procedimento prosegue ricorsivamente sui due intervalli rimanenti.
+Il pivot viene quindi collocato nella sua posizione definitiva e
+il procedimento prosegue ricorsivamente sui due intervalli rimanenti.
+Una parte di lunghezza minore di due costituisce il caso base.
 
 \input{assets/codice/ordinamento/rapido}
+
+Per ordinare l'intera lista, la chiamata iniziale è
+\texttt{quicksort(a, 0, len(a) - 1)}, poiché gli estremi
+\texttt{inizio} e \texttt{fine} sono inclusi nell'intervallo.
 
 Nella procedura di partizione mostrata, il pivot è l'ultimo elemento.
 Durante la scansione, la parte del tratto già attraversata è divisa
 fra valori non maggiori del pivot e valori maggiori. Scambiando
 ciascun nuovo valore non maggiore con la prima posizione del secondo
 gruppo, tale proprietà viene conservata; lo scambio conclusivo
-colloca il pivot fra i due gruppi. Ogni chiamata ricorsiva opera su
-un intervallo strettamente più piccolo, fino al caso base di
-lunghezza al più uno.
+colloca il pivot fra i due gruppi. Le chiamate ricorsive ordinano
+quindi le due parti, mantenendo il pivot nella posizione definitiva.
+Poiché ciascuna chiamata opera su un intervallo strettamente più
+piccolo, il procedimento raggiunge necessariamente il caso base.
 
-Per esempio, per \(a=[5,2,9,1,7]\) la prima partizione pone
-\(7\) nella posizione definitiva e lascia \(5,2,1\) a sinistra
+Per esempio, per \(a=[5,2,9,1,7]\), la prima partizione colloca
+\(7\) nella posizione definitiva, lasciando \(5,2,1\) a sinistra
 e \(9\) a destra; al termine si ottiene \(a=[1,2,5,7,9]\).
 
-La partizione di \(n\) elementi costa \(\Theta(n)\). Con divisioni
-bilanciate il tempo soddisfa
-\(T(n)=2T(n/2)+\Theta(n)\), quindi è
-\(\Theta(n\log n)\). Nel caso peggiore, per esempio con una lista già
-ordinata e scelta sistematica dell'ultimo elemento come pivot,
-una delle parti è vuota e l'altra ha \(n-1\) elementi:
+La partizione di \(n\) elementi richiede \(\Theta(n)\) operazioni.
+Nel caso migliore, quando le divisioni sono bilanciate, il costo
+soddisfa, a meno degli arrotondamenti,
 \[
-  T(n)=T(n-1)+\Theta(n)\in\Theta(n^2).
+  T(n)=2T(n/2)+\Theta(n),
+  \qquad T(n)\in\Theta(n\log n).
 \]
-Con pivot scelto uniformemente a caso, il tempo \emph{atteso} è
-\(\Theta(n\log n)\), senza richiedere che ogni partizione sia
-bilanciata. La partizione opera direttamente sulla lista e usa
-\(\Theta(1)\) spazio ausiliario; la pila ricorsiva occupa
-\(O(\log n)\) spazio atteso e \(O(n)\) nel caso peggiore.
-La versione mostrata non è stabile.
+Nel caso peggiore, per esempio con una lista già ordinata e scelta
+sistematica dell'ultimo elemento come pivot, una delle parti è vuota
+e l'altra contiene \(n-1\) elementi:
+\[
+  T(n)=T(n-1)+\Theta(n),
+  \qquad T(n)\in\Theta(n^2).
+\]
+Nel caso medio, assumendo una distribuzione uniforme delle
+permutazioni di valori distinti, il costo atteso è
+\(\Theta(n\log n)\), anche senza divisioni sempre bilanciate.
+Le complessità temporali nei tre casi sono quindi
+\[
+  T_{\mathrm{best}}(n)\in\Theta(n\log n),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n\log n),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n^2).
+\]
+
+L'algoritmo modifica la lista originale e la partizione richiede
+\(\Theta(1)\) spazio ausiliario. La pila delle chiamate occupa
+\(O(\log n)\) spazio atteso nelle ipotesi del caso medio e
+\(O(n)\) nel caso peggiore. L'implementazione non è \emph{stabile},
+poiché gli scambi possono modificare l'ordine relativo di elementi
+con la stessa chiave di ordinamento.
 
 La scelta del pivot può utilizzare il primo elemento, l'ultimo,
 quello centrale, un elemento casuale o la mediana di tre elementi.
 Per migliorare il comportamento pratico si possono impiegare
-Insertion Sort sulle parti molto piccole, partizioni a tre vie in
-presenza di numerosi duplicati ed eliminazione delle chiamate
-ricorsive in coda, richiamata nella
-\cref{sec:fi-ricorsione-coda}. Le due partizioni indipendenti si
-prestano inoltre all'esecuzione parallela.
+Insertion Sort sulle parti molto piccole, partizioni a tre vie
+in presenza di numerosi duplicati e la trasformazione di chiamate
+ricorsive in cicli (\cref{sec:fi-ricorsione-coda}). I due
+sottoproblemi risultanti dalla partizione possono inoltre essere
+elaborati indipendentemente, consentendo l'esecuzione parallela.
+
+\section{Ricorrenze e teorema maestro}
+\label{sec:fi-teorema-maestro}
+
+Il costo di un algoritmo ricorsivo può essere descritto mediante una
+\emph{relazione di ricorrenza}, che esprime il tempo di esecuzione
+\(T(n)\) in funzione del costo dei sottoproblemi e delle operazioni
+eseguite al di fuori delle chiamate ricorsive. Una forma frequente è
+\[
+  T(n)=aT(n/b)+f(n),
+\]
+dove \(a\) è il numero di sottoproblemi, \(n/b\) la dimensione di
+ciascuno e \(f(n)\) il costo delle operazioni non ricorsive.
+Si assumono \(a\ge1\) intero, \(b>1\) costante e \(T(1)\in\Theta(1)\).
+Per semplicità, la formula trascura gli arrotondamenti nelle dimensioni
+dei sottoproblemi.
+
+Il \emph{teorema maestro} (\emph{Master Theorem}) permette di
+ricavare la complessità asintotica confrontando \(f(n)\) con
+\(n^{\log_b a}\), che esprime l'ordine di crescita del numero
+di foglie dell'albero delle chiamate ricorsive.
+
+\begin{theorem}[Teorema maestro]
+\label{thm:fi-teorema-maestro}
+Sia \(T(n)=aT(n/b)+f(n)\), con \(a\ge1\), \(b>1\),
+\(f(n)\) asintoticamente non negativa e \(T(1)\in\Theta(1)\).
+Posto \(d=\log_b a\), valgono i seguenti casi:
+\begin{enumerate}
+  \item Se esiste \(\varepsilon>0\) tale che
+  \(f(n)\in O(n^{d-\varepsilon})\), allora
+  \(T(n)\in\Theta(n^d)\).
+  \item Se \(f(n)\in\Theta(n^d)\), allora
+  \(T(n)\in\Theta(n^d\log n)\).
+  \item Se esiste \(\varepsilon>0\) tale che
+  \(f(n)\in\Omega(n^{d+\varepsilon})\) e, per qualche costante
+  \(0<c<1\), vale \(af(n/b)\le cf(n)\) per \(n\) sufficientemente
+  grande, allora \(T(n)\in\Theta(f(n))\).
+\end{enumerate}
+\end{theorem}
+
+Nel primo caso prevale il costo complessivo dei sottoproblemi;
+nel secondo, il lavoro si distribuisce fra i livelli dell'albero
+delle chiamate; nel terzo prevale il costo delle operazioni non
+ricorsive, purché sia soddisfatta la condizione indicata.
+
+Per la ricerca binaria della \cref{sec:fi-ricerca-binaria},
+considerando il caso peggiore, si ha
+\[
+  T(n)=T(n/2)+\Theta(1),
+  \qquad a=1,\quad b=2,\quad d=0.
+\]
+Il secondo caso del \cref{thm:fi-teorema-maestro} fornisce
+\(T(n)\in\Theta(\log n)\). Per MergeSort
+(\cref{sec:fi-ordinamento-fusione}) si ha invece
+\[
+  T(n)=2T(n/2)+\Theta(n),
+  \qquad a=2,\quad b=2,\quad d=1,
+\]
+e lo stesso caso fornisce \(T(n)\in\Theta(n\log n)\).
+In entrambi gli algoritmi gli arrotondamenti delle dimensioni
+non modificano le stime ottenute.
+
+Non tutte le ricorrenze rientrano nella forma prevista dal teorema.
+Per la versione ricorsiva di Fibonacci, già analizzata
+nella \cref{sec:fi-complessita-fibonacci}, si ha
+\[
+  T(n)=T(n-1)+T(n-2)+\Theta(1),
+\]
+che descrive un costo esponenziale, ma non ammette un'applicazione
+diretta del teorema maestro. Analogamente, la ricorrenza
+\(T(n)=T(n-1)+\Theta(n)\) del caso peggiore di QuickSort non ha
+la forma richiesta.
+
+\clearpage
 
 \section{Confronto degli algoritmi}
 \label{sec:fi-ordinamento-confronto}
 
 Le complessità temporali dei quattro algoritmi studiati sono
-riepilogate nella tabella seguente. Le stime si riferiscono a
-confronti e accessi a elementi di dimensione costante, con la
-convenzione introdotta nella \cref{sec:fi-complessita-modello}.
+riepilogate nella \cref{tab:fi-confronto-ordinamenti}. Le stime
+si riferiscono a confronti e accessi a elementi di dimensione
+costante, secondo il modello di costo della
+\cref{sec:fi-complessita-modello}.
 
 \begin{table}[htbp]
   \centering
-  \caption{Complessità temporale degli algoritmi di ordinamento.}
+  \caption{Complessità temporali e spaziali degli algoritmi di ordinamento.}
   \label{tab:fi-confronto-ordinamenti}
-  \begin{tabular}{lccc}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lcccc}
     \hline
-    Algoritmo & Caso migliore & Caso medio & Caso peggiore\\
+    Algoritmo & Caso migliore & Caso medio & Caso peggiore &
+    \shortstack{Spazio\\ausiliario}\\
     \hline
-    Selection Sort & \(\Theta(n^2)\) & \(\Theta(n^2)\) & \(\Theta(n^2)\)\\
-    MergeSort & \(\Theta(n\log n)\) & \(\Theta(n\log n)\) & \(\Theta(n\log n)\)\\
-    Insertion Sort & \(\Theta(n)\) & \(\Theta(n^2)\) & \(\Theta(n^2)\)\\
-    QuickSort & \(\Theta(n\log n)\) & \(\Theta(n\log n)\) & \(\Theta(n^2)\)\\
+    Selection Sort &
+    \(\Theta(n^2)\) & \(\Theta(n^2)\) & \(\Theta(n^2)\) &
+    \shortstack{\(\Theta(1)\) iter.\\\(\Theta(n)\) ric.}\\
+    MergeSort &
+    \(\Theta(n\log n)\) & \(\Theta(n\log n)\) & \(\Theta(n\log n)\) &
+    \(\Theta(n)\)\\
+    Insertion Sort &
+    \(\Theta(n)\) & \(\Theta(n^2)\) & \(\Theta(n^2)\) &
+    \(\Theta(1)\)\\
+    QuickSort &
+    \(\Theta(n\log n)\) & \(\Theta(n\log n)\) & \(\Theta(n^2)\) &
+    \shortstack{\(O(\log n)\) medio\\\(O(n)\) peggiore}\\
     \hline
   \end{tabular}
 \end{table}
 
-Le stime medie assumono una distribuzione uniforme delle permutazioni
-di valori distinti; per QuickSort il risultato riguarda anche la
-versione con pivot casuale. MergeSort garantisce un costo
-\(\Theta(n\log n)\) e conserva l'ordine degli elementi uguali,
-ma richiede una lista ausiliaria. QuickSort limita le copie,
-mentre Insertion Sort è particolarmente adatto a liste piccole o
-quasi ordinate. La scelta dipende quindi non soltanto dalla
-complessità asintotica, ma anche dalla disposizione dei dati,
-dai requisiti di stabilità e dalla memoria disponibile.
+Le stime del caso medio per Insertion Sort e QuickSort assumono
+una distribuzione uniforme delle permutazioni di valori distinti.
+Per QuickSort, la scelta casuale del pivot permette di ottenere
+un costo atteso \(\Theta(n\log n)\) indipendentemente dalla
+disposizione iniziale, senza escludere il caso peggiore.
+
+Un'ulteriore distinzione riguarda la \emph{stabilità}:
+Insertion Sort e MergeSort conservano l'ordine relativo degli
+elementi con la stessa chiave, mentre Selection Sort e QuickSort
+non garantiscono questa proprietà nelle implementazioni considerate.
+La stabilità è particolarmente importante quando gli elementi
+possiedono più chiavi di ordinamento.
+
+La scelta dell'algoritmo deve quindi considerare anche le
+caratteristiche dei dati, i requisiti di stabilità e il costo
+delle operazioni effettivamente eseguite.
