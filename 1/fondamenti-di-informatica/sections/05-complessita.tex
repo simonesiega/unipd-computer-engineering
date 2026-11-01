@@ -362,6 +362,8 @@ Entrambe le implementazioni richiedono \(\Theta(1)\) spazio ausiliario.
 Le funzioni sollevano \texttt{ValueError} per una lista vuota e
 restituiscono zero quando la lista contiene un solo elemento.
 
+\clearpage
+
 \section{Riconoscimento di elementi duplicati}
 \label{sec:fi-complessita-duplicati}
 
@@ -407,6 +409,8 @@ ordinata. Entrambe restituiscono \texttt{False} per liste con meno
 di due elementi. La seconda soluzione richiede inoltre che i valori
 siano ordinabili secondo un criterio coerente con l'uguaglianza.
 
+\clearpage
+
 \section{Ricerca di una sottostringa e dimensioni multiple}
 \label{sec:fi-complessita-sottostringa}
 
@@ -418,8 +422,6 @@ Indicando con \(n\) e \(m\) le rispettive lunghezze, i possibili
 indici iniziali sono \(0,\ldots,n-m\), purché \(m\le n\).
 La ricerca diretta confronta i caratteri del modello con quelli
 del testo per ogni posizione candidata.
-
-\clearpage
 
 \input{assets/codice/complessita/sottostringa}
 
@@ -462,6 +464,8 @@ carattere diverso, evitando confronti inutili senza eliminare
 il costo quadratico del caso peggiore. Algoritmi più sofisticati,
 come Knuth--Morris--Pratt, possono ottenere un tempo
 \(O(n+m)\) nel caso peggiore.
+
+\clearpage
 
 \section{Ordini di crescita e trattabilità}
 \label{sec:fi-complessita-ordini}

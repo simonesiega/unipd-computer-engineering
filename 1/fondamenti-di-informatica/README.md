@@ -47,9 +47,9 @@
   - 5.5 Un algoritmo lineare per lo stesso problema — p. 35
   - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 36
   - 5.7 Massima differenza fra elementi — p. 37
-  - 5.8 Riconoscimento di elementi duplicati — p. 37
-  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 38
-  - 5.10 Ordini di crescita e trattabilità — p. 39
+  - 5.8 Riconoscimento di elementi duplicati — p. 38
+  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 39
+  - 5.10 Ordini di crescita e trattabilità — p. 40
   - 5.11 Complessità della ricorsione di Fibonacci — p. 40
 - 6 Ricerca e ordinamento — p. 41
   - 6.1 Ricerca lineare — p. 41
@@ -59,7 +59,7 @@
   - 6.5 Ordinamento per fusione — p. 44
   - 6.6 Ordinamento per inserimento — p. 46
   - 6.7 Ordinamento rapido — p. 46
-  - 6.8 Ricorrenze e teorema maestro — p. 47
+  - 6.8 Ricorrenze e teorema maestro — p. 48
   - 6.9 Confronto degli algoritmi — p. 49
 - 7 Strutture dati e tipi di dato astratti — p. 50
   - 7.1 Tipi di dato astratti e strutture dati — p. 50
@@ -84,10 +84,10 @@
   - 9.2 Tipi fondamentali e rappresentazione numerica — p. 66
   - 9.3 Conversioni numeriche e arrotondamento — p. 67
   - 9.4 Costanti ed espressioni aritmetiche — p. 68
-  - 9.5 La classe Math e i metodi statici — p. 69
-  - 9.6 Stringhe e conversioni testuali — p. 69
+  - 9.5 La classe Math e i metodi statici — p. 70
+  - 9.6 Stringhe e conversioni testuali — p. 70
   - 9.7 Caratteri e sequenze di escape — p. 71
   - 9.8 Formattazione dell'output — p. 72
-  - 9.9 L'ingresso standard con Scanner — p. 72
-- 10 Realizzazione di classi in Java — p. 75
+  - 9.9 L'ingresso standard con Scanner — p. 73
+- 10 Realizzazione di classi in Java — p. 76
 <!-- GENERATED:END -->
