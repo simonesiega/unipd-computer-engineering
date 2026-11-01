@@ -1,8 +1,8 @@
 \begin{unipdcode}[language=Python]
 def reverse_lineare(lista):
-    n = len(lista)
-    output = [0] * n
-    for i in range(n):
-        output[i] = lista[n - 1 - i]
-    return output
+    n = len(lista)                              # 1
+    output = [0] * n                            # n + 1
+    for i in range(n):                          # n iterazioni
+        output[i] = lista[n - 1 - i]            # 4 (2 sottrazioni, lettura, scrittura)
+    return output                               # escluso
 \end{unipdcode}

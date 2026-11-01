@@ -9,14 +9,14 @@
   xrightmargin=0pt,
   framexleftmargin=0.3em]
 def somme_prefisse_quadratiche(valori):
-    n = len(valori)
-    risultato = [0] * n
-    for i in range(n):
-        somma = 0
-        for j in range(i + 1):
-            somma += valori[j]
-        risultato[i] = somma
-    return risultato
+    n = len(valori)              # 1
+    risultato = [0] * n          # n + 1
+    for i in range(n):           # n iterazioni
+        somma = 0                # 1
+        for j in range(i + 1):   # i + 1 iterazioni
+            somma += valori[j]   # 2 2 (lettura, aggiornamento)
+        risultato[i] = somma     # 1
+    return risultato             # escluso
 \end{unipdcode}
 \end{minipage}%
 \hspace*{4mm}%
@@ -30,12 +30,13 @@ def somme_prefisse_quadratiche(valori):
   xrightmargin=0pt,
   framexleftmargin=0.3em]
 def somme_prefisse_lineari(valori):
-    n = len(valori)
-    risultato = [0] * n
-    somma = 0
-    for i in range(n):
-        somma += valori[i]
-        risultato[i] = somma
-    return risultato
+    n = len(valori)              # 1
+    risultato = [0] * n          # n + 1
+    somma = 0                    # 1
+    for i in range(n):           # n iterazioni
+        somma += valori[i]       # 2 (lettura, aggiornamento)
+        risultato[i] = somma     # 1
+    return risultato             # escluso
 \end{unipdcode}
 \end{minipage}
+

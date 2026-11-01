@@ -9,15 +9,15 @@
   xrightmargin=0pt,
   framexleftmargin=0.3em]
 def differenza_massima_quadratica(valori):
-    if not valori:
+    if not valori:                             # 1
         raise ValueError("Lista vuota")
-    massimo = 0
-    for i in range(len(valori)):
-        for j in range(len(valori)):
-            differenza = valori[i] - valori[j]
-            if differenza > massimo:
-                massimo = differenza
-    return massimo
+    massimo = 0                                # 1
+    for i in range(len(valori)):               # n iterazioni
+        for j in range(len(valori)):           # n iterazioni
+            differenza = valori[i] - valori[j] # 4 (2 letture, sottrazione, assegnamento)
+            if differenza > massimo:           # 1
+                massimo = differenza           # 1 se vero
+    return massimo                             # escluso
 \end{unipdcode}
 \end{minipage}%
 \hspace*{4mm}%
@@ -31,16 +31,15 @@ def differenza_massima_quadratica(valori):
   xrightmargin=0pt,
   framexleftmargin=0.3em]
 def differenza_massima_lineare(valori):
-    if not valori:
+    if not valori:                      # 1
         raise ValueError("Lista vuota")
-    minimo = massimo = valori[0]
-    for i in range(1, len(valori)):
-        valore = valori[i]
-        if valore < minimo:
-            minimo = valore
-        if valore > massimo:
-            massimo = valore
-    return massimo - minimo
+    minimo = massimo = valori[0]        # 3 (lettura, 2 assegnamenti)
+    for i in range(1, len(valori)):     # n - 1 iter.
+        valore = valori[i]              # 2 (lettura, assegnamento)
+        if valore < minimo:                    # 1
+            minimo = valore             # 1 se vero
+        if valore > massimo:            # 1
+            massimo = valore            # 1 se vero
+    return massimo - minimo             # 1
 \end{unipdcode}
 \end{minipage}
-

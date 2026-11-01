@@ -44,48 +44,48 @@
   - 5.2 Analisi teorica e modello di costo — p. 31
   - 5.3 Notazioni asintotiche — p. 32
   - 5.4 Un algoritmo quadratico per l'inversione di una lista — p. 33
-  - 5.5 Un algoritmo lineare per lo stesso problema — p. 33
-  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 34
-  - 5.7 Massima differenza fra elementi — p. 35
+  - 5.5 Un algoritmo lineare per lo stesso problema — p. 34
+  - 5.6 Somme prefisse: evitare calcoli ripetuti — p. 35
+  - 5.7 Massima differenza fra elementi — p. 36
   - 5.8 Riconoscimento di elementi duplicati — p. 36
-  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 36
-  - 5.10 Ordini di crescita e trattabilità — p. 37
-  - 5.11 Complessità della ricorsione di Fibonacci — p. 37
-- 6 Ricerca e ordinamento — p. 38
-  - 6.1 Ricerca lineare — p. 38
-  - 6.2 Ricerca binaria — p. 38
-  - 6.3 Ricerca del massimo e del minimo — p. 39
-  - 6.4 Ordinamento per selezione — p. 40
-  - 6.5 Ordinamento per fusione — p. 41
-  - 6.6 Ordinamento per inserimento — p. 43
-  - 6.7 Ordinamento rapido — p. 43
-  - 6.8 Confronto degli algoritmi — p. 44
-- 7 Strutture dati e tipi di dato astratti — p. 45
-  - 7.1 Tipi di dato astratti e strutture dati — p. 45
-  - 7.2 Array e accesso diretto — p. 45
-  - 7.3 Liste concatenate — p. 46
-  - 7.4 Pila: politica LIFO — p. 47
-  - 7.5 Coda: politica FIFO — p. 48
-  - 7.6 Coda doppia — p. 50
-  - 7.7 Lista come tipo di dato astratto — p. 50
-  - 7.8 Mappa — p. 51
-  - 7.9 Insieme — p. 51
-- 8 Introduzione a Java — p. 52
-  - 8.1 Portabilità, compilazione ed esecuzione — p. 52
-  - 8.2 Il primo programma: classe e metodo principale — p. 53
-  - 8.3 Uscita standard e invocazione dei metodi — p. 54
-  - 8.4 Errori e ciclo di sviluppo — p. 54
-  - 8.5 Variabili, tipi e assegnamento — p. 55
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 56
-  - 8.7 Variabili oggetto e riferimenti — p. 57
-- 9 Collaudo, tipi di dato e input in Java — p. 59
-  - 9.1 Programmi di collaudo e pacchetti — p. 59
-  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 60
-  - 9.3 Conversioni numeriche e arrotondamento — p. 61
-  - 9.4 Costanti ed espressioni aritmetiche — p. 62
-  - 9.5 La classe Math e i metodi statici — p. 63
-  - 9.6 Stringhe e conversioni testuali — p. 63
-  - 9.7 Caratteri e sequenze di escape — p. 64
-  - 9.8 Formattazione dell'output — p. 65
-  - 9.9 L'ingresso standard con Scanner — p. 66
+  - 5.9 Ricerca di una sottostringa e dimensioni multiple — p. 37
+  - 5.10 Ordini di crescita e trattabilità — p. 38
+  - 5.11 Complessità della ricorsione di Fibonacci — p. 39
+- 6 Ricerca e ordinamento — p. 40
+  - 6.1 Ricerca lineare — p. 40
+  - 6.2 Ricerca binaria — p. 40
+  - 6.3 Ricerca del massimo e del minimo — p. 41
+  - 6.4 Ordinamento per selezione — p. 42
+  - 6.5 Ordinamento per fusione — p. 43
+  - 6.6 Ordinamento per inserimento — p. 45
+  - 6.7 Ordinamento rapido — p. 45
+  - 6.8 Confronto degli algoritmi — p. 46
+- 7 Strutture dati e tipi di dato astratti — p. 47
+  - 7.1 Tipi di dato astratti e strutture dati — p. 47
+  - 7.2 Array e accesso diretto — p. 47
+  - 7.3 Liste concatenate — p. 48
+  - 7.4 Pila: politica LIFO — p. 49
+  - 7.5 Coda: politica FIFO — p. 50
+  - 7.6 Coda doppia — p. 52
+  - 7.7 Lista come tipo di dato astratto — p. 52
+  - 7.8 Mappa — p. 53
+  - 7.9 Insieme — p. 53
+- 8 Introduzione a Java — p. 54
+  - 8.1 Portabilità, compilazione ed esecuzione — p. 54
+  - 8.2 Il primo programma: classe e metodo principale — p. 55
+  - 8.3 Uscita standard e invocazione dei metodi — p. 56
+  - 8.4 Errori e ciclo di sviluppo — p. 56
+  - 8.5 Variabili, tipi e assegnamento — p. 57
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 58
+  - 8.7 Variabili oggetto e riferimenti — p. 59
+- 9 Collaudo, tipi di dato e input in Java — p. 61
+  - 9.1 Programmi di collaudo e pacchetti — p. 61
+  - 9.2 Tipi fondamentali e rappresentazione numerica — p. 62
+  - 9.3 Conversioni numeriche e arrotondamento — p. 63
+  - 9.4 Costanti ed espressioni aritmetiche — p. 64
+  - 9.5 La classe Math e i metodi statici — p. 65
+  - 9.6 Stringhe e conversioni testuali — p. 65
+  - 9.7 Caratteri e sequenze di escape — p. 66
+  - 9.8 Formattazione dell'output — p. 67
+  - 9.9 L'ingresso standard con Scanner — p. 68
 <!-- GENERATED:END -->
