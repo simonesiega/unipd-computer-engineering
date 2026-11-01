@@ -1,46 +1,51 @@
 \chapter{Introduzione a Java}
 \label{chap:introduzione-java}
 
-Il \cref{chap:strutture-dati-adt} ha distinto le operazioni offerte
-su un insieme di dati dai dettagli della loro implementazione.
-Questa separazione tra interfaccia e realizzazione ricompare nella
-programmazione a oggetti, che costituisce una caratteristica
-fondamentale di Java. Dopo aver studiato la programmazione con Python
-nel \cref{chap:introduzione-python}, si esaminano ora il processo di
-sviluppo in Java, la struttura di un programma e l'uso iniziale di
-classi e oggetti.\footnote{Materiale di riferimento: S. Canazza,
-\emph{Java}, slide del corso di Fondamenti di Informatica,
+Dopo aver introdotto la programmazione in Python nel
+\cref{chap:introduzione-python}, si considera Java, un linguaggio
+che permette di organizzare i programmi mediante classi e oggetti.
+La distinzione tra comportamento e implementazione, esaminata nel
+\cref{chap:strutture-dati-adt}, trova applicazione anche nella
+programmazione orientata agli oggetti. Si introducono il processo
+di compilazione ed esecuzione, la struttura di un programma Java
+e i principali costrutti del linguaggio.\footnote{Materiale
+di riferimento: S. Canazza, \emph{Java}, slide del corso di
+Fondamenti di Informatica,
 \nolinkurl{2026_FI_07_canazza_Java.pdf}.}
 
 \section{Portabilità, compilazione ed esecuzione}
 \label{sec:fi-java-esecuzione}
 
-Java fu sviluppato a partire dal 1991 presso Sun Microsystems,
-con un gruppo di progettisti guidato da James Gosling. Tra gli
-obiettivi del linguaggio vi è la possibilità di eseguire uno stesso
-programma su calcolatori con architetture differenti. Questa
-\emph{portabilità} riguarda non soltanto il codice sorgente,
-ma anche una rappresentazione compilata indipendente dalla CPU.
+Java è un linguaggio di programmazione ad alto livello e
+\emph{general purpose}, progettato per consentire l'esecuzione
+dei programmi su piattaforme differenti. Questa proprietà,
+detta \emph{portabilità}, si basa sull'impiego di una
+rappresentazione intermedia del programma, indipendente
+dall'architettura della CPU.
 
-Il processo usuale comprende tre fasi: scrittura del \emph{codice
-sorgente} in un file con estensione \texttt{.java}, compilazione
-in \emph{bytecode} ed esecuzione mediante la \emph{Java Virtual
-Machine} (JVM). Il \emph{Java Development Kit} (JDK) fornisce
-fra gli altri gli strumenti necessari a compilare ed eseguire
-il programma, in particolare i comandi \texttt{javac} e \texttt{java}.
+Il processo usuale comprende la scrittura del \emph{codice sorgente}
+in un file con estensione \texttt{.java}, la compilazione in
+\emph{bytecode} e l'esecuzione mediante la \emph{Java Virtual Machine}
+(JVM). Il \emph{Java Development Kit} (JDK) fornisce gli strumenti
+necessari allo sviluppo, tra cui il compilatore \texttt{javac}
+e il comando \texttt{java} per avviare i programmi.
 
 \begin{definition}[Bytecode e macchina virtuale Java]
 \label{def:fi-java-jvm}
-Il \emph{bytecode Java} è un insieme di istruzioni destinate alla
-JVM, non direttamente alla CPU fisica. La \emph{JVM} è l'ambiente
-software che carica, verifica ed esegue tali istruzioni, interpretandole
-o traducendole in codice macchina appropriato alla piattaforma.
+Il \emph{bytecode Java} è una rappresentazione intermedia del
+programma, costituita da istruzioni destinate alla JVM anziché
+direttamente alla CPU fisica. La \emph{JVM} è l'ambiente di
+esecuzione che carica, verifica ed esegue tali istruzioni,
+interpretandole o traducendole in codice macchina adatto
+alla piattaforma.
 \end{definition}
 
-Compilando \nolinkurl{HelloTester.java} con \texttt{javac}
-si ottiene normalmente \nolinkurl{HelloTester.class}.
-L'esecuzione si avvia con \texttt{java HelloTester}:
-si indica il nome della classe, non quello del file \texttt{.class}.
+Compilando un programma salvato nel file
+\nolinkurl{HelloTester.java} con \texttt{javac} si ottiene
+normalmente il file \nolinkurl{HelloTester.class}, contenente
+il bytecode della classe. L'esecuzione si avvia mediante
+\texttt{java HelloTester}, indicando il nome della classe
+anziché quello del file \texttt{.class}.
 
 \begin{unipdterminal}
 $ javac HelloTester.java
@@ -48,109 +53,147 @@ $ java HelloTester
 Hello, World!
 \end{unipdterminal}
 
-Il compilatore traduce il sorgente una volta, mentre la JVM
-esegue il bytecode sul calcolatore di destinazione e può caricare
-anche classi della libreria standard. Una JVM può avvalersi di un
-compilatore \emph{just-in-time} (JIT), che traduce durante
-l'esecuzione parti del bytecode in istruzioni native. Lo stesso
-file \texttt{.class} può quindi essere eseguito su piattaforme
-compatibili dotate di una JVM appropriata, senza ricompilarlo
-per ciascuna CPU. Questa è l'idea espressa dalla formula
-\emph{compile once, execute everywhere}.
-
-L'esecuzione del bytecode può combinare interpretazione e compilazione
-JIT, con costi e possibilità di ottimizzazione differenti. Non esiste
-tuttavia un ordine di efficienza valido per ogni programma e
-ogni piattaforma.
+Durante l'esecuzione, la JVM può caricare altre classi e
+utilizzare un compilatore \emph{just-in-time} (JIT), che traduce
+parti del bytecode in istruzioni native. Lo stesso bytecode
+può quindi essere eseguito su sistemi differenti senza una
+nuova compilazione, purché siano disponibili una JVM compatibile
+e le risorse richieste dal programma. La portabilità non
+implica pertanto l'indipendenza completa dall'ambiente.
 
 La distinzione tra compilazione e interpretazione, introdotta
 nella \cref{sec:fi-linguaggi-esecuzione}, non identifica due
-categorie necessariamente esclusive: Java combina entrambe le fasi.
-Anche CPython compila normalmente il sorgente in bytecode,
-ma la fase è generalmente gestita in modo automatico
-(\cref{sec:fi-python-esecuzione}). Un eseguibile nativo contiene
-invece istruzioni per una specifica architettura; un file
-\texttt{.class} contiene istruzioni per la JVM. La portabilità
-non significa che ogni programma sia indipendente dall'ambiente:
-restano necessari una JVM compatibile e le eventuali risorse
-richieste dal programma.
+modalità necessariamente esclusive. Java prevede normalmente
+una compilazione esplicita del sorgente in bytecode, seguita
+dall'esecuzione mediante JVM, eventualmente con compilazione
+JIT. Anche CPython traduce il sorgente in bytecode prima di
+eseguirlo mediante una macchina virtuale, ma questa fase è
+generalmente gestita in modo automatico
+(\cref{sec:fi-python-esecuzione}). In entrambi i casi,
+l'esecuzione dipende dall'implementazione e dall'ambiente,
+senza garantire una superiorità generale in termini di
+prestazioni.
+
+\clearpage
 
 \section{Il primo programma: classe e metodo principale}
 \label{sec:fi-java-primo-programma}
 
-Un semplice programma Java visualizza un messaggio sullo
-\emph{standard output}, ossia l'uscita testuale del processo.
 Si consideri il contenuto del file \texttt{HelloTester.java}:
 
 \input{assets/codice/java/hello-tester}
 
 In Java il codice di un'applicazione è organizzato in \emph{classi}.
 La dichiarazione \texttt{public class HelloTester} introduce una
-classe accessibile da altre classi. La parola riservata
-\texttt{class} indica la dichiarazione di una classe, mentre
-\texttt{public} è uno \emph{specificatore di accesso}. Il nome
-di una classe pubblica di primo livello deve coincidere esattamente
-con quello del file sorgente che la contiene, senza l'estensione:
-in un file \texttt{HelloTester.java} si dichiara quindi
-\texttt{public class HelloTester}. Un file sorgente può contenere
-al più una classe pubblica di primo livello.
+classe accessibile da altre classi. La parola riservata \texttt{class}
+indica la dichiarazione di una classe, mentre \texttt{public} è uno
+\emph{specificatore di accesso}. Il nome di una classe pubblica
+di primo livello deve coincidere esattamente con quello del file
+sorgente che la contiene, senza l'estensione. Un file sorgente
+può contenere al più una classe pubblica di primo livello.
 
 Il corpo della classe è racchiuso tra parentesi graffe. Al suo
-interno si trova il \emph{metodo} \texttt{main}, che nella
-forma tradizionale adottata nel corso costituisce il punto di ingresso
-dell'applicazione e descrive le istruzioni da eseguire all'avvio.
-La sua intestazione è
+interno si trova il \emph{metodo} \texttt{main}, che nella forma
+tradizionale adottata qui costituisce il punto di ingresso
+dell'applicazione. La sua intestazione è
 \begin{center}
-  \texttt{public static void main(String[] args)}.
+  \texttt{public static void main(String[] args)}
 \end{center}
-Qui \texttt{public} rende il metodo accessibile;
-\texttt{static} indica che il metodo appartiene alla classe e
-può essere invocato senza creare una sua istanza;
-\texttt{void} indica che non restituisce alcun valore;
-\texttt{String[] args} è un parametro che può ricevere
-come array di stringhe gli argomenti forniti all'avvio del
-programma. Nelle applicazioni introdotte qui il parametro
+La parola \texttt{public} rende il metodo accessibile;
+\texttt{static} indica che appartiene alla classe e può essere
+invocato senza crearne un'istanza; \texttt{void} specifica che
+non restituisce alcun valore. Il parametro \texttt{String[] args}
+può ricevere gli argomenti forniti all'avvio del programma,
+sotto forma di array di stringhe. Negli esempi introduttivi
 può rimanere inutilizzato.
 
 Le parole riservate del linguaggio, tra cui \texttt{public},
-\texttt{class}, \texttt{static} e \texttt{void}, hanno una funzione
-sintattica stabilita e non possono essere usate come identificatori.
-Java distingue lettere maiuscole e minuscole: \texttt{HelloTester},
-\texttt{hellotester} e \texttt{HELLOTESTER} sono nomi diversi.
+\texttt{class}, \texttt{static} e \texttt{void}, hanno un
+significato sintattico prestabilito e non possono essere utilizzate
+come identificatori. Java distingue maiuscole e minuscole:
+\texttt{HelloTester}, \texttt{hellotester} e
+\texttt{HELLOTESTER} sono identificatori differenti.
 
 \subsection{Istruzioni, commenti e formato del sorgente}
 \label{sec:fi-java-sintassi}
 
 Il corpo di un metodo contiene \emph{istruzioni}, generalmente
 terminate da un punto e virgola. Le parentesi graffe delimitano
-blocchi di istruzioni e le parentesi tonde racchiudono gli argomenti
-delle invocazioni di metodo. A differenza dell'indentazione di
-Python (\cref{sec:fi-python-condizioni}), in Java rientri e
-interruzioni di riga non delimitano i blocchi; sono comunque
-essenziali per rendere leggibile il programma. Gli spazi rimangono
-necessari quando separano elementi lessicali distinti.
+i blocchi, mentre quelle tonde racchiudono gli argomenti delle
+invocazioni di metodo. A differenza di Python
+(\cref{sec:fi-python-condizioni}), in Java l'indentazione
+non determina la struttura dei blocchi, ma ne facilita la lettura.
+Gli spazi rimangono necessari per separare elementi lessicali
+distinti.
 
-Un commento introdotto da \texttt{//} prosegue fino alla fine
-della riga. I delimitatori \texttt{/*} e \texttt{*/} racchiudono
-invece un commento su una o più righe. I commenti non sono
-istruzioni eseguite dal programma e possono documentare
-la ragione di una scelta implementativa.
+\begin{example}[Istruzioni e commenti]
+Il seguente frammento, inserito nel corpo di un metodo, produce
+due righe di testo:
+\begin{unipdcode}[language=Java]
+System.out.println("Prima riga"); // Commento su una riga
+
+/* Commento esteso
+   su più righe */
+System.out.println("Seconda riga");
+\end{unipdcode}
+I commenti non vengono eseguiti: \texttt{//} introduce un
+commento fino alla fine della riga, mentre i delimitatori
+\lstinline|/*| e \lstinline|*/| racchiudono un commento
+che può estendersi su più righe.
+\end{example}
 
 \clearpage
 
-\section{Uscita standard e invocazione dei metodi}
-\label{sec:fi-java-metodi-uscita}
+\subsection{Invocazione dei metodi}
+\label{sec:fi-java-invocazione-metodi}
 
-Nell'istruzione
+Un \emph{metodo} raccoglie istruzioni che svolgono un'operazione
+specifica. Per eseguirlo si effettua un'\emph{invocazione},
+indicandone il nome e gli eventuali argomenti tra parentesi tonde.
+Per un metodo di istanza, la forma generale è
 \begin{center}
-  \lstinline|System.out.println("Hello, World!");|
+  \texttt{oggetto.nomeMetodo(argomento1, argomento2)}
 \end{center}
-\texttt{System} è una classe della libreria standard di Java.
-Il suo campo statico \texttt{out} contiene un riferimento a un
-oggetto della classe \texttt{PrintStream}, che gestisce l'uscita
-standard. Il metodo \texttt{println} di tale oggetto scrive
-il valore ricevuto e termina la riga; \texttt{print} scrive
-senza aggiungere un ritorno a capo.
+dove l'oggetto ricevente precede il nome del metodo ed è separato
+da esso mediante un punto. Un metodo \texttt{static}, invece,
+appartiene alla classe e può essere invocato senza creare
+un'istanza, utilizzando la forma
+\begin{center}
+  \texttt{NomeClasse.nomeMetodo(argomento1, argomento2)}
+\end{center}
+Il numero e i tipi degli argomenti devono essere compatibili
+con i parametri dichiarati dal metodo. Se non sono previsti
+argomenti, le parentesi tonde rimangono obbligatorie.
+
+\begin{example}[Invocazione di metodi]
+Il seguente esempio, inserito nel metodo \texttt{main},
+utilizza due metodi della libreria standard:
+\begin{unipdcode}[language=Java]
+String testo = "Java";
+int lunghezza = testo.length();
+int massimo = Math.max(3, 7);
+\end{unipdcode}
+Il metodo \texttt{length()} è invocato sull'oggetto
+\texttt{testo} e restituisce \(4\), mentre
+\texttt{max()} è un metodo statico della classe
+\texttt{Math} e restituisce \(7\). I risultati vengono
+assegnati rispettivamente alle variabili \texttt{lunghezza}
+e \texttt{massimo}.
+\end{example}
+
+Le classi e i metodi disponibili nella libreria standard sono
+documentati nella \emph{Java Platform API}, che ne specifica
+le operazioni e le modalità di utilizzo.
+
+\section{Uscita standard}
+\label{sec:fi-java-uscita-standard}
+
+La classe \texttt{System} della libreria standard mette a
+disposizione il campo statico \texttt{out}, che contiene un
+riferimento a un oggetto \texttt{PrintStream} destinato
+all'\emph{uscita standard}. Il metodo \texttt{print()}
+scrive il valore ricevuto senza terminare la riga, mentre
+\texttt{println()} aggiunge un ritorno a capo.
 
 \begin{unipdcode}[language=Java]
 System.out.print("Risultato: ");
@@ -161,32 +204,13 @@ System.out.println(3 + 4);
 Risultato: 7
 \end{unipdterminal}
 
-Le istruzioni dell'esempio sono da collocare all'interno di un
-metodo, come \texttt{main}. Il valore \texttt{"Risultato: "}
-è una \emph{stringa letterale}, cioè una sequenza di caratteri
-delimitata da virgolette doppie. Senza virgolette, il testo verrebbe
-interpretato secondo le regole sintattiche del linguaggio.
-\texttt{println} può ricevere anche valori numerici o il risultato
-di un'espressione.
+Le istruzioni devono trovarsi nel corpo di un metodo, come
+\texttt{main}. Il valore \texttt{"Risultato: "} è una
+\emph{stringa letterale}, delimitata da virgolette doppie.
+I metodi di stampa possono ricevere anche valori numerici
+o risultati di espressioni, come nell'esempio precedente.
 
-\begin{definition}[Invocazione di un metodo]
-\label{def:fi-java-invocazione}
-L'\emph{invocazione} di un metodo di istanza richiede un oggetto
-ricevente, il nome del metodo e un elenco di argomenti tra
-parentesi tonde. Nell'espressione
-\texttt{oggetto.nomeMetodo(argomento1, argomento2)} gli argomenti
-sono separati da virgole; se non ve ne sono, le parentesi restano
-obbligatorie.
-\end{definition}
-
-Il nome del metodo e i tipi degli argomenti devono essere
-compatibili con la sua dichiarazione; non è sufficiente conoscere
-soltanto il nome del metodo. Le classi già disponibili e i loro
-metodi formano la \emph{Java Platform API}: una libreria standard
-che offre funzionalità utilizzabili senza conoscere o riscrivere
-la loro implementazione. Questa separazione tra interfaccia e
-realizzazione richiama l'astrazione discussa nella
-\cref{sec:fi-adt-strutture}.
+\clearpage
 
 \section{Errori e ciclo di sviluppo}
 \label{sec:fi-java-errori}
@@ -203,44 +227,62 @@ il messaggio \texttt{cannot find symbol}. In questo caso il testo
 esiste nella classe \texttt{System}; è quindi un errore
 rilevato durante la compilazione, non un errore logico.
 
-Anche la disponibilità delle classi e librerie necessarie
-può dare luogo a errori nella fase di caricamento o
-collegamento (\emph{linking}), distinta dalla verifica
-sintattica del sorgente.
+Anche la disponibilità delle classi e delle librerie necessarie
+può dare luogo a errori nella fase di caricamento o collegamento
+(\emph{linking}), distinta dalla verifica sintattica del sorgente.
 
-Un \emph{errore logico} si ha quando il programma è eseguibile
-ma produce un risultato diverso da quello previsto. Ad esempio,
+Un \emph{errore logico} si verifica quando il programma è eseguibile
+ma produce un risultato diverso da quello previsto. Per esempio,
 stampare \texttt{"Hell, World!"} al posto di
-\texttt{"Hello, World!"} non viola alcuna regola del
-linguaggio, ma non soddisfa la specifica del messaggio.
+\texttt{"Hello, World!"} non viola alcuna regola del linguaggio,
+ma non soddisfa la specifica del messaggio.
 
-Un \emph{errore di esecuzione} (\emph{runtime error}) si
-manifesta invece mentre il programma viene eseguito: la
-lettura di un file non disponibile oppure la conversione
-non valida di un testo inserito dall'utente possono, se non
-gestite, interrompere l'esecuzione con un'eccezione.
-Gli errori logici non provocano necessariamente un'eccezione,
-e le eccezioni non indicano necessariamente un difetto
-sintattico del programma. Un singolo errore nel sorgente può
-anche produrre più messaggi del compilatore: è opportuno
-esaminare anzitutto la prima causa segnalata.
+Un \emph{errore di esecuzione} (\emph{runtime error}) si manifesta
+invece durante l'esecuzione del programma: la lettura di un file
+non disponibile oppure la conversione non valida di un testo
+inserito dall'utente possono, se non gestite, interrompere
+l'esecuzione con un'eccezione. Gli errori logici non provocano
+necessariamente un'eccezione, e le eccezioni non indicano
+necessariamente un difetto sintattico del programma.
+Un singolo errore nel sorgente può inoltre produrre più
+messaggi del compilatore: è opportuno esaminare anzitutto
+la prima causa segnalata.
 
-Il lavoro di programmazione procede dunque attraverso il ciclo
-\emph{modifica--compila--collauda}: dopo la modifica del sorgente,
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/ciclo-sviluppo}
+  \caption{Ciclo di sviluppo di un programma Java.}
+  \label{fig:fi-java-ciclo-sviluppo}
+\end{figure}
+
+Il lavoro di programmazione procede attraverso il ciclo
+\emph{modifica--compila--collauda}, illustrato nella
+\cref{fig:fi-java-ciclo-sviluppo}. Dopo la modifica del sorgente,
 si ricompila e si esegue il programma per verificarne il
-comportamento. Il superamento della compilazione non dimostra
-la correttezza del programma rispetto al problema da risolvere.
+comportamento. Gli errori individuati richiedono ulteriori
+modifiche, ripetendo il procedimento. Il superamento della
+compilazione non dimostra la correttezza del programma rispetto
+alla specifica del problema.
 
-\section{Variabili, tipi e assegnamento}
+\section{Variabili e tipi di dato}
 \label{sec:fi-java-variabili}
 
-Come in Python, una variabile permette di riutilizzare durante
-l'esecuzione un valore. A differenza del modello di assegnamento
-descritto nella \cref{sec:fi-python-variabili}, in Java una
-variabile è dichiarata con un \emph{tipo}, che determina quali
-valori possono esserle assegnati e quali operazioni sono ammesse.
-La dichiarazione specifica il tipo e il nome; un'inizializzazione
-può assegnare un valore contestualmente alla dichiarazione:
+Come in Python, una variabile permette di conservare e riutilizzare
+un valore durante l'esecuzione. Java adotta una
+\emph{tipizzazione statica}: ogni variabile deve essere dichiarata
+con un tipo, determinato prima dell'esecuzione, che stabilisce
+quali valori può contenere e quali operazioni sono ammesse.
+A differenza di Python (\cref{sec:fi-python-variabili}),
+una variabile Java non può assumere un tipo differente
+durante l'esecuzione.
+
+La \emph{dichiarazione} specifica il tipo e il nome della variabile,
+permettendo di predisporre la memorizzazione del valore.
+Per i tipi primitivi viene conservato direttamente il valore,
+mentre per i tipi riferimento viene conservato un riferimento
+a un oggetto, la cui creazione è un'operazione distinta.
+La dichiarazione può essere accompagnata da
+un'\emph{inizializzazione}, che fornisce il valore iniziale:
 
 \begin{unipdcode}[language=Java]
 int lit;
@@ -249,44 +291,32 @@ double euro = 2.35;
 String messaggio = "Valore totale in euro ";
 \end{unipdcode}
 
-L'\emph{assegnamento} modifica il valore di una variabile già
-dichiarata: prima si valuta l'espressione a destra del segno
-\texttt{=}, poi si memorizza il risultato nella variabile a
-sinistra. Non è un'affermazione di uguaglianza matematica:
-\texttt{totale = totale + euro;} aggiunge al totale il
-valore corrente di \texttt{euro}. Per confrontare l'uguaglianza
-fra valori primitivi si impiega invece \texttt{==}.
-
-La dichiarazione di una variabile locale senza inizializzazione
-non ne permette ancora la lettura: il compilatore richiede che
-sia stata assegnata prima del suo utilizzo. La stessa variabile
-locale non può essere dichiarata due volte nello stesso ambito;
-può invece ricevere nuovi valori attraverso più assegnamenti.
+Una variabile locale dichiarata senza inizializzazione non può
+essere letta prima:
+il compilatore verifica questa condizione. La stessa variabile
+locale non può inoltre essere dichiarata due volte nello
+stesso ambito.
 
 \subsection{Identificatori e convenzioni}
 \label{sec:fi-java-identificatori}
 
 Un \emph{identificatore} è il nome attribuito a una variabile,
 un metodo o una classe. In Java può contenere lettere e cifre,
-oltre ad alcuni caratteri particolari, tra cui \texttt{\_} e
-\texttt{\$}, ma non può iniziare con una cifra né coincidere
+oltre ad alcuni caratteri particolari, tra cui \texttt{\_}
+e \texttt{\$}, ma non può iniziare con una cifra né coincidere
 con una parola riservata o con i letterali
-\texttt{true}, \texttt{false} e \texttt{null}. Un nome che
-inizia con una cifra non potrebbe essere distinto, secondo le
-regole lessicali del linguaggio, da un letterale numerico. Spazi,
-separatori come \texttt{( ) \{ \} [ ] ; , .} e operatori
-come \texttt{+}, \texttt{*}, \texttt{=}, \texttt{==} e
-\texttt{\&\&} non possono fare parte di un identificatore.
-Il carattere \texttt{\_} usato da solo non è ammesso come
-identificatore nelle versioni moderne di Java.
+\texttt{true}, \texttt{false} e \texttt{null}.
+Spazi, separatori e operatori non possono farne parte.
+Il carattere \texttt{\_} utilizzato da solo non è ammesso
+come identificatore nelle versioni moderne di Java.
 
-Nella prassi si preferiscono nomi descrittivi che iniziano con
-una lettera. Variabili e metodi utilizzano generalmente
-l'iniziale minuscola, le classi l'iniziale maiuscola;
-nei nomi composti si applica il \emph{camelCase}, per esempio
-\texttt{totalEuro} e \texttt{HelloTester}. Poiché Java distingue
-maiuscole e minuscole, è sconsigliabile utilizzare nomi che
-variano soltanto per la capitalizzazione.
+Per convenzione, si preferiscono nomi descrittivi che iniziano
+con una lettera. Variabili e metodi utilizzano generalmente
+l'iniziale minuscola e la convenzione \emph{camelCase},
+come \texttt{totalEuro}; le classi iniziano invece con
+una lettera maiuscola, come \texttt{HelloTester}.
+Java distingue maiuscole e minuscole, perciò identificatori
+che differiscono soltanto per la capitalizzazione sono distinti.
 
 \subsection{Interi e numeri in virgola mobile}
 \label{sec:fi-java-tipi-numerici}
@@ -300,75 +330,55 @@ I due tipi esprimono anche una distinzione nel significato dei
 dati: una quantità di lire, priva di unità frazionarie, può essere
 rappresentata da \texttt{int}; una somma di euro contenente
 centesimi, in un esempio introduttivo, da \texttt{double}.
-La rappresentazione \texttt{int} occupa meno spazio di
-\texttt{double}; il confronto dei tempi di elaborazione dipende
+Quest'ultimo non rappresenta tuttavia esattamente tutti i
+valori decimali, come già discusso nella
+\cref{sec:fi-precisione-arrotondamento}.
+
+I valori di tipo \texttt{int} occupano 32 bit, contro i 64 bit
+di \texttt{double}; il confronto dei tempi di elaborazione dipende
 invece dall'hardware e dalle operazioni effettuate.
 
-Per scrivere un numero decimale nel sorgente Java si usa il
-punto, senza separatori delle migliaia: \texttt{1936.27} è un
-letterale \texttt{double}, così come \texttt{1.93E3}, che
-rappresenta \(1.93\cdot10^3\). Gli operatori \texttt{*} e
-\texttt{/} indicano prodotto e divisione. Se entrambi gli
+Per scrivere un numero decimale nel sorgente Java si utilizza
+il punto, senza separatori delle migliaia: \texttt{1936.27}
+è un letterale \texttt{double}, così come \texttt{1.93E3},
+che rappresenta \(1.93\cdot10^3\). Gli operatori \texttt{*}
+e \texttt{/} indicano prodotto e divisione. Se entrambi gli
 operandi sono interi, la divisione \texttt{/} produce il
 quoziente intero troncato verso zero; se almeno uno è
 \texttt{double}, si esegue una divisione in virgola mobile.
-Nel programma seguente \texttt{1936.27} fa quindi sì che il
-risultato della divisione sia in virgola mobile.
+Nel programma seguente \texttt{1936.27} determina quindi
+una divisione in virgola mobile.
 
 \input{assets/codice/java/coins}
-
-Le variabili rendono esplicito il significato dei diversi
-contributi e permettono di aggiornare il calcolo senza
-riscrivere tutte le costanti. In questo esempio l'assegnamento
-\texttt{totalEuro = totalEuro + euro;} usa il valore già
-conservato in \texttt{totalEuro}; una successiva assegnazione
-ne modifica nuovamente il contenuto.
 
 \section{Classi, oggetti e interfacce pubbliche}
 \label{sec:fi-java-classi-oggetti}
 
-I tipi primitivi sono adatti a dati elementari, mentre dati
-più complessi sono rappresentabili mediante \emph{oggetti}.
-Una \emph{classe} descrive un tipo di oggetti, specificandone
-le operazioni e i dettagli necessari a realizzarle. Un oggetto
-è un'\emph{istanza} di una classe. In questa fase interessa
-soprattutto utilizzare classi già definite, distinguendo i
-metodi accessibili dall'esterno dalla loro implementazione.
+Mentre i tipi primitivi rappresentano valori elementari, una
+\emph{classe} definisce la struttura e il comportamento di oggetti
+mediante campi e metodi. Un \emph{oggetto} è un'\emph{istanza}
+di una classe, dotata di un proprio stato e delle operazioni
+previste dalla classe stessa(\cref{chap:realizzazione-classi-java}).
 
-L'insieme delle operazioni pubbliche di una classe ne costituisce
-l'\emph{interfaccia pubblica}. I metodi \texttt{public} possono
-essere invocati dall'esterno nei contesti ammessi dal linguaggio;
-i metodi \texttt{private} sono accessibili soltanto all'interno
-della classe che li dichiara. Per usare un metodo pubblico non
-occorre conoscere le istruzioni che ne realizzano il comportamento:
-è sufficiente conoscere i suoi parametri, il risultato e le
-condizioni di utilizzo. L'analogia con un ADT riguarda la
-separazione tra comportamento e implementazione, non
-l'identità fra una classe e un tipo di dato astratto.
+L'insieme delle operazioni accessibili dall'esterno costituisce
+l'\emph{interfaccia pubblica} della classe. In questa fase si
+considera principalmente l'utilizzo di classi già disponibili,
+attraverso l'invocazione dei loro metodi
+(\cref{sec:fi-java-invocazione-metodi}).
 
 \subsection{Parametri, risultati e metodi di \texttt{String}}
 \label{sec:fi-java-metodi-string}
 
 Un metodo di istanza opera su un oggetto \emph{ricevente},
-indicato prima del punto nell'invocazione. Nella terminologia
-delle slide tale oggetto costituisce il \emph{parametro implicito};
-i valori indicati tra parentesi sono invece gli \emph{argomenti
-espliciti}. Per esempio, in \texttt{greeting.length()} il
-ricevente è \texttt{greeting} e non vi sono argomenti espliciti,
-mentre in \texttt{river.replace("issipp", "our")} il
-ricevente è \texttt{river} e gli argomenti espliciti sono due.
+indicato prima del punto nell'invocazione. Il ricevente
+costituisce il \emph{parametro implicito}, mentre i valori
+specificati tra parentesi sono gli \emph{argomenti espliciti}.
+Per esempio, in \texttt{greeting.length()} il ricevente è
+\texttt{greeting} e non vi sono argomenti espliciti; in
+\texttt{river.replace("issipp", "our")} il ricevente è
+\texttt{river} e gli argomenti espliciti sono due.
 
-Un metodo può restituire un valore di un tipo stabilito oppure
-essere dichiarato \texttt{void}, se non restituisce alcun
-valore. \texttt{String.length()} restituisce un \texttt{int},
-\texttt{String.replace(...)} una nuova \texttt{String},
-mentre \texttt{System.out.println(...)} restituisce
-\texttt{void}. Non è quindi lecito assegnare a una variabile
-il risultato di \texttt{println}.
-
-Le operazioni precedenti si possono applicare a più stringhe
-nella stessa sequenza di istruzioni:
-
+\begin{example}[Metodi della classe \texttt{String}]
 \begin{unipdcode}[language=Java]
 String greeting = "Hello, World!";
 int n = greeting.length();
@@ -376,62 +386,71 @@ String river = "Mississippi";
 String bigRiver = river.toUpperCase();
 String changedRiver = river.replace("issipp", "our");
 \end{unipdcode}
-Il valore di \texttt{n} è \texttt{13}. La variabile
-\texttt{bigRiver} contiene \texttt{"MISSISSIPPI"}, mentre
-\texttt{changedRiver} contiene \texttt{"Missouri"}.
-Il metodo \texttt{replace} restituisce una nuova stringa,
-senza modificare quella originale: \texttt{river} continua
-a riferirsi a \texttt{"Mississippi"}. Queste istruzioni
-vanno inserite nel corpo di un metodo.
 
-L'\emph{intestazione} di un metodo comprende specificatori
-di accesso, tipo restituito, nome e parametri dichiarati.
-Per esempio, si consideri l'intestazione
+Il metodo \texttt{length()} restituisce la lunghezza della
+stringa, quindi \texttt{n} vale \(13\).
+Il metodo \texttt{toUpperCase()} produce la stringa
+\texttt{"MISSISSIPPI"}, mentre \texttt{replace()} restituisce
+\texttt{"Missouri"}. Entrambe le operazioni producono una
+stringa senza modificare quella originale: gli oggetti
+\texttt{String} sono infatti \emph{immutabili} e
+\texttt{river} continua a riferirsi a \texttt{"Mississippi"}.
+\end{example}
+
+Un metodo può restituire un valore di un tipo prestabilito
+oppure essere dichiarato \texttt{void}, se non restituisce
+alcun valore. Per esempio, \texttt{String.length()}
+restituisce un \texttt{int}, \texttt{String.replace()}
+restituisce una \texttt{String}, mentre
+\texttt{System.out.println()} è dichiarato \texttt{void}
+e non può essere utilizzato come valore in un assegnamento.
+
+L'\emph{intestazione} di un metodo specifica gli eventuali
+modificatori di accesso, il tipo restituito, il nome e i
+parametri. Per esempio, il metodo \texttt{replace} della
+classe \texttt{String} presenta l'intestazione
 \begin{center}
-  \texttt{public String replace(String target, String replacement)}
+  \texttt{public String replace(CharSequence target,}\\
+  \texttt{CharSequence replacement)}
 \end{center}
-che dichiara un metodo pubblico con due parametri di tipo
-\texttt{String} e risultato dello stesso tipo. Il nome e i tipi dei
-parametri costituiscono la \emph{firma} nel senso usato dalle
-regole del linguaggio Java; il tipo restituito e gli
-specificatori di accesso appartengono invece all'intestazione
-completa. La descrizione dei parametri, dei valori restituiti
-e delle eventuali eccezioni si trova nella documentazione
-ufficiale della \emph{Java Platform API}, disponibile anche
-all'indirizzo
-\url{https://docs.oracle.com/en/java/javase/21/docs/api/index.html}.
+dove \texttt{public} indica l'accessibilità, \texttt{String}
+il tipo restituito e \texttt{CharSequence} il tipo dei
+due parametri. La \emph{firma} di un metodo comprende il
+nome e i tipi dei parametri, ma non il tipo restituito né
+i modificatori di accesso. I dettagli dei metodi, compresi
+parametri, risultati ed eventuali eccezioni, sono disponibili
+nella documentazione ufficiale della
+\href{https://docs.oracle.com/en/java/javase/21/docs/api/index.html}
+{\emph{Java Platform API}}.
 
 \section{Variabili oggetto e riferimenti}
 \label{sec:fi-java-riferimenti}
 
-Una variabile di tipo primitivo contiene un valore, mentre una
-variabile di tipo oggetto contiene un \emph{riferimento} a un
-oggetto. Una dichiarazione come \texttt{Rectangle box;}
-introduce una variabile di riferimento, ma non crea un
-rettangolo né consente di usare \texttt{box} prima di
-un'assegnazione valida. L'espressione
-\texttt{new Rectangle(5, 10, 20, 30)} invoca un costruttore,
-crea un oggetto e restituisce un riferimento che può essere
-assegnato alla variabile \texttt{box}.
+Una variabile di tipo primitivo contiene direttamente un valore,
+mentre una variabile di \emph{tipo riferimento} contiene un
+\emph{riferimento} a un oggetto. La dichiarazione
+\texttt{Rectangle box;} introduce una variabile locale, ma non
+crea alcun rettangolo: prima di utilizzarla occorre assegnarle
+un valore. L'espressione \texttt{new Rectangle(5, 10, 20, 30)}
+crea invece un oggetto invocandone il costruttore e produce
+un riferimento che può essere assegnato a \texttt{box}.
 
-L'esempio utilizza la classe \texttt{java.awt.Rectangle},
-che rappresenta un rettangolo mediante coordinate, larghezza
-e altezza. L'istruzione \texttt{import java.awt.Rectangle;}
-ne permette l'uso con il nome semplice \texttt{Rectangle}.
+L'esempio utilizza la classe \texttt{java.awt.Rectangle}, che
+rappresenta un rettangolo mediante coordinate, larghezza e
+altezza. L'istruzione \texttt{import java.awt.Rectangle;}
+permette di utilizzare il nome semplice \texttt{Rectangle}.
 
 \input{assets/codice/java/rectangle-riferimenti}
 
-L'assegnamento \texttt{alias = box} copia soltanto il
-riferimento: i due nomi individuano lo stesso oggetto.
-Il metodo \texttt{translate} ne modifica quindi lo stato
-attraverso entrambi i riferimenti, come schematizzato nella
-\cref{fig:fi-java-alias-copia}. Viceversa, la costruzione di
-\texttt{new Rectangle(box)} crea un distinto oggetto con
-lo stesso stato iniziale; una successiva modifica di
-\texttt{copia} non modifica \texttt{box}. Il metodo
-\texttt{getX()} restituisce un valore di tipo
-\texttt{double}, ragione per cui l'output numerico
-contiene \texttt{.0}.
+L'assegnamento \texttt{alias = box} copia il riferimento, non
+l'oggetto: entrambe le variabili si riferiscono allo stesso
+rettangolo. Il metodo \texttt{translate()} modifica quindi
+l'oggetto condiviso, rendendo la modifica osservabile attraverso
+entrambi i riferimenti. La costruzione
+\texttt{new Rectangle(box)} crea invece un oggetto distinto,
+inizialmente con gli stessi valori dei campi. Una successiva
+modifica di \texttt{copia} non altera pertanto \texttt{box},
+come illustrato nella \cref{fig:fi-java-alias-copia}.
 
 \begin{figure}[htbp]
   \centering
@@ -440,17 +459,17 @@ contiene \texttt{.0}.
   \label{fig:fi-java-alias-copia}
 \end{figure}
 
-Questo comportamento è diverso dall'assegnamento tra variabili
-primitive: dopo \texttt{int a = 13; int b = a;},
-la modifica \texttt{b = 12;} lascia \texttt{a} uguale a
-\texttt{13}. La differenza dipende da \emph{che cosa viene
-copiato}: il valore numerico nel primo caso, il riferimento
-all'oggetto nel secondo. Si tratta di un principio essenziale
-per utilizzare correttamente le classi senza confondere
-l'identità di un oggetto con quella delle variabili che vi
-fanno riferimento.
+La differenza emerge confrontando l'assegnamento tra variabili
+di tipo primitivo: dopo \texttt{int a = 13; int b = a;},
+l'istruzione \texttt{b = 12;} lascia invariato il valore
+di \texttt{a}. Nel primo caso viene copiato il valore
+numerico, nel secondo il riferimento all'oggetto.
+Il metodo \texttt{getX()} della classe \texttt{Rectangle}
+restituisce inoltre un valore di tipo \texttt{double},
+anche se le coordinate del rettangolo sono memorizzate come
+interi: un valore intero come \(7\) viene quindi visualizzato
+come \texttt{7.0}.
 
-Il collaudo di una classe mediante un programma che ne costruisce
-oggetti e invoca i metodi è sviluppato nella
-\cref{sec:fi-java-collaudo}, insieme ai tipi fondamentali e
-all'ingresso standard di Java.
+Il collaudo delle classi mediante la creazione di oggetti e
+l'invocazione dei loro metodi è trattato nella
+\cref{sec:fi-java-collaudo}.

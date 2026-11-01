@@ -74,10 +74,10 @@
 - 8 Introduzione a Java — p. 58
   - 8.1 Portabilità, compilazione ed esecuzione — p. 58
   - 8.2 Il primo programma: classe e metodo principale — p. 59
-  - 8.3 Uscita standard e invocazione dei metodi — p. 60
-  - 8.4 Errori e ciclo di sviluppo — p. 60
-  - 8.5 Variabili, tipi e assegnamento — p. 61
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 62
+  - 8.3 Uscita standard — p. 60
+  - 8.4 Errori e ciclo di sviluppo — p. 61
+  - 8.5 Variabili e tipi di dato — p. 61
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 63
   - 8.7 Variabili oggetto e riferimenti — p. 63
 - 9 Collaudo, tipi di dato e input in Java — p. 65
   - 9.1 Programmi di collaudo e pacchetti — p. 65
@@ -86,7 +86,8 @@
   - 9.4 Costanti ed espressioni aritmetiche — p. 68
   - 9.5 La classe Math e i metodi statici — p. 69
   - 9.6 Stringhe e conversioni testuali — p. 69
-  - 9.7 Caratteri e sequenze di escape — p. 70
-  - 9.8 Formattazione dell'output — p. 71
+  - 9.7 Caratteri e sequenze di escape — p. 71
+  - 9.8 Formattazione dell'output — p. 72
   - 9.9 L'ingresso standard con Scanner — p. 72
+- 10 Realizzazione di classi in Java — p. 75
 <!-- GENERATED:END -->

@@ -6,7 +6,7 @@
     {\texttt{Rectangle}\\\(x=20,\ y=35\)};
   \node[unipd/node,minimum width=3cm,minimum height=0.85cm,align=center] (second) at (1.1,-2.0)
     {\texttt{Rectangle}\\\(x=30,\ y=35\)};
-  \draw[unipd/directed edge] (box.east) -- (first.north west);
-  \draw[unipd/directed edge] (alias.east) -- (first.south west);
-  \draw[unipd/directed edge] (copy.east) -- (second.west);
+  \draw[unipd/directed edge] (box.east) -- ++(0.9,0) |- ($(first.west)+(0,0.18)$);
+  \draw[unipd/directed edge] (alias.east) -- ++(0.9,0) |- ($(first.west)+(0,-0.18)$);
+  \draw[unipd/directed edge] (copy.east) -- ++(0.9,0) |- (second.west);
 \end{tikzpicture}

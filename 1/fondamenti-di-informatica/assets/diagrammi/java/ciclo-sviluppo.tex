@@ -1,0 +1,12 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,minimum width=2cm,
+    minimum height=.7cm] (a) at (-3,0) {Modifica};
+  \node[unipd/node,minimum width=2cm,
+    minimum height=.7cm] (b) at (0,0) {Compila};
+  \node[unipd/node,minimum width=2cm,
+    minimum height=.7cm] (c) at (3,0) {Collauda};
+  \draw[unipd/directed edge] (a.east) -- (b.west);
+  \draw[unipd/directed edge] (b.east) -- (c.west);
+  \draw[unipd/directed edge]
+    (c.south) -- ++(0,-.8) -| (a.south);
+\end{tikzpicture}
