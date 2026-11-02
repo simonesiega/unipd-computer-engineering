@@ -1,0 +1,318 @@
+\chapter{Esercizi: Complessità computazionale}
+\label{chap:esercizi-complessita}
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-tipi-analisi}
+Quali sono i due tipi di analisi di un algoritmo? In che cosa
+si differenziano?
+\end{exercise}
+
+Si distinguono l'\emph{analisi sperimentale}, che misura le prestazioni
+di un'implementazione su ingressi concreti, e l'\emph{analisi teorica},
+che determina il costo delle operazioni in un modello astratto.
+La prima dipende dall'ambiente di esecuzione; la seconda permette
+di studiare la crescita delle risorse richieste senza effettuare
+misurazioni (\cref{sec:fi-complessita-sperimentale,sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-sperimentale-implementazione}
+Perché diciamo che l'analisi sperimentale misura le proprietà di
+una \emph{implementazione} e non dell'\emph{algoritmo} in quanto tale?
+Elenca almeno tre fattori che influenzano i tempi misurati
+sperimentalmente.
+\end{exercise}
+
+Le misure riguardano l'esecuzione di un programma concreto e non
+il procedimento astratto. I tempi dipendono, tra l'altro,
+dall'hardware, dal linguaggio e dall'interprete o compilatore,
+dai valori dell'ingresso e dalle condizioni di esecuzione.
+Implementazioni diverse dello stesso algoritmo possono quindi
+produrre tempi differenti (\cref{sec:fi-complessita-sperimentale}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-raddoppio}
+In un esperimento di scalabilità, perché conviene raddoppiare
+la dimensione dell'input a ogni prova invece di aumentarla
+di una quantità fissa?
+\end{exercise}
+
+Il raddoppio permette di osservare la crescita su un intervallo
+ampio di dimensioni con poche misurazioni. Se il tempo segue
+il modello \(t(n)=an^b\), il rapporto \(t(2n)/t(n)=2^b\) è costante
+e consente di stimare l'esponente \(b\). Un incremento fisso
+fornisce invece rapporti che dipendono da \(n\)
+(\cref{sec:fi-complessita-sperimentale}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-stima-esponente}
+In un esperimento i tempi di esecuzione misurati sono
+\(T(n)=3\,\mathrm{s}\) e \(T(2n)=24\,\mathrm{s}\). Stima l'esponente
+\(b\) nella relazione \(T(n)\approx a\,n^b\). Che cosa puoi dire
+della complessità dell'algoritmo?
+\end{exercise}
+
+Si ricava
+\[
+  \frac{T(2n)}{T(n)}=\frac{24}{3}=8=2^b,
+  \qquad b=\log_2 8=3.
+\]
+La misura suggerisce quindi una crescita \emph{cubica},
+\(T(n)\propto n^3\). Due sole misurazioni non dimostrano però
+che la complessità asintotica sia \(\Theta(n^3)\): per verificarne
+la plausibilità occorrono più prove, mentre una dimostrazione
+richiede l'analisi teorica
+(\cref{sec:fi-complessita-sperimentale,sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-passo-base}
+Che cosa si intende per ``passo base'' (o operazione primitiva)?
+Fai due esempi.
+\end{exercise}
+
+Un \emph{passo base} è un'operazione cui si attribuisce costo
+costante nel modello adottato. Sono esempi l'assegnamento
+di un valore a una variabile e il confronto fra due interi
+di dimensione limitata. La scelta dei passi base deve essere
+coerente con le ipotesi del modello
+(\cref{sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-chiamata-funzione}
+Perché l'invocazione di una funzione in generale non può essere
+considerata un'operazione primitiva?
+\end{exercise}
+
+Il costo complessivo di una chiamata comprende le operazioni
+eseguite nel corpo della funzione, il cui numero può dipendere
+dalla dimensione dell'ingresso. Per esempio, la costruzione
+di \lstinline|[0] * n| richiede tempo proporzionale a \(n\),
+anche se compare in una sola istruzione
+(\cref{sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-passi-contesto}
+I passi considerati ``base'' sono sempre gli stessi, oppure
+possono cambiare a seconda del contesto? Motiva la risposta.
+\end{exercise}
+
+Dipendono dal \emph{modello di costo} e dal livello di dettaglio
+richiesto. Il modello a costo unitario considera costanti alcune
+operazioni elementari su operandi di dimensione limitata; se
+invece si elaborano interi arbitrariamente grandi, il costo
+delle operazioni aritmetiche può dipendere dal numero di bit.
+Le ipotesi devono essere dichiarate prima dell'analisi
+(\cref{sec:fi-complessita-modello,sec:fi-complessita-fibonacci}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-definizione-o}
+Scrivi la definizione formale di \(f(n)\in O(g(n))\).
+Qual è il ruolo delle costanti \(c\) e \(n_0\)?
+\end{exercise}
+
+Per funzioni \(f,g\colon\N\to[0,+\infty)\), con \(g(n)>0\)
+per \(n\) sufficientemente grande,
+\[
+  f\in O(g)
+  \iff
+  \exists c>0\ \exists n_0\in\N:\
+  f(n)\le c\,g(n)\quad\forall n\ge n_0.
+\]
+La costante \(c\) stabilisce il fattore moltiplicativo del
+limite superiore, mentre \(n_0\) indica da quale dimensione
+tale limite deve valere
+(\cref{def:fi-notazioni-asintotiche}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-confronto-notazioni}
+Spiega a parole la differenza tra \(O\), \(\Omega\) e \(\Theta\).
+\end{exercise}
+
+Le notazioni \(O\) e \(\Omega\) esprimono rispettivamente un
+limite superiore e uno inferiore asintotico, a meno di
+costanti moltiplicative positive. La notazione \(\Theta\) esprime
+entrambi i limiti e quindi una stima asintotica dello stesso
+ordine di crescita
+(\cref{def:fi-notazioni-asintotiche,fig:fi-notazioni-asintotiche}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-vero-falso}
+Stabilisci se le seguenti affermazioni sono vere o false,
+motivando la risposta:
+\[
+  5n^2+100n\in\Theta(n^2),\qquad
+  n\in O(n^2),
+\]
+\[
+  n^2\in\Theta(n),\qquad
+  2^n+n^{10}\in O(2^n).
+\]
+\end{exercise}
+
+La prima è \emph{vera}: per \(n\ge1\),
+\(5n^2\le5n^2+100n\le105n^2\).
+La seconda è \emph{vera}, poiché \(n\le n^2\) per \(n\ge1\).
+La terza è \emph{falsa}: il rapporto \(n^2/n=n\) non è
+superiormente limitato da una costante.
+La quarta è \emph{vera}: la funzione esponenziale \(2^n\)
+cresce più rapidamente di \(n^{10}\), quindi
+\(n^{10}\in O(2^n)\) e \(2^n+n^{10}\in O(2^n)\)
+(\cref{def:fi-notazioni-asintotiche,sec:fi-complessita-ordini}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-omega-cubico}
+È vero che \(n\in\Omega(n^2)\)? E che \(n^3\in O(n^3)\)?
+Giustifica.
+\end{exercise}
+
+La prima affermazione è \emph{falsa}: per \(n>0\), il rapporto
+\(n/n^2=1/n\) tende a zero, quindi non esiste una costante
+positiva \(c\) tale che \(n\ge cn^2\) per tutti gli \(n\)
+sufficientemente grandi. La seconda è \emph{vera}: basta
+scegliere \(c=1\) nella definizione di \(O\)
+(\cref{def:fi-notazioni-asintotiche}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-regole-costo}
+Enuncia le regole per derivare la complessità di un blocco
+di codice sequenziale, di un \lstinline|if| e di un ciclo.
+\end{exercise}
+
+In una sequenza si sommano i costi dei blocchi. In un
+\lstinline|if| si considera il costo del ramo eseguito;
+per un limite superiore si può usare quello del ramo più
+oneroso. Per un ciclo si sommano i costi delle singole
+iterazioni, che possono essere diversi. Se ogni iterazione
+costa \(\Theta(1)\), il costo del corpo è proporzionale al
+numero di iterazioni, salvo gli eventuali costi aggiuntivi
+della struttura di controllo
+(\cref{sec:fi-complessita-modello}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-costante}
+Perché, una volta stabilito che un blocco di codice ha costo
+costante, il valore preciso di quella costante è irrilevante
+ai fini della classe di complessità?
+\end{exercise}
+
+Le notazioni asintotiche trascurano i fattori moltiplicativi
+costanti: qualunque costo positivo indipendente da \(n\)
+appartiene a \(\Theta(1)\). Il valore della costante resta però
+rilevante per il tempo effettivo su ingressi concreti
+(\cref{sec:fi-complessita-asintotica}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-cicli-quadrati}
+Considera il seguente frammento di codice Python. Qual è
+la sua complessità in funzione di \(n\)? Deriva il numero
+di operazioni eseguite dall'istruzione più interna.
+\end{exercise}
+
+\begin{unipdcode}[language=Python]
+total = 0
+for i in range(n):
+    for j in range(n):
+        total = total + 1
+\end{unipdcode}
+
+Per ogni valore di \(i\), il ciclo interno esegue \(n\) volte
+l'aggiornamento di \texttt{total}. Il ciclo esterno ha \(n\)
+iterazioni, quindi l'istruzione più interna viene eseguita
+\[
+  \sum_{i=0}^{n-1}n=n^2
+\]
+volte. Nel modello a costo unitario il tempo è
+\(\Theta(n^2)\) (\cref{sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-ciclo-triangolare}
+Considera ora il seguente frammento, in cui il ciclo interno
+dipende da \lstinline|i|. Quante volte viene eseguita
+l'istruzione più interna, in totale? Qual è la complessità?
+\end{exercise}
+
+\begin{unipdcode}[language=Python]
+total = 0
+for i in range(n):
+    for j in range(i):
+        total = total + 1
+\end{unipdcode}
+
+Quando \(i=0\) il ciclo interno non viene eseguito; per un
+indice generico \(i\), compie \(i\) iterazioni. Il numero
+totale di aggiornamenti è
+\[
+  \sum_{i=0}^{n-1}i=\frac{n(n-1)}2.
+\]
+Il termine dominante è quadratico, quindi la complessità
+è \(\Theta(n^2)\) (\cref{sec:fi-complessita-modello}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-reverse-quadratico}
+Perché il primo algoritmo \texttt{reverse}, presentato nella
+\cref{sec:fi-complessita-reverse-quadratico}, ha complessità
+\(\Theta(n^2)\)? Qual è il ``lavoro nascosto'' che lo rende
+quadratico?
+\end{exercise}
+
+Ogni nuovo elemento viene inserito all'inizio della lista di
+uscita, spostando verso destra gli \(i\) elementi già inseriti.
+Il numero complessivo degli spostamenti è
+\[
+  \sum_{i=0}^{n-1}i=\frac{n(n-1)}2.
+\]
+Nel modello di conteggio degli appunti si ottiene
+\(T(n)=\frac32n^2+\frac52n+3\). Il costo quadratico dipende
+quindi dagli \emph{spostamenti ripetuti}, non dal semplice
+numero di iterazioni del ciclo esterno
+(\cref{sec:fi-complessita-reverse-quadratico}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-reverse-lineare}
+Qual è l'idea che permette al secondo algoritmo
+\texttt{reverse}, presentato nella
+\cref{sec:fi-complessita-reverse-lineare}, di raggiungere
+una complessità \(\Theta(n)\)?
+\end{exercise}
+
+Ogni elemento viene copiato direttamente nella sua
+posizione definitiva della lista invertita: all'indice \(i\)
+si scrive l'elemento di indice \(n-1-i\) dell'ingresso.
+Si evitano così gli spostamenti degli elementi già copiati.
+Il costo è \(T(n)=5n+2\) nel modello degli appunti
+(\cref{sec:fi-complessita-reverse-lineare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-rapporto-reverse}
+Supponi che per \(n=32000\) l'algoritmo lineare risulti circa
+12\,800 volte più veloce di quello quadratico. Questo rapporto rimane costante
+al crescere di \(n\), oppure cambia? Perché?
+\end{exercise}
+
+Il rapporto non rimane costante. I costi dei due algoritmi
+sono rispettivamente \(\Theta(n^2)\) e \(\Theta(n)\), quindi,
+a parità di modello, il rapporto fra il costo quadratico e
+quello lineare cresce come \(\Theta(n)\). Raddoppiando \(n\),
+il rapporto tende approssimativamente a raddoppiare.
+Il valore 12\,800 è un dato del quesito e non si ricava
+dalle sole classi asintotiche: i tempi effettivi dipendono
+anche dall'implementazione e dall'ambiente
+(\cref{sec:fi-complessita-reverse-quadratico,sec:fi-complessita-reverse-lineare,sec:fi-complessita-sperimentale}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-complessita-computer-veloce}
+``Con un computer abbastanza veloce, l'algoritmo quadratico
+diventa preferibile a quello lineare.'' Questa affermazione
+è corretta? Discuti.
+\end{exercise}
+
+No, non in generale. Un computer più veloce può diminuire
+i tempi di entrambi gli algoritmi, ma non modifica il
+loro ordine di crescita. Per ingressi sufficientemente
+grandi, la crescita quadratica rende il primo algoritmo
+asintoticamente meno efficiente di quello lineare.
+Per dimensioni concrete possono contare le costanti e
+i dettagli dell'implementazione, che non cambiano però
+il confronto asintotico
+(\cref{sec:fi-complessita-asintotica,sec:fi-complessita-ordini,sec:fi-complessita-reverse-lineare}).

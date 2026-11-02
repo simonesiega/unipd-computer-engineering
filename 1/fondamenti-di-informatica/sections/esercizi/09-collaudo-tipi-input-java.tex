@@ -1,0 +1,283 @@
+\chapter{Esercizi: Collaudo, tipi di dato e input in Java}
+\label{chap:esercizi-collaudo-tipi-input-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-passi}
+Quali sono i passi principali per costruire un programma di collaudo di una
+classe?
+\end{exercise}
+
+Si definisce una classe di collaudo con un metodo \texttt{main}, si creano gli
+oggetti necessari e se ne invocano i metodi con ingressi scelti. I risultati
+ottenuti vengono confrontati con quelli attesi, considerando anche i casi
+limite. Il superamento dei test non dimostra la correttezza generale
+(\cref{sec:fi-java-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-package}
+Che cosa sono i \emph{package} in Java e a che cosa servono?
+\end{exercise}
+
+Sono raggruppamenti di classi correlate, utilizzati per organizzare il codice
+e distinguere classi che possono avere lo stesso nome semplice. Per esempio,
+\texttt{Rectangle} appartiene al pacchetto \texttt{java.awt}
+(\cref{sec:fi-java-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-import}
+Scrivi la sintassi generale di un'istruzione \texttt{import}.
+\end{exercise}
+
+La forma per importare una classe è
+\texttt{import nomePacchetto.NomeClasse;}, per esempio
+\texttt{import java.awt.Rectangle;}. Consente di utilizzare il nome semplice
+della classe senza ripeterne il nome completo del pacchetto
+(\cref{sec:fi-java-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-java-lang}
+Perché le classi \texttt{System} e \texttt{String} possono essere usate senza
+un'importazione esplicita?
+\end{exercise}
+
+Appartengono al pacchetto \texttt{java.lang}, le cui classi sono disponibili
+automaticamente mediante il loro nome semplice
+(\cref{sec:fi-java-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-primitivi-oggetti}
+Qual è la differenza tra tipi di dato fondamentali e oggetti in Java?
+\end{exercise}
+
+Una variabile di tipo primitivo contiene direttamente un valore del tipo,
+mentre una variabile di tipo riferimento contiene un riferimento a un oggetto
+o \texttt{null}. Gli oggetti sono istanze di classi e possono esporre metodi
+per operare sul proprio stato
+(\cref{sec:fi-java-tipi-fondamentali,sec:fi-java-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-tipi-numerici}
+Elenca i principali tipi di dato fondamentali numerici di Java.
+\end{exercise}
+
+I tipi interi con segno sono \texttt{byte}, \texttt{short}, \texttt{int} e
+\texttt{long}, rispettivamente di 8, 16, 32 e 64 bit. I tipi in virgola
+mobile sono \texttt{float} e \texttt{double}, rispettivamente di 32 e 64 bit
+(\cref{tab:fi-java-tipi-primitivi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-overflow-int}
+Che cosa succede in Java quando una somma tra \texttt{int} provoca
+\emph{overflow}?
+\end{exercise}
+
+Il risultato subisce un \emph{wrap-around} nell'intervallo degli interi a
+32 bit, senza generare un'eccezione. Per esempio, sommando \(1\) al massimo valore di \texttt{int} si ottiene
+il minimo valore dello stesso tipo
+(\cref{sec:fi-java-overflow,sec:fi-complemento-due}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-metodi-exact}
+Quali metodi della classe \texttt{Math} si possono usare per intercettare
+l'overflow aritmetico?
+\end{exercise}
+
+I metodi \texttt{Math.addExact()} e \texttt{Math.multiplyExact()} eseguono
+rispettivamente addizione e moltiplicazione di interi, sollevando
+\texttt{ArithmeticException} se il risultato non è rappresentabile
+(\cref{sec:fi-java-overflow}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-arithmetic-exception}
+Quali operazioni aritmetiche tra interi possono generare una
+\texttt{ArithmeticException}?
+\end{exercise}
+
+Fra gli operatori aritmetici ordinari, sia la divisione intera
+\texttt{/} sia il resto \texttt{\%} generano
+\texttt{ArithmeticException} quando il divisore è zero.
+Il normale overflow di somma e prodotto non genera eccezioni;
+possono invece generarle metodi come \texttt{Math.addExact()}
+e \texttt{Math.multiplyExact()}
+(\cref{sec:fi-java-overflow}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-letterale-long}
+Perché per assegnare un valore molto grande a una variabile \texttt{long}
+bisogna aggiungere la lettera \texttt{L}?
+\end{exercise}
+
+Un letterale intero decimale senza suffisso è di tipo \texttt{int}; se
+supera l'intervallo di tale tipo, non è valido come letterale
+\texttt{int}, anche quando la variabile di destinazione è
+\texttt{long}. Il suffisso \texttt{L}, come in
+\texttt{3000000000L}, indica un letterale \texttt{long}
+(\cref{sec:fi-java-tipi-fondamentali}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-float-double}
+Qual è la differenza tra \texttt{float} e \texttt{double}?
+\end{exercise}
+
+\texttt{float} usa il formato IEEE 754 \emph{binary32}, con 32 bit e circa
+7 cifre decimali significative; \texttt{double} usa \emph{binary64}, con
+64 bit e circa 16 cifre. Quest'ultimo offre maggiore precisione e un
+intervallo di valori più ampio
+(\cref{sec:fi-java-precisione,sec:fi-virgola-mobile}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-letterale-float}
+Perché per assegnare un valore decimale a una variabile \texttt{float}
+bisogna aggiungere la lettera \texttt{f}?
+\end{exercise}
+
+Un letterale decimale senza suffisso è di tipo \texttt{double}, la cui
+conversione a \texttt{float} richiede generalmente un cast esplicito.
+Il suffisso \texttt{f} specifica direttamente un letterale
+\texttt{float}, come in \texttt{float x = 30.2f;}
+(\cref{sec:fi-java-precisione,sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-nan-infinita}
+Che cosa rappresentano \texttt{NaN}, \texttt{POSITIVE\_INFINITY} e
+\texttt{NEGATIVE\_INFINITY}?
+\end{exercise}
+
+\texttt{NaN} rappresenta un risultato non numerico, come
+\texttt{0.0 / 0.0}; le altre due costanti rappresentano le
+infinità positiva e negativa, che possono derivare, per esempio,
+da una divisione in virgola mobile per zero. Sono valori speciali
+dei tipi \texttt{float} e \texttt{double}
+(\cref{sec:fi-java-overflow,tab:fi-valori-speciali}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-cast-435}
+Spiega perché \texttt{(int)(100 * 4.35)} può dare \texttt{434}
+invece di \texttt{435}.
+\end{exercise}
+
+Il valore decimale \(4.35\) non è rappresentabile esattamente in
+\texttt{double}: la moltiplicazione può produrre
+\texttt{434.99999999999994}. Il cast a \texttt{int} tronca verso zero,
+restituendo \texttt{434}, anziché arrotondare al più vicino
+(\cref{sec:fi-java-precisione,sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-conversione-cast}
+Che differenza c'è tra una conversione implicita e un \emph{cast}?
+\end{exercise}
+
+Una conversione implicita è applicata automaticamente quando è ammessa
+dalle regole del linguaggio, per esempio da \texttt{int} a
+\texttt{long}. Un cast richiede di indicare esplicitamente il tipo di
+destinazione, come in \texttt{(int) x}; può comportare perdita di
+informazione (\cref{sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-cast-int}
+Che cosa fa il cast \texttt{(int)} applicato a un numero in virgola mobile?
+\end{exercise}
+
+Per un numero finito nell'intervallo rappresentabile da
+\texttt{int}, elimina la parte frazionaria troncando verso zero:
+\texttt{(int) 2.95} vale \texttt{2} e
+\texttt{(int) (-2.95)} vale \texttt{-2}. Non effettua un
+arrotondamento all'intero più vicino
+(\cref{sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-math-round}
+Perché \texttt{Math.round()} è preferibile rispetto a
+\texttt{(int)(x + 0.5)} per arrotondare?
+\end{exercise}
+
+\texttt{Math.round()} esprime direttamente l'arrotondamento
+all'intero più vicino, con scelta dell'intero maggiore in caso
+di equidistanza. La formula con il cast non funziona in generale
+per i negativi: per \(x=-2.95\) restituisce \(-2\), mentre
+\texttt{Math.round(x)} restituisce \(-3\)
+(\cref{sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-big-number}
+A che cosa servono le classi \texttt{BigInteger} e
+\texttt{BigDecimal}?
+\end{exercise}
+
+\texttt{BigInteger} rappresenta interi di dimensione non limitata
+dalla larghezza di \texttt{long}; \texttt{BigDecimal} consente
+l'aritmetica decimale a precisione arbitraria e il controllo
+dell'arrotondamento. Entrambe appartengono a \texttt{java.math}
+e utilizzano metodi per le operazioni
+(\cref{sec:fi-java-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-costante}
+Scrivi la sintassi generale per dichiarare una costante in Java.
+\end{exercise}
+
+Si utilizza \texttt{final tipo NOME\_COSTANTE = espressione;},
+per esempio \texttt{final double PI\_GRECO = 3.14;}.
+La variabile può essere assegnata una sola volta; se contiene un
+riferimento, \texttt{final} non rende immutabile l'oggetto
+(\cref{sec:fi-java-costanti-aritmetica}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-divisione-resto}
+Qual è la differenza tra divisione intera \texttt{/} e operatore
+resto \texttt{\%}?
+\end{exercise}
+
+Con operandi interi, \texttt{/} restituisce il quoziente troncato
+verso zero e \texttt{\%} il resto. Per esempio,
+\texttt{235 / 100} vale \texttt{2}, mentre
+\texttt{235 \% 100} vale \texttt{35}
+(\cref{sec:fi-java-costanti-aritmetica}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-math-classe}
+A che cosa serve la classe \texttt{Math}?
+\end{exercise}
+
+Fornisce metodi statici per operazioni matematiche, tra cui
+\texttt{pow()}, \texttt{sqrt()}, \texttt{log()} e \texttt{sin()},
+oltre alle costanti \texttt{Math.PI} e \texttt{Math.E}
+(\cref{sec:fi-java-math}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-metodi-statici-oggetto}
+Qual è la differenza tra un metodo statico come
+\texttt{Math.round()} e un metodo invocato su un oggetto come
+\texttt{System.out.println()}?
+\end{exercise}
+
+Un metodo statico appartiene alla classe ed è invocabile senza
+crearne un'istanza, come \texttt{Math.round()}. Invece,
+\texttt{println()} è un metodo dell'oggetto cui si riferisce
+\texttt{System.out}, un campo statico della classe \texttt{System}
+(\cref{sec:fi-java-math,sec:fi-java-invocazione-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-substring}
+Come funziona il metodo \texttt{substring(startIndex, endIndex)}?
+\end{exercise}
+
+Restituisce una nuova stringa formata dalle unità di codice UTF-16
+con indici da \texttt{startIndex}, incluso, a \texttt{endIndex},
+escluso. Per una stringa di lunghezza \(n\) si richiede
+\(0\le\texttt{startIndex}\le\texttt{endIndex}\le n\);
+la lunghezza della sottostringa è la differenza dei due indici
+(\cref{sec:fi-java-substring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-collaudo-string-index-exception}
+In quali casi si può ottenere una
+\texttt{StringIndexOutOfBoundsException}?
+\end{exercise}
+
+Quando si usa un indice non valido in operazioni sulle stringhe:
+per \texttt{substring()}, se l'inizio è negativo, la fine supera
+la lunghezza oppure l'inizio è maggiore della fine; per
+\texttt{charAt(i)}, se \(i<0\) o \(i\ge n\), dove \(n\) è la
+lunghezza della stringa
+(\cref{sec:fi-java-substring,sec:fi-java-char-escape}).

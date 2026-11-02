@@ -24,7 +24,6 @@
 \makecoursefrontmatter
 \makecoursemainmatter
 
-% Appunti delle lezioni.
 \input{sections/appunti/01-introduzione-informatica}
 \input{sections/appunti/02-rappresentazione-informazioni}
 \input{sections/appunti/03-introduzione-python}
@@ -36,23 +35,21 @@
 \input{sections/appunti/09-collaudo-tipi-input-java}
 \input{sections/appunti/10-realizzazione-classi-java}
 
-% Indice separato degli esercizi, limitato ai titoli dei capitoli.
 \addtocontents{toc}{\protect\addchap*{Indice degli esercizi}}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 \clearpage
 \setcounter{chapter}{0}
-% Destinazioni PDF distinte da quelle degli appunti, anche con gli stessi numeri.
 \renewcommand*{\theHchapter}{esercizi.\arabic{chapter}}
 \bookmarksetup{depth=chapter}
-\input{sections/esercizi/01-esercizi-introduzione-informatica}
-\input{sections/esercizi/02-esercizi-rappresentazione-informazioni}
-\input{sections/esercizi/03-esercizi-introduzione-python}
-\input{sections/esercizi/04-esercizi-ricorsione}
-\input{sections/esercizi/05-esercizi-complessita}
-\input{sections/esercizi/06-esercizi-ricerca-ordinamento}
-\input{sections/esercizi/07-esercizi-strutture-dati-adt}
-\input{sections/esercizi/08-esercizi-introduzione-java}
-\input{sections/esercizi/09-esercizi-collaudo-tipi-input-java}
+\input{sections/esercizi/01-introduzione-informatica}
+\input{sections/esercizi/02-rappresentazione-informazioni}
+\input{sections/esercizi/03-introduzione-python}
+\input{sections/esercizi/04-ricorsione}
+\input{sections/esercizi/05-complessita}
+\input{sections/esercizi/06-ricerca-ordinamento}
+\input{sections/esercizi/07-strutture-dati-adt}
+\input{sections/esercizi/08-introduzione-java}
+\input{sections/esercizi/09-collaudo-tipi-input-java}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \end{document}

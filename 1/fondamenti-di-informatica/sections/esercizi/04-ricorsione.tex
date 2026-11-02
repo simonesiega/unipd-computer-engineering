@@ -1,0 +1,260 @@
+\chapter{Esercizi: Ricorsione}
+\label{chap:esercizi-ricorsione}
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-significato}
+Che cosa si intende per ricorsione in programmazione?
+\end{exercise}
+
+La \emph{ricorsione} è una tecnica che risolve un problema mediante
+sottoproblemi della stessa natura, utilizzando chiamate a funzioni
+che possono invocare se stesse. Il procedimento distingue un
+\emph{caso base} e un \emph{passo ricorsivo}
+(\cref{sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-funzione}
+Che cosa significa dire che una funzione è ricorsiva?
+\end{exercise}
+
+Una funzione è \emph{ricorsiva} se, durante la propria esecuzione,
+può invocare se stessa.
+Ogni chiamata costituisce una nuova invocazione con parametri propri
+(\cref{sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-chiamata}
+Quando una funzione ricorsiva chiama se stessa, che cosa succede
+all'esecuzione della funzione chiamante?
+\end{exercise}
+
+L'invocazione chiamante rimane sospesa finché quella chiamata non
+termina; il suo stato viene conservato in un \emph{frame} nella
+pila delle chiamate. Al ritorno della chiamata interna, l'esecuzione
+riprende dal punto in cui era stata sospesa
+(\cref{sec:fi-pila-ricorsione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-fattoriale-base}
+Nel calcolo del fattoriale, qual è il caso base?
+\end{exercise}
+
+Il caso base è \(n=0\), per il quale \(0!=1\): la funzione
+restituisce \(1\) senza effettuare altre chiamate ricorsive
+(\cref{eq:fi-fattoriale,sec:fi-fattoriale}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-fattoriale-passo}
+Nel calcolo del fattoriale, qual è il passo ricorsivo?
+\end{exercise}
+
+Per \(n>0\) si applica la relazione
+\[
+  n!=n(n-1)!,
+\]
+calcolando il fattoriale di \(n-1\) e moltiplicandone il risultato
+per \(n\) (\cref{eq:fi-fattoriale}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-fattoriale-semplice}
+Perché nel fattoriale ricorsivo la chiamata
+\lstinline|fattoriale(n - 1)| rappresenta un problema più semplice?
+\end{exercise}
+
+Per \(n>0\), l'argomento \(n-1\) è minore di \(n\) e resta
+non negativo: il sottoproblema richiede lo stesso calcolo su un
+ingresso più piccolo. Ripetendo la riduzione, si raggiunge
+\(n=0\), cioè il caso base
+(\cref{sec:fi-fattoriale,sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-senza-base}
+Che cosa potrebbe succedere se in una funzione ricorsiva mancasse
+il caso base?
+\end{exercise}
+
+Le chiamate potrebbero continuare senza raggiungere una condizione
+di arresto. In CPython, l'accumulo dei frame oltre il limite di
+profondità provoca generalmente \texttt{RecursionError}; ciò non
+costituisce una terminazione corretta dell'algoritmo
+(\cref{sec:fi-ricorsione-terminazione,sec:fi-ricorsione-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-base-insufficiente}
+Perché non basta avere un caso base: perché è importante anche che
+ogni chiamata si avvicini al caso base?
+\end{exercise}
+
+Un caso base garantisce l'arresto soltanto se viene raggiunto per
+ogni ingresso ammissibile. Occorre quindi che le chiamate
+riducano progressivamente il problema; un criterio sufficiente è
+una misura intera non negativa che diminuisca strettamente a ogni
+chiamata ricorsiva (\cref{sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-terminazione-regole}
+Quali sono le due regole fondamentali che permettono di dire che
+un algoritmo ricorsivo termina?
+\end{exercise}
+
+Devono essere previsti casi base che non effettuino altre chiamate
+ricorsive e ogni catena di chiamate, per ogni ingresso ammissibile,
+deve raggiungerne uno. Per dimostrarlo si può individuare una misura
+intera non negativa strettamente decrescente, assumendo che ogni
+invocazione svolga un numero finito di operazioni e generi un numero
+finito di chiamate (\cref{sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-traccia-quattro}
+Calcola a mano le chiamate necessarie per eseguire
+\texttt{fattoriale(4)} usando la versione ricorsiva.
+\end{exercise}
+
+Le cinque invocazioni avvengono nell'ordine
+\[
+\begin{aligned}
+  \texttt{fattoriale(4)}&\to\texttt{fattoriale(3)}
+  \to\texttt{fattoriale(2)}\\
+  &\to\texttt{fattoriale(1)}\to\texttt{fattoriale(0)}.
+\end{aligned}
+\]
+Raggiunto il caso base, i risultati vengono restituiti in ordine
+inverso:
+\[
+\begin{aligned}
+  \texttt{fattoriale(0)}&=1,\\
+  \texttt{fattoriale(1)}&=1\cdot1=1,\\
+  \texttt{fattoriale(2)}&=2\cdot1=2,\\
+  \texttt{fattoriale(3)}&=3\cdot2=6,\\
+  \texttt{fattoriale(4)}&=4\cdot6=24.
+\end{aligned}
+\]
+La sospensione e la ripresa delle invocazioni sono illustrate
+nella \cref{fig:fi-fattoriale-chiamate}.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-leggibilita}
+In quali casi la ricorsione può rendere il codice più leggibile?
+\end{exercise}
+
+Quando il problema si esprime naturalmente in termini di
+sottoproblemi della stessa natura, come nel fattoriale o in un
+algoritmo \emph{divide et impera}, la funzione ricorsiva può
+seguire direttamente la definizione del procedimento. La scelta
+resta subordinata alla chiarezza dei casi base e dei passi
+ricorsivi (\cref{sec:fi-fattoriale,sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-efficienza}
+Perché una funzione ricorsiva può essere meno efficiente di un
+ciclo equivalente?
+\end{exercise}
+
+Ogni chiamata comporta un costo di invocazione e mantiene un
+frame nella pila: per il fattoriale, la versione ricorsiva richiede
+spazio ausiliario \(\Theta(n)\), mentre quella iterativa richiede
+\(\Theta(1)\), nel modello di costo adottato. Alcune ricorsioni
+ricalcolano inoltre sottoproblemi già risolti, come nel caso di
+Fibonacci (\cref{sec:fi-pila-ricorsione,sec:fi-fibonacci}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-coda}
+Che cosa si intende per ricorsione in coda?
+\end{exercise}
+
+Una chiamata ricorsiva è \emph{in coda} quando la funzione chiamante
+non deve eseguire ulteriori operazioni dopo il suo ritorno. In
+particolare, \lstinline|return fattoriale_coda(n - 1, acc * n)|
+è in coda, mentre \lstinline|return n * fattoriale(n - 1)|
+non lo è (\cref{sec:fi-ricorsione-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-coda-ciclo}
+Perché la ricorsione in coda può essere trasformata abbastanza
+facilmente in un ciclo?
+\end{exercise}
+
+Poiché dopo la chiamata ricorsiva non restano operazioni sospese,
+lo stato necessario al passo successivo può essere aggiornato
+nelle variabili di un ciclo, anziché passato a una nuova
+invocazione. Questa trasformazione è mostrata per il fattoriale
+nella \cref{sec:fi-ricorsione-coda}; CPython non la esegue
+automaticamente.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-multipla}
+Che cosa si intende per ricorsione multipla?
+\end{exercise}
+
+Si ha \emph{ricorsione multipla} quando una stessa invocazione può
+eseguire più chiamate ricorsive. Per esempio, \texttt{fib(n)}
+richiama \texttt{fib(n - 1)} e \texttt{fib(n - 2)} per \(n>2\)
+(\cref{sec:fi-fibonacci}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-fibonacci-inefficiente}
+Perché l'algoritmo ricorsivo per Fibonacci è molto inefficiente?
+\end{exercise}
+
+La traduzione diretta della ricorrenza ricalcola più volte gli stessi
+termini, producendo un numero esponenziale di invocazioni. Nel
+modello a costo unitario, il tempo è \(\Theta(F_n)\), mentre la
+versione iterativa richiede \(\Theta(n)\) operazioni
+(\cref{sec:fi-fibonacci,sec:fi-complessita-fibonacci}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-fibonacci-albero}
+Che cosa rappresenta l'albero delle invocazioni di Fibonacci?
+\end{exercise}
+
+Ogni nodo rappresenta un'invocazione di \texttt{fib} e i suoi
+figli rappresentano le chiamate ricorsive che essa effettua.
+L'albero mostra tutte le invocazioni, comprese quelle ripetute,
+non soltanto quelle contemporaneamente presenti nella pila.
+Per \texttt{fib(5)} comprende nove invocazioni
+(\cref{fig:fi-fibonacci-albero,sec:fi-pila-ricorsione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-somma-naturali}
+Scrivi una funzione Python ricorsiva che calcoli la somma dei primi
+\(n\) numeri naturali, cioè \(1+2+\cdots+n\). Indica chiaramente
+il caso base e il passo ricorsivo.
+\end{exercise}
+
+\begin{unipdcode}[language=Python]
+def somma_naturali(n):
+    if n < 0:
+        raise ValueError("n deve essere non negativo")
+    if n == 0:
+        return 0
+    return n + somma_naturali(n - 1)
+\end{unipdcode}
+
+Per \(n=0\) la somma è nulla (\emph{caso base}); per \(n>0\)
+la funzione restituisce \(n\) più la somma dei primi \(n-1\)
+naturali (\emph{passo ricorsivo}). L'argomento diminuisce fino a
+zero, garantendo la terminazione per gli interi non negativi
+(\cref{sec:fi-esempi-ricorsione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricorsione-conto-rovescia}
+Scrivi una funzione Python ricorsiva che stampi un conto alla
+rovescia da \(n\) fino a \(0\). Spiega perché, a ogni chiamata,
+il problema diventa più semplice.
+\end{exercise}
+
+\begin{unipdcode}[language=Python]
+def conto_rovescia(n):
+    if n < 0:
+        raise ValueError("n deve essere non negativo")
+    print(n)
+    if n == 0:
+        return
+    return conto_rovescia(n - 1)
+\end{unipdcode}
+
+La funzione stampa \(n\) prima di richiamare se stessa con
+\(n-1\). Per ogni intero \(n\ge0\), l'argomento diminuisce di
+uno fino al caso base \(n=0\), che stampa zero senza altre chiamate.
+Per \(n=3\) l'output è \(3,2,1,0\), un valore per riga
+(\cref{sec:fi-esempi-ricorsione}).

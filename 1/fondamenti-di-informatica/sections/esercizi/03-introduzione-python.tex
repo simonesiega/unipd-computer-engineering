@@ -1,0 +1,375 @@
+\chapter{Esercizi: Introduzione a Python}
+\label{chap:esercizi-introduzione-python}
+
+\begin{exercise}
+\label{ex:fi-python-versioni}
+Che differenza c'è tra Python 2 e Python 3 e quale versione è
+adottata negli appunti?
+\end{exercise}
+
+Python 3 è l'evoluzione di Python 2 e introduce modifiche non sempre
+retrocompatibili, per cui un programma scritto per una versione può
+richiedere adattamenti per funzionare nell'altra. Gli appunti adottano
+Python 3, con esempi che richiedono la versione 3.9 o successiva
+(\cref{sec:fi-python-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-python-print}
+Che cosa fa la funzione \texttt{print} e perché servono le parentesi
+tonde?
+\end{exercise}
+
+La funzione \texttt{print()} scrive i valori ricevuti sull'uscita standard.
+Le parentesi fanno parte della sintassi di chiamata di una funzione e
+racchiudono gli eventuali argomenti: per esempio,
+\lstinline|print("Ciao")| stampa il messaggio \texttt{Ciao}
+(\cref{sec:fi-python-esecuzione,sec:fi-python-funzioni}).
+
+\begin{exercise}
+\label{ex:fi-python-stringa}
+Che cos'è una stringa?
+\end{exercise}
+
+Una \emph{stringa} è una sequenza di caratteri; in Python ha tipo
+\texttt{str} e nel codice può essere delimitata da apici singoli o doppi.
+Per esempio, \lstinline|"123"| è una stringa, non il numero intero
+\texttt{123} (\cref{sec:fi-python-esecuzione,sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-interpretato}
+In che senso Python è un linguaggio interpretato?
+\end{exercise}
+
+Un programma Python viene eseguito attraverso un ambiente che ne
+interpreta le operazioni, senza richiedere la produzione preventiva di
+un eseguibile nativo autonomo. Nell'implementazione CPython, il sorgente
+viene prima tradotto in \emph{bytecode}, poi eseguito dalla macchina
+virtuale Python: compilazione e interpretazione possono quindi coesistere
+(\cref{sec:fi-python-esecuzione,sec:fi-linguaggi-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-python-interattiva-edit-run}
+Qual è la differenza tra modalità interattiva e ciclo
+\emph{edit/run}?
+\end{exercise}
+
+Nella modalità interattiva le istruzioni vengono inserite e valutate
+una alla volta nell'interprete, che mostra i risultati delle espressioni
+quando previsto. Nel ciclo \emph{edit/run} si scrive o modifica un
+programma in un file \texttt{.py} e lo si esegue successivamente;
+le espressioni non vengono stampate automaticamente
+(\cref{sec:fi-python-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-python-prompt}
+Che cosa indica il prompt \lstinline|>>>| dell'interprete Python?
+\end{exercise}
+
+Il prompt \lstinline|>>>| indica che l'interprete è in modalità
+interattiva ed è pronto a ricevere un'istruzione o un'espressione.
+Non fa parte del codice digitato dall'utente
+(\cref{sec:fi-python-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-python-variabile-matematica}
+Che cos'è una variabile e in che cosa differisce da una variabile
+matematica?
+\end{exercise}
+
+In Python una variabile è un nome associato a un valore durante
+l'esecuzione, e l'associazione può essere modificata mediante
+assegnamento. In matematica una variabile rappresenta invece un valore
+in una relazione, senza che il simbolo di uguaglianza comporti un
+aggiornamento dello stato (\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-assegnamento-incremento}
+Perché l'istruzione \texttt{x = x + 1} ha senso in programmazione?
+\end{exercise}
+
+L'operatore \texttt{=} indica un assegnamento, non un'uguaglianza
+matematica. Viene prima valutata l'espressione \texttt{x + 1}
+utilizzando il valore corrente di \texttt{x}; il risultato viene poi
+associato allo stesso nome. L'istruzione incrementa quindi il valore
+di uno, purché \texttt{x} sia già definita e l'operazione sia valida
+(\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-operatori-aritmetici}
+Quali sono gli operatori aritmetici principali di Python e che
+differenza c'è tra \texttt{/} e \lstinline|//|?
+\end{exercise}
+
+Gli operatori \texttt{+}, \texttt{-}, \texttt{*} e \texttt{**}
+rappresentano rispettivamente addizione, sottrazione, moltiplicazione
+e potenza. L'operatore \texttt{/} esegue la divisione ordinaria e
+restituisce un \texttt{float} per operandi numerici ordinari, mentre
+\lstinline|//| arrotonda il quoziente verso \(-\infty\): per esempio,
+\texttt{17 / 5} vale \texttt{3.4} e \lstinline|17 // 5| vale
+\texttt{3} (\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-operatore-modulo}
+Che cosa restituisce l'operatore \texttt{\%} e in quali situazioni può
+essere utile?
+\end{exercise}
+
+L'operatore \texttt{\%} restituisce il resto della divisione:
+\lstinline|17 % 5| vale \texttt{2}. È utile, per esempio, per
+verificare se un intero è pari mediante \lstinline|n % 2 == 0| o
+per distinguere i multipli di un intero positivo
+(\cref{sec:fi-python-variabili,sec:fi-python-funzioni}).
+
+\begin{exercise}
+\label{ex:fi-python-tipi-elementari}
+Quali sono i principali tipi di dato elementari introdotti
+negli appunti?
+\end{exercise}
+
+I tipi fondamentali introdotti sono \texttt{int} per gli interi,
+\texttt{float} per i numeri in virgola mobile, \texttt{str} per le
+stringhe e \texttt{bool} per i valori logici. In Python il tipo
+appartiene al valore; \texttt{type()} permette di conoscerlo
+(\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-stringa-numero}
+Che differenza c'è tra una stringa e un numero, anche quando
+contengono gli stessi caratteri?
+\end{exercise}
+
+Una stringa rappresenta testo, mentre un valore numerico può essere
+impiegato direttamente nelle operazioni aritmetiche. Per esempio,
+\lstinline|"3" + "4"| produce \lstinline|"34"| per concatenazione,
+mentre \texttt{3 + 4} produce \texttt{7}. Per convertire una stringa
+numerica in un intero si può usare \texttt{int()}
+(\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-input-conversione}
+Che cosa fa la funzione \texttt{input} e perché spesso è necessario
+convertire il suo risultato?
+\end{exercise}
+
+La funzione \texttt{input()} legge una riga dall'ingresso standard e
+restituisce sempre una stringa, anche se l'utente ha digitato cifre.
+Per utilizzare il dato in un calcolo numerico occorre convertirlo,
+per esempio con \texttt{int()} o \texttt{float()}; una stringa non
+convertibile provoca \texttt{ValueError}
+(\cref{sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-booleani}
+Che cosa sono i valori booleani \texttt{True} e \texttt{False}?
+\end{exercise}
+
+Sono i due valori del tipo \texttt{bool}, utilizzati per esprimere
+condizioni vere o false. Costituiscono, per esempio, il risultato
+degli operatori di confronto e permettono di controllare il flusso
+del programma (\cref{sec:fi-python-variabili,sec:fi-python-condizioni}).
+
+\begin{exercise}
+\label{ex:fi-python-operatori-logici}
+Come funzionano gli operatori logici \texttt{and}, \texttt{or} e
+\texttt{not}?
+\end{exercise}
+
+Per operandi booleani, \texttt{and} restituisce \texttt{True} soltanto
+se entrambe le condizioni sono vere; \texttt{or} se almeno una è vera;
+\texttt{not} inverte il valore logico. Gli operatori \texttt{and} e
+\texttt{or} valutano il secondo operando solo quando necessario
+(\emph{cortocircuito}; \cref{sec:fi-python-condizioni}).
+
+\begin{exercise}
+\label{ex:fi-python-tabella-verita}
+Che cos'è una tabella di verità?
+\end{exercise}
+
+Una \emph{tabella di verità} elenca tutte le combinazioni dei valori
+logici degli operandi e il risultato dell'operazione considerata.
+Per due variabili booleane comprende quattro combinazioni; nella
+\cref{sec:fi-python-condizioni} sono riportate le tabelle di
+\texttt{and}, \texttt{or} e \texttt{not}.
+
+\begin{exercise}
+\label{ex:fi-python-sintassi-if}
+Qual è la struttura sintattica di un'istruzione \texttt{if} in Python?
+\end{exercise}
+
+L'istruzione inizia con \lstinline|if condizione:|, seguita da
+un blocco di istruzioni indentato. Il blocco viene eseguito soltanto
+se la condizione è vera; il carattere \texttt{:} e l'indentazione
+sono parte della sintassi (\cref{sec:fi-python-condizioni}).
+
+\begin{exercise}
+\label{ex:fi-python-else-elif}
+A che cosa servono \texttt{else} ed \texttt{elif}?
+\end{exercise}
+
+\texttt{elif} introduce una condizione alternativa, valutata quando
+quelle precedenti non sono soddisfatte; \texttt{else} indica il
+blocco da eseguire se nessuna delle condizioni precedenti è vera.
+In una catena \texttt{if}--\texttt{elif}--\texttt{else} viene eseguito
+al più un ramo (\cref{sec:fi-python-condizioni}).
+
+\begin{exercise}
+\label{ex:fi-python-indentazione}
+Perché l'indentazione è obbligatoria e significativa in Python?
+\end{exercise}
+
+L'indentazione delimita i blocchi e ne determina l'appartenenza
+alle istruzioni di controllo o alle funzioni. Un rientro non valido
+può causare \texttt{IndentationError}; un rientro formalmente
+ammesso ma collocato nel punto sbagliato può cambiare il comportamento
+del programma (\cref{sec:fi-python-condizioni}).
+
+\begin{exercise}
+\label{ex:fi-python-blocco-istruzioni}
+Che cos'è un blocco di istruzioni?
+\end{exercise}
+
+È un insieme di istruzioni appartenenti alla stessa struttura,
+come il corpo di una funzione, di una condizione o di un ciclo.
+In Python le istruzioni dello stesso blocco condividono il livello
+di indentazione; ulteriori rientri identificano eventuali blocchi
+annidati (\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-cicli-condizionali}
+Che differenza c'è tra cicli e istruzioni condizionali?
+\end{exercise}
+
+Un'istruzione condizionale seleziona un blocco in base a una
+condizione; un ciclo ripete un blocco per più iterazioni, fino al
+raggiungimento della condizione di arresto o all'esaurimento dei
+valori da visitare (\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-quando-while}
+Quando conviene usare un ciclo \texttt{while}?
+\end{exercise}
+
+Il ciclo \texttt{while} è appropriato quando il numero delle
+iterazioni non è noto in anticipo e la ripetizione dipende dal
+permanere di una condizione, per esempio durante la validazione
+di un dato inserito dall'utente. La condizione viene verificata
+prima di ogni iterazione (\cref{sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-ciclo-infinito}
+Che cos'è un ciclo infinito e perché può essere un errore grave?
+\end{exercise}
+
+È un ciclo che non raggiunge mai una condizione di arresto.
+Se non è intenzionale, può impedire il completamento del programma
+e consumare inutilmente risorse. Occorre verificare che gli
+aggiornamenti eseguiti nel corpo possano rendere falsa la condizione
+del \texttt{while} (\cref{sec:fi-python-cicli,sec:fi-algoritmi}).
+
+\begin{exercise}
+\label{ex:fi-python-for-range}
+Che cosa fa il ciclo \texttt{for} e perché è utile con
+\texttt{range}?
+\end{exercise}
+
+Il ciclo \texttt{for} visita nell'ordine gli elementi di un oggetto
+iterabile. Con \texttt{range()} permette di iterare su una sequenza
+di interi definita da estremi e, facoltativamente, da un passo,
+senza aggiornare manualmente un contatore
+(\cref{sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-range-esempi}
+Come funzionano \texttt{range(5)}, \texttt{range(1, 6)} e
+\texttt{range(1, 10, 2)}?
+\end{exercise}
+
+\texttt{range(5)} genera gli interi da \(0\) a \(4\),
+\texttt{range(1, 6)} quelli da \(1\) a \(5\), mentre
+\texttt{range(1, 10, 2)} genera \(1,3,5,7,9\).
+L'estremo iniziale è incluso, quello finale escluso e il terzo
+argomento, quando presente, specifica il passo
+(\cref{sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-accumulatore}
+Perché è utile accumulare valori dentro una variabile durante un
+ciclo?
+\end{exercise}
+
+Un \emph{accumulatore} conserva il risultato parziale delle iterazioni
+precedenti e viene aggiornato a ogni passaggio. Permette, per
+esempio, di calcolare la somma di una sequenza senza memorizzare
+tutte le somme intermedie (\cref{sec:fi-python-cicli}).
+
+\begin{exercise}
+\label{ex:fi-python-testo-binario}
+Che cos'è un file di testo e in che cosa differisce da un file
+binario?
+\end{exercise}
+
+In un file di testo i byte vengono interpretati come caratteri
+attraverso una codifica, per esempio UTF-8. Un file aperto in
+modalità binaria viene invece letto o scritto come sequenza di byte,
+senza conversione automatica in caratteri
+(\cref{sec:fi-python-file,sec:fi-caratteri}).
+
+\begin{exercise}
+\label{ex:fi-python-modalita-file}
+Che cosa significa aprire un file in modalità \lstinline|"w"|,
+\lstinline|"r"| oppure \lstinline|"a"|?
+\end{exercise}
+
+La modalità \lstinline|"w"| crea un file per la scrittura o ne
+sovrascrive il contenuto, se esiste già; \lstinline|"r"| apre
+un file esistente in lettura; \lstinline|"a"| permette di
+aggiungere dati alla fine, creando il file se necessario.
+L'apertura in \lstinline|"w"| elimina il contenuto precedente
+(\cref{sec:fi-python-file}).
+
+\begin{exercise}
+\label{ex:fi-python-with-open}
+Perché è consigliabile usare \lstinline|with open(...)| quando
+si lavora con i file?
+\end{exercise}
+
+Il costrutto \texttt{with} garantisce la chiusura del file
+all'uscita dal blocco, anche in presenza di un'eccezione.
+Evita quindi di dover gestire manualmente la chiusura della
+risorsa (\cref{sec:fi-python-file}).
+
+\begin{exercise}
+\label{ex:fi-python-read-for}
+Che differenza c'è tra leggere un file con \texttt{read()} e
+leggerlo riga per riga con un ciclo \texttt{for}?
+\end{exercise}
+
+\texttt{read()} senza argomenti restituisce l'intero contenuto
+del file di testo come un'unica stringa; un ciclo \texttt{for}
+lo visita invece una riga alla volta. Quest'ultima modalità è
+preferibile per file grandi quando non è necessario caricare
+tutto il contenuto in memoria (\cref{sec:fi-python-file}).
+
+\begin{exercise}
+\label{ex:fi-python-conversione-file}
+Perché quando leggiamo numeri da un file dobbiamo usare
+\texttt{int} o \texttt{float}?
+\end{exercise}
+
+La lettura di un file di testo restituisce stringhe, anche se
+contengono cifre. Per eseguire operazioni numeriche è quindi
+necessario convertirle in valori \texttt{int} o \texttt{float};
+se il testo non è convertibile, viene sollevata un'eccezione
+\texttt{ValueError} (\cref{sec:fi-python-file,sec:fi-python-variabili}).
+
+\begin{exercise}
+\label{ex:fi-python-file-inesistente}
+Che cosa succede se si prova a leggere un file che non esiste e
+come si può gestire il problema?
+\end{exercise}
+
+L'apertura in modalità \lstinline|"r"| di un file inesistente
+solleva \texttt{FileNotFoundError}. Si può gestire l'eccezione
+mediante \texttt{try} e \texttt{except FileNotFoundError},
+per esempio segnalando l'assenza del file senza interrompere
+bruscamente il programma (\cref{sec:fi-python-file}).
