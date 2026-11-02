@@ -1,0 +1,235 @@
+\chapter{Esercizi: Introduzione all'informatica}
+\label{chap:esercizi-introduzione-informatica}
+
+\begin{exercise}
+\label{ex:fi-intro-complessita}
+Che cosa si intende per complessità di un algoritmo e perché viene
+studiata?
+\end{exercise}
+
+La \emph{complessità computazionale} esprime le risorse necessarie
+all'esecuzione di un algoritmo, principalmente tempo e memoria, in
+funzione della dimensione dell'ingresso. Viene studiata per confrontare
+algoritmi che risolvono lo stesso problema e valutarne l'efficienza
+al crescere dei dati, indipendentemente dalle sole misurazioni su una
+macchina particolare (\cref{sec:fi-algoritmi,chap:complessita}).
+
+\begin{exercise}
+\label{ex:fi-intro-turing-definizione}
+Che cos'è la macchina di Turing e da quali elementi è composta?
+\end{exercise}
+
+La \emph{macchina di Turing} è un modello astratto di calcolo, indipendente
+dalla realizzazione fisica di un calcolatore. Comprende un nastro
+teoricamente illimitato suddiviso in celle, una testina di lettura e
+scrittura e un controllo dotato di un numero finito di stati. Il suo
+comportamento è determinato da regole di transizione
+(\cref{sec:fi-macchina-turing,fig:fi-nastro-turing}).
+
+\begin{exercise}
+\label{ex:fi-intro-contributi-teorici}
+Quale contributo hanno dato Turing, Church, Chomsky e Shannon allo
+sviluppo teorico dell'informatica?
+\end{exercise}
+
+Turing e Church formalizzarono il concetto di calcolo effettivo e
+stabilirono limiti alla decidibilità dei problemi. Chomsky introdusse
+una classificazione dei linguaggi formali in base alla loro capacità
+espressiva. Shannon sviluppò una teoria quantitativa dell'informazione,
+introducendo misure come il contenuto informativo e l'entropia
+(\cref{sec:fi-macchina-turing,sec:fi-linguaggi-esecuzione,sec:fi-informatica-calcolo}).
+
+\begin{exercise}
+\label{ex:fi-intro-algoritmo-programma}
+Che cosa si intende per algoritmo e perché è necessario individuarlo prima
+di scrivere un programma?
+\end{exercise}
+
+Un \emph{algoritmo} descrive un procedimento mediante istruzioni
+non ambigue ed eseguibili, che termina per ogni ingresso ammissibile.
+La progettazione precede l'implementazione perché occorre definire
+il problema, individuare un procedimento risolutivo e verificarne la
+correttezza. Un programma traduce tale procedimento in un linguaggio
+di programmazione (\cref{def:fi-algoritmo,sec:fi-algoritmi}).
+
+\begin{exercise}
+\label{ex:fi-intro-problema-decisione}
+Qual era il problema della decisione posto nell'ambito del formalismo
+di Hilbert?
+\end{exercise}
+
+Il problema chiedeva se esistesse un procedimento generale capace
+di stabilire la validità delle formule della logica del primo ordine.
+Church e Turing mostrarono che un tale procedimento non esiste.
+Il significato di \emph{decidibilità} è precisato nella
+\cref{def:fi-decidibilita}.
+
+\begin{exercise}
+\label{ex:fi-intro-church-turing}
+Quale contributo diedero Turing e Church alla teoria degli algoritmi
+e al concetto di calcolabilità?
+\end{exercise}
+
+Church e Turing fornirono formalizzazioni differenti della nozione
+di procedimento effettivo e dimostrarono l'esistenza di problemi
+indecidibili. La \emph{tesi di Church--Turing} identifica la nozione
+intuitiva di calcolo effettivo con quella di calcolo eseguibile da
+una macchina di Turing (\cref{sec:fi-macchina-turing}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-intro-turing-operazioni}
+Da quali elementi è composta una Macchina di Turing e quali
+operazioni fondamentali può eseguire?
+\end{exercise}
+
+Il nastro, la testina e il controllo a stati finiti sono descritti
+nell'\cref{ex:fi-intro-turing-definizione}. A ogni passo la macchina
+legge il simbolo della cella corrente e, secondo la regola di transizione,
+scrive un simbolo, sposta la testina e aggiorna lo stato.
+Una \emph{configurazione} comprende contenuto del nastro, posizione
+della testina e stato del controllo; l'esecuzione può arrestarsi oppure
+proseguire indefinitamente (\cref{sec:fi-macchina-turing}).
+
+\begin{exercise}
+\label{ex:fi-intro-importanza-turing}
+Perché la Macchina di Turing è considerata importante per la nascita
+dell'informatica moderna?
+\end{exercise}
+
+La macchina di Turing fornisce un modello preciso di calcolo,
+indipendente dall'hardware, con cui studiare quali problemi siano
+risolvibili algoritmicamente. L'esistenza di una macchina universale
+formalizza la possibilità di simulare programmi diversi; l'indecidibilità
+del problema dell'arresto ne evidenzia i limiti teorici
+(\cref{sec:fi-macchina-turing,prop:fi-problema-arresto}).
+
+\begin{exercise}
+\label{ex:fi-intro-shannon-bit}
+Qual è il contributo di Shannon alla teoria dell'informazione e che
+cosa rappresenta 1 bit?
+\end{exercise}
+
+Shannon introdusse una misura quantitativa dell'informazione legata
+alla probabilità degli eventi. Un evento di probabilità \(p\) fornisce
+\(I(p)=-\log_2 p\) bit; un esito fra due alternative equiprobabili
+fornisce quindi un bit. L'\emph{entropia} misura il contenuto informativo
+medio di una sorgente. Il bit come unità di informazione va distinto
+dalla cifra binaria (\cref{sec:fi-informatica-calcolo}).
+
+\begin{exercise}
+\label{ex:fi-intro-significato-informatica}
+Che cosa significa ``informatica'' e in che senso riguarda il
+trattamento automatico dell'informazione?
+\end{exercise}
+
+L'informatica studia i metodi per rappresentare, memorizzare,
+elaborare e trasmettere l'informazione mediante procedimenti
+automatici. Il trattamento è \emph{automatico} quando l'elaborazione
+segue istruzioni definite ed eseguibili da un calcolatore
+(\cref{chap:introduzione-informatica,sec:fi-informatica-calcolo}).
+
+\begin{exercise}
+\label{ex:fi-intro-calcolatore}
+Che cos'è un computer e quali funzioni fondamentali svolge?
+\end{exercise}
+
+Un \emph{calcolatore} è un dispositivo programmabile che memorizza
+dati, esegue istruzioni e comunica con l'esterno. L'\emph{hardware}
+comprende le componenti fisiche; il \emph{software} comprende i
+programmi che ne determinano il comportamento
+(\cref{sec:fi-informatica-calcolo}).
+
+\begin{exercise}
+\label{ex:fi-intro-von-neumann-bus}
+Quali sono i blocchi principali del modello di von Neumann e quali
+sono i vantaggi e gli svantaggi dell'uso del bus?
+\end{exercise}
+
+Il modello comprende CPU, memoria centrale e interfacce di ingresso
+e uscita, collegate mediante bus per dati, indirizzi e controllo.
+La memoria conserva sia istruzioni sia dati. I collegamenti condivisi
+semplificano l'organizzazione del sistema, ma richiedono di coordinare
+gli accessi e possono costituire un collo di bottiglia fra CPU e memoria
+(\cref{sec:fi-architettura-calcolatore,fig:fi-von-neumann}).
+
+\begin{exercise}
+\label{ex:fi-intro-componenti-cpu}
+Quali sono le componenti logiche principali della CPU e che ruolo
+hanno ALU, unità di controllo e registri?
+\end{exercise}
+
+L'\emph{ALU} esegue operazioni aritmetiche e logiche; l'\emph{unità
+di controllo} coordina l'esecuzione delle istruzioni; i \emph{registri}
+conservano temporaneamente dati e informazioni di controllo. Fra
+questi, il \emph{program counter} contiene l'indirizzo della prossima
+istruzione (\cref{sec:fi-architettura-calcolatore}).
+
+\begin{exercise}
+\label{ex:fi-intro-clock-cpu}
+Che cos'è il clock della CPU e perché la sua frequenza è una
+caratteristica importante?
+\end{exercise}
+
+Il \emph{clock} scandisce le operazioni delle componenti sincrone.
+Se \(T\) è il periodo, la frequenza è \(f=1/T\) e indica il numero
+di cicli al secondo. È un parametro rilevante per le prestazioni,
+ma non le determina da solo: un'istruzione può richiedere più cicli
+e il lavoro svolto per ciclo dipende dall'architettura
+(\cref{sec:fi-architettura-calcolatore}).
+
+\begin{exercise}
+\label{ex:fi-intro-pipeline}
+Che cos'è l'architettura pipeline e quali sono gli stadi tipici
+di una pipeline a 5 fasi?
+\end{exercise}
+
+La \emph{pipeline} suddivide l'esecuzione delle istruzioni in stadi,
+permettendo di elaborare contemporaneamente fasi di istruzioni diverse.
+Nel modello della \cref{fig:fi-pipeline} gli stadi sono prelievo (F),
+decodifica (D), recupero degli operandi (O), esecuzione (E) e
+scrittura del risultato (W). La pipeline aumenta idealmente il numero
+di istruzioni completate per unità di tempo; dipendenze e conflitti
+sulle risorse possono introdurre attese.
+
+\begin{exercise}
+\label{ex:fi-intro-memoria-gerarchia}
+Che differenza c'è tra memoria primaria e memoria secondaria, e come
+si collocano RAM, cache e memoria di massa?
+\end{exercise}
+
+La \emph{memoria primaria}, in particolare la RAM, conserva dati e
+istruzioni in uso ed è normalmente volatile. La \emph{memoria
+secondaria}, come SSD e HDD, offre conservazione persistente.
+La \emph{cache} si colloca fra CPU e RAM nella gerarchia di memoria:
+è più rapida e meno capiente della RAM e conserva copie di dati e
+istruzioni (\cref{sec:fi-memoria-archiviazione,fig:fi-gerarchia-memoria}).
+
+\begin{exercise}
+\label{ex:fi-intro-gpu-parallelismo}
+Perché le GPU sono adatte al calcolo parallelo e in quali ambiti
+vengono usate oggi oltre alla grafica?
+\end{exercise}
+
+Le GPU dispongono di numerose unità di calcolo adatte a eseguire
+operazioni simili su dati differenti in parallelo. Risultano quindi
+vantaggiose quando il lavoro può essere suddiviso in molte operazioni
+indipendenti, come nelle simulazioni numeriche, nell'elaborazione di
+immagini e nell'addestramento di reti neurali
+(\cref{sec:fi-architettura-calcolatore}).
+
+\begin{exercise}
+\label{ex:fi-intro-cuda-thread}
+Che cos'è CUDA e in che modo permette di programmare una GPU usando
+migliaia di thread?
+\end{exercise}
+
+\emph{CUDA} è una piattaforma NVIDIA per il calcolo su GPU. La CPU
+(\emph{host}) avvia sulla GPU (\emph{device}) funzioni dette
+\emph{kernel}, eseguite da thread organizzati in blocchi e griglie.
+I thread di uno stesso blocco possono collaborare mediante memoria
+condivisa e sincronizzazione; l'esecuzione segue il modello SIMT.
+È possibile avviare migliaia di thread, che non devono necessariamente
+essere tutti attivi nello stesso istante
+(\cref{sec:fi-architettura-calcolatore}).

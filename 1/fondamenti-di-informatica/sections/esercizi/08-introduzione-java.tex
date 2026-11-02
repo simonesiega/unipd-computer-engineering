@@ -1,0 +1,518 @@
+\chapter{Esercizi: Introduzione a Java}
+\label{chap:esercizi-introduzione-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-portabilita-cpu}
+Perché Java viene progettato per essere indipendente dalla CPU?
+\end{exercise}
+
+Il sorgente viene compilato in bytecode destinato alla JVM, anziché direttamente
+nelle istruzioni di una particolare CPU. Una JVM compatibile può eseguire lo
+stesso bytecode su architetture differenti (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-compile-once}
+Che cosa significa l'espressione ``compile once, execute everywhere''?
+\end{exercise}
+
+Il programma può essere compilato una volta in bytecode ed eseguito su
+piattaforme diverse senza ricompilarlo. È comunque necessaria una JVM compatibile
+e devono essere disponibili le risorse e le librerie richieste
+(\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-portabilita-confronto}
+Perché Java è considerato più portabile di molti linguaggi compilati tradizionali?
+\end{exercise}
+
+Un eseguibile nativo contiene istruzioni per una specifica architettura; il
+bytecode Java è invece destinato alla JVM, che ne gestisce l'esecuzione sulla
+piattaforma ospitante (\cref{def:fi-java-jvm,sec:fi-linguaggi-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-platform-api}
+Che cos'è la Java Platform API?
+\end{exercise}
+
+È l'interfaccia documentata delle classi e dei metodi forniti dalla piattaforma
+Java: descrive le operazioni disponibili, i parametri, i risultati e, quando
+pertinenti, le eccezioni
+(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-metodi-string}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-libreria-standard}
+Perché la libreria standard di Java è importante per il programmatore?
+\end{exercise}
+
+Fornisce classi e metodi già disponibili per operazioni comuni, evitando di
+doverle implementare nuovamente. Per utilizzarli occorre conoscere la relativa
+interfaccia pubblica (\cref{sec:fi-java-classi-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-sorgente-libreria}
+Perché non è necessario conoscere il codice sorgente delle classi standard di Java?
+\end{exercise}
+
+È sufficiente conoscerne il contratto pubblico: metodi accessibili, parametri,
+risultati e comportamento previsto. I dettagli interni di implementazione non
+sono necessari all'invocazione dei metodi
+(\cref{sec:fi-java-classi-oggetti,sec:fi-java-metodi-string}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-jdk}
+Che cos'è il JDK?
+\end{exercise}
+
+Il \emph{Java Development Kit} è l'insieme di strumenti per sviluppare programmi
+Java; comprende, fra gli altri, il compilatore \texttt{javac} e il comando
+\texttt{java} per avviarli (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-fasi-programmazione}
+Quali sono le tre fasi principali dell'attività di programmazione?
+\end{exercise}
+
+Nel ciclo di lavoro presentato negli appunti si distinguono \emph{modifica del
+sorgente}, \emph{compilazione} e \emph{collaudo}. Eventuali errori richiedono di
+ripetere il ciclo (\cref{fig:fi-java-ciclo-sviluppo,sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-codice-sorgente}
+Che cosa si intende per codice sorgente?
+\end{exercise}
+
+È il testo del programma scritto dal programmatore in un linguaggio di
+programmazione, prima della sua eventuale traduzione in una rappresentazione
+eseguibile (\cref{sec:fi-linguaggi-esecuzione,sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-estensione-java}
+Che estensione deve avere un file sorgente Java?
+\end{exercise}
+
+L'estensione è \texttt{.java}, come in \texttt{HelloTester.java}
+(\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-javac}
+Che cosa fa il comando \texttt{javac HelloTester.java}?
+\end{exercise}
+
+Invoca il compilatore Java sul file sorgente indicato; se la compilazione riesce,
+produce il bytecode delle classi compilate (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-file-class}
+Quale file viene generato compilando \texttt{HelloTester.java}?
+\end{exercise}
+
+La compilazione dell'esempio produce normalmente
+\texttt{HelloTester.class}, contenente il bytecode della classe
+(\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-bytecode}
+Che cos'è il bytecode Java?
+\end{exercise}
+
+È una rappresentazione intermedia del programma costituita da istruzioni
+destinate alla JVM, non direttamente alla CPU fisica (\cref{def:fi-java-jvm}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-bytecode-cpu}
+Perché il bytecode Java non è direttamente eseguibile dalla CPU reale?
+\end{exercise}
+
+Le sue istruzioni appartengono al modello di esecuzione della JVM, non
+all'insieme di istruzioni macchina della CPU. Devono quindi essere interpretate o
+tradotte in istruzioni native (\cref{def:fi-java-jvm}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-jvm}
+Che cos'è la JVM?
+\end{exercise}
+
+La \emph{Java Virtual Machine} è l'ambiente che carica, verifica ed esegue il
+bytecode Java, mediante interpretazione o compilazione in codice nativo
+(\cref{def:fi-java-jvm}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-java-hello}
+Che cosa fa il comando \texttt{java HelloTester}?
+\end{exercise}
+
+Avvia la classe \texttt{HelloTester} mediante il launcher Java, utilizzando la
+JVM per eseguire il programma. Si indica il nome della classe, senza estensione
+\texttt{.class} (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-interprete-ruolo}
+Qual è il ruolo dell'interprete Java durante l'esecuzione di un programma?
+\end{exercise}
+
+L'interprete della JVM può eseguire le istruzioni del bytecode; la JVM può anche
+compilarne alcune in codice nativo mediante JIT. L'interpretazione non è quindi
+necessariamente l'unico meccanismo impiegato (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-compilato-interpretato}
+Che differenza c'è tra un linguaggio compilato e un linguaggio interpretato?
+\end{exercise}
+
+Nella compilazione il codice viene tradotto prima dell'esecuzione in codice
+macchina o intermedio; nell'interpretazione un ambiente esegue il sorgente o una
+rappresentazione intermedia. I due meccanismi possono coesistere
+(\cref{sec:fi-linguaggi-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-java-misto}
+Perché Java può essere considerato un linguaggio ``misto''?
+\end{exercise}
+
+Il sorgente Java viene normalmente compilato in bytecode; durante l'esecuzione,
+la JVM può interpretarlo oppure tradurlo in codice nativo tramite JIT. Si
+combinano quindi compilazione ed esecuzione mediante macchina virtuale
+(\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-portabilita-sorgente-bytecode}
+Che differenza c'è tra portabilità del codice sorgente e portabilità del bytecode?
+\end{exercise}
+
+La portabilità del sorgente riguarda la possibilità di compilare lo stesso
+programma in ambienti diversi; quella del bytecode riguarda la possibilità di
+eseguire lo stesso file compilato su JVM compatibili. Entrambe possono dipendere
+dalle librerie e dall'ambiente richiesti (\cref{sec:fi-java-esecuzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-inizializzazione}
+Che cosa significa inizializzare una variabile?
+\end{exercise}
+
+Significa assegnarle il primo valore, spesso contestualmente alla dichiarazione,
+come in \texttt{int monete = 15000;}. Una variabile locale non inizializzata non
+può essere letta prima di ricevere un valore (\cref{sec:fi-java-variabili}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-variabili-vantaggi}
+Perché usare variabili rende un programma più leggibile e modificabile?
+\end{exercise}
+
+Un nome significativo identifica il ruolo di un dato e permette di riutilizzarne
+il valore senza ripetere letterali o espressioni. Modificando un assegnamento si
+possono aggiornare i calcoli che dipendono da quella variabile
+(\cref{sec:fi-java-variabili,sec:fi-java-identificatori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-identificatore-numero}
+Perché un identificatore non può iniziare con un numero?
+\end{exercise}
+
+Le regole lessicali di Java non ammettono una cifra come primo carattere di un
+identificatore, così da distinguere i nomi dai letterali numerici
+(\cref{sec:fi-java-identificatori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-parole-riservate}
+Perché non si possono usare parole riservate come nomi di variabile?
+\end{exercise}
+
+Le parole riservate hanno un significato sintattico stabilito dal linguaggio, per
+esempio \texttt{class} e \texttt{public}; non possono quindi essere riutilizzate
+come identificatori (\cref{sec:fi-java-identificatori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-nomi-simili}
+Perché è sconsigliato usare nomi che differiscono solo per maiuscole e minuscole?
+\end{exercise}
+
+Java distingue maiuscole e minuscole, quindi i nomi sarebbero validi ma diversi.
+La somiglianza aumenta il rischio di confonderli e rende meno leggibile il codice
+(\cref{sec:fi-java-identificatori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-separatori}
+Quali sono alcuni separatori usati da Java?
+\end{exercise}
+
+Tra i simboli che delimitano costrutti o separano elementi figurano le parentesi
+tonde \texttt{()}, graffe \texttt{\{\}}, quadre \texttt{[]}, il punto e virgola
+\texttt{;}, la virgola e il punto. Per esempio, il punto separa l'oggetto dal
+metodo invocato (\cref{sec:fi-java-sintassi,sec:fi-java-invocazione-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-operatori}
+Quali sono alcuni operatori usati nelle espressioni Java?
+\end{exercise}
+
+Gli operatori aritmetici comprendono \texttt{+}, \texttt{-}, \texttt{*},
+\texttt{/} e \texttt{\%}; \texttt{=} esegue un assegnamento e \texttt{==} un
+confronto di uguaglianza. Altri operatori includono \texttt{<} e \texttt{>}
+(\cref{sec:fi-java-variabili,sec:fi-java-tipi-numerici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-file-nome-pubblicaclasse}
+Perché il file deve chiamarsi esattamente \texttt{HelloTester.java}?
+\end{exercise}
+
+Una classe pubblica di primo livello chiamata \texttt{HelloTester}
+deve trovarsi in \texttt{HelloTester.java}, rispettando le maiuscole e
+le minuscole (\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-case-sensitive}
+Che cosa significa dire che Java è ``case-sensitive''?
+\end{exercise}
+
+Gli identificatori distinguono maiuscole e minuscole:
+\texttt{HelloTester} e \texttt{hellotester} sono nomi diversi
+(\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-public-class-dichiarazione}
+Che cosa definisce la riga \texttt{public class HelloTester}?
+\end{exercise}
+
+Dichiara una classe di nome \texttt{HelloTester} accessibile dall'esterno della
+classe secondo le regole di visibilità del linguaggio
+(\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-public}
+Che cosa indica la parola chiave \texttt{public}?
+\end{exercise}
+
+È un modificatore di accesso che rende una classe o un suo membro accessibile nei
+contesti consentiti dal linguaggio; nella dichiarazione dell'esempio qualifica la
+classe e il metodo \texttt{main} (\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-class}
+Che cosa indica la parola chiave \texttt{class}?
+\end{exercise}
+
+Introduce la dichiarazione di una classe, all'interno della quale possono essere
+definiti campi e metodi
+(\cref{sec:fi-java-primo-programma,sec:fi-java-classi-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-main}
+Che cos'è il metodo \texttt{main}?
+\end{exercise}
+
+Nella struttura tradizionale dei programmi Java adottata negli appunti, è il
+metodo da cui comincia l'esecuzione dell'applicazione. La sua intestazione è
+\texttt{public static void main(String[] args)}
+(\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-main-necessita}
+Perché un'applicazione Java deve avere un metodo \texttt{main}?
+\end{exercise}
+
+Nella modalità di avvio tradizionale descritta negli appunti, la JVM deve
+individuare un punto di ingresso da cui iniziare l'esecuzione; questo ruolo è
+svolto dal metodo \texttt{main} con la firma prevista
+(\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-static-main}
+Che cosa significa \texttt{static} nella dichiarazione del metodo \texttt{main}?
+\end{exercise}
+
+Indica che il metodo appartiene alla classe e può essere invocato senza creare
+prima un oggetto della classe. Ciò permette di avviare il programma dal suo punto
+di ingresso (\cref{sec:fi-java-primo-programma,sec:fi-java-invocazione-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-void-main}
+Che cosa significa \texttt{void} nella dichiarazione del metodo \texttt{main}?
+\end{exercise}
+
+Indica che il metodo non restituisce alcun valore al chiamante
+(\cref{sec:fi-java-primo-programma,sec:fi-java-metodi-string}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-args}
+Che cosa rappresenta \texttt{String[] args}?
+\end{exercise}
+
+È il parametro del metodo \texttt{main} che può ricevere gli argomenti della riga
+di comando come array di stringhe. Può rimanere inutilizzato nei programmi
+semplici (\cref{sec:fi-java-primo-programma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-commenti}
+Che cosa sono i commenti in Java?
+\end{exercise}
+
+Sono parti del sorgente non eseguite come istruzioni: \texttt{//} introduce un
+commento di una riga, mentre \lstinline|/*| e \lstinline|*/| delimitano un
+commento potenzialmente su più righe (\cref{sec:fi-java-sintassi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-commenti-utilita}
+Perché i commenti sono utili anche se vengono ignorati dal compilatore?
+\end{exercise}
+
+Permettono di chiarire scelte progettuali, ipotesi e passaggi non immediati per
+chi legge o modifica il programma. Non sostituiscono però nomi significativi e
+codice comprensibile (\cref{sec:fi-java-sintassi,sec:fi-java-identificatori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-system}
+Che cos'è \texttt{System} in Java?
+\end{exercise}
+
+È una classe della libreria standard, \texttt{java.lang.System}, che fornisce
+funzionalità collegate all'ambiente di esecuzione, tra cui l'accesso all'uscita
+standard (\cref{sec:fi-java-uscita-standard}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-system-out}
+Che cos'è \texttt{System.out}?
+\end{exercise}
+
+È un campo statico della classe \texttt{System} che contiene un riferimento a un
+oggetto \texttt{PrintStream} associato all'uscita standard
+(\cref{sec:fi-java-uscita-standard}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-println}
+Che cosa fa il metodo \texttt{println()}?
+\end{exercise}
+
+Scrive il valore ricevuto sull'uscita standard e termina la riga. Una successiva
+operazione di stampa inizia quindi dalla riga seguente
+(\cref{sec:fi-java-uscita-standard}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-print-vs-println}
+Qual è la differenza tra \texttt{print()} e \texttt{println()}?
+\end{exercise}
+
+Entrambi scrivono sull'uscita standard, ma \texttt{print()} non aggiunge un
+terminatore di riga, mentre \texttt{println()} lo aggiunge
+(\cref{sec:fi-java-uscita-standard}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-stringa}
+Che cos'è una stringa in Java?
+\end{exercise}
+
+È una sequenza di caratteri rappresentata da un oggetto della classe
+\texttt{String}. Un letterale si scrive tra virgolette doppie, per esempio
+\texttt{"Hello, World!"}; gli oggetti \texttt{String} sono immutabili
+(\cref{sec:fi-java-uscita-standard,sec:fi-java-metodi-string}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-invocare-metodo}
+Che cosa significa ``invocare un metodo''?
+\end{exercise}
+
+Significa richiederne l'esecuzione, specificando il nome e gli eventuali
+argomenti tra parentesi tonde. Il metodo esegue l'operazione prevista e può
+restituire un risultato (\cref{sec:fi-java-invocazione-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-forma-invocazione}
+Qual è la forma generale dell'invocazione di un metodo su un oggetto?
+\end{exercise}
+
+Per un metodo di istanza si utilizza \texttt{oggetto.nomeMetodo(argomento1,
+argomento2)}, dove l'oggetto precede il punto e riceve l'invocazione
+(\cref{sec:fi-java-invocazione-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-argomenti-separazione}
+Come si separano più parametri in una chiamata di metodo?
+\end{exercise}
+
+Nella chiamata si forniscono gli \emph{argomenti}, separandoli con virgole
+all'interno delle parentesi tonde, per esempio \texttt{Math.max(3, 7)}. I
+\emph{parametri} sono invece dichiarati nell'intestazione del metodo
+(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-metodi-string}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-formato-libero}
+Perché, anche se Java ha formato libero, è importante scrivere codice leggibile?
+\end{exercise}
+
+L'indentazione e la disposizione degli spazi non determinano i blocchi, ma
+rendono riconoscibili la struttura e il flusso del programma. Il formato
+leggibile facilita revisione e manutenzione (\cref{sec:fi-java-sintassi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-errore-sintassi-logico}
+Qual è la differenza tra errore di sintassi ed errore logico?
+\end{exercise}
+
+Un errore sintattico viola le regole del linguaggio e viene rilevato durante la
+compilazione. Un errore logico può invece lasciare il programma eseguibile, ma
+produrre risultati diversi da quelli richiesti (\cref{sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-system-aut}
+Perché \texttt{System.aut.println("Hello, World!");} produce un errore di compilazione?
+\end{exercise}
+
+La classe \texttt{System} non contiene un campo chiamato \texttt{aut}: il nome
+corretto è \texttt{out}. Il compilatore non riesce quindi a risolvere il simbolo
+richiesto (\cref{sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-cannot-find-symbol}
+Che cosa significa ``cannot find symbol'' in un messaggio del compilatore?
+\end{exercise}
+
+Indica che un nome utilizzato nel sorgente, per esempio una variabile, un campo o
+un metodo, non è risolvibile nel contesto in cui compare. Non implica
+necessariamente un errore di sola punteggiatura sintattica
+(\cref{sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-errore-logico-runtime}
+Che cosa distingue un errore logico da un errore di runtime?
+\end{exercise}
+
+Un errore logico produce un comportamento non conforme alla specifica, anche
+senza interrompere il programma. Un errore di runtime si manifesta durante
+l'esecuzione, per esempio come eccezione non gestita (\cref{sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-errore-file}
+Fai un esempio di errore di runtime legato alla lettura di un file.
+\end{exercise}
+
+Un programma tenta di aprire un file inesistente, sollevando per esempio
+\texttt{FileNotFoundException}. Se non viene gestita, l'eccezione può
+interrompere il programma. Il sorgente può essere sintatticamente corretto
+(\cref{sec:fi-java-errori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-errore-input}
+Fai un esempio di errore di runtime legato all'input dell'utente.
+\end{exercise}
+
+Un programma che si aspetta un intero riceve testo non numerico e tenta di
+convertirlo: può verificarsi un'eccezione, come \texttt{NumberFormatException}
+nell'uso di \texttt{Integer.parseInt}
+(\cref{sec:fi-java-errori,sec:fi-java-parsing}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-variabile}
+Che cos'è una variabile in Java?
+\end{exercise}
+
+È un identificatore associato a un valore di un tipo dichiarato. Per un tipo
+primitivo la variabile contiene il valore; per un tipo riferimento contiene un
+riferimento a un oggetto (\cref{sec:fi-java-variabili,sec:fi-java-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-introduzione-java-dichiarazione}
+Che cosa significa dichiarare una variabile?
+\end{exercise}
+
+Significa indicarne il tipo e il nome, per esempio \texttt{int lit;}. La
+dichiarazione può includere il valore iniziale, come in \texttt{int monete =
+15000;} (\cref{sec:fi-java-variabili}).

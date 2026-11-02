@@ -1,0 +1,359 @@
+\chapter{Esercizi: Rappresentazione delle informazioni}
+\label{chap:esercizi-rappresentazione-informazioni}
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-notazione-posizionale}
+Che cosa si intende per notazione posizionale?
+\end{exercise}
+
+In un sistema di numerazione \emph{posizionale}, il valore di ciascuna
+cifra dipende dalla cifra stessa, dalla sua posizione e dalla base
+adottata. Il numero rappresentato si ottiene sommando le cifre
+moltiplicate per le corrispondenti potenze della base
+(\cref{def:fi-valore-posizionale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-valore-cifra-tre}
+Perché nella notazione decimale la cifra 3 ha valore diverso in 345
+e in 34.5?
+\end{exercise}
+
+In \((345)_{10}\) la cifra \(3\) occupa la posizione delle centinaia
+e vale \(3\cdot10^2=300\); in \((34.5)_{10}\) occupa quella delle
+decine e vale \(3\cdot10^1=30\). La posizione determina dunque il
+peso della cifra (\cref{sec:fi-notazione-posizionale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-ruolo-base}
+Qual è il ruolo della base in un sistema di numerazione posizionale?
+\end{exercise}
+
+La base \(b\ge2\) determina le cifre ammesse, comprese fra \(0\) e
+\(b-1\), e il peso delle posizioni, espresso mediante potenze di \(b\).
+Per esempio, la cifra nella posizione immediatamente a sinistra delle
+unità pesa \(10\) in base dieci e \(2\) in base due
+(\cref{def:fi-valore-posizionale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-binario-1101}
+Come si calcola il valore decimale del numero binario \((1101)_2\)?
+\end{exercise}
+
+Si sommano le potenze di due associate ai bit uguali a uno:
+\[
+  (1101)_2=1\cdot2^3+1\cdot2^2+0\cdot2^1+1\cdot2^0=13.
+\]
+Il procedimento applica la \cref{def:fi-valore-posizionale}
+alla base due.
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-motivo-base-binaria}
+Perché i computer usano principalmente la base binaria?
+\end{exercise}
+
+I circuiti digitali permettono di distinguere in modo affidabile due
+stati logici, rappresentati convenzionalmente da \(0\) e \(1\).
+La codifica binaria consente quindi di memorizzare ed elaborare
+i dati mediante sequenze di bit
+(\cref{sec:fi-conversioni-binarie}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-conversione-parte-intera}
+Come si converte la parte intera di un numero decimale in binario?
+\end{exercise}
+
+Si effettuano divisioni successive per due, registrando il resto
+\(0\) oppure \(1\) di ciascuna divisione, fino a ottenere un quoziente
+nullo. I resti, letti \emph{dall'ultimo al primo}, formano la
+rappresentazione binaria; lo zero si rappresenta con \(0\)
+(\cref{sec:fi-conversioni-binarie}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-conversione-parte-frazionaria}
+Come si converte la parte frazionaria di un numero decimale in binario?
+\end{exercise}
+
+Si moltiplica ripetutamente la parte frazionaria per due, registrando
+ogni volta la parte intera del prodotto, pari a \(0\) oppure \(1\).
+Si prosegue sulla frazione residua: i bit ottenuti, letti
+\emph{nell'ordine di produzione}, formano la parte frazionaria
+binaria. La conversione termina quando il residuo è nullo
+(\cref{sec:fi-conversioni-binarie}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-frazioni-periodiche}
+Perché alcuni numeri razionali hanno una rappresentazione binaria
+periodica?
+\end{exercise}
+
+Per la \cref{prop:fi-frazione-binaria-finita}, una frazione ridotta
+ai minimi termini ha una rappresentazione binaria finita soltanto
+se il denominatore è una potenza di due. Negli altri casi la
+conversione produce, dopo un eventuale tratto iniziale, una sequenza
+periodica, perché un residuo non nullo finisce per ripetersi
+(\cref{ex:fi-frazione-periodica}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-configurazioni-n-bit}
+Con \(n\) bit, quanti numeri naturali diversi si possono rappresentare?
+\end{exercise}
+
+Ogni bit può assumere due valori, quindi \(n\) bit generano
+\(2^n\) configurazioni distinte. Nell'interpretazione senza segno
+ciascuna corrisponde a un naturale diverso, compreso lo zero
+(\cref{sec:fi-interi-rappresentazione}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-intervallo-senza-segno}
+Qual è l'intervallo dei numeri naturali rappresentabili con \(n\) bit?
+\end{exercise}
+
+Nella rappresentazione senza segno l'intervallo è
+\[
+  [0,\,2^n-1]\cap\Z.
+\]
+Per esempio, con otto bit si rappresentano gli interi da \(0\) a
+\(255\) (\cref{sec:fi-interi-rappresentazione}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-modulo-segno}
+Come funziona la rappresentazione modulo e segno?
+\end{exercise}
+
+Il bit più significativo indica il segno: \(0\) per i valori
+non negativi e \(1\) per quelli negativi. I restanti \(n-1\) bit
+rappresentano il modulo del numero, che assume quindi valore
+\((-1)^sM\). Il formato richiede almeno due bit
+(\cref{sec:fi-interi-rappresentazione}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-limiti-modulo-segno}
+Perché la rappresentazione modulo e segno non è usata normalmente
+nei computer?
+\end{exercise}
+
+Presenta due configurazioni dello zero, \(+0\) e \(-0\), e rende
+l'addizione più complessa, perché richiede di distinguere i segni
+degli operandi e, quando sono opposti, di confrontarne i moduli.
+Il complemento a due evita la doppia codifica dello zero e semplifica
+l'aritmetica intera (\cref{sec:fi-interi-rappresentazione,sec:fi-complemento-due}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-definizione-complemento-due}
+Che cos'è il complemento a due?
+\end{exercise}
+
+È una codifica degli interi con segno su \(n\) bit: i valori
+non negativi conservano la rappresentazione binaria ordinaria,
+mentre un valore negativo \(a\) è codificato mediante il valore
+senza segno \(a+2^n\). La codifica è univoca nell'intervallo
+rappresentabile (\cref{def:fi-complemento-due}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-intervallo-complemento-due}
+Qual è l'intervallo rappresentabile con \(n\) bit in complemento a due?
+\end{exercise}
+
+L'intervallo degli interi rappresentabili è
+\[
+  [-2^{n-1},\,2^{n-1}-1]\cap\Z.
+\]
+Con otto bit gli estremi sono \(-128\) e \(127\): è presente
+un valore negativo in più rispetto ai positivi
+(\cref{def:fi-complemento-due}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-meno-quattordici}
+Come si rappresenta \(-14\) in complemento a due su 8 bit?
+\end{exercise}
+
+Si rappresenta \(+14\) su otto bit, si invertono i bit e si aggiunge uno:
+\[
+  0000\,1110 \;\longrightarrow\; 1111\,0001
+  \;\xrightarrow{+1}\;1111\,0010.
+\]
+La verifica numerica è \(2^8-14=242=(1111\,0010)_2\)
+(\cref{sec:fi-complemento-due}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-somma-complemento-due}
+Come si esegue una somma tra numeri rappresentati in complemento
+a due?
+\end{exercise}
+
+Si esegue la normale addizione binaria delle due configurazioni
+su \(n\) bit, scartando l'eventuale riporto finale. Il risultato
+corrisponde alla somma matematica modulo \(2^n\); rappresenta
+correttamente la somma con segno soltanto se non si verifica overflow
+(\cref{sec:fi-aritmetica-overflow}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-overflow-somma}
+Quando si verifica overflow nella somma di due numeri in
+complemento a due?
+\end{exercise}
+
+Si verifica \emph{overflow} quando la somma matematica eccede
+l'intervallo rappresentabile su \(n\) bit. Nell'addizione in
+complemento a due, ciò accade esattamente quando gli operandi
+hanno lo stesso segno e il risultato ha segno opposto
+(\cref{prop:fi-overflow-somma}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-reali-approssimati}
+Perché i numeri reali devono essere rappresentati in modo
+approssimato nei computer?
+\end{exercise}
+
+Un formato di lunghezza finita ammette soltanto un numero finito
+di configurazioni, mentre i numeri reali sono infiniti. Perciò
+non tutti i reali possono essere codificati esattamente: i valori
+non rappresentabili vengono approssimati secondo il formato
+adottato (\cref{sec:fi-virgola-mobile,sec:fi-precisione-arrotondamento}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-fissa-mobile}
+Che differenza c'è tra rappresentazione in virgola fissa e
+rappresentazione in virgola mobile?
+\end{exercise}
+
+Nella \emph{virgola fissa} la posizione del separatore è prestabilita,
+quindi i valori rappresentabili hanno un passo costante. Nella
+\emph{virgola mobile} il valore dipende da un significando e da
+un esponente, consentendo di coprire ordini di grandezza diversi
+con una precisione relativa limitata
+(\cref{sec:fi-virgola-mobile}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-mantissa-esponente}
+In una rappresentazione in virgola mobile, che cosa sono mantissa
+ed esponente?
+\end{exercise}
+
+Il \emph{significando}, detto anche \emph{mantissa}, contiene le cifre
+significative del numero; l'\emph{esponente} ne determina l'ordine
+di grandezza, moltiplicando il significando per una potenza della
+base. Il segno completa la rappresentazione, secondo la forma
+\(x=(-1)^sMb^E\) (\cref{sec:fi-virgola-mobile}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-ieee32-campi}
+Quali sono i campi principali di un numero floating point a 32 bit
+secondo IEEE 754?
+\end{exercise}
+
+Il formato \emph{binary32} comprende un bit di segno, otto bit
+di esponente e ventitré bit per la frazione del significando.
+Nei valori normali il primo bit \(1\) del significando è implicito,
+per un totale di ventiquattro bit significativi
+(\cref{sec:fi-ieee754,tab:fi-formati-ieee}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-ieee32-esponenti-speciali}
+Che cosa rappresentano gli esponenti speciali 00000000 e 11111111
+nello standard IEEE 754?
+\end{exercise}
+
+Nel formato binary32, il campo esponente tutto a zero indica
+\(\pm0\) se anche la frazione è nulla, oppure un valore subnormale
+se la frazione non è nulla. Il campo tutto a uno indica \(\pm\infty\)
+se la frazione è nulla, oppure NaN se non è nulla; il bit di segno
+distingue i due segni degli zeri e delle infinità
+(\cref{tab:fi-valori-speciali}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-subnormali}
+Che cosa sono i numeri subnormali e perché sono utili?
+\end{exercise}
+
+Sono valori non nulli con campo esponente nullo e frazione non nulla;
+a differenza dei valori normali, il loro significando non possiede
+il bit iniziale implicito \(1\). Permettono di rappresentare
+numeri più vicini a zero del minimo normale positivo e realizzano
+un \emph{underflow graduale}, a costo di una precisione relativa
+minore (\cref{def:fi-valori-ieee,sec:fi-ieee754}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-nan}
+Che cosa significa NaN e in quali casi può comparire?
+\end{exercise}
+
+\emph{NaN} significa \emph{Not a Number} e indica un risultato
+non numerico nell'aritmetica IEEE 754, come \(0/0\) oppure
+\(+\infty-(+\infty)\). È codificato mediante un campo esponente
+tutto a uno e una frazione non nulla. Il confronto di uguaglianza
+con NaN è sempre falso, anche rispetto a sé stesso
+(\cref{tab:fi-valori-speciali,sec:fi-ieee754}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-arrotondamento-435}
+Perché il numero 4.35 può causare errori di arrotondamento in binario?
+\end{exercise}
+
+La frazione \(0.35=7/20\) non ha una rappresentazione binaria
+finita, perché il denominatore ridotto non è una potenza di due.
+Il valore \(4.35\) viene quindi approssimato: in binary64 la sua
+moltiplicazione per \(100\), arrotondata nel medesimo formato,
+può produrre \(434.99999999999994\) anziché \(435\)
+(\cref{prop:fi-frazione-binaria-finita,ex:fi-arrotondamento-prodotto}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-esadecimale}
+Che cos'è la rappresentazione esadecimale e perché è comoda
+per rappresentare sequenze di bit?
+\end{exercise}
+
+La notazione \emph{esadecimale} usa la base sedici, con cifre
+\(0,\ldots,9,\mathrm{A},\ldots,\mathrm{F}\). Poiché \(16=2^4\),
+ogni cifra corrisponde esattamente a quattro bit: una sequenza
+binaria può quindi essere scritta in modo più breve senza
+perdere informazione (\cref{sec:fi-esadecimale-ottale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-conversione-esadecimale}
+Come si converte un numero binario in esadecimale?
+\end{exercise}
+
+Si dividono i bit in gruppi di quattro, partendo dal separatore
+fra parte intera e frazionaria. Ogni gruppo viene sostituito con
+la cifra esadecimale corrispondente; se necessario, si aggiungono
+zeri a sinistra della parte intera o a destra di quella frazionaria.
+Per esempio, \((1101\,0111)_2=(\mathrm{D7})_{16}\)
+(\cref{sec:fi-esadecimale-ottale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-ottale}
+Che cos'è la rappresentazione ottale e come si collega alla base binaria?
+\end{exercise}
+
+La notazione \emph{ottale} impiega la base otto e le cifre da
+\(0\) a \(7\). Poiché \(8=2^3\), una cifra ottale corrisponde a
+un gruppo di tre bit. La conversione diretta dal binario avviene
+raggruppando i bit a tre a tre, partendo dal separatore
+(\cref{sec:fi-esadecimale-ottale}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-caratteri}
+Come vengono rappresentati i caratteri in un computer?
+\end{exercise}
+
+Una codifica associa valori numerici ai caratteri di un repertorio.
+Un \emph{punto di codice} identifica un carattere, mentre il
+\emph{formato di codifica} stabilisce come rappresentare il punto
+di codice mediante byte. Lo stesso carattere può quindi occupare
+sequenze di byte differenti secondo il formato
+(\cref{sec:fi-caratteri}).
+
+\begin{exercise}
+\label{ex:fi-rappresentazione-ascii-unicode}
+Che differenza c'è tra ASCII, ASCII esteso e Unicode?
+\end{exercise}
+
+\emph{ASCII} comprende \(128\) codici rappresentabili su sette bit.
+\emph{ASCII esteso} non identifica un unico standard, ma diverse
+codifiche a otto bit, come ISO-8859-1 e Windows-1252.
+\emph{Unicode} definisce invece un repertorio di punti di codice
+molto più ampio; formati come UTF-8, UTF-16 e UTF-32 ne specificano
+la codifica in memoria (\cref{sec:fi-caratteri,tab:fi-ascii}).

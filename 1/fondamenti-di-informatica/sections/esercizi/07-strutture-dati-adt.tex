@@ -1,0 +1,963 @@
+\chapter{Esercizi: Strutture dati e tipi di dato astratti}
+\label{chap:esercizi-strutture-dati-adt}
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-struttura-dati}
+Che cosa si intende per \emph{data structure}?
+\end{exercise}
+
+Una \emph{struttura dati} specifica come gli elementi e le informazioni
+necessarie a organizzarli sono rappresentati e memorizzati, così da consentire
+l'esecuzione delle operazioni richieste (\cref{def:fi-struttura-dati}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-definizione-adt}
+Che cosa si intende per \emph{Abstract Data Type} (ADT)?
+\end{exercise}
+
+Un \emph{tipo di dato astratto} descrive i valori e le operazioni di un
+contenitore, specificandone il comportamento, le precondizioni e i casi di
+errore senza imporre una rappresentazione interna (\cref{def:fi-adt}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-adt-struttura-differenza}
+Qual è la differenza fondamentale tra ADT e \emph{data structure}?
+\end{exercise}
+
+L'ADT stabilisce \emph{quali} operazioni sono disponibili e \emph{quale}
+risultato devono produrre; la struttura dati stabilisce \emph{come}
+rappresentare gli elementi e realizzare tali operazioni
+(\cref{sec:fi-adt-strutture}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-cosa-come}
+Spiega la seguente frase: un ADT definisce \emph{cosa} un contenitore di dati
+fa, mentre una struttura dati definisce \emph{come} viene implementato.
+\end{exercise}
+
+Per una coda, la specifica astratta impone che il primo elemento inserito sia il
+primo rimosso. Questa proprietà non prescrive se usare un array circolare o una
+lista concatenata: entrambe le strutture possono realizzare lo stesso
+comportamento FIFO (\cref{sec:fi-adt-strutture,sec:fi-adt-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-scelta-adt-struttura}
+Perché la scelta di un ADT riguarda soprattutto l'\emph{efficacia} di una
+soluzione? E perché la scelta di una \emph{data structure}, con cui implementare
+un ADT, riguarda soprattutto l'\emph{efficienza} di una soluzione?
+\end{exercise}
+
+L'ADT viene scelto in base alle operazioni e alle proprietà richieste dal
+problema: una scelta inadeguata non esprime correttamente il comportamento
+desiderato. Una volta individuato l'ADT, la struttura dati determina soprattutto
+i costi temporali e spaziali delle operazioni previste
+(\cref{sec:fi-adt-strutture}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stesso-adt-prestazioni}
+Perché due implementazioni dello stesso ADT possono avere lo stesso
+comportamento esterno ma \emph{performance} diverse?
+\end{exercise}
+
+La specifica astratta vincola i risultati osservabili, non il procedimento usato
+per ottenerli. Una lista realizzata con array permette, per esempio, l'accesso
+per indice in \(\Theta(1)\), mentre una lista concatenata richiede
+l'attraversamento dei collegamenti (\cref{tab:fi-array-concatenata-costi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-definizione-array}
+Che cos'è un \emph{array}?
+\end{exercise}
+
+È una struttura dati composta da elementi di dimensione fissa memorizzati in
+posizioni contigue, accessibili direttamente tramite indice
+(\cref{def:fi-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-array-accesso-diretto}
+Perché un array consente accesso diretto a un elemento tramite indice? Perché
+tale accesso ha complessità \(O(1)\)?
+\end{exercise}
+
+L'indirizzo dell'elemento \(i\) si calcola come \(b+is\), dove \(b\) è
+l'indirizzo iniziale e \(s\) la dimensione di ciascun elemento. Nel modello a
+costo unitario il calcolo e l'accesso richiedono un numero costante di
+operazioni, quindi \(\Theta(1)\) (\cref{sec:fi-strutture-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-statico-dinamico}
+Qual è la differenza tra \emph{static array} e \emph{dynamic array}?
+\end{exercise}
+
+Un array statico ha una dimensione fissata; un array dinamico distingue il
+numero di elementi presenti dalla capacità allocata e può ridimensionare
+quest'ultima quando necessario (\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-size-capacity}
+Spiega la differenza tra \emph{size} e \emph{capacity} in un \emph{dynamic
+array}.
+\end{exercise}
+
+La \emph{size} \(n\) è il numero di elementi presenti; la \emph{capacity} \(C\)
+è il numero di celle disponibili, con \(0\le n\le C\). Le \(C-n\) celle
+inutilizzate sono già allocate ma non appartengono alla sequenza logica
+(\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-append-ammortizzato}
+Perché l'operazione di inserimento alla fine di un \emph{dynamic array} ha costo
+ammortizzato \(O(1)\)?
+\end{exercise}
+
+Finché esiste una cella libera, l'inserimento costa \(\Theta(1)\). Quando
+l'array è pieno, un ridimensionamento può copiare \(\Theta(n)\) elementi;
+aumentando geometricamente la capacità, tuttavia, il costo complessivo di \(m\)
+inserimenti è \(\Theta(m)\), dunque il costo ammortizzato è \(\Theta(1)\)
+(\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-array-inserimento-intermedio}
+Perché l'inserimento in posizione intermedia di un array può richiedere \(O(n)\)
+tempo?
+\end{exercise}
+
+Per inserire all'indice \(i\) occorre spostare a destra i \(n-i\) elementi
+successivi, dopo aver eventualmente aumentato la capacità. Il costo è \(O(n)\) e
+può raggiungere \(\Theta(n)\) (\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-array-cancellazione-shift}
+Perché la cancellazione da una posizione intermedia di un array può richiedere
+uno \emph{shift} degli elementi?
+\end{exercise}
+
+Dopo la rimozione dell'elemento di indice \(i\), i \(n-i-1\) elementi seguenti
+devono essere spostati a sinistra per mantenere contigua la sequenza logica. Il
+costo degli spostamenti può essere \(\Theta(n)\) (\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-array-vantaggi-lista}
+Quali sono i principali vantaggi di un array rispetto a una \emph{linked list}?
+E i principali svantaggi?
+\end{exercise}
+
+L'array offre accesso diretto per indice in \(\Theta(1)\), buona località
+spaziale e non richiede un riferimento al nodo successivo per ogni elemento. In
+compenso, gli inserimenti e le rimozioni in testa o nel mezzo possono comportare
+spostamenti \(\Theta(n)\) e, se dinamico, ridimensionamenti
+(\cref{sec:fi-strutture-array,tab:fi-array-concatenata-costi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-quando-usare-array}
+In quali situazioni un array è una buona scelta implementativa per un ADT? E in
+quali situazioni è una scelta poco efficiente?
+\end{exercise}
+
+È indicato quando prevalgono accessi e aggiornamenti per indice, oppure
+inserimenti in fondo a un array dinamico. È meno conveniente quando sono
+frequenti inserimenti o rimozioni in testa o in posizioni intermedie, che
+richiedono spostamenti
+(\cref{sec:fi-array-dinamici,tab:fi-array-concatenata-costi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-linked-list-definizione}
+Che cos'è una \emph{linked list}?
+\end{exercise}
+
+È una lista concatenata di nodi, ciascuno contenente un elemento e uno o più
+riferimenti ad altri nodi. I nodi non devono essere contigui in memoria
+(\cref{def:fi-lista-concatenata}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-nodo-singly}
+Quali informazioni sono contenute in un \emph{node} di una \emph{singly linked
+list}?
+\end{exercise}
+
+Ogni nodo contiene l'elemento memorizzato e il riferimento \texttt{next} al nodo
+successivo. Nell'ultimo nodo, \texttt{next} è nullo
+(\cref{sec:fi-liste-concatenate}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-head-tail}
+Che cosa rappresentano i riferimenti \emph{head} e \emph{tail}?
+\end{exercise}
+
+\texttt{head} individua il primo nodo, mentre \texttt{tail}, se mantenuto,
+individua l'ultimo. In una lista vuota entrambi sono nulli; aggiornare
+\texttt{tail} permette l'inserimento in fondo in tempo costante
+(\cref{sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-head-attraversamento}
+Perché in una \emph{singly linked list} è sufficiente conoscere il riferimento
+alla \emph{head} per attraversare tutta la struttura?
+\end{exercise}
+
+Partendo da \texttt{head} si segue ripetutamente il riferimento \texttt{next}
+fino a raggiungere il nodo con riferimento successivo nullo. Ogni nodo permette
+così di individuare il seguente (\cref{sec:fi-liste-concatenate}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-link-hopping}
+Che cosa si intende per \emph{pointer hopping} o \emph{link hopping}?
+\end{exercise}
+
+È l'attraversamento di una lista concatenata seguendo, uno dopo l'altro, i
+riferimenti che collegano i nodi. A differenza di un array, non consente di
+calcolare direttamente l'indirizzo di un nodo dal suo indice
+(\cref{sec:fi-liste-concatenate}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-linked-accesso-indice}
+Perché l'accesso all'elemento in posizione \(i\) di una \emph{singly linked
+list} ha complessità \(O(i)\)?
+\end{exercise}
+
+Dalla testa occorre seguire \(i\) collegamenti per raggiungere il nodo
+desiderato. Contando anche l'accesso iniziale, il costo è \(\Theta(i+1)\),
+dunque \(O(i)\) per \(i\ge1\); per \(i=0\) è costante
+(\cref{sec:fi-liste-concatenate}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-inserimento-head}
+Perché l'inserimento in \emph{head} ha complessità \(O(1)\)?
+\end{exercise}
+
+È sufficiente collegare il nuovo nodo alla vecchia testa e aggiornare
+\texttt{head}, senza attraversare o spostare altri elementi. Il costo è
+\(\Theta(1)\) (\cref{sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-inserimento-tail-senza-riferimento}
+Perché l'inserimento in \emph{tail} ha complessità \(O(n)\) se non si mantiene
+un riferimento diretto alla \emph{tail}?
+\end{exercise}
+
+Per individuare l'ultimo nodo occorre partire da \texttt{head} e attraversare la
+lista. La ricerca costa \(\Theta(n)\); con un riferimento \texttt{tail}
+aggiornato, il collegamento del nuovo nodo costa invece \(\Theta(1)\)
+(\cref{sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-varianti-linked-list}
+Qual è la differenza tra \emph{singly linked list}, \emph{doubly linked list} e
+\emph{circular linked list}?
+\end{exercise}
+
+Nella lista semplice ogni nodo rimanda al successivo; in quella doppia rimanda
+anche al precedente, permettendo la navigazione nelle due direzioni. In una
+lista circolare l'ultimo nodo rimanda al primo, anziché a un riferimento nullo.
+Circolarità e doppio collegamento sono proprietà che possono anche coesistere
+(\cref{sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-doubly-rimozione-nodo}
+Perché una \emph{doubly linked list} facilita la rimozione di un nodo noto?
+\end{exercise}
+
+Il riferimento \texttt{prev} consente di raggiungere direttamente il
+predecessore: conoscendo già il nodo, è possibile aggiornare i collegamenti dei
+vicini in \(\Theta(1)\) tempo. Nella lista semplice può invece essere necessario
+cercare il predecessore (\cref{sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-linked-vantaggi-svantaggi}
+Quali sono i principali vantaggi e svantaggi delle \emph{linked lists} rispetto
+agli array?
+\end{exercise}
+
+Permettono inserimenti e rimozioni in tempo costante quando sono già disponibili
+i riferimenti necessari e non richiedono celle contigue. Richiedono però memoria
+aggiuntiva per i collegamenti, hanno minore località spaziale e l'accesso per
+indice comporta un attraversamento
+(\cref{sec:fi-liste-concatenate,tab:fi-array-concatenata-costi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-confronto-array-linked}
+Confronta array e \emph{linked list} rispetto ad accesso per indice,
+inserimento, cancellazione e uso della memoria.
+\end{exercise}
+
+L'array ha accesso per indice \(\Theta(1)\), ma inserimenti e cancellazioni nel
+mezzo possono costare \(\Theta(n)\) per gli spostamenti. La lista concatenata ha
+accesso per indice \(\Theta(i+1)\), ma inserisce o rimuove in \(\Theta(1)\)
+quando sono noti i collegamenti da modificare. L'array conserva celle contigue,
+eventualmente con capacità inutilizzata; la lista richiede riferimenti
+aggiuntivi per nodo
+(\cref{tab:fi-array-concatenata-costi,sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-definizione}
+Che cos'è uno \emph{stack ADT}?
+\end{exercise}
+
+È una pila, ossia un ADT che consente inserimento, rimozione e ispezione
+soltanto alla cima (\cref{def:fi-adt-pila}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-lifo}
+Che cosa significa che uno \emph{stack} segue il principio LIFO?
+\end{exercise}
+
+\emph{Last In, First Out} significa che l'ultimo elemento inserito è il primo a
+essere rimosso. Tutte le operazioni principali interessano la cima
+(\cref{sec:fi-adt-pila,fig:fi-pila}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-operazioni}
+Descrivi il significato delle operazioni \texttt{push(e)}, \texttt{pop()},
+\texttt{top()}, \texttt{is\_empty()} e \texttt{size()}.
+\end{exercise}
+
+\texttt{push(e)} inserisce \(e\) in cima; \texttt{pop()} la rimuove e
+restituisce; \texttt{top()} la consulta senza rimuoverla. \texttt{is\_empty()}
+verifica se la pila è vuota e \texttt{size()} restituisce il numero di elementi.
+\texttt{pop()} e \texttt{top()} richiedono una pila non vuota
+(\cref{sec:fi-adt-pila}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-traccia}
+Considera uno \emph{stack} inizialmente vuoto. Quali valori vengono restituiti
+dalla seguente sequenza?
+\[
+\begin{gathered}
+  \texttt{push(5)},\ \texttt{push(3)},\ \texttt{pop()},\ \texttt{push(8)},\\
+  \texttt{top()},\ \texttt{pop()},\ \texttt{pop()}.
+\end{gathered}
+\]
+\end{exercise}
+
+Le operazioni che restituiscono un elemento producono, nell'ordine, \(3,8,8,5\):
+dopo \texttt{push(5)} e \texttt{push(3)}, la prima \texttt{pop()} restituisce
+\(3\); \texttt{top()} legge \(8\) senza rimuoverlo, e le ultime due
+\texttt{pop()} restituiscono \(8\) e \(5\). La pila finale è vuota
+(\cref{sec:fi-adt-pila}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-array-topidx}
+Come può essere implementato uno \emph{stack} usando un \emph{dynamic array} e
+un indice \texttt{topIdx}?
+\end{exercise}
+
+La cima coincide con l'ultimo elemento presente. L'indice \texttt{topIdx} vale
+inizialmente \(-1\); \texttt{push(e)} aggiunge l'elemento in fondo e lo
+incrementa, mentre \texttt{pop()} restituisce l'ultima cella occupata e lo
+decrementa. \texttt{top()} legge la cella senza modificarla
+(\cref{sec:fi-adt-pila-implementazione-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-push-resize}
+Perché \texttt{push(e)} in uno \emph{stack array-based} può occasionalmente
+richiedere \(O(n)\) tempo?
+\end{exercise}
+
+Quando l'array è pieno, occorre allocare una capacità maggiore e copiare gli
+\(n\) elementi già presenti. Quella singola operazione può quindi costare
+\(\Theta(n)\)
+(\cref{sec:fi-array-dinamici,sec:fi-adt-pila-implementazione-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-push-ammortizzato}
+Perché, con analisi ammortizzata, \texttt{push(e)} in uno \emph{stack
+array-based} può essere considerato \(O(1)\)?
+\end{exercise}
+
+Con capacità aumentata geometricamente, le copie complessive dovute ai
+ridimensionamenti su \(m\) inserimenti costano \(O(m)\). Dividendo il costo
+totale per \(m\), si ottiene un costo ammortizzato \(O(1)\) per
+\texttt{push(e)}, non necessariamente per ogni singola chiamata
+(\cref{sec:fi-array-dinamici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-linked-implementazione}
+Come può essere implementato uno \emph{stack} usando una \emph{singly linked
+list}?
+\end{exercise}
+
+Si fa coincidere la cima con \texttt{head}: \texttt{push(e)} inserisce un nodo
+in testa, \texttt{pop()} rimuove la testa e \texttt{top()} ne legge l'elemento.
+Tutte queste operazioni hanno costo \(\Theta(1)\)
+(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate-operazioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-head-come-top}
+Perché, in uno \emph{linked-list-based stack}, conviene usare la \emph{head}
+come \emph{top} dello stack?
+\end{exercise}
+
+Inserimento, rimozione e lettura in testa richiedono \(\Theta(1)\) e non
+richiedono di conoscere il predecessore. Usando la coda di una lista semplice,
+la rimozione dell'ultimo nodo richiederebbe invece una ricerca
+(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-pila-implementazione-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-linked-costi}
+Quali operazioni dello \emph{stack} sono \(O(1)\) in una \emph{linked-list-based
+implementation}?
+\end{exercise}
+
+\texttt{push(e)}, \texttt{pop()}, \texttt{top()} e \texttt{is\_empty()} sono
+\(\Theta(1)\) con la cima in \texttt{head}. Anche \texttt{size()} è
+\(\Theta(1)\) se si mantiene un contatore aggiornato
+(\cref{sec:fi-adt-pila-implementazione-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-size-lineare}
+Perché \texttt{size()} può essere \(O(n)\) in una \emph{linked list} se non si
+mantiene una variabile aggiuntiva?
+\end{exercise}
+
+Senza un contatore, per conoscere la lunghezza è necessario attraversare tutti
+gli \(n\) nodi. Il costo è \(\Theta(n)\); un contatore mantenuto dalle
+operazioni di modifica lo riduce a \(\Theta(1)\)
+(\cref{sec:fi-adt-pila-implementazione-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-stack-array-vs-linked}
+Confronta l'implementazione \emph{array-based} e \emph{linked-list-based} di uno
+stack.
+\end{exercise}
+
+Con array dinamico \texttt{push()} ha costo \(O(1)\) ammortizzato, ma può
+richiedere \(\Theta(n)\) durante un ridimensionamento; con lista concatenata,
+\texttt{push()} e \texttt{pop()} sono \(\Theta(1)\) senza copie. L'array offre
+migliore località spaziale, mentre i nodi richiedono riferimenti aggiuntivi;
+entrambe le soluzioni realizzano lo stesso ADT
+(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-definizione}
+Che cos'è una \emph{queue ADT}?
+\end{exercise}
+
+È una coda, ossia un ADT che inserisce elementi in fondo e li rimuove
+dall'inizio, mantenendo l'ordine di arrivo (\cref{def:fi-adt-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-fifo}
+Che cosa significa che una \emph{queue} segue il principio FIFO?
+\end{exercise}
+
+\emph{First In, First Out} significa che il primo elemento inserito è anche il
+primo a essere rimosso, a differenza della politica LIFO della pila
+(\cref{sec:fi-adt-coda,sec:fi-adt-pila}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-operazioni}
+Descrivi il significato delle operazioni \texttt{enqueue(e)},
+\texttt{dequeue()}, \texttt{first()}, \texttt{is\_empty()} e \texttt{size()}.
+\end{exercise}
+
+\texttt{enqueue(e)} inserisce \(e\) in fondo; \texttt{dequeue()} rimuove e
+restituisce il primo elemento; \texttt{first()} lo consulta senza rimuoverlo.
+\texttt{is\_empty()} verifica se la coda è vuota e \texttt{size()} ne
+restituisce la lunghezza. \texttt{dequeue()} e \texttt{first()} richiedono una
+coda non vuota (\cref{sec:fi-adt-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-traccia}
+Considera una \emph{queue} inizialmente vuota. Quali valori vengono restituiti
+dalla seguente sequenza?
+\[
+\begin{gathered}
+  \texttt{enqueue(A)},\ \texttt{enqueue(B)},\ \texttt{enqueue(C)},\\
+  \texttt{dequeue()},\ \texttt{first()},\ \texttt{dequeue()}.
+\end{gathered}
+\]
+\end{exercise}
+
+I valori restituiti sono, nell'ordine, \(A,B,B\). La prima \texttt{dequeue()}
+rimuove \(A\); \texttt{first()} legge \(B\) senza rimuoverlo e la seconda
+\texttt{dequeue()} rimuove \(B\). Nella coda rimane \(C\)
+(\cref{sec:fi-adt-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-circular-array}
+Perché un \emph{circular array} è adatto a implementare una \emph{queue}?
+\end{exercise}
+
+Le posizioni liberate da \texttt{dequeue()} vengono riutilizzate mediante indici
+calcolati modulo la capacità. In questo modo non occorre spostare tutti gli
+elementi dopo una rimozione in testa
+(\cref{sec:fi-coda-circolare,fig:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-front-size-capacity}
+In un \emph{circular array}, a che cosa servono \texttt{frontIdx}, \texttt{size}
+e \texttt{capacity}?
+\end{exercise}
+
+\texttt{frontIdx} indica la posizione fisica del primo elemento; \texttt{size}
+conta quelli presenti; \texttt{capacity} è il numero di celle allocate. Queste
+informazioni permettono di distinguere l'ordine logico dagli indici dell'array
+sottostante (\cref{sec:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-back-formula}
+Spiega la formula:
+\[
+  \texttt{backIdx}=(\texttt{frontIdx}+\texttt{size})\bmod\texttt{capacity}.
+\]
+\end{exercise}
+
+Per una coda non piena e con capacità positiva, la somma \texttt{frontIdx} +
+\texttt{size} individua la posizione immediatamente successiva all'ultimo
+elemento nell'ordine logico. Il modulo riporta l'indice nell'intervallo delle
+celle disponibili e permette il ritorno all'inizio dell'array
+(\cref{sec:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-dequeue-front}
+Perché l'operazione \texttt{dequeue()} in un \emph{circular array} richiede
+l'aggiornamento di \texttt{frontIdx}?
+\end{exercise}
+
+Rimosso il primo elemento, il successivo diventa la nuova testa della coda.
+Occorre quindi porre
+\(\texttt{frontIdx}\gets(\texttt{frontIdx}+1)\bmod\texttt{capacity}\) e
+decrementare \texttt{size}, senza spostare gli elementi
+(\cref{sec:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-enqueue-resize}
+Perché l'operazione \texttt{enqueue(e)} può richiedere \emph{resizing}?
+\end{exercise}
+
+Se \texttt{size} raggiunge \texttt{capacity}, non vi sono celle libere. In una
+coda circolare ridimensionabile occorre allocare più spazio e ricopiare gli
+elementi nell'ordine logico; il singolo ridimensionamento costa \(\Theta(n)\),
+mentre l'inserimento resta \(O(1)\) ammortizzato (\cref{sec:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-linked-implementazione}
+Come può essere implementata una \emph{queue} usando una \emph{singly linked
+list}?
+\end{exercise}
+
+Si mantiene \texttt{head} per il primo elemento e \texttt{tail} per l'ultimo:
+\texttt{enqueue(e)} collega il nuovo nodo dopo \texttt{tail} e
+\texttt{dequeue()} rimuove \texttt{head}. Occorre aggiornare entrambi i
+riferimenti nei passaggi fra coda vuota e non vuota
+(\cref{sec:fi-coda-concatenata}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-head-tail-utilita}
+Perché in una \emph{linked-list-based queue} è utile mantenere sia \emph{head}
+sia \emph{tail}?
+\end{exercise}
+
+\texttt{head} rende costante la rimozione del primo nodo; \texttt{tail} rende
+costante l'inserimento in fondo. Senza uno dei due riferimenti, l'operazione
+corrispondente può richiedere un attraversamento
+(\cref{sec:fi-coda-concatenata}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-senza-tail}
+Che cosa accade alla complessità di \texttt{enqueue(e)} se non si mantiene un
+riferimento alla \emph{tail}?
+\end{exercise}
+
+Per aggiungere in fondo bisogna percorrere la lista dalla testa fino all'ultimo
+nodo. Il costo diventa \(\Theta(n)\), anziché \(\Theta(1)\) con \texttt{tail}
+aggiornato (\cref{sec:fi-coda-concatenata}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-queue-array-vs-linked}
+Confronta \emph{circular-array-based queue} e \emph{linked-list-based queue}.
+\end{exercise}
+
+Nell'array circolare \texttt{enqueue()} è \(O(1)\) ammortizzato e può richiedere
+una copia durante il ridimensionamento, mentre \texttt{dequeue()} è
+\(\Theta(1)\). Con lista concatenata e riferimenti \texttt{head}/\texttt{tail},
+entrambe sono \(\Theta(1)\); la prima sfrutta celle contigue, la seconda
+richiede un riferimento per nodo
+(\cref{sec:fi-coda-circolare,sec:fi-coda-concatenata}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-definizione}
+Che cos'è una \emph{double-ended queue}, o \emph{deque}?
+\end{exercise}
+
+È una coda doppia che permette inserimento, rimozione e ispezione a entrambe le
+estremità, senza prevedere accesso arbitrario agli elementi interni
+(\cref{def:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-generalizza}
+Perché una \emph{deque} è più generale sia di uno \emph{stack} sia di una
+\emph{queue}?
+\end{exercise}
+
+Limitando tutte le operazioni a una sola estremità si ottiene una pila LIFO;
+inserendo in fondo e rimuovendo all'inizio si ottiene una coda FIFO. La deque
+permette entrambe le modalità e altre combinazioni (\cref{sec:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-operazioni}
+Descrivi il significato delle operazioni \texttt{add\_first(e)},
+\texttt{add\_last(e)}, \texttt{delete\_first()} e \texttt{delete\_last()}.
+\end{exercise}
+
+Le operazioni di inserimento aggiungono \(e\) rispettivamente all'inizio
+(\texttt{add\_first(e)}) e alla fine (\texttt{add\_last(e)}).
+Le operazioni di rimozione restituiscono l'elemento iniziale
+(\texttt{delete\_first()}) o finale (\texttt{delete\_last()}), eliminandolo
+dalla deque. Richiedono una deque non vuota (\cref{sec:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-traccia}
+Considera una \emph{deque} inizialmente vuota. Mostra il contenuto dopo ogni
+operazione:
+\[
+\begin{gathered}
+  \texttt{add\_last(A)},\ \texttt{add\_last(B)},\\
+  \texttt{add\_first(C)},\ \texttt{delete\_last()},\ \texttt{add\_first(D)}.
+\end{gathered}
+\]
+\end{exercise}
+
+Indicando gli elementi dall'inizio alla fine, gli stati successivi sono
+\[
+  [A],\quad [A,B],\quad [C,A,B],\quad [C,A],\quad [D,C,A].
+\]
+L'operazione \texttt{delete\_last()} rimuove e restituisce \(B\)
+(\cref{sec:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-applicazioni}
+In quali applicazioni può essere utile inserire e rimuovere elementi da entrambe
+le estremità?
+\end{exercise}
+
+Una deque è utile quando occorre gestire attività da entrambe le estremità di
+una sequenza oppure verificare un palindromo confrontando progressivamente il
+primo e l'ultimo carattere (\cref{sec:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-doubly}
+Perché una \emph{doubly linked list} è una possibile implementazione naturale
+per una \emph{deque}?
+\end{exercise}
+
+Con riferimenti a testa e coda e collegamenti \texttt{prev}/\texttt{next}, si
+possono individuare e aggiornare i nodi a entrambe le estremità in \(\Theta(1)\)
+tempo, anche durante le rimozioni
+(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-deque}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-deque-circular-array}
+Perché anche un \emph{circular array} può essere usato per implementare una
+\emph{deque}?
+\end{exercise}
+
+Gli indici circolari permettono di avanzare o arretrare la posizione iniziale e
+di utilizzare celle libere su entrambi i lati logici. Non servono spostamenti
+degli elementi; con crescita geometrica della capacità, inserimenti e rimozioni
+hanno costo \(O(1)\) ammortizzato
+(\cref{sec:fi-adt-deque,sec:fi-coda-circolare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-adt-definizione}
+Che cos'è una \emph{List ADT}?
+\end{exercise}
+
+È un ADT che rappresenta una sequenza di elementi, anche ripetuti, nella quale
+la posizione è significativa e gli elementi possono essere letti, modificati,
+inseriti e rimossi mediante indici (\cref{def:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-vs-stack-queue}
+In che cosa una \emph{list} differisce da uno \emph{stack} e da una
+\emph{queue}?
+\end{exercise}
+
+La lista consente operazioni su posizioni arbitrarie tramite indici. Pila e coda
+limitano invece l'accesso alle estremità, imponendo rispettivamente le politiche
+LIFO e FIFO (\cref{sec:fi-adt-lista,sec:fi-adt-pila,sec:fi-adt-coda}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-ordine}
+Perché in una \emph{list} l'ordine degli elementi è parte della struttura?
+\end{exercise}
+
+La posizione identifica ciascuna occorrenza: scambiare due elementi può cambiare
+il risultato di \texttt{get(i)}, e inserimenti o rimozioni modificano gli indici
+successivi. La lista rappresenta quindi una sequenza, non un insieme
+(\cref{sec:fi-adt-lista,sec:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-operazioni}
+Descrivi il significato delle operazioni \texttt{get(i)}, \texttt{set(i,e)},
+\texttt{add(i,e)}, \texttt{append(e)} e \texttt{remove(i)}.
+\end{exercise}
+
+\texttt{get(i)} legge l'elemento \(i\); \texttt{set(i,e)} lo sostituisce con
+\(e\); \texttt{add(i,e)} inserisce \(e\) alla posizione \(i\), spostando le
+successive. \texttt{append(e)} aggiunge in fondo e \texttt{remove(i)} rimuove e
+restituisce l'elemento di indice \(i\) (\cref{sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-append-add}
+Qual è la differenza tra \texttt{append(e)} e \texttt{add(i,e)}?
+\end{exercise}
+
+\texttt{append(e)} inserisce sempre in fondo, ossia nella posizione \(n\).
+\texttt{add(i,e)} permette di scegliere una posizione \(0\le i\le n\) e sposta
+gli elementi successivi: l'inserimento in fondo è il caso \(i=n\)
+(\cref{sec:fi-adt-lista}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-traccia}
+Considera la seguente sequenza su una \emph{list} inizialmente vuota:
+\[
+\begin{gathered}
+  \texttt{add(0,A)},\ \texttt{append(B)},\ \texttt{append(D)},\\
+  \texttt{add(2,C)},\ \texttt{remove(1)},\ \texttt{set(1,X)}.
+\end{gathered}
+\]
+Qual è il contenuto finale della lista?
+\end{exercise}
+
+Gli stati sono
+\[
+\begin{aligned}
+  [A]&\to[A,B]\to[A,B,D]\to[A,B,C,D]\\
+     &\to[A,C,D]\to[A,X,D].
+\end{aligned}
+\]
+\texttt{remove(1)} restituisce \(B\); \texttt{set(1,X)} sostituisce \(C\) con
+\(X\). Il risultato finale è \([A,X,D]\) (\cref{sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-array-get-set}
+Perché in una \emph{array-based list} \texttt{get(i)} e \texttt{set(i,e)} hanno
+complessità \(O(1)\)?
+\end{exercise}
+
+La posizione fisica dell'elemento si calcola direttamente dall'indice, senza
+esaminare quelli precedenti. Lettura e aggiornamento richiedono dunque
+\(\Theta(1)\) nel modello di costo adottato
+(\cref{sec:fi-strutture-array,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-array-add-remove}
+Perché in una \emph{array-based list} \texttt{add(i,e)} e \texttt{remove(i)}
+possono avere complessità \(O(n)\)?
+\end{exercise}
+
+Un inserimento intermedio sposta a destra gli elementi successivi, mentre una
+rimozione li sposta a sinistra. Il numero di spostamenti può essere
+proporzionale a \(n\); per \texttt{add(i,e)} può inoltre essere necessario un
+ridimensionamento (\cref{sec:fi-array-dinamici,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-linked-indice}
+Perché in una \emph{linked-list-based list} l'accesso tramite indice non è
+diretto?
+\end{exercise}
+
+I nodi non occupano posizioni contigue calcolabili dall'indice. Per trovare
+l'elemento \(i\) occorre seguire i riferimenti a partire dalla testa, con costo
+\(\Theta(i+1)\) (\cref{sec:fi-liste-concatenate,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-linked-convenienza}
+Quando una \emph{linked-list-based list} può essere più conveniente di una
+\emph{array-based list}?
+\end{exercise}
+
+Quando sono frequenti inserimenti e rimozioni vicino alla testa o presso nodi
+già individuati, mentre sono rari gli accessi per indice. In questi casi si
+possono aggiornare pochi collegamenti anziché spostare numerosi elementi
+(\cref{tab:fi-array-concatenata-costi,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-list-doubly-positional}
+Perché una \emph{doubly linked list} può essere utile per una
+\emph{position-based list}?
+\end{exercise}
+
+Se una posizione è rappresentata dal riferimento a un nodo già noto, i
+collegamenti \texttt{prev} e \texttt{next} permettono inserimenti e rimozioni
+locali in \(\Theta(1)\). Raggiungere una posizione a partire dal solo indice
+richiede invece ancora una ricerca
+(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-definizione}
+Che cos'è un \emph{Map ADT}?
+\end{exercise}
+
+È un ADT che conserva associazioni tra chiavi distinte e valori. Ogni chiave
+individua un solo valore, ma valori uguali possono essere associati a chiavi
+diverse (\cref{def:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-key-value}
+Che cosa sono una \emph{key} e una \emph{value}?
+\end{exercise}
+
+La \emph{chiave} identifica un'associazione e viene utilizzata per cercarla o
+aggiornarla; il \emph{valore} è il dato associato a quella chiave
+(\cref{sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-chiavi-uniche}
+Perché in una \emph{map} le \emph{key} devono essere uniche?
+\end{exercise}
+
+Una chiave deve identificare senza ambiguità una sola associazione. Ripetere la
+stessa chiave con un valore diverso non introduce una seconda associazione: ne
+aggiorna il valore (\cref{def:fi-adt-mappa,sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-valori-ripetuti}
+È possibile che due \emph{key} diverse siano associate allo stesso \emph{value}?
+Fai un esempio.
+\end{exercise}
+
+Sì: \(\{1001\mapsto\text{Alice},\ 1003\mapsto\text{Alice}\}\) contiene due
+chiavi distinte associate allo stesso valore. L'unicità è richiesta alle chiavi,
+non ai valori (\cref{def:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-operazioni}
+Descrivi il significato delle operazioni \texttt{get(k)}, \texttt{put(k,v)},
+\texttt{remove(k)} e \texttt{contains(k)}.
+\end{exercise}
+
+\texttt{get(k)} restituisce il valore associato a \(k\); \texttt{put(k,v)}
+inserisce o aggiorna l'associazione; \texttt{remove(k)} la elimina e
+\texttt{contains(k)} verifica se la chiave è presente. Il comportamento di
+\texttt{get()} e \texttt{remove()} su una chiave assente dipende
+dall'interfaccia (\cref{sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-put-nuova}
+Che cosa accade quando \texttt{put(k,v)} viene eseguita con una \emph{key} non
+ancora presente?
+\end{exercise}
+
+La mappa inserisce la nuova associazione \(k\mapsto v\), aumentando di uno il
+numero delle chiavi presenti (\cref{sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-put-esistente}
+Che cosa accade quando \texttt{put(k,v)} viene eseguita con una \emph{key} già
+presente?
+\end{exercise}
+
+Il valore precedentemente associato alla chiave \(k\) viene sostituito con
+\(v\). Il numero di associazioni non cambia, perché la chiave rimane unica
+(\cref{sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-get-esempio}
+Considera la seguente \emph{map}:
+\[
+  \{1001\mapsto\text{Alice},\ 1002\mapsto\text{Bruno},\
+    1003\mapsto\text{Alice}\}.
+\]
+Qual è il risultato di \texttt{get(1002)}?
+\end{exercise}
+
+Il risultato è \texttt{Bruno}, perché questa è la stringa associata alla chiave
+\(1002\) (\cref{sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-map-alice-due-volte}
+Nella mappa precedente, perché la presenza del valore \texttt{Alice} due volte
+non viola la definizione di \emph{Map ADT}?
+\end{exercise}
+
+Le associazioni hanno chiavi distinte, \(1001\) e \(1003\). L'ADT impone
+l'unicità delle chiavi, ma consente valori ripetuti (\cref{def:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-definizione}
+Che cos'è un \emph{Set ADT}?
+\end{exercise}
+
+È un ADT che rappresenta una collezione di elementi distinti, senza associarvi
+valori e senza attribuire significato all'ordine (\cref{def:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-vs-map}
+In che cosa un \emph{set} differisce da una \emph{map}?
+\end{exercise}
+
+Un set contiene soltanto elementi distinti; una map contiene associazioni
+\emph{chiave-valore}, con chiavi distinte ma valori eventualmente ripetuti
+(\cref{sec:fi-adt-insieme,sec:fi-adt-mappa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-senza-duplicati}
+Perché un \emph{set} non consente duplicati?
+\end{exercise}
+
+L'appartenenza è una proprietà booleana: un elemento o appartiene all'insieme
+oppure non vi appartiene. Ripeterlo non crea una nuova occorrenza, a differenza
+di quanto accade in una lista (\cref{def:fi-adt-insieme,sec:fi-adt-lista}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-add-esistente}
+Che cosa accade se si esegue \texttt{add(e)} su un elemento già presente nel
+\emph{set}?
+\end{exercise}
+
+L'insieme rimane invariato, poiché \texttt{add(e)} inserisce l'elemento soltanto
+se non è già presente (\cref{sec:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-operazioni}
+Descrivi il significato delle operazioni \texttt{add(e)}, \texttt{remove(e)},
+\texttt{contains(e)} e \texttt{size()}.
+\end{exercise}
+
+\texttt{add(e)} inserisce \(e\) se assente; \texttt{remove(e)} lo elimina;
+\texttt{contains(e)} verifica l'appartenenza e \texttt{size()} restituisce il
+numero di elementi distinti. Il comportamento di \texttt{remove(e)} su un
+elemento assente è definito dall'interfaccia concreta
+(\cref{sec:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-operazioni-insiemistiche}
+Siano
+\[
+  A=\{1,2,3,4\},\qquad B=\{3,4,5\}.
+\]
+Calcola \texttt{union(B)}, \texttt{intersection(B)} e \texttt{difference(B)}
+rispetto ad \(A\).
+\end{exercise}
+
+Le tre operazioni producono, rispettivamente,
+\[
+  A\cup B=\{1,2,3,4,5\},\qquad
+  A\cap B=\{3,4\},\qquad
+  A\setminus B=\{1,2\}.
+\]
+La differenza non è simmetrica: qui si conservano gli elementi presenti in \(A\)
+ma assenti da \(B\) (\cref{sec:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-sottoinsieme}
+Che cosa verifica l'operazione \texttt{is\_subset(T)}?
+\end{exercise}
+
+Verifica se ogni elemento dell'insieme su cui viene chiamata è presente anche in
+\texttt{T}, cioè se vale \(A\subseteq T\). L'uguaglianza fra gli insiemi è
+ammessa (\cref{sec:fi-adt-insieme}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-strutture-dati-set-elimina-duplicati}
+Perché un \emph{set} è utile per eliminare duplicati da una collezione?
+\end{exercise}
+
+Inserendo gli elementi della collezione in un insieme, ogni valore distinto
+viene conservato una sola volta. Per esempio, da \([4,2,2,8,6,2]\) si ottiene
+\(\{2,4,6,8\}\); l'ordine originale non è garantito dalla specifica dell'ADT
+(\cref{sec:fi-adt-insieme}).

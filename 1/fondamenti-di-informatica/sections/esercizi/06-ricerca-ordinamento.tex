@@ -1,0 +1,402 @@
+\chapter{Esercizi: Ricerca e ordinamento}
+\label{chap:esercizi-ricerca-ordinamento}
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-frequenza}
+Perché l'ordinamento dei dati è un problema frequente
+nell'elaborazione dell'informazione?
+\end{exercise}
+
+Disporre i dati secondo un criterio prestabilito ne facilita
+la consultazione, il confronto e alcune successive elaborazioni.
+In particolare, l'ordinamento costituisce la precondizione della
+ricerca binaria, che evita di esaminare tutti gli elementi
+(\cref{chap:ricerca-ordinamento,sec:fi-ricerca-binaria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-ricerca-lineare}
+Come opera l'algoritmo di ricerca lineare?
+\end{exercise}
+
+La ricerca lineare confronta il valore cercato con gli elementi
+della lista, procedendo dall'indice zero. Restituisce l'indice
+del primo elemento uguale al valore cercato oppure \(-1\) se
+questo non è presente (\cref{sec:fi-ricerca-lineare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-occorrenza}
+Se il valore cercato compare più volte nella lista, quale
+occorrenza viene trovata dalla ricerca lineare?
+\end{exercise}
+
+L'implementazione della \cref{sec:fi-ricerca-lineare} restituisce
+la \emph{prima occorrenza}, ossia quella con l'indice minore:
+la scansione procede in ordine crescente e termina al primo
+confronto riuscito.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-massimo-scansione}
+Perché, per trovare il massimo di una lista non ordinata,
+è necessario esaminare tutti gli elementi?
+\end{exercise}
+
+Senza informazioni sull'ordine, un elemento non esaminato
+potrebbe essere maggiore del massimo provvisorio. Per
+individuare con certezza il massimo occorre quindi considerare
+ogni elemento: assumendo il primo come candidato, bastano
+\(n-1\) confronti per una lista non vuota di lunghezza \(n\)
+(\cref{sec:fi-ricerca-estremi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-minimo}
+Come cambia l'algoritmo per trovare il minimo rispetto
+a quello per trovare il massimo?
+\end{exercise}
+
+La struttura rimane invariata: si inizializza il candidato
+con il primo elemento e si visita il resto della lista.
+Per trovare il minimo, il candidato viene aggiornato quando
+si incontra un elemento \emph{minore}, anziché maggiore.
+Entrambe le ricerche richiedono \(n-1\) confronti per \(n\ge1\)
+(\cref{sec:fi-ricerca-estremi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-selezione-idea}
+Descrivi a parole l'idea principale dell'ordinamento
+per selezione.
+\end{exercise}
+
+Selection Sort mantiene un prefisso già ordinato.
+A ogni iterazione individua il minimo della parte rimanente
+e lo scambia con il primo elemento di tale parte; il prefisso
+ordinato aumenta così di un elemento
+(\cref{sec:fi-ordinamento-selezione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-selezione-minimo}
+Nell'ordinamento per selezione, perché si cerca ogni volta
+il minimo della parte ancora non ordinata?
+\end{exercise}
+
+Il minimo della parte rimanente è il prossimo valore che deve
+comparire nell'ordinamento crescente. Collocandolo subito dopo
+il prefisso ordinato, si mantiene la proprietà che tale prefisso
+contiene gli elementi più piccoli della lista
+(\cref{sec:fi-ordinamento-selezione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-selezione-efficienza}
+Perché Selection Sort è corretto ma non necessariamente
+efficiente?
+\end{exercise}
+
+L'algoritmo ordina correttamente gli elementi, ma esegue
+\(n(n-1)/2\) confronti anche quando la lista è già ordinata.
+Il costo temporale è quindi \(\Theta(n^2)\) in tutti e tre i casi,
+mentre altri algoritmi, come MergeSort, richiedono
+\(\Theta(n\log n)\) operazioni nel caso peggiore
+(\cref{sec:fi-ordinamento-selezione,sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-confronto-algoritmi}
+A cosa serve confrontare algoritmi diversi che risolvono
+lo stesso problema di ordinamento?
+\end{exercise}
+
+Il confronto permette di scegliere una soluzione in base al
+costo temporale e spaziale, alle caratteristiche dell'ingresso
+e ad altri requisiti, come la stabilità. Algoritmi tutti
+corretti possono avere prestazioni e proprietà differenti
+(\cref{sec:fi-ordinamento-confronto}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-idea}
+Qual è l'idea fondamentale di MergeSort?
+\end{exercise}
+
+MergeSort applica la strategia \emph{divide et impera}:
+suddivide la lista in due parti, le ordina ricorsivamente
+e fonde le due parti ordinate in un'unica lista ordinata
+(\cref{sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-meta}
+Che cosa significa dividere una lista in due parti
+``circa'' uguali in MergeSort?
+\end{exercise}
+
+Le due parti hanno lunghezze \(\lfloor n/2\rfloor\) e
+\(\lceil n/2\rceil\): coincidono se \(n\) è pari e
+differiscono di un elemento se \(n\) è dispari. La
+suddivisione limita la profondità della ricorsione
+(\cref{sec:fi-ordinamento-fusione,fig:fi-merge-sort-suddivisione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-fusione}
+In MergeSort, che cosa si intende per fase di fusione,
+o \emph{merge}?
+\end{exercise}
+
+La fusione combina due sottoliste già ordinate. Si confrontano
+i primi elementi non ancora copiati, si trasferisce il minore
+nella destinazione e si avanza l'indice corrispondente;
+quando una parte è esaurita, si copiano gli elementi restanti
+dell'altra. Il costo è \(\Theta(n)\) per \(n\) elementi complessivi
+(\cref{sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-caso-base}
+Perché una lista con meno di due elementi è il caso base
+di MergeSort?
+\end{exercise}
+
+Una lista vuota o composta da un solo elemento è già ordinata:
+non richiede ulteriori suddivisioni né fusioni. La condizione
+\lstinline|v_size < 2| arresta quindi le chiamate ricorsive
+(\cref{sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-ricorsivo}
+Perché MergeSort è un algoritmo ricorsivo?
+\end{exercise}
+
+Per ordinare una lista, MergeSort richiama lo stesso
+procedimento sulle due sottoliste ottenute dalla divisione.
+Le chiamate operano su problemi della stessa natura e di
+dimensione minore, fino al caso base
+(\cref{sec:fi-ordinamento-fusione,sec:fi-ricorsione-terminazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-fasi-costo}
+Quali sono le tre fasi principali considerate nell'analisi
+delle prestazioni di MergeSort?
+\end{exercise}
+
+Si distinguono la \emph{suddivisione} della lista in due
+sottoliste, l'\emph{ordinamento ricorsivo} di entrambe e la
+\emph{fusione} dei risultati. Nell'implementazione degli
+appunti, lo slicing e la fusione richiedono complessivamente
+\(\Theta(n)\) operazioni per una chiamata su \(n\) elementi;
+le due chiamate ricorsive determinano gli altri termini
+della ricorrenza (\cref{sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-t-n}
+Che cosa rappresenta la funzione \(T(n)\) nell'analisi
+di MergeSort?
+\end{exercise}
+
+\(T(n)\) indica il costo temporale necessario a ordinare
+una lista di \(n\) elementi nel modello adottato.
+Per \(n\ge2\) soddisfa
+\[
+  T(n)=T(\lfloor n/2\rfloor)
+       +T(\lceil n/2\rceil)+\Theta(n),
+\]
+con costo costante per il caso base
+(\cref{sec:fi-ordinamento-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-merge-confronto-costi}
+Perché MergeSort ha complessità \(O(n\log n)\), mentre
+Selection Sort e il caso medio/peggiore di Insertion Sort
+hanno complessità \(O(n^2)\)?
+\end{exercise}
+
+MergeSort esegue \(\Theta(n)\) lavoro per ciascuno dei
+\(\Theta(\log n)\) livelli di suddivisione, ottenendo
+\(\Theta(n\log n)\). Selection Sort effettua sempre
+\(n(n-1)/2\) confronti; Insertion Sort, nei casi medio e
+peggiore, richiede un numero quadratico di spostamenti.
+Queste sono stime precise in \(\Theta\), oltre che limiti
+superiori in \(O\)
+(\cref{sec:fi-ordinamento-fusione,sec:fi-ordinamento-selezione,sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-base-logaritmo}
+Perché nella notazione \(O\)-grande non si specifica
+la base del logaritmo?
+\end{exercise}
+
+Per basi costanti \(a,b>1\), il cambiamento di base dà
+\(\log_a n=\log_b n/\log_b a\). Le due espressioni differiscono
+soltanto per un fattore moltiplicativo costante, irrilevante
+nelle notazioni asintotiche
+(\cref{sec:fi-complessita-ordini}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-ricorrenza}
+Che cos'è un'equazione di ricorrenza?
+\end{exercise}
+
+È una relazione che esprime il valore di una funzione mediante
+valori della stessa funzione calcolati su argomenti più piccoli.
+Nell'analisi degli algoritmi ricorsivi descrive il costo di
+un problema tramite i costi dei sottoproblemi e il lavoro
+aggiuntivo, per esempio \(T(n)=2T(n/2)+\Theta(n)\)
+(\cref{sec:fi-teorema-maestro}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-sostituzione}
+In che modo il metodo per sostituzione permette di stimare
+il tempo di esecuzione di un algoritmo ricorsivo?
+\end{exercise}
+
+Si espande ripetutamente la ricorrenza sostituendo il costo
+dei sottoproblemi con la stessa espressione, fino a raggiungere
+il caso base. Per MergeSort, assumendo \(n=2^k\) e lavoro
+non ricorsivo \(cn\), si ottiene
+\[
+  T(n)=2T(n/2)+cn
+      =2^kT(1)+kcn
+      =nT(1)+cn\log_2 n
+      \in\Theta(n\log n).
+\]
+Il procedimento è sviluppato nella
+\cref{sec:fi-ordinamento-fusione}.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-idea}
+Descrivi a parole l'idea principale dell'ordinamento
+per inserimento.
+\end{exercise}
+
+Insertion Sort mantiene ordinata la parte iniziale della lista.
+A ogni iterazione prende l'elemento successivo, sposta verso
+destra i precedenti elementi maggiori e lo inserisce nella
+posizione corretta, estendendo il prefisso ordinato
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-temp}
+In Insertion Sort, che cosa rappresenta la variabile
+\texttt{temp}?
+\end{exercise}
+
+Nell'implementazione della \cref{sec:fi-ordinamento-inserimento},
+\texttt{temp} conserva il valore \lstinline|v[i]| da inserire
+nel prefisso ordinato. Il valore non va perso mentre gli
+elementi precedenti vengono spostati verso destra.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-spostamenti}
+Perché, in Insertion Sort, alcuni elementi vengono
+spostati verso destra?
+\end{exercise}
+
+Gli elementi del prefisso ordinato maggiori di \texttt{temp}
+sono spostati di una posizione per liberare il punto in cui
+inserire \texttt{temp}, mantenendo l'ordine crescente.
+Gli elementi uguali non vengono spostati, secondo il confronto
+stretto dell'implementazione
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-ciclo-interno}
+Da che cosa dipende il numero di iterazioni del ciclo interno
+di Insertion Sort?
+\end{exercise}
+
+Dipende dalla posizione e dai valori degli elementi:
+all'iterazione esterna di indice \(i\), vengono spostati
+solo gli elementi precedenti maggiori di \texttt{temp}.
+Il numero di spostamenti varia da \(0\) a \(i\)
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-peggiore}
+Qual è il caso peggiore per Insertion Sort?
+\end{exercise}
+
+Quando gli elementi distinti sono in ordine decrescente,
+ciascun nuovo elemento deve essere inserito all'inizio
+del prefisso ordinato. Si eseguono
+\[
+  \sum_{i=1}^{n-1}i=\frac{n(n-1)}2
+\]
+spostamenti, per un costo temporale \(\Theta(n^2)\)
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-migliore}
+Qual è il caso migliore per Insertion Sort?
+\end{exercise}
+
+Quando la lista è già ordinata in senso crescente, ogni
+elemento è già nella posizione corretta: il ciclo interno
+non esegue spostamenti. Rimane una scansione lineare
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-inserimento-lineare}
+Perché Insertion Sort ha complessità \(O(n)\)
+quando la lista è già ordinata?
+\end{exercise}
+
+Perché il confronto con l'elemento precedente fallisce
+subito a ogni iterazione esterna. Il ciclo esterno esegue
+\(n-1\) iterazioni, ciascuna con costo costante; il tempo
+è quindi, più precisamente, \(\Theta(n)\) nel caso migliore
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-binaria-precondizione}
+Quale prerequisito deve avere una lista per poter usare
+correttamente la ricerca binaria?
+\end{exercise}
+
+La lista deve essere ordinata secondo il criterio usato
+dai confronti della ricerca. La funzione \texttt{bin\_search}
+degli appunti assume valori in ordine crescente; per un
+ordinamento decrescente occorre adattare i confronti
+(\cref{sec:fi-ricerca-binaria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-binaria-logaritmo}
+Perché la ricerca binaria ha complessità \(O(\log n)\)?
+\end{exercise}
+
+A ogni chiamata si esclude circa metà dell'intervallo
+di ricerca. Dopo \(k\) riduzioni rimangono al più
+\(\lfloor n/2^k\rfloor\) elementi, quindi bastano
+\(\Theta(\log n)\) riduzioni nel caso peggiore.
+Il caso migliore, invece, richiede un solo confronto
+(\cref{sec:fi-ricerca-binaria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-binaria-casi-base}
+Quali sono i due casi base della funzione ricorsiva
+\texttt{bin\_search}?
+\end{exercise}
+
+La funzione della \cref{sec:fi-ricerca-binaria} termina
+quando \lstinline|from_index > to_index|, perché l'intervallo
+è vuoto e restituisce \(-1\), oppure quando
+\lstinline|v[mid] == value|, perché ha trovato l'elemento
+e restituisce \texttt{mid}. Negli altri casi effettua una
+chiamata su un intervallo più piccolo.
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-fibonacci-esponenziale}
+Perché il Fibonacci ricorsivo ha complessità esponenziale?
+\end{exercise}
+
+La versione ricorsiva diretta calcola più volte gli stessi
+sottoproblemi: ogni chiamata non di base genera due chiamate.
+Il loro numero complessivo è \(C_n=2F_n-1\), che cresce
+esponenzialmente con \(n\); nel modello a costo unitario,
+anche il tempo è \(\Theta(F_n)\)
+(\cref{sec:fi-fibonacci,sec:fi-complessita-fibonacci}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-ricerca-ordinamento-fibonacci-efficiente}
+Come si può rendere più efficiente il calcolo dei numeri
+di Fibonacci?
+\end{exercise}
+
+Si possono evitare i ricalcoli mediante l'implementazione
+iterativa della \cref{sec:fi-fibonacci}, che conserva soltanto
+i due termini precedenti e produce il successivo con una somma.
+Nel modello a costo unitario, il tempo passa da esponenziale
+a \(\Theta(n)\) e lo spazio ausiliario diventa \(\Theta(1)\)
+(\cref{sec:fi-complessita-fibonacci}).

@@ -90,4 +90,13 @@
   - 9.8 Formattazione dell'output — p. 72
   - 9.9 L'ingresso standard con Scanner — p. 73
 - 10 Realizzazione di classi in Java — p. 76
+- 1 Esercizi: Introduzione all'informatica — p. 77
+- 2 Esercizi: Rappresentazione delle informazioni — p. 80
+- 3 Esercizi: Introduzione a Python — p. 84
+- 4 Esercizi: Ricorsione — p. 88
+- 5 Esercizi: Complessità computazionale — p. 91
+- 6 Esercizi: Ricerca e ordinamento — p. 95
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 99
+- 8 Esercizi: Introduzione a Java — p. 110
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 116
 <!-- GENERATED:END -->
