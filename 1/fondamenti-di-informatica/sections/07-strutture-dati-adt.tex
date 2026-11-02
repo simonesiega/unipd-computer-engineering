@@ -184,10 +184,6 @@ disponibili e la memoria necessaria per i riferimenti.
 
 \begin{table}[htbp]
   \centering
-  \caption{Costi delle principali operazioni su array dinamici
-  e liste semplicemente concatenate, con \(n\) elementi
-  e indici da zero.}
-  \label{tab:fi-array-concatenata-costi}
   \small
   \begin{tabular}{lll}
     \hline
@@ -200,6 +196,10 @@ disponibili e la memoria necessaria per i riferimenti.
     Inserimento in fondo & \(O(1)\) ammort. & \(\Theta(1)\) con \texttt{tail}\\
     \hline
   \end{tabular}
+  \caption{Costi delle principali operazioni su array dinamici
+  e liste semplicemente concatenate, con \(n\) elementi
+  e indici da zero.}
+  \label{tab:fi-array-concatenata-costi}
 \end{table}
 
 Nella riga relativa a una posizione nota, l'array riceve
@@ -216,9 +216,9 @@ e la località spaziale della \cref{sec:fi-memoria-archiviazione}.
 
 \begin{definition}[Pila]
 \label{def:fi-adt-pila}
-Una \emph{*pila*} (\emph{*stack*}) è un ADT in cui inserimento,
+Una \emph{pila} (\emph{stack}) è un ADT in cui inserimento,
 rimozione e ispezione interessano soltanto la cima, secondo la
-politica \emph{*LIFO*} (\emph{*Last In, First Out*}).
+politica \emph{LIFO} (\emph{Last In, First Out}).
 \end{definition}
 
 Le operazioni fondamentali sono \texttt{push(e)}, che inserisce

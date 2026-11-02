@@ -11,10 +11,10 @@
 def somme_prefisse_quadratiche(valori):
     n = len(valori)              # 1
     risultato = [0] * n          # n + 1
-    for i in range(n):           # n iterazioni
+    for i in range(n):           # n 
         somma = 0                # 1
-        for j in range(i + 1):   # i + 1 iterazioni
-            somma += valori[j]   # 2 2 (lettura, aggiornamento)
+        for j in range(i + 1):   # i + 1 
+            somma += valori[j]   # 2
         risultato[i] = somma     # 1
     return risultato             # escluso
 \end{unipdcode}
@@ -33,8 +33,8 @@ def somme_prefisse_lineari(valori):
     n = len(valori)              # 1
     risultato = [0] * n          # n + 1
     somma = 0                    # 1
-    for i in range(n):           # n iterazioni
-        somma += valori[i]       # 2 (lettura, aggiornamento)
+    for i in range(n):           # n 
+        somma += valori[i]       # 2
         risultato[i] = somma     # 1
     return risultato             # escluso
 \end{unipdcode}

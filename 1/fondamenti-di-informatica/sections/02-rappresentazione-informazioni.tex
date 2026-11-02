@@ -360,8 +360,6 @@ uno per la frazione. I parametri sono riportati nella
 
 \begin{table}[htbp]
   \centering
-  \caption{Parametri dei formati IEEE 754 binari.}
-  \label{tab:fi-formati-ieee}
   \begin{tabular}{lcc}
     \toprule
     Parametro & binary32 & binary64 \\
@@ -375,6 +373,8 @@ uno per la frazione. I parametri sono riportati nella
     Esponenti normali & \(-126\) a \(127\) & \(-1022\) a \(1023\) \\
     \bottomrule
   \end{tabular}
+  \caption{Parametri dei formati IEEE 754 binari.}
+  \label{tab:fi-formati-ieee}
 \end{table}
 
 Sia \(e\) il valore intero senza segno del campo esponente e \(F\)
@@ -445,8 +445,6 @@ Le configurazioni riservate sono riepilogate nella
 
 \begin{table}[htbp]
   \centering
-  \caption{Interpretazione dei campi IEEE 754.}
-  \label{tab:fi-valori-speciali}
   \begin{tabular}{lll}
     \toprule
     Esponente & Frazione & Valore \\
@@ -458,6 +456,8 @@ Le configurazioni riservate sono riepilogate nella
     \(e=2^w-1\) & \(F\ne0\) & NaN \\
     \bottomrule
   \end{tabular}
+  \caption{Interpretazione dei campi IEEE 754.}
+  \label{tab:fi-valori-speciali}
 \end{table}
 
 \emph{NaN} (\emph{Not a Number}) rappresenta risultati non numerici,
@@ -587,8 +587,6 @@ i codici \(32\)--\(126\) sono stampabili.
 
 \begin{table}[htbp]
   \centering
-  \caption{Codici e intervalli ASCII principali.}
-  \label{tab:fi-ascii}
   \begin{tabular}{lll}
     \toprule
     Codice & Simbolo & Significato \\
@@ -603,6 +601,8 @@ i codici \(32\)--\(126\) sono stampabili.
     127 & \texttt{DEL} & Carattere di controllo \\
     \bottomrule
   \end{tabular}
+  \caption{Codici e intervalli ASCII principali.}
+  \label{tab:fi-ascii}
 \end{table}
 
 I codici di \texttt{0} e \texttt{1} sono rispettivamente \(48\) e

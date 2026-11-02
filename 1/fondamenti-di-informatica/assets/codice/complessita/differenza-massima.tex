@@ -12,11 +12,11 @@ def differenza_massima_quadratica(valori):
     if not valori:                             # 1
         raise ValueError("Lista vuota")
     massimo = 0                                # 1
-    for i in range(len(valori)):               # n iterazioni
-        for j in range(len(valori)):           # n iterazioni
-            differenza = valori[i] - valori[j] # 4 (2 letture, sottrazione, assegnamento)
+    for i in range(len(valori)):               # n 
+        for j in range(len(valori)):           # n 
+            differenza = valori[i] - valori[j] # 4 
             if differenza > massimo:           # 1
-                massimo = differenza           # 1 se vero
+                massimo = differenza           # 1 (t)
     return massimo                             # escluso
 \end{unipdcode}
 \end{minipage}%
@@ -33,13 +33,13 @@ def differenza_massima_quadratica(valori):
 def differenza_massima_lineare(valori):
     if not valori:                      # 1
         raise ValueError("Lista vuota")
-    minimo = massimo = valori[0]        # 3 (lettura, 2 assegnamenti)
-    for i in range(1, len(valori)):     # n - 1 iter.
-        valore = valori[i]              # 2 (lettura, assegnamento)
-        if valore < minimo:                    # 1
-            minimo = valore             # 1 se vero
+    minimo = massimo = valori[0]        # 3 
+    for i in range(1, len(valori)):     # n - 1
+        valore = valori[i]              # 2 
+        if valore < minimo:             # 1
+            minimo = valore             # 1 (t)
         if valore > massimo:            # 1
-            massimo = valore            # 1 se vero
+            massimo = valore            # 1 (t)
     return massimo - minimo             # 1
 \end{unipdcode}
 \end{minipage}

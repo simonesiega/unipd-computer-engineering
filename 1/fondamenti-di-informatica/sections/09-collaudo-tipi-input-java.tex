@@ -184,7 +184,9 @@ System.out.println(Math.addExact(massimo, 1));
 \end{unipdcode}
 
 La prima operazione produce \texttt{-2147483648} senza
-segnalare errori. La seconda, invece, genera
+segnalare errori. 
+
+La seconda, invece, genera
 \texttt{ArithmeticException} e, se non gestita, interrompe l'esecuzione,
 poiché il risultato supera il massimo valore rappresentabile:
 
@@ -392,9 +394,9 @@ stessa variabile. Analogamente, gli operatori
 rispettivamente sottrazione, moltiplicazione e divisione
 con assegnamento.
 
-Gli operatori \texttt{++} e \texttt{--} incrementano
-o decrementano una variabile numerica di un'unità.
-Possono essere utilizzati in forma \emph{prefissa}
+Gli operatori di incremento e decremento modificano
+una variabile numerica di un'unità. Possono essere
+utilizzati in forma \emph{prefissa}
 (\texttt{++counter}) o \emph{postfissa}
 (\texttt{counter++}). Entrambe le forme aggiornano
 la variabile, ma differiscono nel valore prodotto
@@ -403,7 +405,7 @@ valore aggiornato, mentre quella postfissa produce
 il valore precedente all'aggiornamento.
 Come istruzioni autonome, le due forme hanno lo stesso
 effetto sulla variabile. La distinzione vale anche
-per l'operatore di decremento \texttt{--}.
+per l'operatore di decremento.
 
 \clearpage
 
@@ -486,7 +488,6 @@ dall'indice \(7\). Gli indici di \texttt{String}
 si riferiscono alle unità di codice UTF-16:
 una singola posizione non corrisponde quindi
 necessariamente a un carattere Unicode completo.
-
 Un indice negativo, una fine oltre la lunghezza
 della stringa o un inizio maggiore della fine
 genera \texttt{StringIndexOutOfBoundsException}.
