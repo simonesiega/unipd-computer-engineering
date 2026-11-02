@@ -484,9 +484,9 @@ l'esecuzione, per esempio come eccezione non gestita (\cref{sec:fi-java-errori})
 Fai un esempio di errore di runtime legato alla lettura di un file.
 \end{exercise}
 
-Un programma tenta di aprire un file inesistente: l'operazione può generare
-un'eccezione, come \texttt{FileNotFoundException}, se non viene gestita. Il
-sorgente può essere comunque sintatticamente corretto
+Un programma tenta di aprire un file inesistente, sollevando per esempio
+\texttt{FileNotFoundException}. Se non viene gestita, l'eccezione può
+interrompere il programma. Il sorgente può essere sintatticamente corretto
 (\cref{sec:fi-java-errori}).
 
 \begin{exercise}

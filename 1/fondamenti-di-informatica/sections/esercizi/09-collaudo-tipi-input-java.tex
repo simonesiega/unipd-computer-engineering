@@ -28,10 +28,10 @@ e distinguere classi che possono avere lo stesso nome semplice. Per esempio,
 Scrivi la sintassi generale di un'istruzione \texttt{import}.
 \end{exercise}
 
-La forma per importare una classe è
-\texttt{import nomePacchetto.NomeClasse;}, per esempio
-\texttt{import java.awt.Rectangle;}. Consente di utilizzare il nome semplice
-della classe senza ripeterne il nome completo del pacchetto
+La forma generale è \texttt{import nomePacchetto.NomeClasse;}.
+
+Per esempio, \texttt{import java.awt.Rectangle;} consente di utilizzare
+il nome semplice della classe senza ripeterne il nome completo del pacchetto
 (\cref{sec:fi-java-collaudo}).
 
 \begin{exercise}
@@ -156,9 +156,8 @@ Spiega perché \texttt{(int)(100 * 4.35)} può dare \texttt{434}
 invece di \texttt{435}.
 \end{exercise}
 
-Il valore decimale \(4.35\) non è rappresentabile esattamente in
-\texttt{double}: la moltiplicazione può produrre
-\texttt{434.99999999999994}. Il cast a \texttt{int} tronca verso zero,
+Il valore \(4.35\) è approssimato in \texttt{double}; il prodotto può
+valere \texttt{434.99999999999994}. Il cast a \texttt{int} tronca verso zero,
 restituendo \texttt{434}, anziché arrotondare al più vicino
 (\cref{sec:fi-java-precisione,sec:fi-java-conversioni}).
 

@@ -178,9 +178,10 @@ di codice sequenziale, di un \lstinline|if| e di un ciclo.
 \end{exercise}
 
 In una sequenza si sommano i costi dei blocchi. In un
-\lstinline|if| si considera il costo del ramo eseguito;
-per un limite superiore si può usare quello del ramo più
-oneroso. Per un ciclo si sommano i costi delle singole
+\lstinline|if| si somma il costo di valutazione della condizione
+al costo del ramo eseguito; per un limite superiore si può
+usare quello del ramo più oneroso, aggiungendo sempre il costo
+della condizione. Per un ciclo si sommano i costi delle singole
 iterazioni, che possono essere diversi. Se ogni iterazione
 costa \(\Theta(1)\), il costo del corpo è proporzionale al
 numero di iterazioni, salvo gli eventuali costi aggiuntivi

@@ -600,10 +600,11 @@ Descrivi il significato delle operazioni \texttt{add\_first(e)},
 \texttt{add\_last(e)}, \texttt{delete\_first()} e \texttt{delete\_last()}.
 \end{exercise}
 
-\texttt{add\_first(e)} e \texttt{add\_last(e)} inseriscono \(e\) rispettivamente
-all'inizio e alla fine; \texttt{delete\_first()} e \texttt{delete\_last()}
-rimuovono e restituiscono gli elementi alle due estremità. Le rimozioni
-richiedono una deque non vuota (\cref{sec:fi-adt-deque}).
+Le operazioni di inserimento aggiungono \(e\) rispettivamente all'inizio
+(\texttt{add\_first(e)}) e alla fine (\texttt{add\_last(e)}).
+Le operazioni di rimozione restituiscono l'elemento iniziale
+(\texttt{delete\_first()}) o finale (\texttt{delete\_last()}), eliminandolo
+dalla deque. Richiedono una deque non vuota (\cref{sec:fi-adt-deque}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-deque-traccia}
