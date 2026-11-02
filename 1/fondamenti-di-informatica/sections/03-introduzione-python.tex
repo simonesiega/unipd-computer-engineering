@@ -177,8 +177,8 @@ quando \texttt{x} vale zero.
 L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 \texttt{elif} introduce condizioni successive e \texttt{else} il caso
 residuo. In una catena condizionale viene eseguito soltanto il blocco
-associato alla prima condizione soddisfatta. Analogamente, \texttt{match}, 
-disponibile da Python 3.10, seleziona il primo \texttt{case} applicabile, 
+associato alla prima condizione soddisfatta. Analogamente, \texttt{match},
+disponibile da Python 3.10, seleziona il primo \texttt{case} applicabile,
 senza richiedere \texttt{break}.
 
 \input{assets/codice/condizioni/esito}
@@ -209,7 +209,7 @@ ma può essere simulato mediante \texttt{while True} e \texttt{break}.
 
 L'esempio richiede nuovamente l'età finché il valore è negativo. La
 terminazione dipende dall'inserimento di un intero non negativo; una
-stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo 
+stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo
 \texttt{while} può non terminare se la condizione rimane sempre vera.
 
 Nei \emph{cicli con contatore} si distinguono inizializzazione,
@@ -290,8 +290,8 @@ studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
-Il ciclo visita i voti e calcola la media di quelli non inferiori a 
-\texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione 
+Il ciclo visita i voti e calcola la media di quelli non inferiori a
+\texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione
 per zero quando nessun valore soddisfa la condizione.
 
 \section{Funzioni}
@@ -304,8 +304,8 @@ eseguito soltanto quando la funzione è \emph{chiamata} e deve essere
 stata definita prima della chiamata, affinché il nome della
 funzione sia disponibile. I nomi dichiarati nella definizione sono i
 \emph{parametri}; i valori forniti alla chiamata
-sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per 
-i parametri e per il valore restituito. L'intestazione di una funzione può 
+sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per
+i parametri e per il valore restituito. L'intestazione di una funzione può
 assumere la forma
 \[
   \text{\texttt{def somma(a: int, b: int) -> int:}}
@@ -340,7 +340,7 @@ L'istruzione \texttt{import geometria} rende disponibile il modulo;
 la chiamata \texttt{geometria.area\_rettangolo(8, 5)} ne usa la funzione.
 In alternativa, \lstinline|from geometria import area_rettangolo|
 importa direttamente il nome, consentendo la chiamata
-\lstinline|area_rettangolo(8, 5)|. 
+\lstinline|area_rettangolo(8, 5)|.
 
 La parola chiave \texttt{as}
 permette di assegnare un alias al modulo o a un nome importato,

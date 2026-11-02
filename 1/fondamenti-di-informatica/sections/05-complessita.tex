@@ -42,7 +42,7 @@ sarà presentato dopo le due implementazioni di \texttt{reverse} (\cref{sec:fi-c
 
 Il tempo misurato dipende anche dai valori dei dati, dall'hardware,
 dall'interprete o compilatore, dal linguaggio, dall'implementazione e
-dalle condizioni di esecuzione. Ripetere le misurazioni e considerarne valori aggregati 
+dalle condizioni di esecuzione. Ripetere le misurazioni e considerarne valori aggregati
 riduce l'influenza delle fluttuazioni, ma non elimina tali dipendenze.
 Per studiare la crescita dei costi senza basarsi sulle misure
 effettuate su una particolare macchina si ricorre all'analisi teorica.
@@ -80,9 +80,9 @@ effettivamente percorso; per un limite superiore si può maggiorare
 il costo con quello del ramo più oneroso; per un limite inferiore
 valido in entrambi i rami, con il costo di quello meno oneroso.
 Il costo di un ciclo è la somma dei costi delle sue iterazioni,
-che possono essere differenti. Per esempio, due cicli annidati, 
-entrambi con intervallo \texttt{range(n)}, eseguono il corpo interno 
-\(n^2\) volte; se il ciclo esterno usa \texttt{range(n)} con indice 
+che possono essere differenti. Per esempio, due cicli annidati,
+entrambi con intervallo \texttt{range(n)}, eseguono il corpo interno
+\(n^2\) volte; se il ciclo esterno usa \texttt{range(n)} con indice
 \texttt{i} e quello interno usa \texttt{range(i)}, il numero diventa
 \(\sum_{i=0}^{n-1}i=n(n-1)/2\).
 Il modello può essere semplificato ulteriormente scegliendo come passi
@@ -193,8 +193,8 @@ ordine di crescita, si ottiene una stima asintotica precisa
 mediante \(\Theta\).
 \end{example}
 
-Nel linguaggio corrente, quando si dice soltanto che un algoritmo 
-è \(O(g(n))\), ci si riferisce spesso al caso peggiore; è però opportuno 
+Nel linguaggio corrente, quando si dice soltanto che un algoritmo
+è \(O(g(n))\), ci si riferisce spesso al caso peggiore; è però opportuno
 specificarlo esplicitamente.
 
 \section{Un algoritmo quadratico per l'inversione di una lista}

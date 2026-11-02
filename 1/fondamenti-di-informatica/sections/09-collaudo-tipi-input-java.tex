@@ -31,7 +31,7 @@ nella \cref{sec:fi-java-riferimenti}, appartiene al pacchetto
   \texttt{import java.awt.Rectangle;}
 \end{center}
 prima della dichiarazione della classe che la utilizza.
-La forma generale è
+La sintassi è
 \texttt{import nomePacchetto.NomeClasse;}.
 L'importazione consente di utilizzare il nome semplice
 della classe, ma non comporta la creazione di oggetti.
@@ -184,7 +184,7 @@ System.out.println(Math.addExact(massimo, 1));
 \end{unipdcode}
 
 La prima operazione produce \texttt{-2147483648} senza
-segnalare errori. 
+segnalare errori.
 
 La seconda, invece, genera
 \texttt{ArithmeticException} e, se non gestita, interrompe l'esecuzione,
@@ -768,9 +768,8 @@ richiesto può provocare \texttt{InputMismatchException}.
 L'interpretazione dei numeri dipende dalla
 \emph{localizzazione} dello \texttt{Scanner}.
 La localizzazione può essere impostata mediante
-\texttt{in.useLocale(Locale.US)}. Per utilizzare
-\texttt{Locale.US} occorre importare la classe
-\texttt{java.util.Locale}; in questo modo il punto
+\texttt{in.useLocale(Locale.US)}. Occorre inoltre importare
+la classe \texttt{java.util.Locale}; in questo modo il punto
 viene riconosciuto come separatore decimale.
 
 Il seguente programma acquisisce una quantità di lire
