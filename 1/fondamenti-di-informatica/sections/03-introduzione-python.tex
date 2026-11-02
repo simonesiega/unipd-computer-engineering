@@ -56,12 +56,23 @@ precedente. L'operatore \texttt{=} non indica quindi l'uguaglianza
 matematica. Il riferimento a un nome non ancora definito provoca
 \texttt{NameError}.
 
+Per scambiare i valori di due variabili senza perdere quelli originali
+si può utilizzare una variabile temporanea: \texttt{tmp = a},
+\texttt{a = b}, \texttt{b = tmp}. Python permette anche l'assegnamento
+multiplo \texttt{a, b = b, a}, nel quale le espressioni a destra vengono
+valutate prima di effettuare gli assegnamenti. Nel caso di valori interi,
+lo scambio può essere realizzato anche mediante tre operazioni XOR
+bit a bit: \verb|a ^= b|, \verb|b ^= a|, \verb|a ^= b|,
+sfruttando la proprietà \(x \oplus x = 0\).
+
 I nomi delle variabili, detti \emph{identificatori}, possono contenere
 lettere, cifre e il carattere \texttt{\_}, ma non iniziare con una cifra.
 Distinguono maiuscole e minuscole e non possono coincidere con parole
 riservate, come \texttt{if} e \texttt{for}. Per i nomi composti si adotta
 generalmente la convenzione \emph{snake\_case}, ad esempio
-\texttt{prezzo\_unitario}.
+\texttt{prezzo\_unitario} (un'altra convenzione è \emph{camelCase},
+utilizzata generalmente in Java per variabili e metodi;
+\cref{sec:fi-java-identificatori}).
 
 In Python il tipo appartiene al valore, non al nome: un nome può essere
 riassegnato a valori di tipi diversi. I tipi fondamentali sono
@@ -84,8 +95,7 @@ si distinguono:
 \end{array}
 \]
 La divisione \texttt{/} produce un valore \texttt{float} anche quando il
-quoziente è intero; \texttt{//} arrotonda verso il basso e non sempre
-verso zero. La potenza precede la moltiplicazione, che precede
+quoziente è intero. La potenza precede la moltiplicazione, che precede
 l'addizione; le parentesi permettono di stabilire esplicitamente l'ordine
 delle operazioni.
 
@@ -99,6 +109,10 @@ tentare di sommare direttamente una stringa e un intero provoca
 In particolare, \texttt{int(3.9)} restituisce \texttt{3}, poiché
 la conversione tronca verso zero. Inoltre, \texttt{bool(0)} restituisce
 \texttt{False} e \texttt{bool(3)} restituisce \texttt{True}.
+Per i tipi qui considerati, la conversione \texttt{bool()} restituisce
+\texttt{False} anche per lo zero in virgola mobile, la stringa vuota,
+la lista vuota e \texttt{None}. Il valore speciale \texttt{None}, unico valore
+del tipo \texttt{NoneType}, rappresenta l'assenza di un valore.
 Una conversione non ammessa, come \lstinline|int("ciao")|,
 genera \texttt{ValueError}.
 
@@ -107,9 +121,6 @@ restituisce una stringa, anche se l'utente ha digitato un numero.
 Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
 \input{assets/codice/variabili/somma-input}
-
-Il programma assume che le due stringhe inserite rappresentino
-numeri interi validi.
 
 \section{Logica booleana e istruzioni condizionali}
 \label{sec:fi-python-condizioni}
@@ -142,7 +153,8 @@ congiunzione, disgiunzione e negazione. Nelle seguenti tabelle di verità,
   \mathrm{V} & \mathrm{F}
 \end{array}
 \]
-La precedenza è \texttt{not}, poi \texttt{and}, infine \texttt{or}.
+Fra gli operatori considerati, i confronti hanno precedenza su
+\texttt{not}, che precede \texttt{and}, seguito da \texttt{or}.
 Le \emph{leggi di De Morgan} forniscono le equivalenze
 \[
 \begin{aligned}
@@ -155,10 +167,19 @@ Le \emph{leggi di De Morgan} forniscono le equivalenze
 Gli operatori \texttt{and} e \texttt{or} valutano il secondo operando
 soltanto quando necessario (\emph{valutazione a cortocircuito}).
 
+La valutazione procede da sinistra verso destra: con \texttt{and}, il
+secondo operando viene valutato soltanto se il primo è vero; con
+\texttt{or}, soltanto se il primo è falso. Questo comportamento permette
+anche di evitare operazioni non valide: nell'espressione
+\lstinline|x != 0 and 10 / x > 2|, la divisione non viene eseguita
+quando \texttt{x} vale zero.
+
 L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 \texttt{elif} introduce condizioni successive e \texttt{else} il caso
 residuo. In una catena condizionale viene eseguito soltanto il blocco
-associato alla prima condizione soddisfatta.
+associato alla prima condizione soddisfatta. Analogamente, \texttt{match},
+disponibile da Python 3.10, seleziona il primo \texttt{case} applicabile,
+senza richiedere \texttt{break}.
 
 \input{assets/codice/condizioni/esito}
 
@@ -177,14 +198,19 @@ Le istruzioni condizionali selezionano il blocco da eseguire; un
 \emph{ciclo} permette invece di ripeterlo. Ogni esecuzione del blocco
 è detta \emph{iterazione}. Il ciclo \texttt{while} controlla una condizione
 prima di ogni iterazione e termina quando essa diventa falsa. Il corpo
-può quindi non essere eseguito neppure una volta.
+può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
+\texttt{do...while} verifica la condizione dopo l'esecuzione del corpo,
+garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
+ma può essere simulato mediante \texttt{while True} e \texttt{break}.
+
+\clearpage
 
 \input{assets/codice/cicli/validazione}
 
 L'esempio richiede nuovamente l'età finché il valore è negativo. La
 terminazione dipende dall'inserimento di un intero non negativo; una
-stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo \texttt{while} può non terminare se la condizione
-rimane sempre vera.
+stringa non convertibile provocherebbe \texttt{ValueError}. Un ciclo
+\texttt{while} può non terminare se la condizione rimane sempre vera.
 
 Nei \emph{cicli con contatore} si distinguono inizializzazione,
 condizione e aggiornamento. L'istruzione \texttt{n += 1} abbrevia
@@ -218,9 +244,15 @@ l'aggiornamento manuale della variabile di iterazione.
 La variabile \texttt{totale} è un \emph{accumulatore}: contiene la somma
 parziale e viene aggiornata a ogni iterazione. In questo caso il ciclo
 somma gli interi da uno a cinque, individuati da \texttt{range(1, 6)},
-ottenendo \texttt{15}. La ricorsione fornisce un'altra forma di
-ripetizione del calcolo, trattata nella
-\cref{sec:fi-ricorsione-terminazione}.
+ottenendo \texttt{15}. La funzione \texttt{sum()} permette di ottenere
+lo stesso risultato mediante un'espressione generatrice:
+
+\input{assets/codice/cicli/accumulo-sum}
+
+La ricorsione fornisce un'altra forma di ripetizione del calcolo,
+trattata nella \cref{sec:fi-ricorsione-terminazione}.
+
+\clearpage
 
 \section{Liste}
 \label{sec:fi-python-liste}
@@ -228,29 +260,39 @@ ripetizione del calcolo, trattata nella
 I cicli possono elaborare anche sequenze di dati. Una \emph{lista} è
 una sequenza modificabile di elementi, scritta nel codice tra
 parentesi quadre. Gli elementi possono avere tipi differenti e sono
-individuati dalla loro posizione, a partire dall'indice zero. \texttt{len(lista)} restituisce il numero di elementi:
+individuati dalla loro posizione, a partire dall'indice zero.
+\texttt{len(lista)} restituisce il numero di elementi:
 per una lista di lunghezza \(n\), gli indici non negativi validi sono
-\(0,\ldots,n-1\); \texttt{lista[-1]} indica l'ultimo elemento.
-Un indice non valido provoca \texttt{IndexError}.
+\(0,\ldots,n-1\). Gli indici negativi permettono di accedere agli
+elementi dalla fine: \texttt{lista[-1]} indica l'ultimo,
+\texttt{lista[-2]} il penultimo e \texttt{lista[-n]} il primo,
+quando tali posizioni esistono. Un indice non valido provoca \texttt{IndexError}.
 
 L'assegnamento \texttt{lista[i] = valore} modifica un elemento.
-Il metodo \texttt{append(valore)} aggiunge un elemento in fondo;
-\texttt{pop()} rimuove e restituisce l'ultimo. L'operatore \texttt{in}
-verifica la presenza di un valore.
+Il metodo \texttt{append(valore)} aggiunge un elemento in fondo,
+\texttt{insert(i, valore)} lo inserisce nella posizione indicata,
+\texttt{pop(i)} rimuove e restituisce l'elemento nella posizione
+indicata oppure l'ultimo se l'indice è omesso, mentre
+\texttt{remove(valore)} rimuove la prima occorrenza del valore
+specificato. L'operatore \texttt{in} verifica la presenza di un valore.
 
 Lo \emph{slicing} \texttt{lista[i:j]} estrae una nuova lista con estremo
-iniziale incluso e finale escluso. \texttt{sorted(lista)} restituisce
-una nuova lista ordinata senza modificare quella originale, se gli
-elementi sono confrontabili. Gli algoritmi impiegati per ordinare
-i dati sono studiati nel \cref{chap:ricerca-ordinamento}.
+iniziale incluso e finale escluso. Se l'estremo iniziale è omesso,
+lo slicing parte dall'inizio; se è omesso quello finale, arriva fino
+alla fine della lista. A differenza delle liste, le stringhe non sono
+modificabili mediante assegnamento a un indice.
+
+\texttt{sorted(lista)} restituisce una nuova lista ordinata senza
+modificare quella originale, se gli elementi sono confrontabili;
+\texttt{lista.sort()} ordina invece la lista stessa e restituisce
+\texttt{None}. Gli algoritmi impiegati per ordinare i dati sono
+studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
-L'esempio combina accessi agli elementi, modifica della lista, ricerca,
-ordinamento e accumulazione. Il ciclo visita i voti e calcola la media
-di quelli non inferiori a \texttt{24}; il controllo
-\texttt{if conteggio > 0} evita la divisione per zero quando nessun
-valore soddisfa la condizione.
+Il ciclo visita i voti e calcola la media di quelli non inferiori a
+\texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione
+per zero quando nessun valore soddisfa la condizione.
 
 \section{Funzioni}
 \label{sec:fi-python-funzioni}
@@ -258,9 +300,18 @@ valore soddisfa la condizione.
 Per organizzare operazioni riutilizzabili si impiegano le \emph{funzioni},
 che associano un nome a un blocco di istruzioni. Una funzione si definisce
 mediante \texttt{def}; la definizione non esegue il corpo, che viene
-eseguito soltanto quando la funzione è \emph{chiamata}. I nomi dichiarati nella definizione sono i
-\emph{parametri}; i valori forniti alla chiamata sono gli
-\emph{argomenti}.
+eseguito soltanto quando la funzione è \emph{chiamata} e deve essere
+stata definita prima della chiamata, affinché il nome della
+funzione sia disponibile. I nomi dichiarati nella definizione sono i
+\emph{parametri}; i valori forniti alla chiamata
+sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per
+i parametri e per il valore restituito. L'intestazione di una funzione può
+assumere la forma
+\[
+  \text{\texttt{def somma(a: int, b: int) -> int:}}
+\]
+Le annotazioni non impongono controlli automatici sui tipi durante
+l'esecuzione.
 
 \input{assets/codice/funzioni/area}
 
@@ -272,6 +323,12 @@ assegnate nel corpo della funzione sono di norma \emph{locali} alla
 chiamata. Una funzione può restituire un valore booleano, come
 nell'espressione \texttt{return numero \% 2 == 0}.
 
+Una funzione può essere definita anche all'interno di un'altra:
+si parla in questo caso di \emph{funzione annidata}. La funzione
+interna viene definita durante l'esecuzione di quella esterna,
+è normalmente accessibile soltanto nel suo ambito e può utilizzare
+i parametri e le variabili locali della funzione che la contiene.
+
 Le definizioni possono essere raccolte in \emph{moduli}, ossia file
 Python importabili. Salvando la definizione di
 \texttt{area\_rettangolo} in \texttt{geometria.py}, un secondo file
@@ -281,9 +338,19 @@ può utilizzarla così:
 
 L'istruzione \texttt{import geometria} rende disponibile il modulo;
 la chiamata \texttt{geometria.area\_rettangolo(8, 5)} ne usa la funzione.
-L'estensione \texttt{.py} non compare in \texttt{import}. Le funzioni
-possono anche richiamare se stesse, come si vedrà nel
-\cref{chap:ricorsione}.
+In alternativa, \lstinline|from geometria import area_rettangolo|
+importa direttamente il nome, consentendo la chiamata
+\lstinline|area_rettangolo(8, 5)|.
+
+La parola chiave \texttt{as}
+permette di assegnare un alias al modulo o a un nome importato,
+così da poter utilizzare un identificatore alternativo nel codice,
+ad esempio \lstinline|from geometria import area_rettangolo as area|.
+
+L'estensione \texttt{.py} non compare in \texttt{import}.
+
+Le funzioni possono anche richiamare se stesse, come si vedrà
+nel \cref{chap:ricorsione}.
 
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}
@@ -291,9 +358,14 @@ possono anche richiamare se stesse, come si vedrà nel
 Oltre al codice organizzato in moduli, un programma può utilizzare file
 per conservare dati tra esecuzioni successive. I file sono memorizzati
 nella memoria di massa (\cref{sec:fi-memoria-archiviazione}). In un
-\emph{file di testo}, i caratteri sono memorizzati secondo una codifica,
-come UTF-8 (\cref{sec:fi-caratteri}). Quando il nome non contiene un percorso
-assoluto, il file viene cercato nella directory di lavoro corrente,
+\emph{file di testo}, i byte vengono interpretati come caratteri
+secondo una codifica, come UTF-8 (\cref{sec:fi-caratteri}); un
+\emph{file binario} viene invece trattato come una sequenza di byte,
+senza decodifica testuale automatica. In Python si distinguono le modalità
+di apertura testuali da quelle binarie, indicate per esempio con
+\lstinline|"rb"| e \lstinline|"wb"|.
+Quando il nome non contiene un percorso assoluto, il file viene
+cercato nella directory di lavoro corrente,
 che non coincide necessariamente con quella del programma.
 
 La funzione \texttt{open()} apre il file. Le modalità principali sono
@@ -305,8 +377,6 @@ e \lstinline|"a"| per aggiungere dati in fondo. La modalità
 Il costrutto \texttt{with open(...) as file:} chiude il file
 all'uscita dal blocco, anche se si verifica un errore. È opportuno
 specificare la codifica UTF-8 mediante il parametro \texttt{encoding}.
-
-\clearpage
 
 \input{assets/codice/file/scrittura}
 

@@ -1,0 +1,824 @@
+\chapter{Collaudo, tipi di dato e input in Java}
+\label{chap:collaudo-tipi-input-java}
+
+A partire dalle nozioni introdotte nel \cref{chap:introduzione-java},
+si approfondiscono il collaudo delle classi, i tipi di dato e le
+relative operazioni, la manipolazione delle stringhe e
+l'acquisizione di dati dall'ingresso standard.\footnote{Materiale
+di riferimento: S. Canazza, \emph{Collaudare una classe; tipi di
+dati e input}, slide del corso di Fondamenti di Informatica,
+\nolinkurl{2026_FI_08_canazza_Java_Collaudo_TipiDati_Input.pdf}.}
+
+\section{Programmi di collaudo e pacchetti}
+\label{sec:fi-java-collaudo}
+
+Per verificare il comportamento di una classe è possibile
+realizzare un \emph{programma di collaudo}, che costruisce
+oggetti, ne invoca i metodi e permette di confrontare i risultati ottenuti
+con quelli attesi. In Java tale programma può essere costituito
+da una classe dotata di un metodo \texttt{main}. Il collaudo
+permette di individuare eventuali errori, ma il superamento
+di un insieme di casi di prova non dimostra la correttezza
+generale della classe.
+
+Le classi Java sono organizzate in \emph{pacchetti}
+(\emph{package}), che permettono di raggruppare classi
+correlate. La classe \texttt{Rectangle}, già utilizzata
+nella \cref{sec:fi-java-riferimenti}, appartiene al pacchetto
+\texttt{java.awt}. Per utilizzarla mediante il nome semplice
+\texttt{Rectangle}, si introduce la dichiarazione
+\begin{center}
+  \texttt{import java.awt.Rectangle;}
+\end{center}
+prima della dichiarazione della classe che la utilizza.
+La sintassi è
+\texttt{import nomePacchetto.NomeClasse;}.
+L'importazione consente di utilizzare il nome semplice
+della classe, ma non comporta la creazione di oggetti.
+Le classi del pacchetto \texttt{java.lang}, tra cui
+\texttt{System}, \texttt{String}, \texttt{Math} e
+\texttt{Integer}, sono invece accessibili senza
+importazioni esplicite.
+
+\begin{example}[Collaudo della classe \texttt{Rectangle}]
+Il seguente programma crea un rettangolo, ne modifica
+la posizione mediante \texttt{translate()} e visualizza
+le nuove coordinate:
+
+\input{assets/codice/java/move-tester}
+
+\begin{unipdterminal}
+20.0
+35.0
+\end{unipdterminal}
+
+La traslazione incrementa di \(15\) la coordinata iniziale
+\(x=5\) e di \(25\) la coordinata iniziale \(y=10\).
+I metodi \texttt{getX()} e \texttt{getY()} restituiscono
+valori di tipo \texttt{double}, visualizzati quindi
+con la parte decimale.
+\end{example}
+
+\clearpage
+
+\section{Tipi fondamentali e rappresentazione numerica}
+\label{sec:fi-java-tipi-fondamentali}
+
+Java definisce otto \emph{tipi primitivi}: quattro tipi interi
+con segno, due in virgola mobile, \texttt{char} e
+\texttt{boolean}.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lll}
+    \hline
+    Tipo & Ampiezza & Caratteristiche \\
+    \hline
+    \texttt{byte} & 8 bit & intero con segno \\
+    \texttt{short} & 16 bit & intero con segno \\
+    \texttt{int} & 32 bit & intero con segno \\
+    \texttt{long} & 64 bit & intero con segno \\
+    \texttt{float} & 32 bit & virgola mobile, precisione singola \\
+    \texttt{double} & 64 bit & virgola mobile, precisione doppia \\
+    \texttt{char} & 16 bit & unità di codice UTF-16 \\
+    \texttt{boolean} & non fissata & \texttt{true} oppure \texttt{false} \\
+    \hline
+  \end{tabular}
+  \caption{Tipi primitivi di Java e relative rappresentazioni.}
+  \label{tab:fi-java-tipi-primitivi}
+\end{table}
+
+Il tipo \texttt{boolean} ammette soltanto due valori, per
+rappresentare i quali sarebbe sufficiente un bit. Java non
+stabilisce tuttavia che ciascun valore occupi un solo bit
+in memoria: la rappresentazione effettiva dipende
+dall'implementazione della JVM e dal contesto in cui il
+valore viene memorizzato.
+
+I quattro tipi interi con segno adottano il
+\emph{complemento a due}, mentre \texttt{float} e
+\texttt{double} seguono i formati IEEE 754, già introdotti
+nel \cref{chap:rappresentazione-informazioni}.
+Il tipo \texttt{int} è generalmente sufficiente per
+rappresentare quantità intere; quando il suo intervallo
+non è adeguato si può utilizzare \texttt{long}. I letterali
+interi decimali senza suffisso sono di tipo \texttt{int};
+per indicare un letterale \texttt{long} si usa il suffisso
+\texttt{L}, come in \texttt{3000000000L}.
+
+Le corrispondenti \emph{classi involucro} della libreria
+standard, tra cui \texttt{Integer}, \texttt{Long},
+\texttt{Float} e \texttt{Double}, espongono costanti
+che descrivono i limiti dei rispettivi tipi primitivi.
+La \cref{tab:fi-java-limiti-primitivi} riporta i valori
+delle costanti \texttt{MIN\_VALUE} e
+\texttt{MAX\_VALUE}.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabular}{lrr}
+    \hline
+    Classe & \texttt{MIN\_VALUE} & \texttt{MAX\_VALUE} \\
+    \hline
+    \texttt{Byte}
+      & \(-128\)
+      & \(127\) \\
+    \texttt{Short}
+      & \(-32\,768\)
+      & \(32\,767\) \\
+    \texttt{Integer}
+      & \(-2\,147\,483\,648\)
+      & \(2\,147\,483\,647\) \\
+    \texttt{Long}
+      & \(-9\,223\,372\,036\,854\,775\,808\)
+      & \(9\,223\,372\,036\,854\,775\,807\) \\
+    \texttt{Character}
+      & \(0\)
+      & \(65\,535\) \\
+    \texttt{Float}
+      & \(\approx 1.4\cdot10^{-45}\)
+      & \(\approx 3.4\cdot10^{38}\) \\
+    \texttt{Double}
+      & \(\approx 4.9\cdot10^{-324}\)
+      & \(\approx 1.8\cdot10^{308}\) \\
+    \hline
+  \end{tabular}
+  \caption{Valori delle costanti che descrivono i limiti
+  dei tipi primitivi numerici e di \texttt{char}.}
+  \label{tab:fi-java-limiti-primitivi}
+\end{table}
+
+Per i tipi interi, \texttt{MIN\_VALUE} e
+\texttt{MAX\_VALUE} individuano rispettivamente il minimo
+e il massimo valore rappresentabile. Per \texttt{float}
+e \texttt{double}, invece, \texttt{MAX\_VALUE} indica
+il massimo valore positivo finito, mentre
+\texttt{MIN\_VALUE} rappresenta il minimo valore positivo
+non nullo. Il valore negativo finito più piccolo è quindi
+\texttt{-MAX\_VALUE}, non \texttt{MIN\_VALUE}.
+
+\clearpage
+
+\subsection{Overflow e divisione per zero}
+\label{sec:fi-java-overflow}
+
+Quando un'operazione aritmetica sui tipi \texttt{int} o
+\texttt{long} produce un risultato non rappresentabile,
+si verifica un \emph{overflow}. Il valore viene ricondotto
+all'intervallo del tipo mediante \emph{wrap-around}, senza
+generare un'eccezione. Per esempio, aggiungere \(1\) al
+massimo valore di \texttt{int} produce il minimo valore
+rappresentabile.
+
+Per rilevare esplicitamente un overflow, la classe
+\texttt{Math} fornisce metodi come \texttt{addExact()}
+e \texttt{multiplyExact()}, che generano
+\texttt{ArithmeticException} quando il risultato
+non è rappresentabile.
+
+\begin{unipdcode}[language=Java]
+int massimo = Integer.MAX_VALUE;
+System.out.println(massimo + 1);
+System.out.println(Math.addExact(massimo, 1));
+\end{unipdcode}
+
+La prima operazione produce \texttt{-2147483648} senza
+segnalare errori.
+
+La seconda, invece, genera
+\texttt{ArithmeticException} e, se non gestita, interrompe l'esecuzione,
+poiché il risultato supera il massimo valore rappresentabile:
+
+\begin{unipdterminal}
+-2147483648
+Exception in thread "main" java.lang.ArithmeticException: integer overflow
+\end{unipdterminal}
+
+Tra le operazioni sui tipi interi, la divisione e il resto
+con divisore zero generano \texttt{ArithmeticException}.
+Per i tipi \texttt{float} e \texttt{double}, invece,
+un overflow può produrre \(+\infty\) o \(-\infty\).
+Anche una divisione in virgola mobile per zero può produrre
+un'infinità, mentre \texttt{0.0 / 0.0} restituisce
+\texttt{NaN} (\emph{Not a Number}).
+
+Le classi \texttt{Float} e \texttt{Double} espongono
+le costanti \texttt{POSITIVE\_INFINITY},
+\texttt{NEGATIVE\_INFINITY} e \texttt{NaN}
+per rappresentare questi valori speciali.
+
+\subsection{Precisione dei numeri in virgola mobile}
+\label{sec:fi-java-precisione}
+
+I tipi \texttt{float} e \texttt{double} offrono
+rispettivamente circa 7 e 16 cifre decimali significative.
+Un letterale decimale senza suffisso è normalmente di tipo
+\texttt{double}; per indicare un letterale \texttt{float}
+si utilizza il suffisso \texttt{f}, come in
+\texttt{float x = 30.2f;}.
+
+Come già esaminato nel
+\cref{chap:rappresentazione-informazioni}, molti numeri
+decimali non ammettono una rappresentazione binaria finita.
+I valori vengono quindi approssimati, e gli errori di
+arrotondamento possono influenzare il risultato delle
+operazioni. Per esempio, l'espressione
+\texttt{4.35 * 100} produce
+\texttt{434.99999999999994} anziché \texttt{435.0}.
+
+La precisione dipende inoltre dalla grandezza dei valori
+rappresentati: all'aumentare del loro valore assoluto,
+aumenta la distanza tra numeri in virgola mobile consecutivi.
+Per esempio, il risultato di \texttt{1.0E17 - 50}
+corrisponde al valore \(10^{17}-48\), anziché al
+risultato matematico esatto \(10^{17}-50\).
+
+\section{Conversioni numeriche e arrotondamento}
+\label{sec:fi-java-conversioni}
+
+Nell'assegnamento il tipo del valore prodotto dall'espressione
+deve essere compatibile con quello della variabile. Java ammette
+conversioni numeriche \emph{implicite}, dette anche
+\emph{widening}, tra cui il passaggio da \texttt{int} a
+\texttt{long} o a \texttt{double}. Queste conversioni non
+preservano necessariamente il valore esatto: un \texttt{int}
+può perdere precisione se convertito in \texttt{float},
+e un \texttt{long} sufficientemente grande può perderla
+anche se convertito in \texttt{double}.
+
+Le conversioni che comportano un restringimento del tipo,
+come da \texttt{double} a \texttt{int}, richiedono generalmente
+un \emph{cast} esplicito. La scrittura \texttt{(int) x}
+elimina la parte frazionaria di un valore finito compreso
+nell'intervallo rappresentabile da \texttt{int}, troncando
+verso zero. Il cast non effettua quindi un arrotondamento
+all'intero più vicino.
+
+Il metodo \texttt{Math.round()} permette invece di arrotondare
+un numero in virgola mobile all'intero più vicino.
+La differenza rispetto al cast emerge sia per valori
+negativi sia per valori positivi:
+
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Valore negativo}
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+double x = -2.95;
+System.out.println((int) x);
+System.out.println(Math.round(x));
+\end{unipdcode}
+\begin{unipdterminal}
+-2
+-3
+\end{unipdterminal}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Valore positivo}
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+double x = 2.95;
+System.out.println((int) x);
+System.out.println(Math.round(x));
+\end{unipdcode}
+\begin{unipdterminal}
+2
+3
+\end{unipdterminal}
+\end{minipage}
+
+Il metodo \texttt{Math.round(double)} restituisce un
+\texttt{long}, mentre la versione che riceve un
+\texttt{float} restituisce un \texttt{int}.
+Quando il valore si trova esattamente a metà tra due interi,
+viene scelto quello maggiore: per esempio,
+\texttt{Math.round(-2.5)} restituisce \(-2\), mentre
+\texttt{Math.round(2.5)} restituisce \(3\).
+L'arrotondamento non è quindi simmetrico rispetto allo zero.
+
+Gli errori di rappresentazione descritti nella
+\cref{sec:fi-java-precisione} possono influire anche sulle
+conversioni. Per esempio, l'espressione
+\texttt{(int) (100 * 4.35)} produce \texttt{434},
+poiché il risultato della moltiplicazione è leggermente
+inferiore a \(435\). Il cast elimina la parte frazionaria,
+mentre \texttt{Math.round(100 * 4.35)} restituisce
+\texttt{435}. Occorre quindi distinguere l'approssimazione
+del valore dal comportamento della conversione.
+
+Per rappresentare interi oltre i limiti di \texttt{long},
+la libreria \texttt{java.math} fornisce la classe
+\texttt{BigInteger}. La classe \texttt{BigDecimal} permette
+invece di rappresentare numeri decimali con precisione
+arbitraria e di controllare l'arrotondamento delle operazioni.
+A differenza dei tipi primitivi, le operazioni su questi
+oggetti vengono eseguite mediante metodi.
+
+Il seguente programma utilizza il metodo
+\texttt{multiply()} per moltiplicare due oggetti
+\texttt{BigInteger}:
+
+\input{assets/codice/java/big-integer}
+
+\begin{unipdterminal}
+121932631112635269
+\end{unipdterminal}
+
+
+\section{Costanti ed espressioni aritmetiche}
+\label{sec:fi-java-costanti-aritmetica}
+
+La parola chiave \texttt{final} permette di dichiarare una
+variabile alla quale può essere assegnato un valore una sola
+volta. La sintassi usuale è
+\texttt{final tipo NOME\_COSTANTE = espressione;}.
+Per convenzione, i nomi delle costanti sono scritti in
+maiuscolo, con parole separate da un carattere di sottolineatura.
+
+\clearpage
+
+\begin{unipdcode}[language=Java]
+final double EURO_PER_DOLLAR = 0.72;
+double dollars = 2.35;
+double euro = dollars * EURO_PER_DOLLAR;
+
+final Rectangle box = new Rectangle(5, 10, 20, 30);
+box.translate(15, 25);
+\end{unipdcode}
+
+Nell'esempio, \texttt{EURO\_PER\_DOLLAR} rappresenta
+un fattore di conversione che non può essere riassegnato.
+
+Quando \texttt{final} è applicato a una variabile di
+tipo riferimento, impedisce di assegnarle un nuovo riferimento,
+ma non di modificare lo stato dell'oggetto referenziato.
+Pertanto, \texttt{box} non può riferirsi a un altro
+rettangolo, mentre il metodo \texttt{translate()}
+può modificarne le coordinate.
+
+Gli operatori \texttt{/} e \texttt{\%} consentono
+di ottenere rispettivamente il quoziente e il resto
+di una divisione intera. Possono quindi essere utilizzati
+per separare gli euro interi dai centesimi di un importo:
+
+\input{assets/codice/java/coins5}
+
+\begin{unipdterminal}
+2 euro e 35 centesimi
+\end{unipdterminal}
+
+Il valore iniziale viene convertito in un numero intero
+di centesimi mediante \texttt{Math.round()}, già introdotto
+nella \cref{sec:fi-java-conversioni}. Il quoziente della
+divisione per \(100\) fornisce gli euro interi, mentre
+il resto rappresenta i centesimi residui.
+
+Per aggiornare il valore di una variabile, Java dispone
+degli \emph{operatori di assegnamento composti}.
+Per esempio, \texttt{x += y} somma \texttt{y} al valore
+corrente di \texttt{x} e memorizza il risultato nella
+stessa variabile. Analogamente, gli operatori
+\texttt{-=}, \texttt{*=} e \texttt{/=} eseguono
+rispettivamente sottrazione, moltiplicazione e divisione
+con assegnamento.
+
+Gli operatori di incremento e decremento modificano
+una variabile numerica di un'unità. Possono essere
+utilizzati in forma \emph{prefissa}
+(\texttt{++counter}) o \emph{postfissa}
+(\texttt{counter++}). Entrambe le forme aggiornano
+la variabile, ma differiscono nel valore prodotto
+dall'espressione: la forma prefissa produce il
+valore aggiornato, mentre quella postfissa produce
+il valore precedente all'aggiornamento.
+Come istruzioni autonome, le due forme hanno lo stesso
+effetto sulla variabile. La distinzione vale anche
+per l'operatore di decremento.
+
+\clearpage
+
+\section{La classe \texttt{Math} e i metodi statici}
+\label{sec:fi-java-math}
+
+La classe \texttt{Math} della libreria standard fornisce metodi
+per eseguire operazioni matematiche. Tra questi,
+\texttt{pow(x, y)} calcola la potenza \(x^y\),
+\texttt{sqrt(x)} la radice quadrata, \texttt{log(x)}
+il logaritmo naturale e \texttt{sin(x)} il seno di un
+angolo espresso in radianti. La classe mette inoltre
+a disposizione le costanti \texttt{Math.PI} e
+\texttt{Math.E}, che rappresentano rispettivamente
+\(\pi\) e il numero di Nepero.
+
+I metodi di \texttt{Math} sono \emph{statici}: vengono
+invocati mediante il nome della classe, senza creare
+un oggetto, secondo la sintassi introdotta nella
+\cref{sec:fi-java-invocazione-metodi}.
+
+\begin{example}[Utilizzo della classe \texttt{Math}]
+Il seguente esempio calcola l'area di un cerchio
+di raggio \(3\) e la radice quadrata di \(25\):
+
+\begin{unipdcode}[language=Java]
+double raggio = 3.0;
+double area = Math.PI * Math.pow(raggio, 2);
+double radice = Math.sqrt(25);
+\end{unipdcode}
+
+La variabile \texttt{area} contiene un'approssimazione
+di \(9\pi\), mentre \texttt{radice} contiene
+il valore \texttt{5.0}.
+\end{example}
+
+\section{Stringhe e conversioni testuali}
+\label{sec:fi-java-stringhe-operazioni}
+
+La classe \texttt{String}, introdotta nella
+\cref{sec:fi-java-metodi-string}, fornisce metodi per
+manipolare sequenze di testo. Si considerano ora
+l'estrazione di sottostringhe, la concatenazione e
+la conversione tra stringhe e valori numerici.
+
+\subsection{Sottostringhe e indici}
+\label{sec:fi-java-substring}
+
+Il metodo \texttt{substring(inizio, fine)} restituisce
+la parte di una stringa compresa tra l'indice
+\texttt{inizio}, \emph{incluso}, e l'indice
+\texttt{fine}, \emph{escluso}. Gli indici partono
+da zero e, per una stringa di lunghezza \(n\),
+devono soddisfare
+\[
+  0 \leq \texttt{inizio} \leq \texttt{fine} \leq n.
+\]
+La sottostringa ottenuta ha lunghezza
+\(\texttt{fine}-\texttt{inizio}\).
+Con un solo argomento, \texttt{substring(inizio)}
+estrae la parte della stringa dall'indice indicato
+fino alla fine.
+
+\begin{unipdcode}[language=Java]
+String s = "Hello, World!";
+String prima = s.substring(0, 5);
+String seconda = s.substring(7);
+System.out.println(prima);
+System.out.println(seconda);
+\end{unipdcode}
+
+\begin{unipdterminal}
+Hello
+World!
+\end{unipdterminal}
+
+La prima chiamata estrae gli elementi con indici
+da \(0\) a \(4\), mentre la seconda parte
+dall'indice \(7\). Gli indici di \texttt{String}
+si riferiscono alle unità di codice UTF-16:
+una singola posizione non corrisponde quindi
+necessariamente a un carattere Unicode completo.
+Un indice negativo, una fine oltre la lunghezza
+della stringa o un inizio maggiore della fine
+genera \texttt{StringIndexOutOfBoundsException}.
+
+Per estrarre le ultime quattro unità di codice
+di una stringa si può utilizzare
+\texttt{s.substring(s.length() - 4)}, purché
+la lunghezza sia almeno \(4\). Il metodo
+\texttt{Math.min()} permette di limitare un
+indice superiore alla lunghezza, ma rimane
+necessario verificare gli altri vincoli.
+
+\subsection{Concatenazione e immutabilità}
+\label{sec:fi-java-concatenazione}
+
+Quando almeno uno degli operandi di \texttt{+}
+è una \texttt{String}, Java esegue una
+\emph{concatenazione}, convertendo l'altro
+operando in testo se necessario. Gli spazi
+non vengono aggiunti automaticamente:
+\texttt{15 + "euro"} produce \texttt{"15euro"},
+mentre \texttt{15 + " euro"} produce
+\texttt{"15 euro"}. Il metodo \texttt{concat()}
+permette anch'esso di concatenare due stringhe,
+ma accetta soltanto una \texttt{String} come
+argomento.
+
+\begin{unipdcode}[language=Java]
+String s = "Hello";
+String saluto = s.concat(", World!");
+String risultato = "Totale: " + (3 + 4);
+System.out.println(saluto);
+System.out.println(risultato);
+System.out.println(s);
+\end{unipdcode}
+
+\begin{unipdterminal}
+Hello, World!
+Totale: 7
+Hello
+\end{unipdterminal}
+
+Le parentesi nell'espressione \texttt{(3 + 4)}
+permettono di eseguire l'addizione prima della
+concatenazione: senza di esse si otterrebbe
+\texttt{"Totale: 34"}. La stringa \texttt{s}
+rimane invariata, coerentemente con
+l'immutabilità degli oggetti \texttt{String}
+già esaminata nella \cref{sec:fi-java-metodi-string}.
+
+\subsection{Conversione tra stringhe e numeri}
+\label{sec:fi-java-parsing}
+
+Una stringa contenente cifre non viene convertita
+automaticamente in un valore numerico: l'assegnamento
+\texttt{int eta = "28";} non è valido.
+Per effettuare la conversione si utilizzano
+i metodi statici \texttt{Integer.parseInt()}
+e \texttt{Double.parseDouble()}, che restituiscono
+rispettivamente un \texttt{int} e un \texttt{double}.
+Se il testo non rappresenta un valore valido
+per la conversione richiesta, viene generata
+\texttt{NumberFormatException}.
+
+\begin{unipdcode}[language=Java]
+String testo = "28";
+int eta = Integer.parseInt(testo);
+double valore = Double.parseDouble("18.3");
+String risultato = Integer.toString(eta);
+System.out.println(eta + 1);
+System.out.println(valore);
+System.out.println(risultato);
+\end{unipdcode}
+
+\begin{unipdterminal}
+29
+18.3
+28
+\end{unipdterminal}
+
+Per convertire un numero in testo si utilizzano
+\texttt{Integer.toString()} e
+\texttt{Double.toString()}; in alternativa,
+si può concatenare il valore con una stringa vuota.
+
+\section{Caratteri e sequenze di escape}
+\label{sec:fi-java-char-escape}
+
+Il tipo primitivo \texttt{char} rappresenta una singola
+unità di codice UTF-16 a 16 bit. I letterali di carattere
+sono racchiusi tra apici singoli, come \texttt{'x'},
+mentre le stringhe sono delimitate da virgolette doppie.
+A differenza di una \texttt{String}, un valore
+\texttt{char} non richiede la creazione di un oggetto.
+
+Il metodo \texttt{charAt(i)} della classe \texttt{String}
+restituisce il valore \texttt{char} alla posizione \(i\),
+utilizzando l'indicizzazione introdotta nella
+\cref{sec:fi-java-substring}. Gli indici si riferiscono
+alle unità di codice UTF-16: un punto di codice Unicode
+rappresentato da una coppia di surrogati occupa quindi
+due posizioni (\cref{sec:fi-caratteri}).
+Un indice esterno all'intervallo valido genera
+\texttt{StringIndexOutOfBoundsException}.
+
+\begin{unipdcode}[language=Java]
+String nome = "John";
+char lettera = nome.charAt(2);
+System.out.println(lettera);
+
+for (int i = 0; i < nome.length(); i++) {
+    System.out.print(nome.charAt(i));
+}
+System.out.println();
+\end{unipdcode}
+
+\begin{unipdterminal}
+h
+John
+\end{unipdterminal}
+
+Il ciclo \texttt{for} permette di visitare in ordine
+tutte le unità di codice della stringa.
+
+Nelle espressioni aritmetiche, i valori \texttt{char}
+vengono generalmente convertiti in \texttt{int}.
+Per esempio, \texttt{'a' + 'b'} produce \(195\),
+somma dei valori numerici \(97\) e \(98\),
+anziché la stringa \texttt{"ab"}. Per ottenere
+una concatenazione si può utilizzare
+\texttt{"" + 'a' + 'b'}.
+
+All'interno dei letterali di carattere e delle stringhe,
+le \emph{sequenze di escape} permettono di rappresentare
+caratteri speciali mediante una barra rovesciata.
+Tra le principali figurano \lstinline|\n| per una
+nuova riga, \lstinline|\t| per una tabulazione,
+\lstinline|\r| per il ritorno carrello,
+\lstinline|\b| per \emph{backspace} e
+\lstinline|\f| per \emph{form feed}.
+Le sequenze \lstinline|\"|, \lstinline|\'| e
+\lstinline|\\| rappresentano rispettivamente
+le virgolette doppie, l'apice singolo e la
+barra rovesciata.
+
+Nel sorgente Java è inoltre possibile utilizzare
+una sequenza Unicode della forma \lstinline|\u00E9|,
+che rappresenta la lettera \emph{é}. A differenza
+delle normali sequenze di escape, le sequenze
+Unicode vengono elaborate prima dell'analisi
+lessicale del programma.
+
+\begin{unipdcode}[language=Java]
+System.out.println("Hello, \"World\"!");
+System.out.println("*\n**\n***");
+\end{unipdcode}
+
+\begin{unipdterminal}
+Hello, "World"!
+*
+**
+***
+\end{unipdterminal}
+
+La corretta visualizzazione dei caratteri Unicode
+dipende anche dalla codifica utilizzata per lo scambio
+di testo con il terminale e dai caratteri supportati
+dall'ambiente. Le convenzioni di controllo del terminale,
+come \texttt{Ctrl+C} per interrompere un processo e
+\texttt{Ctrl+D} per segnalare la fine dell'ingresso
+in alcuni ambienti, sono distinte dalle regole
+del linguaggio Java.
+
+\section{Formattazione dell'output}
+\label{sec:fi-java-printf}
+
+Il metodo \texttt{println()} utilizza una rappresentazione
+predefinita dei valori, mentre \texttt{System.out.printf()}
+permette di controllarne la formattazione. Il primo argomento
+è una \emph{stringa di formato}, contenente testo ordinario
+e \emph{specificatori di formato} introdotti dal simbolo
+\texttt{\%}. Gli argomenti successivi forniscono i valori
+da visualizzare.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    \hline
+    Specificatore & Significato \\
+    \hline
+    \texttt{\%d} & intero decimale \\
+    \texttt{\%x}, \texttt{\%o} & intero esadecimale, ottale \\
+    \texttt{\%f} & numero in virgola mobile in notazione decimale \\
+    \texttt{\%e}, \texttt{\%g} & notazione esponenziale, formato generale \\
+    \texttt{\%s} & rappresentazione testuale \\
+    \texttt{\%n} & terminatore di riga della piattaforma \\
+    \texttt{\%\%} & simbolo di percentuale \\
+    \hline
+  \end{tabular}
+  \caption{Principali specificatori di formato utilizzabili con
+  \texttt{printf()}.}
+  \label{tab:fi-java-formati}
+\end{table}
+
+Uno specificatore può comprendere una larghezza minima e una
+precisione. Per esempio, in \lstinline|%5.2f| il numero
+\(5\) indica la larghezza minima del campo, mentre \(2\)
+specifica le cifre dopo il separatore decimale.
+Il valore viene arrotondato ai fini della visualizzazione,
+senza modificare il contenuto della variabile.
+
+Tra i modificatori disponibili figurano \lstinline|-|
+per l'allineamento a sinistra, \lstinline|0| per il
+riempimento con zeri, \lstinline|+| per mostrare
+esplicitamente il segno positivo, \lstinline|(| per
+racchiudere i valori negativi tra parentesi e
+\lstinline|,| per il raggruppamento delle cifre.
+Le conversioni maiuscole, come \lstinline|%E|,
+modificano la rappresentazione quando previste
+dallo specificatore.
+
+La formattazione dipende anche dalla \emph{localizzazione}
+(\emph{locale}), che determina convenzioni come il
+separatore decimale. Per utilizzare il punto si può
+specificare \texttt{Locale.US}, importando la classe
+\texttt{java.util.Locale}.
+
+\begin{example}[Stampa di importi allineati]
+Il seguente programma visualizza due importi con
+due cifre decimali e le relative colonne allineate:
+
+\input{assets/codice/java/formattazione}
+
+\begin{unipdterminal}
+Total: 3.50
+Tax:   0.30
+\end{unipdterminal}
+
+Lo specificatore \lstinline|%5.2f| riserva almeno
+cinque posizioni per il valore numerico, mentre
+\lstinline|%n| inserisce il terminatore di riga
+della piattaforma. A differenza di \texttt{println()},
+\texttt{printf()} non aggiunge automaticamente
+un ritorno a capo.
+\end{example}
+
+\section{L'ingresso standard con \texttt{Scanner}}
+\label{sec:fi-java-scanner}
+
+Per acquisire dati durante l'esecuzione, Java mette a
+disposizione il flusso di ingresso standard \texttt{System.in},
+un oggetto di tipo \texttt{InputStream}. La classe \texttt{Scanner},
+appartenente al pacchetto \texttt{java.util}, permette di leggere
+e interpretare dati provenienti dall'ingresso standard o da altre
+sorgenti, come i file.
+
+Per creare uno \texttt{Scanner} collegato all'ingresso
+standard si utilizza \texttt{new Scanner(System.in)},
+dopo aver importato \texttt{java.util.Scanner}.
+I due oggetti svolgono funzioni distinte:
+\texttt{System.in} fornisce il flusso di dati,
+mentre lo \texttt{Scanner} ne interpreta il contenuto.
+La chiusura dello \texttt{Scanner} comporta anche
+quella del flusso sottostante; occorre quindi evitare
+di chiuderlo se il programma deve ancora leggere
+dall'ingresso standard.
+
+\subsection{Lettura di numeri}
+\label{sec:fi-java-scanner-numeri}
+
+Il metodo \texttt{nextInt()} legge un valore di tipo
+\texttt{int}, mentre \texttt{nextDouble()} legge un
+valore di tipo \texttt{double}. Se i dati necessari
+non sono ancora disponibili, la lettura può rimanere
+in attesa. Un valore non compatibile con il tipo
+richiesto può provocare \texttt{InputMismatchException}.
+
+L'interpretazione dei numeri dipende dalla
+\emph{localizzazione} dello \texttt{Scanner}.
+La localizzazione può essere impostata mediante
+\texttt{in.useLocale(Locale.US)}. Occorre inoltre importare
+la classe \texttt{java.util.Locale}; in questo modo il punto
+viene riconosciuto come separatore decimale.
+
+Il seguente programma acquisisce una quantità di lire
+e una somma di euro, calcolandone il valore complessivo:
+
+\input{assets/codice/java/scanner-coins}
+
+Con gli input \texttt{15000} e \texttt{2.35},
+il programma visualizza un totale di \texttt{10.10}
+euro, formattato con due cifre decimali.
+I valori vengono acquisiti durante l'esecuzione,
+senza richiedere modifiche al file sorgente.
+
+\subsection{Lettura di parole e righe}
+\label{sec:fi-java-scanner-testo}
+
+Il metodo \texttt{next()} restituisce il successivo
+\emph{token}, delimitato per impostazione predefinita
+da caratteri di spaziatura. Il metodo
+\texttt{nextLine()} legge invece il resto della
+riga corrente, escludendo il terminatore di riga.
+Quest'ultimo permette quindi di acquisire anche
+testi contenenti spazi.
+
+Quando \texttt{nextLine()} segue una chiamata a
+\texttt{nextInt()} o \texttt{next()}, può leggere
+soltanto il contenuto residuo della riga corrente,
+restituendo eventualmente una stringa vuota.
+Per acquisire la riga successiva occorre prima
+consumare quella corrente. In alternativa, è
+possibile leggere tutti i dati mediante
+\texttt{nextLine()} e convertire quelli numerici
+con i metodi introdotti nella
+\cref{sec:fi-java-parsing}.
+
+\begin{example}[Lettura di nome, cognome ed età]
+Il seguente programma acquisisce tre valori su
+righe distinte e costruisce una stringa concatenando
+le iniziali minuscole del nome e del cognome con
+l'età:
+
+\input{assets/codice/java/scanner-password}
+
+Inserendo \texttt{Anna}, \texttt{Bianchi} e
+\texttt{28}, il programma produce \texttt{ab28}.
+Si presuppone che nome e cognome non siano vuoti
+e che l'età sia rappresentata da un intero valido.
+\end{example}
+
+La scelta tra lettura per token e per riga
+dipende pertanto dal formato previsto per
+i dati in ingresso.

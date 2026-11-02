@@ -1,0 +1,37 @@
+\noindent\hspace*{2mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Confronto delle coppie}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def contiene_duplicati_quadratico(valori):
+    n = len(valori)                       # 1
+    for i in range(n):                    # al più n
+        for j in range(i + 1, n):         # al più n-i-1
+            if valori[i] == valori[j]:    # 3
+                return True               # escluso
+    return False                          # escluso
+\end{unipdcode}
+\end{minipage}%
+\hspace*{4mm}%
+\begin{minipage}[t]{\dimexpr\linewidth/2-4mm\relax}
+\vspace{0pt}
+\textbf{Ordinamento preliminare}
+\begin{unipdcode}[language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=0.3em]
+def contiene_duplicati_ordinando(valori):
+    ordinati = sorted(valori)               # O(n log n)
+    for i in range(len(ordinati) - 1):      # al più n-1
+        if ordinati[i] == ordinati[i + 1]:  # 4
+            return True                     # escluso
+    return False                            # escluso
+\end{unipdcode}
+\end{minipage}

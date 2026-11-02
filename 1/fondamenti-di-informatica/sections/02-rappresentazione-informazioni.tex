@@ -13,7 +13,8 @@ S. Canazza, \emph{Rappresentazione delle informazioni},
 
 Nei sistemi di numerazione \emph{posizionali} il valore di una cifra dipende
 dalla sua posizione e dalla base. Il sistema decimale impiega le cifre da
-\(0\) a \(9\); quello binario le cifre \(0\) e \(1\).
+\(0\) a \(9\); quello binario le cifre \(0\) e \(1\). Si utilizza il punto come
+separatore della parte frazionaria e il pedice per indicare la base.
 
 \begin{definition}[Valore posizionale]
 \label{def:fi-valore-posizionale}
@@ -29,9 +30,6 @@ frazionarie. Il valore della scrittura
 \]
 Per \(m=0\) la seconda somma è nulla e il separatore si omette.
 \end{definition}
-
-Si utilizza il punto come separatore della parte frazionaria e il pedice
-per indicare la base.
 
 \begin{example}[Pesi delle cifre decimali]
 \begin{align*}
@@ -173,14 +171,18 @@ rispettivamente \(+12\) e \(-12\). L'intervallo dei valori è
 Le configurazioni sono \(2^n\), ma i valori distinti sono \(2^n-1\):
 \(00\cdots0\) e \(10\cdots0\) rappresentano entrambe zero.
 Inoltre, la somma richiede di distinguere operandi con segno uguale,
-per i quali si sommano i moduli, e con segno opposto, per i quali
-si confrontano e sottraggono i moduli.
+per i quali si sommano i moduli mantenendo il segno comune, e con
+segno opposto, per i quali si sottrae il modulo minore da quello
+maggiore, attribuendo al risultato il segno dell'operando di
+modulo maggiore. Se i moduli sono uguali e i segni opposti,
+il risultato è zero.
 
 \section{Complemento a due}
 \label{sec:fi-complemento-due}
 
 Il \emph{complemento a due} evita la doppia rappresentazione dello zero
-e permette di eseguire le somme mediante l'addizione binaria.
+e permette di eseguire le somme di interi con segno mediante
+l'addizione binaria su \(n\) bit, purché il risultato sia rappresentabile.
 
 \begin{definition}[Codifica in complemento a due]
 \label{def:fi-complemento-due}
@@ -211,12 +213,15 @@ Equivalentemente, il bit più significativo ha peso negativo:
   a=-a_{n-1}2^{n-1}+\sum_{k=0}^{n-2}a_k2^k.
   \label{eq:fi-pesi-complemento-due}
 \end{equation}
+
 Il bit più significativo indica quindi il segno, ma gli altri bit di
-un numero negativo \emph{non} ne rappresentano il modulo. Gli estremi
+un numero negativo non ne rappresentano il modulo. Gli estremi
 sono \(-2^{n-1}\) e \(2^{n-1}-1\); su otto bit si ha
 \([-128,127]\cap\Z\) e su trentadue bit
 \([-2147483648,2147483647]\cap\Z\), intervallo del tipo
-\texttt{int} di Java.
+\texttt{int} di Java, i cui estremi sono disponibili mediante
+\texttt{Integer.MIN\_VALUE} e \texttt{Integer.MAX\_VALUE}
+(\cref{sec:fi-java-tipi-fondamentali}).
 
 \subsection{Codifica, inversione e decodifica}
 
@@ -297,9 +302,9 @@ entrante nel bit di segno \(c_{n-1}\) è diverso dal riporto uscente
 \begin{proof}
 La somma di interi con segno opposto è compresa fra gli operandi e non
 può eccedere l'intervallo disponibile. La somma di due non negativi
-può superare solo il massimo e produrre un primo bit uguale a uno;
+può superare solo il massimo e produrre un bit di segno uguale a uno;
 quella di due negativi può scendere sotto il minimo e produrre un
-primo bit nullo. Applicando la regola dell'addizione alla colonna di
+bit di segno nullo. Applicando la regola dell'addizione alla colonna di
 segno, i due casi corrispondono rispettivamente a
 \((c_{n-1},c_n)=(1,0)\) e \((0,1)\).
 \end{proof}
@@ -315,12 +320,6 @@ Entrambi i risultati sono corretti modulo \(16\), ma non come
 somme di interi con segno.
 \end{example}
 
-La sottrazione \(a-b\) si esegue sommando ad \(a\) il complemento a
-due di \(b\). Si verifica overflow quando gli operandi della
-sottrazione hanno segni opposti e il risultato ha segno diverso da
-quello di \(a\). Il riporto finale, da solo, non determina l'overflow
-con segno (\cref{prop:fi-overflow-somma}).
-
 \section{Virgola fissa e virgola mobile}
 \label{sec:fi-virgola-mobile}
 
@@ -331,7 +330,7 @@ nella \cref{sec:fi-conversioni-binarie}.
 
 Nella rappresentazione in \emph{virgola fissa} la posizione del
 separatore è prestabilita. Usando \(n\) bit senza segno, di cui
-\(m\) frazionari, si rappresentano valori \(U2^{-m}\), con
+\(0\le m\le n\) frazionari, si rappresentano valori \(U2^{-m}\), con
 \(0\le U\le2^n-1\), distanziati di \(2^{-m}\).
 
 Nella rappresentazione in \emph{virgola mobile} un numero finito non
@@ -361,8 +360,6 @@ uno per la frazione. I parametri sono riportati nella
 
 \begin{table}[htbp]
   \centering
-  \caption{Parametri dei formati IEEE 754 binari.}
-  \label{tab:fi-formati-ieee}
   \begin{tabular}{lcc}
     \toprule
     Parametro & binary32 & binary64 \\
@@ -376,6 +373,8 @@ uno per la frazione. I parametri sono riportati nella
     Esponenti normali & \(-126\) a \(127\) & \(-1022\) a \(1023\) \\
     \bottomrule
   \end{tabular}
+  \caption{Parametri dei formati IEEE 754 binari.}
+  \label{tab:fi-formati-ieee}
 \end{table}
 
 Sia \(e\) il valore intero senza segno del campo esponente e \(F\)
@@ -412,6 +411,8 @@ ha \(s=0\), \(e=3+127=130=(10000010)_2\) e frazione
 La decodifica restituisce \((1+2^{-2}+2^{-4})2^3=10.5\).
 \end{example}
 
+\clearpage
+
 \subsection{Valori limite, zeri e configurazioni speciali}
 
 Per i formati della \cref{tab:fi-formati-ieee}, il minimo normale
@@ -428,8 +429,14 @@ In binary32 valgono
   x_{\min,\mathrm{sub}}&=2^{-149}\approx1.4013\cdot10^{-45},\\
   x_{\max}&=(2-2^{-23})2^{127}\approx3.4028\cdot10^{38}.
 \end{align*}
-In binary64 i corrispondenti estremi sono \(2^{-1022}\),
-\(2^{-1074}\) e \((2-2^{-52})2^{1023}\).
+
+In binary64 valgono
+\begin{align*}
+  x_{\min,\mathrm{norm}}&=2^{-1022}\approx2.2251\cdot10^{-308},\\
+  x_{\min,\mathrm{sub}}&=2^{-1074}\approx4.9407\cdot10^{-324},\\
+  x_{\max}&=(2-2^{-52})2^{1023}\approx1.7977\cdot10^{308}.
+\end{align*}
+
 I subnormali consentono un \emph{underflow graduale} verso zero,
 con una precisione relativa decrescente.
 
@@ -438,8 +445,6 @@ Le configurazioni riservate sono riepilogate nella
 
 \begin{table}[htbp]
   \centering
-  \caption{Interpretazione dei campi IEEE 754.}
-  \label{tab:fi-valori-speciali}
   \begin{tabular}{lll}
     \toprule
     Esponente & Frazione & Valore \\
@@ -451,6 +456,8 @@ Le configurazioni riservate sono riepilogate nella
     \(e=2^w-1\) & \(F\ne0\) & NaN \\
     \bottomrule
   \end{tabular}
+  \caption{Interpretazione dei campi IEEE 754.}
+  \label{tab:fi-valori-speciali}
 \end{table}
 
 \emph{NaN} (\emph{Not a Number}) rappresenta risultati non numerici,
@@ -483,8 +490,9 @@ di arrotondamento del risultato.
 
 \begin{example}[Il valore decimale \(4.35\)]
 \label{ex:fi-arrotondamento-prodotto}
-Poiché \(4.35=87/20\), il valore non ha una rappresentazione binaria
-finita, per la \cref{prop:fi-frazione-binaria-finita}.
+La parte frazionaria di \(4.35\) è \(0.35=7/20\) e, per la
+\cref{prop:fi-frazione-binaria-finita}, non ammette una
+rappresentazione binaria finita.
 In binary64, arrotondato al più vicino, vale
 \[
   \widehat{x}\approx4.3499999999999996.
@@ -518,45 +526,56 @@ le approssimazioni possono variare con l'ordine delle operazioni.
 \section{Notazione esadecimale e ottale}
 \label{sec:fi-esadecimale-ottale}
 
-Per scrivere più concisamente le sequenze binarie si usa anche la
+Per scrivere più concisamente le sequenze binarie si utilizza la
 base sedici, che impiega le cifre
 \(0,\ldots,9,\mathrm{A},\ldots,\mathrm{F}\),
 con \(\mathrm{A}=10,\ldots,\mathrm{F}=15\). Poiché \(16=2^4\),
 una cifra esadecimale corrisponde a quattro bit. I gruppi si formano
-partendo dal separatore: verso sinistra per la parte intera, verso
+partendo dal separatore: verso sinistra per la parte intera e verso
 destra per quella frazionaria.
 
 \begin{example}[Raggruppamento in base sedici]
 \begin{align*}
   (0111\,1111)_2&=(\mathrm{7F})_{16}=127,\\
-  (1011\,0110)_2&=(\mathrm{B6})_{16},\\
-  (1101.101)_2&=(\mathrm{D.A})_{16}=13.625.
+  (1011\,0110)_2&=(\mathrm{B6})_{16}=182,\\
+  (1101.101)_2&=(1101.1010)_2=(\mathrm{D.A})_{16}=13.625.
 \end{align*}
-Nell'ultimo esempio si aggiunge uno zero \emph{a destra} della
-parte frazionaria. La notazione \texttt{0x7F} indica comunemente
+Nell'ultimo esempio si aggiunge uno zero a destra della parte
+frazionaria. La notazione \texttt{0x7F} indica comunemente
 \((\mathrm{7F})_{16}\).
 \end{example}
 
 La base otto impiega le cifre da \(0\) a \(7\). Poiché \(8=2^3\),
-si raggruppano i bit tre a tre:
+una cifra ottale corrisponde a tre bit. I gruppi si formano
+partendo dal separatore: verso sinistra per la parte intera e verso
+destra per quella frazionaria.
+
+\clearpage
+
+\begin{example}[Raggruppamento in base otto]
 \begin{align*}
   (100010)_2&=(100\,010)_2=(42)_8=34,\\
   (11100010)_2&=(011\,100\,010)_2=(342)_8=226,\\
-  (31)_8&=3\cdot8+1=25.
+  (1101.101)_2&=(001\,101.101)_2=(15.5)_8=13.625.
 \end{align*}
+Nell'ultimo esempio si aggiungono due zeri a sinistra della parte
+intera. In Python, la notazione \texttt{0o42} indica
+\((42)_8\).
+\end{example}
+
 Nelle conversioni inverse si sostituisce ogni cifra esadecimale con
 quattro bit e ogni cifra ottale con tre bit. La base non determina
-il segno:
-per interpretare una sequenza come intero con segno occorre conoscere
-il formato (\cref{warn:fi-larghezza-interi}).
+il segno: per interpretare una sequenza come intero con segno occorre
+conoscere il formato (\cref{warn:fi-larghezza-interi}).
 
 \section{Rappresentazione dei caratteri}
 \label{sec:fi-caratteri}
 
 Per rappresentare un testo si associano codici numerici ai suoi
-caratteri. Il \emph{punto di codice} identifica un carattere nel
-repertorio; il \emph{formato di codifica} stabilisce come quel valore
-viene memorizzato in byte. Uno stesso punto di codice può quindi avere
+caratteri. Un \emph{punto di codice} è un valore numerico che può
+essere assegnato a un carattere del repertorio; il
+\emph{formato di codifica} ne stabilisce la rappresentazione in
+memoria. Uno stesso punto di codice può quindi avere
 rappresentazioni in byte diverse.
 
 \subsection{ASCII e codifiche a otto bit}
@@ -568,8 +587,6 @@ i codici \(32\)--\(126\) sono stampabili.
 
 \begin{table}[htbp]
   \centering
-  \caption{Codici e intervalli ASCII principali.}
-  \label{tab:fi-ascii}
   \begin{tabular}{lll}
     \toprule
     Codice & Simbolo & Significato \\
@@ -584,6 +601,8 @@ i codici \(32\)--\(126\) sono stampabili.
     127 & \texttt{DEL} & Carattere di controllo \\
     \bottomrule
   \end{tabular}
+  \caption{Codici e intervalli ASCII principali.}
+  \label{tab:fi-ascii}
 \end{table}
 
 I codici di \texttt{0} e \texttt{1} sono rispettivamente \(48\) e
@@ -600,8 +619,9 @@ byte successivi.
 
 \subsection{Unicode e formati UTF}
 
-\emph{Unicode} assegna ai caratteri punti di codice indicati nella
-forma \texttt{U+XXXX}. Lo spazio dei punti di codice arriva a
+\emph{Unicode} assegna ai caratteri punti di codice indicati con
+il prefisso \texttt{U+}, seguito da almeno quattro cifre
+esadecimali. Lo spazio dei punti di codice arriva a
 \texttt{U+10FFFF}; i primi \(128\) corrispondono ad ASCII.
 Unicode non prescrive due byte per carattere e non tutti i punti
 di codice sono assegnati.\footnote{Unicode Consortium,

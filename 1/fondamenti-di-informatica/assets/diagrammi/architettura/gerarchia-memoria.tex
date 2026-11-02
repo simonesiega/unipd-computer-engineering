@@ -1,0 +1,23 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \filldraw[unipd/edge,fill=unipd-soft]
+    (0,4.95) -- (-1.10,3.50) -- (1.10,3.50) -- cycle;
+  \filldraw[unipd/edge,fill=unipd-accent!10]
+    (-1.10,3.50) -- (-1.94,2.40) -- (1.94,2.40) -- (1.10,3.50) -- cycle;
+  \filldraw[unipd/edge,fill=unipd-soft]
+    (-1.94,2.40) -- (-2.78,1.30) -- (2.78,1.30) -- (1.94,2.40) -- cycle;
+  \filldraw[unipd/edge,fill=unipd-accent!10]
+    (-2.78,1.30) -- (-3.62,0.20) -- (3.62,0.20) -- (2.78,1.30) -- cycle;
+  \node[font=\sffamily\footnotesize] at (0,3.88) {Registri};
+  \node[font=\sffamily\footnotesize] at (0,2.95) {Cache};
+  \node[font=\sffamily\footnotesize] at (0,1.85) {RAM};
+  \node[font=\sffamily\footnotesize,align=center] at (0,0.75)
+    {Memoria\\secondaria};
+  \node[anchor=west,font=\sffamily\footnotesize] at (3.85,3.88)
+    {$\approx 0{,}3\,\mathrm{ns}$};
+  \node[anchor=west,font=\sffamily\footnotesize] at (3.85,2.95)
+    {$\approx 1\text{--}10\,\mathrm{ns}$};
+  \node[anchor=west,font=\sffamily\footnotesize] at (3.85,1.85)
+    {$\approx 50\text{--}100\,\mathrm{ns}$};
+  \node[anchor=west,font=\sffamily\footnotesize] at (3.85,0.75)
+    {$\approx 100\,\mu\mathrm{s}\text{--}10\,\mathrm{ms}$};
+\end{tikzpicture}

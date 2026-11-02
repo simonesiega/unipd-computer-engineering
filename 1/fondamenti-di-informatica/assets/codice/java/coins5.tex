@@ -1,0 +1,15 @@
+\begin{unipdcode}[language=Java]
+public class Coins5 {
+    public static void main(String[] args) {
+        double euro = 2.35;
+        final int CENT_PER_EURO = 100;
+
+        int centEuro = (int) Math.round(euro * CENT_PER_EURO);
+        int intEuro = centEuro / CENT_PER_EURO;
+        centEuro = centEuro % CENT_PER_EURO;
+
+        System.out.print(intEuro + " euro e ");
+        System.out.println(centEuro + " centesimi");
+    }
+}
+\end{unipdcode}

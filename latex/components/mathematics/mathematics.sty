@@ -2,6 +2,10 @@
 \ProvidesPackage{\@currpath\@currname}[2026/07/31 v0.1.0 Mathematics]
 
 \RequirePackage{mathtools}
+\ExplSyntaxOn
+\msg_redirect_name:nnn { unicode-math } { mathtools-overbracket } { info }
+\msg_redirect_name:nnn { unicode-math } { mathtools-colon } { info }
+\ExplSyntaxOff
 \RequirePackage{unicode-math}
 \RequirePackage{siunitx}
 

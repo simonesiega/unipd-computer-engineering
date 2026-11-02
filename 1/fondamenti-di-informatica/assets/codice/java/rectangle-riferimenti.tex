@@ -1,0 +1,22 @@
+\begin{unipdcode}[language=Java]
+import java.awt.Rectangle;
+
+public class RectangleTester {
+    public static void main(String[] args) {
+        Rectangle box = new Rectangle(5, 10, 20, 30);
+        Rectangle alias = box;
+        alias.translate(15, 25);
+        System.out.println(box.getX());
+
+        Rectangle copia = new Rectangle(box);
+        copia.translate(10, 0);
+        System.out.println(box.getX());
+        System.out.println(copia.getX());
+    }
+}
+\end{unipdcode}
+\begin{unipdterminal}
+20.0
+20.0
+30.0
+\end{unipdterminal}

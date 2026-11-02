@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Python]
+def trova_sottostringa(testo, modello):
+    n = len(testo)                              # 1
+    m = len(modello)                            # 1
+    for i in range(n - m + 1):                  # al più n-m+1
+        coincidenze = 0                         # 1
+        for j in range(m):                      # m
+            if testo[i + j] == modello[j]:      # 4
+                coincidenze += 1                # 1 (t)
+        if coincidenze == m:                    # 1
+            return i                            # escluso
+    return -1                                   # escluso
+\end{unipdcode}

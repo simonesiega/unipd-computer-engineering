@@ -8,16 +8,19 @@ all'esecuzione in funzione della dimensione dell'ingresso: principalmente
 tempo e memoria. L'analisi permette di confrontare algoritmi che
 risolvono lo stesso problema e di prevederne il comportamento per
 ingressi non ancora elaborati.\footnote{Materiale di riferimento:
-S. Canazza, \emph{Complessità computazionale}, dispense del corso di
-Fondamenti di Informatica.}
+M. Ceccarello e C. Pizzi, \emph{Cenni di complessità
+computazionale}, dispense del corso di Fondamenti di Informatica.}
 
 \section{Analisi sperimentale}
 \label{sec:fi-complessita-sperimentale}
 
 L'analisi sperimentale misura le prestazioni di un'implementazione
-eseguendola su ingressi di dimensione diversa. Se il tempo impiegato per
-un ingresso di dimensione \(n\) è \(t(n)\), il rapporto fra \(t(2n)\) e
-\(t(n)\) descrive l'effetto del raddoppio della dimensione.
+eseguendola su ingressi di dimensione diversa. Per esplorare un ampio
+intervallo di dimensioni con poche misurazioni, si procede generalmente
+raddoppiando la dimensione dell'ingresso a ogni prova. Se il tempo
+impiegato per un ingresso di dimensione \(n\) è \(t(n)\), il rapporto
+fra \(t(2n)\) e \(t(n)\) descrive l'effetto del raddoppio e permette
+di stimare l'ordine di crescita.
 
 Nel modello \(t(n)=an^b\), con \(a>0\), si ha
 \[
@@ -30,20 +33,19 @@ un rapporto prossimo a \(2\) suggerisce una crescita lineare. La
 stima non costituisce, da sola, una dimostrazione della complessità.
 
 In Python, il modulo \texttt{time} offre \texttt{time.time()}, che
-restituisce un istante espresso in secondi, e
-\texttt{time.perf\_counter()}, adatto alla misura di intervalli di
-tempo. La durata si ottiene sottraendo le letture effettuate prima e
+restituisce un istante espresso in secondi. Per misurare intervalli di
+tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene sottraendo le letture effettuate prima e
 dopo l'esecuzione. Per confrontare più dimensioni si possono registrare
 i risultati in formato CSV, utilizzando i file di testo introdotti
 nella \cref{sec:fi-python-file}. Un esempio completo di misurazione
-sarà presentato dopo le due implementazioni di \texttt{reverse}.
+sarà presentato dopo le due implementazioni di \texttt{reverse} (\cref{sec:fi-complessita-reverse-lineare}).
 
 Il tempo misurato dipende anche dai valori dei dati, dall'hardware,
 dall'interprete o compilatore, dal linguaggio, dall'implementazione e
-dalle condizioni di esecuzione. Ripetere gli esperimenti riduce
-l'influenza delle fluttuazioni, ma non elimina tali dipendenze. Per
-confrontare gli algoritmi indipendentemente da una particolare macchina
-si ricorre all'analisi teorica.
+dalle condizioni di esecuzione. Ripetere le misurazioni e considerarne valori aggregati
+riduce l'influenza delle fluttuazioni, ma non elimina tali dipendenze.
+Per studiare la crescita dei costi senza basarsi sulle misure
+effettuate su una particolare macchina si ricorre all'analisi teorica.
 
 \section{Analisi teorica e modello di costo}
 \label{sec:fi-complessita-modello}
@@ -66,16 +68,23 @@ può essere identificato con quello della sola chiamata.
 
 Fissato il modello, si indica con \(T(x)\) il costo di esecuzione
 sull'ingresso \(x\). Per ingressi di dimensione \(n\), il costo può
-dipendere anche dal contenuto: si possono pertanto considerare il
-caso peggiore e il caso migliore. Nei programmi esaminati di seguito
-il numero delle operazioni considerate dipende soltanto dalla
-lunghezza \(n\) della lista.
+dipendere anche dal contenuto: si distinguono il caso migliore e il
+caso peggiore e, quando è specificata una distribuzione degli ingressi,
+il caso medio. Negli esempi seguenti, la dimensione è spesso
+rappresentata dalla lunghezza \(n\) di una lista; quando necessario,
+si considerano più parametri dimensionali.
 
 Nel conteggio dei passi si sommano i costi dei blocchi eseguiti in
 sequenza. Per un'istruzione condizionale si considera il ramo
 effettivamente percorso; per un limite superiore si può maggiorare
-il costo con quello del ramo più oneroso. Il costo di un ciclo è la
-somma dei costi delle sue iterazioni, che possono essere differenti.
+il costo con quello del ramo più oneroso; per un limite inferiore
+valido in entrambi i rami, con il costo di quello meno oneroso.
+Il costo di un ciclo è la somma dei costi delle sue iterazioni,
+che possono essere differenti. Per esempio, due cicli annidati,
+entrambi con intervallo \texttt{range(n)}, eseguono il corpo interno
+\(n^2\) volte; se il ciclo esterno usa \texttt{range(n)} con indice
+\texttt{i} e quello interno usa \texttt{range(i)}, il numero diventa
+\(\sum_{i=0}^{n-1}i=n(n-1)/2\).
 Il modello può essere semplificato ulteriormente scegliendo come passi
 base soltanto le operazioni rilevanti per il confronto in esame.
 
@@ -114,31 +123,79 @@ un limite inferiore e \(\Theta\) entrambi. In particolare,
   f\in\Theta(g)
   \iff f\in O(g)\ \text{e}\ f\in\Omega(g).
 \]
-Il significato delle notazioni è distinto dal numero esatto di
-operazioni e dalla durata misurata su una macchina.
 
-\begin{example}[Termine dominante]
-Per ogni \(n\ge1\),
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/complessita/notazioni-asintotiche}
+  \caption{Interpretazione qualitativa delle notazioni asintotiche:
+  in \(O(g)\) la funzione \(f\) è asintoticamente limitata superiormente
+  da un multiplo di \(g\); in \(\Omega(g)\) è limitata inferiormente;
+  in \(\Theta(g)\) è compresa fra due multipli positivi di \(g\).}
+  \label{fig:fi-notazioni-asintotiche}
+\end{figure}
+
+La \cref{fig:fi-notazioni-asintotiche} illustra come le tre notazioni
+descrivano limiti superiori, inferiori o bilateri alla crescita
+di una funzione per \(n\) sufficientemente grande.
+
+\begin{example}[Analisi asintotica nei tre casi]
+Si consideri un algoritmo di ordinamento che verifica inizialmente
+se una lista di \(n\) elementi è già ordinata. In caso affermativo,
+termina; altrimenti applica QuickSort, scegliendo sempre l'ultimo
+elemento come pivot. L'algoritmo QuickSort è approfondito nella
+\cref{sec:fi-ordinamento-rapido}.
+
+Nel \emph{caso migliore}, la lista è già ordinata e il controllo
+preliminare richiede un numero di confronti proporzionale a \(n\).
+Pertanto,
 \[
-  3n^2\le 3n^2+10^4n+10^{1000}
-  \le (3+10^4+10^{1000})n^2.
+  T_{\mathrm{best}}(n)\in O(n),\qquad
+  T_{\mathrm{best}}(n)\in\Omega(n),\qquad
+  T_{\mathrm{best}}(n)\in\Theta(n).
 \]
-Pertanto
+
+Nel \emph{caso medio}, assumendo una distribuzione uniforme delle
+permutazioni di \(n\) valori distinti, QuickSort richiede mediamente
+un numero di operazioni proporzionale a \(n\log n\). Il controllo
+preliminare non modifica tale ordine di crescita, quindi
 \[
-  3n^2+10^4n+10^{1000}\in\Theta(n^2).
+  T_{\mathrm{avg}}(n)\in O(n\log n),\qquad
+  T_{\mathrm{avg}}(n)\in\Omega(n\log n),\qquad
+  T_{\mathrm{avg}}(n)\in\Theta(n\log n).
 \]
-Analogamente,
+
+Nel \emph{caso peggiore}, una lista ordinata in senso decrescente
+determina partizioni fortemente sbilanciate. Il numero di operazioni
+di QuickSort cresce quadraticamente:
 \[
-  6\in\Theta(1),\qquad
-  n^2+3\log_2n+5\in\Theta(n^2),\qquad
-  3n^3+10n^2+5n\in\Theta(n^3).
+  T_{\mathrm{worst}}(n)\in O(n^2),\qquad
+  T_{\mathrm{worst}}(n)\in\Omega(n^2),\qquad
+  T_{\mathrm{worst}}(n)\in\Theta(n^2).
 \]
-Poiché un'esponenziale di base maggiore di uno cresce più rapidamente
-di ogni potenza fissata di \(n\), si ha anche
-\[
-  3\cdot2^n+5n^{15}+100n\in\Theta(2^n).
-\]
+
+I risultati si riassumono nella tabella seguente:
+\begin{center}
+\begin{tabular}{lccc}
+  \hline
+  Caso & \(O\) & \(\Omega\) & \(\Theta\)\\
+  \hline
+  Migliore & \(O(n)\) & \(\Omega(n)\) & \(\Theta(n)\)\\
+  Medio & \(O(n\log n)\) & \(\Omega(n\log n)\)
+        & \(\Theta(n\log n)\)\\
+  Peggiore & \(O(n^2)\) & \(\Omega(n^2)\) & \(\Theta(n^2)\)\\
+  \hline
+\end{tabular}
+\end{center}
+
+Le tre notazioni si applicano separatamente a ciascun caso.
+Quando il limite superiore e quello inferiore hanno lo stesso
+ordine di crescita, si ottiene una stima asintotica precisa
+mediante \(\Theta\).
 \end{example}
+
+Nel linguaggio corrente, quando si dice soltanto che un algoritmo
+è \(O(g(n))\), ci si riferisce spesso al caso peggiore; è però opportuno
+specificarlo esplicitamente.
 
 \section{Un algoritmo quadratico per l'inversione di una lista}
 \label{sec:fi-complessita-reverse-quadratico}
@@ -157,10 +214,11 @@ della lista di ingresso. Il ciclo interno li sposta di una posizione;
 l'assegnamento successivo inserisce \texttt{lista[i]} in posizione
 zero. Dopo \(n\) iterazioni si ottiene quindi la lista invertita.
 
-Per determinare il costo si adotta un conteggio semplificato:
-l'istruzione \texttt{n = len(lista)} e gli assegnamenti semplici
-valgono un passo ciascuno, mentre la costruzione di
-\texttt{[0] * n} costa \(n\) passi. Si trascurano i controlli
+Per determinare il costo si adotta un conteggio semplificato, secondo
+il modello della \cref{sec:fi-complessita-modello}. L'istruzione
+\texttt{n = len(lista)} e gli assegnamenti semplici valgono un passo
+ciascuno, mentre la costruzione di \texttt{[0] * n} costa \(n\) passi,
+oltre all'assegnamento a \texttt{output}. Si trascurano i controlli
 e gli aggiornamenti impliciti dei cicli e la restituzione finale.
 L'inizializzazione costa pertanto \(n+3\) passi.
 
@@ -193,6 +251,12 @@ posizione \(i\) della lista di uscita.
 
 \input{assets/codice/complessita/reverse-lineare}
 
+All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
+\texttt{output} contengono, in ordine inverso, gli ultimi \(i\) elementi
+della lista di ingresso. Ogni iterazione colloca un nuovo elemento
+nella posizione definitiva; dopo \(n\) iterazioni si ottiene quindi
+la lista invertita.
+
 L'inizializzazione costa \(n+2\) passi nel modello precedente. Ogni
 iterazione esegue due sottrazioni, una lettura e una scrittura: quattro
 passi, indipendenti da \(n\). Si ottiene quindi
@@ -215,24 +279,220 @@ singole restano soggette alle fluttuazioni dell'esecuzione.
 Per input sufficientemente grandi, il rapporto teorico fra i costi dei
 due algoritmi cresce proporzionalmente a \(n\).
 
+\section{Somme prefisse: evitare calcoli ripetuti}
+\label{sec:fi-complessita-somme-prefisse}
+
+Data una lista di numeri \(v=[v_0,\ldots,v_{n-1}]\), si vuole
+costruire una lista \(s\) tale che
+\[
+  s_i=\sum_{j=0}^{i}v_j,\qquad 0\le i<n.
+\]
+Per esempio, da \([3,1,4,1,5]\) si ottiene
+\([3,4,8,9,14]\). Una prima soluzione ricalcola per ogni indice
+la somma dall'inizio; una seconda conserva la somma già raggiunta.
+
+\input{assets/codice/complessita/somme-prefisse}
+
+Nella prima versione, a ogni iterazione di indice \(i\) viene
+calcolata la somma dei primi \(i+1\) elementi della lista di ingresso,
+ottenendo il valore \(s_i\). Il ciclo interno viene quindi eseguito
+\(i+1\) volte e il numero complessivo degli addendi elaborati è
+\[
+  \sum_{i=0}^{n-1}(i+1)=\frac{n(n+1)}2.
+\]
+La complessità temporale è pertanto
+\[
+  T_{\mathrm{quadratico}}(n)\in\Theta(n^2).
+\]
+
+Nella seconda versione, all'inizio dell'iterazione di indice \(i\),
+l'accumulatore \texttt{somma} contiene la somma dei primi \(i\)
+elementi. L'aggiornamento lo porta a \(s_i\), che viene scritto
+nella lista di uscita. Dopo \(n\) iterazioni si ottengono tutte
+le somme prefisse, senza ricalcolare quelle precedenti.
+Ogni iterazione richiede un numero costante di operazioni, quindi
+\[
+  T_{\mathrm{lineare}}(n)\in\Theta(n).
+\]
+
+Entrambe le implementazioni richiedono \(\Theta(n)\) spazio per
+la lista di uscita e restituiscono una lista vuota quando
+l'ingresso è vuoto.
+
+\section{Massima differenza fra elementi}
+\label{sec:fi-complessita-differenza}
+
+Data una lista non vuota di numeri \(v=[v_0,\ldots,v_{n-1}]\), si
+vuole determinare la massima differenza \(v_i-v_j\) fra due elementi,
+senza vincoli sull'ordine degli indici, che possono anche coincidere.
+Per esempio, da \([3,9,1,4]\) si ottiene \(9-1=8\).
+Una prima soluzione esamina tutte le coppie di elementi; una seconda
+sfrutta la relazione
+\[
+  \max_{0\le i,j<n}(v_i-v_j)
+  =\max_{0\le i<n}v_i-\min_{0\le j<n}v_j.
+\]
+È quindi sufficiente individuare il minimo e il massimo della lista.
+
+\input{assets/codice/complessita/differenza-massima}
+
+Nella prima versione, la variabile \texttt{massimo} conserva la
+maggiore differenza fra quelle già esaminate e zero. Il valore
+iniziale è valido poiché, scegliendo \(i=j\), si ottiene sempre
+una differenza nulla. Dopo aver visitato tutte le coppie,
+\texttt{massimo} contiene quindi il risultato richiesto.
+I due cicli annidati esaminano \(n^2\) coppie e la complessità
+temporale è
+\[
+  T_{\mathrm{quadratico}}(n)\in\Theta(n^2).
+\]
+
+Nella seconda versione, all'inizio dell'iterazione di indice \(i\),
+le variabili \texttt{minimo} e \texttt{massimo} contengono
+rispettivamente il minimo e il massimo dei primi \(i\) elementi.
+I confronti con l'elemento corrente conservano tale proprietà;
+dopo \(n-1\) iterazioni, la loro differenza fornisce il risultato
+richiesto. Ogni iterazione richiede un numero costante di operazioni,
+quindi
+\[
+  T_{\mathrm{lineare}}(n)\in\Theta(n).
+\]
+
+Entrambe le implementazioni richiedono \(\Theta(1)\) spazio ausiliario.
+Le funzioni sollevano \texttt{ValueError} per una lista vuota e
+restituiscono zero quando la lista contiene un solo elemento.
+
+\clearpage
+
+\section{Riconoscimento di elementi duplicati}
+\label{sec:fi-complessita-duplicati}
+
+Data una lista \(v=[v_0,\ldots,v_{n-1}]\), si vuole stabilire
+se contiene elementi duplicati, ossia se esistono indici distinti
+\(i,j\) tali che \(v_i=v_j\). Una prima soluzione confronta ogni
+elemento con quelli successivi; una seconda ordina una copia della
+lista e verifica la presenza di elementi consecutivi uguali.
+
+\input{assets/codice/complessita/duplicati}
+
+Nella prima versione, il ciclo interno confronta l'elemento di indice
+\(i\) con tutti quelli di indice maggiore. Ogni coppia di indici
+distinti viene quindi esaminata al più una volta e la funzione
+restituisce \texttt{True} non appena individua due valori uguali.
+Nel caso peggiore, quando tutti gli elementi sono distinti,
+il numero di confronti è
+\[
+  \sum_{i=0}^{n-1}(n-i-1)
+  =\frac{n(n-1)}2.
+\]
+La complessità temporale nel caso peggiore è pertanto
+\[
+  T_{\mathrm{quadratico}}(n)\in\Theta(n^2).
+\]
+Nel caso migliore, per \(n\ge2\), i primi due elementi coincidono
+e la funzione termina dopo un solo confronto, in tempo \(\Theta(1)\).
+
+Nella seconda versione, l'ordinamento colloca gli eventuali valori
+duplicati in posizioni adiacenti. Il ciclo verifica ciascuna coppia
+di elementi consecutivi e restituisce \texttt{True} quando trova
+un'uguaglianza. Se la scansione termina senza individuarne, tutti
+gli elementi sono distinti. L'ordinamento mediante \texttt{sorted()}
+richiede \(O(n\log n)\) tempo nel caso peggiore, mentre la scansione
+richiede \(O(n)\). La complessità temporale complessiva è quindi
+\[
+  T_{\mathrm{ordinamento}}(n)\in O(n\log n).
+\]
+
+La prima implementazione richiede \(\Theta(1)\) spazio ausiliario,
+mentre la seconda richiede \(O(n)\) spazio aggiuntivo per la copia
+ordinata. Entrambe restituiscono \texttt{False} per liste con meno
+di due elementi. La seconda soluzione richiede inoltre che i valori
+siano ordinabili secondo un criterio coerente con l'uguaglianza.
+
+\clearpage
+
+\section{Ricerca di una sottostringa e dimensioni multiple}
+\label{sec:fi-complessita-sottostringa}
+
+Date due stringhe \texttt{testo} e \texttt{modello}, si vuole
+restituire il primo indice in cui il modello compare nel testo,
+oppure \(-1\) in caso di assenza. Per esempio, cercare
+\texttt{"cad"} in \texttt{"abracadabra"} restituisce \(4\).
+Indicando con \(n\) e \(m\) le rispettive lunghezze, i possibili
+indici iniziali sono \(0,\ldots,n-m\), purché \(m\le n\).
+La ricerca diretta confronta i caratteri del modello con quelli
+del testo per ogni posizione candidata.
+
+\input{assets/codice/complessita/sottostringa}
+
+Per ogni posizione iniziale \(i\), la variabile
+\texttt{coincidenze} conta i caratteri corrispondenti nelle due
+stringhe. Se il conteggio raggiunge \(m\), tutti i caratteri
+del modello coincidono e la funzione restituisce \(i\).
+Poiché le posizioni vengono esaminate in ordine crescente,
+l'indice restituito è quello della prima occorrenza.
+Se nessuna posizione soddisfa la condizione, viene restituito \(-1\).
+
+Per \(1\le m\le n\), nel caso peggiore vengono esaminate tutte
+le \(n-m+1\) posizioni candidate, confrontando \(m\) caratteri
+per ciascuna. La complessità temporale è pertanto
+\[
+  T_{\mathrm{peggiore}}(n,m)
+  \in\Theta\bigl((n-m+1)m\bigr).
+\]
+
+Se \(m\) è costante, il costo è \(\Theta(n)\); se \(m=n-1\),
+soltanto due posizioni sono candidate e il costo è ancora
+\(\Theta(n)\). Quando invece \(m\) è circa \(n/2\), il costo
+diventa \(\Theta(n^2)\).
+
+Nel caso migliore, quando la sottostringa cercata compare all'inizio
+del testo, viene esaminata una sola posizione candidata, confrontando
+\(m\) caratteri. La complessità temporale è pertanto
+\[
+  T_{\mathrm{migliore}}(n,m)
+  \in\Theta(m).
+\]
+
+L'implementazione richiede \(\Theta(1)\) spazio ausiliario.
+Se il modello è più lungo del testo, restituisce \(-1\) senza
+eseguire confronti fra caratteri; se è vuoto, restituisce
+zero, considerando la stringa vuota presente all'inizio del testo.
+
+L'algoritmo potrebbe interrompere il ciclo interno al primo
+carattere diverso, evitando confronti inutili senza eliminare
+il costo quadratico del caso peggiore. Algoritmi più sofisticati,
+come Knuth--Morris--Pratt, possono ottenere un tempo
+\(O(n+m)\) nel caso peggiore.
+
+\clearpage
+
 \section{Ordini di crescita e trattabilità}
 \label{sec:fi-complessita-ordini}
 
 Fra gli ordini di crescita più comuni si distinguono quello costante
 \(\Theta(1)\), logaritmico \(\Theta(\log n)\), lineare \(\Theta(n)\),
 lineare-logaritmico \(\Theta(n\log n)\), quadratico \(\Theta(n^2)\)
-e, più in generale, polinomiale \(\Theta(n^k)\) per \(k>0\) fissato.
-Una crescita esponenziale come \(\Theta(2^n)\) supera asintoticamente
-qualsiasi polinomio di grado fissato; la funzione \(n^n\) cresce
-ancora più rapidamente.
+e, più in generale, polinomiale \(\Theta(n^k)\) per \(k\) intero
+positivo fissato. Una crescita esponenziale come \(\Theta(2^n)\)
+supera asintoticamente qualsiasi polinomio di grado fissato;
+la funzione \(n^n\) cresce ancora più rapidamente.
+
+La base del logaritmo è irrilevante nelle notazioni asintotiche:
+per \(a,b>1\), la formula del cambiamento di base
+\[
+  \log_a n=\frac{\log_b n}{\log_b a}
+\]
+mostra che i logaritmi differiscono soltanto per un fattore
+moltiplicativo costante. Pertanto
+\(\log_a n\in\Theta(\log_b n)\).
 
 La distinzione fra crescita polinomiale ed esponenziale è importante
 per la trattabilità dei problemi, ma non determina da sola la
 praticabilità di un'implementazione: incidono anche la dimensione
-concreta dell'ingresso, i coefficienti e le risorse disponibili. In
-particolare, un algoritmo polinomiale con esponente elevato può essere
-impraticabile per dimensioni moderate. Le applicazioni alla ricerca e all'ordinamento sono
-esaminate nel \cref{chap:ricerca-ordinamento}.
+concreta dell'ingresso, i coefficienti e le risorse disponibili.
+In particolare, un algoritmo polinomiale con esponente elevato può
+essere impraticabile per dimensioni moderate.
 
 \section{Complessità della ricorsione di Fibonacci}
 \label{sec:fi-complessita-fibonacci}
@@ -241,13 +501,14 @@ Le due implementazioni di Fibonacci sono presentate nella
 \cref{sec:fi-fibonacci}, dove si è stabilito che il numero complessivo
 delle invocazioni ricorsive è \(C_n=2F_n-1\).
 Nel modello a costo unitario, ogni invocazione compie un numero
-costante di operazioni, escluse quelle delle chiamate interne. Il
-tempo dell'algoritmo ricorsivo è dunque
+costante di operazioni, escluse quelle delle chiamate interne.
+La complessità temporale della versione ricorsiva è pertanto
 \[
   T_{\mathrm{ric}}(n)\in\Theta(C_n)=\Theta(F_n).
 \]
-Dall'\cref{eq:fi-fibonacci} segue \(F_{n+2}\ge2F_n\). Per \(n\ge2\)
-si ottengono pertanto le stime
+Dalla ricorrenza e dalla monotonia della successione seguono
+\(F_{n+2}\ge2F_n\) e \(F_{n+1}\le2F_n\) per \(n\ge2\).
+Queste disuguaglianze permettono di ricavare le stime
 \[
   2^{\lfloor(n-1)/2\rfloor}\le F_n\le2^{n-2},
 \]
@@ -255,10 +516,17 @@ che mostrano la crescita esponenziale del numero delle invocazioni.
 Il costo dipende dal ricalcolo degli stessi sottoproblemi, visibile
 nella \cref{fig:fi-fibonacci-albero}.
 
-La versione iterativa, invece, calcola ogni termine una sola volta:
-\(T_{\mathrm{iter}}(n)\in\Theta(n)\) e impiega \(\Theta(1)\) spazio
-ausiliario. La ricorsione raggiunge profondità \(\Theta(n)\) e richiede
-\(\Theta(n)\) spazio per la pila delle chiamate. Come nel confronto
-del fattoriale della \cref{sec:fi-pila-ricorsione}, queste stime
-contano le operazioni e le variabili senza includere il costo crescente
+La versione iterativa, invece, calcola ogni termine una sola volta
+ed esegue un numero di operazioni proporzionale a \(n\). La sua
+complessità temporale è quindi
+\[
+  T_{\mathrm{iter}}(n)\in\Theta(n).
+\]
+
+La versione iterativa richiede \(\Theta(1)\) spazio ausiliario,
+mentre quella ricorsiva raggiunge una profondità di pila
+\(\Theta(n)\) e richiede quindi \(\Theta(n)\) spazio.
+Come nel confronto del fattoriale della
+\cref{sec:fi-pila-ricorsione}, queste stime considerano
+operazioni a costo unitario e non includono il costo crescente
 dell'aritmetica su interi arbitrariamente grandi.

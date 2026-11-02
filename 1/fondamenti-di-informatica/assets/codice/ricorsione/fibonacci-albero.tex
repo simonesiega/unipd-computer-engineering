@@ -1,0 +1,23 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node] (a) at (0,0) {\texttt{fib(5)}};
+  \node[unipd/node] (b) at (-3.2,-1.5) {\texttt{fib(4)}};
+  \node[unipd/node] (c) at (3.2,-1.5) {\texttt{fib(3)}};
+  \node[unipd/node] (d) at (-4.8,-3.0) {\texttt{fib(3)}};
+  \node[unipd/node] (e) at (-1.6,-3.0) {\texttt{fib(2)}};
+  \node[unipd/node] (f) at (1.6,-3.0) {\texttt{fib(2)}};
+  \node[unipd/node] (g) at (4.8,-3.0) {\texttt{fib(1)}};
+  \node[unipd/node] (h) at (-6.0,-4.5) {\texttt{fib(2)}};
+  \node[unipd/node] (i) at (-3.6,-4.5) {\texttt{fib(1)}};
+
+  \draw[unipd/directed edge] (a) -- node[midway, above left, fill=white, inner sep=1pt] {\scriptsize 1} (b);
+  \draw[unipd/directed edge] (a) -- node[midway, above right, fill=white, inner sep=1pt] {\scriptsize 6} (c);
+
+  \draw[unipd/directed edge] (b) -- node[midway, above left, fill=white, inner sep=1pt] {\scriptsize 2} (d);
+  \draw[unipd/directed edge] (b) -- node[midway, above right, fill=white, inner sep=1pt] {\scriptsize 5} (e);
+
+  \draw[unipd/directed edge] (c) -- node[midway, above left, fill=white, inner sep=1pt] {\scriptsize 7} (f);
+  \draw[unipd/directed edge] (c) -- node[midway, above right, fill=white, inner sep=1pt] {\scriptsize 8} (g);
+
+  \draw[unipd/directed edge] (d) -- node[midway, above left, fill=white, inner sep=1pt] {\scriptsize 3} (h);
+  \draw[unipd/directed edge] (d) -- node[midway, above right, fill=white, inner sep=1pt] {\scriptsize 4} (i);
+\end{tikzpicture}
