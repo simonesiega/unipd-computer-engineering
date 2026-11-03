@@ -1,5 +1,4 @@
 \begin{tikzpicture}[unipd/diagram,scale=0.9]
-  \fill[green!12] (0,-0.3) rectangle (1,0.3);
   \draw[unipd-rule,very thin] (-2,-2) grid (2,2);
   \draw[->,unipd-muted] (-2.4,0) -- (2.6,0) node[right] {\(x\)};
   \draw[->,unipd-muted] (0,-2.4) -- (0,2.6) node[above] {\(y\)};
@@ -19,9 +18,4 @@
   \draw[very thick,unipd-primary] (2,2) -- (2.4,2);
   \fill[unipd-primary] (2,2) circle (2pt);
 
-  \draw[very thick,green!40!black] (0,0) -- (1,0);
-  \fill[green!40!black] (0,0) circle (2pt);
-  \draw[green!40!black,fill=white,thick] (1,0) circle (2pt);
-  \node[fill=green!12,draw=green!40!black,rounded corners,inner sep=3pt]
-    at (0.5,-0.55) {\(\lfloor x\rfloor=0\), \(x\in[0,1)\)};
 \end{tikzpicture}
