@@ -11,7 +11,7 @@
 - 1 Lezione 1 --- 29 settembre 2026 — p. 2
   - 1.1 Numeri naturali e le loro operazioni — p. 2
   - 1.2 Ordinamento totale dei numeri naturali — p. 3
-  - 1.3 Richiami su insiemi e dimostrazioni — p. 4
+  - 1.3 Richiami su insiemi e dimostrazioni — p. 3
   - 1.4 Principio di induzione — p. 4
 - 2 Lezione 2 --- 30 settembre 2026 — p. 7
   - 2.1 Numeri interi — p. 7

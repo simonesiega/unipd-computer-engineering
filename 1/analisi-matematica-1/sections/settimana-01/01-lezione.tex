@@ -6,9 +6,8 @@
 
 Si considera l'insieme dei numeri naturali
 \[
-  \N=\{0,1,2,3,\ldots\},
+  \N=\{0,1,2,3,\ldots\}.
 \]
-adottando la convenzione \(0\in\N\).
 
 Su \(\N\) si considerano le operazioni di somma e prodotto, entrambe
 \emph{operazioni binarie}, ossia applicazioni che associano a ogni
@@ -21,14 +20,13 @@ coppia ordinata di numeri naturali un numero naturale:
   \cdot\colon\N\times\N\longrightarrow\N,
   \qquad (a,b)\longmapsto ab.
 \]
-La notazione \(\N\times\N\) indica le coppie ordinate
-di naturali (\cref{def:lez06-prodotto-cartesiano}).
+La notazione \(\N\times\N\) indica l'insieme delle coppie ordinate
+di numeri naturali (\cref{def:lez06-prodotto-cartesiano}).
 
 Le proprietà fondamentali delle due operazioni vengono assunte come
 \emph{assiomi}, senza dimostrazione.
 
-La somma è \emph{commutativa} (l'ordine degli addendi è irrilevante)
-e \emph{associativa} (lo è il raggruppamento): per ogni
+La somma è \emph{commutativa} e \emph{associativa}: per ogni
 \(a,b,c\in\N\) si ha
 \[
   a+b=b+a,
@@ -43,17 +41,18 @@ caratterizzato dalla proprietà
 Tale elemento è \(e_0=0\).
 
 Anche il prodotto è commutativo e associativo: per ogni
-\(a,b,c\in\N\) vale
+\(a,b,c\in\N\) si ha
 \[
   ab=ba,
   \qquad
   (ab)c=a(bc).
 \]
-Il suo unico \emph{elemento neutro} \(e_1\in\N\) soddisfa
+Ammette inoltre un unico elemento neutro \(e_1\in\N\),
+caratterizzato dalla proprietà
 \[
-  \forall a\in\N,\qquad ae_1=a,
+  \forall a\in\N,\qquad ae_1=a.
 \]
-ed è \(e_1=1\).
+Tale elemento è \(e_1=1\).
 
 Il prodotto è infine \emph{distributivo} rispetto alla somma:
 per ogni \(a,b,c\in\N\),
@@ -117,37 +116,29 @@ Per ogni \(a,b\in\N\),
   \quad\text{oppure}\quad
   b\le a.
 \]
-Le due possibilità non sono esclusive quando \(a=b\),
-poiché in tal caso valgono entrambe le disuguaglianze.
 
-Queste proprietà caratterizzano \(\le\) come un \emph{ordinamento
-totale} su \(\N\). L'ordine è inoltre compatibile con le
-operazioni di somma e prodotto.
+Queste proprietà caratterizzano \(\le\) come un
+\emph{ordinamento totale} su \(\N\). L'ordine è inoltre
+compatibile con le operazioni di somma e prodotto.
 
 \begin{proposition}[Compatibilità dell'ordine]
 \label{prop:compatibilita-ordine}
 Per ogni \(a,b,c\in\N\), se \(a\le b\), allora
 \[
-  a+c\le b+c.
-\]
-Inoltre, se \(c>0\), vale
-\[
+  a+c\le b+c,
+  \qquad
   ac\le bc.
 \]
 \end{proposition}
 
-Per \(c=0\) vale comunque \(ac=bc=0\).
 La dimostrazione della \cref{prop:compatibilita-ordine}
 non viene sviluppata in questa sede.
-
-\clearpage
 
 \section{Richiami su insiemi e dimostrazioni}
 \label{sec:lez01-insiemi-dimostrazioni}
 
 Siano \(A\) e \(B\) due insiemi. La loro \emph{intersezione}
-raccoglie gli elementi comuni, mentre l'\emph{unione} comprende
-gli elementi che appartengono ad almeno uno dei due:
+e la loro \emph{unione} sono definite rispettivamente da
 \[
   A\cap B=\{x:x\in A\text{ e }x\in B\},
   \qquad
@@ -162,6 +153,8 @@ gli elementi che appartengono ad almeno uno dei due:
   \label{fig:venn-operazioni}
 \end{figure}
 
+\clearpage
+
 Negli enunciati matematici si distinguono le \emph{ipotesi},
 che si assumono valide, e la \emph{tesi}, che si intende dimostrare.
 Un teorema può essere formulato nella forma
@@ -173,20 +166,21 @@ Per due proposizioni \(P\) e \(Q\), l'implicazione
 segue quella di \(Q\). Essa è logicamente equivalente alla
 propria \emph{contronominale}:
 \[
-  P\Longrightarrow Q
+  (P\Longrightarrow Q)
   \quad\Longleftrightarrow\quad
-  \neg Q\Longrightarrow\neg P.
+  (\neg Q\Longrightarrow\neg P).
 \]
 
 Nella \emph{dimostrazione per assurdo} si assumono le ipotesi e
 la negazione della tesi, ricavandone una contraddizione, ossia
 una proposizione \(C\) insieme alla sua negazione \(\neg C\).
 
+
 \section{Principio di induzione}
 \label{sec:lez01-induzione}
 
 Il principio di induzione consente di dimostrare una proprietà
-per tutti i naturali a partire da un valore iniziale \(p\).
+per tutti i numeri naturali a partire da un valore iniziale \(p\).
 
 \begin{theorem}[Principio di induzione]
 \label{thm:principio-induzione}
@@ -217,18 +211,13 @@ di verificare \(P(p)\) e di dimostrare, per un generico
   P(n)\Longrightarrow P(n+1).
 \]
 
-\clearpage
-
-Si considerano due applicazioni del principio: la somma dei
-primi naturali positivi e la somma geometrica finita.
-Nel secondo esempio compare l'insieme dei numeri reali \(\R\),
-che sarà introdotto nella \cref{sec:lez03-numeri-reali}.
-
 \begin{example}[Somma dei primi \(n\) naturali positivi]
 \label{ex:somma-primi-naturali}
 Per ogni \(n\in\N\) con \(n\ge1\), vale
 \[
-  \sum_{i=1}^{n}i=\frac{n(n+1)}2.
+  \sum_{i=1}^{n}i
+  =1+2+\cdots+n
+  =\frac{n(n+1)}2.
 \]
 \end{example}
 
@@ -268,13 +257,16 @@ Per il \cref{thm:principio-induzione}, si conclude che
 vale per ogni \(n\ge1\).
 \end{proof}
 
-\clearpage
+Nel seguente esempio si utilizza l'insieme dei numeri reali
+\(\R\), introdotto nella \cref{sec:lez03-numeri-reali}.
 
 \begin{example}[Somma geometrica finita]
 \label{ex:somma-geometrica-finita}
 Sia \(q\in\R\setminus\{1\}\). Per ogni \(n\in\N\) vale
 \[
-  \sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}.
+  \sum_{k=0}^{n}q^k
+  =1+q+\cdots+q^n
+  =\frac{1-q^{n+1}}{1-q}.
 \]
 Si adotta la convenzione \(q^0=1\) anche per \(q=0\);
 in particolare, \(\sum_{k=0}^n0^k=1\) e la formula resta valida.
