@@ -9,6 +9,7 @@ opposti dei suoi elementi:
 \[
   -A:=\{-a:a\in A\}.
 \]
+
 \begin{definition}[Numeri interi]
 \label{def:numeri-interi}
 L'insieme dei \emph{numeri interi} è
@@ -40,14 +41,14 @@ Per ogni \(a,b,c\in\Z\), se \(a\le b\), allora
 La dimostrazione della \cref{prop:compatibilita-ordine-interi}
 non viene sviluppata in questa sede.
 
-Si consideri ora il problema di determinare, per \(a\in\Z\), un
-intero \(b\) tale che
+Un intero \(b\) è detto \emph{inverso moltiplicativo} di
+\(a\in\Z\) se
 \[
   ab=1.
 \]
-Quando esiste, tale elemento è detto \emph{inverso moltiplicativo}
-di \(a\) e si indica con \(a^{-1}\). Negli interi, tuttavia, non
-ogni elemento ammette un inverso moltiplicativo.
+Quando esiste, tale elemento si indica con \(a^{-1}\).
+Negli interi, tuttavia, non ogni elemento ammette
+un inverso moltiplicativo.
 
 \begin{proposition}[Inversi moltiplicativi in \(\Z\)]
 \label{prop:inversi-interi}
@@ -65,8 +66,10 @@ Siano \(a,b\in\Z\) tali che \(ab=1\). Il prodotto è positivo,
 quindi \(a\) e \(b\) hanno lo stesso segno.
 
 Se \(a,b>0\), essendo \(a,b\ge1\) e \(ab=1\), segue
-\(a=b=1\). Se \(a,b<0\), gli interi positivi \(-a\) e
-\(-b\) soddisfano \((-a)(-b)=1\), da cui \(a=b=-1\).
+\(a=b=1\).
+
+Se \(a,b<0\), gli interi positivi \(-a\) e \(-b\)
+soddisfano \((-a)(-b)=1\), da cui \(a=b=-1\).
 
 Viceversa, \(1\cdot1=1\) e \((-1)(-1)=1\), quindi entrambi gli
 interi indicati ammettono un inverso moltiplicativo in \(\Z\).
@@ -95,8 +98,9 @@ Si ottiene così la catena di inclusioni
 \]
 
 Il denominatore è scelto positivo, riportando l'eventuale segno
-negativo al numeratore. Uno stesso razionale può essere rappresentato
-da frazioni diverse, per esempio \(\frac12=\frac24\). Riducendo
+negativo al numeratore. Uno stesso razionale ammette infinite
+rappresentazioni frazionarie, per esempio
+\(\frac12=\frac24=\frac36=\cdots\). Riducendo
 una frazione ai minimi termini si ottiene una rappresentazione
 \[
   \frac{m}{n},\qquad \operatorname{mcd}(m,n)=1,
@@ -110,8 +114,8 @@ In \(\Q\) si assume l'\emph{assioma dell'inverso moltiplicativo}:
   \forall a\in\Q\setminus\{0\}\;\exists!\,b\in\Q:
   \quad ab=1.
 \]
-L'unico elemento \(b\) che soddisfa questa condizione si indica
-con \(a^{-1}\) ed è detto anche \emph{reciproco} di \(a\). Per esempio,
+L'inverso moltiplicativo \(a^{-1}\) è detto anche
+\emph{reciproco} di \(a\). Per esempio:
 \[
   2^{-1}=\frac12.
 \]
@@ -127,10 +131,12 @@ equazioni polinomiali. Si consideri, per esempio, il polinomio
 \]
 dove \(\Q[x]\) indica l'insieme dei polinomi nella variabile
 \(x\) a coefficienti razionali. Si dimostrerà che l'equazione
-\(x^2-2=0\) non ammette soluzioni razionali. Il risultato sarà
-anche espresso nella forma \(\sqrt{2}\notin\Q\): l'esistenza
-della radice quadrata reale non negativa di \(2\) sarà ripresa
-nella \cref{sec:lez03-completezza-radice-due}.
+\(x^2-2=0\) non ammette soluzioni razionali. L'esistenza della
+radice quadrata reale non negativa di \(2\) sarà ripresa nella
+\cref{sec:lez03-completezza-radice-due}.
+
+La dimostrazione si basa sulla distinzione tra numeri pari e dispari,
+che si introduce di seguito.
 
 \begin{definition}[Numeri pari e dispari]
 \label{def:lez02-pari-dispari}
@@ -168,14 +174,20 @@ Pertanto
     &=4k^2+4k+1\\
     &=2\bigl(2k(k+1)\bigr)+1.
 \end{align*}
-Poiché \(2k(k+1)\in\Z\), il quadrato \(m^2\) è dispari.
-La contronominale è verificata e il lemma segue.
+Ponendo
+\[
+  u=2k(k+1)\in\Z
+  \quad\Longrightarrow\quad
+  m^2=2u+1.
+\]
+Per la \cref{def:lez02-pari-dispari}, \(m^2\) è dispari.
+Il lemma segue per contronominale.
 \end{proof}
 
 \begin{theorem}[Irrazionalità di \(\sqrt{2}\)]
 \label{thm:irrazionalita-radice-due}
 L'equazione \(x^2-2=0\) non ammette soluzioni in \(\Q\).
-Equivalentemente, con la notazione introdotta sopra,
+Equivalentemente,
 \[
   \sqrt{2}\notin\Q.
 \]
@@ -193,7 +205,7 @@ Scrivendo \(x\) in forma ridotta, esistono \(m\in\Z\) e
   \qquad
   \operatorname{mcd}(m,n)=1.
 \]
-Sostituendo la rappresentazione di \(x\) nell'uguaglianza
+Sostituendo \(x=\frac{m}{n}\) nell'uguaglianza
 \(x^2=2\), si ottiene
 \[
   \left(\frac{m}{n}\right)^2=2.
@@ -219,6 +231,8 @@ L'ipotesi iniziale è falsa: l'equazione \(x^2-2=0\) non ammette
 soluzioni razionali.
 \end{proof}
 
+\clearpage
+
 Per enunciare una generalizzazione del risultato precedente,
 si introduce la nozione di numero primo.
 
@@ -228,19 +242,13 @@ Un numero naturale \(p>1\) si dice \emph{primo} se i suoi unici
 divisori positivi sono \(1\) e \(p\).
 \end{definition}
 
-\clearpage
-
-Per esempio, \(2\) e \(3\) sono primi, mentre \(4\) non lo è.
-
 \begin{proposition}[Irrazionalità della radice di un numero primo]
 \label{prop:irrazionalita-radice-primo}
-Sia \(p\in\N\) un numero primo. L'equazione
+Sia \(p\) un numero primo. L'equazione
 \[
   x^2-p=0
 \]
-non ammette soluzioni in \(\Q\). Indicando con \(\sqrt{p}\) la
-radice quadrata reale non negativa di \(p\), il risultato si esprime
-nella forma
+non ammette soluzioni in \(\Q\); equivalentemente,
 \[
   \sqrt{p}\notin\Q.
 \]
@@ -264,8 +272,9 @@ dalle condizioni
 \]
 \end{definition}
 
-Per esempio, \(0!=1\), \(1!=1\), \(2!=2\) e \(3!=3\cdot2!=6\).
-Per \(n\ge1\), la \cref{def:fattoriale} equivale al prodotto
+Per esempio, \(0!=1\), \(1!=1\), \(2!=2\) e
+\(3!=3\cdot2!=6\). Per \(n\ge1\), la \cref{def:fattoriale}
+equivale al prodotto
 \[
   n!=1\cdot2\cdot\ldots\cdot n=\prod_{i=1}^{n}i.
 \]
@@ -279,7 +288,7 @@ Per ogni \(n\in\N\) vale
 \end{proposition}
 
 \begin{proof}
-Per \(n=0\) vale \(0!=1\ge0\). Per \(n\ge1\) si applica
+Per \(n=0\), si ha \(0!=1\ge0\). Per \(n\ge1\), si applica
 il \cref{thm:principio-induzione}, con valore iniziale \(p=1\),
 all'insieme
 \[
@@ -297,15 +306,15 @@ Sia \(n\ge1\) e si supponga che valga l'ipotesi induttiva
 \[
   n!\ge n.
 \]
-Per la \cref{def:fattoriale} e la compatibilità dell'ordine
-rispetto alla moltiplicazione per un numero positivo
-(\cref{prop:compatibilita-ordine}), si ottiene
+Poiché \(n+1>0\), per la \cref{def:fattoriale} e la
+\cref{prop:compatibilita-ordine} si ottiene
 \[
   (n+1)!=(n+1)n!\ge(n+1)n\ge n+1,
 \]
-poiché \(n+1>0\) e \(n\ge1\). Il passo induttivo è quindi
-verificato.
+dove l'ultima disuguaglianza segue da \(n\ge1\).
+Pertanto \(n\in A\Longrightarrow n+1\in A\).
 
-Per il \cref{thm:principio-induzione}, la disuguaglianza vale
-per ogni \(n\ge1\); unita al caso \(n=0\), dà la tesi.
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\{n\in\N:n\ge1\}\). Considerando anche il caso
+\(n=0\), si ottiene la tesi.
 \end{proof}
