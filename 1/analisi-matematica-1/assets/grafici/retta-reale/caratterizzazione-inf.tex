@@ -2,17 +2,21 @@
   \draw[->,unipd-muted] (-0.8,0) -- (6.2,0) node[right] {\(\R\)};
   \draw[unipd-muted] (1,-0.08) -- (1,0.08);
   \draw[unipd-muted] (4,-0.08) -- (4,0.08);
+
   \node[below=6pt] at (1,0) {\(x\)};
   \node[below=18pt] at (1,0) {\(x=\inf A\)};
   \node[below=6pt] at (4,0) {\(x+\varepsilon\)};
-  \fill[green!12,rounded corners=2pt] (1,0.18) rectangle (4,0.55);
+
   \draw[<->,unipd-muted] (1,0.82) -- (4,0.82);
   \draw[dashed,unipd-muted] (1,0.08) -- (1,0.9);
   \draw[dashed,unipd-muted] (4,0.08) -- (4,0.9);
-  \foreach \p in {1.75,4.2,4.8,5.5}
+
+  \foreach \p in {4.2,4.8,5.5}
     \fill[unipd-primary] (\p,0) circle (2.1pt);
+
+  \fill[unipd-primary] (1.75,0) circle (2.4pt);
+
   \node[above=6pt] at (4.8,0) {\(A\)};
   \node at (2.5,0.36) {\([x,\,x+\varepsilon)\)};
-  \fill[green!45!black] (1.75,0) circle (2.4pt);
-  \node[text=green!45!black,anchor=base] at (1.75,-0.41) {\(\bar a\)};
+  \node[below=6pt] at (1.75,0) {\(\bar a\)};
 \end{tikzpicture}

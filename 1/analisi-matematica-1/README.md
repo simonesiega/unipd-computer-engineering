@@ -26,7 +26,7 @@
   - 3.5 Cenno sulla radice quadrata di 2 nei reali — p. 15
 - 4 Lezione 4 --- 2 ottobre 2026 — p. 16
   - 4.1 Densità dei numeri razionali — p. 16
-  - 4.2 Intervalli della retta reale — p. 17
+  - 4.2 Intervalli della retta reale — p. 16
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 17
   - 4.4 Massimo e minimo — p. 19
   - 4.5 Estremo superiore ed estremo inferiore — p. 20
