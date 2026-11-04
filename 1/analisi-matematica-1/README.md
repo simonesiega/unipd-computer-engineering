@@ -30,61 +30,62 @@
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 17
   - 4.4 Massimo e minimo — p. 19
   - 4.5 Estremo superiore ed estremo inferiore — p. 20
-  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 20
+  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 21
 - 5 Lezione 5 --- 6 ottobre 2026 — p. 23
   - 5.1 Disuguaglianza di Bernoulli — p. 23
   - 5.2 Binomio di Newton — p. 23
   - 5.3 Esercizi sul fattoriale — p. 24
   - 5.4 Esercizi sugli estremi — p. 25
 - 6 Lezione 6 --- 13 ottobre 2026 — p. 28
-  - 6.1 Un esercizio sugli estremi di insiemi separati — p. 28
-  - 6.2 Prodotto cartesiano e applicazioni — p. 28
-  - 6.3 Dominio, codominio e immagine — p. 29
-  - 6.4 Controimmagine di un sottoinsieme — p. 30
-  - 6.5 Applicazioni suriettive, iniettive e biiettive — p. 31
-  - 6.6 Tre applicazioni definite dal quadrato — p. 32
-- 7 Lezione 7 --- 14 ottobre 2026 — p. 33
-  - 7.1 Numerabilità degli insiemi — p. 33
-  - 7.2 Operazioni sulle funzioni — p. 34
-  - 7.3 Grafici e trasformazioni delle funzioni — p. 35
-  - 7.4 Intorni e punti di accumulazione — p. 38
-- 8 Lezione 8 --- 15 ottobre 2026 — p. 42
-  - 8.1 Punti isolati e accumulazione all'infinito — p. 42
-  - 8.2 Definizione generale di limite — p. 43
-  - 8.3 Esercizi sulla definizione di limite — p. 45
-- 9 Lezione 9 --- 16 ottobre 2026 — p. 48
-  - 9.1 Verifica di un limite all'infinito — p. 48
-  - 9.2 Composizione di applicazioni — p. 49
-  - 9.3 Applicazione identità — p. 50
-  - 9.4 Applicazione inversa — p. 51
-- 10 Lezione 10 --- 20 ottobre 2026 — p. 53
-  - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 53
-  - 10.2 Monotonia delle funzioni — p. 54
-- 11 Lezione 11 --- 21 ottobre 2026 — p. 57
-  - 11.1 Intersezioni di intorni — p. 57
-  - 11.2 Unicità del limite — p. 58
-  - 11.3 Permanenza del segno — p. 59
-  - 11.4 Limitatezza locale — p. 60
-- 12 Lezione 12 --- 22 ottobre 2026 — p. 61
-  - 12.1 Primo teorema del confronto — p. 61
-  - 12.2 Secondo teorema del confronto — p. 63
-  - 12.3 Teorema delle tre funzioni — p. 64
-- 13 Lezione 13 --- 23 ottobre 2026 — p. 67
-  - 13.1 Funzione di Dirichlet — p. 67
-  - 13.2 Proprietà elementari dei limiti — p. 67
-- 14 Lezione 14 --- 27 ottobre 2026 — p. 69
-  - 14.1 Teoremi sulle operazioni dei limiti — p. 69
-  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 72
-  - 14.3 Limiti destri e sinistri — p. 73
-- A Tutorato — p. 75
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 75
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 78
-- B Esercizi per argomento — p. 81
-  - B.1 Limiti — p. 81
-  - B.2 Studio di funzione — p. 82
-  - B.3 Successioni — p. 83
-  - B.4 Serie numeriche — p. 84
-  - B.5 Integrali — p. 85
-  - B.6 Equazioni differenziali — p. 86
-  - B.7 Taylor e tecniche asintotiche — p. 87
+  - 6.1 Esercizio sulla somma di insiemi — p. 28
+  - 6.2 Esercizio sugli insiemi separati — p. 29
+  - 6.3 Prodotto cartesiano e applicazioni — p. 29
+  - 6.4 Dominio, codominio e immagine — p. 31
+  - 6.5 Controimmagine di un sottoinsieme — p. 32
+  - 6.6 Applicazioni suriettive, iniettive e biiettive — p. 33
+  - 6.7 Tre applicazioni definite dal quadrato — p. 34
+- 7 Lezione 7 --- 14 ottobre 2026 — p. 35
+  - 7.1 Numerabilità degli insiemi — p. 35
+  - 7.2 Operazioni sulle funzioni — p. 36
+  - 7.3 Grafici e trasformazioni delle funzioni — p. 37
+  - 7.4 Intorni e punti di accumulazione — p. 40
+- 8 Lezione 8 --- 15 ottobre 2026 — p. 44
+  - 8.1 Punti isolati e accumulazione all'infinito — p. 44
+  - 8.2 Definizione generale di limite — p. 45
+  - 8.3 Esercizi sulla definizione di limite — p. 47
+- 9 Lezione 9 --- 16 ottobre 2026 — p. 50
+  - 9.1 Verifica di un limite all'infinito — p. 50
+  - 9.2 Composizione di applicazioni — p. 51
+  - 9.3 Applicazione identità — p. 52
+  - 9.4 Applicazione inversa — p. 53
+- 10 Lezione 10 --- 20 ottobre 2026 — p. 55
+  - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 55
+  - 10.2 Monotonia delle funzioni — p. 56
+- 11 Lezione 11 --- 21 ottobre 2026 — p. 59
+  - 11.1 Intersezioni di intorni — p. 59
+  - 11.2 Unicità del limite — p. 60
+  - 11.3 Permanenza del segno — p. 61
+  - 11.4 Limitatezza locale — p. 62
+- 12 Lezione 12 --- 22 ottobre 2026 — p. 63
+  - 12.1 Primo teorema del confronto — p. 63
+  - 12.2 Secondo teorema del confronto — p. 65
+  - 12.3 Teorema delle tre funzioni — p. 66
+- 13 Lezione 13 --- 23 ottobre 2026 — p. 69
+  - 13.1 Funzione di Dirichlet — p. 69
+  - 13.2 Proprietà elementari dei limiti — p. 69
+- 14 Lezione 14 --- 27 ottobre 2026 — p. 71
+  - 14.1 Teoremi sulle operazioni dei limiti — p. 71
+  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 74
+  - 14.3 Limiti destri e sinistri — p. 75
+- A Tutorato — p. 77
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 77
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 80
+- B Esercizi per argomento — p. 83
+  - B.1 Limiti — p. 83
+  - B.2 Studio di funzione — p. 84
+  - B.3 Successioni — p. 85
+  - B.4 Serie numeriche — p. 86
+  - B.5 Integrali — p. 87
+  - B.6 Equazioni differenziali — p. 88
+  - B.7 Taylor e tecniche asintotiche — p. 89
 <!-- GENERATED:END -->
