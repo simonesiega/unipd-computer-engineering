@@ -8,11 +8,12 @@
   \node[below=7pt] at (4.1,0) {\(\varphi(a)\)};
   \node[below=7pt] at (8.2,0) {\(a\)};
   \draw[unipd/directed edge] (.2,.19) -- (3.9,.19)
-    node[midway,above=3pt] {\(\varphi\)};
+  node[midway,above=3pt] {\(\widetilde{\varphi}\)};
   \draw[unipd/directed edge] (4.3,.19) -- (8,.19)
     node[midway,above=3pt] {\(\varphi^{-1}\)};
   \draw[unipd-accent,dashed,-{Latex[length=2.2mm]},line width=.85pt]
     (.08,-1.2) to[bend right=20]
-    node[midway,below] {\(\varphi^{-1}\circ\varphi=\operatorname{id}_A\)}
+    node[midway,below]
+    {\(\varphi^{-1}\circ\widetilde{\varphi}=\operatorname{id}_A\)}
     (8.12,-1.2);
 \end{tikzpicture}
