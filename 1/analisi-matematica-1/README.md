@@ -69,7 +69,7 @@
 - 12 Lezione 12 --- 22 ottobre 2026 — p. 64
   - 12.1 Primo teorema del confronto — p. 64
   - 12.2 Secondo teorema del confronto — p. 66
-  - 12.3 Teorema delle tre funzioni — p. 67
+  - 12.3 Teorema delle tre funzioni — p. 68
 - 13 Lezione 13 --- 23 ottobre 2026 — p. 70
   - 13.1 Funzione di Dirichlet — p. 70
   - 13.2 Proprietà elementari dei limiti — p. 70
