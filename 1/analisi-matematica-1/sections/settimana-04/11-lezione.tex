@@ -7,14 +7,20 @@
 Sia \(x_0\in\overline{\R}\). L'intersezione di due intorni di
 \(x_0\) è ancora un intorno di \(x_0\).
 
-Se \(x_0\in\R\), per la \cref{def:lez07-intorno} si ha, per
-ogni \(\delta_1,\delta_2>0\),
+Se \(x_0\in\R\), ogni intorno di \(x_0\) contiene un intorno
+circolare con lo stesso centro. Inoltre, per la
+\cref{def:lez07-intorno}, per ogni \(\delta_1,\delta_2>0\)
+si ha
 \[
   D(x_0,\delta_1)\cap D(x_0,\delta_2)
   =D\bigl(x_0,\min\{\delta_1,\delta_2\}\bigr).
 \]
+Pertanto, l'intersezione di due intorni di \(x_0\)
+contiene un intorno circolare ed è essa stessa un intorno
+di \(x_0\), per la \cref{def:lez07-intorno-generale}.
+
 Se \(x_0=+\infty\), per la \cref{def:lez07-intorni-infinito},
-per ogni \(k_1,k_2\in\R\),
+per ogni \(k_1,k_2\in\R\) si ha
 \[
   (k_1,+\infty)\cap(k_2,+\infty)
   =(\max\{k_1,k_2\},+\infty).
@@ -91,6 +97,11 @@ Insieme all'inclusione opposta, si conclude
 \[
   B=\{0\}.
 \]
+Infine, per ogni \(\delta>0\), si ha
+\(\delta/2\in D(0,\delta)\setminus B\).
+Quindi \(B\) non contiene alcun intorno circolare di \(0\)
+e, per la \cref{def:lez07-intorno-generale}, non è
+un intorno di \(0\).
 \end{proof}
 
 \section{Unicità del limite}
@@ -144,7 +155,7 @@ Per la \cref{def:lez08-limite}, esistono intorni
   f(x)\in V_{\ell_2}
   \quad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per la \cref{sec:lez11-intersezione-intorni},
+Per quanto stabilito nella \cref{sec:lez11-intersezione-intorni},
 \(W_{x_0}:=U_{x_0}\cap U'_{x_0}\) è ancora un intorno
 di \(x_0\). Poiché \(x_0\) è di accumulazione per
 \(A\), esiste
@@ -267,8 +278,8 @@ La tesi è verificata ponendo \(k=\ell/2\).
 \end{proof}
 
 Il secondo punto si dimostra analogamente, considerando
-\(\ell=-\infty\) e \(\ell\in(-\infty,0)\); la verifica
-non viene sviluppata in questa sede.
+\(\ell=-\infty\) e \(\ell\in(-\infty,0)\);
+la dimostrazione non viene riportata.
 
 \section{Limitatezza locale}
 \label{sec:lez11-limitatezza-locale}

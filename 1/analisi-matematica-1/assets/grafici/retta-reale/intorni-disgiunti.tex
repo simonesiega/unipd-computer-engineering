@@ -1,20 +1,23 @@
 \begin{tikzpicture}[unipd/diagram,scale=1.1]
   \draw[->,unipd-muted] (-.45,0) -- (8.1,0) node[right] {\(x\)};
-  \draw[very thick,unipd-primary] (.7,0) -- (3.5,0);
-  \draw[very thick,unipd-accent] (3.5,0) -- (6.3,0);
-  \foreach \x in {.7,3.5} {
+  \draw[very thick,unipd-primary] (.7,0) -- (3.15,0);
+  \draw[very thick,unipd-accent] (3.85,0) -- (6.3,0);
+  \foreach \x in {.7,3.15} {
     \draw[unipd-primary,fill=white,thick] (\x,0) circle (2.4pt);
   }
-  \foreach \x in {3.5,6.3} {
-    \draw[unipd-accent,fill=white,thick] (\x,0) circle (2.0pt);
+  \foreach \x in {3.85,6.3} {
+    \draw[unipd-accent,fill=white,thick] (\x,0) circle (2.4pt);
   }
-  \fill[unipd-primary] (2.1,0) circle (2.1pt);
-  \fill[unipd-accent] (4.9,0) circle (2.1pt);
-  \node[below=7pt] at (2.1,0) {\(\ell_1\)};
-  \node[below=7pt] at (4.9,0) {\(\ell_2\)};
-  \node[above=8pt,text=unipd-primary] at (2.1,0) {\(V_{\ell_1}\)};
-  \node[above=8pt,text=unipd-accent] at (4.9,0) {\(V_{\ell_2}\)};
-  \draw[<->,unipd-muted] (2.1,.7) -- (3.5,.7) node[midway,above] {\(\delta\)};
-  \draw[<->,unipd-muted] (3.5,.7) -- (4.9,.7) node[midway,above] {\(\delta\)};
-  \draw[dashed,unipd-muted] (3.5,.12) -- (3.5,.85);
+  \fill[unipd-primary] (1.925,0) circle (2.1pt);
+  \fill[unipd-accent] (5.075,0) circle (2.1pt);
+  \node[below=7pt] at (1.925,0) {\(\ell_1\)};
+  \node[below=7pt] at (5.075,0) {\(\ell_2\)};
+  \node[above=8pt,text=unipd-primary] at (1.75,0) {\(V_{\ell_1}\)};
+  \node[above=8pt,text=unipd-accent] at (5.35,0) {\(V_{\ell_2}\)};
+  \draw[<->,unipd-muted] (1.925,.7) -- (3.15,.7)
+    node[midway,above] {\(\delta\)};
+  \draw[<->,unipd-muted] (3.85,.7) -- (5.075,.7)
+    node[midway,above] {\(\delta\)};
+  \draw[dashed,unipd-muted] (3.5,.12) -- (3.5,.9);
+  \node[above=10pt] at (3.5,0) {\(\varnothing\)};
 \end{tikzpicture}
