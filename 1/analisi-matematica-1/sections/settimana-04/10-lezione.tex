@@ -24,21 +24,35 @@ Allora
 Segue direttamente dalla \cref{def:lez09-inversa}.
 
 \emph{Seconda uguaglianza.}
-Poiché \(C(\varphi^{-1})=A=D(\varphi)\),
-per la \cref{def:lez06-immagine} si ha
+Poiché \(C(\varphi^{-1})=A=D(\varphi)\), per la
+\cref{def:lez06-immagine} si ha
 \[
   \operatorname{Im}(\varphi^{-1})\subseteq D(\varphi).
 \]
-Viceversa, sia \(a_0\in D(\varphi)\).
-Ponendo \(b_0:=\varphi(a_0)\), si ottiene
-\(b_0\in\operatorname{Im}(\varphi)=D(\varphi^{-1})\).
-Dalla \cref{def:lez09-inversa} segue
+Viceversa, sia \(a_0\in D(\varphi)\). Ponendo
+\[
+  b_0:=\varphi(a_0),
+\]
+si ha
+\[
+  b_0\in\operatorname{Im}(\varphi)=D(\varphi^{-1}).
+\]
+Dalla \cref{def:lez09-inversa} segue quindi
 \[
   \varphi^{-1}(b_0)=a_0,
 \]
-quindi \(a_0\in\operatorname{Im}(\varphi^{-1})\).
-Pertanto \(D(\varphi)\subseteq\operatorname{Im}(\varphi^{-1})\),
-da cui la seconda uguaglianza.
+da cui
+\[
+  a_0\in\operatorname{Im}(\varphi^{-1}).
+\]
+Pertanto
+\[
+  D(\varphi)\subseteq\operatorname{Im}(\varphi^{-1}).
+\]
+Dalla doppia inclusione si conclude
+\[
+  \operatorname{Im}(\varphi^{-1})=D(\varphi).
+\]
 \end{proof}
 
 \begin{example}[Esponenziale e logaritmo]
@@ -48,7 +62,8 @@ considerate nell'\cref{ex:lez09-inversa-esponenziale},
 la \cref{prop:lez10-dominio-immagine-inversa} fornisce
 \[
   D(\varphi^{-1})=(0,+\infty),
-  \qquad \operatorname{Im}(\varphi^{-1})=\R.
+  \qquad
+  \operatorname{Im}(\varphi^{-1})=\R.
 \]
 \end{example}
 
@@ -81,11 +96,11 @@ I due grafici sono quindi simmetrici rispetto alla retta
 \section{Monotonia delle funzioni}
 \label{sec:lez10-monotonia}
 
-Siano \(A\subseteq\R\) non vuoto,
-\(\varphi\colon A\longrightarrow\R\) e
-\(S\subseteq A\) non vuoto. Le definizioni seguenti
-si applicano, in particolare, quando \(S=I\) è un intervallo,
-nel senso della \cref{def:intervallo-retta-reale}.
+Siano \(A\subseteq\R\) e \(S\subseteq A\) insiemi
+non vuoti, e sia \(\varphi\colon A\longrightarrow\R\).
+Le definizioni seguenti si applicano, in particolare,
+quando \(S=I\) è un intervallo, nel senso della
+\cref{def:intervallo-retta-reale}.
 
 \begin{definition}[Crescenza, decrescenza e monotonia]
 \label{def:lez10-monotonia}
@@ -158,8 +173,101 @@ con lo stesso procedimento si ottiene
   \le-\varphi(x_2)=(-\varphi)(x_2).
 \]
 Pertanto \(-\varphi\) è debolmente crescente.
+
 Se le disuguaglianze iniziali sono strette,
 restano strette anche quelle ottenute moltiplicando per \(-1\).
+\end{proof}
+
+\begin{proposition}[Monotonia del prodotto per una costante]
+\label{prop:lez10-monotonia-costante}
+Siano \(I\subseteq\R\) un intervallo non vuoto,
+\(\varphi\colon I\longrightarrow\R\) e
+\(c\in\R\setminus\{0\}\).
+Se \(\varphi\) è debolmente monotona su \(I\),
+allora anche \(c\varphi\) è debolmente monotona:
+per \(c>0\) conserva il verso della monotonia,
+mentre per \(c<0\) lo inverte.
+Le stesse proprietà valgono per la monotonia stretta.
+\end{proposition}
+
+\begin{proof}
+Siano \(x_1,x_2\in I\) con \(x_1<x_2\).
+
+\emph{Caso \(c>0\).}
+Se \(\varphi\) è debolmente crescente, allora
+\[
+  \varphi(x_1)\le\varphi(x_2)
+  \quad\Longrightarrow\quad
+  c\varphi(x_1)\le c\varphi(x_2),
+\]
+quindi \(c\varphi\) è debolmente crescente.
+Se \(\varphi\) è debolmente decrescente, analogamente
+\[
+  \varphi(x_1)\ge\varphi(x_2)
+  \quad\Longrightarrow\quad
+  c\varphi(x_1)\ge c\varphi(x_2),
+\]
+quindi \(c\varphi\) è debolmente decrescente.
+
+\emph{Caso \(c<0\).}
+Poiché \(c\varphi=(-c)(-\varphi)\) e \(-c>0\),
+la \cref{prop:lez10-monotonia-opposta} e il caso
+precedente mostrano che \(c\varphi\) ha monotonia
+di verso opposto a quella di \(\varphi\).
+
+Se le disuguaglianze iniziali sono strette,
+restano tali anche dopo la moltiplicazione per
+una costante positiva; per una costante negativa,
+si applica inoltre il caso stretto della
+\cref{prop:lez10-monotonia-opposta}.
+\end{proof}
+
+\begin{proposition}[Monotonia della somma di funzioni]
+\label{prop:lez10-monotonia-somma}
+Siano \(I\subseteq\R\) un intervallo non vuoto e
+\(\varphi,\psi\colon I\longrightarrow\R\).
+
+Se \(\varphi\) e \(\psi\) sono entrambe debolmente crescenti
+su \(I\), allora la somma \(\varphi+\psi\) è debolmente
+crescente su \(I\). Se almeno una delle due è strettamente
+crescente, anche la somma è strettamente crescente.
+
+Se \(\varphi\) e \(\psi\) sono entrambe debolmente decrescenti
+su \(I\), allora la somma \(\varphi+\psi\) è debolmente
+decrescente su \(I\). Se almeno una delle due è strettamente
+decrescente, anche la somma è strettamente decrescente.
+\end{proposition}
+
+\begin{proof}
+Siano \(x_1,x_2\in I\) con \(x_1<x_2\).
+
+\emph{Caso crescente.}
+Per ipotesi,
+\[
+  \varphi(x_1)\le\varphi(x_2),
+  \qquad \psi(x_1)\le\psi(x_2).
+\]
+Sommando membro a membro si ottiene
+\[
+  (\varphi+\psi)(x_1)\le(\varphi+\psi)(x_2),
+\]
+quindi \(\varphi+\psi\) è debolmente crescente.
+Se almeno una delle due disuguaglianze iniziali è
+stretta, lo è anche quella ottenuta sommando.
+
+\emph{Caso decrescente.}
+Per ipotesi,
+\[
+  \varphi(x_1)\ge\varphi(x_2),
+  \qquad \psi(x_1)\ge\psi(x_2).
+\]
+Sommando membro a membro si ottiene
+\[
+  (\varphi+\psi)(x_1)\ge(\varphi+\psi)(x_2),
+\]
+quindi \(\varphi+\psi\) è debolmente decrescente.
+Se almeno una delle due disuguaglianze iniziali è
+stretta, lo è anche quella ottenuta sommando.
 \end{proof}
 
 \begin{proposition}[Monotonia del prodotto di funzioni non negative]
@@ -219,9 +327,13 @@ Ad esempio, su \(I=[0,1]\) le funzioni non negative
 crescenti e decrescenti, ma
 \[
   (\varphi\psi)(0)=(\varphi\psi)(1)=0,
-  \qquad (\varphi\psi)\!\left(\frac12\right)=\frac14,
+  \qquad
+  (\varphi\psi)\!\left(\frac12\right)=\frac14.
 \]
-per cui il prodotto non è monotono su \(I\).
+Il prodotto non è quindi né debolmente crescente
+né debolmente decrescente su \(I\).
+
+\clearpage
 
 \begin{proposition}[Monotonia stretta e applicazione inversa]
 \label{prop:lez10-monotonia-inversa}
@@ -245,7 +357,7 @@ Siano \(x_1,x_2\in I\) distinti.
 Se \(x_1<x_2\), la stretta monotonia implica
 \(\varphi(x_1)<\varphi(x_2)\), nel caso crescente, e
 \(\varphi(x_1)>\varphi(x_2)\), nel caso decrescente.
-Se \(x_2<x_1\) si procede analogamente.
+Se \(x_2<x_1\), si procede analogamente.
 In entrambi i casi \(\varphi(x_1)\ne\varphi(x_2)\),
 dunque \(\varphi\) è iniettiva per la
 \cref{def:lez06-iniettiva}.

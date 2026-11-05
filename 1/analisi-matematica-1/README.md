@@ -61,31 +61,31 @@
 - 10 Lezione 10 --- 20 ottobre 2026 — p. 55
   - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 55
   - 10.2 Monotonia delle funzioni — p. 56
-- 11 Lezione 11 --- 21 ottobre 2026 — p. 59
-  - 11.1 Intersezioni di intorni — p. 59
-  - 11.2 Unicità del limite — p. 60
-  - 11.3 Permanenza del segno — p. 61
-  - 11.4 Limitatezza locale — p. 62
-- 12 Lezione 12 --- 22 ottobre 2026 — p. 63
-  - 12.1 Primo teorema del confronto — p. 63
-  - 12.2 Secondo teorema del confronto — p. 65
-  - 12.3 Teorema delle tre funzioni — p. 66
-- 13 Lezione 13 --- 23 ottobre 2026 — p. 69
-  - 13.1 Funzione di Dirichlet — p. 69
-  - 13.2 Proprietà elementari dei limiti — p. 69
-- 14 Lezione 14 --- 27 ottobre 2026 — p. 71
-  - 14.1 Teoremi sulle operazioni dei limiti — p. 71
-  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 74
-  - 14.3 Limiti destri e sinistri — p. 75
-- A Tutorato — p. 77
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 77
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 80
-- B Esercizi per argomento — p. 83
-  - B.1 Limiti — p. 83
-  - B.2 Studio di funzione — p. 84
-  - B.3 Successioni — p. 85
-  - B.4 Serie numeriche — p. 86
-  - B.5 Integrali — p. 87
-  - B.6 Equazioni differenziali — p. 88
-  - B.7 Taylor e tecniche asintotiche — p. 89
+- 11 Lezione 11 --- 21 ottobre 2026 — p. 60
+  - 11.1 Intersezioni di intorni — p. 60
+  - 11.2 Unicità del limite — p. 61
+  - 11.3 Permanenza del segno — p. 62
+  - 11.4 Limitatezza locale — p. 63
+- 12 Lezione 12 --- 22 ottobre 2026 — p. 64
+  - 12.1 Primo teorema del confronto — p. 64
+  - 12.2 Secondo teorema del confronto — p. 66
+  - 12.3 Teorema delle tre funzioni — p. 67
+- 13 Lezione 13 --- 23 ottobre 2026 — p. 70
+  - 13.1 Funzione di Dirichlet — p. 70
+  - 13.2 Proprietà elementari dei limiti — p. 70
+- 14 Lezione 14 --- 27 ottobre 2026 — p. 72
+  - 14.1 Teoremi sulle operazioni dei limiti — p. 72
+  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 75
+  - 14.3 Limiti destri e sinistri — p. 76
+- A Tutorato — p. 78
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 78
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 81
+- B Esercizi per argomento — p. 84
+  - B.1 Limiti — p. 84
+  - B.2 Studio di funzione — p. 85
+  - B.3 Successioni — p. 86
+  - B.4 Serie numeriche — p. 87
+  - B.5 Integrali — p. 88
+  - B.6 Equazioni differenziali — p. 89
+  - B.7 Taylor e tecniche asintotiche — p. 90
 <!-- GENERATED:END -->
