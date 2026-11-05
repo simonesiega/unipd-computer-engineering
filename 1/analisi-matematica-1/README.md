@@ -51,7 +51,7 @@
   - 7.4 Intorni e punti di accumulazione — p. 40
 - 8 Lezione 8 --- 15 ottobre 2026 — p. 44
   - 8.1 Punti isolati e accumulazione all'infinito — p. 44
-  - 8.2 Definizione generale di limite — p. 45
+  - 8.2 Definizione generale di limite — p. 46
   - 8.3 Esercizi sulla definizione di limite — p. 47
 - 9 Lezione 9 --- 16 ottobre 2026 — p. 50
   - 9.1 Verifica di un limite all'infinito — p. 50
