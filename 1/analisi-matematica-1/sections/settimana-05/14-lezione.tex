@@ -40,10 +40,10 @@ Allora:
 \end{enumerate}
 \end{theorem}
 
-\begin{proof}
-\emph{Primo punto.}
+\begin{proof}[Dimostrazione del primo punto]
 Sia \(\varepsilon>0\). Per la \cref{def:lez08-limite},
-esistono intorni \(U'_{x_0}\) e \(U''_{x_0}\) tali che
+esistono intorni \(U'_{x_0}\) e \(U''_{x_0}\) di \(x_0\)
+tali che
 \[
   |f(x)-\ell_1|<\frac{\varepsilon}{2}
   \qquad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\},
@@ -52,13 +52,14 @@ esistono intorni \(U'_{x_0}\) e \(U''_{x_0}\) tali che
   |g(x)-\ell_2|<\frac{\varepsilon}{2}
   \qquad\forall x\in(U''_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per la \cref{sec:lez11-intersezione-intorni}, l'insieme
+Per quanto stabilito nella
+\cref{sec:lez11-intersezione-intorni}, l'insieme
 \[
   U_{x_0}:=U'_{x_0}\cap U''_{x_0}
 \]
-è un intorno di \(x_0\). Per ogni
-\(x\in(U_{x_0}\cap A)\setminus\{x_0\}\), dalla disuguaglianza
-triangolare segue
+è ancora un intorno di \(x_0\). Per ogni
+\(x\in(U_{x_0}\cap A)\setminus\{x_0\}\), dalla
+disuguaglianza triangolare segue
 \[
 \begin{aligned}
   |(f+g)(x)-(\ell_1+\ell_2)|
@@ -69,41 +70,10 @@ triangolare segue
 \end{aligned}
 \]
 Per la \cref{def:lez08-limite}, segue la tesi.
-
-\emph{Secondo punto.}
-Per la commutatività della somma, si può supporre
-\(\ell_1=+\infty\).
-Se \(\ell_2\in\R\), fissato \(K\in\R\), esistono
-intorni \(U'_{x_0}\) e \(U''_{x_0}\) nei quali valgono,
-rispettivamente,
-\[
-  f(x)>K-\ell_2+1,
-  \qquad g(x)>\ell_2-1.
-\]
-Nell'intersezione dei due intorni si ha
-\[
-  (f+g)(x)>K.
-\]
-Se invece \(\ell_2=+\infty\), si scelgono intorni nei
-quali \(f(x)>K\) e \(g(x)>0\); sulla loro intersezione
-vale nuovamente \((f+g)(x)>K\).
-In entrambi i casi le disuguaglianze valgono nei punti
-di \(A\) distinti da \(x_0\). Poiché \(K\) è arbitrario,
-segue il limite \(+\infty\).
-
-\emph{Terzo punto.}
-Per commutatività, si supponga \(\ell_1=-\infty\).
-Se \(\ell_2\in\R\), fissato \(K\in\R\), si scelgono
-intorni nei quali
-\[
-  f(x)<K-\ell_2-1,
-  \qquad g(x)<\ell_2+1.
-\]
-Sulla loro intersezione si ottiene \((f+g)(x)<K\).
-Se \(\ell_2=-\infty\), si scelgono intorni nei quali
-\(f(x)<K\) e \(g(x)<0\), ottenendo la stessa disuguaglianza.
-La \cref{def:lez08-limite} fornisce il limite \(-\infty\).
 \end{proof}
+
+Le dimostrazioni del secondo e del terzo punto del
+\cref{thm:lez14-limite-somma} non vengono sviluppate in questa sede.
 
 \begin{example}[Forma indeterminata \(+\infty-\infty\)]
 \label{ex:lez14-somma-indeterminata}
@@ -169,7 +139,7 @@ Per il \cref{cor:lez14-somma-localmente-limitata}, si ottiene
   \qquad
   \lim_{x\to-\infty}(x+\sin x)=-\infty.
 \]
-Il primo limite è stato verificato anche mediante confronto
+Entrambi i limiti sono stati verificati anche mediante confronto
 nell'\cref{ex:lez12-limite-x-seno}.
 \end{example}
 
@@ -216,7 +186,7 @@ non viene sviluppata in questa sede.
 
 \begin{example}[Forma indeterminata \(0\cdot\infty\)]
 \label{ex:lez14-prodotto-indeterminato}
-Per \(x\to+\infty\), si considerino le funzioni
+Per \(x\to+\infty\), si considerino tre coppie di funzioni:
 \[
 \begin{aligned}
   f(x)=\frac1x,\quad g(x)=x
@@ -240,8 +210,13 @@ e \(+\infty\).
 Siano \(f,g\colon A\longrightarrow\R\), con
 \(A\subseteq\R\) non vuoto, e sia
 \(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
-Si supponga che \(g(x)\ne0\) nei punti di \(A\) distinti
-da \(x_0\) di un opportuno intorno di \(x_0\) e che
+Si supponga che esista un intorno \(U_{x_0}\) di \(x_0\)
+tale che
+\[
+  g(x)\ne0
+  \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\},
+\]
+e che
 \[
   \lim_{x\to x_0}f(x)=\ell_1\in\overline{\R},
   \qquad
@@ -265,9 +240,9 @@ Allora:
   i due risultati si scambiano;
   \item se \(\ell_1\in\{+\infty,-\infty\}\) e \(\ell_2=0\),
   e \(g\) ha segno costante in un intorno bucato di \(x_0\),
-  il rapporto tende a \(+\infty\) quando i segni di
-  \(f\) e \(g\) coincidono e a \(-\infty\) quando sono
-  opposti;
+  il rapporto tende a \(+\infty\) quando \(f\) e \(g\)
+  hanno lo stesso segno e a \(-\infty\) quando hanno
+  segni opposti;
   \item se \(\ell_1\in\R\setminus\{0\}\) e \(\ell_2=0\),
   e \(g\) ha segno costante in un intorno bucato di \(x_0\),
   vale la stessa conclusione del punto precedente.
@@ -279,7 +254,7 @@ non viene sviluppata in questa sede.
 
 \begin{example}[Forme indeterminate del rapporto]
 \label{ex:lez14-rapporto-indeterminato}
-Per \(x\to+\infty\), le coppie
+Per \(x\to+\infty\), si considerino tre coppie di funzioni:
 \[
 \begin{aligned}
   f(x)=\frac1x,\quad g(x)=\frac1x
@@ -287,11 +262,13 @@ Per \(x\to+\infty\), le coppie
   f(x)=\frac1{x^2},\quad g(x)=\frac1x
     &\quad\Longrightarrow\quad \frac{f(x)}{g(x)}=\frac1x,\\
   f(x)=\frac1x,\quad g(x)=\frac1{x^2}
-    &\quad\Longrightarrow\quad \frac{f(x)}{g(x)}=x
+    &\quad\Longrightarrow\quad \frac{f(x)}{g(x)}=x.
 \end{aligned}
 \]
-forniscono la forma \(0/0\), ma rapporti con limiti
-rispettivamente \(1\), \(0\) e \(+\infty\).
+In tutti e tre i casi \(f(x)\to0\) e \(g(x)\to0\),
+mentre il rapporto tende rispettivamente a \(1\), \(0\)
+e \(+\infty\).
+
 Analogamente, le coppie
 \[
 \begin{aligned}
@@ -303,17 +280,19 @@ Analogamente, le coppie
     &\quad\Longrightarrow\quad \frac{f(x)}{g(x)}=x
 \end{aligned}
 \]
-mostrano che anche la forma \(+\infty/+\infty\) è
-indeterminata.
+forniscono \(f(x)\to+\infty\) e \(g(x)\to+\infty\),
+mentre il rapporto tende rispettivamente a \(1\), \(0\)
+e \(+\infty\).
 \end{example}
+
 
 \section{Avvicinamento al limite dall'alto e dal basso}
 \label{sec:lez14-avvicinamento-valore}
 
 \begin{definition}[Avvicinamento dall'alto e dal basso]
 \label{def:lez14-avvicinamento-valore}
-Siano \(f\colon A\longrightarrow\R\), con
-\(A\subseteq\R\) non vuoto, e
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia
 \(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
 Si supponga che
 \[
@@ -337,8 +316,6 @@ di avvicinamento al valore \(\ell\): non rappresentano
 ulteriori numeri ai quali applicare le regole algebriche
 dei limiti.
 
-\clearpage
-
 \begin{example}[Verso di avvicinamento di una somma]
 \label{ex:lez14-verso-somma}
 Siano
@@ -352,17 +329,13 @@ Per \(x\to0\), si ha \(f(x)\to3\) dal basso e
   (f+g)(x)=5+x^4-x^2<5
   \qquad\text{se }0<|x|<1.
 \]
-Il limite della somma è \(5\), raggiunto dal basso:
-il verso di avvicinamento non si determina sommando
-formalmente i simboli \(3^-\) e \(2^+\).
+Per il \cref{thm:lez14-limite-somma}, la somma tende
+a \(5\) dal basso: il verso di avvicinamento non si
+determina sommando formalmente i simboli \(3^-\) e \(2^+\).
 \end{example}
 
 \section{Limiti destri e sinistri}
 \label{sec:lez14-limiti-unilateri}
-
-Il verso di avvicinamento al valore limite della
-\cref{sec:lez14-avvicinamento-valore} è distinto dal lato
-da cui la variabile \(x\) si avvicina al punto \(x_0\).
 
 \begin{definition}[Intorni destri e sinistri]
 \label{def:lez14-intorni-unilateri}
@@ -415,12 +388,10 @@ accumulazione sia destro sia sinistro.
   \label{fig:lez14-accumulazione-unilaterale}
 \end{figure}
 
-\clearpage
-
 \begin{definition}[Limite destro e limite sinistro]
 \label{def:lez14-limiti-unilateri}
-Siano \(f\colon A\longrightarrow\R\), con
-\(A\subseteq\R\) non vuoto, e \(\ell\in\overline{\R}\).
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia \(\ell\in\overline{\R}\).
 Se \(x_0\in\R\) è di accumulazione destro per \(A\),
 si dice che \(f\) \emph{ammette limite destro} \(\ell\)
 per \(x\to x_0\), e si scrive
@@ -441,8 +412,8 @@ sostituendo \(D^+\) con \(D^-\) e scrivendo
 
 \begin{theorem}[Limite e limiti unilateri]
 \label{thm:lez14-limite-unilateri}
-Siano \(f\colon A\longrightarrow\R\), con
-\(A\subseteq\R\) non vuoto, e \(x_0\in\R\) un punto
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia \(x_0\in\R\) un punto
 di accumulazione sia destro sia sinistro per \(A\).
 Per ogni \(\ell\in\overline{\R}\), vale
 \[
