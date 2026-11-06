@@ -1,0 +1,436 @@
+\chapter[Lezione 15 --- 28 ottobre 2026]{Lezione 15: limiti di funzioni monotone, esponenziali e logaritmi}
+\label{chap:lezione-15}
+
+\section{Limiti delle funzioni monotone}
+\label{sec:lez15-limiti-monotone}
+
+La monotonia introdotta nella \cref{def:lez10-monotonia}
+permette di determinare i limiti agli estremi di un intervallo
+mediante gli estremi dell'immagine della funzione.
+
+\begin{theorem}[Limiti delle funzioni monotone]
+\label{thm:lez15-limiti-monotone}
+Siano \(a,b\in\overline{\R}\), con \(a<b\), e sia
+\(I=(a,b)\subseteq\R\). Si consideri una funzione
+\(f\colon I\longrightarrow\R\). Allora:
+\begin{enumerate}
+  \item se \(f\) è debolmente crescente su \(I\), si ha
+  \[
+    \lim_{x\to a^+}f(x)=\inf\{f(x):x\in I\},
+    \qquad
+    \lim_{x\to b^-}f(x)=\sup\{f(x):x\in I\};
+  \]
+  \item se \(f\) è debolmente decrescente su \(I\), si ha
+  \[
+    \lim_{x\to a^+}f(x)=\sup\{f(x):x\in I\},
+    \qquad
+    \lim_{x\to b^-}f(x)=\inf\{f(x):x\in I\}.
+  \]
+\end{enumerate}
+Se \(a=-\infty\) o \(b=+\infty\), le rispettive scritture
+\(x\to a^+\) e \(x\to b^-\) indicano i limiti per
+\(x\to-\infty\) e \(x\to+\infty\).
+Gli estremi dell'immagine sono intesi nella retta reale estesa.
+\end{theorem}
+
+È essenziale considerare l'immagine dell'intervallo aperto
+\(I=(a,b)\). Se la funzione è definita anche in \(a\),
+il suo valore in tale punto non influisce sul limite destro,
+ma può modificare l'estremo inferiore dell'immagine.
+Ad esempio, per una funzione debolmente crescente su
+\(J=[a,b)\), può accadere che
+\[
+  f(a)=\inf f(J)
+  <\inf\{f(x):x\in(a,b)\}
+  =\lim_{x\to a^+}f(x),
+\]
+come illustrato nella \cref{fig:lez15-estremo-incluso}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[unipd/diagram,x=1cm,y=.9cm]
+    \draw[->,unipd-muted] (.3,-.05) -- (.3,4.05) node[above] {\(y\)};
+    \draw[->,unipd-muted] (.1,0) -- (6.1,0) node[right] {\(x\)};
+    \draw[densely dashed,unipd-muted] (.3,.7) -- (1.35,.7);
+    \draw[densely dashed,unipd-muted] (.3,1.55) -- (1.35,1.55);
+    \draw[very thick,unipd-primary]
+      plot[smooth] coordinates {
+        (1.35,1.55) (1.75,1.77) (2.35,1.91)
+        (3.15,2.12) (3.9,2.35) (4.45,2.75) (5.45,3.35)
+      };
+    \draw[unipd-primary,fill=white,thick] (1.35,1.55) circle (2.5pt);
+    \draw[unipd-primary,fill=white,thick] (5.45,3.35) circle (2.5pt);
+    \fill[unipd-primary] (1.35,.7) circle (2.2pt);
+    \node[below=6pt] at (1.35,0) {\(a\)};
+    \node[below=6pt] at (5.45,0) {\(b\)};
+    \node[left=5pt] at (.3,.7) {\(f(a)\)};
+    \node[left=5pt] at (.3,1.55) {\(\inf f((a,b))\)};
+  \end{tikzpicture}
+  \caption{Una funzione debolmente crescente su \(J=[a,b)\)
+  può assumere in \(a\) un valore inferiore al limite destro.
+  L'estremo inferiore di \(f(J)\) non coincide allora con
+  quello di \(f((a,b))\).}
+  \label{fig:lez15-estremo-incluso}
+\end{figure}
+
+\begin{proof}
+Si supponga che \(f\) sia debolmente crescente e che
+\(b\in\R\). Si ponga
+\[
+  \lambda:=\sup\{f(x):x\in I\}\in\R\cup\{+\infty\}.
+\]
+Si dimostra che
+\[
+  \lim_{x\to b^-}f(x)=\lambda.
+\]
+
+\emph{Primo caso: \(\lambda\in\R\).}
+Sia \(\varepsilon>0\). Per il
+\cref{thm:caratterizzazione-sup}, esiste
+\(x_\varepsilon\in I\) tale che
+\[
+  \lambda-\varepsilon<f(x_\varepsilon)\le\lambda.
+\]
+Per ogni \(x\in(x_\varepsilon,b)\), dalla monotonia di
+\(f\) e dalla definizione di estremo superiore segue
+\[
+  \lambda-\varepsilon<f(x_\varepsilon)
+  \le f(x)\le\lambda<\lambda+\varepsilon.
+\]
+Pertanto
+\[
+  |f(x)-\lambda|<\varepsilon
+  \qquad\forall x\in(x_\varepsilon,b).
+\]
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+    \draw[->,unipd-muted] (.1,2.15) -- (6.9,2.15)
+      node[right] {\(f(x)\)};
+    \draw[very thick,unipd-primary] (1.0,2.15) -- (5.9,2.15);
+    \draw[unipd-muted] (1.0,2.03) -- (1.0,2.27);
+    \draw[unipd-muted] (5.9,2.03) -- (5.9,2.27);
+    \fill[unipd-primary] (2.7,2.15) circle (2pt);
+    \fill[unipd-primary] (4.3,2.15) circle (2pt);
+    \node[below=7pt] at (1.0,2.15) {\(\lambda-\varepsilon\)};
+    \node[above=7pt] at (2.7,2.15) {\(f(x_\varepsilon)\)};
+    \node[above=7pt] at (4.3,2.15) {\(f(x)\)};
+    \node[below=7pt] at (5.9,2.15) {\(\lambda\)};
+
+    \draw[->,unipd-muted] (.1,.4) -- (6.9,.4)
+      node[right] {\(x\)};
+    \draw[very thick,unipd-accent] (1.1,.4) -- (6.15,.4);
+    \draw[unipd-accent,fill=white,thick] (1.1,.4) circle (2.4pt);
+    \draw[unipd-accent,fill=white,thick] (6.15,.4) circle (2.4pt);
+    \fill[unipd-accent] (3.7,.4) circle (2pt);
+    \node[below=7pt] at (1.1,.4) {\(x_\varepsilon\)};
+    \node[below=7pt] at (3.7,.4) {\(x\)};
+    \node[below=7pt] at (6.15,.4) {\(b\)};
+  \end{tikzpicture}
+  \caption{Per \(x_\varepsilon<x<b\), la monotonia e la
+  proprietà di estremo superiore forniscono
+  \(\lambda-\varepsilon<f(x_\varepsilon)\le f(x)\le\lambda\).}
+  \label{fig:lez15-supremo-finito}
+\end{figure}
+
+Ponendo
+\[
+  \delta_\varepsilon:=b-x_\varepsilon>0,
+\]
+si ottiene
+\[
+  |f(x)-\lambda|<\varepsilon
+  \qquad\forall x\in(b-\delta_\varepsilon,b).
+\]
+Per la \cref{def:lez14-limiti-unilateri}, si conclude
+\[
+  \lim_{x\to b^-}f(x)=\lambda.
+\]
+
+\emph{Secondo caso: \(\lambda=+\infty\).}
+L'immagine di \(f\) non è superiormente limitata.
+Per ogni \(K\in\R\), esiste quindi \(x_K\in I\) tale che
+\[
+  f(x_K)>K.
+\]
+Per ogni \(x\in(x_K,b)\), dalla monotonia di \(f\)
+segue
+\[
+  f(x)\ge f(x_K)>K.
+\]
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+    \draw[->,unipd-muted] (.1,2.15) -- (6.9,2.15)
+      node[right] {\(f(x)\)};
+    \draw[very thick,unipd-primary] (1.0,2.15) -- (6.15,2.15);
+    \draw[unipd-muted] (1.0,2.03) -- (1.0,2.27);
+    \fill[unipd-primary] (2.7,2.15) circle (2pt);
+    \fill[unipd-primary] (4.3,2.15) circle (2pt);
+    \node[below=7pt] at (1.0,2.15) {\(K\)};
+    \node[above=7pt] at (2.7,2.15) {\(f(x_K)\)};
+    \node[above=7pt] at (4.3,2.15) {\(f(x)\)};
+
+    \draw[->,unipd-muted] (.1,.4) -- (6.9,.4)
+      node[right] {\(x\)};
+    \draw[very thick,unipd-accent] (1.1,.4) -- (6.15,.4);
+    \draw[unipd-accent,fill=white,thick] (1.1,.4) circle (2.4pt);
+    \draw[unipd-accent,fill=white,thick] (6.15,.4) circle (2.4pt);
+    \fill[unipd-accent] (3.7,.4) circle (2pt);
+    \node[below=7pt] at (1.1,.4) {\(x_K\)};
+    \node[below=7pt] at (3.7,.4) {\(x\)};
+    \node[below=7pt] at (6.15,.4) {\(b\)};
+  \end{tikzpicture}
+  \caption{Se \(\lambda=+\infty\), per ogni \(K\in\R\)
+  esiste \(x_K\in I\) tale che \(K<f(x_K)\le f(x)\)
+  per ogni \(x\in(x_K,b)\).}
+  \label{fig:lez15-supremo-infinito}
+\end{figure}
+
+Posto \(\delta_K:=b-x_K>0\), si ha dunque
+\[
+  f(x)>K
+  \qquad\forall x\in(b-\delta_K,b).
+\]
+Per la \cref{def:lez14-limiti-unilateri}, si ottiene
+\[
+  \lim_{x\to b^-}f(x)=+\infty.
+\]
+\end{proof}
+
+Il secondo punto del \cref{thm:lez15-limiti-monotone}
+si riconduce al primo. Infatti, se \(f\) è debolmente
+decrescente, allora \(-f\) è debolmente crescente
+per la \cref{prop:lez10-monotonia-opposta}. Applicando
+il primo punto a \(-f\), si ha
+\[
+\begin{aligned}
+  \lim_{x\to a^+}(-f)(x)
+    &=\inf\{-f(x):x\in I\},\\
+  \lim_{x\to b^-}(-f)(x)
+    &=\sup\{-f(x):x\in I\}.
+\end{aligned}
+\]
+Per l'\cref{ex:estremi-insieme-opposto},
+\[
+  \inf\{-f(x):x\in I\}=-\sup\{f(x):x\in I\},
+\]
+\[
+  \sup\{-f(x):x\in I\}=-\inf\{f(x):x\in I\}.
+\]
+Cambiando segno ai limiti mediante il
+\cref{thm:lez14-limite-prodotto}, si ricavano le
+due uguaglianze del secondo punto.
+
+\section{Limiti di funzioni esponenziali e logaritmiche}
+\label{sec:lez15-limiti-elementari}
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/esponenziale-logaritmo}
+  \caption{Grafici rappresentativi delle funzioni esponenziali e logaritmiche
+  nei casi \(a>1\) e \(0<a<1\). In figura sono scelte le basi
+  \(a=2\) e \(a=\frac12\), che illustrano i comportamenti descritti
+  nel \cref{thm:lez15-limiti-esponenziale-logaritmo}.}
+  \label{fig:lez15-esponenziale-logaritmo}
+\end{figure}
+
+\clearpage
+
+\begin{theorem}[Limiti dell'esponenziale e del logaritmo]
+\label{thm:lez15-limiti-esponenziale-logaritmo}
+Sia \(a>0\), con \(a\ne1\). Allora:
+\begin{enumerate}
+  \item se \(a>1\), si ha
+  \[
+    \lim_{x\to-\infty}a^x=0^+,
+    \qquad
+    \lim_{x\to+\infty}a^x=+\infty;
+  \]
+  \item se \(0<a<1\), si ha
+  \[
+    \lim_{x\to-\infty}a^x=+\infty,
+    \qquad
+    \lim_{x\to+\infty}a^x=0^+;
+  \]
+  \item se \(a>1\), si ha
+  \[
+    \lim_{x\to0^+}\log_a x=-\infty,
+    \qquad
+    \lim_{x\to+\infty}\log_a x=+\infty;
+  \]
+  \item se \(0<a<1\), si ha
+  \[
+    \lim_{x\to0^+}\log_a x=+\infty,
+    \qquad
+    \lim_{x\to+\infty}\log_a x=-\infty.
+  \]
+\end{enumerate}
+La scrittura \(0^+\) indica che i valori della funzione
+tendono a zero dall'alto, nel senso della
+\cref{def:lez14-avvicinamento-valore}.
+Per \(a=1\), escluso dalle ipotesi, si ha
+\(a^x=1\) per ogni \(x\in\R\).
+\end{theorem}
+
+\begin{proof}
+\emph{Primo punto.}
+Sia \(a>1\). Per l'\cref{ex:lez10-logaritmo-monotono},
+la funzione \(x\longmapsto a^x\) è strettamente crescente
+su \(\R\). Applicando il \cref{thm:lez15-limiti-monotone}
+all'intervallo \((-\infty,+\infty)\), si ha
+\[
+  \lim_{x\to-\infty}a^x
+    =\inf\{a^x:x\in\R\},
+  \qquad
+  \lim_{x\to+\infty}a^x
+    =\sup\{a^x:x\in\R\}.
+\]
+
+\emph{Limite per \(x\to+\infty\).}
+Si ponga \(c:=a-1>0\). Per ogni \(n\in\N\),
+la disuguaglianza di Bernoulli del
+\cref{thm:disuguaglianza-bernoulli} fornisce
+\[
+  a^n=(1+c)^n\ge1+nc.
+\]
+Poiché \(1+nc\to+\infty\) per \(n\to+\infty\),
+per il \cref{thm:lez12-confronto-secondo} si ottiene
+\[
+  \lim_{n\to+\infty}a^n=+\infty.
+\]
+L'insieme \(\{a^n:n\in\N\}\) non è quindi
+superiormente limitato. Poiché
+\[
+  \{a^n:n\in\N\}\subseteq\{a^x:x\in\R\},
+\]
+neppure l'immagine dell'esponenziale è superiormente
+limitata. Pertanto
+\[
+  \sup\{a^x:x\in\R\}=+\infty,
+\]
+e, per il \cref{thm:lez15-limiti-monotone},
+\[
+  \lim_{x\to+\infty}a^x=+\infty.
+\]
+
+\emph{Limite per \(x\to-\infty\).}
+Dal limite appena dimostrato e dal
+\cref{thm:lez14-limite-rapporto} segue
+\[
+  \lim_{n\to+\infty}a^{-n}
+    =\lim_{n\to+\infty}\frac1{a^n}=0.
+\]
+Poiché \(a^{-n}>0\) per ogni \(n\in\N\), per ogni
+\(\varepsilon>0\) esiste \(n\in\N\) tale che
+\[
+  0<a^{-n}<\varepsilon.
+\]
+Per il \cref{thm:caratterizzazione-inf}, si ha quindi
+\[
+  \inf\{a^{-n}:n\in\N\}=0.
+\]
+Dall'inclusione
+\[
+  \{a^{-n}:n\in\N\}\subseteq\{a^x:x\in\R\}
+\]
+segue
+\[
+  \inf\{a^x:x\in\R\}
+  \le\inf\{a^{-n}:n\in\N\}=0.
+\]
+D'altra parte, \(a^x>0\) per ogni \(x\in\R\), quindi
+\(0\) è un minorante dell'immagine e
+\[
+  0\le\inf\{a^x:x\in\R\}\le0.
+\]
+Si conclude che
+\[
+  \inf\{a^x:x\in\R\}=0,
+  \qquad
+  \lim_{x\to-\infty}a^x=0^+.
+\]
+
+\emph{Secondo punto.}
+Sia \(0<a<1\) e si ponga
+\[
+  c:=\frac1a>1.
+\]
+Per il primo punto,
+\[
+  \lim_{x\to-\infty}c^x=0^+,
+  \qquad
+  \lim_{x\to+\infty}c^x=+\infty.
+\]
+Poiché \(a^x=1/c^x\), per il
+\cref{thm:lez14-limite-rapporto} si ottiene
+\[
+  \lim_{x\to-\infty}a^x
+    =\lim_{x\to-\infty}\frac1{c^x}
+    =+\infty
+\]
+e
+\[
+  \lim_{x\to+\infty}a^x
+    =\lim_{x\to+\infty}\frac1{c^x}
+    =0^+.
+\]
+
+\emph{Terzo punto.}
+Sia \(a>1\). La funzione
+\[
+  \varphi\colon\R\longrightarrow(0,+\infty),
+  \qquad x\longmapsto a^x,
+\]
+è strettamente crescente. La sua applicazione inversa
+\[
+  \varphi^{-1}\colon(0,+\infty)\longrightarrow\R,
+  \qquad x\longmapsto\log_a x,
+\]
+è quindi strettamente crescente per la
+\cref{prop:lez10-monotonia-inversa}.
+
+Poiché
+\[
+  \operatorname{Im}(\log_a)=\R,
+\]
+per il \cref{thm:lez15-limiti-monotone} si ha
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\log_a x
+    &=\inf\{\log_a x:x>0\}
+      =\inf\R=-\infty,\\
+  \lim_{x\to+\infty}\log_a x
+    &=\sup\{\log_a x:x>0\}
+      =\sup\R=+\infty.
+\end{aligned}
+\]
+
+\emph{Quarto punto.}
+Sia \(0<a<1\). Posto \(c:=1/a>1\), si ha
+\[
+  a^x=\frac1{c^x}.
+\]
+Poiché \(c^x\) è strettamente crescente e positiva,
+la funzione \(x\longmapsto a^x\) è strettamente
+decrescente su \(\R\). Per la
+\cref{prop:lez10-monotonia-inversa}, anche la sua
+inversa \(x\longmapsto\log_a x\) è strettamente
+decrescente su \((0,+\infty)\).
+
+Poiché \(\operatorname{Im}(\log_a)=\R\), applicando
+il secondo punto del \cref{thm:lez15-limiti-monotone}
+si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\log_a x
+    &=\sup\{\log_a x:x>0\}
+      =\sup\R=+\infty,\\
+  \lim_{x\to+\infty}\log_a x
+    &=\inf\{\log_a x:x>0\}
+      =\inf\R=-\infty.
+\end{aligned}
+\]
+\end{proof}

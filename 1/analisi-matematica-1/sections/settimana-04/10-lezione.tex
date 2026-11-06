@@ -358,19 +358,19 @@ dunque \(\varphi\) è iniettiva per la
 La seconda affermazione della
 \cref{prop:lez10-monotonia-inversa} è enunciata senza dimostrazione.
 
-\begin{example}[Monotonia del logaritmo]
+\begin{example}[Monotonia del logaritmo e dell'esponenziale]
 \label{ex:lez10-logaritmo-monotono}
-Per ogni \(a>1\), la funzione
+Per ogni \(a>1\), si consideri la funzione logaritmica
 \[
-  \varphi\colon\R\longrightarrow(0,+\infty),
+  \varphi\colon(0,+\infty)\longrightarrow\R,
+  \qquad x\longmapsto\log_a x.
+\]
+La sua applicazione inversa è la funzione esponenziale
+\[
+  \varphi^{-1}\colon\R\longrightarrow(0,+\infty),
   \qquad x\longmapsto a^x,
 \]
-è strettamente crescente su \(\R\).
-La sua inversa
-\[
-  \varphi^{-1}\colon(0,+\infty)\longrightarrow\R,
-  \qquad x\longmapsto\log_a x,
-\]
-è quindi strettamente crescente su \((0,+\infty)\)
-per la \cref{prop:lez10-monotonia-inversa}.
+che è strettamente crescente su \(\R\).
+Per la \cref{prop:lez10-monotonia-inversa}, anche
+\(\varphi\) è strettamente crescente su \((0,+\infty)\).
 \end{example}
