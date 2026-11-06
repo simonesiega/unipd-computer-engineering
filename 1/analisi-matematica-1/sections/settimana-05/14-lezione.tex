@@ -410,6 +410,8 @@ sostituendo \(D^+\) con \(D^-\) e scrivendo
 \(\lim_{x\to x_0^-}f(x)=\ell\).
 \end{definition}
 
+\clearpage
+
 \begin{theorem}[Limite e limiti unilateri]
 \label{thm:lez14-limite-unilateri}
 Sia \(f\colon A\longrightarrow\R\), con
@@ -424,5 +426,105 @@ Per ogni \(\ell\in\overline{\R}\), vale
 \]
 \end{theorem}
 
-La dimostrazione del \cref{thm:lez14-limite-unilateri}
-non viene sviluppata in questa sede.
+\begin{proof}
+Si dimostrano separatamente le due implicazioni.
+
+\emph{Prima implicazione \((\Leftarrow)\).}
+Si supponga che
+\[
+  \lim_{x\to x_0^-}f(x)
+  =\lim_{x\to x_0^+}f(x)=\ell.
+\]
+Sia \(V_\ell\) un intorno arbitrario di \(\ell\).
+Per la \cref{def:lez14-limiti-unilateri}, esiste
+\(\delta_1>0\) tale che
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in A\cap(x_0,x_0+\delta_1).
+\]
+Analogamente, esiste \(\delta_2>0\) tale che
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in A\cap(x_0-\delta_2,x_0).
+\]
+Ponendo
+\[
+  \delta:=\min\{\delta_1,\delta_2\}>0,
+\]
+per ogni \(x\in(A\cap(x_0-\delta,x_0+\delta))
+\setminus\{x_0\}\) vale una delle due condizioni
+precedenti. Pertanto
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in
+  (A\cap(x_0-\delta,x_0+\delta))\setminus\{x_0\}.
+\]
+Poiché \(V_\ell\) era arbitrario, per la
+\cref{def:lez08-limite} si conclude
+\[
+  \lim_{x\to x_0}f(x)=\ell.
+\]
+
+\emph{Seconda implicazione \((\Rightarrow)\).}
+Si supponga che
+\[
+  \lim_{x\to x_0}f(x)=\ell.
+\]
+Sia \(V_\ell\) un intorno arbitrario di \(\ell\).
+Per la \cref{def:lez08-limite}, esiste \(\delta>0\)
+tale che
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in
+  (A\cap(x_0-\delta,x_0+\delta))\setminus\{x_0\}.
+\]
+Poiché
+\[
+  (x_0,x_0+\delta)
+  \subseteq(x_0-\delta,x_0+\delta)
+  \setminus\{x_0\},
+\]
+si ha
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in A\cap(x_0,x_0+\delta).
+\]
+Analogamente, poiché
+\[
+  (x_0-\delta,x_0)
+  \subseteq(x_0-\delta,x_0+\delta)
+  \setminus\{x_0\},
+\]
+si ha
+\[
+  f(x)\in V_\ell
+  \qquad\forall x\in A\cap(x_0-\delta,x_0).
+\]
+Per la \cref{def:lez14-limiti-unilateri}, si conclude
+\[
+  \lim_{x\to x_0^-}f(x)
+  =\lim_{x\to x_0^+}f(x)=\ell.
+\]
+\end{proof}
+
+\clearpage
+
+\begin{example}[Limiti unilateri distinti]
+\label{ex:lez14-limiti-unilateri-inverso}
+Si consideri la funzione
+\[
+  f\colon\R\setminus\{0\}\longrightarrow\R,
+  \qquad f(x):=\frac1x.
+\]
+Il punto \(0\) è di accumulazione sia destro sia
+sinistro per il dominio \(A=\R\setminus\{0\}\).
+Si ha
+\[
+  \lim_{x\to0^+}\frac1x=+\infty,
+  \qquad
+  \lim_{x\to0^-}\frac1x=-\infty.
+\]
+Poiché i due limiti unilateri sono distinti,
+per il \cref{thm:lez14-limite-unilateri} la funzione
+non ammette limite per \(x\to0\).
+\end{example}

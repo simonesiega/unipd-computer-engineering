@@ -77,15 +77,15 @@
   - 14.1 Teoremi sulle operazioni dei limiti — p. 72
   - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 75
   - 14.3 Limiti destri e sinistri — p. 76
-- A Tutorato — p. 77
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 77
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 80
-- B Esercizi per argomento — p. 83
-  - B.1 Limiti — p. 83
-  - B.2 Studio di funzione — p. 84
-  - B.3 Successioni — p. 85
-  - B.4 Serie numeriche — p. 86
-  - B.5 Integrali — p. 87
-  - B.6 Equazioni differenziali — p. 88
-  - B.7 Taylor e tecniche asintotiche — p. 89
+- A Tutorato — p. 79
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 79
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 82
+- B Esercizi per argomento — p. 85
+  - B.1 Limiti — p. 85
+  - B.2 Studio di funzione — p. 86
+  - B.3 Successioni — p. 87
+  - B.4 Serie numeriche — p. 88
+  - B.5 Integrali — p. 89
+  - B.6 Equazioni differenziali — p. 90
+  - B.7 Taylor e tecniche asintotiche — p. 91
 <!-- GENERATED:END -->
