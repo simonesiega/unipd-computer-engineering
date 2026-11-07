@@ -82,15 +82,20 @@
   - 15.2 Limiti di funzioni esponenziali e logaritmiche — p. 81
 - 16 Lezione 16 --- 29 ottobre 2026 — p. 84
   - 16.1 Teorema sui limiti per sostituzione — p. 84
-- A Tutorato — p. 87
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 87
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 90
-- B Esercizi per argomento — p. 93
-  - B.1 Limiti — p. 93
-  - B.2 Studio di funzione — p. 94
-  - B.3 Successioni — p. 95
-  - B.4 Serie numeriche — p. 96
-  - B.5 Integrali — p. 97
-  - B.6 Equazioni differenziali — p. 98
-  - B.7 Taylor e tecniche asintotiche — p. 99
+- 17 Lezione 17 --- 30 ottobre 2026 — p. 87
+  - 17.1 Successioni — p. 87
+  - 17.2 Teorema ponte — p. 88
+  - 17.3 Limiti notevoli — p. 89
+  - 17.4 Limiti di successioni notevoli — p. 91
+- A Tutorato — p. 92
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 92
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 95
+- B Esercizi per argomento — p. 98
+  - B.1 Limiti — p. 98
+  - B.2 Studio di funzione — p. 99
+  - B.3 Successioni — p. 100
+  - B.4 Serie numeriche — p. 101
+  - B.5 Integrali — p. 102
+  - B.6 Equazioni differenziali — p. 103
+  - B.7 Taylor e tecniche asintotiche — p. 104
 <!-- GENERATED:END -->
