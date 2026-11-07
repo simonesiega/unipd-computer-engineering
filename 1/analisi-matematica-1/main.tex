@@ -20,10 +20,11 @@
 \crefname{chapter}{lezione}{lezioni}
 \Crefname{chapter}{Lezione}{Lezioni}
 \input{sections/notazione}
+\setglossarypreamble{\label{sec:convenzioni-notazione}}
+\addto\captionsitalian{\renewcommand*{\contentsname}{Indice}}
 
 \begin{document}
-\makecoursecover
-\input{sections/indici}
+\makecoursefrontmatter
 \makecoursemainmatter
 
 \printnoidxglossary[title={Convenzioni e notazione},sort=def]
@@ -44,8 +45,7 @@
 \input{sections/settimana-05/14-lezione}
 
 \courseappendices
-\input{sections/tutorato/01-tutorato}
-\input{sections/tutorato/02-tutorato}
+\input{sections/tutorato}
 \input{sections/esercizi/argomenti}
 
 \glsaddall
