@@ -4,8 +4,9 @@
 \section[Verifica di un limite all'infinito]{Verifica di un limite per \(x\to+\infty\)}
 \label{sec:lez09-limite-infinito}
 
-Si completa lo studio degli esempi della \cref{sec:lez08-esercizi-limiti}
-considerando un limite finito per \(x\to+\infty\).
+Si prosegue con le verifiche della
+\cref{sec:lez08-esercizi-limiti}, considerando
+un limite finito per \(x\to+\infty\).
 
 \begin{exercise}[Verifica di un limite all'infinito]
 \label{ex:lez09-limite-razionale-infinito}
@@ -46,16 +47,17 @@ Per ogni \(x\in A\), si ha
 Se \(x>-2\), allora \(|x+2|=x+2\), e la condizione
 \[
   \frac7{x+2}<\varepsilon
+  \quad\Longleftrightarrow\quad
+  x>-2+\frac7\varepsilon.
 \]
-è equivalente a \(x>-2+7/\varepsilon\). È pertanto
-sufficiente scegliere
+Pertanto è sufficiente porre
 \[
   k_\varepsilon:=-2+\frac7\varepsilon.
 \]
 Infatti, per ogni \(x\in A\cap(k_\varepsilon,+\infty)\)
 si ha \(x>-2\) e
 \[
-  \left|f(x)-3\right|
+  |f(x)-3|
   =\frac7{x+2}<\varepsilon.
 \]
 Poiché \(\varepsilon>0\) era arbitrario, per la
@@ -126,7 +128,8 @@ Entrambe le composizioni sono definite e, per ogni \(x\in\R\),
 Per \(x=10\), in particolare,
 \[
   (\psi\circ\varphi)(10)=101,
-  \qquad (\varphi\circ\psi)(10)=121.
+  \qquad
+  (\varphi\circ\psi)(10)=121.
 \]
 Pertanto \(\psi\circ\varphi\ne\varphi\circ\psi\):
 la composizione non è, in generale, commutativa.
@@ -137,7 +140,7 @@ condizioni distinte, come mostra l'esempio seguente.
 
 \clearpage
 
-\begin{example}[Composizione non definita]
+\begin{example}[Composizione definita in un solo ordine]
 \label{ex:lez09-composizione-non-definita}
 Siano
 \[
@@ -155,8 +158,10 @@ la composizione \(\varphi\circ\psi\) è definita e
 \]
 Viceversa, \(\varphi(1)=1/2\notin\N=D(\psi)\);
 pertanto \(\operatorname{Im}(\varphi)\not\subseteq D(\psi)\)
-e \(\psi\circ\varphi\) non è definita su tutto \(\N\).
+e la composizione \(\psi\circ\varphi\) non è definita
+su tutto \(\N\).
 \end{example}
+
 
 \section{Applicazione identità}
 \label{sec:lez09-identita}
@@ -190,8 +195,8 @@ tra insiemi non vuoti. Allora
 \end{proposition}
 
 \begin{proof}
-Per ogni \(a\in A\), applicando le
-\cref{def:lez09-composizione,def:lez09-identita}, si ha
+Per ogni \(a\in A\), dalle
+\cref{def:lez09-composizione,def:lez09-identita} si ottiene
 \[
   (\varphi\circ\operatorname{id}_A)(a)
   =\varphi(\operatorname{id}_A(a))=\varphi(a),
@@ -200,14 +205,18 @@ Per ogni \(a\in A\), applicando le
   (\operatorname{id}_B\circ\varphi)(a)
   =\operatorname{id}_B(\varphi(a))=\varphi(a).
 \]
-Le due composizioni hanno dominio \(A\) e codominio \(B\),
-come \(\varphi\), dunque valgono entrambe le identità.
+Entrambe le composizioni hanno dominio \(A\) e codominio
+\(B\), come \(\varphi\). Si concludono quindi le due identità.
 \end{proof}
 
 Considerando la stessa legge di \(\varphi\) con codominio
 \(\operatorname{Im}(\varphi)\), si ottiene l'applicazione
-\(\widetilde{\varphi}\colon A\to\operatorname{Im}(\varphi)\).
-Per la \cref{prop:lez09-identita-composizione} vale anche
+\[
+  \widetilde{\varphi}\colon A\longrightarrow
+  \operatorname{Im}(\varphi),
+  \qquad a\longmapsto\varphi(a).
+\]
+Per la \cref{prop:lez09-identita-composizione}, si ha
 \[
   \operatorname{id}_{\operatorname{Im}(\varphi)}
   \circ\widetilde{\varphi}=\widetilde{\varphi}.
@@ -241,9 +250,9 @@ La \cref{def:lez06-controimmagine} fornisce
 \[
   \varphi^{-1}(\{1\})=\{-1,1\}.
 \]
-Il valore \(1\) possiede quindi due antecedenti distinti:
-non è possibile definirne un'inversa che associ a \(1\)
-un unico elemento di \(\R\).
+Il valore \(1\) possiede quindi due antecedenti distinti.
+Non è pertanto possibile definire un'applicazione
+inversa di \(\varphi\).
 \end{example}
 
 \begin{figure}[htbp]
@@ -280,7 +289,8 @@ L'esistenza di \(a\) segue dalla
   \input{assets/grafici/funzioni/composizione-inversa}
   \caption{L'applicazione inversa riporta
   \(\varphi(a)\) ad \(a\), realizzando
-  \(\varphi^{-1}\circ\varphi=\operatorname{id}_A\).}
+  \(\varphi^{-1}\circ\widetilde{\varphi}
+  =\operatorname{id}_A\).}
   \label{fig:lez09-composizione-inversa}
 \end{figure}
 
@@ -320,7 +330,7 @@ Seguono entrambe le uguaglianze.
 
 \begin{example}[Esponenziale e logaritmo]
 \label{ex:lez09-inversa-esponenziale}
-Si considerino le applicazioni inverse
+Si considerino le applicazioni
 \[
   \varphi\colon\R\longrightarrow(0,+\infty),
   \quad x\longmapsto e^x,

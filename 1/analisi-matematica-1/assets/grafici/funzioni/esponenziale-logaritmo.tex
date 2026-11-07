@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.88\textwidth,
+    height=8cm,
+    axis lines=middle,
+    xmin=-4.2, xmax=4.2,
+    ymin=-4.2, ymax=4.2,
+    xtick={-4,-3,-2,-1,1,2,3,4},
+    ytick={-4,-3,-2,-1,1,2,3,4},
+    xlabel={\(x\)},
+    ylabel={\(y\)},
+    xlabel style={at={(axis description cs:1,0.48)},anchor=west},
+    ylabel style={at={(axis description cs:0.52,1)},anchor=south},
+    enlargelimits=false,
+    clip=true,
+    samples=250,
+    domain=-4:4,
+    legend style={
+      at={(0.5,-0.16)},
+      anchor=north,
+      legend columns=2,
+      draw=none,
+      fill=none,
+      font=\small
+    },
+    every axis plot/.append style={very thick}
+  ]
+    \addplot[unipd-primary] {2^x};
+    \addlegendentry{\(y=2^x\)}
+
+    \addplot[unipd-accent,domain=0.05:4] {ln(x)/ln(2)};
+    \addlegendentry{\(y=\log_2 x\)}
+
+    \addplot[teal!70!black] {(1/2)^x};
+    \addlegendentry{\(y=\left(\frac12\right)^x\)}
+
+    \addplot[violet!80!black,domain=0.05:4] {ln(x)/ln(1/2)};
+    \addlegendentry{\(y=\log_{1/2}x\)}
+  \end{axis}
+\end{tikzpicture}

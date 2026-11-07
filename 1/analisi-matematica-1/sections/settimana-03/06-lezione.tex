@@ -1,7 +1,107 @@
 \chapter[Lezione 6 --- 13 ottobre 2026]{Lezione 6: applicazioni, immagini e controimmagini}
 \label{chap:lezione-06}
 
-\section{Un esercizio sugli estremi di insiemi separati}
+\section{Esercizio sulla somma di insiemi}
+\label{sec:lez06-esercizio-somma-insiemi}
+
+\begin{exercise}[Estremo superiore della somma di insiemi]
+\label{ex:lez06-sup-somma-insiemi}
+Siano \(A,B\subseteq\R\) due insiemi non vuoti e si definisca
+\[
+  A+B:=\{a+b:a\in A,\ b\in B\}.
+\]
+Dimostrare che:
+\begin{enumerate}
+  \item se \(A\) e \(B\) sono superiormente limitati, allora
+  \[
+    \sup(A+B)=\sup A+\sup B;
+  \]
+  \item se almeno uno dei due insiemi non è superiormente limitato,
+  allora
+  \[
+    \sup(A+B)=+\infty.
+  \]
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Poiché \(A\) e \(B\) sono non vuoti, anche \(A+B\) è non vuoto.
+
+\emph{Primo punto.}
+Si supponga che \(A\) e \(B\) siano superiormente limitati
+e si ponga
+\[
+  s=\sup A,
+  \qquad
+  t=\sup B.
+\]
+Per la \cref{def:estremo-superiore}, si ha
+\[
+  a\le s\qquad\forall a\in A,
+  \qquad
+  b\le t\qquad\forall b\in B.
+\]
+Sommando le disuguaglianze, si ottiene
+\[
+  a+b\le s+t
+  \qquad\forall a\in A,\ \forall b\in B.
+\]
+Pertanto \(s+t\) è un maggiorante di \(A+B\).
+
+Sia ora \(\varepsilon>0\). Per il
+\cref{thm:caratterizzazione-sup}, esistono
+\(a\in A\) e \(b\in B\) tali che
+\[
+  a>s-\frac{\varepsilon}{2},
+  \qquad
+  b>t-\frac{\varepsilon}{2}.
+\]
+Sommando, si ottiene
+\[
+  a+b>s+t-\varepsilon.
+\]
+Poiché \(a+b\in A+B\), entrambe le condizioni del
+\cref{thm:caratterizzazione-sup} sono soddisfatte.
+Si conclude quindi
+\[
+  \sup(A+B)=s+t=\sup A+\sup B.
+\]
+
+\emph{Secondo punto.}
+Si supponga anzitutto che \(A\) non sia superiormente
+limitato. Fissato \(b_0\in B\), per ogni \(t\in\R\)
+esiste \(a\in A\) tale che
+\[
+  a>t-b_0.
+\]
+Pertanto
+\[
+  a+b_0>t.
+\]
+Poiché \(a+b_0\in A+B\), l'insieme \(A+B\) non è
+superiormente limitato.
+
+Se invece \(B\) non è superiormente limitato, fissato
+\(a_0\in A\), per ogni \(t\in\R\) esiste \(b\in B\)
+tale che
+\[
+  b>t-a_0.
+\]
+Pertanto
+\[
+  a_0+b>t.
+\]
+Poiché \(a_0+b\in A+B\), anche in questo caso
+\(A+B\) non è superiormente limitato.
+
+Per la convenzione introdotta nella \cref{sec:lez04-estremi},
+si conclude
+\[
+  \sup(A+B)=+\infty.
+\]
+\end{proof}
+
+\section{Esercizio sugli insiemi separati}
 \label{sec:lez06-insiemi-separati}
 
 La separazione introdotta nella \cref{sec:lez03-numeri-reali}
@@ -23,8 +123,9 @@ Scelti \(a_0\in A\) e \(b_0\in B\), l'ipotesi implica
   a_0\le b\quad\forall b\in B,
   \qquad a\le b_0\quad\forall a\in A.
 \]
-Per le \cref{def:maggiorante,def:minorante}, entrambi gli
-estremi richiesti sono quindi reali.
+Per le \cref{def:maggiorante,def:minorante}, \(A\) è
+superiormente limitato e \(B\) è inferiormente limitato.
+Entrambi gli estremi richiesti sono quindi reali.
 
 Ogni \(b\in B\) è un maggiorante di \(A\).
 Per la \cref{def:estremo-superiore}, si ha
@@ -62,7 +163,8 @@ un'applicazione.
 
 \begin{definition}[Applicazione]
 \label{def:lez06-applicazione}
-Un insieme \(\Phi\subseteq A\times B\) si dice
+Siano \(A\) e \(B\) due insiemi. Un insieme
+\(\Phi\subseteq A\times B\) si dice
 \emph{applicazione} da \(A\) a \(B\) se
 \[
   \forall a\in A\;\exists!\,b\in B:
@@ -82,8 +184,6 @@ Per ogni \(a\in A\) e \(b\in B\), si ha
   \quad\Longleftrightarrow\quad
   (a,b)\in\Phi.
 \]
-
-\clearpage
 
 L'insieme \(\Phi\) costituisce quindi il
 \emph{grafico} dell'applicazione \(\phi\):
@@ -123,6 +223,8 @@ intersechi il grafico almeno una volta.
   \label{fig:lez06-test-verticale}
 \end{figure}
 
+\clearpage
+
 \section{Dominio, codominio e immagine}
 \label{sec:lez06-dominio-immagine}
 
@@ -137,7 +239,7 @@ con \(D(f)=A\); l'insieme \(B\) si dice
 L'espressione che determina i valori di una
 funzione non basta a individuarla: occorre
 specificarne anche il dominio e il codominio.
-Si considerino, ad esempio, le applicazioni
+Si considerino, per esempio, le applicazioni
 \[
   \begin{aligned}
     f\colon\R&\longrightarrow\R,
@@ -154,8 +256,8 @@ algebrica: \(f\) e \(g\) differiscono per il codominio,
 
 \begin{definition}[Immagine di un'applicazione]
 \label{def:lez06-immagine}
-L'\emph{immagine} di \(f\colon A\to B\)
-è l'insieme
+Sia \(f\colon A\longrightarrow B\).
+L'\emph{immagine} di \(f\) è l'insieme
 \[
   \operatorname{Im}(f)
   :=\{b\in B:\exists a\in A,\ f(a)=b\}
@@ -189,6 +291,8 @@ nel caso di \(f\), l'immagine dal codominio.
   le ascisse \([-2,-1]\cup[1,2]\).}
   \label{fig:lez06-quadrato}
 \end{figure}
+
+\clearpage
 
 \section{Controimmagine di un sottoinsieme}
 \label{sec:lez06-controimmagine}
@@ -227,8 +331,8 @@ tra insiemi delle parti:
   f^{-1}\colon\mathcal P(B)\longrightarrow\mathcal P(A),
   \qquad S\longmapsto f^{-1}(S).
 \]
-In particolare, se \(S\cap\operatorname{Im}(f)
-=\varnothing\), allora \(f^{-1}(S)=\varnothing\).
+In particolare, se \(S\cap\operatorname{Im}(f)=\varnothing\),
+allora \(f^{-1}(S)=\varnothing\).
 
 \begin{example}[Controimmagini del quadrato]
 \label{ex:lez06-controimmagini-quadrato}
@@ -247,7 +351,7 @@ rappresentata nella \cref{fig:lez06-quadrato}.
 
 L'equazione \(z^2=-1\) ammette soluzioni
 complesse, ma \(z\mapsto z^2\) non definisce
-un'applicazione da \(\C\) a \(\R\): ad esempio,
+un'applicazione da \(\C\) a \(\R\): infatti,
 \[
   (1+\imaginaryunit)^2
   =2\imaginaryunit\notin\R.
@@ -314,18 +418,18 @@ Si dimostrano separatamente le due implicazioni.
 Siano \(a_1,a_2\in A\) arbitrari.
 
 \emph{Prima implicazione \((\Rightarrow)\).}
-Se \(f\) è iniettiva e
-\(f(a_1)=f(a_2)\), non può valere
-\(a_1\ne a_2\): altrimenti, per la
-\cref{def:lez06-iniettiva}, si avrebbe
-\(f(a_1)\ne f(a_2)\). Pertanto \(a_1=a_2\).
+Si supponga che \(f\) sia iniettiva e che
+\(f(a_1)=f(a_2)\). Se fosse \(a_1\ne a_2\),
+per la \cref{def:lez06-iniettiva} si avrebbe
+\(f(a_1)\ne f(a_2)\), una contraddizione.
+Pertanto \(a_1=a_2\).
 
 \emph{Seconda implicazione \((\Leftarrow)\).}
 Si supponga che
 \(f(a_1)=f(a_2)\) implichi \(a_1=a_2\)
 per ogni coppia di elementi di \(A\).
 Se \(a_1\ne a_2\), non può valere
-\(f(a_1)=f(a_2)\), perché si avrebbe
+\(f(a_1)=f(a_2)\), altrimenti si avrebbe
 \(a_1=a_2\). Quindi \(f(a_1)\ne f(a_2)\)
 e \(f\) è iniettiva.
 \end{proof}
@@ -345,8 +449,8 @@ e un solo antecedente nel dominio:
   \forall b\in B\;\exists!\,a\in A:
   f(a)=b.
 \]
-L'esistenza corrisponde alla \cref{def:lez06-suriettiva};
-l'unicità segue dall'\cref{ex:lez06-equivalenza-iniettiva}.
+L'esistenza corrisponde alla \cref{def:lez06-suriettiva},
+mentre l'unicità segue dall'\cref{ex:lez06-equivalenza-iniettiva}.
 
 \begin{figure}[htbp]
   \centering
@@ -357,6 +461,8 @@ l'unicità segue dall'\cref{ex:lez06-equivalenza-iniettiva}.
   \label{fig:lez06-proprieta}
 \end{figure}
 
+\clearpage
+
 \section{Tre applicazioni definite dal quadrato}
 \label{sec:lez06-esempi-quadrato}
 
@@ -364,7 +470,7 @@ Si riprendono le tre applicazioni definite nella
 \cref{sec:lez06-dominio-immagine}, distinguendone
 iniettività e suriettività.
 
-\begin{example}[Dominio e codominio del quadrato]
+\begin{example}[Iniettività e suriettività del quadrato]
 \label{ex:lez06-quadrato-proprieta}
 Le applicazioni \(f\) e \(g\) non sono
 iniettive, poiché \(1\ne-1\) e
@@ -406,15 +512,14 @@ In particolare, per ogni \(a\ge0\),
 \end{example}
 
 Per \(h\) esiste anche l'\emph{applicazione inversa},
-formalizzata nella \cref{def:lez09-inversa},
-distinta dalla costruzione sulle parti della
-\cref{sec:lez06-controimmagine}:
+formalizzata nella \cref{def:lez09-inversa}:
 \[
   h^{-1}\colon[0,+\infty)\longrightarrow[0,+\infty),
   \qquad y\longmapsto\sqrt y.
 \]
-L'applicazione inversa associa a ogni
-valore il suo unico antecedente.
-La scrittura \(h^{-1}(\{a\})\), in cui
-l'argomento è un insieme, indica invece
-la controimmagine di tale insieme.
+Questa applicazione è distinta dalla costruzione
+sugli insiemi delle parti della
+\cref{sec:lez06-controimmagine}: la notazione
+\(h^{-1}(\{a\})\) indica la controimmagine
+dell'insieme \(\{a\}\), non il valore
+dell'applicazione inversa.

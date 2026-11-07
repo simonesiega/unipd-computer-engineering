@@ -39,7 +39,9 @@ L'insieme dei numeri naturali pari
 \emph{Iniettività.}
 Siano \(m_1,m_2\in\N\). Se \(\varphi(m_1)=\varphi(m_2)\), allora
 \[
-  2m_1=2m_2\quad\Longrightarrow\quad m_1=m_2.
+  2m_1=2m_2
+  \quad\Longrightarrow\quad
+  m_1=m_2.
 \]
 Per l'\cref{ex:lez06-equivalenza-iniettiva},
 \(\varphi\) è iniettiva.
@@ -50,8 +52,8 @@ esiste \(m\in\N\) tale che
 \[
   p=2m=\varphi(m).
 \]
-Quindi \(\varphi\) è suriettiva per la \cref{def:lez06-suriettiva},
-e dunque biiettiva.
+Per la \cref{def:lez06-suriettiva}, \(\varphi\)
+è suriettiva e quindi biiettiva.
 \end{proof}
 
 Analogamente, l'insieme dei naturali dispari
@@ -71,8 +73,8 @@ L'iniettività segue dall'implicazione
 \]
 mentre la suriettività segue dalla definizione di \(D\).
 
-Poiché \(P\subsetneq\N\) (infatti \(1\notin P\)),
-la \cref{prop:lez07-pari} mostra che può esistere
+Poiché \(1\notin P\), si ha \(P\subsetneq\N\).
+La \cref{prop:lez07-pari} mostra che può esistere
 una biiezione tra un insieme infinito e un suo
 sottoinsieme proprio.
 
@@ -126,7 +128,6 @@ L'assegnazione costituisce una biiezione tra
 \end{figure}
 \end{example}
 
-
 \section{Operazioni sulle funzioni}
 \label{sec:lez07-operazioni}
 
@@ -153,6 +154,7 @@ In particolare,
 \end{definition}
 
 Per la commutatività dell'addizione in \(\R\),
+per ogni \(x\in A\cap B\) si ha
 \[
   (\psi+\varphi)(x)=\psi(x)+\varphi(x)
   =\varphi(x)+\psi(x)=(\varphi+\psi)(x).
@@ -189,6 +191,7 @@ In particolare,
 \end{definition}
 
 Per la commutatività della moltiplicazione in \(\R\),
+per ogni \(x\in A\cap B\) si ha
 \[
   (\psi\varphi)(x)=\psi(x)\varphi(x)
   =\varphi(x)\psi(x)=(\varphi\psi)(x).
@@ -197,6 +200,11 @@ Pertanto \(\psi\varphi=\varphi\psi\).
 
 \begin{definition}[Rapporto di funzioni]
 \label{def:lez07-quoziente}
+Si indichi con
+\[
+  Z_\varphi:=\{x\in D(\varphi):\varphi(x)=0\}
+\]
+l'insieme degli zeri di \(\varphi\).
 Il \emph{rapporto} di \(\psi\) e \(\varphi\)
 è la funzione
 \[
@@ -205,13 +213,8 @@ Il \emph{rapporto} di \(\psi\) e \(\varphi\)
   \longrightarrow\R,
   \qquad
   \left(\frac{\psi}{\varphi}\right)(x)
-  :=\frac{\psi(x)}{\varphi(x)},
+  :=\frac{\psi(x)}{\varphi(x)}.
 \]
-dove
-\[
-  Z_\varphi:=\{x\in D(\varphi):\varphi(x)=0\}
-\]
-è l'insieme degli zeri di \(\varphi\).
 In particolare,
 \[
   D(\psi/\varphi)
@@ -252,10 +255,7 @@ Il \emph{grafico} di \(\varphi\) è l'insieme
 \]
 \end{definition}
 
-Le trasformazioni seguenti agiscono sulle coordinate
-dei punti di \(G(\varphi)\).
-
-\subsection{Traslazione rigida}
+\subsection{Traslazione verticale}
 \label{sec:lez07-traslazioni-verticali}
 
 Sia \(\varphi\colon A\longrightarrow\R\), con
@@ -266,19 +266,23 @@ la funzione
   \qquad
   (\varphi+c)(x):=\varphi(x)+c.
 \]
-Il dominio resta \(A\). Per la \cref{def:lez07-grafico},
-a ogni punto \((x,\varphi(x))\in G(\varphi)\)
-corrisponde il punto
+Il dominio è \(A\). Per la \cref{def:lez07-grafico},
+il grafico è
 \[
-  (x,\varphi(x)+c)=(x,\varphi(x))+(0,c).
+  G(\varphi+c)=\{(t,\varphi(t)+c):t\in A\}.
+\]
+A ogni punto \((t,\varphi(t))\in G(\varphi)\)
+corrisponde quindi il punto
+\[
+  (t,\varphi(t)+c)
+  =(t,\varphi(t))+(0,c).
 \]
 Si ottiene una \emph{traslazione rigida} verticale
 secondo il vettore \((0,c)\).
 
 Per \(c>0\) il grafico si sposta verso l'alto,
-per \(c<0\) verso il basso; lo spostamento
-verticale ha ampiezza \(|c|\). Per \(c=0\)
-il grafico resta invariato.
+per \(c<0\) verso il basso; lo spostamento ha
+ampiezza \(|c|\). Per \(c=0\) il grafico resta invariato.
 
 \subsection{Riscalamento verticale e ribaltamento}
 \label{sec:lez07-riscalamento}
@@ -307,9 +311,9 @@ una dilatazione verticale; se \(0<|b|<1\), si ha
 invece una compressione verticale. I punti di
 ordinata nulla rimangono fissi.
 
-Se \(b<0\), oltre al riscalamento si ha un
-cambiamento di segno delle ordinate. In
-particolare, per \(b=-1\) si ottiene la funzione
+Se \(b<0\), si inverte inoltre il segno delle
+ordinate. In particolare, per \(b=-1\) si ottiene
+la funzione
 \[
   -\varphi\colon A\longrightarrow\R,
   \qquad
@@ -426,6 +430,7 @@ da cui
   \label{fig:lez07-orizzontali}
 \end{figure}
 
+
 \section{Intorni e punti di accumulazione}
 \label{sec:lez07-intorni-accumulazione}
 
@@ -436,6 +441,18 @@ che saranno utilizzate nella \cref{def:lez08-limite}.
 
 \subsection{Intorni di punti reali e dell'infinito}
 \label{sec:lez07-intorni}
+
+\begin{definition}[Intorno di un punto reale]
+\label{def:lez07-intorno-generale}
+Sia \(x_0\in\R\). Un insieme \(U\subseteq\R\)
+si dice \emph{intorno} di \(x_0\) se esistono
+\(a,b\in\R\) tali che
+\[
+  a<x_0<b,
+  \qquad
+  (a,b)\subseteq U.
+\]
+\end{definition}
 
 \begin{definition}[Intorno circolare]
 \label{def:lez07-intorno}
@@ -449,7 +466,10 @@ e raggio \(\delta\) è l'insieme
 \]
 \end{definition}
 
-Il centro appartiene all'intorno, mentre gli estremi
+Ogni intorno circolare è un intorno di \(x_0\)
+e ogni intorno di \(x_0\) contiene un intorno
+circolare con lo stesso centro. Il centro appartiene
+all'intorno circolare, mentre gli estremi
 \(x_0\pm\delta\) ne sono esclusi.
 
 \begin{figure}[htbp]
@@ -512,7 +532,6 @@ Nessuno dei due intervalli ammette massimo o minimo:
 (\cref{def:lez07-retta-estesa}).
 \end{example}
 
-
 \subsection{Punti di accumulazione}
 \label{sec:lez07-punti-accumulazione}
 
@@ -524,20 +543,22 @@ di \(A\) se
 \[
   \forall\delta>0,\qquad
   \bigl(D(x_0,\delta)\cap A\bigr)\setminus\{x_0\}
-  \neq\varnothing.
+  \ne\varnothing.
 \]
 L'insieme dei punti di accumulazione di \(A\)
 si indica con \(A'\).
 \end{definition}
 
-Per la \cref{def:lez07-intorno}, la condizione
-richiede che ogni intorno circolare di centro
-\(x_0\) contenga almeno un elemento di \(A\)
-distinto dal centro. Equivalentemente,
+La condizione richiede che ogni intorno circolare
+di centro \(x_0\) contenga almeno un elemento
+di \(A\) distinto dal centro. Equivalentemente,
 \[
-  \forall\delta>0\ \exists a\in A:
+  \forall\delta>0\;\exists a\in A:
   \qquad 0<|a-x_0|<\delta.
 \]
+Poiché ogni intorno di \(x_0\) contiene un intorno
+circolare con lo stesso centro, la condizione
+equivale a considerare tutti gli intorni di \(x_0\).
 
 Non è necessario che \(x_0\in A\).
 
@@ -576,10 +597,18 @@ si ponga
   \qquad
   a=x_0+\eta.
 \]
-Poiché \(\eta>0\), si ha \(a\in(1,2)\)
-e
+Poiché
 \[
-  0<|a-x_0|=\eta<\delta.
+  0<\eta\le\frac{2-x_0}{2},
+\]
+si ha
+\[
+  x_0<a\le\frac{x_0+2}{2}<2.
+\]
+Pertanto \(a\in(1,2)\subseteq A\). Inoltre,
+\[
+  0<|a-x_0|=\eta
+  \le\frac{\delta}{2}<\delta.
 \]
 Per la \cref{def:lez07-accumulazione},
 \(x_0\in A'\).
@@ -591,11 +620,10 @@ posto
   \eta=\min\left\{\frac{\delta}{2},
                   \frac12\right\},
 \]
-i punti \(1+\eta\) e \(2-\eta\) appartengono
+si ha \(0<\eta<\delta\). I punti
+\(1+\eta\) e \(2-\eta\) appartengono
 ad \(A\) e distano rispettivamente da
-\(1\) e da \(2\) una quantità positiva
-minore di \(\delta\).
-
+\(1\) e da \(2\) una quantità pari a \(\eta\).
 Pertanto
 \[
   [1,2]\subseteq A'.
@@ -671,8 +699,6 @@ con \(x_0\ne3\), non lo è.
 Le verifiche richieste sono già contenute nella dimostrazione
 dell'\cref{ex:lez07-accumulazione-intervallo}.
 \end{proof}
-
-\clearpage
 
 \begin{exercise}[Variante con estremi inclusi]
 \label{ex:lez07-accumulazione-chiuso}

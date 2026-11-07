@@ -1,0 +1,374 @@
+\chapter[Lezione 17 --- 30 ottobre 2026]{Lezione 17: successioni e limiti notevoli}
+\label{chap:lezione-17}
+
+\section{Successioni}
+\label{sec:lez17-successioni}
+
+\begin{definition}[Successione reale]
+\label{def:lez17-successione}
+Sia \(A\subseteq\N\) non vuoto. Una \emph{successione reale}
+è un'applicazione
+\[
+  a\colon A\longrightarrow\R,
+  \qquad n\longmapsto a(n).
+\]
+Il valore \(a(n)\) si indica anche con \(a_n\), e la successione
+si denota con \((a_n)_{n\in A}\) oppure con
+\(\{a_n\}_{n\in A}\).
+\end{definition}
+
+\begin{example}[Successione dei reciproci]
+\label{ex:lez17-successione-reciproci}
+La funzione
+\[
+  a\colon\N\setminus\{0\}\longrightarrow\R,
+  \qquad n\longmapsto\frac1n,
+\]
+definisce la successione \(a_n=1/n\), per \(n\ge1\).
+\end{example}
+
+L'insieme \(\N\), considerato come sottoinsieme di \(\R\),
+non ha punti di accumulazione reali: per ogni \(x_0\in\R\)
+esiste \(\delta>0\) tale che
+\[
+  ((x_0-\delta,x_0+\delta)\cap\N)\setminus\{x_0\}
+  =\varnothing.
+\]
+Inoltre, \(\N\) è inferiormente limitato e non è
+superiormente limitato. Pertanto, nella retta reale estesa,
+l'unico suo punto di accumulazione è \(+\infty\).
+Lo stesso vale per \(\N\setminus\{0\}\).
+
+Per una successione definita su un sottoinsieme non limitato
+di \(\N\), la nozione di limite è dunque quella della
+\cref{def:lez08-limite} per \(n\to+\infty\).
+
+\begin{example}[Limite della successione \(1/n\)]
+\label{ex:lez17-limite-reciproci}
+Si verifica che
+\[
+  \lim_{n\to+\infty}\frac1n=0.
+\]
+Sia \(\varepsilon>0\). Per ogni
+\(n\in\N\setminus\{0\}\), si ha
+\[
+  \left|\frac1n-0\right|<\varepsilon
+  \quad\Longleftrightarrow\quad
+  n>\frac1\varepsilon.
+\]
+Scegliendo \(K_\varepsilon:=1/\varepsilon\), risulta
+\[
+  \left|\frac1n\right|<\varepsilon
+  \qquad\forall n\in(K_\varepsilon,+\infty)
+  \cap(\N\setminus\{0\}).
+\]
+Per la \cref{def:lez08-limite}, segue la tesi.
+\end{example}
+
+\clearpage
+
+\section{Teorema ponte}
+\label{sec:lez17-teorema-ponte}
+
+Il limite di una funzione può essere caratterizzato
+mediante i valori assunti lungo successioni di punti
+del suo dominio che tendono al punto considerato.
+
+\begin{theorem}[Teorema ponte o criterio successionale per i limiti]
+\label{thm:lez17-teorema-ponte}
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto, e sia
+\(x_0\in\overline{\R}\) un punto di accumulazione per \(A\).
+Per ogni \(\ell\in\overline{\R}\), vale
+\[
+  \lim_{x\to x_0}f(x)=\ell
+  \quad\Longleftrightarrow\quad
+  \lim_{n\to+\infty}f(a_n)=\ell,
+\]
+dove la condizione a destra deve valere per ogni successione
+\((a_n)_{n\ge1}\) a valori in \(A\setminus\{x_0\}\)
+tale che
+\[
+  \lim_{n\to+\infty}a_n=x_0.
+\]
+\end{theorem}
+
+\begin{proof}[Dimostrazione dell'implicazione \((\Rightarrow)\)]
+Si supponga che
+\[
+  \lim_{x\to x_0}f(x)=\ell.
+\]
+Sia \((a_n)_{n\ge1}\) una successione a valori in
+\(A\setminus\{x_0\}\) tale che \(a_n\to x_0\).
+Applicando il \cref{thm:lez16-limite-sostituzione}
+con \(\varphi(n):=a_n\) e \(t_0=+\infty\),
+la prima condizione del teorema è soddisfatta,
+poiché \(a_n\ne x_0\) per ogni \(n\ge1\).
+Pertanto
+\[
+  \lim_{n\to+\infty}f(a_n)=\ell.
+\]
+\end{proof}
+
+La dimostrazione dell'implicazione \((\Leftarrow)\)
+non viene sviluppata in questa sede.
+
+Il \cref{thm:lez17-teorema-ponte} permette, in particolare,
+di escludere l'esistenza di un limite trovando due successioni
+che tendono allo stesso punto, ma lungo le quali la funzione
+ammette limiti distinti.
+
+\begin{example}[Non esistenza del limite del seno all'infinito]
+\label{ex:lez17-seno-infinito}
+Si considerino le successioni
+\[
+  a_n:=\frac\pi2+2\pi n,
+  \qquad b_n:=\pi n,
+  \qquad n\ge1.
+\]
+Entrambe tendono a \(+\infty\), ma
+\[
+  \sin(a_n)=1,
+  \qquad \sin(b_n)=0
+  \qquad\forall n\ge1.
+\]
+Quindi
+\[
+  \lim_{n\to+\infty}\sin(a_n)=1,
+  \qquad
+  \lim_{n\to+\infty}\sin(b_n)=0.
+\]
+Se esistesse \(\lim_{x\to+\infty}\sin x=\ell\),
+per il \cref{thm:lez17-teorema-ponte} entrambi i
+limiti precedenti dovrebbero essere uguali a \(\ell\),
+contrariamente a quanto ottenuto. Pertanto
+\[
+  \nexists\lim_{x\to+\infty}\sin x.
+\]
+\end{example}
+
+\clearpage
+
+\section{Limiti notevoli}
+\label{sec:lez17-limiti-notevoli}
+
+\begin{theorem}[Numero di Nepero]
+\label{thm:lez17-numero-nepero}
+Esiste il limite
+\[
+  \lim_{n\to+\infty}\left(1+\frac1n\right)^n=e,
+  \qquad 2<e<3.
+\]
+La costante \(e\) è detta \emph{numero di Nepero}.
+\end{theorem}
+
+La dimostrazione del \cref{thm:lez17-numero-nepero}
+non viene sviluppata in questa sede.
+
+\begin{theorem}[Limiti notevoli]
+\label{thm:lez17-limiti-notevoli}
+Valgono i seguenti limiti:
+\begin{enumerate}
+  \item
+  \[
+    \lim_{x\to+\infty}\left(1+\frac1x\right)^x=e;
+  \]
+  \item
+  \[
+    \lim_{x\to-\infty}\left(1+\frac1x\right)^x=e;
+  \]
+  \item
+  \[
+    \lim_{x\to0}(1+x)^{1/x}=e;
+  \]
+  \item per \(a>0\), con \(a\ne1\),
+  \[
+    \lim_{x\to0}\frac{\log_a(1+x)}{x}=\log_a e;
+  \]
+  \item per \(a>0\), con \(a\ne1\),
+  \[
+    \lim_{x\to0}\frac{a^x-1}{x}=\log_e a;
+  \]
+  \item per \(\alpha\in\R\),
+  \[
+    \lim_{x\to0}\frac{(1+x)^\alpha-1}{x}=\alpha;
+  \]
+  \item
+  \[
+    \lim_{x\to0}\frac{\sin x}{x}=1;
+  \]
+  \item
+  \[
+    \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12;
+  \]
+  \item per \(x\in\R\),
+  \[
+    \lim_{n\to+\infty}\left(1+\frac{x}{n}\right)^n=e^x;
+  \]
+  \item per \(\alpha\in\R\),
+  \[
+    \lim_{x\to+\infty}\left(1+\frac\alpha x\right)^x=e^\alpha;
+  \]
+  \item per \(\alpha\in\R\),
+  \[
+    \lim_{x\to-\infty}\left(1+\frac\alpha x\right)^x=e^\alpha.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Dimostrazione del quarto punto]
+Siano \(a>0\), con \(a\ne1\), e \(x>-1\), con
+\(x\ne0\). Per le proprietà dei logaritmi si ha
+\[
+  \frac{\log_a(1+x)}{x}
+  =\log_a\left((1+x)^{1/x}\right).
+\]
+Per il terzo punto del \cref{thm:lez17-limiti-notevoli},
+\[
+  \lim_{x\to0}(1+x)^{1/x}=e.
+\]
+Si può applicare il \cref{thm:lez16-limite-sostituzione},
+considerando il logaritmo in \(e\). Si verifica infatti che
+\[
+  \lim_{u\to e}\log_a u=\log_a e.
+\]
+Per giustificare quest'ultima uguaglianza, fissato
+\(\varepsilon>0\), si considerino i due numeri
+\(a^{\log_a e-\varepsilon}\) e
+\(a^{\log_a e+\varepsilon}\), che si trovano da parti
+opposte rispetto a \(e\). Esiste quindi un intorno
+di \(e\) contenuto nell'intervallo avente tali estremi.
+Per la monotonia del logaritmo, in questo intorno
+\[
+  \log_a e-\varepsilon<\log_a u
+  <\log_a e+\varepsilon.
+\]
+Inoltre, l'uguaglianza \(\log_a(e)=\log_a e\)
+assicura la seconda condizione del teorema di sostituzione.
+Pertanto
+\[
+  \lim_{x\to0}\frac{\log_a(1+x)}{x}
+  =\lim_{u\to e}\log_a u=\log_a e.
+\]
+\end{proof}
+
+\begin{proof}[Dimostrazione del quinto punto]
+Sia \(a>0\), con \(a\ne1\), e si ponga
+\[
+  t:=a^x-1.
+\]
+Per \(x\to0\) si ha \(t\to0\). Tale limite segue
+dalla monotonia dell'esponenziale e dalla
+\cref{prop:lez17-radici-en}: infatti, per \(a>1\),
+se \(|x|<1/n\), allora
+\[
+  a^{-1/n}\le a^x\le a^{1/n},
+\]
+e i due estremi tendono a \(1\) per \(n\to+\infty\).
+Il caso \(0<a<1\) si ricava ponendo \(c:=1/a>1\)
+e usando \(a^x=1/c^x\).
+
+Poiché \(a^x\ne1\) per \(x\ne0\), si ha anche
+\(t\ne0\), e dalla relazione \(a^x=1+t\) segue
+\[
+  x=\log_a(1+t).
+\]
+Poiché \(\log_a e\ne0\), dal quarto punto già dimostrato
+e dal \cref{thm:lez14-limite-rapporto} segue
+\[
+  \lim_{t\to0}\frac{t}{\log_a(1+t)}
+  =\frac1{\log_a e}=\log_e a,
+\]
+dove l'ultima uguaglianza segue dalla formula di
+cambiamento di base dei logaritmi.
+Applicando il \cref{thm:lez16-limite-sostituzione},
+si conclude
+\[
+  \lim_{x\to0}\frac{a^x-1}{x}
+  =\lim_{t\to0}\frac{t}{\log_a(1+t)}
+  =\log_e a.
+\]
+\end{proof}
+
+Le dimostrazioni degli altri limiti del
+\cref{thm:lez17-limiti-notevoli} saranno sviluppate
+successivamente nel corso.
+
+\clearpage
+
+\section{Limiti di successioni notevoli}
+\label{sec:lez17-limiti-successioni-notevoli}
+
+\begin{proposition}[Limite del fattoriale]
+\label{prop:lez17-limite-fattoriale}
+Si ha
+\[
+  \lim_{n\to+\infty}n!=+\infty.
+\]
+\end{proposition}
+
+\begin{proof}
+Per ogni \(n\ge1\), si ha \(n!\ge n\).
+Poiché \(n\to+\infty\), il
+\cref{thm:lez12-confronto-secondo} permette di concludere
+che
+\[
+  \lim_{n\to+\infty}n!=+\infty.
+\]
+\end{proof}
+
+\begin{proposition}[Limite della radice \(n\)-esima]
+\label{prop:lez17-radici-en}
+Per ogni \(a>0\), si ha
+\[
+  \lim_{n\to+\infty}a^{1/n}=1.
+\]
+\end{proposition}
+
+\begin{proof}
+Si distinguono tre casi.
+
+\emph{Primo caso: \(a=1\).}
+Poiché \(a^{1/n}=1\) per ogni \(n\ge1\),
+la tesi è immediata.
+
+\emph{Secondo caso: \(a>1\).}
+Si ponga
+\[
+  b_n:=a^{1/n}-1>0.
+\]
+Per la \cref{thm:disuguaglianza-bernoulli},
+per ogni \(n\ge1\), si ha
+\[
+  a=(1+b_n)^n\ge1+nb_n,
+\]
+da cui
+\[
+  0<b_n\le\frac{a-1}{n}.
+\]
+Poiché \(a>1\) è fissato e
+\[
+  \lim_{n\to+\infty}\frac{a-1}{n}=0,
+\]
+per il \cref{thm:lez12-tre-funzioni} si ottiene
+\[
+  \lim_{n\to+\infty}b_n=0.
+\]
+Essendo \(a^{1/n}=1+b_n\), per il
+\cref{thm:lez14-limite-somma} si conclude
+\[
+  \lim_{n\to+\infty}a^{1/n}=1.
+\]
+
+\emph{Terzo caso: \(0<a<1\).}
+Si ponga \(c:=1/a>1\). Per il secondo caso,
+\[
+  \lim_{n\to+\infty}c^{1/n}=1.
+\]
+Poiché \(a^{1/n}=1/c^{1/n}\), per il
+\cref{thm:lez14-limite-rapporto} segue
+\[
+  \lim_{n\to+\infty}a^{1/n}
+  =\lim_{n\to+\infty}\frac1{c^{1/n}}=1.
+\]
+\end{proof}

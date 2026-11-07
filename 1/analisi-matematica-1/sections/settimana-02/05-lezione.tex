@@ -13,18 +13,22 @@ Per ogni \(x\in\R\) con \(x>-1\) e per ogni \(n\in\N\) vale
 \end{theorem}
 
 \begin{proof}
-Sia \(x>-1\) fissato. Si procede per induzione su \(n\),
-applicando il \cref{thm:principio-induzione} con valore iniziale
+Sia \(x>-1\) fissato e si consideri l'insieme
+\[
+  A:=\{n\in\N:(1+x)^n\ge 1+nx\}.
+\]
+Si applica il \cref{thm:principio-induzione} con valore iniziale
 \(p=0\).
 
 \emph{Passo base.}
-Per \(n=0\), i due membri coincidono:
+Per \(n=0\), si ha
 \[
-  (1+x)^0=1=1+0\cdot x.
+  (1+x)^0=1=1+0\cdot x,
 \]
+quindi \(0\in A\).
 
 \emph{Passo induttivo.}
-Sia \(n\in\N\) e si supponga che
+Sia \(n\in A\), ossia si supponga che
 \[
   (1+x)^n\ge 1+nx.
 \]
@@ -38,10 +42,10 @@ Poiché \(x>-1\), si ha \(1+x>0\). Moltiplicando per
     &\ge 1+(n+1)x.
 \end{align*}
 L'ultima disuguaglianza segue da \(nx^2\ge0\), poiché
-\(n\ge0\) e \(x^2\ge0\). Il passo induttivo è quindi verificato.
+\(n\ge0\) e \(x^2\ge0\). Pertanto \(n+1\in A\).
 
-Per il principio di induzione, la disuguaglianza vale per ogni
-\(n\in\N\). Poiché \(x>-1\) era arbitrario, segue la tesi.
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\N\). Poiché \(x>-1\) era arbitrario, segue la tesi.
 \end{proof}
 
 \section{Binomio di Newton}
@@ -67,10 +71,10 @@ Per \(n\ge4\), lo sviluppo assume la forma
 \]
 In particolare, per \(n=2\) e \(n=3\) si ottengono le identità
 \[
-  (a+b)^2=b^2+2ab+a^2,
-\]
-\[
-  (a+b)^3=b^3+3ab^2+3a^2b+a^3.
+\begin{aligned}
+  (a+b)^2 &=b^2+2ab+a^2,\\
+  (a+b)^3 &=b^3+3ab^2+3a^2b+a^3.
+\end{aligned}
 \]
 
 Il teorema si dimostra mediante il \cref{thm:principio-induzione},
@@ -100,17 +104,26 @@ Per \(n<4\) si ha
 \end{aligned}
 \]
 La disuguaglianza richiesta non vale quindi per \(n<4\).
-Si procede per induzione, applicando il
-\cref{thm:principio-induzione} con valore iniziale \(p=4\).
+
+Si consideri l'insieme
+\[
+  A:=\{n\in\N:n\ge4\text{ e }n!>2^n\}.
+\]
+Si applica il \cref{thm:principio-induzione} con valore iniziale
+\(p=4\).
 
 \emph{Passo base.}
-Per \(n=4\),
+Per \(n=4\), si ha
 \[
-  4!=24>16=2^4.
+  4!=24>16=2^4,
 \]
+quindi \(4\in A\).
 
 \emph{Passo induttivo.}
-Sia \(n\ge4\) e si supponga \(n!>2^n\).
+Sia \(n\in A\), ossia \(n\ge4\) e
+\[
+  n!>2^n.
+\]
 Per la \cref{def:fattoriale}, moltiplicando per \(n+1>0\),
 si ottiene
 \[
@@ -120,11 +133,13 @@ Poiché \(n+1\ge5>2\), si ha inoltre
 \[
   (n+1)2^n>2\cdot2^n=2^{n+1}.
 \]
-Pertanto \((n+1)!>2^{n+1}\), e il passo induttivo è verificato.
+Pertanto \((n+1)!>2^{n+1}\), quindi \(n+1\in A\).
 
-Per il \cref{thm:principio-induzione}, la disuguaglianza
-vale per ogni \(n\ge4\).
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\{n\in\N:n\ge4\}\), da cui segue la tesi.
 \end{proof}
+
+\clearpage
 
 \begin{exercise}[Confronto tra fattoriale e quadrato]
 \label{ex:fattoriale-maggiore-n-quadro}
@@ -135,37 +150,45 @@ Dimostrare che, per ogni \(n\in\N\) con \(n\ge4\), vale
 \end{exercise}
 
 \begin{proof}[Soluzione dell'esercizio]
-Nel passo induttivo sarà necessario confrontare \(n^2\)
-con \(n+1\). Per ogni \(n\ge2\) si ha
+Si osservi che, per ogni \(n\ge2\),
 \[
   n^2-(n+1)=n(n-1)-1\ge2-1=1>0,
 \]
 quindi \(n^2>n+1\).
 
-Si procede per induzione, applicando il
-\cref{thm:principio-induzione} con valore iniziale \(p=4\).
+Si consideri l'insieme
+\[
+  A:=\{n\in\N:n\ge4\text{ e }n!>n^2\}.
+\]
+Si applica il \cref{thm:principio-induzione} con valore iniziale
+\(p=4\).
 
 \emph{Passo base.}
-Per \(n=4\),
+Per \(n=4\), si ha
 \[
-  4!=24>16=4^2.
+  4!=24>16=4^2,
 \]
+quindi \(4\in A\).
 
 \emph{Passo induttivo.}
-Sia \(n\ge4\) e si supponga \(n!>n^2\).
+Sia \(n\in A\), ossia \(n\ge4\) e
+\[
+  n!>n^2.
+\]
 Per la \cref{def:fattoriale}, moltiplicando per \(n+1>0\),
 si ottiene
 \[
   (n+1)!=(n+1)n!>(n+1)n^2.
 \]
-Poiché \(n\ge4\), dalla disuguaglianza appena dimostrata
-segue \(n^2>n+1\). Pertanto
+Poiché \(n\ge4\), dalla disuguaglianza iniziale segue
+\(n^2>n+1\). Pertanto
 \[
-  (n+1)!>(n+1)n^2>(n+1)^2.
+  (n+1)!>(n+1)n^2>(n+1)^2,
 \]
-Il passo induttivo è verificato. Per il
-\cref{thm:principio-induzione}, la disuguaglianza
-vale per ogni \(n\ge4\).
+quindi \(n+1\in A\).
+
+Per il \cref{thm:principio-induzione}, si conclude che
+\(A=\{n\in\N:n\ge4\}\), da cui segue la tesi.
 \end{proof}
 
 \section{Esercizi sugli estremi}
@@ -189,15 +212,16 @@ Siano \(A,B\subseteq\R\) non vuoti, con \(A\subseteq B\).
 \begin{proof}[Soluzione dell'esercizio]
 \emph{Primo punto.}
 L'appartenenza \(\sup A\in B\) non è garantita, neppure quando
-\(A\) è superiormente limitato. Si considerino, ad esempio,
+\(A\) è superiormente limitato. Si considerino, per esempio,
 \[
   A=(0,1),\qquad B=(0,1)\cup\{2\}.
 \]
-Si ha \(A\subseteq B\), ma \(\sup A=1\notin B\):
-l'estremo superiore di \((0,1)\) è \(1\) per il
-\cref{thm:caratterizzazione-sup}.
+Si ha \(A\subseteq B\), ma \(\sup A=1\notin B\), come segue
+dal \cref{thm:caratterizzazione-sup}.
 Se \(A\) non è superiormente limitato, \(\sup A=+\infty\)
 non può appartenere a \(B\subseteq\R\).
+
+\clearpage
 
 \emph{Secondo punto.}
 Se \(B\) non è inferiormente limitato, si ha \(\inf B=-\infty\),

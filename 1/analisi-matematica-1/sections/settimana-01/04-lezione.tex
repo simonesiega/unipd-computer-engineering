@@ -11,7 +11,8 @@ reale mediante numeri razionali.
 
 \begin{theorem}[Densità di \(\Q\) in \(\R\)]
 \label{thm:densita-razionali}
-Per ogni \(x\in\R\) e per ogni \(\varepsilon>0\) esiste \(z\in\Q\) tale che
+Per ogni \(x\in\R\) e per ogni \(\varepsilon>0\) esiste \(z\in\Q\)
+tale che
 \[
   z\le x<z+\varepsilon.
 \]
@@ -30,18 +31,14 @@ esiste \(p\in\Z\) tale che
   p\le qx<p+1.
 \]
 Dividendo per \(q>0\), il verso delle disuguaglianze
-rimane invariato. Tenendo conto che \(1/q<\varepsilon\),
-si ottiene
+rimane invariato. Poiché \(1/q<\varepsilon\), si ottiene
 \[
   \frac{p}{q}\le x
   <\frac{p+1}{q}
   =\frac{p}{q}+\frac{1}{q}
   <\frac{p}{q}+\varepsilon.
 \]
-Ponendo \(z=p/q\), si ha \(z\in\Q\) e quindi
-\[
-  z\le x<z+\varepsilon.
-\]
+Ponendo \(z=p/q\in\Q\), si ottiene la tesi.
 \end{proof}
 
 \begin{figure}[htbp]
@@ -74,10 +71,10 @@ non viene sviluppata in questa sede.
 Siano \(a,b\in\R\) con \(a<b\). Si introducono le notazioni
 \[
 \begin{aligned}
-  (a,b)  &=\{x\in\R:a<x<b\},\\
-  [a,b]  &=\{x\in\R:a\le x\le b\},\\
-  [a,b)  &=\{x\in\R:a\le x<b\},\\
-  (a,b]  &=\{x\in\R:a<x\le b\}.
+  (a,b) &=\{x\in\R:a<x<b\},\\
+  [a,b] &=\{x\in\R:a\le x\le b\},\\
+  [a,b) &=\{x\in\R:a\le x<b\},\\
+  (a,b] &=\{x\in\R:a<x\le b\}.
 \end{aligned}
 \]
 
@@ -114,20 +111,18 @@ Ciò contraddice la \cref{def:intervallo-retta-reale}.
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/retta-reale/non-intervallo}
-  \caption{L'insieme \(A=(0,1)\cup\{2\}\) non è un intervallo:
-  tra \(\frac12\) e \(2\) esistono punti, come \(\frac32\),
-  che non appartengono ad \(A\).}
+  \caption{Rappresentazione dell'insieme
+  \(A=(0,1)\cup\{2\}\), che non è un intervallo.}
   \label{fig:insieme-non-intervallo}
 \end{figure}
 
 \section{Maggioranti, minoranti e insiemi limitati}
 \label{sec:lez04-maggioranti-minoranti}
 
-Si consideri un insieme non vuoto \(A\subseteq\R\).
-
 \begin{definition}[Maggiorante]
 \label{def:maggiorante}
-Un numero reale \(x\in\R\) si dice \emph{maggiorante} di \(A\) se
+Sia \(A\subseteq\R\) non vuoto. Un numero reale \(x\in\R\)
+si dice \emph{maggiorante} di \(A\) se
 \[
   a\le x\qquad\forall a\in A.
 \]
@@ -135,7 +130,8 @@ Un numero reale \(x\in\R\) si dice \emph{maggiorante} di \(A\) se
 
 \begin{definition}[Minorante]
 \label{def:minorante}
-Un numero reale \(x\in\R\) si dice \emph{minorante} di \(A\) se
+Sia \(A\subseteq\R\) non vuoto. Un numero reale \(x\in\R\)
+si dice \emph{minorante} di \(A\) se
 \[
   x\le a\qquad\forall a\in A.
 \]
@@ -184,8 +180,11 @@ esiste \(u\in\R\) tale che
 \[
   a\le u\qquad\forall a\in A.
 \]
-Poiché \(B\subseteq A\), si ha \(b\le u\) per ogni \(b\in B\):
-quindi \(B\) è superiormente limitato.
+Poiché \(B\subseteq A\), si ha
+\[
+  b\le u\qquad\forall b\in B.
+\]
+Pertanto \(B\) è superiormente limitato.
 
 \emph{Secondo punto.}
 Se \(A\) è inferiormente limitato, per la \cref{def:minorante}
@@ -193,8 +192,11 @@ esiste \(\ell\in\R\) tale che
 \[
   \ell\le a\qquad\forall a\in A.
 \]
-Poiché \(B\subseteq A\), si ha \(\ell\le b\) per ogni \(b\in B\):
-quindi \(B\) è inferiormente limitato.
+Poiché \(B\subseteq A\), si ha
+\[
+  \ell\le b\qquad\forall b\in B.
+\]
+Pertanto \(B\) è inferiormente limitato.
 \end{proof}
 
 \subsection{Esempi fondamentali}
@@ -233,7 +235,10 @@ Infine, dalle inclusioni
   \Z\subseteq\Q\subseteq\R
 \]
 e dalla \cref{prop:limitatezza-sottoinsiemi} segue che né \(\Q\)
-né \(\R\) sono superiormente o inferiormente limitati.
+né \(\R\) sono superiormente o inferiormente limitati. Infatti,
+un maggiorante o un minorante di uno di questi insiemi sarebbe
+anche un maggiorante o un minorante di \(\Z\), il che è impossibile.
+
 
 \section{Massimo e minimo}
 \label{sec:lez04-massimo-minimo}
@@ -273,12 +278,12 @@ quindi \(a/2\in A\) e \(a/2<a\). Nessun elemento di
 
 Si introducono gli insiemi dei maggioranti e dei minoranti di \(A\):
 \[
-  M_A:=\{x\in\R:x\text{ è un maggiorante di }A\},
+\begin{aligned}
+  M_A&:=\{x\in\R:x\text{ è un maggiorante di }A\},\\
+  m_A&:=\{x\in\R:x\text{ è un minorante di }A\}.
+\end{aligned}
 \]
-\[
-  m_A:=\{x\in\R:x\text{ è un minorante di }A\}.
-\]
-Per \(A=(0,1]\), si ha
+Per lo stesso insieme \(A=(0,1]\), si ha
 \[
   M_A=\{x\in\R:x\ge1\},
   \qquad
@@ -308,8 +313,9 @@ non viene sviluppata in questa sede.
 \section{Estremo superiore ed estremo inferiore}
 \label{sec:lez04-estremi}
 
-Il \cref{thm:estremi-maggioranti-minoranti} consente di definire
-gli estremi superiore e inferiore di un insieme non vuoto.
+Il \cref{thm:estremi-maggioranti-minoranti} garantisce
+l'esistenza degli estremi superiore e inferiore per gli
+insiemi rispettivamente superiormente e inferiormente limitati.
 
 \begin{definition}[Estremo superiore]
 \label{def:estremo-superiore}
@@ -362,6 +368,8 @@ Sia \(A\subseteq\R\) non vuoto.
 La dimostrazione della \cref{prop:relazione-estremi-massimo-minimo}
 non viene sviluppata in questa sede.
 
+\clearpage
+
 \section{Caratterizzazione di estremo superiore e inferiore}
 \label{sec:lez04-caratterizzazione-estremi}
 
@@ -386,9 +394,9 @@ e
 \]
 \end{theorem}
 
-Per la \cref{def:maggiorante}, le due condizioni equivalgono
-a richiedere che, per ogni \(\varepsilon>0\), esista
-\(\bar a\in A\) tale che
+La prima condizione afferma che \(x\) è un maggiorante di \(A\).
+Sotto tale ipotesi, la seconda equivale a richiedere che,
+per ogni \(\varepsilon>0\), esista \(\bar a\in A\) tale che
 \[
   x-\varepsilon<\bar a\le x.
 \]
@@ -403,8 +411,6 @@ a richiedere che, per ogni \(\varepsilon>0\), esista
 \end{figure}
 
 \begin{proof}
-Si dimostrano separatamente le due implicazioni.
-
 \emph{Prima implicazione \((\Rightarrow)\).}
 Si supponga \(x=\sup A\). Per la
 \cref{def:estremo-superiore}, si ha
@@ -465,9 +471,9 @@ e
 \]
 \end{theorem}
 
-Per la \cref{def:minorante}, le due condizioni equivalgono
-a richiedere che, per ogni \(\varepsilon>0\), esista
-\(\bar a\in A\) tale che
+La prima condizione afferma che \(x\) è un minorante di \(A\).
+Sotto tale ipotesi, la seconda equivale a richiedere che,
+per ogni \(\varepsilon>0\), esista \(\bar a\in A\) tale che
 \[
   x\le\bar a<x+\varepsilon.
 \]
@@ -481,19 +487,7 @@ a richiedere che, per ogni \(\varepsilon>0\), esista
   \label{fig:caratterizzazione-inf}
 \end{figure}
 
-\begin{exercise}[Dimostrazione della caratterizzazione dell'estremo inferiore]
-\label{ex:caratterizzazione-inf}
-Dimostrare il \cref{thm:caratterizzazione-inf} seguendo le due
-implicazioni della dimostrazione del \cref{thm:caratterizzazione-sup}.
-Si utilizzi l'insieme \(m_A\) dei minoranti e la relazione
-\[
-  \inf A=\max m_A.
-\]
-\end{exercise}
-
-\begin{proof}[Soluzione dell'esercizio]
-Si dimostrano separatamente le due implicazioni.
-
+\begin{proof}
 \emph{Prima implicazione \((\Rightarrow)\).}
 Si supponga \(x=\inf A\). Per la
 \cref{def:estremo-inferiore}, si ha

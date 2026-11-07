@@ -11,7 +11,7 @@
 - 1 Lezione 1 --- 29 settembre 2026 — p. 2
   - 1.1 Numeri naturali e le loro operazioni — p. 2
   - 1.2 Ordinamento totale dei numeri naturali — p. 3
-  - 1.3 Richiami su insiemi e dimostrazioni — p. 4
+  - 1.3 Richiami su insiemi e dimostrazioni — p. 3
   - 1.4 Principio di induzione — p. 4
 - 2 Lezione 2 --- 30 settembre 2026 — p. 7
   - 2.1 Numeri interi — p. 7
@@ -26,65 +26,76 @@
   - 3.5 Cenno sulla radice quadrata di 2 nei reali — p. 15
 - 4 Lezione 4 --- 2 ottobre 2026 — p. 16
   - 4.1 Densità dei numeri razionali — p. 16
-  - 4.2 Intervalli della retta reale — p. 17
+  - 4.2 Intervalli della retta reale — p. 16
   - 4.3 Maggioranti, minoranti e insiemi limitati — p. 17
   - 4.4 Massimo e minimo — p. 19
   - 4.5 Estremo superiore ed estremo inferiore — p. 20
-  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 20
+  - 4.6 Caratterizzazione di estremo superiore e inferiore — p. 21
 - 5 Lezione 5 --- 6 ottobre 2026 — p. 23
   - 5.1 Disuguaglianza di Bernoulli — p. 23
   - 5.2 Binomio di Newton — p. 23
   - 5.3 Esercizi sul fattoriale — p. 24
   - 5.4 Esercizi sugli estremi — p. 25
-- 6 Lezione 6 --- 13 ottobre 2026 — p. 27
-  - 6.1 Un esercizio sugli estremi di insiemi separati — p. 27
-  - 6.2 Prodotto cartesiano e applicazioni — p. 27
-  - 6.3 Dominio, codominio e immagine — p. 28
-  - 6.4 Controimmagine di un sottoinsieme — p. 29
-  - 6.5 Applicazioni suriettive, iniettive e biiettive — p. 30
-  - 6.6 Tre applicazioni definite dal quadrato — p. 31
-- 7 Lezione 7 --- 14 ottobre 2026 — p. 32
-  - 7.1 Numerabilità degli insiemi — p. 32
-  - 7.2 Operazioni sulle funzioni — p. 33
-  - 7.3 Grafici e trasformazioni delle funzioni — p. 34
-  - 7.4 Intorni e punti di accumulazione — p. 37
-- 8 Lezione 8 --- 15 ottobre 2026 — p. 41
-  - 8.1 Punti isolati e accumulazione all'infinito — p. 41
-  - 8.2 Definizione generale di limite — p. 42
-  - 8.3 Esercizi sulla definizione di limite — p. 44
-- 9 Lezione 9 --- 16 ottobre 2026 — p. 47
-  - 9.1 Verifica di un limite all'infinito — p. 47
-  - 9.2 Composizione di applicazioni — p. 48
-  - 9.3 Applicazione identità — p. 49
-  - 9.4 Applicazione inversa — p. 50
-- 10 Lezione 10 --- 20 ottobre 2026 — p. 52
-  - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 52
-  - 10.2 Monotonia delle funzioni — p. 53
-- 11 Lezione 11 --- 21 ottobre 2026 — p. 56
-  - 11.1 Intersezioni di intorni — p. 56
-  - 11.2 Unicità del limite — p. 57
-  - 11.3 Permanenza del segno — p. 58
-  - 11.4 Limitatezza locale — p. 59
-- 12 Lezione 12 --- 22 ottobre 2026 — p. 60
-  - 12.1 Primo teorema del confronto — p. 60
-  - 12.2 Secondo teorema del confronto — p. 62
-  - 12.3 Teorema delle tre funzioni — p. 63
-- 13 Lezione 13 --- 23 ottobre 2026 — p. 66
-  - 13.1 Funzione di Dirichlet — p. 66
-  - 13.2 Proprietà elementari dei limiti — p. 66
-- 14 Lezione 14 --- 27 ottobre 2026 — p. 68
-  - 14.1 Teoremi sulle operazioni dei limiti — p. 68
-  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 71
-  - 14.3 Limiti destri e sinistri — p. 72
-- A Tutorato — p. 74
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 74
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 77
-- B Esercizi per argomento — p. 80
-  - B.1 Limiti — p. 80
-  - B.2 Studio di funzione — p. 81
-  - B.3 Successioni — p. 82
-  - B.4 Serie numeriche — p. 83
-  - B.5 Integrali — p. 84
-  - B.6 Equazioni differenziali — p. 85
-  - B.7 Taylor e tecniche asintotiche — p. 86
+- 6 Lezione 6 --- 13 ottobre 2026 — p. 28
+  - 6.1 Esercizio sulla somma di insiemi — p. 28
+  - 6.2 Esercizio sugli insiemi separati — p. 29
+  - 6.3 Prodotto cartesiano e applicazioni — p. 29
+  - 6.4 Dominio, codominio e immagine — p. 31
+  - 6.5 Controimmagine di un sottoinsieme — p. 32
+  - 6.6 Applicazioni suriettive, iniettive e biiettive — p. 33
+  - 6.7 Tre applicazioni definite dal quadrato — p. 34
+- 7 Lezione 7 --- 14 ottobre 2026 — p. 35
+  - 7.1 Numerabilità degli insiemi — p. 35
+  - 7.2 Operazioni sulle funzioni — p. 36
+  - 7.3 Grafici e trasformazioni delle funzioni — p. 37
+  - 7.4 Intorni e punti di accumulazione — p. 40
+- 8 Lezione 8 --- 15 ottobre 2026 — p. 44
+  - 8.1 Punti isolati e accumulazione all'infinito — p. 44
+  - 8.2 Definizione generale di limite — p. 46
+  - 8.3 Esercizi sulla definizione di limite — p. 47
+- 9 Lezione 9 --- 16 ottobre 2026 — p. 50
+  - 9.1 Verifica di un limite all'infinito — p. 50
+  - 9.2 Composizione di applicazioni — p. 51
+  - 9.3 Applicazione identità — p. 52
+  - 9.4 Applicazione inversa — p. 53
+- 10 Lezione 10 --- 20 ottobre 2026 — p. 55
+  - 10.1 Dominio, immagine e grafico dell'applicazione inversa — p. 55
+  - 10.2 Monotonia delle funzioni — p. 56
+- 11 Lezione 11 --- 21 ottobre 2026 — p. 60
+  - 11.1 Intersezioni di intorni — p. 60
+  - 11.2 Unicità del limite — p. 61
+  - 11.3 Permanenza del segno — p. 62
+  - 11.4 Limitatezza locale — p. 63
+- 12 Lezione 12 --- 22 ottobre 2026 — p. 64
+  - 12.1 Primo teorema del confronto — p. 64
+  - 12.2 Secondo teorema del confronto — p. 66
+  - 12.3 Teorema delle tre funzioni — p. 68
+- 13 Lezione 13 --- 23 ottobre 2026 — p. 70
+  - 13.1 Funzione di Dirichlet — p. 70
+  - 13.2 Proprietà elementari dei limiti — p. 70
+- 14 Lezione 14 --- 27 ottobre 2026 — p. 72
+  - 14.1 Teoremi sulle operazioni dei limiti — p. 72
+  - 14.2 Avvicinamento al limite dall'alto e dal basso — p. 75
+  - 14.3 Limiti destri e sinistri — p. 76
+- 15 Lezione 15 --- 28 ottobre 2026 — p. 79
+  - 15.1 Limiti delle funzioni monotone — p. 79
+  - 15.2 Limiti di funzioni esponenziali e logaritmiche — p. 81
+- 16 Lezione 16 --- 29 ottobre 2026 — p. 84
+  - 16.1 Teorema sui limiti per sostituzione — p. 84
+- 17 Lezione 17 --- 30 ottobre 2026 — p. 87
+  - 17.1 Successioni — p. 87
+  - 17.2 Teorema ponte — p. 88
+  - 17.3 Limiti notevoli — p. 89
+  - 17.4 Limiti di successioni notevoli — p. 91
+- A Tutorato — p. 92
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 92
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 95
+- B Esercizi per argomento — p. 98
+  - B.1 Limiti — p. 98
+  - B.2 Studio di funzione — p. 99
+  - B.3 Successioni — p. 100
+  - B.4 Serie numeriche — p. 101
+  - B.5 Integrali — p. 102
+  - B.6 Equazioni differenziali — p. 103
+  - B.7 Taylor e tecniche asintotiche — p. 104
 <!-- GENERATED:END -->

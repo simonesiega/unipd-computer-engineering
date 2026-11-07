@@ -63,7 +63,8 @@ Per la \cref{def:lez08-limite}, esistono intorni
   |g(x)-\ell_2|<\varepsilon
   \qquad\forall x\in(U''_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per la \cref{sec:lez11-intersezione-intorni},
+Per quanto stabilito nella
+\cref{sec:lez11-intersezione-intorni},
 \[
   U_{x_0}:=U'_{x_0}\cap U''_{x_0}
 \]
@@ -118,7 +119,8 @@ Per ogni \(x\in(U'_{x_0}\cap U''_{x_0}\cap A)
   f(x)<\ell+1<g(x).
 \]
 In ciascun caso, l'intersezione dei due intorni è un
-intorno di \(x_0\) per la \cref{sec:lez11-intersezione-intorni}.
+intorno di \(x_0\) per quanto stabilito nella
+\cref{sec:lez11-intersezione-intorni}.
 \end{proof}
 
 \begin{example}[Limiti uguali e ordinamento variabile]
@@ -131,7 +133,10 @@ Si considerino le funzioni su \(\R\)
 Entrambe hanno limite \(0\) per \(x\to0\):
 per ogni \(\varepsilon>0\), scegliendo
 \(\delta=\varepsilon^{1/3}\), da \(0<|x|<\delta\)
-segue \(|x^3|<\varepsilon\).
+segue
+\[
+  |f(x)|=|g(x)|=|x|^3<\varepsilon.
+\]
 Tuttavia,
 \[
   f(x)<g(x)\quad\text{se }x<0,
@@ -222,18 +227,20 @@ Pertanto
 
 \clearpage
 
-\begin{example}[Un limite infinito mediante confronto]
+\begin{example}[Limiti infiniti mediante confronto]
 \label{ex:lez12-limite-x-seno}
 Si consideri la funzione
 \[
   g\colon\R\longrightarrow\R,
   \qquad g(x)=x+\sin x.
 \]
-Poiché \(\sin x\ge-1\) per ogni \(x\in\R\), si ha
+Poiché \(-1\le\sin x\le1\) per ogni \(x\in\R\), si ha
 \[
-  x-1\le x+\sin x
+  x-1\le x+\sin x\le x+1
   \qquad\forall x\in\R.
 \]
+
+\emph{Limite per \(x\to+\infty\).}
 Per \(f(x):=x-1\) si ha
 \[
   \lim_{x\to+\infty}f(x)=+\infty,
@@ -244,16 +251,29 @@ implica \(f(x)>K\). Per il terzo punto del
 \[
   \lim_{x\to+\infty}(x+\sin x)=+\infty.
 \]
+
+\emph{Limite per \(x\to-\infty\).}
+Per \(h(x):=x+1\) si ha
+\[
+  \lim_{x\to-\infty}h(x)=-\infty,
+\]
+poiché, per ogni \(K\in\R\), la condizione \(x<K-1\)
+implica \(h(x)<K\). Per il secondo punto del
+\cref{thm:lez12-confronto-secondo}, segue
+\[
+  \lim_{x\to-\infty}(x+\sin x)=-\infty.
+\]
 \end{example}
 
 \begin{figure}[htbp]
   \centering
   \input{assets/grafici/funzioni/confronto-seno}
   \caption{La funzione \(x+\sin x\) è compresa tra
-  \(x-1\) e \(x+1\). In particolare, il minorante
-  \(x-1\) tende a \(+\infty\).}
+  \(x-1\) e \(x+1\), come rappresentato per \(x\ge0\).}
   \label{fig:lez12-confronto-seno}
 \end{figure}
+
+\clearpage
 
 \section{Teorema delle tre funzioni}
 \label{sec:lez12-tre-funzioni}
@@ -292,7 +312,8 @@ esistono intorni \(U'_{x_0}\) e \(U''_{x_0}\) di
   |g(x)-\ell|<\varepsilon
   \qquad\forall x\in(U''_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per la \cref{sec:lez11-intersezione-intorni},
+Per quanto stabilito nella
+\cref{sec:lez11-intersezione-intorni},
 \[
   W_{x_0}:=U'_{x_0}\cap U''_{x_0}\cap U_{x_0}
 \]
@@ -311,6 +332,8 @@ Quindi
 e, per la \cref{def:lez08-limite}, si conclude
 \(\lim_{x\to x_0}h(x)=\ell\).
 \end{proof}
+
+\clearpage
 
 \begin{exercise}[Limite di \(x\sin(1/x)\)]
 \label{ex:lez12-limite-seno-inverso}
@@ -352,9 +375,9 @@ Per ogni \(x\in A\), poiché
   =|x|\left|\sin\frac1x\right|\le|x|.
 \]
 Per ogni \(\varepsilon>0\), scegliendo
-\(\delta=\varepsilon\), si verifica
-\(|x|<\varepsilon\) quando \(0<|x|<\delta\).
-Pertanto
+\(\delta=\varepsilon\), da \(0<|x|<\delta\)
+segue \(|x|<\varepsilon\). Poiché
+\(|-|x||=|x|\), si ottiene
 \[
   \lim_{x\to0}|x|=0,
   \qquad

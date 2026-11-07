@@ -4,7 +4,7 @@
 \section{Coefficienti binomiali}
 \label{sec:lez03-coefficienti-binomiali}
 
-La nozione di fattoriale, introdotta nella \cref{def:fattoriale},
+Il fattoriale, introdotto nella \cref{def:fattoriale},
 permette di definire i coefficienti binomiali per ogni coppia di
 numeri naturali.
 
@@ -55,10 +55,6 @@ della moltiplicazione, si ha
 \]
 \end{proof}
 
-Un'altra proprietà fondamentale è l'identità di Pascal, che esprime
-un coefficiente binomiale come somma di due coefficienti della riga
-precedente.
-
 \begin{proposition}[Identità di Pascal]
 \label{prop:identita-pascal}
 Per ogni \(n,k\in\N\) con \(n\ge1\) e \(1\le k\le n\) vale
@@ -73,10 +69,10 @@ Si considera anzitutto il caso \(1\le k\le n-1\).
 Per la \cref{def:fattoriale} si ha
 \[
   k!=k(k-1)!,
-  \qquad (n-k)!=(n-k)(n-k-1)!.
+  \qquad
+  (n-k)!=(n-k)(n-k-1)!.
 \]
-Queste identità permettono di ridurre allo stesso denominatore
-i due addendi dell'identità di Pascal:
+Pertanto, riducendo allo stesso denominatore,
 \begin{align*}
   \binom{n-1}{k-1}+\binom{n-1}{k}
     &=\frac{(n-1)!}{(k-1)!(n-k)!}
@@ -88,16 +84,13 @@ i due addendi dell'identità di Pascal:
      =\binom{n}{k}.
 \end{align*}
 
-Resta il caso \(k=n\). Per definizione,
+Resta il caso \(k=n\). Per la
+\cref{def:coefficiente-binomiale}, si ha
 \[
-  \binom{n-1}{n}=0,
-  \qquad
-  \binom{n-1}{n-1}=\binom{n}{n}=1.
-\]
-Pertanto anche in questo caso
-\[
-  \binom{n}{n}
-  =\binom{n-1}{n-1}+\binom{n-1}{n}.
+  \binom{n-1}{n-1}+\binom{n-1}{n}
+  =1+0
+  =1
+  =\binom{n}{n}.
 \]
 \end{proof}
 
@@ -115,8 +108,8 @@ Questa proprietà viene qui enunciata senza dimostrazione.
 
 Come mostrato nel \cref{thm:irrazionalita-radice-due},
 l'equazione \(x^2=2\) non ammette soluzioni razionali.
-Si considera quindi l'insieme dei numeri reali \(\R\),
-più ampio di \(\Q\), per il quale vale la catena di inclusioni
+Si introduce quindi l'insieme dei numeri reali \(\R\),
+per il quale vale la catena di inclusioni
 \[
   \N\subseteq\Z\subseteq\Q\subseteq\R.
 \]
@@ -124,12 +117,12 @@ L'esistenza in \(\R\) di un numero non negativo il cui quadrato
 sia \(2\) sarà ripresa nella
 \cref{sec:lez03-completezza-radice-due}.
 
-Una proprietà fondamentale di \(\R\) è la completezza, che in
-questa sede viene formulata mediante l'assioma di separazione.
+La completezza di \(\R\) viene formulata mediante
+l'assioma di separazione.
 
-Siano \(A,B\subseteq\R\) due insiemi non vuoti. Si dice che
-\(A\) e \(B\) sono \emph{separati}, con \(A\) a sinistra di
-\(B\), se
+Siano \(A,B\subseteq\R\) due insiemi non vuoti.
+Si dice che \(A\) e \(B\) sono \emph{separati},
+con \(A\) a sinistra di \(B\), se
 \[
   a\le b
   \qquad\forall a\in A,\ \forall b\in B.
@@ -143,12 +136,11 @@ almeno un numero reale \(\lambda\) tale che
   a\le\lambda\le b
   \qquad\forall a\in A,\ \forall b\in B.
 \]
-Il numero \(\lambda\) si dice \emph{elemento separatore} di
-\(A\) e \(B\).
+Il numero \(\lambda\) si dice \emph{elemento separatore}
+di \(A\) e \(B\).
 \end{axiom}
 
-Non si considerano qui altre formulazioni equivalenti
-della completezza.
+\clearpage
 
 \section{Proprietà archimedea}
 \label{sec:lez03-proprieta-archimedea}
@@ -172,53 +164,51 @@ Sia \(x\in\R\). Se \(x\le0\), è sufficiente scegliere
   A:=\{n\in\N:n\le x\}.
 \]
 Poiché \(0\in A\), l'insieme \(A\) è non vuoto.
-Se \(A\ne\N\), esiste \(n\in\N\setminus A\), per il quale
+Se \(A\ne\N\), esiste \(n\in\N\setminus A\) tale che
 \(n>x\). Resta dunque da escludere il caso \(A=\N\).
 
 Si supponga per assurdo che \(A=\N\) e si ponga
 \[
   B:=\{y\in\R:n\le y\ \text{per ogni }n\in\N\}.
 \]
-Dall'ipotesi \(A=\N\) segue che \(n\le x\) per ogni
-\(n\in\N\). Pertanto \(x\in B\), e anche \(B\) è non vuoto.
-Inoltre, per definizione di \(B\),
+Poiché \(n\le x\) per ogni \(n\in\N\), si ha \(x\in B\),
+quindi anche \(B\) è non vuoto. Inoltre,
 \[
   n\le y
   \qquad\forall n\in A=\N,\ \forall y\in B.
 \]
-Gli insiemi \(A\) e \(B\) sono quindi separati. Per
-l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+Gli insiemi \(A\) e \(B\) sono pertanto separati.
+Per l'\hyperref[ass:assioma-separazione]{assioma di separazione}
 esiste \(\lambda\in\R\) tale che
 \[
   n\le\lambda\le y
   \qquad\forall n\in\N,\ \forall y\in B.
 \]
 
-Poiché \(\lambda\) maggiora ogni naturale e
-\(n+1\in\N\) per ogni \(n\in\N\), si ha
+Poiché \(n+1\in\N\) per ogni \(n\in\N\), si ha
 \[
   n+1\le\lambda
   \quad\Longrightarrow\quad
   n\le\lambda-1
   \qquad\forall n\in\N.
 \]
-Per definizione di \(B\), ciò implica \(\lambda-1\in B\).
-D'altra parte, essendo \(\lambda\) un elemento separatore,
-\(\lambda\le y\) per ogni \(y\in B\). Scegliendo
-\(y=\lambda-1\), si ottiene
+Per definizione di \(B\), ne segue che \(\lambda-1\in B\).
+Essendo \(\lambda\) un elemento separatore, si ottiene quindi
 \[
   \lambda\le\lambda-1,
 \]
-una contraddizione. Pertanto \(A\ne\N\), ed esiste
-\(n\in\N\setminus A\) tale che \(n>x\).
+una contraddizione.
+
+Pertanto \(A\ne\N\), ed esiste \(n\in\N\setminus A\)
+tale che \(n>x\).
 \end{proof}
 
 \section{Parte intera, floor e ceiling}
 \label{sec:lez03-parte-intera}
 
 Il \cref{thm:proprieta-archimedea} conduce alla seguente
-proprietà, che individua la posizione di ogni numero reale
-rispetto a due interi consecutivi.
+proprietà, che permette di individuare la posizione di ogni
+numero reale rispetto a due interi consecutivi.
 
 \begin{proposition}[Proprietà della parte intera]
 \label{prop:parte-intera}
@@ -231,8 +221,10 @@ Per ogni \(x\in\R\) esiste un unico \(n\in\Z\) tale che
 La dimostrazione della \cref{prop:parte-intera} non viene
 sviluppata in questa sede.
 
-L'intero della \cref{prop:parte-intera} prende il nome
-di \emph{parte intera}.
+\clearpage
+
+L'unico intero individuato dalla \cref{prop:parte-intera}
+è detto \emph{parte intera} di \(x\).
 
 \begin{definition}[Funzione floor]
 \label{def:floor}
@@ -243,7 +235,9 @@ Per ogni \(x\in\R\), si definisce
 \]
 dove \(n\in\Z\) è l'unico intero che soddisfa
 la disuguaglianza. In particolare,
-\(\lfloor x\rfloor\le x<\lfloor x\rfloor+1\).
+\[
+  \lfloor x\rfloor\le x<\lfloor x\rfloor+1.
+\]
 \end{definition}
 
 Con la notazione degli intervalli della \cref{sec:lez04-intervalli},
@@ -255,8 +249,6 @@ per ogni \(n\in\Z\) si ha
   \quad\Longleftrightarrow\quad
   x\in[n,n+1).
 \]
-In particolare, \(\lfloor x\rfloor=0\) per ogni
-\(x\in[0,1)\).
 
 \begin{figure}[htbp]
   \centering
@@ -285,7 +277,10 @@ si ottiene
 \[
   -n-1<x\le-n.
 \]
-Ponendo \(m=-n\), segue \(m-1<x\le m\),
+Ponendo \(m=-n\), segue
+\[
+  m-1<x\le m,
+\]
 con \(m\in\Z\) unico.
 
 \begin{definition}[Funzione ceiling]
@@ -297,10 +292,13 @@ Per ogni \(x\in\R\), si definisce
 \]
 dove \(m\in\Z\) è l'unico intero che soddisfa
 la disuguaglianza. In particolare,
-\(\lceil x\rceil-1<x\le\lceil x\rceil\).
+\[
+  \lceil x\rceil-1<x\le\lceil x\rceil.
+\]
 \end{definition}
 
-Per ogni \(m\in\Z\) si ha
+Con la notazione degli intervalli della \cref{sec:lez04-intervalli},
+per ogni \(m\in\Z\) si ha
 \[
   \lceil x\rceil=m
   \quad\Longleftrightarrow\quad
@@ -308,8 +306,6 @@ Per ogni \(m\in\Z\) si ha
   \quad\Longleftrightarrow\quad
   x\in(m-1,m].
 \]
-In particolare, \(\lceil x\rceil=1\) per ogni
-\(x\in(0,1]\).
 
 \clearpage
 
@@ -334,10 +330,11 @@ In particolare, \(\lceil x\rceil=1\) per ogni
 {Cenno su \(\sqrt{2}\in\R\setminus\Q\)}
 \label{sec:lez03-completezza-radice-due}
 
-Si illustra come l'\hyperref[ass:assioma-separazione]{assioma di separazione}
-motivi l'esistenza di una soluzione reale non negativa di
-\(x^2=2\), già esclusa da \(\Q\) nel
-\cref{thm:irrazionalita-radice-due}.
+Si riprende l'equazione \(x^2=2\), che per il
+\cref{thm:irrazionalita-radice-due} non ammette soluzioni
+razionali, per esaminare il ruolo
+dell'\hyperref[ass:assioma-separazione]{assioma di separazione}
+nell'esistenza di una soluzione reale non negativa.
 
 Si considerino gli insiemi
 \[
@@ -346,13 +343,15 @@ Si considerino gli insiemi
   B:=\{x\in\R:x\ge0,\ x^2>2\}.
 \]
 Entrambi sono non vuoti, poiché \(0\in A\) e \(2\in B\).
-Inoltre, per ogni \(a\in A\) e \(b\in B\),
+Inoltre, per ogni \(a\in A\) e \(b\in B\), si ha
 \[
-  0\le a,\ b,
-  \qquad a^2<2<b^2
-  \quad\Longrightarrow\quad a<b.
+  a,b\ge0,
+  \qquad
+  a^2<2<b^2
+  \quad\Longrightarrow\quad
+  a<b.
 \]
-Pertanto \(A\) e \(B\) sono separati. Per
+Gli insiemi \(A\) e \(B\) sono quindi separati. Per
 l'\hyperref[ass:assioma-separazione]{assioma di separazione}
 esiste \(\lambda\in\R\) tale che
 \[
@@ -366,9 +365,9 @@ Per concludere occorrerebbe dimostrare che
   \lambda^2=2.
 \]
 Questa verifica non viene sviluppata in questa sede.
-Una volta stabilita l'identità, \(\lambda\) è la radice
-quadrata non negativa di \(2\). Insieme al
-\cref{thm:irrazionalita-radice-due}, si ottiene quindi
+Una volta stabilita l'identità, si avrebbe
+\(\lambda=\sqrt{2}\), e dal
+\cref{thm:irrazionalita-radice-due} seguirebbe
 \[
   \sqrt{2}\in\R\setminus\Q.
 \]
