@@ -78,4 +78,12 @@
   - 14.3 Limiti destri e sinistri — p. 72
 - A Tutorato 1 --- 8 ottobre 2026 — p. 74
 - B Tutorato 2 --- 22 ottobre 2026 — p. 77
+- C Esercizi per argomento — p. 80
+  - C.1 Limiti — p. 80
+  - C.2 Studio di funzione — p. 82
+  - C.3 Successioni — p. 85
+  - C.4 Serie numeriche — p. 86
+  - C.5 Integrali — p. 89
+  - C.6 Equazioni differenziali — p. 92
+  - C.7 Taylor e tecniche asintotiche — p. 94
 <!-- GENERATED:END -->

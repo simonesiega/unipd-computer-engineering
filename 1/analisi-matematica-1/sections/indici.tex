@@ -1,0 +1,80 @@
+\makeatletter
+\NewCommandCopy{\capitolooriginale}{\chapter}
+\RenewDocumentCommand{\chapter}{s o m}{%
+  \IfBooleanTF{#1}{\capitolooriginale*{#3}}{%
+    \IfNoValueTF{#2}{\capitolooriginale{#3}}{\capitolooriginale[#2]{#3}}%
+    \begingroup
+    \GetTitleString{#3}%
+    \let\@currentlabelname\GetTitleStringResult
+    \label{chap:titolo-completo-\@currentHref}%
+    \endgroup
+  }%
+}
+\makeatother
+
+\begingroup
+\hypersetup{linkcolor=black}
+\begingroup
+\makeatletter
+\@fileswfalse
+\makeatother
+\ExplSyntaxOn
+\cs_set_eq:NN \indicerapido_riga_originale:nnnn \contentsline
+\int_new:N \l_indicerapido_lezioni_int
+\int_new:N \l_indicerapido_tutorati_int
+\bool_new:N \l_indicerapido_esercizi_bool
+\cs_set_protected:Npn \contentsline #1#2#3#4
+  {
+    \str_case:nn {#1}
+      {
+        {chapter}
+          {
+            \bool_set_false:N \l_indicerapido_esercizi_bool
+            \tl_if_in:nnTF {#2} {Lezione}
+              {
+                \int_incr:N \l_indicerapido_lezioni_int
+                \int_compare:nNnT {\l_indicerapido_lezioni_int} = {1}
+                  {\indicerapido_riga_originale:nnnn {chapter}{Lezioni}{#3}{#4}}
+                \indicerapido_riga_originale:nnnn {section}
+                  {\numberline{\int_use:N \l_indicerapido_lezioni_int}
+                    \nameref*{chap:titolo-completo-#4}}{#3}{#4}
+              }
+              {
+                \tl_if_in:nnTF {#2} {Tutorato}
+                  {
+                    \int_incr:N \l_indicerapido_tutorati_int
+                    \int_compare:nNnT {\l_indicerapido_tutorati_int} = {1}
+                      {\indicerapido_riga_originale:nnnn {chapter}{Tutorato}{#3}{#4}}
+                    \indicerapido_riga_originale:nnnn {section}
+                      {\numberline{\int_use:N \l_indicerapido_tutorati_int}Tutorato}{#3}{#4}
+                  }
+                  {
+                    \tl_if_in:nnTF {#2} {Esercizi~per~argomento}
+                      {
+                        \bool_set_true:N \l_indicerapido_esercizi_bool
+                        \indicerapido_riga_originale:nnnn
+                          {chapter}{Esercizi~per~argomento}{#3}{#4}
+                      }
+                      {\indicerapido_riga_originale:nnnn {chapter}{#2}{#3}{#4}}
+                  }
+              }
+          }
+        {section}
+          {
+            \bool_if:NT \l_indicerapido_esercizi_bool
+              {\indicerapido_riga_originale:nnnn {section}{#2}{#3}{#4}}
+          }
+      }
+  }
+\ExplSyntaxOff
+\renewcommand*{\contentsname}{Indice rapido}
+\tableofcontents
+\endgroup
+\clearpage
+
+\renewcommand*{\contentsname}{Indice esteso}
+\tableofcontents
+\endgroup
+\hypersetup{linkcolor=unipd-accent}
+
+\setglossarypreamble{\label{sec:convenzioni-notazione}}
