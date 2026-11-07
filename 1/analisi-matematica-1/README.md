@@ -80,15 +80,17 @@
 - 15 Lezione 15 --- 28 ottobre 2026 — p. 79
   - 15.1 Limiti delle funzioni monotone — p. 79
   - 15.2 Limiti di funzioni esponenziali e logaritmiche — p. 81
-- A Tutorato — p. 84
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 84
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 87
-- B Esercizi per argomento — p. 90
-  - B.1 Limiti — p. 90
-  - B.2 Studio di funzione — p. 91
-  - B.3 Successioni — p. 92
-  - B.4 Serie numeriche — p. 93
-  - B.5 Integrali — p. 94
-  - B.6 Equazioni differenziali — p. 95
-  - B.7 Taylor e tecniche asintotiche — p. 96
+- 16 Lezione 16 --- 29 ottobre 2026 — p. 84
+  - 16.1 Teorema sui limiti per sostituzione — p. 84
+- A Tutorato — p. 87
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 87
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 90
+- B Esercizi per argomento — p. 93
+  - B.1 Limiti — p. 93
+  - B.2 Studio di funzione — p. 94
+  - B.3 Successioni — p. 95
+  - B.4 Serie numeriche — p. 96
+  - B.5 Integrali — p. 97
+  - B.6 Equazioni differenziali — p. 98
+  - B.7 Taylor e tecniche asintotiche — p. 99
 <!-- GENERATED:END -->
