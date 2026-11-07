@@ -75,9 +75,11 @@ jobs:
 
       - name: Build affected documents
         shell: bash
+        env:
+          BUILD_MODE: ${{ steps.changes.outputs.mode }}
         run: |
           set -euo pipefail
-          if [ "${{ steps.changes.outputs.mode }}" = "all" ]; then
+          if [ "$BUILD_MODE" = "all" ]; then
             docker compose run --rm --no-deps texlive \
               python3 latex/tools/build.py --all --keep-going --check-generated
           else

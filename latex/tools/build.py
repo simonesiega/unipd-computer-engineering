@@ -202,6 +202,11 @@ def compile_document(
         raise RuntimeError("latexmk was not found in PATH")
 
     output_directory = build_directory(root, document)
+    current = root
+    for part in output_directory.relative_to(root).parts:
+        current /= part
+        if current.is_symlink():
+            raise ValueError(f"Build output must not contain a symlink: {current}")
     if output_directory.exists():
         shutil.rmtree(output_directory)
     output_directory.mkdir(parents=True, exist_ok=True)

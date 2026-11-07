@@ -54,6 +54,7 @@ These tests exercise `build.py` with temporary sources, real temporary Git histo
 | Test | What it checks |
 |---|---|
 | `test_build_argument_validation_rejects_conflicting_modes` | Rejects incompatible generated-check flags, missing selection modes, and simultaneous explicit targets/`--all`. |
+| `test_compilation_rejects_symlinked_output_ancestors_before_cleanup` | Rejects symlinks at the build root, year directory, or document output before cleanup or compilation, preserving files reached through them. |
 | `test_keep_going_collects_partial_build_failures` | Verifies that keep-going mode processes both targets and records the first failure, while default mode propagates the failure without processing the second target. |
 | `test_build_main_cleans_outputs_after_success` | Removes `.build/` after a successful run with `--clean`. |
 | `test_build_main_reports_failures_and_empty_selection` | Returns failure and reports failed targets; rejects an explicit selection that discovers no documents. |
@@ -236,6 +237,7 @@ These tests construct valid and invalid source/layout fixtures and inspect the v
 | `test_component_validation_requires_exact_package_and_example_layout` | Accepts the standard component layout and rejects invalid names or extra example files. |
 | `test_integration_projects_require_source_pdf_and_readme` | Requires both language examples, their expected files, and no extra integration output. |
 | `test_markdown_link_validation_reports_missing_local_targets` | Accepts valid local/external links and reports missing files/fragments with source line numbers. |
+| `test_markdown_links_decode_paths_after_parsing_urls` | Keeps encoded filename delimiters and literal percent escapes separate from URL fragments, accepts encoded anchors, and reports a genuinely missing anchor. |
 | `test_markdown_anchor_generation_handles_duplicates_and_fences` | Generates punctuation-normalized and duplicate-suffixed heading anchors while ignoring fenced examples. |
 | `test_markdown_fences_ignore_examples_and_preserve_link_line_numbers` | Ignores headings/links inside long backtick and tilde fences, refuses shorter or non-whitespace-suffixed closing fences, and resumes validation with original source line numbers. |
 | `test_markdown_anchor_suffixes_do_not_collide_with_literal_headings` | Keeps repeated-heading suffixes unique even when literal headings already use those suffixes, in either order. |

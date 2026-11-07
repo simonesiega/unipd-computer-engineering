@@ -44,7 +44,7 @@ Courses load the [document class](../../docs/guides/reference/unipd-notes-class.
 | `metadata` | `\unipdsetup`, `\unipdmetadata`, `\unipdifmetadata`, `\unipdheadcourse`, and `\unipdtranslate`; field details belong in [Metadata](../../docs/guides/user-guide/metadata.md). |
 | `navigation` | `\href`, `\url`, PDF bookmarks, and PDF metadata. |
 | `page-style` | Geometry, running headers, footers, and page numbers. |
-| `references` | `\cref`, `\Cref`, optional BibLaTeX support, and `\printcoursebibliography`. |
+| `references` | `\cref`, `\Cref`, and `\crefrange` with localized names and conjunctions; optional BibLaTeX support and `\printcoursebibliography`. |
 | `table-of-contents` | `\makecoursetableofcontents` and Roman-numbered contents. |
 | `typography` | Text fonts, shared colors, paragraph spacing, and emphasis. |
 

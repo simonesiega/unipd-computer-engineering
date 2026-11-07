@@ -7,6 +7,11 @@
 
 [data-md-color-scheme="slate"] {
   --md-accent-fg-color: #8fc4ce;
+  --md-typeset-a-color: #8fc4ce;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: var(--md-typeset-a-color);
 }
 
 .md-typeset pre > code,

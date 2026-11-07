@@ -38,6 +38,8 @@ Un inserimento può iniziare solo dopo aver riservato una posizione libera; vale
 
 Per questa prova di impaginazione si suppone che una sezione critica non contesa richieda \qty{1.5}{\micro\second} e si usano i campioni illustrativi \numlist{8.2;8.7;9.1}\unit{\micro\second}. Questi valori sintetici mostrano la formattazione di quantità ed elenchi e non sono misure sperimentali.
 
+Per un intervallo esplicito di riferimenti, si vedano le \crefrange{fig:architecture}{fig:timeline}.
+
 \begin{theorem}\label{thm:fifo}
 Con la disciplina di permessi e mutex della \cref{thm:bounds}, se l'inserimento scrive nella posizione $t$ prima di incrementarla e la rimozione legge la posizione $h$ prima di avanzare, gli elementi sono restituiti in ordine FIFO.
 \end{theorem}
@@ -144,6 +146,7 @@ I controlli nei \cref{lst:insert,lst:remove} trasformano una violazione dell'inv
   acquisisci($q.mutex$)\;
   $q.dati[q.coda]\gets x$\;
   $q.coda\gets(q.coda+1)\bmod q.capacita$\;
+  $q.conteggio\gets q.conteggio+1$\;
   rilascia($q.mutex$)\;
   segnala($q.usate$)\;
   \Return{$q$}\;

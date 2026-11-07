@@ -59,7 +59,7 @@ Complete archive publication uses `--all`; reduced selection is only an optimiza
 
 ## Compilation
 
-Each selected document is compiled with `latexmk` and LuaLaTeX into a mirrored `.build/` directory. The tool deletes that document's previous output directory first, so builds do not reuse auxiliary state. Compilation runs from the source directory, which keeps course-relative includes working.
+Each selected document is compiled with `latexmk` and LuaLaTeX into a mirrored `.build/` directory. The tool rejects symlinks in that output path before deleting the document's previous output directory, so cleanup cannot follow a linked parent into unrelated files. Builds do not reuse auxiliary state. Compilation runs from the source directory, which keeps course-relative includes working.
 
 The effective compilation uses:
 

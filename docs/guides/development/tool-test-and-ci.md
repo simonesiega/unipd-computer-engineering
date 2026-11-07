@@ -134,7 +134,7 @@ It represents the latest successfully published complete archive from `main`. Th
 
 Publication is staged as a draft while assets are replaced so a partial update is not presented as successful. Matching assets are replaced, stale assets are removed, and the `notes-latest` tag is moved to the source/build commit before publication. Re-running the same source is idempotent while it remains the current `main` commit.
 
-If publication fails, inspect the draft release and workflow output before retrying.
+If publication fails, inspect the draft release and workflow output before retrying. A failed asset-listing API request stops publication before the rolling tag moves or the draft is published; it is not treated as an empty asset list.
 
 ### Immutable snapshots
 

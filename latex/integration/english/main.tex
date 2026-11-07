@@ -38,6 +38,8 @@ An insertion is enabled only when a free-position permit has been acquired, so i
 
 For this layout fixture, suppose that an uncontended critical section takes \qty{1.5}{\micro\second} and that illustrative wake-up samples are \numlist{8.2;8.7;9.1}\unit{\micro\second}. These synthetic values demonstrate quantity and list formatting; they are not reported measurements.
 
+An explicit reference range is shown by \crefrange{fig:architecture}{fig:timeline}.
+
 \begin{theorem}\label{thm:fifo}
 Under the permit and mutex discipline of \cref{thm:bounds}, if insertion writes at $t$ before advancing $t$, and removal reads at $h$ before advancing $h$, the buffer returns elements in first-in, first-out order.
 \end{theorem}
@@ -144,6 +146,7 @@ The checks in \cref{lst:insert,lst:remove} turn invariant violations into immedi
   lock($q.mutex$)\;
   $q.data[q.tail]\gets x$\;
   $q.tail\gets(q.tail+1)\bmod q.capacity$\;
+  $q.count\gets q.count+1$\;
   unlock($q.mutex$)\;
   signal($q.used$)\;
   \Return{$q$}\;

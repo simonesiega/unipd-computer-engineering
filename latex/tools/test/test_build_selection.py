@@ -69,6 +69,32 @@ class BuildSelectionTests(unittest.TestCase):
             with self.subTest(arguments=arguments), self.assertRaises(ValueError):
                 validate_arguments(arguments)
 
+    def test_compilation_rejects_symlinked_output_ancestors_before_cleanup(self) -> None:
+        for relative in (".build", ".build/2", ".build/2/course"):
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve() / "repo"
+                document = self.create_document(root, "2/course")
+                external = Path(tmp) / "external"
+                external.mkdir()
+                link = root / relative
+                link.parent.mkdir(parents=True, exist_ok=True)
+                try:
+                    link.symlink_to(external, target_is_directory=True)
+                except OSError as error:
+                    self.skipTest(f"Symbolic links unavailable: {error}")
+                output = root / ".build/2/course"
+                output.mkdir(parents=True, exist_ok=True)
+                sentinel = output / "keep.txt"
+                sentinel.write_text("keep\n", encoding="utf-8")
+                with (
+                    patch.object(build_module.shutil, "which", return_value="latexmk"),
+                    patch.object(build_module.subprocess, "run") as run,
+                    self.assertRaisesRegex(ValueError, "symlink"),
+                ):
+                    build_module.compile_document(root, document)
+                run.assert_not_called()
+                self.assertEqual(sentinel.read_text(encoding="utf-8"), "keep\n")
+
     def test_keep_going_collects_partial_build_failures(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

@@ -11,7 +11,11 @@
     maxbibnames=99
   ]{biblatex}
 \fi
-\RequirePackage[nameinlink,noabbrev]{cleveref}
+\ifunipdenglish
+  \RequirePackage[english,nameinlink,noabbrev]{cleveref}
+\else
+  \RequirePackage[italian,nameinlink,noabbrev]{cleveref}
+\fi
 
 \newcommand*{\unipd@crefnames}[3]{%
   \crefname{#1}

@@ -417,6 +417,24 @@ class RepositoryValidationTests(unittest.TestCase):
             self.assertIn("page.md:6", errors[1])
             self.assertIn("broken Markdown anchor", errors[1])
 
+    def test_markdown_links_decode_paths_after_parsing_urls(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            (root / "part#one.md").write_text("# Target\n", encoding="utf-8")
+            (root / "literal%23.md").write_text("# Target\n", encoding="utf-8")
+            page = root / "page.md"
+            page.write_text(
+                "[Hash in filename](part%23one.md#target)\n"
+                "[Literal percent](literal%2523.md#target)\n"
+                "[Encoded anchor](part%23one.md#%74arget)\n"
+                "[Missing anchor](part%23one.md#absent)\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                validate_markdown_links(page, root),
+                ["page.md:4: broken Markdown anchor: part%23one.md#absent"],
+            )
+
     def test_markdown_anchor_generation_handles_duplicates_and_fences(self) -> None:
         anchors = markdown_anchors(
             "# Installation & setup\n"

@@ -134,11 +134,11 @@ def validate_markdown_links(path: Path, root: Path) -> list[str]:
     )
     errors: list[str] = []
     for match in MARKDOWN_LINK.finditer(content):
-        target = unquote(match.group(1) or match.group(2))
+        target = match.group(1) or match.group(2)
         parsed = urlparse(target)
         if parsed.scheme or parsed.netloc:
             continue
-        destination = (path.parent / (parsed.path or path.name)).resolve()
+        destination = (path.parent / (unquote(parsed.path) or path.name)).resolve()
         line = content.count("\n", 0, match.start()) + 1
         relative = path.relative_to(root)
         if not destination.exists():
@@ -146,7 +146,7 @@ def validate_markdown_links(path: Path, root: Path) -> list[str]:
             continue
         if parsed.fragment and destination.is_file() and destination.suffix == ".md":
             destination_content = destination.read_text(encoding="utf-8")
-            if parsed.fragment.casefold() not in markdown_anchors(destination_content):
+            if unquote(parsed.fragment).casefold() not in markdown_anchors(destination_content):
                 errors.append(
                     f"{relative}:{line}: broken Markdown anchor: {target}"
                 )
