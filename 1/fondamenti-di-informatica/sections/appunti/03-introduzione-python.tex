@@ -122,6 +122,8 @@ Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
 \input{assets/codice/variabili/somma-input}
 
+\clearpage
+
 \section{Logica booleana e istruzioni condizionali}
 \label{sec:fi-python-condizioni}
 
@@ -153,6 +155,12 @@ congiunzione, disgiunzione e negazione. Nelle seguenti tabelle di verità,
   \mathrm{V} & \mathrm{F}
 \end{array}
 \]
+Le tabelle si riferiscono a operandi booleani. Più in generale, in
+Python \texttt{and} e \texttt{or} restituiscono uno degli operandi,
+non necessariamente un valore di tipo \texttt{bool}: il risultato
+dipende dal valore di verità degli operandi. L'operatore \texttt{not}
+restituisce invece sempre un valore booleano.
+
 Fra gli operatori considerati, i confronti hanno precedenza su
 \texttt{not}, che precede \texttt{and}, seguito da \texttt{or}.
 Le \emph{leggi di De Morgan} forniscono le equivalenze
@@ -191,6 +199,8 @@ per livello. Un rientro non valido può produrre \texttt{IndentationError};
 un rientro sintatticamente valido ma errato può invece modificare la
 logica del programma.
 
+\clearpage
+
 \section{Cicli e iterazioni}
 \label{sec:fi-python-cicli}
 
@@ -202,8 +212,6 @@ può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
 \texttt{do...while} verifica la condizione dopo l'esecuzione del corpo,
 garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
 ma può essere simulato mediante \texttt{while True} e \texttt{break}.
-
-\clearpage
 
 \input{assets/codice/cicli/validazione}
 
@@ -252,8 +260,6 @@ lo stesso risultato mediante un'espressione generatrice:
 La ricorsione fornisce un'altra forma di ripetizione del calcolo,
 trattata nella \cref{sec:fi-ricorsione-terminazione}.
 
-\clearpage
-
 \section{Liste}
 \label{sec:fi-python-liste}
 
@@ -293,6 +299,8 @@ studiati nel \cref{chap:ricerca-ordinamento}.
 Il ciclo visita i voti e calcola la media di quelli non inferiori a
 \texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione
 per zero quando nessun valore soddisfa la condizione.
+
+\clearpage
 
 \section{Funzioni}
 \label{sec:fi-python-funzioni}
@@ -351,6 +359,8 @@ L'estensione \texttt{.py} non compare in \texttt{import}.
 
 Le funzioni possono anche richiamare se stesse, come si vedrà
 nel \cref{chap:ricorsione}.
+
+\clearpage
 
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}

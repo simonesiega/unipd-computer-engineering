@@ -107,6 +107,8 @@ per la pila delle chiamate, secondo il modello della
 non è ordinata secondo il criterio previsto, il procedimento
 può restituire un risultato errato.
 
+\clearpage
+
 \section{Ricerca del massimo e del minimo}
 \label{sec:fi-ricerca-estremi}
 
@@ -212,6 +214,8 @@ i rispettivi primi elementi ancora disponibili, copia il minore
 nella lista di destinazione e avanza l'indice corrispondente. Quando
 una delle due parti è esaurita, copia gli elementi residui dell'altra.
 
+\clearpage
+
 \input{assets/codice/ordinamento/fusione}
 
 Durante la fusione, la parte di destinazione già scritta contiene,
@@ -254,6 +258,8 @@ Le complessità temporali nei tre casi sono quindi
   T_{\mathrm{avg}}(n)\in\Theta(n\log n),\qquad
   T_{\mathrm{worst}}(n)\in\Theta(n\log n).
 \]
+
+\clearpage
 
 L'algoritmo modifica la lista originale, ma la suddivisione mediante
 slicing e la fusione richiedono \(\Theta(n)\) spazio ausiliario
@@ -304,6 +310,8 @@ di spostare elementi uguali, conservandone l'ordine relativo:
 l'implementazione è quindi \emph{stabile}. In presenza di pochi
 elementi fuori posizione, Insertion Sort può risultare vantaggioso
 rispetto ad algoritmi il cui costo non dipende dall'ordine iniziale.
+
+\clearpage
 
 \section{Ordinamento rapido}
 \label{sec:fi-ordinamento-rapido}
@@ -375,8 +383,6 @@ in presenza di numerosi duplicati e la trasformazione di chiamate
 ricorsive in cicli (\cref{sec:fi-ricorsione-coda}). I due
 sottoproblemi risultanti dalla partizione possono inoltre essere
 elaborati indipendentemente, consentendo l'esecuzione parallela.
-
-\clearpage
 
 \section{Ricorrenze e teorema maestro}
 \label{sec:fi-teorema-maestro}

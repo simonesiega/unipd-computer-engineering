@@ -264,17 +264,24 @@ negativi sia per valori positivi:
 \begin{minipage}[t]{0.48\linewidth}
 \vspace{0pt}
 \textbf{Valore negativo}
+
 \begin{unipdcode}[language=Java,
   basicstyle=\ttfamily\scriptsize,
   numbers=none,
-  xleftmargin=0pt,
-  xrightmargin=0pt,
+  xleftmargin=1em,
+  xrightmargin=1em,
   framexleftmargin=0.3em]
 double x = -2.95;
 System.out.println((int) x);
 System.out.println(Math.round(x));
 \end{unipdcode}
-\begin{unipdterminal}
+
+\begin{unipdterminal}[
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  framexleftmargin=0.3em]
 -2
 -3
 \end{unipdterminal}
@@ -283,17 +290,24 @@ System.out.println(Math.round(x));
 \begin{minipage}[t]{0.48\linewidth}
 \vspace{0pt}
 \textbf{Valore positivo}
+
 \begin{unipdcode}[language=Java,
   basicstyle=\ttfamily\scriptsize,
   numbers=none,
-  xleftmargin=0pt,
-  xrightmargin=0pt,
+  xleftmargin=1em,
+  xrightmargin=1em,
   framexleftmargin=0.3em]
 double x = 2.95;
 System.out.println((int) x);
 System.out.println(Math.round(x));
 \end{unipdcode}
-\begin{unipdterminal}
+
+\begin{unipdterminal}[
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  framexleftmargin=0.3em]
 2
 3
 \end{unipdterminal}
@@ -336,6 +350,7 @@ Il seguente programma utilizza il metodo
 121932631112635269
 \end{unipdterminal}
 
+\clearpage
 
 \section{Costanti ed espressioni aritmetiche}
 \label{sec:fi-java-costanti-aritmetica}
@@ -346,8 +361,6 @@ volta. La sintassi usuale è
 \texttt{final tipo NOME\_COSTANTE = espressione;}.
 Per convenzione, i nomi delle costanti sono scritti in
 maiuscolo, con parole separate da un carattere di sottolineatura.
-
-\clearpage
 
 \begin{unipdcode}[language=Java]
 final double EURO_PER_DOLLAR = 0.72;
@@ -573,6 +586,8 @@ Per convertire un numero in testo si utilizzano
 \texttt{Double.toString()}; in alternativa,
 si può concatenare il valore con una stringa vuota.
 
+\clearpage
+
 \section{Caratteri e sequenze di escape}
 \label{sec:fi-java-char-escape}
 
@@ -728,8 +743,8 @@ Tax:   0.30
 
 Lo specificatore \lstinline|%5.2f| riserva almeno
 cinque posizioni per il valore numerico, mentre
-\lstinline|%n| inserisce il terminatore di riga
-della piattaforma. A differenza di \texttt{println()},
+\lstinline|%n| inserisce un ritorno a capo. 
+A differenza di \texttt{println()},
 \texttt{printf()} non aggiunge automaticamente
 un ritorno a capo.
 \end{example}
@@ -782,6 +797,8 @@ il programma visualizza un totale di \texttt{10.10}
 euro, formattato con due cifre decimali.
 I valori vengono acquisiti durante l'esecuzione,
 senza richiedere modifiche al file sorgente.
+
+\clearpage
 
 \subsection{Lettura di parole e righe}
 \label{sec:fi-java-scanner-testo}
