@@ -1,0 +1,976 @@
+\chapter{Confronti, cicli e membri di classe in Java}
+\label{chap:confronti-cicli-java}
+
+Le strutture condizionali introdotte nella
+\cref{sec:fi-java-classi-condizioni} permettono di scegliere fra
+comportamenti alternativi. Per utilizzarle correttamente è necessario
+comprendere come Java confronta stringhe e oggetti, come combina
+condizioni booleane e come rappresenta scelte fra più possibilità.
+Le stesse condizioni governano le strutture iterative, che ripetono
+un'elaborazione fino al raggiungimento di un risultato. La trattazione
+si completa con i membri statici e con le regole che determinano
+visibilità e durata delle variabili.
+\footnote{Materiale didattico di riferimento: S. Canazza,
+\emph{Java: confronti, cicli},
+\nolinkurl{2026_FI_10_Java_Confronti_cicli.key.pdf}.}
+
+\section{Confronto tra stringhe}
+\label{sec:fi-java-cicli-stringhe}
+
+In Java una stringa è un oggetto della classe \texttt{String},
+non un valore di tipo primitivo (\cref{sec:fi-java-stringhe-operazioni}).
+Occorre perciò distinguere il confronto dei riferimenti dal confronto
+del contenuto degli oggetti.
+
+\subsection{Uguaglianza e identità}
+\label{sec:fi-java-cicli-stringhe-uguaglianza}
+
+L'operatore \texttt{==}, applicato a due variabili di tipo riferimento,
+verifica se entrambe si riferiscono allo stesso oggetto; non confronta
+i caratteri delle stringhe. Il metodo \texttt{equals()}, invece,
+confronta il loro contenuto. Il metodo \texttt{equalsIgnoreCase()}
+confronta le stringhe senza distinguere maiuscole e minuscole, secondo
+le regole della classe \texttt{String}.
+
+\begin{unipdcode}[language=Java]
+String s1 = "Stringa";
+String s2 = s1;
+String s3 = "String";
+s3 = s3 + "a";
+
+System.out.println(s1 == s2);       // true
+System.out.println(s1 == s3);       // false
+System.out.println(s1.equals(s3));  // true
+System.out.println("Casa".equalsIgnoreCase("casa")); // true
+\end{unipdcode}
+
+L'assegnamento a \texttt{s2} copia il riferimento contenuto in
+\texttt{s1}, mentre la concatenazione produce una nuova stringa.
+Il risultato non deve essere dedotto dalla sola somiglianza dei testi:
+due riferimenti possono indicare oggetti distinti contenenti gli stessi
+caratteri. La \cref{fig:fi-java-cicli-stringhe-riferimenti} rappresenta
+la situazione dopo le assegnazioni.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/stringhe-riferimenti}
+  \caption{Confronto fra identità dei riferimenti e uguaglianza del
+  contenuto delle stringhe.}
+  \label{fig:fi-java-cicli-stringhe-riferimenti}
+\end{figure}
+
+\begin{warning}[Confrontare stringhe con \texttt{==}]
+Il confronto con \texttt{==} è sintatticamente valido, ma non esprime
+l'uguaglianza testuale. In particolare, la condivisione di oggetti
+\texttt{String} tramite il meccanismo di \emph{interning} può far
+risultare veri alcuni confronti fra letterali: non bisogna affidarsi
+a questo comportamento per confrontare contenuti.
+\end{warning}
+
+Un riferimento può contenere il valore \texttt{null}
+(\cref{sec:fi-java-classi-null}). L'espressione
+\texttt{s == null} è un confronto appropriato; invocare
+un metodo su un riferimento nullo provoca invece un errore
+durante l'esecuzione. Quando il primo testo è una costante,
+si può scrivere \texttt{"Q".equals(s)}: il confronto
+restituisce \texttt{false} anche se \texttt{s} è nullo.
+Il metodo \texttt{equalsIgnoreCase()} non definisce un ordinamento
+alfabetico dipendente dalla lingua e non elimina automaticamente
+accenti o altri segni diacritici.
+
+\subsection{Ordinamento lessicografico}
+\label{sec:fi-java-cicli-stringhe-ordine}
+
+Per stabilire quale stringa preceda un'altra si usa il metodo
+\texttt{compareTo()}, che restituisce un valore \texttt{int}:
+negativo se il ricevente precede l'argomento, nullo se i testi
+coincidono e positivo se lo segue. Conta il \emph{segno} del risultato,
+non la sua grandezza.
+
+\begin{unipdcode}[language=Java]
+System.out.println("carta".compareTo("castano") < 0); // true
+System.out.println("casa".compareTo("casa") == 0);    // true
+System.out.println("casa".compareTo("casale") < 0);  // true
+\end{unipdcode}
+
+Il confronto procede dall'inizio, cercando la prima posizione nella
+quale i caratteri differiscono. Se non ne trova e una stringa è un
+prefisso proprio dell'altra, la più corta precede la più lunga. Per
+\texttt{String}, l'ordinamento naturale è basato sulle unità di codice
+UTF-16: non coincide necessariamente con quello di un dizionario
+italiano. Per esempio, le maiuscole e le minuscole sono distinte, e
+anche cifre, spazi e simboli partecipano al confronto. L'ordinamento
+secondo le convenzioni linguistiche richiede strumenti diversi, che
+non sono necessari per i confronti introdotti qui.
+
+\section{Confronto tra oggetti}
+\label{sec:fi-java-cicli-oggetti}
+
+La distinzione vista per le stringhe vale per tutti i riferimenti:
+\texttt{a == b} verifica se i due riferimenti identificano lo stesso
+oggetto (oppure sono entrambi \texttt{null}). Il metodo
+\texttt{equals()} è disponibile per gli oggetti perché è dichiarato
+nella classe \texttt{Object}, dalla quale derivano le classi Java.
+Nella sua implementazione di base, esso verifica l'identità. Una
+classe può \emph{ridefinirlo} per esprimere un'uguaglianza basata
+su caratteristiche significative degli oggetti, come avviene per
+\texttt{String}.
+
+\begin{definition}[Uguaglianza per identità e per valore]
+\label{def:fi-java-cicli-uguaglianza-oggetti}
+L'\emph{uguaglianza per identità} richiede che due riferimenti
+indichino lo stesso oggetto. L'\emph{uguaglianza per valore}, quando
+prevista dalla classe, verifica invece che gli oggetti soddisfino
+un criterio di equivalenza basato sul loro contenuto o stato.
+\end{definition}
+
+Non si può quindi assumere che \texttt{equals()} confronti sempre
+tutti i campi: il significato del metodo dipende dalla classe e dal
+contratto che essa documenta. Analogamente, \texttt{compareTo()}
+non è disponibile per qualsiasi oggetto. Le classi che definiscono
+un ordinamento naturale, tramite l'interfaccia \texttt{Comparable},
+possono fornire questo metodo. Un risultato nullo indica equivalenza
+\emph{secondo il criterio di ordinamento}, che non coincide
+necessariamente con \texttt{equals()}. Per le classi create nel
+\cref{chap:realizzazione-classi-java} non è stato ancora definito
+un criterio generale di uguaglianza o ordinamento.
+
+\section{Alternative multiple e istruzione \texttt{switch}}
+\label{sec:fi-java-cicli-alternative}
+
+\subsection{Catene condizionali e diramazioni annidate}
+\label{sec:fi-java-cicli-if-catene}
+
+Quando le alternative sono più di due, si può scrivere una catena
+\texttt{if}/\texttt{else if}/\texttt{else}. Le condizioni vengono
+esaminate nell'ordine; viene eseguito il corpo della prima condizione
+vera, oppure quello finale associato a \texttt{else} se nessuna
+condizione è vera.
+
+\begin{unipdcode}[language=Java]
+if (richter >= 8) {
+    System.out.println("Terremoto molto forte");
+} else if (richter >= 6) {
+    System.out.println("Terremoto forte");
+} else if (richter >= 4) {
+    System.out.println("Terremoto medio");
+} else if (richter >= 2) {
+    System.out.println("Terremoto debole");
+} else if (richter >= 0) {
+    System.out.println("Terremoto molto debole");
+} else {
+    System.out.println("Valore negativo non valido");
+}
+\end{unipdcode}
+
+La classificazione è didattica: si assume un valore finito e si
+considerano non validi quelli negativi. Le soglie sono in ordine
+decrescente: se \texttt{richter} vale \(7\), la prima condizione vera è
+\texttt{richter >= 6}. Invertire l'ordine farebbe intercettare
+ogni valore non negativo dal controllo \texttt{richter >= 0},
+rendendo irraggiungibili gli altri rami. Scrivere più \texttt{if}
+indipendenti, invece, potrebbe eseguire più corpi per lo stesso valore.
+
+Le \emph{diramazioni annidate} servono quando una decisione dipende
+da un'altra. Per esempio, uno scaglione di imposta può essere scelto
+prima in base a una categoria e poi in base al reddito. L'istruzione
+\texttt{else} viene associata sintatticamente all'\texttt{if} più
+vicino che non possiede già una clausola \texttt{else}: è il problema
+dell'\emph{else sospeso}. L'indentazione non modifica questa regola.
+Racchiudere i rami tra graffe rende esplicita l'associazione.
+
+\begin{unipdcode}[language=Java]
+if (richter >= 0) {
+    if (richter <= 4) {
+        System.out.println("Terremoto leggero");
+    }
+} else {
+    System.out.println("Valore negativo non valido");
+}
+\end{unipdcode}
+
+\clearpage
+
+\subsection{Istruzione \texttt{switch} tradizionale}
+\label{sec:fi-java-cicli-switch}
+
+L'istruzione \texttt{switch} seleziona un ramo in base al valore di
+un'espressione. È particolarmente adatta a confronti con valori
+discreti e distinti; non sostituisce una catena di intervalli
+numerici, come quella dell'esempio precedente. Nella forma classica
+si impiegano \texttt{case}, l'eventuale ramo \texttt{default} e,
+normalmente, \texttt{break} per uscire dall'istruzione.
+
+\begin{unipdcode}[language=Java]
+int giorno = 3;
+switch (giorno) {
+    case 1:
+        System.out.println("Lunedi");
+        break;
+    case 2:
+        System.out.println("Martedi");
+        break;
+    case 3:
+        System.out.println("Mercoledi");
+        break;
+    default:
+        System.out.println("Altro giorno");
+}
+\end{unipdcode}
+
+Le etichette \texttt{case} rappresentano valori compatibili con il
+tipo dell'espressione. Lo \texttt{switch} tradizionale accetta, fra
+gli altri, \texttt{byte}, \texttt{short}, \texttt{char},
+\texttt{int}, le corrispondenti classi involucro, \texttt{String}
+(a partire da Java 7) e i tipi enumerativi introdotti nella
+\cref{sec:fi-java-cicli-enum}. Non supporta direttamente
+\texttt{long} o \texttt{double} come selettori.
+
+\begin{warning}[Caduta tra i casi]
+Se un ramo raggiunge il successivo senza incontrare \texttt{break}
+(o un'altra istruzione che interrompa quel percorso), l'esecuzione
+\emph{prosegue} nel caso seguente, senza verificare nuovamente le
+etichette. Questo comportamento, detto \emph{fall-through}, è talvolta
+voluto per raggruppare più valori, ma può introdurre errori.
+\end{warning}
+
+\begin{unipdcode}[language=Java]
+switch (giorno) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        System.out.println("Giorno lavorativo");
+        break;
+    case 6:
+    case 7:
+        System.out.println("Fine settimana");
+        break;
+    default:
+        System.out.println("Giorno non valido");
+}
+\end{unipdcode}
+
+L'assenza dei primi quattro \texttt{break} è intenzionale: tutte
+le relative etichette conducono allo stesso corpo. Al contrario,
+omettere il \texttt{break} dopo la stampa di ``Giorno lavorativo''
+provocherebbe anche la stampa di ``Fine settimana''.
+
+\clearpage
+
+Lo stesso selettore può essere una stringa. Per esempio, la
+scrittura seguente distingue due risposte testuali; qui le
+etichette \texttt{case} effettuano un confronto per contenuto,
+non per identità dei riferimenti:
+
+\begin{unipdcode}[language=Java]
+String risposta = "si";
+switch (risposta) {
+    case "si":
+        System.out.println("Confermato");
+        break;
+    case "no":
+        System.out.println("Rifiutato");
+        break;
+    default:
+        System.out.println("Risposta non riconosciuta");
+}
+\end{unipdcode}
+
+\subsection{Espressioni \texttt{switch} e enumerazioni}
+\label{sec:fi-java-cicli-switch-expression}
+
+A partire da Java 14, lo \texttt{switch} può essere utilizzato
+anche come \emph{espressione} che produce un valore. Le etichette
+con la freccia \texttt{->} delimitano un singolo ramo, senza
+\emph{fall-through}; il compilatore richiede che ogni possibile
+valore del selettore sia gestito. Nell'esempio, il ramo
+\texttt{default} copre gli interi diversi da quelli elencati.
+
+\begin{unipdcode}[language=Java]
+int giorno = 3;
+String tipoGiorno = switch (giorno) {
+    case 1, 2, 3, 4, 5 -> "Giorno lavorativo";
+    case 6, 7 -> "Fine settimana";
+    default -> "Giorno non valido";
+};
+\end{unipdcode}
+
+È importante distinguere la versione \emph{istruzione}, utilizzata
+per eseguire azioni, dalla versione \emph{espressione}, impiegata
+per calcolare un risultato. Le etichette con freccia possono essere
+usate anche in istruzioni \texttt{switch} nelle versioni moderne
+di Java. Quando il selettore è un \texttt{enum}, i casi possono
+indicare direttamente le costanti senza ripetere il nome del tipo;
+la definizione e l'esempio completo sono nella
+\cref{sec:fi-java-cicli-enum}.
+
+\section{Il tipo \texttt{boolean} e le espressioni logiche}
+\label{sec:fi-java-cicli-boolean}
+
+\begin{definition}[Tipo booleano]
+\label{def:fi-java-cicli-boolean}
+Il tipo primitivo \texttt{boolean} ha esattamente due valori,
+\texttt{true} e \texttt{false}. Le condizioni degli enunciati
+\texttt{if} e dei cicli devono essere espressioni di tipo
+\texttt{boolean}; gli interi non sono convertiti implicitamente
+in valori logici.
+\end{definition}
+
+Per esempio, \texttt{x > 0} è un'espressione relazionale il cui
+risultato può essere assegnato a una variabile:
+
+\begin{unipdcode}[language=Java]
+boolean positivo = x > 0;
+if (positivo) {
+    System.out.println("Valore positivo");
+}
+\end{unipdcode}
+
+Quando una variabile booleana memorizza lo stato di una condizione
+utile al controllo del programma, viene spesso chiamata
+\emph{flag}. I metodi che restituiscono valori booleani sono detti
+\emph{predicativi}: \texttt{Character.isDigit(ch)} verifica, per
+esempio, se un carattere è una cifra, mentre
+\texttt{scanner.hasNextInt()} verifica se il prossimo elemento
+dell'ingresso può essere letto come \texttt{int}
+(\cref{sec:fi-java-scanner-numeri}). I nomi dei predicati spesso
+iniziano con \texttt{is} oppure \texttt{has}.
+
+\subsection{Operatori logici e cortocircuito}
+\label{sec:fi-java-cicli-logici}
+
+Gli operatori \texttt{\&\&}, \texttt{||} e \texttt{!}
+rappresentano rispettivamente congiunzione, disgiunzione e
+negazione. Le corrispondenti tabelle di verità sono riassunte
+nella \cref{tab:fi-java-cicli-booleani}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\(A\) & \(B\) & \texttt{A \&\& B} & \texttt{A || B} & \texttt{!A} \\
+\midrule
+\texttt{true} & \texttt{true} & \texttt{true} & \texttt{true} & \texttt{false} \\
+\texttt{true} & \texttt{false} & \texttt{false} & \texttt{true} & \texttt{false} \\
+\texttt{false} & \texttt{true} & \texttt{false} & \texttt{true} & \texttt{true} \\
+\texttt{false} & \texttt{false} & \texttt{false} & \texttt{false} & \texttt{true} \\
+\bottomrule
+\end{tabular}
+\caption{Valori degli operatori logici su due condizioni booleane.}
+\label{tab:fi-java-cicli-booleani}
+\end{table}
+
+Con \texttt{\&\&} e \texttt{||}, Java utilizza la
+\emph{valutazione a cortocircuito}: il secondo operando non viene
+valutato quando il primo determina già il risultato. Nel seguente
+controllo, la chiamata a \texttt{length()} avviene soltanto se
+\texttt{s} non è nullo:
+
+\begin{unipdcode}[language=Java]
+if (s != null && s.length() > 0) {
+    System.out.println("Stringa non vuota");
+}
+\end{unipdcode}
+
+Invertendo le condizioni, la protezione dal riferimento nullo
+verrebbe meno e potrebbe verificarsi una
+\texttt{NullPointerException}. Il cortocircuito riguarda quindi
+anche la correttezza, non soltanto l'efficienza.
+
+\subsection{Precedenze e confronti errati}
+\label{sec:fi-java-cicli-precedenze}
+
+Gli operatori aritmetici e quelli relazionali precedono in generale
+le combinazioni logiche; tra i tre operatori logici considerati,
+\texttt{!} ha precedenza maggiore di \texttt{\&\&}, che precede
+\texttt{||}. Le parentesi chiariscono o modificano il
+raggruppamento, mentre le regole di associatività risolvono i casi
+di operatori con la stessa precedenza. Per esempio,
+\texttt{2 * x \% 2} viene raggruppato come
+\texttt{(2 * x) \% 2}.
+
+\begin{unipdcode}[language=Java]
+if (!(x < 0 || x > 10)) {
+    System.out.println("Nell'intervallo [0, 10]");
+}
+\end{unipdcode}
+
+Il tentativo di scrivere \texttt{!x < 0} per indicare \(x\ge0\)
+non è corretto: \texttt{!} richiede un operando booleano e non
+può essere applicato a un numero. Analogamente, non si possono
+concatenare confronti come nelle disuguaglianze matematiche:
+
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Confronto di intervallo}
+
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  framexleftmargin=0.3em]
+// NON valido: 0 <= x <= 1
+if (0 <= x && x <= 1) {
+    System.out.println("Tra zero e uno");
+}
+\end{unipdcode}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Confronto di valori}
+
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  framexleftmargin=0.3em]
+// NON valido: x && y > 0
+if (x > 0 && y > 0) {
+    System.out.println("Entrambi positivi");
+}
+\end{unipdcode}
+\end{minipage}
+
+L'espressione \texttt{0 <= x} produce un valore booleano, che
+non può essere confrontato numericamente con \texttt{1}; inoltre,
+\texttt{\&\&} richiede due operandi booleani. Questi errori
+vengono individuati dal compilatore. Il confronto fra due
+numeri in virgola mobile presenta un problema differente,
+relativo alla precisione, già trattato nella
+\cref{sec:fi-java-classi-floating}.
+
+\section{Tipi enumerativi \texttt{enum}}
+\label{sec:fi-java-cicli-enum}
+
+Quando una variabile deve rappresentare uno fra un numero finito e
+prestabilito di stati, si può utilizzare un tipo \emph{enumerativo}.
+Una dichiarazione \texttt{enum} introduce in Java un tipo speciale
+di classe, le cui istanze sono le costanti elencate nella
+dichiarazione. Per esempio:
+
+\begin{unipdcode}[language=Java]
+enum Stagione {
+    PRIMAVERA, ESTATE, AUTUNNO, INVERNO
+}
+\end{unipdcode}
+
+All'interno di un metodo si può dichiarare una variabile di questo
+tipo e assegnarle una delle costanti:
+\begin{unipdcode}[language=Java]
+Stagione stagione = Stagione.ESTATE;
+\end{unipdcode}
+
+La variabile può contenere uno dei valori dichiarati oppure
+\texttt{null}, trattandosi di un tipo riferimento. Non è possibile
+assegnarle arbitrariamente una stringa o una costante di un altro
+\texttt{enum}. Le costanti di una stessa enumerazione sono oggetti
+unici, perciò è corretto confrontarle mediante \texttt{==}.
+
+\begin{example}[Selezione con un tipo enumerativo]
+Il seguente esempio seleziona una costante di tipo
+\texttt{Stagione} mediante \texttt{switch}. Le etichette
+\texttt{case} utilizzano i nomi delle costanti senza il prefisso
+\texttt{Stagione.}.
+\input{assets/codice/java/stagioni-switch}
+\end{example}
+
+Un tipo enumerativo può anche dichiarare campi, costruttori e
+metodi. In questo caso ogni costante viene costruita con i valori
+previsti dalla dichiarazione; non è possibile crearne liberamente
+altre con \texttt{new}. Le classi enumerative non possono essere
+estese mediante ereditarietà. Queste proprietà rendono
+\texttt{enum} adatto a modellare un insieme chiuso di valori,
+non un catalogo che deve cambiare dinamicamente durante
+l'esecuzione.
+
+\begin{example}[Enumerazioni con dati e metodi]
+Nella seguente enumerazione ogni valore possiede una descrizione,
+assegnata al momento della costruzione delle costanti e restituita
+da un metodo di istanza. Si tratta di un esempio ridotto del
+meccanismo utilizzato per associare proprietà a categorie fisse.
+\input{assets/codice/java/priorita-enum}
+\end{example}
+
+I principali vantaggi sono la \emph{sicurezza del tipo}, la
+leggibilità dei nomi e l'integrazione con \texttt{switch};
+evitano, per esempio, di confondere codici numerici attribuiti
+a categorie diverse. Il limite è che l'insieme delle costanti
+è fissato nel codice e una sua modifica richiede di aggiornare
+il programma. Inoltre, convertire dati testuali esterni in
+costanti richiede un'operazione esplicita e la gestione di
+valori non riconosciuti. Le enumerazioni, dunque, non
+sostituiscono le strutture dati per insiemi di valori variabili:
+la distinzione tra specifica di un tipo e rappresentazione dei
+dati richiama il concetto di tipo astratto introdotto nella
+\cref{sec:fi-adt-strutture}.
+
+\section{Il ciclo \texttt{while}}
+\label{sec:fi-java-cicli-while}
+
+Le strutture iterative eseguono più volte un corpo di istruzioni.
+Nel ciclo \texttt{while} la condizione viene verificata
+\emph{prima} di ogni iterazione. Se è falsa fin dall'inizio,
+il corpo non viene eseguito neppure una volta. La sua forma
+schematica è:
+
+\begin{unipdcode}[language=Java]
+while (condizione) {
+    // corpo del ciclo
+}
+\end{unipdcode}
+
+La condizione deve avere tipo \texttt{boolean}, e il corpo può
+essere un singolo enunciato o un blocco. La
+\cref{fig:fi-java-cicli-controllo} mette a confronto questo
+schema con quello del ciclo \texttt{do}/\texttt{while},
+introdotto più avanti.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/while-do-while}
+  \caption{Verifica preliminare nel ciclo \texttt{while} e
+  verifica successiva nel ciclo \texttt{do}/\texttt{while}.}
+  \label{fig:fi-java-cicli-controllo}
+\end{figure}
+
+\subsection{Capitalizzazione annuale}
+\label{sec:fi-java-cicli-investimento}
+
+Si consideri un conto con saldo iniziale di \(20\,000\) euro e
+tasso annuo costante del \(5\%\), con capitalizzazione degli
+interessi alla fine di ogni anno. Si vuole trovare il minimo
+numero di anni necessario affinché il saldo sia almeno il doppio
+di quello iniziale. Indicando con \(B_n\) il saldo dopo \(n\)
+anni, si ha
+\[
+  B_0=20\,000,\qquad B_{n+1}=1{,}05\,B_n.
+\]
+L'algoritmo mantiene il saldo corrente e il numero di anni
+trascorsi; a ogni iterazione aumenta prima il contatore e poi
+accredita gli interessi. La sua realizzazione può utilizzare
+\texttt{BankAccount}, già definita nella
+\cref{sec:fi-java-classi-incapsulamento}:
+
+\input{assets/codice/java/simple-investment-tester}
+
+All'inizio di ciascuna verifica della condizione, il contatore
+\texttt{years} è il numero di capitalizzazioni già effettuate e
+\texttt{account.getBalance()} è il saldo corrispondente. Questo
+è un \emph{invariante di ciclo}, utile per giustificare il
+risultato. Poiché il tasso è positivo e il saldo iniziale è
+positivo, il saldo aumenta di anno in anno e supera infine
+la soglia: il ciclo termina. Il minimo \(n\) cercato è
+\(15\), poiché \(1{,}05^{14}<2\) e \(1{,}05^{15}>2\).
+
+La conclusione dipende dalle ipotesi: con tasso nullo e
+obiettivo superiore al saldo corrente, il ciclo non terminerebbe.
+Un ciclo infinito può inoltre derivare da una condizione errata,
+da un contatore mai aggiornato o da un aggiornamento nella direzione
+sbagliata. La terminazione va dedotta dal comportamento dell'algoritmo,
+non dal fatto che il programma supera alcuni casi di prova.
+
+\subsection{Cicli annidati e condizioni di uscita}
+\label{sec:fi-java-cicli-while-annidati}
+
+Il corpo di un ciclo può contenere un altro ciclo. In generale,
+per ogni iterazione del ciclo esterno, il ciclo interno riparte
+dalle proprie condizioni iniziali e può eseguire più iterazioni.
+Il numero complessivo di operazioni dipende da entrambi i cicli;
+per la relativa analisi si applica il modello di costo della
+\cref{chap:complessita}.
+
+Per esempio, un ciclo esterno può selezionare tre righe e un ciclo
+interno stampare quattro valori per ciascuna riga:
+
+\begin{unipdcode}[language=Java]
+int riga = 1;
+while (riga <= 3) {
+    int colonna = 1;
+    while (colonna <= 4) {
+        System.out.print(riga * colonna + " ");
+        colonna++;
+    }
+    System.out.println();
+    riga++;
+}
+\end{unipdcode}
+
+Il contatore interno viene inizializzato nuovamente a ogni
+iterazione esterna. Se non venisse reimpostato, dopo la prima
+riga il ciclo interno non eseguirebbe ulteriori iterazioni.
+
+Una situazione ricorrente è la lettura di una quantità non nota di
+dati, terminata da un \emph{valore sentinella}. La sentinella
+segnala la fine dell'ingresso e non appartiene ai dati da elaborare.
+Il seguente programma somma i numeri inseriti fino allo zero, che
+non viene conteggiato.
+
+\input{assets/codice/java/somma-sentinella}
+
+La variabile booleana \texttt{continua} è un flag: la condizione
+viene modificata dopo la lettura, impedendo di dover duplicare
+l'operazione prima e dentro il ciclo. Lo stesso schema funziona
+con una sentinella testuale come \texttt{"Q"}; il confronto deve
+allora utilizzare \texttt{equals()} oppure
+\texttt{equalsIgnoreCase()} (\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+Questa struttura viene talvolta chiamata \emph{ciclo e mezzo},
+perché la decisione di proseguire avviene fra acquisizione ed
+elaborazione del dato.
+
+In alternativa si può utilizzare un ciclo \texttt{while (true)}
+interrotto da \texttt{break}. L'istruzione \texttt{break}
+termina il ciclo più interno che la contiene; \texttt{continue}
+interrompe invece l'iterazione corrente e passa alla successiva
+verifica (oppure alla fase di aggiornamento nel \texttt{for}).
+Non sono istruzioni intrinsecamente errate, ma il loro impiego
+ripetuto può rendere meno evidente il flusso di controllo.
+
+\subsection{Il ciclo \texttt{do}/\texttt{while}}
+\label{sec:fi-java-cicli-do-while}
+
+Quando occorre eseguire almeno una volta il corpo e verificare
+\emph{dopo} se ripeterlo, si utilizza \texttt{do}/\texttt{while}.
+La sintassi termina con un punto e virgola dopo la condizione:
+
+\begin{unipdcode}[language=Java]
+double rate;
+do {
+    System.out.println("Inserire un tasso positivo:");
+    rate = in.nextDouble();
+} while (rate <= 0);
+\end{unipdcode}
+
+L'esempio presuppone che \texttt{in} sia uno \texttt{Scanner}
+già inizializzato e che l'ingresso contenga numeri finiti:
+non gestisce valori non numerici né valori speciali come
+\texttt{NaN}. Il corpo è eseguito almeno una volta e
+un valore finito non positivo provoca una nuova lettura.
+Rispetto a \texttt{while}, non occorre attribuire a \texttt{rate}
+un valore artificiale prima di leggere il primo dato.
+
+\section{Il ciclo \texttt{for}}
+\label{sec:fi-java-cicli-for}
+
+Quando un ciclo utilizza una variabile di controllo con
+inizializzazione, condizione e aggiornamento riconoscibili,
+la forma \texttt{for} riunisce questi elementi nell'intestazione:
+
+\begin{unipdcode}[language=Java]
+for (int i = 0; i < 10; i++) {
+    System.out.println(i);
+}
+\end{unipdcode}
+
+L'inizializzazione viene eseguita una volta sola; prima di ogni
+iterazione si verifica la condizione; dopo il corpo si esegue
+l'aggiornamento, poi si ripete il controllo. Un ciclo
+\texttt{for} può essere espresso mediante un \texttt{while}
+con lo stesso ordine delle operazioni:
+
+\begin{unipdcode}[language=Java]
+int i = 0;
+while (i < 10) {
+    System.out.println(i);
+    i++;
+}
+\end{unipdcode}
+
+L'equivalenza è immediata in assenza di istruzioni che alterino
+il flusso, come \texttt{continue}: in un \texttt{for},
+\texttt{continue} passa prima alla fase di aggiornamento.
+L'incremento non deve necessariamente essere di un'unità;
+può essere negativo e la variabile di controllo può avere anche
+tipo \texttt{double}, benché in quest'ultimo caso gli errori
+di arrotondamento richiedano particolare attenzione
+(\cref{sec:fi-java-classi-floating}).
+
+Una variabile dichiarata nell'inizializzazione del \texttt{for}
+è visibile nell'intestazione e nel corpo, ma non dopo il ciclo.
+Se il suo valore finale serve successivamente, va dichiarata
+prima dell'enunciato \texttt{for}. Le regole generali di
+visibilità sono precisate nella \cref{sec:fi-java-cicli-scope}.
+
+\subsection{Cicli \texttt{for} annidati}
+\label{sec:fi-java-cicli-for-annidati}
+
+Per stampare una tabella delle potenze \(x^y\), con
+\(1\le x\le4\) e \(1\le y\le5\), si possono utilizzare
+due cicli: quello esterno seleziona la riga e quello interno
+calcola i valori delle colonne. Per valori piccoli, interi e
+non negativi, si può usare \texttt{Math.pow()} con conversione
+controllata all'intero, oppure un prodotto ripetuto.
+
+\input{assets/codice/java/tabella-potenze}
+
+Il programma produce quattro righe e cinque colonne. La stampa
+con \texttt{printf()} mantiene le colonne allineate, come già
+illustrato nella \cref{sec:fi-java-printf}. Un ulteriore ciclo
+interno potrebbe costruire gli spazi di riempimento, ma non
+sarebbe necessario se si utilizza la formattazione disponibile.
+
+\subsection{Errori di controllo e leggibilità}
+\label{sec:fi-java-cicli-errori}
+
+Gli \emph{errori per scarto di uno} derivano frequentemente da
+una condizione finale scelta in modo sbagliato. Se gli indici
+validi di una stringa sono \(0,\ldots,n-1\), il ciclo naturale è
+\texttt{for (int i = 0; i < s.length(); i++)}; utilizzare
+\texttt{i <= s.length()} provocherebbe un accesso oltre la fine.
+Analogamente, nel problema dell'investimento si verifica
+\texttt{balance < target} perché il raggiungimento esatto della
+soglia deve terminare il ciclo.
+
+Il seguente ciclo è valido e ha un corpo vuoto:
+\begin{unipdcode}[language=Java]
+for (int i = 0; i < 10; i++);
+\end{unipdcode}
+\begin{warning}[Punto e virgola dopo \texttt{for}]
+Il punto e virgola costituisce da solo il corpo del ciclo.
+Le istruzioni scritte dopo non appartengono al ciclo: questa
+differenza sintattica può produrre un errore logico non rilevato
+dal compilatore.
+\end{warning}
+
+Condizioni di uscita come \texttt{i != n} sono fragili se
+l'aggiornamento può oltrepassare \texttt{n} o muoversi nella
+direzione opposta; quando possibile è preferibile usare
+relazioni coerenti con la direzione del ciclo, come
+\texttt{i < n}. Un altro errore frequente consiste nel modificare
+la variabile di controllo sia nell'intestazione sia nel corpo,
+rendendo difficile prevedere le iterazioni effettive.
+Le prove sui casi limite aiutano a trovare tali errori, ma
+non sostituiscono il ragionamento sulla terminazione.
+
+\section{Metodi e variabili statiche}
+\label{sec:fi-java-cicli-static}
+
+In una classe Java i membri non statici appartengono alle
+singole istanze, mentre quelli dichiarati con \texttt{static}
+appartengono alla classe. La differenza non riguarda soltanto
+la sintassi di invocazione, ma anche la presenza o meno di uno
+stato specifico dell'oggetto ricevente.
+
+\subsection{Metodi statici e parametro implicito}
+\label{sec:fi-java-cicli-metodi-statici}
+
+Un metodo di istanza riceve implicitamente l'oggetto sul quale
+opera; al suo interno tale riferimento è indicato da
+\texttt{this}, come descritto nella
+\cref{sec:fi-java-classi-parametri}. Un metodo statico, invece,
+non possiede un parametro implicito e può essere invocato
+attraverso il nome della classe.
+
+\begin{unipdcode}[language=Java]
+public class Financial {
+    public static double percentOf(double percent, double amount) {
+        return percent * amount / 100;
+    }
+}
+\end{unipdcode}
+
+La chiamata \texttt{Financial.percentOf(5, 200)} restituisce
+\texttt{10.0}, senza richiedere un oggetto \texttt{Financial}.
+Le classi che raccolgono metodi di questo tipo sono spesso dette
+\emph{classi di utilità}; \texttt{Math} è un esempio della
+libreria standard (\cref{sec:fi-java-math}). Un metodo statico
+non può utilizzare direttamente \texttt{this} né leggere un
+campo di istanza senza disporre di un riferimento a un oggetto.
+
+\subsection{Variabili di classe e costanti}
+\label{sec:fi-java-cicli-campi-statici}
+
+Un campo statico ha un'unica copia associata alla classe,
+indipendentemente dal numero di oggetti costruiti. Se si vuole
+assegnare un numero progressivo a ciascun nuovo conto,
+il contatore dell'ultimo numero assegnato deve essere condiviso.
+La \cref{fig:fi-java-cicli-statici-istanze} distingue la copia
+unica del contatore dai numeri assegnati alle singole istanze.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/contatore-statico}
+  \caption{Un campo statico condiviso e due campi di istanza,
+  ciascuno appartenente a un oggetto distinto.}
+  \label{fig:fi-java-cicli-statici-istanze}
+\end{figure}
+
+\clearpage
+
+\input{assets/codice/java/conto-numerato}
+
+Dopo due costruzioni consecutive, gli oggetti ricevono
+rispettivamente i numeri \(1\) e \(2\). Se
+\texttt{lastAssignedNumber} fosse un campo di istanza
+inizializzato a zero, ogni nuovo conto ripartirebbe da \(1\).
+Il campo statico viene inizializzato una sola volta durante
+l'inizializzazione della classe; azzerarlo nel costruttore
+annullerebbe il conteggio progressivo. Il suo valore appartiene
+allo stato condiviso della classe, non a un singolo conto.
+
+L'uso di campi statici \emph{modificabili} deve essere motivato:
+le loro variazioni possono influenzare tutte le istanze e
+rendere meno prevedibile il comportamento dei metodi. Sono
+invece comuni le costanti \texttt{public static final}, come
+\texttt{Math.PI}, che si accedono qualificandone il nome.
+\texttt{final} impedisce di riassegnare il campo, mentre
+\texttt{static} ne determina l'appartenenza alla classe;
+nessuno dei due modificatori implica automaticamente l'altro.
+
+\section{Ambito di visibilità, ciclo di vita e memoria}
+\label{sec:fi-java-cicli-scope}
+
+L'\emph{ambito di visibilità} (\emph{scope}) di una variabile è la
+parte del codice sorgente in cui il suo nome può essere utilizzato.
+Il \emph{ciclo di vita} è invece il periodo in cui la variabile
+esiste durante l'esecuzione. I due concetti non coincidono: il primo
+riguarda le regole di visibilità dei nomi, il secondo l'esecuzione.
+Per una variabile di tipo riferimento, inoltre, il ciclo di vita
+non coincide necessariamente con quello dell'oggetto referenziato.
+
+\clearpage
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{2.45cm}p{5.2cm}p{5.0cm}}
+\toprule
+Categoria & Ambito di visibilità & Ciclo di vita, in generale \\
+\midrule
+Locale & Blocco nel quale è dichiarata, secondo le regole di Java & Durante l'esecuzione del blocco nell'invocazione corrente \\
+Parametro & Corpo del metodo o costruttore ricevente & Durante l'invocazione corrispondente \\
+Di istanza & Membri della classe, secondo i modificatori di accesso & Legato all'esistenza dell'oggetto \\
+Statica & Membri della classe, secondo i modificatori di accesso & Legato all'inizializzazione e alla permanenza della classe nella JVM \\
+\bottomrule
+\end{tabular}
+\caption{Le quattro categorie principali di variabili considerate nel corso.}
+\label{tab:fi-java-cicli-variabili}
+\end{table}
+
+Una variabile locale dichiarata dentro un blocco \texttt{if}
+non è visibile dopo la sua chiusura; una variabile dichiarata
+prima del blocco continua invece a essere accessibile al suo
+termine. Il compilatore Java verifica inoltre che una
+variabile locale sia \emph{definitivamente assegnata} prima
+di essere letta: una dichiarazione come \texttt{int n;}
+è valida, ma utilizzare \texttt{n} senza averle assegnato
+un valore causa un errore di compilazione. I campi di istanza
+e quelli statici, al contrario, ricevono automaticamente
+valori iniziali predefiniti
+(\cref{sec:fi-java-classi-costruttore-predefinito}).
+
+\subsection{Oggetti, stack, heap e raccolta della memoria}
+\label{sec:fi-java-cicli-memoria}
+
+Nel modello concettuale di esecuzione della JVM, ogni invocazione
+di metodo dispone di un proprio \emph{frame} che contiene le
+variabili locali e i parametri; gli oggetti sono rappresentati
+nell'\emph{heap}, cioè nell'area di memoria gestita dalla JVM.
+Una variabile locale di tipo riferimento contiene il riferimento
+a un oggetto, non l'oggetto stesso. La
+\cref{fig:fi-java-cicli-memoria} illustra questa distinzione.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/variabili-heap}
+  \caption{Modello concettuale di un riferimento locale a un oggetto
+  contenente campi di istanza.}
+  \label{fig:fi-java-cicli-memoria}
+\end{figure}
+
+Questa rappresentazione è utile per comprendere il programma, ma
+non descrive necessariamente la disposizione fisica della memoria:
+la JVM può applicare ottimizzazioni che modificano l'allocazione
+effettiva. Quando un oggetto non è più \emph{raggiungibile} da
+riferimenti utilizzabili dal programma, può essere recuperato
+automaticamente mediante il \emph{garbage collector} (GC).
+La raccolta non avviene necessariamente subito dopo la perdita
+dell'ultimo riferimento, e neppure la chiamata
+\texttt{System.gc()} garantisce una raccolta immediata.
+
+La scelta del meccanismo di raccolta influenza due caratteristiche
+dell'esecuzione: il \emph{throughput}, cioè la quantità di lavoro
+completata nell'unità di tempo, e la \emph{latenza}, cioè il tempo
+richiesto da una singola operazione o pausa. Fra i raccoglitori
+disponibili in diverse versioni e distribuzioni della JVM vi sono
+\emph{Serial GC} (che esegue la raccolta mediante un solo thread), \emph{Parallel GC} (orientato al throughput),
+\emph{G1} (compromesso fra lavoro e pause), \emph{ZGC} e
+\emph{Shenandoah} (progettati per ridurre le pause). Nelle
+versioni comuni di HotSpot, G1 è il raccoglitore predefinito a
+partire da Java 9 e può essere richiesto con
+\texttt{-XX:+UseG1GC}; il precedente CMS è stato rimosso
+in Java 14. Disponibilità e comportamento dipendono comunque
+dalla versione e dalla distribuzione impiegate. Nessun
+raccoglitore elimina la necessità di evitare riferimenti
+inutilmente mantenuti a oggetti non più necessari.
+
+\clearpage
+
+\section{Visibilità dei membri e sovrapposizione dei nomi}
+\label{sec:fi-java-cicli-shadowing}
+
+I membri di una classe sono soggetti ai modificatori di accesso
+introdotti nella \cref{sec:fi-java-classi-incapsulamento}.
+Un membro \texttt{private} è accessibile nel codice della
+classe che lo dichiara, anche quando il metodo opera su
+un'altra istanza della stessa classe. Un membro \texttt{public}
+può essere utilizzato dal codice esterno nei contesti consentiti
+dal linguaggio, qualificandolo con un riferimento a un oggetto,
+se è un membro di istanza, oppure con il nome della classe,
+se è statico.
+
+All'interno di un metodo di istanza, i nomi dei campi e dei metodi
+di istanza possono essere utilizzati senza specificare
+\texttt{this}; quelli statici possono essere qualificati con il
+nome della classe. Per accedere a un campo nascosto da un nome locale, per esempio
+da un parametro, occorre invece qualificare il riferimento.
+
+\begin{definition}[Shadowing]
+\label{def:fi-java-cicli-shadowing}
+Nel caso dei campi di una classe, si ha \emph{shadowing}
+(oscuramento di un nome) quando una dichiarazione in un ambito
+più interno nasconde un campo omonimo. Il nome semplice si riferisce allora
+alla dichiarazione più vicina; il campo di istanza rimane
+accessibile mediante \texttt{this.nome}, e quello statico
+mediante \texttt{NomeClasse.nome}.
+\end{definition}
+
+\begin{unipdcode}[language=Java]
+public class Coin {
+    private String name;
+    private double value;
+
+    public Coin(String name, double value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public double getExchangeValue(double exchangeRate) {
+        double converted = value * exchangeRate;
+        return converted;
+    }
+}
+\end{unipdcode}
+
+Nei due assegnamenti del costruttore i parametri omonimi
+\texttt{name} e \texttt{value} nascondono i campi: il prefisso
+\texttt{this} distingue il membro della classe dal parametro.
+Si consideri invece un costruttore che riceve un parametro
+\texttt{aName}: l'istruzione \texttt{String name = aName;}
+dichiarerebbe una variabile locale anziché inizializzare il campo
+\texttt{name}, che resterebbe \texttt{null}. La dichiarazione
+sarebbe valida e l'errore sarebbe logico. Un problema analogo
+si verifica quando una variabile locale nasconde un campo statico.
+
+Java non permette di dichiarare due variabili locali con lo
+stesso nome in ambiti che si sovrappongono, mentre consente
+lo stesso identificatore in blocchi \texttt{if} e \texttt{else}
+distinti oppure in metodi differenti. Lo \emph{shadowing} di
+un campo, invece, è lecito ma può rendere il codice ambiguo:
+per questo i nomi e le qualificazioni devono essere scelti in
+modo da rendere esplicito a quale dato si intende accedere.

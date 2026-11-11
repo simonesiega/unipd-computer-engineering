@@ -1,0 +1,14 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,minimum width=1.85cm] (a1) at (-3.4,0.85)
+    {\texttt{account1}};
+  \node[unipd/node,minimum width=1.85cm] (a2) at (-3.4,-0.85)
+    {\texttt{account2}};
+  \node[unipd/node,minimum width=3.55cm,minimum height=0.85cm,
+    align=center] (o1) at (1.25,0.85)
+    {\texttt{BankAccount}\\\texttt{balance = 1000.0}};
+  \node[unipd/node,minimum width=3.55cm,minimum height=0.85cm,
+    align=center] (o2) at (1.25,-0.85)
+    {\texttt{BankAccount}\\\texttt{balance = 2000.0}};
+  \draw[unipd/directed edge] (a1.east) -- (o1.west);
+  \draw[unipd/directed edge] (a2.east) -- (o2.west);
+\end{tikzpicture}

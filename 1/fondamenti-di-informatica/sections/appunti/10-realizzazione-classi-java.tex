@@ -1,2 +1,793 @@
 \chapter{Realizzazione di classi in Java}
 \label{chap:realizzazione-classi-java}
+
+Nei \cref{chap:introduzione-java,chap:collaudo-tipi-input-java}
+sono state utilizzate classi già disponibili, conoscendone i
+costruttori e i metodi pubblici. Per realizzare una nuova classe
+occorre invece individuare le operazioni che deve offrire, stabilire
+quali dati ne descrivano lo stato e scrivere il codice che ne realizza
+il comportamento. La distinzione fra interfaccia e implementazione,
+introdotta per i tipi di dato astratti nella \cref{sec:fi-adt-strutture},
+assume così una forma concreta nel linguaggio Java. Il procedimento
+verrà sviluppato attraverso una classe che rappresenta un conto
+bancario.\footnote{Materiale didattico di riferimento: S. Canazza,
+\emph{Realizzare classi}, \nolinkurl{2026_FI_09_canazza_Java_RealizzareClassi.pdf}.}
+
+\section{Astrazione e approccio black-box}
+\label{sec:fi-java-classi-black-box}
+
+L'\emph{approccio black-box}, o a scatola nera, consiste
+nell'utilizzare un componente conoscendone le operazioni disponibili
+e i risultati attesi, senza doverne conoscere il funzionamento
+interno. Chi guida un'automobile, per esempio, deve sapere come
+utilizzarne i comandi, ma non necessariamente come siano realizzati
+i suoi componenti elettronici. Lo stesso principio si applica alla
+programmazione orientata agli oggetti: un programma può utilizzare
+un oggetto invocandone i metodi, indipendentemente dalle istruzioni
+che ne realizzano le operazioni.
+
+\begin{definition}[Astrazione]
+\label{def:fi-java-classi-astrazione}
+L'\emph{astrazione} è il processo mediante il quale si costruisce
+un modello di un'entità, individuandone le caratteristiche e i
+comportamenti rilevanti rispetto allo scopo del programma e
+trascurando i dettagli non necessari.
+\end{definition}
+
+Per rappresentare un conto bancario, per esempio, possono essere
+sufficienti la possibilità di consultare il saldo, versare e
+prelevare denaro. Non è necessario riprodurre ogni aspetto di una
+banca reale.
+
+\begin{definition}[Incapsulamento]
+\label{def:fi-java-classi-incapsulamento}
+L'\emph{incapsulamento} è il principio della programmazione
+orientata agli oggetti secondo cui lo stato interno e le operazioni
+che lo gestiscono sono riuniti in una classe, limitando l'accesso
+diretto alla rappresentazione interna attraverso un'interfaccia
+controllata.
+\end{definition}
+
+Astrazione e incapsulamento sono collegati, ma non equivalenti:
+la prima guida la scelta del modello, mentre il secondo disciplina
+l'accesso alla sua realizzazione. La
+\cref{fig:fi-java-classi-black-box} rappresenta questa separazione.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/bank-account-black-box}
+  \caption{Utilizzo di un oggetto attraverso l'interfaccia pubblica,
+  senza accesso diretto alla rappresentazione interna.}
+  \label{fig:fi-java-classi-black-box}
+\end{figure}
+
+\section{Interfaccia pubblica e definizione dei metodi}
+\label{sec:fi-java-classi-metodi}
+
+Si consideri una classe \texttt{BankAccount} destinata a
+rappresentare un conto corrente. Le operazioni essenziali del modello
+sono il versamento di una somma, il prelievo e la consultazione del
+saldo. Le operazioni possono essere descritte schematicamente mediante
+le seguenti dichiarazioni, che ne omettono il corpo:
+
+\clearpage
+
+\begin{unipdcode}[language=Java]
+public void deposit(double amount);
+public void withdraw(double amount);
+public double getBalance();
+\end{unipdcode}
+
+Le dichiarazioni riportate descrivono le operazioni disponibili,
+ma non costituiscono una definizione completa dei metodi in una
+classe concreta. I metodi
+\texttt{deposit()} e \texttt{withdraw()} ricevono l'importo da
+elaborare e non restituiscono un valore; \texttt{getBalance()}
+restituisce invece un \texttt{double} e non richiede argomenti.
+
+\begin{definition}[Interfaccia pubblica]
+\label{def:fi-java-classi-interfaccia}
+L'\emph{interfaccia pubblica} di una classe è l'insieme dei
+membri accessibili dall'esterno che definiscono le modalità
+di interazione con la classe e i suoi oggetti, specificandone
+le operazioni disponibili e il comportamento osservabile,
+indipendentemente dai dettagli della loro implementazione.
+\end{definition}
+
+In particolare, i costruttori e i metodi pubblici stabiliscono
+come creare e utilizzare gli oggetti, quali argomenti fornire,
+quali risultati attendersi e quali condizioni rispettare.
+L'interfaccia pubblica non deve esporre tutte le operazioni
+tecnicamente possibili sui dati, ma soltanto quelle previste
+dal modello. Per esempio, conoscere il saldo di un conto non
+implica poterlo impostare arbitrariamente.
+
+Il comportamento di ciascun metodo deve pertanto essere
+specificato con sufficiente precisione da permetterne
+l'utilizzo e il collaudo senza esaminarne il codice.
+
+\subsection{Intestazione, corpo e firma di un metodo}
+\label{sec:fi-java-classi-firma}
+
+La definizione di un metodo è composta da un'\emph{intestazione}
+e da un \emph{corpo}, racchiuso fra parentesi graffe. Per esempio,
+
+\begin{unipdcode}[language=Java]
+public void deposit(double amount) {
+    balance = balance + amount;
+}
+\end{unipdcode}
+
+nell'intestazione \texttt{public} indica l'accessibilità,
+\texttt{void} il tipo di ritorno, \texttt{deposit} il nome del
+metodo e \texttt{double amount} il parametro dichiarato. Il corpo
+contiene le istruzioni eseguite quando il metodo viene invocato.
+Se non è necessario ricevere argomenti, l'elenco dei parametri
+rimane vuoto, come in \texttt{getBalance()}.
+
+La \emph{firma} di un metodo Java, in senso tecnico, comprende il
+nome e i tipi dei parametri, considerandone anche l'ordine; non
+comprende il tipo restituito né i modificatori di accesso. Questa
+distinzione è importante nella risoluzione dei metodi sovraccarichi,
+trattata nella \cref{sec:fi-java-classi-overloading}. Per gli
+esempi di invocazione si rimanda anche alla
+\cref{sec:fi-java-invocazione-metodi}.
+
+\begin{definition}[Metodi di accesso e modificatori]
+\label{def:fi-java-classi-accessori}
+Un \emph{metodo di accesso} (\emph{accessor}) osserva lo stato di
+un oggetto senza modificarlo. Un \emph{metodo modificatore}
+(\emph{mutator}) può invece alterarne lo stato.
+\end{definition}
+
+Nella classe proposta, \texttt{getBalance()} è un metodo di
+accesso, mentre \texttt{deposit()} e \texttt{withdraw()} sono
+modificatori. Anche \texttt{length()} della classe \texttt{String}
+è un metodo di accesso; \texttt{translate()} di
+\texttt{Rectangle} modifica invece l'oggetto ricevente
+(\cref{sec:fi-java-riferimenti}). La distinzione riguarda gli
+effetti sullo stato, non il tipo restituito: un metodo modificatore
+può anche restituire un valore.
+
+\clearpage
+
+\subsection{Parametri espliciti e valore restituito}
+\label{sec:fi-java-classi-parametri}
+
+La chiamata a un metodo di istanza identifica un oggetto
+\emph{ricevente} e fornisce gli eventuali argomenti. Per esempio,
+
+\begin{unipdcode}[language=Java]
+account.deposit(500);
+double balance = account.getBalance();
+\end{unipdcode}
+
+nella prima istruzione il riferimento \texttt{account} individua
+l'oggetto sul quale operare e \texttt{500} è l'argomento associato
+al parametro esplicito \texttt{amount}. Il ricevente costituisce il
+\emph{parametro implicito} del metodo: l'istruzione che modifica
+\texttt{balance} agisce sul campo dell'oggetto indicato da
+\texttt{account}, non su quello di tutti gli oggetti della classe.
+All'interno di un metodo di istanza, il ricevente può essere
+indicato esplicitamente con \texttt{this}, come in
+\texttt{this.balance}.
+
+L'istruzione \texttt{return} termina l'esecuzione del metodo e
+restituisce il controllo al chiamante. In un metodo che produce
+un risultato, \texttt{return espressione;} ne specifica il valore,
+compatibile con il tipo dichiarato; un metodo \texttt{void} può
+usare \texttt{return;} per terminare anticipatamente oppure
+raggiungere la fine del corpo. Un metodo con un tipo di ritorno
+diverso da \texttt{void} deve invece restituire un valore lungo
+ogni percorso che termina normalmente.
+
+\section{Costruttori e inizializzazione degli oggetti}
+\label{sec:fi-java-classi-costruttori}
+
+Per usare un oggetto occorre prima crearlo e inizializzarlo. In Java,
+l'operatore \texttt{new} alloca un nuovo oggetto, ne determina
+l'inizializzazione e produce un riferimento al risultato. La
+costruzione \texttt{new BankAccount()} può essere usata in un
+assegnamento della forma
+
+\begin{unipdcode}[language=Java]
+BankAccount account = new BankAccount();
+\end{unipdcode}
+
+Il riferimento viene assegnato alla variabile \texttt{account};
+la variabile e l'oggetto non sono la stessa entità, come chiarito
+nella \cref{sec:fi-java-riferimenti}.
+
+\begin{definition}[Costruttore]
+\label{def:fi-java-classi-costruttore}
+Un \emph{costruttore} è una dichiarazione speciale di una classe,
+eseguita durante la creazione di una sua istanza per inizializzarne
+lo stato. Ha lo stesso nome della classe e non dichiara alcun tipo
+di ritorno, neppure \texttt{void}.
+\end{definition}
+
+Per \texttt{BankAccount} si possono prevedere due modi di
+inizializzazione: un saldo iniziale nullo oppure un saldo indicato
+dal chiamante. I relativi costruttori, da collocare nel corpo
+della classe, sono
+
+\begin{unipdcode}[language=Java]
+public BankAccount() {
+    balance = 0;
+}
+
+public BankAccount(double initialBalance) {
+    balance = initialBalance;
+}
+\end{unipdcode}
+
+Le istruzioni \texttt{new BankAccount()} e
+\texttt{new BankAccount(500)} eseguono costruttori differenti.
+L'operatore \texttt{new} produce il riferimento all'oggetto:
+non è il costruttore a restituirlo. La dichiarazione
+\texttt{public void BankAccount()} non definirebbe invece un
+costruttore, ma un metodo ordinario con lo stesso nome della
+classe; una sua invocazione non inizializzerebbe automaticamente
+un nuovo oggetto.
+
+\subsection{Costruttore predefinito e valori iniziali}
+\label{sec:fi-java-classi-costruttore-predefinito}
+
+Se una classe non dichiara \emph{alcun} costruttore, il
+compilatore ne fornisce uno \emph{predefinito} senza parametri,
+con accessibilità coerente con quella della classe. Quando invece
+viene dichiarato almeno un costruttore, quello predefinito non
+viene generato: definendo soltanto
+\texttt{BankAccount(double initialBalance)}, la chiamata
+\texttt{new BankAccount()} non sarebbe valida.
+
+I campi di istanza e quelli statici ricevono valori iniziali
+predefiniti anche quando non sono assegnati esplicitamente,
+secondo le regole della \cref{tab:fi-java-valori-predefiniti}.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Tipo} & \textbf{Valore iniziale} \\
+    \midrule
+    \texttt{byte}, \texttt{short}, \texttt{int}, \texttt{long}
+      & \texttt{0} \\
+    \texttt{float} & \texttt{0.0f} \\
+    \texttt{double} & \texttt{0.0d} \\
+    \texttt{boolean} & \texttt{false} \\
+    \texttt{char} & \texttt{\textquotesingle\textbackslash u0000\textquotesingle} \\
+    Tipi riferimento & \texttt{null} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Valori iniziali predefiniti dei campi in Java.}
+  \label{tab:fi-java-valori-predefiniti}
+\end{table}
+
+Questa regola non va confusa con l'inizializzazione delle variabili
+locali: il compilatore ne impedisce la lettura se non può stabilire
+che abbiano ricevuto un valore lungo tutti i percorsi di esecuzione
+possibili.
+
+\section{Sovraccarico dei metodi e dei costruttori}
+\label{sec:fi-java-classi-overloading}
+
+I due costruttori di \texttt{BankAccount} hanno lo stesso nome,
+ma elenchi di parametri differenti. Questa possibilità prende
+il nome di \emph{sovraccarico} (\emph{overloading}) ed è prevista
+anche per i metodi ordinari.
+
+\begin{definition}[Overloading]
+\label{def:fi-java-classi-overloading}
+Si ha \emph{sovraccarico} quando una classe dichiara più metodi
+con lo stesso nome, oppure più costruttori, distinguibili per
+numero, tipo o ordine dei parametri. Il compilatore risolve
+l'invocazione individuando la dichiarazione applicabile agli
+argomenti forniti secondo le regole del linguaggio.
+\end{definition}
+
+Il tipo del risultato non distingue due firme: non è quindi
+possibile definire due metodi aventi lo stesso nome e lo stesso
+elenco di parametri, cambiando soltanto il tipo restituito.
+Se nessuna dichiarazione è applicabile, la compilazione fallisce,
+come accadrebbe con \texttt{new BankAccount("testo")} quando
+sono presenti soltanto i due costruttori precedenti. Anche la
+presenza di più dichiarazioni applicabili senza una scelta
+univoca può provocare un errore di ambiguità.
+
+\begin{example}[Metodi sovraccarichi nella libreria standard]
+La classe \texttt{PrintStream}, a cui appartiene
+\texttt{System.out}, fornisce versioni di \texttt{println()}
+per argomenti di tipi differenti. Per esempio:
+
+\begin{unipdcode}[language=Java]
+System.out.println(10);       // Argomento int
+System.out.println(10.5);     // Argomento double
+System.out.println("Dieci");  // Argomento String
+\end{unipdcode}
+Il compilatore seleziona il metodo appropriato senza
+richiedere nomi differenti per ciascun tipo.
+\end{example}
+
+\clearpage
+
+\section{Classi, oggetti e variabili di istanza}
+\label{sec:fi-java-classi-stato}
+
+\begin{definition}[Classe e oggetto]
+\label{def:fi-java-classi-classe-oggetto}
+Una \emph{classe} è un modello che definisce la struttura e
+il comportamento comuni a un insieme di oggetti. Un
+\emph{oggetto} è un'istanza concreta di una classe, creata
+durante l'esecuzione del programma e dotata di un proprio stato.
+\end{definition}
+
+\begin{definition}[Stato e variabili di istanza]
+\label{def:fi-java-classi-stato}
+Lo \emph{stato} di un oggetto è determinato dai valori dei suoi
+\emph{campi di istanza}, detti anche \emph{variabili di esemplare}.
+Ogni oggetto possiede una propria copia di tali campi, mentre
+le definizioni dei metodi di istanza sono comuni alla classe.
+\end{definition}
+
+Questa distinzione approfondisce quanto introdotto nella
+\cref{sec:fi-java-classi-oggetti}.
+
+Nel conto bancario è sufficiente rappresentare il saldo con
+un campo di tipo \texttt{double}, dichiarato all'interno
+della classe:
+
+\begin{unipdcode}[language=Java]
+private double balance;
+\end{unipdcode}
+
+La dichiarazione del campo appartiene alla classe, ma ogni
+oggetto \texttt{BankAccount} mantiene un proprio valore di
+\texttt{balance}. Si considerino le istruzioni
+
+\begin{unipdcode}[language=Java]
+BankAccount account1 = new BankAccount(1000);
+BankAccount account2 = new BankAccount(2000);
+\end{unipdcode}
+
+Le due istruzioni creano istanze distinte, come illustrato nella
+\cref{fig:fi-java-classi-istanze}. Una modifica del primo
+saldo non cambia quello del secondo.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/bank-account-istanze}
+  \caption{Due variabili riferite a istanze distinte, ciascuna
+  con il proprio campo \texttt{balance}.}
+  \label{fig:fi-java-classi-istanze}
+\end{figure}
+
+L'assegnamento \texttt{BankAccount alias = account1;}
+non crea invece una terza istanza: \texttt{alias} e
+\texttt{account1} si riferiscono allo stesso oggetto.
+La differenza fra copia di un riferimento e creazione
+di un oggetto distinto è già mostrata nella
+\cref{fig:fi-java-alias-copia}.
+
+\subsection{Riferimenti nulli}
+\label{sec:fi-java-classi-null}
+
+Una variabile di tipo riferimento può contenere
+\texttt{null}, valore che indica l'assenza di un
+oggetto. Dopo l'istruzione
+
+\begin{unipdcode}[language=Java]
+BankAccount account = null;
+\end{unipdcode}
+
+la variabile è inizializzata, ma non si riferisce ad
+alcun conto bancario. Invocare su di essa un metodo
+di istanza, come \texttt{account.getBalance()}, provoca
+una \texttt{NullPointerException}. Se tale eccezione
+non viene gestita, l'esecuzione del programma può
+interrompersi (\cref{sec:fi-java-errori}).
+
+\begin{example}[Stringa vuota e riferimento nullo]
+Si considerino i seguenti riferimenti a oggetti
+\texttt{String}:
+
+\begin{unipdcode}[language=Java]
+String greeting = "Hello";
+String emptyString = "";
+String nullString = null;
+
+int a = greeting.length();    // 5
+int b = emptyString.length(); // 0
+int c = nullString.length();  // NullPointerException
+\end{unipdcode}
+
+La stringa vuota è un oggetto valido di lunghezza zero;
+\texttt{null} non identifica invece alcun oggetto. La
+terza invocazione genera quindi un errore durante
+l'esecuzione, non un errore di sintassi.
+\end{example}
+
+\section{Incapsulamento e realizzazione di \texttt{BankAccount}}
+\label{sec:fi-java-classi-incapsulamento}
+
+Il modificatore \texttt{private} impedisce a codice
+esterno alla classe di accedere direttamente al campo
+\texttt{balance}. L'espressione \texttt{account.balance},
+per esempio, non è consentita in una classe di collaudo,
+mentre la chiamata \texttt{account.getBalance()} utilizza
+l'interfaccia pubblica prevista dal progettista. I metodi
+della stessa classe possono accedere ai campi privati
+delle sue istanze.
+
+L'incapsulamento consente di controllare le modifiche
+allo stato dell'oggetto. Se un conto non può assumere saldo
+negativo, questa proprietà deve essere stabilita come
+\emph{invariante}, ossia una condizione che deve valere in ogni
+stato ammesso dell'oggetto. I costruttori devono soddisfarla
+inizialmente e i metodi modificatori devono preservarla.
+Esporre un metodo generico
+\texttt{setBalance()} permetterebbe invece di modificare
+il saldo senza passare attraverso le operazioni lecite
+di versamento e prelievo.
+
+Una prima implementazione di \texttt{BankAccount} è la seguente.
+I costruttori inizializzano il saldo, \texttt{deposit()} lo
+incrementa, \texttt{withdraw()} lo decrementa e
+\texttt{getBalance()} ne restituisce il valore corrente.
+
+\input{assets/codice/java/bank-account}
+
+\begin{warning}[Limiti dell'implementazione essenziale]
+\label{warn:fi-java-classi-bank-limiti}
+In questa versione non si controllano gli importi: un
+prelievo superiore al saldo può renderlo negativo, mentre
+un importo negativo può invertire l'effetto di un'operazione.
+Il modificatore \texttt{private} impedisce l'accesso diretto
+al campo dall'esterno, ma non garantisce da solo la validità
+dello stato. Inoltre, l'uso di \texttt{double} per gli importi
+monetari è una semplificazione didattica, soggetta agli
+errori di rappresentazione descritti nella
+\cref{sec:fi-java-precisione}.
+\end{warning}
+
+\subsection{Collaudo della classe}
+\label{sec:fi-java-classi-collaudo}
+
+Una classe di dominio come \texttt{BankAccount} non deve
+necessariamente contenere un metodo \texttt{main}. Per
+collaudarla si può creare una classe separata che costruisca
+oggetti, invochi i loro metodi e confronti i risultati
+con quelli previsti, secondo il procedimento della
+\cref{sec:fi-java-collaudo}.
+
+Il programma seguente parte da un saldo di \(10\,000\) euro
+e accredita un interesse annuo del \(5\%\) per due anni,
+senza prelievi o ulteriori versamenti. Gli interessi
+vengono aggiunti al saldo alla fine di ciascun anno.
+
+\input{assets/codice/java/bank-account-tester}
+
+Per riprodurre l'esempio, i file \texttt{BankAccount.java}
+e \texttt{BankAccountTester.java} devono contenere le
+rispettive classi pubbliche e possono essere compilati
+e avviati, nella stessa directory e nello stesso pacchetto,
+con i comandi
+
+\begin{unipdterminal}
+$ javac BankAccount.java BankAccountTester.java
+$ java BankAccountTester
+Saldo dopo un anno: 10500.0
+Saldo dopo due anni: 11025.0
+\end{unipdterminal}
+
+Il risultato finale corrisponde alla capitalizzazione composta:
+\[
+  10\,000(1+0.05)^2=11\,025.
+\]
+Un collaudo completo rispetto al comportamento dichiarato
+deve verificare anche la costruzione senza argomenti, i
+versamenti, i prelievi e le condizioni limite. I test
+possono individuare errori, ma non dimostrano da soli la
+correttezza generale dell'implementazione.
+
+\clearpage
+
+\section{Documentazione dell'interfaccia con JavaDoc}
+\label{sec:fi-java-classi-javadoc}
+
+La documentazione di una classe dovrebbe descriverne lo
+scopo e chiarire il comportamento dei metodi pubblici:
+parametri, valori restituiti, condizioni richieste ed
+eventuali eccezioni. A questo scopo Java mette a
+disposizione \emph{JavaDoc}, uno strumento che genera
+pagine HTML a partire da appositi commenti nel sorgente.
+Un commento di documentazione inizia con
+\lstinline|/**| e termina con \lstinline|*/|, a
+differenza dei commenti ordinari introdotti nella
+\cref{sec:fi-java-sintassi}.
+
+\begin{example}[Documentazione di un metodo]
+Il metodo di accesso al saldo può essere documentato con
+un commento JavaDoc:
+
+\begin{unipdcode}[language=Java]
+/**
+ * Restituisce il saldo corrente del conto.
+ *
+ * @return saldo attuale
+ */
+public double getBalance() {
+    return balance;
+}
+\end{unipdcode}
+Il commento descrive il risultato osservabile senza
+vincolare il codice a una particolare realizzazione
+interna del metodo.
+\end{example}
+
+I principali \emph{tag} JavaDoc, introdotti dal carattere
+\texttt{@}, sono riepilogati nella
+\cref{tab:fi-java-classi-javadoc-tag}.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Tag} & \textbf{Funzione} \\
+    \midrule
+    \texttt{@param} & descrive un parametro \\
+    \texttt{@return} & descrive il valore restituito \\
+    \texttt{@throws} & documenta un'eccezione possibile \\
+    \texttt{@see} & rimanda a un elemento correlato \\
+    \texttt{@author}, \texttt{@version} & indicano autore e versione \\
+    \texttt{@since} & indica la versione di introduzione \\
+    \texttt{@deprecated} & segnala un elemento obsoleto \\
+    \lstinline|{@code ...}| & formatta codice nel testo \\
+    \lstinline|{@link ...}| & crea un collegamento a un altro elemento \\
+    \bottomrule
+  \end{tabular}
+  \caption{Principali tag per documentare classi e metodi con JavaDoc.}
+  \label{tab:fi-java-classi-javadoc-tag}
+\end{table}
+
+\clearpage
+
+\begin{example}[Parametri, risultato ed eccezione]
+Il seguente metodo usa \texttt{Math.addExact()} per
+sommare due interi. In caso di overflow segnala un errore
+(\cref{sec:fi-java-overflow}):
+\begin{unipdcode}[language=Java]
+/**
+ * Calcola la somma esatta di due interi.
+ *
+ * @param a primo addendo
+ * @param b secondo addendo
+ * @return somma dei due addendi
+ * @throws ArithmeticException se si verifica overflow
+ * @see Math#addExact(int,int)
+ */
+public static int somma(int a, int b) {
+    return Math.addExact(a, b);
+}
+\end{unipdcode}
+Il metodo è statico: può essere invocato tramite il nome
+della classe, senza creare un oggetto, come già visto
+nella \cref{sec:fi-java-math}. Il commento descrive il
+contratto del metodo, compresa l'eccezione.
+\end{example}
+
+I tag \lstinline|{@inheritDoc}| e \texttt{@hidden}
+permettono rispettivamente di richiamare documentazione
+ereditata e di escludere un elemento dalla documentazione
+generata, quando applicabili. Le annotazioni Java
+\texttt{@Deprecated} e \texttt{@Override} non sono tag
+JavaDoc: appartengono alla sintassi del linguaggio e hanno
+funzioni distinte da quelle dei commenti. Dopo aver aggiunto i commenti JavaDoc al file
+\texttt{BankAccount.java}, il comando
+\texttt{javadoc -d docs BankAccount.java} può generare
+la documentazione HTML nella directory \texttt{docs}.
+
+Nel progetto di una classe conviene quindi procedere
+dall'identificazione delle operazioni alla definizione e
+documentazione dell'interfaccia, poi individuare i campi,
+realizzare costruttori e metodi e infine collaudarli.
+La documentazione serve a rendere utilizzabile la classe
+anche quando la sua implementazione non è disponibile.
+
+\section{Istruzioni condizionali e confronti}
+\label{sec:fi-java-classi-condizioni}
+
+La versione essenziale di \texttt{BankAccount} modifica
+il saldo senza eseguire controlli. Per subordinare
+un'operazione a una condizione si utilizza l'istruzione
+\texttt{if}. A differenza di Python, dove i blocchi
+sono individuati dall'indentazione, Java impiega
+parentesi tonde per la condizione e, quando necessari,
+blocchi delimitati da graffe. Il collegamento con le
+istruzioni condizionali già incontrate in Python è
+richiamato nella \cref{sec:fi-python-condizioni}.
+
+\subsection{La struttura \texttt{if}/\texttt{else}}
+\label{sec:fi-java-classi-if-else}
+
+La condizione di un \texttt{if} deve essere un'espressione
+di tipo \texttt{boolean}. Se è vera, viene eseguito il
+primo ramo; quando è presente \texttt{else}, il secondo
+ramo viene eseguito soltanto se la condizione è falsa:
+
+\begin{unipdcode}[language=Java]
+if (condizione) {
+    // Istruzioni per il caso vero.
+} else {
+    // Istruzioni per il caso falso.
+}
+\end{unipdcode}
+
+La parte \texttt{else} è facoltativa. Se un ramo
+contiene un solo enunciato, le graffe possono essere
+omesse; è comunque opportuno mantenerle per rendere
+esplicito il blocco ed evitare errori quando se ne
+aggiungono altre istruzioni. Le graffe delimitano un blocco,
+che Java considera un unico enunciato composto anche quando
+contiene più istruzioni.
+
+\begin{example}[Prelievo condizionato dal saldo]
+Supponendo che l'importo sia finito e non negativo, il metodo
+\texttt{withdraw()} può rifiutare un prelievo superiore
+al saldo:
+\begin{unipdcode}[language=Java]
+public void withdraw(double amount) {
+    if (amount <= balance) {
+        balance = balance - amount;
+    } else {
+        System.out.println("Conto scoperto");
+    }
+}
+\end{unipdcode}
+La modifica viene eseguita soltanto quando la somma
+richiesta non supera quella disponibile. Il metodo
+non controlla ancora esplicitamente un eventuale
+argomento negativo: la sua validità è un requisito
+ulteriore da stabilire nella specifica.
+\end{example}
+
+Non è equivalente utilizzare due condizioni indipendenti
+quando la prima può cambiare le variabili lette dalla
+seconda. Si consideri
+
+\begin{unipdcode}[language=Java]
+if (amount <= balance) {
+    balance = balance - amount;
+}
+if (amount > balance) {
+    System.out.println("Conto scoperto");
+}
+\end{unipdcode}
+
+Con \texttt{balance = 100} e \texttt{amount = 60}, il
+primo controllo riesce e riduce il saldo a \(40\). Il
+secondo confronta però \(60\) con il saldo aggiornato,
+stampando erroneamente il messaggio di rifiuto. Un unico
+\texttt{if}/\texttt{else} realizza invece due alternative
+mutuamente esclusive, valutate a partire da una sola
+condizione.
+
+\subsection{Operatori relazionali e tipi riferimento}
+\label{sec:fi-java-classi-confronti}
+
+Gli operatori relazionali \texttt{<}, \texttt{<=},
+\texttt{>} e \texttt{>=} confrontano l'ordine dei valori;
+gli operatori di uguaglianza \texttt{==} e \texttt{!=}
+verificano invece l'uguaglianza o la disuguaglianza.
+L'operatore \texttt{==} è distinto dall'assegnamento
+\texttt{=}: il primo produce un \texttt{boolean},
+mentre il secondo assegna un valore. Un'espressione numerica non può essere
+utilizzata direttamente come condizione, poiché in Java
+la condizione di \texttt{if} deve essere booleana.
+
+Per i tipi primitivi numerici, \texttt{==} confronta i
+valori dopo le eventuali conversioni numeriche previste.
+Per i tipi riferimento, invece, \texttt{==} verifica se
+i due riferimenti identificano lo stesso oggetto (oppure
+sono entrambi \texttt{null}); non confronta generalmente
+i contenuti. Per confrontare il contenuto delle stringhe
+si usa invece
+\texttt{equals()}, che richiede un riferimento ricevente non nullo.
+La differenza fra copia di un riferimento e creazione di un nuovo
+oggetto è illustrata nella \cref{sec:fi-java-riferimenti};
+il caso del riferimento nullo è discusso nella
+\cref{sec:fi-java-classi-null}.
+
+\clearpage
+
+\subsection{Confronti tra numeri in virgola mobile}
+\label{sec:fi-java-classi-floating}
+
+La rappresentazione in virgola mobile ha precisione
+finita: valori decimali e risultati di calcoli possono
+subire approssimazioni
+(\cref{sec:fi-virgola-mobile,sec:fi-java-precisione}).
+Per esempio, l'espressione \texttt{0.1 + 0.2} non
+produce in \texttt{double} lo stesso valore
+rappresentato dal letterale \texttt{0.3}. Un confronto
+con \texttt{==} restituisce quindi \texttt{false},
+benché i due risultati siano matematicamente uguali.
+
+Quando un'applicazione vuole verificare la
+\emph{vicinanza numerica} anziché l'uguaglianza esatta,
+si può introdurre una tolleranza. Dati due valori
+finiti \(x\) e \(y\), il criterio assoluto
+\[
+  |x-y|\leq\varepsilon_{\mathrm{abs}}
+\]
+considera accettabile una differenza fissa, mentre il
+criterio relativo
+\[
+  |x-y|\leq\varepsilon_{\mathrm{rel}}
+  \max\{|x|,|y|\}
+\]
+scala la tolleranza con la grandezza dei valori.
+Il solo criterio relativo non è però adatto ai
+confronti prossimi a zero: se uno dei due valori è
+nullo e l'altro è non nullo, non può risultare vero
+per \(0<\varepsilon_{\mathrm{rel}}<1\).
+
+Una scelta possibile, per un problema che lo consenta,
+è combinare le due tolleranze:
+\[
+  |x-y|\leq\varepsilon_{\mathrm{abs}}+
+  \varepsilon_{\mathrm{rel}}\max\{|x|,|y|\}.
+\]
+Le due soglie non sono costanti universali: dipendono
+dalla precisione richiesta, dalla scala dei dati e
+dal significato del confronto. La classe seguente
+illustra l'implementazione di tale criterio, escludendo
+i valori non finiti.
+
+\input{assets/codice/java/numeric}
+
+\begin{example}[Confronto dopo un calcolo approssimato]
+Si consideri il quadrato di una radice calcolata in virgola mobile:
+
+\begin{unipdcode}[language=Java]
+double r = Math.sqrt(2);
+boolean uguali = Numeric.approxEqual(r * r, 2.0);
+\end{unipdcode}
+Nel calcolo di \(r^2\) può introdursi un errore di
+arrotondamento; il controllo con tolleranza valuta
+se il risultato sia sufficientemente vicino a \(2\).
+I valori \texttt{NaN} e le infinità richiedono una
+scelta distinta e non sono considerati approssimativamente
+uguali dalla funzione proposta.
+\end{example}
+
+\clearpage
+
+\subsection{Metodi di confronto della classe \texttt{Double}}
+\label{sec:fi-java-classi-double}
+
+La classe involucro \texttt{Double}, distinta dal tipo
+primitivo \texttt{double}, fornisce metodi di confronto.
+\texttt{Double.compare(a,b)} restituisce un intero negativo,
+nullo o positivo secondo l'ordinamento definito dalla
+classe; \texttt{a.equals(b)} confronta invece due oggetti
+\texttt{Double} secondo la loro regola di uguaglianza.
+Nessuno dei due applica una tolleranza numerica:
+
+\begin{unipdcode}[language=Java]
+Double a = 0.1 + 0.2;
+Double b = 0.3;
+boolean c1 = Double.compare(a, b) == 0; // false
+boolean c2 = a.equals(b);               // false
+\end{unipdcode}
+
+Le due operazioni distinguono anche \texttt{+0.0}
+da \texttt{-0.0} e considerano uguali due valori
+\texttt{NaN}, mentre l'operatore \texttt{==}
+sui corrispondenti valori primitivi considera uguali
+i due zeri e non considera \texttt{NaN} uguale a sé
+stesso (\cref{tab:fi-valori-speciali}). Per un confronto
+numerico occorre quindi scegliere consapevolmente fra
+uguaglianza dei valori rappresentati, ordinamento
+definito dalla classe e vicinanza entro una tolleranza
+stabilita dal problema.

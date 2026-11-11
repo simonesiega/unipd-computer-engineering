@@ -1,0 +1,16 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node at (-3.1,2.35) {\textbf{\texttt{while}}};
+  \node at (3.0,2.35) {\textbf{\texttt{do}/\texttt{while}}};
+  \node[unipd/node,minimum width=2.05cm,minimum height=0.65cm] (wtest) at (-3.1,1.25) {Condizione?};
+  \node[unipd/node,minimum width=2.05cm,minimum height=0.65cm] (wbody) at (-3.1,-0.1) {Corpo};
+  \node[unipd/node,minimum width=1.30cm] (wend) at (-3.1,-1.75) {Fine};
+  \node[unipd/node,minimum width=2.05cm,minimum height=0.65cm] (dbody) at (3.0,1.25) {Corpo};
+  \node[unipd/node,minimum width=2.05cm,minimum height=0.65cm] (dtest) at (3.0,-0.1) {Condizione?};
+  \node[unipd/node,minimum width=1.30cm] (dend) at (3.0,-1.75) {Fine};
+  \draw[unipd/directed edge] (wtest.south) -- node[right]{vero} (wbody.north);
+  \draw[unipd/directed edge] (wbody.west) -- ++(-1.05,0) |- (wtest.west);
+  \draw[unipd/directed edge] (wtest.east) -- ++(1.05,0) |- node[pos=0.15,right]{falso} (wend.east);
+  \draw[unipd/directed edge] (dbody.south) -- (dtest.north);
+  \draw[unipd/directed edge] (dtest.east) -- ++(1.05,0) |- node[pos=0.10,right]{vero} (dbody.east);
+  \draw[unipd/directed edge] (dtest.south) -- node[right]{falso} (dend.north);
+\end{tikzpicture}

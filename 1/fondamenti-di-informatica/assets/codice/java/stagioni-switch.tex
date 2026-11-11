@@ -1,0 +1,25 @@
+\begin{unipdcode}[language=Java]
+enum Stagione {
+    PRIMAVERA, ESTATE, AUTUNNO, INVERNO
+}
+
+public class StagioniTester {
+    public static void main(String[] args) {
+        Stagione stagione = Stagione.ESTATE;
+        switch (stagione) {
+            case PRIMAVERA:
+                System.out.println("Primavera");
+                break;
+            case ESTATE:
+                System.out.println("Estate");
+                break;
+            case AUTUNNO:
+                System.out.println("Autunno");
+                break;
+            case INVERNO:
+                System.out.println("Inverno");
+                break;
+        }
+    }
+}
+\end{unipdcode}

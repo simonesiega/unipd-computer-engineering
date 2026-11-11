@@ -1,0 +1,22 @@
+\begin{unipdcode}[language=Java]
+enum Priorita {
+    BASSA("Da pianificare"),
+    ALTA("Da affrontare subito");
+
+    private final String descrizione;
+
+    Priorita(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+}
+
+public class PrioritaTester {
+    public static void main(String[] args) {
+        System.out.println(Priorita.ALTA.getDescrizione());
+    }
+}
+\end{unipdcode}

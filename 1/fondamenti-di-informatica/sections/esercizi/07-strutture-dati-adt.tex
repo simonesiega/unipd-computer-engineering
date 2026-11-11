@@ -311,8 +311,9 @@ Descrivi il significato delle operazioni \texttt{push(e)}, \texttt{pop()},
 \texttt{top()}, \texttt{is\_empty()} e \texttt{size()}.
 \end{exercise}
 
-\texttt{push(e)} inserisce \(e\) in cima; \texttt{pop()} la rimuove e
-restituisce; \texttt{top()} la consulta senza rimuoverla. \texttt{is\_empty()}
+\texttt{push(e)} inserisce \(e\) in cima; \texttt{pop()} rimuove e
+restituisce l'elemento in cima; \texttt{top()} lo consulta senza rimuoverlo.
+\texttt{is\_empty()}
 verifica se la pila è vuota e \texttt{size()} restituisce il numero di elementi.
 \texttt{pop()} e \texttt{top()} richiedono una pila non vuota
 (\cref{sec:fi-adt-pila}).
@@ -379,7 +380,7 @@ list}?
 Si fa coincidere la cima con \texttt{head}: \texttt{push(e)} inserisce un nodo
 in testa, \texttt{pop()} rimuove la testa e \texttt{top()} ne legge l'elemento.
 Tutte queste operazioni hanno costo \(\Theta(1)\)
-(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate-operazioni}).
+(\cref{sec:fi-adt-pila,sec:fi-liste-concatenate-operazioni}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-head-come-top}
@@ -390,7 +391,7 @@ come \emph{top} dello stack?
 Inserimento, rimozione e lettura in testa richiedono \(\Theta(1)\) e non
 richiedono di conoscere il predecessore. Usando la coda di una lista semplice,
 la rimozione dell'ultimo nodo richiederebbe invece una ricerca
-(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-pila-implementazione-array}).
+(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-linked-costi}
@@ -400,8 +401,7 @@ implementation}?
 
 \texttt{push(e)}, \texttt{pop()}, \texttt{top()} e \texttt{is\_empty()} sono
 \(\Theta(1)\) con la cima in \texttt{head}. Anche \texttt{size()} è
-\(\Theta(1)\) se si mantiene un contatore aggiornato
-(\cref{sec:fi-adt-pila-implementazione-array}).
+\(\Theta(1)\) se si mantiene un contatore aggiornato (\cref{sec:fi-adt-pila,sec:fi-liste-concatenate}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-size-lineare}
@@ -411,8 +411,7 @@ mantiene una variabile aggiuntiva?
 
 Senza un contatore, per conoscere la lunghezza è necessario attraversare tutti
 gli \(n\) nodi. Il costo è \(\Theta(n)\); un contatore mantenuto dalle
-operazioni di modifica lo riduce a \(\Theta(1)\)
-(\cref{sec:fi-adt-pila-implementazione-array}).
+operazioni di modifica lo riduce a \(\Theta(1)\) (\cref{sec:fi-liste-concatenate,sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-array-vs-linked}
@@ -425,7 +424,7 @@ richiedere \(\Theta(n)\) durante un ridimensionamento; con lista concatenata,
 \texttt{push()} e \texttt{pop()} sono \(\Theta(1)\) senza copie. L'array offre
 migliore località spaziale, mentre i nodi richiedono riferimenti aggiuntivi;
 entrambe le soluzioni realizzano lo stesso ADT
-(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate}).
+(\cref{sec:fi-adt-pila,sec:fi-array-dinamici,sec:fi-liste-concatenate}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-queue-definizione}
@@ -694,8 +693,9 @@ Descrivi il significato delle operazioni \texttt{get(i)}, \texttt{set(i,e)},
 \end{exercise}
 
 \texttt{get(i)} legge l'elemento \(i\); \texttt{set(i,e)} lo sostituisce con
-\(e\); \texttt{add(i,e)} inserisce \(e\) alla posizione \(i\), spostando le
-successive. \texttt{append(e)} aggiunge in fondo e \texttt{remove(i)} rimuove e
+\(e\); \texttt{add(i,e)} inserisce \(e\) alla posizione \(i\), facendo avanzare gli
+indici degli elementi successivi. \texttt{append(e)} aggiunge in fondo
+e \texttt{remove(i)} rimuove e
 restituisce l'elemento di indice \(i\) (\cref{sec:fi-adt-lista}).
 
 \begin{exercise}
@@ -704,8 +704,9 @@ Qual è la differenza tra \texttt{append(e)} e \texttt{add(i,e)}?
 \end{exercise}
 
 \texttt{append(e)} inserisce sempre in fondo, ossia nella posizione \(n\).
-\texttt{add(i,e)} permette di scegliere una posizione \(0\le i\le n\) e sposta
-gli elementi successivi: l'inserimento in fondo è il caso \(i=n\)
+\texttt{add(i,e)} permette di scegliere una posizione \(0\le i\le n\) e fa
+avanzare gli indici degli elementi successivi: l'inserimento in
+fondo è il caso \(i=n\)
 (\cref{sec:fi-adt-lista}).
 
 \clearpage

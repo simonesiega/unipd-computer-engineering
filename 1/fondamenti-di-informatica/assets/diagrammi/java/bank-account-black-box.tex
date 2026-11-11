@@ -1,0 +1,13 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,minimum width=2.2cm,minimum height=1.15cm,
+    align=center] (client) at (-3.7,0)
+    {Programma\\utilizzatore};
+  \node[unipd/node,minimum width=2.9cm,minimum height=1.15cm,
+    align=center] (api) at (0,0)
+    {Interfaccia pubblica\\\texttt{deposit(), withdraw()}\\\texttt{getBalance()}};
+  \node[unipd/node,minimum width=2.35cm,minimum height=1.15cm,
+    align=center] (state) at (3.9,0)
+    {Stato interno\\\texttt{private balance}};
+  \draw[unipd/directed edge] (client.east) -- (api.west);
+  \draw[unipd/directed edge] (api.east) -- (state.west);
+\end{tikzpicture}

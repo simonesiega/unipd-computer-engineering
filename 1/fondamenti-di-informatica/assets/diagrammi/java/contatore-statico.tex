@@ -1,0 +1,10 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,minimum width=5.2cm,minimum height=0.85cm,align=center]
+    (shared) at (0,1.65) {\texttt{ContoNumerato} (classe)\\\texttt{static lastAssignedNumber = 2}};
+  \node[unipd/node,minimum width=3.5cm,minimum height=0.9cm,align=center]
+    (a) at (-2.65,-0.55) {Oggetto \texttt{a}\\\texttt{accountNumber = 1}};
+  \node[unipd/node,minimum width=3.5cm,minimum height=0.9cm,align=center]
+    (b) at (2.65,-0.55) {Oggetto \texttt{b}\\\texttt{accountNumber = 2}};
+  \draw[unipd/directed edge] (a.north) -- ++(0,0.45) -| ($(shared.south)+(-1.3,0)$);
+  \draw[unipd/directed edge] (b.north) -- ++(0,0.45) -| ($(shared.south)+(1.3,0)$);
+\end{tikzpicture}

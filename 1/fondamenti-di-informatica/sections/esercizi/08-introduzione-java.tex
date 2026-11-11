@@ -3,7 +3,7 @@
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-portabilita-cpu}
-Perché Java viene progettato per essere indipendente dalla CPU?
+Perché Java è progettato per essere indipendente dalla CPU?
 \end{exercise}
 
 Il sorgente viene compilato in bytecode destinato alla JVM, anziché direttamente
@@ -46,7 +46,7 @@ Perché la libreria standard di Java è importante per il programmatore?
 
 Fornisce classi e metodi già disponibili per operazioni comuni, evitando di
 doverle implementare nuovamente. Per utilizzarli occorre conoscere la relativa
-interfaccia pubblica (\cref{sec:fi-java-classi-oggetti}).
+interfaccia pubblica (\cref{sec:fi-java-classi-oggetti,sec:fi-java-classi-black-box}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-sorgente-libreria}
@@ -56,7 +56,7 @@ Perché non è necessario conoscere il codice sorgente delle classi standard di 
 È sufficiente conoscerne il contratto pubblico: metodi accessibili, parametri,
 risultati e comportamento previsto. I dettagli interni di implementazione non
 sono necessari all'invocazione dei metodi
-(\cref{sec:fi-java-classi-oggetti,sec:fi-java-metodi-string}).
+(\cref{sec:fi-java-classi-black-box,def:fi-java-classi-interfaccia}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-jdk}
@@ -283,8 +283,9 @@ Che cosa indica la parola chiave \texttt{public}?
 \end{exercise}
 
 È un modificatore di accesso che rende una classe o un suo membro accessibile nei
-contesti consentiti dal linguaggio; nella dichiarazione dell'esempio qualifica la
-classe e il metodo \texttt{main} (\cref{sec:fi-java-primo-programma}).
+contesti consentiti dal linguaggio; nella dichiarazione dell'esempio
+qualifica la classe e il metodo \texttt{main}
+(\cref{sec:fi-java-primo-programma,sec:fi-java-cicli-shadowing}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-class}
@@ -321,8 +322,9 @@ Che cosa significa \texttt{static} nella dichiarazione del metodo \texttt{main}?
 \end{exercise}
 
 Indica che il metodo appartiene alla classe e può essere invocato senza creare
-prima un oggetto della classe. Ciò permette di avviare il programma dal suo punto
-di ingresso (\cref{sec:fi-java-primo-programma,sec:fi-java-invocazione-metodi}).
+prima un oggetto della classe. Ciò permette di avviare il programma
+dal suo punto di ingresso
+(\cref{sec:fi-java-primo-programma,sec:fi-java-cicli-metodi-statici}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-void-main}
@@ -429,9 +431,9 @@ Come si separano più parametri in una chiamata di metodo?
 \end{exercise}
 
 Nella chiamata si forniscono gli \emph{argomenti}, separandoli con virgole
-all'interno delle parentesi tonde, per esempio \texttt{Math.max(3, 7)}. I
-\emph{parametri} sono invece dichiarati nell'intestazione del metodo
-(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-metodi-string}).
+all'interno delle parentesi tonde, per esempio \texttt{Math.max(3, 7)}.
+I \emph{parametri} sono invece dichiarati nell'intestazione del metodo
+(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-classi-firma}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-formato-libero}

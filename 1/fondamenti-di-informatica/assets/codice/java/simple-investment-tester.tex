@@ -1,0 +1,17 @@
+\begin{unipdcode}[language=Java]
+public class SimpleInvestmentTester {
+    public static void main(String[] args) {
+        final double INITIAL_BALANCE = 20000;
+        final double RATE = 5;
+        BankAccount account = new BankAccount(INITIAL_BALANCE);
+        int years = 0;
+
+        while (account.getBalance() < 2 * INITIAL_BALANCE) {
+            years++;
+            double interest = account.getBalance() * RATE / 100;
+            account.deposit(interest);
+        }
+        System.out.println("Raddoppio dopo " + years + " anni");
+    }
+}
+\end{unipdcode}

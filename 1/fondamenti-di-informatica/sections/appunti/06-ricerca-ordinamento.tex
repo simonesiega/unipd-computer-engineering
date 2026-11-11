@@ -472,10 +472,10 @@ costante, secondo il modello di costo della
   \small
   \setlength{\tabcolsep}{4pt}
   \begin{tabular}{lcccc}
-    \hline
+    \toprule
     Algoritmo & Caso migliore & Caso medio & Caso peggiore &
     \shortstack{Spazio\\ausiliario}\\
-    \hline
+    \midrule
     Selection Sort &
     \(\Theta(n^2)\) & \(\Theta(n^2)\) & \(\Theta(n^2)\) &
     \shortstack{\(\Theta(1)\) iter.\\\(\Theta(n)\) ric.}\\
@@ -488,7 +488,7 @@ costante, secondo il modello di costo della
     QuickSort &
     \(\Theta(n\log n)\) & \(\Theta(n\log n)\) & \(\Theta(n^2)\) &
     \shortstack{\(O(\log n)\) medio\\\(O(n)\) peggiore}\\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Complessità temporali e spaziali degli algoritmi di ordinamento.}
   \label{tab:fi-confronto-ordinamenti}

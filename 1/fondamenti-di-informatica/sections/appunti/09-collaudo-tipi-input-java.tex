@@ -71,9 +71,9 @@ con segno, due in virgola mobile, \texttt{char} e
 \begin{table}[htbp]
   \centering
   \begin{tabular}{lll}
-    \hline
+    \toprule
     Tipo & Ampiezza & Caratteristiche \\
-    \hline
+    \midrule
     \texttt{byte} & 8 bit & intero con segno \\
     \texttt{short} & 16 bit & intero con segno \\
     \texttt{int} & 32 bit & intero con segno \\
@@ -82,7 +82,7 @@ con segno, due in virgola mobile, \texttt{char} e
     \texttt{double} & 64 bit & virgola mobile, precisione doppia \\
     \texttt{char} & 16 bit & unità di codice UTF-16 \\
     \texttt{boolean} & non fissata & \texttt{true} oppure \texttt{false} \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Tipi primitivi di Java e relative rappresentazioni.}
   \label{tab:fi-java-tipi-primitivi}
@@ -118,9 +118,9 @@ delle costanti \texttt{MIN\_VALUE} e
   \centering
   \small
   \begin{tabular}{lrr}
-    \hline
+    \toprule
     Classe & \texttt{MIN\_VALUE} & \texttt{MAX\_VALUE} \\
-    \hline
+    \midrule
     \texttt{Byte}
       & \(-128\)
       & \(127\) \\
@@ -142,7 +142,7 @@ delle costanti \texttt{MIN\_VALUE} e
     \texttt{Double}
       & \(\approx 4.9\cdot10^{-324}\)
       & \(\approx 1.8\cdot10^{308}\) \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Valori delle costanti che descrivono i limiti
   dei tipi primitivi numerici e di \texttt{char}.}
@@ -227,12 +227,16 @@ operazioni. Per esempio, l'espressione
 \texttt{4.35 * 100} produce
 \texttt{434.99999999999994} anziché \texttt{435.0}.
 
-La precisione dipende inoltre dalla grandezza dei valori
-rappresentati: all'aumentare del loro valore assoluto,
-aumenta la distanza tra numeri in virgola mobile consecutivi.
+La distanza tra numeri rappresentabili consecutivi dipende
+dall'ordine di grandezza: rimane costante all'interno di
+ciascun intervallo di esponente e aumenta passando a
+intervalli con esponente maggiore. Per i numeri subnormali,
+invece, il passo è costante.
 Per esempio, il risultato di \texttt{1.0E17 - 50}
 corrisponde al valore \(10^{17}-48\), anziché al
 risultato matematico esatto \(10^{17}-50\).
+
+\clearpage
 
 \section{Conversioni numeriche e arrotondamento}
 \label{sec:fi-java-conversioni}
@@ -550,6 +554,8 @@ concatenazione: senza di esse si otterrebbe
 rimane invariata, coerentemente con
 l'immutabilità degli oggetti \texttt{String}
 già esaminata nella \cref{sec:fi-java-metodi-string}.
+Il confronto tra stringhe è trattato nella
+\cref{sec:fi-java-cicli-stringhe}.
 
 \subsection{Conversione tra stringhe e numeri}
 \label{sec:fi-java-parsing}
@@ -690,9 +696,9 @@ da visualizzare.
 \begin{table}[htbp]
   \centering
   \begin{tabular}{ll}
-    \hline
+    \toprule
     Specificatore & Significato \\
-    \hline
+    \midrule
     \texttt{\%d} & intero decimale \\
     \texttt{\%x}, \texttt{\%o} & intero esadecimale, ottale \\
     \texttt{\%f} & numero in virgola mobile in notazione decimale \\
@@ -700,7 +706,7 @@ da visualizzare.
     \texttt{\%s} & rappresentazione testuale \\
     \texttt{\%n} & terminatore di riga della piattaforma \\
     \texttt{\%\%} & simbolo di percentuale \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Principali specificatori di formato utilizzabili con
   \texttt{printf()}.}

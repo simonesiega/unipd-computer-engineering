@@ -1,0 +1,173 @@
+\chapter{Esercizi: Realizzazione di classi in Java}
+\label{chap:esercizi-realizzazione-classi-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-modello}
+Che cosa significa dire che una classe è un ``modello'' per creare oggetti?
+\end{exercise}
+
+Una classe definisce la struttura e il comportamento condivisi dalle
+sue istanze, specificando campi, costruttori e metodi. Ogni oggetto
+creato secondo tale modello può possedere un proprio stato
+(\cref{sec:fi-java-classi-stato}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-classe-oggetto}
+Qual è la differenza tra una classe e un oggetto?
+\end{exercise}
+
+La classe è la definizione di un tipo, mentre un oggetto è una sua
+istanza concreta, creata durante l'esecuzione. Per esempio,
+\texttt{BankAccount} è la classe, mentre
+\texttt{new BankAccount()} crea un oggetto di quel tipo
+(\cref{sec:fi-java-classi-stato,sec:fi-java-classi-costruttori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-collaudo-scopo}
+A che cosa serve un programma di collaudo per una classe Java?
+\end{exercise}
+
+Serve a verificarne il comportamento mediante la costruzione di
+oggetti e l'invocazione dei loro metodi, confrontando i risultati
+ottenuti con quelli attesi. Può individuare errori, ma il superamento
+di alcuni test non dimostra la correttezza generale
+(\cref{sec:fi-java-collaudo,sec:fi-java-classi-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-collaudo-passi}
+Quali sono i passaggi principali per costruire un programma di collaudo?
+\end{exercise}
+
+Si definisce una classe di collaudo con un metodo \texttt{main},
+si creano istanze della classe da verificare, se ne invocano i
+metodi con ingressi appropriati e si confrontano gli stati o i
+valori ottenuti con i risultati previsti, includendo i casi limite
+(\cref{sec:fi-java-classi-collaudo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-black-box}
+Che cosa si intende per approccio \emph{black-box} nella programmazione
+orientata agli oggetti?
+\end{exercise}
+
+Consiste nell'utilizzare un oggetto attraverso la sua interfaccia
+pubblica e il comportamento dichiarato, senza dover conoscere i
+dettagli della sua implementazione interna
+(\cref{sec:fi-java-classi-black-box}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-interfaccia}
+Che cosa si intende per interfaccia pubblica di una classe?
+\end{exercise}
+
+È l'insieme dei membri accessibili ai suoi utilizzatori, con le
+modalità e le condizioni del loro impiego. Comprende, in particolare,
+i costruttori e i metodi pubblici, i relativi parametri, i risultati
+e il comportamento previsto (\cref{def:fi-java-classi-interfaccia}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-intestazione-metodo}
+Da quali parti è composta l'intestazione di un metodo Java?
+\end{exercise}
+
+L'intestazione comprende gli eventuali modificatori, il tipo
+restituito (\texttt{void} se non restituisce un valore), il nome
+del metodo e l'elenco dei parametri, ciascuno dichiarato con tipo
+e nome. Il corpo del metodo, distinto dall'intestazione, è racchiuso
+fra parentesi graffe (\cref{sec:fi-java-classi-firma}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-accesso-modifica}
+Che differenza c'è tra un metodo di accesso e un metodo modificatore?
+\end{exercise}
+
+Un metodo di accesso osserva lo stato di un oggetto senza modificarlo;
+un metodo modificatore può invece alterarlo
+(\cref{def:fi-java-classi-accessori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-get-balance}
+Perché \texttt{getBalance()} è un metodo di accesso?
+\end{exercise}
+
+Restituisce il saldo memorizzato nell'oggetto
+\texttt{BankAccount} senza modificarne il campo
+\texttt{balance} (\cref{def:fi-java-classi-accessori,sec:fi-java-classi-incapsulamento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-deposit-withdraw}
+Perché \texttt{deposit()} e \texttt{withdraw()} sono metodi modificatori?
+\end{exercise}
+
+Entrambi cambiano il campo \texttt{balance}: il primo aumenta
+il saldo dell'importo versato e il secondo lo diminuisce
+dell'importo prelevato
+(\cref{def:fi-java-classi-accessori,sec:fi-java-classi-incapsulamento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-costruttore}
+Che cos'è un costruttore in Java e qual è il suo scopo principale?
+\end{exercise}
+
+È una dichiarazione speciale eseguita durante la creazione di
+un oggetto per inizializzarne lo stato. Il costruttore viene
+richiamato durante la valutazione di un'espressione con
+\texttt{new} (\cref{def:fi-java-classi-costruttore}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-costruttore-differenze}
+Quali due caratteristiche distinguono un costruttore da un normale metodo?
+\end{exercise}
+
+Il costruttore ha necessariamente lo stesso nome della classe e
+non dichiara un tipo di ritorno, neppure \texttt{void}
+(\cref{def:fi-java-classi-costruttore}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-costruttore-void}
+Perché il costruttore \texttt{public BankAccount()} non deve dichiarare
+\texttt{void}?
+\end{exercise}
+
+Un costruttore non ha un tipo restituito: scrivendo
+\texttt{public void BankAccount()} si definirebbe invece
+un metodo ordinario chiamato \texttt{BankAccount}, non un
+costruttore (\cref{sec:fi-java-classi-costruttori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-piu-costruttori}
+Che cosa significa avere più costruttori nella stessa classe?
+\end{exercise}
+
+Significa offrire diverse modalità di inizializzazione.
+Il costruttore senza parametri può creare un conto con saldo
+nullo; quello che riceve un parametro \texttt{double}
+può utilizzare il saldo iniziale indicato dal chiamante
+(\cref{sec:fi-java-classi-costruttori}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-overloading}
+Che cos'è l'\emph{overloading} e come fa il compilatore a scegliere
+quale costruttore invocare?
+\end{exercise}
+
+L'\emph{overloading} consente di dichiarare più costruttori o
+metodi con lo stesso nome ma parametri differenti per numero,
+tipo od ordine. Il compilatore seleziona la dichiarazione
+applicabile agli argomenti effettivi secondo le regole delle
+conversioni e della specificità; un'invocazione non applicabile
+o ambigua produce un errore di compilazione
+(\cref{def:fi-java-classi-overloading}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-classi-private-balance}
+Perché la variabile di istanza \texttt{balance} viene dichiarata
+\texttt{private} nella classe \texttt{BankAccount}?
+\end{exercise}
+
+Per impedire modifiche dirette dall'esterno e consentire l'accesso
+al saldo attraverso i metodi pubblici previsti. Questa separazione
+realizza l'incapsulamento e permette di controllare la validità
+dello stato, purché i costruttori e i metodi modificatori effettuino
+le verifiche necessarie
+(\cref{sec:fi-java-classi-incapsulamento,warn:fi-java-classi-bank-limiti,sec:fi-java-cicli-shadowing}).

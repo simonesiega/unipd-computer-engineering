@@ -1,0 +1,25 @@
+\begin{unipdcode}[language=Java]
+import java.util.Scanner;
+
+public class SommaSentinella {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int somma = 0;
+        int conteggio = 0;
+        boolean continua = true;
+
+        while (continua) {
+            System.out.print("Numero (0 per terminare): ");
+            int numero = in.nextInt();
+            if (numero == 0) {
+                continua = false;
+            } else {
+                somma += numero;
+                conteggio++;
+            }
+        }
+        System.out.println("Numeri letti: " + conteggio);
+        System.out.println("Somma: " + somma);
+    }
+}
+\end{unipdcode}

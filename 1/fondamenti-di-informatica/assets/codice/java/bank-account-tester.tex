@@ -1,0 +1,16 @@
+\begin{unipdcode}[language=Java]
+public class BankAccountTester {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount(10000);
+        final double RATE = 0.05;
+
+        double interest = account.getBalance() * RATE;
+        account.deposit(interest);
+        System.out.println("Saldo dopo un anno: " + account.getBalance());
+
+        interest = account.getBalance() * RATE;
+        account.deposit(interest);
+        System.out.println("Saldo dopo due anni: " + account.getBalance());
+    }
+}
+\end{unipdcode}

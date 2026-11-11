@@ -1,0 +1,486 @@
+\chapter{Esercizi: Confronti, cicli e membri di classe in Java}
+\label{chap:esercizi-confronti-cicli-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-stringhe-equals}
+Perché l'uguaglianza del contenuto di due stringhe deve essere verificata
+con \texttt{equals()} anziché con \texttt{==}?
+\end{exercise}
+
+L'operatore \texttt{==} confronta l'identità dei riferimenti, mentre
+\texttt{String.equals()} confronta i caratteri delle stringhe.
+Due stringhe possono quindi avere lo stesso testo e appartenere a
+oggetti differenti
+(\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-ignorecase}
+Qual è la differenza tra \texttt{equals()} e
+\texttt{equalsIgnoreCase()}?
+\end{exercise}
+
+\texttt{equals()} richiede che il contenuto delle stringhe coincida;
+\texttt{equalsIgnoreCase()} trascura le differenze tra maiuscole e
+minuscole secondo le regole di confronto di \texttt{String}.
+Non rimuove in generale gli accenti e non implementa un ordinamento
+linguistico
+(\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-stringhe-uguale-riferimento}
+Che cosa verifica \texttt{s1 == s2} quando entrambe le variabili
+sono riferimenti a oggetti \texttt{String}?
+\end{exercise}
+
+Verifica che le variabili contengano lo stesso riferimento, cioè
+che individuino il medesimo oggetto, oppure che entrambe valgano
+\texttt{null}. Non confronta il contenuto dei due testi
+(\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-stringhe-identita-valore}
+Come può risultare vera \texttt{s1.equals(s3)} mentre
+\texttt{s1 == s3} risulta falsa?
+\end{exercise}
+
+Le due variabili possono riferirsi a oggetti \texttt{String}
+distinti che contengono esattamente gli stessi caratteri.
+Il primo confronto verifica il valore, il secondo l'identità
+(\cref{fig:fi-java-cicli-stringhe-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-compareto}
+Quale risultato restituisce \texttt{compareTo()} e come se ne
+interpreta il segno?
+\end{exercise}
+
+Restituisce un intero negativo se il ricevente precede l'argomento
+nell'ordinamento, zero se i testi coincidono e positivo se lo segue.
+È necessario controllare il segno, non aspettarsi i valori esatti
+\(-1\), \(0\) o \(1\)
+(\cref{sec:fi-java-cicli-stringhe-ordine}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-lessicografico}
+In che cosa l'ordinamento lessicografico di \texttt{String}
+si distingue dall'ordinamento alfabetico usuale?
+\end{exercise}
+
+Il confronto segue l'ordine delle unità di codice UTF-16, non le
+regole di un dizionario italiano. Distingue maiuscole e minuscole
+e considera anche cifre, spazi e simboli; in caso di prefisso
+comune, la stringa più corta precede quella più lunga
+(\cref{sec:fi-java-cicli-stringhe-ordine}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-oggetti-operatore}
+Che cosa verifica \texttt{==} quando è applicato a due variabili
+riferimento?
+\end{exercise}
+
+Verifica l'identità degli oggetti indicati, oppure che entrambi i
+riferimenti siano nulli. Non stabilisce in generale se gli oggetti
+abbiano lo stesso valore logico
+(\cref{def:fi-java-cicli-uguaglianza-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-equals-object}
+Perché \texttt{equals()} è disponibile per gli oggetti, ma
+viene spesso ridefinito nelle singole classi?
+\end{exercise}
+
+È dichiarato nella classe \texttt{Object}, la cui implementazione
+verifica l'identità. Una classe può ridefinirlo per stabilire
+un criterio di equivalenza coerente con il significato dei propri
+oggetti, come avviene per le stringhe
+(\cref{sec:fi-java-cicli-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-comparable}
+Perché non tutti gli oggetti possono essere confrontati con
+\texttt{compareTo()}?
+\end{exercise}
+
+A differenza di \texttt{equals()}, \texttt{compareTo()} non è
+dichiarato nella classe \texttt{Object}: occorre una classe che
+definisca un ordinamento naturale, per esempio implementando
+\texttt{Comparable}. Il criterio di ordinamento dipende dal tipo
+(\cref{sec:fi-java-cicli-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-catena-if}
+Quando è appropriata una catena
+\texttt{if}/\texttt{else if}/\texttt{else}?
+\end{exercise}
+
+Quando si deve scegliere un solo comportamento fra più alternative,
+anche in base a condizioni diverse o a intervalli di valori.
+Le condizioni vengono verificate nell'ordine e, alla prima vera,
+i rami successivi sono esclusi
+(\cref{sec:fi-java-cicli-if-catene}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-soglie}
+Perché, in una classificazione mediante soglie del tipo
+\texttt{x >= soglia}, è importante ordinare correttamente i controlli?
+\end{exercise}
+
+Con una catena di alternative il primo ramo vero viene eseguito.
+Se la soglia più bassa compare per prima, può intercettare anche
+valori che dovrebbero rientrare in fasce superiori. Nel caso
+presentato, le soglie vanno disposte in ordine decrescente
+(\cref{sec:fi-java-cicli-if-catene}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-else-sospeso}
+Che cos'è il problema dell'\emph{else sospeso} e a quale
+\texttt{if} viene associata la clausola \texttt{else}?
+\end{exercise}
+
+Quando più \texttt{if} sono annidati senza graffe, l'indentazione
+può suggerire un'associazione diversa da quella reale. Java
+associa \texttt{else} all'\texttt{if} più vicino ancora privo
+di \texttt{else}; usare blocchi espliciti elimina l'ambiguità
+(\cref{sec:fi-java-cicli-if-catene}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-switch}
+A che cosa serve \texttt{switch} e quando può risultare più
+leggibile di una catena di \texttt{if}/\texttt{else if}?
+\end{exercise}
+
+Seleziona un ramo in base al valore di un'espressione, fra un
+insieme di casi discreti. È spesso più chiaro quando si confronta
+un selettore con diversi valori specifici; non è adatto a
+sostituire direttamente controlli su intervalli arbitrari
+(\cref{sec:fi-java-cicli-switch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-fallthrough}
+Che cosa può accadere in uno \texttt{switch} tradizionale
+se manca \texttt{break} alla fine di un \texttt{case}?
+\end{exercise}
+
+L'esecuzione può proseguire negli enunciati del caso seguente
+senza verificare un'altra etichetta: si tratta del
+\emph{fall-through}. Il comportamento è utile per raggruppare
+più casi, ma è un errore quando i rami devono rimanere esclusivi
+(\cref{sec:fi-java-cicli-switch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-switch-expression}
+Quali differenze introduce lo \texttt{switch} usato come
+espressione a partire da Java 14?
+\end{exercise}
+
+Uno \texttt{switch} può produrre un valore da assegnare o
+restituire. La sintassi con \texttt{->} non produce
+\emph{fall-through} e la compilazione richiede che siano coperti
+tutti i possibili valori del selettore; non occorrono i
+\texttt{break} per distinguere i rami
+(\cref{sec:fi-java-cicli-switch-expression}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-boolean}
+Che cosa rappresenta il tipo primitivo \texttt{boolean}?
+\end{exercise}
+
+È il tipo dei valori logici \texttt{true} e \texttt{false}.
+Le espressioni relazionali e i metodi predicativi producono
+valori di tale tipo; in Java un intero non vale automaticamente
+come condizione logica
+(\cref{def:fi-java-cicli-boolean}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-flag}
+Che cos'è una variabile booleana utilizzata come \emph{flag}?
+\end{exercise}
+
+È una variabile che memorizza una condizione o uno stato con due
+possibilità, per esempio se la lettura dell'input debba
+continuare. Il suo valore può governare direttamente un ciclo
+(\cref{sec:fi-java-cicli-boolean,sec:fi-java-cicli-while-annidati}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-predicativi}
+Che cosa sono i metodi predicativi e perché spesso iniziano
+con \texttt{is} oppure \texttt{has}?
+\end{exercise}
+
+Sono metodi il cui risultato è di tipo \texttt{boolean} e che
+verificano una proprietà. I prefissi \texttt{is} e \texttt{has}
+esprimono la natura della domanda. Ne sono esempi
+\texttt{isDigit()} di \texttt{Character} e
+\texttt{hasNextInt()} di \texttt{Scanner}
+(\cref{sec:fi-java-cicli-boolean}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-cortocircuito}
+Che cosa significa \emph{valutazione a cortocircuito} per
+\texttt{\&\&} e \texttt{||}?
+\end{exercise}
+
+Java valuta il secondo operando soltanto se il primo non basta
+a determinare il risultato. Con \texttt{\&\&} non valuta il
+secondo se il primo è falso; con \texttt{||} non lo valuta se
+il primo è vero. Ciò può evitare anche chiamate su riferimenti
+nulli (\cref{sec:fi-java-cicli-logici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-relazionale-errore}
+Perché \texttt{0 <= x <= 1} non è valido in Java e come si
+esprime correttamente la condizione?
+\end{exercise}
+
+La prima relazione \texttt{0 <= x} produce un \texttt{boolean},
+che non può essere confrontato numericamente con \texttt{1}.
+Si usa \texttt{0 <= x \&\& x <= 1}, combinando due
+espressioni relazionali booleane
+(\cref{sec:fi-java-cicli-precedenze}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-enum}
+Che cos'è un \texttt{enum} e perché è preferibile a codici
+interi o stringhe quando l'insieme dei valori è fissato?
+\end{exercise}
+
+È un tipo speciale di classe che definisce un insieme chiuso di
+costanti. Il compilatore impedisce di assegnare valori di tipi
+incompatibili, mentre nomi significativi e supporto per
+\texttt{switch} migliorano la leggibilità
+(\cref{sec:fi-java-cicli-enum}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-enum-limiti}
+Quali limiti presenta un tipo \texttt{enum}?
+\end{exercise}
+
+L'insieme delle costanti è fissato nella definizione e non può
+essere ampliato dinamicamente durante l'esecuzione. Un valore
+esterno, come una stringa di input, deve essere interpretato
+esplicitamente; essendo un tipo riferimento, una variabile
+enumerativa può inoltre contenere \texttt{null}
+(\cref{sec:fi-java-cicli-enum}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-switch-enum}
+Come si utilizzano i valori di un \texttt{enum} nei casi
+\texttt{case} di uno \texttt{switch}?
+\end{exercise}
+
+Se il selettore è di un tipo enumerativo, le etichette della
+forma tradizionale utilizzano il nome semplice della costante:
+per \texttt{Stagione}, il caso si indica con
+\texttt{case ESTATE:}, senza il prefisso
+\texttt{Stagione.} (\cref{sec:fi-java-cicli-enum}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-while-do}
+Qual è la differenza essenziale fra \texttt{while} e
+\texttt{do}/\texttt{while}?
+\end{exercise}
+
+Il ciclo \texttt{while} verifica la condizione prima del corpo,
+che può quindi non essere mai eseguito. Nel
+\texttt{do}/\texttt{while} il controllo avviene dopo il corpo,
+che viene eseguito almeno una volta
+(\cref{sec:fi-java-cicli-while,sec:fi-java-cicli-do-while}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-investimento-terminazione}
+Quali ipotesi garantiscono la terminazione del ciclo che cerca
+il raddoppio di un investimento?
+\end{exercise}
+
+Nel modello matematico con capitalizzazione annuale, un saldo
+iniziale positivo e un tasso costante strettamente positivo fanno
+crescere il saldo fino a superare qualsiasi soglia finita. Con tasso
+nullo e obiettivo maggiore del saldo iniziale, il ciclo non
+terminerebbe. In un programma in virgola mobile, per tassi estremamente piccoli,
+l'arrotondamento può tuttavia impedire l'aumento effettivo del saldo
+(\cref{sec:fi-java-cicli-investimento,sec:fi-java-precisione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-for-tre-parti}
+Quali sono le tre parti dell'intestazione di un ciclo
+\texttt{for} e quale ruolo hanno?
+\end{exercise}
+
+L'inizializzazione prepara il ciclo ed è eseguita una sola volta;
+la condizione viene controllata prima di ogni iterazione;
+l'aggiornamento viene eseguito dopo ciascun corpo, prima del
+controllo successivo
+(\cref{sec:fi-java-cicli-for}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-for-annidati}
+Come funzionano due cicli \texttt{for} annidati e quando
+sono utili?
+\end{exercise}
+
+Per ogni iterazione del ciclo esterno viene eseguito il ciclo
+interno secondo i suoi limiti. Sono adatti, per esempio, a
+elaborare righe e colonne di una tabella; il costo complessivo
+dipende dal numero di iterazioni di entrambi
+(\cref{sec:fi-java-cicli-for-annidati,chap:complessita}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-sentinella}
+Che cos'è un valore \emph{sentinella} nella lettura iterativa
+dell'input?
+\end{exercise}
+
+È un valore riservato per segnalare la conclusione della sequenza,
+come \texttt{0} fra numeri o \texttt{"Q"} fra stringhe.
+Non viene trattato come un elemento ordinario dei dati da
+elaborare
+(\cref{sec:fi-java-cicli-while-annidati}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-break-continue}
+Che cosa fanno le istruzioni \texttt{break} e
+\texttt{continue} all'interno dei cicli?
+\end{exercise}
+
+\texttt{break}, senza etichetta, termina il ciclo più interno;
+\texttt{continue}, senza etichetta, passa all'iterazione successiva.
+Nel \texttt{for} la prosecuzione include prima la fase di
+aggiornamento. Un uso eccessivo può ridurre la chiarezza
+del flusso di controllo
+(\cref{sec:fi-java-cicli-while-annidati,sec:fi-java-cicli-for}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-scopiazione}
+Che cosa significa che una variabile è visibile solo entro
+un determinato blocco?
+\end{exercise}
+
+Il suo nome può essere usato solo nella regione di codice
+individuata dalle regole di ambito. Quando si esce da un blocco
+che contiene la dichiarazione, la variabile non può più essere
+richiamata dal codice successivo
+(\cref{sec:fi-java-cicli-scope}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-inizializzazione-locali}
+Perché leggere una variabile locale non inizializzata produce
+un errore di compilazione in Java?
+\end{exercise}
+
+Prima della lettura il compilatore deve poter stabilire che
+la variabile ha ricevuto sicuramente un valore lungo ogni
+percorso di esecuzione pertinente. Diversamente dai campi,
+le variabili locali non ricevono automaticamente un valore
+iniziale predefinito
+(\cref{sec:fi-java-cicli-scope}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-static-differenza}
+Qual è la differenza tra un metodo statico e un metodo di istanza?
+\end{exercise}
+
+Un metodo statico appartiene alla classe, non ha il ricevente
+implicito \texttt{this} e può essere invocato tramite il nome
+della classe. Un metodo di istanza opera su un oggetto specifico
+e può accedere direttamente ai suoi campi
+(\cref{sec:fi-java-cicli-metodi-statici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-static-campi}
+Perché un contatore progressivo comune a tutti gli oggetti
+deve essere dichiarato \texttt{static}?
+\end{exercise}
+
+Un campo di istanza ha una copia distinta per ogni oggetto:
+inizializzandolo a zero nel costruttore, ogni oggetto ripartirebbe
+dallo stesso numero. Il campo statico possiede invece una copia
+condivisa, aggiornata da ogni nuova costruzione
+(\cref{sec:fi-java-cicli-campi-statici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-scope-lifetime}
+Che differenza c'è tra ambito di visibilità e ciclo di vita
+di una variabile?
+\end{exercise}
+
+L'ambito determina dove il nome è utilizzabile nel codice;
+il ciclo di vita riguarda il tempo per cui il relativo dato
+esiste durante l'esecuzione. Per esempio, un campo statico
+può permanere per tutta la vita della classe anche quando
+non viene utilizzato da un determinato metodo
+(\cref{sec:fi-java-cicli-scope,tab:fi-java-cicli-variabili}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-gc}
+Che cos'è il \emph{garbage collector} e perché normalmente
+non si deallocano manualmente gli oggetti in Java?
+\end{exercise}
+
+La JVM gestisce automaticamente la memoria degli oggetti e può
+recuperare quella occupata dagli oggetti non più raggiungibili.
+Il programmatore non deve quindi liberarli esplicitamente;
+la raccolta non ha però un momento garantito
+(\cref{sec:fi-java-cicli-memoria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-gc-tipi}
+Quali sono le principali caratteristiche di Serial, Parallel,
+G1, ZGC e Shenandoah?
+\end{exercise}
+
+Serial GC privilegia la semplicità; Parallel GC è orientato al
+throughput; G1 cerca un equilibrio fra volume di lavoro e
+pause; ZGC e Shenandoah sono progettati per ridurre la latenza
+della raccolta. Disponibilità e prestazioni dipendono dalla JVM
+e dalla versione utilizzata
+(\cref{sec:fi-java-cicli-memoria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-gc-default}
+Qual è il garbage collector predefinito nelle comuni
+configurazioni HotSpot a partire da Java 9, e come può
+essere richiesto esplicitamente?
+\end{exercise}
+
+Il predefinito è in genere G1, che può essere selezionato con
+l'opzione \texttt{-XX:+UseG1GC}. Non si tratta di una regola
+universale per tutte le implementazioni e configurazioni della
+piattaforma Java
+(\cref{sec:fi-java-cicli-memoria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-gc-criteri}
+Da quali fattori dipende la scelta del garbage collector
+per un'applicazione?
+\end{exercise}
+
+Dipende dalle dimensioni e dal comportamento dell'heap, dalle
+risorse disponibili e dalle esigenze di throughput e latenza.
+La scelta richiede misurazioni nell'ambiente reale; non esiste
+un raccoglitore migliore in ogni situazione
+(\cref{sec:fi-java-cicli-memoria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-shadowing}
+Che cosa significa \emph{shadowing} di una variabile e come
+si accede a un campo nascosto da un parametro omonimo?
+\end{exercise}
+
+Un nome locale o un parametro possono nascondere un campo
+omonimo della classe senza generare un errore. In un metodo
+di istanza si usa \texttt{this.nome} per accedere al campo;
+per un campo statico si può usare \texttt{NomeClasse.nome}
+(\cref{def:fi-java-cicli-shadowing}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-cicli-private-public}
+Come cambia l'accessibilità di un membro \texttt{private}
+rispetto a un membro \texttt{public}?
+\end{exercise}
+
+Un membro \texttt{private} è accessibile dal codice della
+classe che lo dichiara, anche su altre sue istanze. Un membro
+\texttt{public} è accessibile anche da codice esterno nei
+contesti consentiti, usando un riferimento a un oggetto o
+il nome della classe, secondo che sia di istanza o statico
+(\cref{sec:fi-java-cicli-shadowing}).
