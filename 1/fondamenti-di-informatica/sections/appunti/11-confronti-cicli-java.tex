@@ -10,7 +10,7 @@ Le stesse condizioni governano le strutture iterative, che ripetono
 un'elaborazione fino al raggiungimento di un risultato. La trattazione
 si completa con i membri statici e con le regole che determinano
 visibilità e durata delle variabili.
-\footnote{Materiale didattico di riferimento: S. Canazza,
+\footnote{Materiale di riferimento: S. Canazza,
 \emph{Java: confronti, cicli},
 \nolinkurl{2026_FI_10_Java_Confronti_cicli.key.pdf}.}
 
@@ -88,9 +88,9 @@ coincidono e positivo se lo segue. Conta il \emph{segno} del risultato,
 non la sua grandezza.
 
 \begin{unipdcode}[language=Java]
-System.out.println("carta".compareTo("castano") < 0); // true
-System.out.println("casa".compareTo("casa") == 0);    // true
-System.out.println("casa".compareTo("casale") < 0);  // true
+System.out.println("carta".compareTo("castano") < 0);  // true
+System.out.println("casa".compareTo("casa") == 0);     // true
+System.out.println("casa".compareTo("casale") < 0);    // true
 \end{unipdcode}
 
 Il confronto procede dall'inizio, cercando la prima posizione nella
@@ -163,13 +163,12 @@ if (richter >= 8) {
 }
 \end{unipdcode}
 
-La classificazione è didattica: si assume un valore finito e si
-considerano non validi quelli negativi. Le soglie sono in ordine
-decrescente: se \texttt{richter} vale \(7\), la prima condizione vera è
-\texttt{richter >= 6}. Invertire l'ordine farebbe intercettare
-ogni valore non negativo dal controllo \texttt{richter >= 0},
-rendendo irraggiungibili gli altri rami. Scrivere più \texttt{if}
-indipendenti, invece, potrebbe eseguire più corpi per lo stesso valore.
+La classificazione è didattica e assume valori finiti.
+Le soglie decrescenti fanno sì che, per \texttt{richter = 7},
+la prima condizione vera sia \texttt{richter >= 6}.
+Se \texttt{richter >= 0} fosse il primo controllo, intercetterebbe
+tutti i valori non negativi; con \texttt{if} indipendenti,
+potrebbero invece essere eseguiti più rami.
 
 Le \emph{diramazioni annidate} servono quando una decisione dipende
 da un'altra. Per esempio, uno scaglione di imposta può essere scelto
@@ -328,15 +327,12 @@ if (positivo) {
 }
 \end{unipdcode}
 
-Quando una variabile booleana memorizza lo stato di una condizione
-utile al controllo del programma, viene spesso chiamata
-\emph{flag}. I metodi che restituiscono valori booleani sono detti
-\emph{predicativi}: \texttt{Character.isDigit(ch)} verifica, per
-esempio, se un carattere è una cifra, mentre
-\texttt{scanner.hasNextInt()} verifica se il prossimo elemento
-dell'ingresso può essere letto come \texttt{int}
-(\cref{sec:fi-java-scanner-numeri}). I nomi dei predicati spesso
-iniziano con \texttt{is} oppure \texttt{has}.
+Una variabile booleana usata per controllare il flusso è detta
+\emph{flag}. I metodi che restituiscono booleani sono
+\emph{predicati}, spesso denominati con \texttt{is} o \texttt{has}:
+\texttt{Character.isDigit(ch)} riconosce una cifra e
+\texttt{scanner.hasNextInt()} verifica la disponibilità di un
+\texttt{int} nell'ingresso (\cref{sec:fi-java-scanner-numeri}).
 
 \subsection{Operatori logici e cortocircuito}
 \label{sec:fi-java-cicli-logici}
@@ -362,10 +358,11 @@ nella \cref{tab:fi-java-cicli-booleani}.
 \label{tab:fi-java-cicli-booleani}
 \end{table}
 
-Con \texttt{\&\&} e \texttt{||}, Java utilizza la
-\emph{valutazione a cortocircuito}: il secondo operando non viene
-valutato quando il primo determina già il risultato. Nel seguente
-controllo, la chiamata a \texttt{length()} avviene soltanto se
+Come in Python (\cref{sec:fi-python-condizioni}), gli operatori
+\texttt{\&\&} e \texttt{||} valutano il secondo operando
+soltanto se necessario (\emph{cortocircuito}). Diversamente dagli
+operatori Python, quelli di Java producono un \texttt{boolean}.
+Nell'esempio, \texttt{length()} viene chiamato soltanto se
 \texttt{s} non è nullo:
 
 \begin{unipdcode}[language=Java]
@@ -475,8 +472,8 @@ unici, perciò è corretto confrontarle mediante \texttt{==}.
 \begin{example}[Selezione con un tipo enumerativo]
 Il seguente esempio seleziona una costante di tipo
 \texttt{Stagione} mediante \texttt{switch}. Le etichette
-\texttt{case} utilizzano i nomi delle costanti senza il prefisso
-\texttt{Stagione.}.
+\texttt{case} utilizzano direttamente i nomi delle costanti,
+senza qualificarli con il tipo \texttt{Stagione}.
 \input{assets/codice/java/stagioni-switch}
 \end{example}
 
@@ -497,18 +494,13 @@ meccanismo utilizzato per associare proprietà a categorie fisse.
 \input{assets/codice/java/priorita-enum}
 \end{example}
 
-I principali vantaggi sono la \emph{sicurezza del tipo}, la
-leggibilità dei nomi e l'integrazione con \texttt{switch};
-evitano, per esempio, di confondere codici numerici attribuiti
-a categorie diverse. Il limite è che l'insieme delle costanti
-è fissato nel codice e una sua modifica richiede di aggiornare
-il programma. Inoltre, convertire dati testuali esterni in
-costanti richiede un'operazione esplicita e la gestione di
-valori non riconosciuti. Le enumerazioni, dunque, non
-sostituiscono le strutture dati per insiemi di valori variabili:
-la distinzione tra specifica di un tipo e rappresentazione dei
-dati richiama il concetto di tipo astratto introdotto nella
-\cref{sec:fi-adt-strutture}.
+Le enumerazioni offrono \emph{sicurezza del tipo}, nomi
+significativi e integrazione con \texttt{switch}, evitando
+l'ambiguità dei codici numerici. L'insieme delle costanti è
+però fissato nel codice: cambiarlo richiede una modifica del
+programma, e la conversione da testi esterni deve gestire
+valori non riconosciuti. Per insiemi dinamici servono invece
+strutture dati (\cref{sec:fi-adt-strutture}).
 
 \section{Il ciclo \texttt{while}}
 \label{sec:fi-java-cicli-while}
@@ -529,7 +521,9 @@ La condizione deve avere tipo \texttt{boolean}, e il corpo può
 essere un singolo enunciato o un blocco. La
 \cref{fig:fi-java-cicli-controllo} mette a confronto questo
 schema con quello del ciclo \texttt{do}/\texttt{while},
-introdotto più avanti.
+introdotto nella \cref{sec:fi-java-cicli-do-while}.
+
+\clearpage
 
 \begin{figure}[htbp]
   \centering
@@ -542,12 +536,10 @@ introdotto più avanti.
 \subsection{Capitalizzazione annuale}
 \label{sec:fi-java-cicli-investimento}
 
-Si consideri un conto con saldo iniziale di \(20\,000\) euro e
-tasso annuo costante del \(5\%\), con capitalizzazione degli
-interessi alla fine di ogni anno. Si vuole trovare il minimo
-numero di anni necessario affinché il saldo sia almeno il doppio
-di quello iniziale. Indicando con \(B_n\) il saldo dopo \(n\)
-anni, si ha
+Si riprende il problema del raddoppio del capitale
+dell'\cref{ex:fi-interesse-composto}, realizzandolo in Java
+con un ciclo \texttt{while}. Indicando con \(B_n\) il saldo
+dopo \(n\) anni, si ha
 \[
   B_0=20\,000,\qquad B_{n+1}=1{,}05\,B_n.
 \]
@@ -563,9 +555,8 @@ All'inizio di ciascuna verifica della condizione, il contatore
 \texttt{years} è il numero di capitalizzazioni già effettuate e
 \texttt{account.getBalance()} è il saldo corrispondente. Questo
 è un \emph{invariante di ciclo}, utile per giustificare il
-risultato. Poiché il tasso è positivo e il saldo iniziale è
-positivo, il saldo aumenta di anno in anno e supera infine
-la soglia: il ciclo termina. Il minimo \(n\) cercato è
+risultato. Con i valori fissati nell'esempio, il saldo cresce fino a
+raggiungere la soglia: il ciclo termina. Il minimo \(n\) cercato è
 \(15\), poiché \(1{,}05^{14}<2\) e \(1{,}05^{15}>2\).
 
 La conclusione dipende dalle ipotesi: con tasso nullo e
@@ -582,7 +573,7 @@ Il corpo di un ciclo può contenere un altro ciclo. In generale,
 per ogni iterazione del ciclo esterno, il ciclo interno riparte
 dalle proprie condizioni iniziali e può eseguire più iterazioni.
 Il numero complessivo di operazioni dipende da entrambi i cicli;
-per la relativa analisi si applica il modello di costo della
+per la relativa analisi si applica il modello di costo del
 \cref{chap:complessita}.
 
 Per esempio, un ciclo esterno può selezionare tre righe e un ciclo
@@ -717,14 +708,13 @@ sarebbe necessario se si utilizza la formattazione disponibile.
 \subsection{Errori di controllo e leggibilità}
 \label{sec:fi-java-cicli-errori}
 
-Gli \emph{errori per scarto di uno} derivano frequentemente da
-una condizione finale scelta in modo sbagliato. Se gli indici
-validi di una stringa sono \(0,\ldots,n-1\), il ciclo naturale è
-\texttt{for (int i = 0; i < s.length(); i++)}; utilizzare
-\texttt{i <= s.length()} provocherebbe un accesso oltre la fine.
-Analogamente, nel problema dell'investimento si verifica
-\texttt{balance < target} perché il raggiungimento esatto della
-soglia deve terminare il ciclo.
+Gli \emph{errori per scarto di uno} dipendono spesso
+dal limite del ciclo. Per una stringa con indici
+\(0,\ldots,n-1\), si usa la condizione
+\texttt{i < s.length()} con incremento \texttt{i++};
+\texttt{i <= s.length()} porterebbe oltre l'ultimo indice.
+Nell'investimento, invece, \texttt{balance < target}
+termina il ciclo anche quando la soglia è raggiunta esattamente.
 
 Il seguente ciclo è valido e ha un corpo vuoto:
 \begin{unipdcode}[language=Java]
@@ -750,11 +740,11 @@ non sostituiscono il ragionamento sulla terminazione.
 \section{Metodi e variabili statiche}
 \label{sec:fi-java-cicli-static}
 
-In una classe Java i membri non statici appartengono alle
-singole istanze, mentre quelli dichiarati con \texttt{static}
-appartengono alla classe. La differenza non riguarda soltanto
-la sintassi di invocazione, ma anche la presenza o meno di uno
-stato specifico dell'oggetto ricevente.
+Il metodo \texttt{main}, incontrato fin dal primo programma
+(\cref{sec:fi-java-primo-programma}), è dichiarato
+\texttt{static}: appartiene alla classe, non a un suo oggetto.
+In generale, i membri statici sono associati alla classe,
+quelli non statici alle singole istanze.
 
 \subsection{Metodi statici e parametro implicito}
 \label{sec:fi-java-cicli-metodi-statici}
@@ -833,8 +823,6 @@ riguarda le regole di visibilità dei nomi, il secondo l'esecuzione.
 Per una variabile di tipo riferimento, inoltre, il ciclo di vita
 non coincide necessariamente con quello dell'oggetto referenziato.
 
-\clearpage
-
 \begin{table}[htbp]
 \centering
 \small
@@ -893,21 +881,15 @@ La raccolta non avviene necessariamente subito dopo la perdita
 dell'ultimo riferimento, e neppure la chiamata
 \texttt{System.gc()} garantisce una raccolta immediata.
 
-La scelta del meccanismo di raccolta influenza due caratteristiche
-dell'esecuzione: il \emph{throughput}, cioè la quantità di lavoro
-completata nell'unità di tempo, e la \emph{latenza}, cioè il tempo
-richiesto da una singola operazione o pausa. Fra i raccoglitori
-disponibili in diverse versioni e distribuzioni della JVM vi sono
-\emph{Serial GC} (che esegue la raccolta mediante un solo thread), \emph{Parallel GC} (orientato al throughput),
-\emph{G1} (compromesso fra lavoro e pause), \emph{ZGC} e
-\emph{Shenandoah} (progettati per ridurre le pause). Nelle
-versioni comuni di HotSpot, G1 è il raccoglitore predefinito a
-partire da Java 9 e può essere richiesto con
-\texttt{-XX:+UseG1GC}; il precedente CMS è stato rimosso
-in Java 14. Disponibilità e comportamento dipendono comunque
-dalla versione e dalla distribuzione impiegate. Nessun
-raccoglitore elimina la necessità di evitare riferimenti
-inutilmente mantenuti a oggetti non più necessari.
+I raccoglitori differiscono nel compromesso tra
+\emph{throughput} (lavoro svolto nell'unità di tempo) e
+\emph{latenza} (durata delle pause). \emph{Serial GC},
+\emph{Parallel GC}, \emph{G1}, \emph{ZGC} e
+\emph{Shenandoah} adottano strategie differenti; in HotSpot,
+G1 è predefinito da Java 9, mentre CMS è stato rimosso in
+Java 14. La disponibilità dipende dalla distribuzione e dalla
+versione della JVM. Il GC non recupera gli oggetti ancora
+raggiungibili a causa di riferimenti inutilmente conservati.
 
 \clearpage
 
@@ -924,11 +906,10 @@ dal linguaggio, qualificandolo con un riferimento a un oggetto,
 se è un membro di istanza, oppure con il nome della classe,
 se è statico.
 
-All'interno di un metodo di istanza, i nomi dei campi e dei metodi
-di istanza possono essere utilizzati senza specificare
-\texttt{this}; quelli statici possono essere qualificati con il
-nome della classe. Per accedere a un campo nascosto da un nome locale, per esempio
-da un parametro, occorre invece qualificare il riferimento.
+In un metodo di istanza, i membri possono essere richiamati
+senza \texttt{this} e quelli statici possono essere qualificati
+con il nome della classe. Se un parametro o una variabile locale
+nasconde un campo, occorre invece qualificare il riferimento.
 
 \begin{definition}[Shadowing]
 \label{def:fi-java-cicli-shadowing}

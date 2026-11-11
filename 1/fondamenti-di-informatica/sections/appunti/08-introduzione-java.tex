@@ -61,18 +61,12 @@ nuova compilazione, purché siano disponibili una JVM compatibile
 e le risorse richieste dal programma. La portabilità non
 implica pertanto l'indipendenza completa dall'ambiente.
 
-La distinzione tra compilazione e interpretazione, introdotta
-nella \cref{sec:fi-linguaggi-esecuzione}, non identifica due
-modalità necessariamente esclusive. Java prevede normalmente
-una compilazione esplicita del sorgente in bytecode, seguita
-dall'esecuzione mediante JVM, eventualmente con compilazione
-JIT. Anche CPython traduce il sorgente in bytecode prima di
-eseguirlo mediante una macchina virtuale, ma questa fase è
-generalmente gestita in modo automatico
+Compilazione e interpretazione non sono modalità esclusive
+(\cref{sec:fi-linguaggi-esecuzione}): Java compila esplicitamente
+il sorgente in bytecode, mentre CPython gestisce normalmente
+questa traduzione in modo automatico
 (\cref{sec:fi-python-esecuzione}). In entrambi i casi,
-l'esecuzione dipende dall'implementazione e dall'ambiente,
-senza garantire una superiorità generale in termini di
-prestazioni.
+le prestazioni dipendono dall'implementazione e dall'ambiente.
 
 \clearpage
 
@@ -257,14 +251,10 @@ la prima causa segnalata.
   \label{fig:fi-java-ciclo-sviluppo}
 \end{figure}
 
-Il lavoro di programmazione procede attraverso il ciclo
-\emph{modifica--compila--collauda}, illustrato nella
-\cref{fig:fi-java-ciclo-sviluppo}. Dopo la modifica del sorgente,
-si ricompila e si esegue il programma per verificarne il
-comportamento. Gli errori individuati richiedono ulteriori
-modifiche, ripetendo il procedimento. Il superamento della
-compilazione non dimostra la correttezza del programma rispetto
-alla specifica del problema.
+Il ciclo \emph{modifica--compila--collauda}
+(\cref{fig:fi-java-ciclo-sviluppo}) ripete compilazione e prove
+dopo ogni modifica del sorgente. Superare la compilazione non
+dimostra la correttezza rispetto alla specifica del problema.
 
 \section{Variabili e tipi di dato}
 \label{sec:fi-java-variabili}

@@ -183,12 +183,9 @@ System.out.println(massimo + 1);
 System.out.println(Math.addExact(massimo, 1));
 \end{unipdcode}
 
-La prima operazione produce \texttt{-2147483648} senza
-segnalare errori.
-
-La seconda, invece, genera
-\texttt{ArithmeticException} e, se non gestita, interrompe l'esecuzione,
-poiché il risultato supera il massimo valore rappresentabile:
+La prima operazione produce \texttt{-2147483648}; la seconda
+genera \texttt{ArithmeticException} e, se non gestita,
+interrompe l'esecuzione:
 
 \begin{unipdterminal}
 -2147483648

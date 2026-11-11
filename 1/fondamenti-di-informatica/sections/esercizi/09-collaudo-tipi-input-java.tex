@@ -89,7 +89,7 @@ rispettivamente addizione e moltiplicazione di interi, sollevando
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-arithmetic-exception}
-Quali operazioni aritmetiche tra interi possono generare una
+Quali operazioni aritmetiche tra interi possono generare un'eccezione
 \texttt{ArithmeticException}?
 \end{exercise}
 
@@ -132,7 +132,7 @@ bisogna aggiungere la lettera \texttt{f}?
 \end{exercise}
 
 Un letterale decimale senza suffisso è di tipo \texttt{double}, la cui
-conversione a \texttt{float} richiede generalmente un cast esplicito.
+conversione a \texttt{float} richiede un cast esplicito.
 Il suffisso \texttt{f} specifica direttamente un letterale
 \texttt{float}, come in \texttt{float x = 30.2f;}
 (\cref{sec:fi-java-precisione,sec:fi-java-conversioni}).
@@ -267,6 +267,9 @@ escluso. Per una stringa di lunghezza \(n\) si richiede
 \(0\le\texttt{startIndex}\le\texttt{endIndex}\le n\);
 la lunghezza della sottostringa è la differenza dei due indici
 (\cref{sec:fi-java-substring}).
+Nell'implementazione standard della JDK, se
+\(\texttt{startIndex}=0\) e \(\texttt{endIndex}=n\),
+viene restituito lo stesso oggetto \texttt{String}.
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-string-index-exception}

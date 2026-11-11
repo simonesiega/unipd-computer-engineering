@@ -2,29 +2,21 @@
 \label{chap:realizzazione-classi-java}
 
 Nei \cref{chap:introduzione-java,chap:collaudo-tipi-input-java}
-sono state utilizzate classi già disponibili, conoscendone i
-costruttori e i metodi pubblici. Per realizzare una nuova classe
-occorre invece individuare le operazioni che deve offrire, stabilire
-quali dati ne descrivano lo stato e scrivere il codice che ne realizza
-il comportamento. La distinzione fra interfaccia e implementazione,
-introdotta per i tipi di dato astratti nella \cref{sec:fi-adt-strutture},
-assume così una forma concreta nel linguaggio Java. Il procedimento
-verrà sviluppato attraverso una classe che rappresenta un conto
-bancario.\footnote{Materiale didattico di riferimento: S. Canazza,
+sono state utilizzate classi già disponibili. Per realizzarne una
+occorre definirne operazioni, stato e comportamento, distinguendo
+interfaccia e implementazione come per gli ADT
+(\cref{sec:fi-adt-strutture}). Si utilizzerà come modello
+una classe per la gestione di un conto bancario.\footnote{Materiale di riferimento: S. Canazza,
 \emph{Realizzare classi}, \nolinkurl{2026_FI_09_canazza_Java_RealizzareClassi.pdf}.}
 
 \section{Astrazione e approccio black-box}
 \label{sec:fi-java-classi-black-box}
 
-L'\emph{approccio black-box}, o a scatola nera, consiste
-nell'utilizzare un componente conoscendone le operazioni disponibili
-e i risultati attesi, senza doverne conoscere il funzionamento
-interno. Chi guida un'automobile, per esempio, deve sapere come
-utilizzarne i comandi, ma non necessariamente come siano realizzati
-i suoi componenti elettronici. Lo stesso principio si applica alla
-programmazione orientata agli oggetti: un programma può utilizzare
-un oggetto invocandone i metodi, indipendentemente dalle istruzioni
-che ne realizzano le operazioni.
+L'\emph{approccio black-box}, o a scatola nera, consente di
+utilizzare un componente conoscendone le operazioni e i risultati
+attesi, senza esaminarne la realizzazione interna. Analogamente,
+un programma utilizza un oggetto attraverso i suoi metodi,
+indipendentemente dal codice che li implementa.
 
 \begin{definition}[Astrazione]
 \label{def:fi-java-classi-astrazione}
@@ -70,13 +62,13 @@ sono il versamento di una somma, il prelievo e la consultazione del
 saldo. Le operazioni possono essere descritte schematicamente mediante
 le seguenti dichiarazioni, che ne omettono il corpo:
 
-\clearpage
-
 \begin{unipdcode}[language=Java]
 public void deposit(double amount);
 public void withdraw(double amount);
 public double getBalance();
 \end{unipdcode}
+
+\clearpage
 
 Le dichiarazioni riportate descrivono le operazioni disponibili,
 ma non costituiscono una definizione completa dei metodi in una
@@ -102,9 +94,8 @@ tecnicamente possibili sui dati, ma soltanto quelle previste
 dal modello. Per esempio, conoscere il saldo di un conto non
 implica poterlo impostare arbitrariamente.
 
-Il comportamento di ciascun metodo deve pertanto essere
-specificato con sufficiente precisione da permetterne
-l'utilizzo e il collaudo senza esaminarne il codice.
+La specifica dei metodi deve consentirne l'uso e il collaudo
+senza richiederne il codice.
 
 \subsection{Intestazione, corpo e firma di un metodo}
 \label{sec:fi-java-classi-firma}
@@ -482,7 +473,7 @@ Saldo dopo due anni: 11025.0
 
 Il risultato finale corrisponde alla capitalizzazione composta:
 \[
-  10\,000(1+0.05)^2=11\,025.
+  10\,000(1+0{,}05)^2=11\,025.
 \]
 Un collaudo completo rispetto al comportamento dichiarato
 deve verificare anche la costruzione senza argomenti, i
@@ -570,21 +561,16 @@ public static int somma(int a, int b) {
     return Math.addExact(a, b);
 }
 \end{unipdcode}
-Il metodo è statico: può essere invocato tramite il nome
-della classe, senza creare un oggetto, come già visto
-nella \cref{sec:fi-java-math}. Il commento descrive il
-contratto del metodo, compresa l'eccezione.
+Il metodo è statico (\cref{sec:fi-java-math}); il commento
+ne documenta il contratto, compresa l'eccezione.
 \end{example}
 
-I tag \lstinline|{@inheritDoc}| e \texttt{@hidden}
-permettono rispettivamente di richiamare documentazione
-ereditata e di escludere un elemento dalla documentazione
-generata, quando applicabili. Le annotazioni Java
-\texttt{@Deprecated} e \texttt{@Override} non sono tag
-JavaDoc: appartengono alla sintassi del linguaggio e hanno
-funzioni distinte da quelle dei commenti. Dopo aver aggiunto i commenti JavaDoc al file
-\texttt{BankAccount.java}, il comando
-\texttt{javadoc -d docs BankAccount.java} può generare
+I tag \lstinline|{@inheritDoc}| e \texttt{@hidden} permettono,
+quando applicabili, di riutilizzare documentazione ereditata o
+escludere elementi dalla documentazione generata. Le annotazioni
+\texttt{@Deprecated} e \texttt{@Override} appartengono invece
+al linguaggio Java, non ai commenti JavaDoc.
+Il comando \texttt{javadoc -d docs BankAccount.java} genera
 la documentazione HTML nella directory \texttt{docs}.
 
 Nel progetto di una classe conviene quindi procedere

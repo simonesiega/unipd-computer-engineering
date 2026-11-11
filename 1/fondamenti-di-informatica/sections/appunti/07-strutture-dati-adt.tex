@@ -85,7 +85,8 @@ il singolo ridimensionamento costa \(\Theta(n)\).
 
 Se la capacità viene aumentata di un fattore costante maggiore di
 uno, il costo dei ridimensionamenti può essere distribuito fra
-gli inserimenti. Nel caso di raddoppio, il costo complessivo delle
+gli inserimenti. Nel caso di raddoppio, partendo da un array vuoto con
+capacità iniziale costante, il costo complessivo delle
 copie su \(m\ge1\) inserimenti in coda è limitato dalla somma
 geometrica
 \[
@@ -238,11 +239,9 @@ specificato dall'interfaccia.
 
 \begin{figure}[htbp]
   \begin{minipage}[c]{0.54\textwidth}
-    La \cref{fig:fi-pila} mostra una pila contenente tre elementi.
-    L'unica estremità accessibile è la cima, sulla quale agiscono
-    \texttt{push}, \texttt{pop} e \texttt{top}. L'ultimo elemento
-    inserito è quindi il primo che può essere rimosso, secondo la
-    politica LIFO.
+    Nella \cref{fig:fi-pila}, \texttt{push}, \texttt{pop} e
+    \texttt{top} agiscono sulla cima: fra i tre elementi presenti,
+    l'ultimo inserito sarà il primo a essere rimosso.
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.40\textwidth}
@@ -303,10 +302,8 @@ in caso contrario deve essere specificato dall'interfaccia.
 
 \begin{figure}[htbp]
   \begin{minipage}[c]{0.54\textwidth}
-    La \cref{fig:fi-coda} mostra una coda contenente tre elementi.
-    Gli inserimenti avvengono in fondo e le rimozioni all'inizio:
-    il primo elemento inserito è quindi il primo che può essere
-    rimosso, secondo la politica FIFO.
+    La \cref{fig:fi-coda} mostra che, fra i tre elementi presenti,
+    quello inserito per primo è il prossimo a essere rimosso.
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.40\textwidth}

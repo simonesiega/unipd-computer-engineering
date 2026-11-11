@@ -77,7 +77,7 @@
   - 8.3 Uscita standard — p. 60
   - 8.4 Errori e ciclo di sviluppo — p. 61
   - 8.5 Variabili e tipi di dato — p. 61
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 63
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 62
   - 8.7 Variabili oggetto e riferimenti — p. 63
 - 9 Collaudo, tipi di dato e input in Java — p. 65
   - 9.1 Programmi di collaudo e pacchetti — p. 65
@@ -116,8 +116,8 @@
 - 5 Esercizi: Complessità computazionale — p. 118
 - 6 Esercizi: Ricerca e ordinamento — p. 122
 - 7 Esercizi: Strutture dati e tipi di dato astratti — p. 127
-- 8 Esercizi: Introduzione a Java — p. 138
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 144
-- 10 Esercizi: Realizzazione di classi in Java — p. 147
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 149
+- 8 Esercizi: Introduzione a Java — p. 139
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 145
+- 10 Esercizi: Realizzazione di classi in Java — p. 148
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 150
 <!-- GENERATED:END -->
