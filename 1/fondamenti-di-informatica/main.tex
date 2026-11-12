@@ -21,8 +21,44 @@
 \setcounter{tocdepth}{1}
 
 \begin{document}
-\makecoursefrontmatter
+
+\makecoursecover
+
+\hypersetup{pageanchor=false}
+\thispagestyle{empty}
+\vspace*{\fill}
+
+\begin{center}
+\begin{minipage}{0.72\textwidth}
+\centering
+
+{\large\bfseries Nota alla lettura\par}
+
+\vspace{1.5em}
+
+Questi appunti si rivolgono principalmente a lettori
+che possiedono già conoscenze di base dell'informatica
+e della programmazione. Alcuni concetti possono pertanto
+essere dati per noti oppure introdotti prima di essere
+approfonditi nelle sezioni successive.
+
+\par\vspace{1em}
+
+La trattazione mantiene comunque un linguaggio accessibile
+e non richiede necessariamente tali conoscenze preliminari,
+sebbene la loro assenza possa rendere necessari alcuni
+approfondimenti autonomi.
+
+\end{minipage}
+\end{center}
+
+\vspace*{\fill}
+\clearpage
+\hypersetup{pageanchor=true}
+
+\makecoursetableofcontents
 \makecoursemainmatter
+
 
 \input{sections/appunti/01-introduzione-informatica}
 \input{sections/appunti/02-rappresentazione-informazioni}
@@ -34,6 +70,7 @@
 \input{sections/appunti/08-introduzione-java}
 \input{sections/appunti/09-collaudo-tipi-input-java}
 \input{sections/appunti/10-realizzazione-classi-java}
+\input{sections/appunti/11-confronti-cicli-java}
 
 \addtocontents{toc}{\protect\addchap*{Indice degli esercizi}}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
@@ -50,6 +87,8 @@
 \input{sections/esercizi/07-strutture-dati-adt}
 \input{sections/esercizi/08-introduzione-java}
 \input{sections/esercizi/09-collaudo-tipi-input-java}
+\input{sections/esercizi/10-realizzazione-classi-java}
+\input{sections/esercizi/11-confronti-cicli-java}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \end{document}

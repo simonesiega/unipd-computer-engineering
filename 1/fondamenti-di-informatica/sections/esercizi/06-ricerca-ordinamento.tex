@@ -99,7 +99,7 @@ mentre altri algoritmi, come MergeSort, richiedono
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricerca-ordinamento-confronto-algoritmi}
-A cosa serve confrontare algoritmi diversi che risolvono
+A che cosa serve confrontare algoritmi diversi che risolvono
 lo stesso problema di ordinamento?
 \end{exercise}
 
@@ -206,8 +206,10 @@ hanno complessità \(O(n^2)\)?
 MergeSort esegue \(\Theta(n)\) lavoro per ciascuno dei
 \(\Theta(\log n)\) livelli di suddivisione, ottenendo
 \(\Theta(n\log n)\). Selection Sort effettua sempre
-\(n(n-1)/2\) confronti; Insertion Sort, nei casi medio e
-peggiore, richiede un numero quadratico di spostamenti.
+\(n(n-1)/2\) confronti; Insertion Sort richiede un numero quadratico
+di spostamenti nel caso peggiore e, assumendo permutazioni
+equiprobabili di elementi
+distinti, anche nel caso medio.
 Queste sono stime precise in \(\Theta\), oltre che limiti
 superiori in \(O\)
 (\cref{sec:fi-ordinamento-fusione,sec:fi-ordinamento-selezione,sec:fi-ordinamento-inserimento}).
@@ -290,6 +292,8 @@ inserire \texttt{temp}, mantenendo l'ordine crescente.
 Gli elementi uguali non vengono spostati, secondo il confronto
 stretto dell'implementazione
 (\cref{sec:fi-ordinamento-inserimento}).
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricerca-ordinamento-inserimento-ciclo-interno}

@@ -308,7 +308,8 @@ def conto_rovescia(n):
     return conto_rovescia(n - 1)
 \end{unipdcode}
 
-La misura \(n\) diminuisce di uno a ogni chiamata e raggiunge zero;
-per \(n=3\) vengono stampati \(3,2,1,0\), uno per riga.
-La funzione restituisce \texttt{None} e la chiamata ricorsiva
-è in coda secondo la \cref{sec:fi-ricorsione-coda}.
+Per \(n=3\) vengono stampati \(3,2,1,0\), uno per riga:
+la misura \(n\) raggiunge il caso base. A differenza della
+funzione precedente, questa produce output anziché un valore;
+restituisce \texttt{None} e la chiamata è in coda
+(\cref{sec:fi-ricorsione-coda}).

@@ -1,12 +1,16 @@
 \begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
-  \node[anchor=east,font=\small] at (-2.2,1.7) {Pila};
-  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (a) at (0,0) {10};
-  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (b) at (0,0.8) {20};
-  \node[unipd/node,minimum width=1.5cm,minimum height=.75cm] (c) at (0,1.6) {30};
-  \node[font=\scriptsize] (toplabel) at (2.0,1.6) {\texttt{top}};
-  \draw[unipd/directed edge] (toplabel.west) -- (c.east);
-  \node[font=\scriptsize] at (0,-0.65) {fondo};
-  \node[font=\scriptsize] at (2.15,2.2) {\texttt{push(e)}};
-  \node[font=\scriptsize] at (2.15,1.0) {\texttt{pop()}};
-  \node[font=\scriptsize] at (2.15,0.4) {\texttt{top()}};
+  \foreach \y/\v/\id in {0/10/a,0.75/20/b,1.5/30/c} {
+    \node[unipd/node,minimum width=.85cm,
+      minimum height=.65cm] (\id) at (0,\y) {\v};
+  }
+
+  \node[font=\scriptsize] at (0,2.05) {cima};
+  \node[font=\scriptsize] at (0,-.55) {base};
+
+  \draw[unipd/directed edge]
+    (c.east) -- ++(1.3,0)
+    node[midway,above=3pt,font=\scriptsize]
+      {\texttt{push(e)}}
+    node[midway,below=3pt,font=\scriptsize]
+      {\texttt{pop()}};
 \end{tikzpicture}

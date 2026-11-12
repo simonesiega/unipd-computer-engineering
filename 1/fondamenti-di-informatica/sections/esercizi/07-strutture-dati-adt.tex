@@ -118,7 +118,7 @@ inserimenti è \(\Theta(m)\), dunque il costo ammortizzato è \(\Theta(1)\)
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-array-inserimento-intermedio}
-Perché l'inserimento in posizione intermedia di un array può richiedere \(O(n)\)
+Perché l'inserimento in posizione intermedia di un array dinamico può richiedere \(O(n)\)
 tempo?
 \end{exercise}
 
@@ -212,12 +212,13 @@ calcolare direttamente l'indirizzo di un nodo dal suo indice
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-linked-accesso-indice}
 Perché l'accesso all'elemento in posizione \(i\) di una \emph{singly linked
-list} ha complessità \(O(i)\)?
+list} ha complessità \(\Theta(i+1)\)?
 \end{exercise}
 
 Dalla testa occorre seguire \(i\) collegamenti per raggiungere il nodo
-desiderato. Contando anche l'accesso iniziale, il costo è \(\Theta(i+1)\),
-dunque \(O(i)\) per \(i\ge1\); per \(i=0\) è costante
+desiderato, contando anche l'accesso iniziale. Il costo è
+\(\Theta(i+1)\): è costante per \(i=0\) e cresce linearmente con
+\(i\) per \(i\ge1\)
 (\cref{sec:fi-liste-concatenate}).
 
 \begin{exercise}
@@ -311,8 +312,9 @@ Descrivi il significato delle operazioni \texttt{push(e)}, \texttt{pop()},
 \texttt{top()}, \texttt{is\_empty()} e \texttt{size()}.
 \end{exercise}
 
-\texttt{push(e)} inserisce \(e\) in cima; \texttt{pop()} la rimuove e
-restituisce; \texttt{top()} la consulta senza rimuoverla. \texttt{is\_empty()}
+\texttt{push(e)} inserisce \(e\) in cima; \texttt{pop()} rimuove e
+restituisce l'elemento in cima; \texttt{top()} lo consulta senza rimuoverlo.
+\texttt{is\_empty()}
 verifica se la pila è vuota e \texttt{size()} restituisce il numero di elementi.
 \texttt{pop()} e \texttt{top()} richiedono una pila non vuota
 (\cref{sec:fi-adt-pila}).
@@ -347,6 +349,8 @@ incrementa, mentre \texttt{pop()} restituisce l'ultima cella occupata e lo
 decrementa. \texttt{top()} legge la cella senza modificarla
 (\cref{sec:fi-adt-pila-implementazione-array}).
 
+\clearpage
+
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-push-resize}
 Perché \texttt{push(e)} in uno \emph{stack array-based} può occasionalmente
@@ -379,18 +383,18 @@ list}?
 Si fa coincidere la cima con \texttt{head}: \texttt{push(e)} inserisce un nodo
 in testa, \texttt{pop()} rimuove la testa e \texttt{top()} ne legge l'elemento.
 Tutte queste operazioni hanno costo \(\Theta(1)\)
-(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate-operazioni}).
+(\cref{sec:fi-adt-pila,sec:fi-liste-concatenate-operazioni}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-head-come-top}
-Perché, in uno \emph{linked-list-based stack}, conviene usare la \emph{head}
-come \emph{top} dello stack?
+Perché, in uno stack basato su lista concatenata, conviene usare
+\emph{head} come \emph{top}?
 \end{exercise}
 
 Inserimento, rimozione e lettura in testa richiedono \(\Theta(1)\) e non
 richiedono di conoscere il predecessore. Usando la coda di una lista semplice,
 la rimozione dell'ultimo nodo richiederebbe invece una ricerca
-(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-pila-implementazione-array}).
+(\cref{sec:fi-liste-concatenate-operazioni,sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-linked-costi}
@@ -400,8 +404,7 @@ implementation}?
 
 \texttt{push(e)}, \texttt{pop()}, \texttt{top()} e \texttt{is\_empty()} sono
 \(\Theta(1)\) con la cima in \texttt{head}. Anche \texttt{size()} è
-\(\Theta(1)\) se si mantiene un contatore aggiornato
-(\cref{sec:fi-adt-pila-implementazione-array}).
+\(\Theta(1)\) se si mantiene un contatore aggiornato (\cref{sec:fi-adt-pila,sec:fi-liste-concatenate}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-size-lineare}
@@ -411,8 +414,7 @@ mantiene una variabile aggiuntiva?
 
 Senza un contatore, per conoscere la lunghezza è necessario attraversare tutti
 gli \(n\) nodi. Il costo è \(\Theta(n)\); un contatore mantenuto dalle
-operazioni di modifica lo riduce a \(\Theta(1)\)
-(\cref{sec:fi-adt-pila-implementazione-array}).
+operazioni di modifica lo riduce a \(\Theta(1)\) (\cref{sec:fi-liste-concatenate,sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-array-vs-linked}
@@ -425,7 +427,7 @@ richiedere \(\Theta(n)\) durante un ridimensionamento; con lista concatenata,
 \texttt{push()} e \texttt{pop()} sono \(\Theta(1)\) senza copie. L'array offre
 migliore località spaziale, mentre i nodi richiedono riferimenti aggiuntivi;
 entrambe le soluzioni realizzano lo stesso ADT
-(\cref{sec:fi-adt-pila-implementazione-array,sec:fi-liste-concatenate}).
+(\cref{sec:fi-adt-pila,sec:fi-array-dinamici,sec:fi-liste-concatenate}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-queue-definizione}
@@ -434,6 +436,8 @@ Che cos'è una \emph{queue ADT}?
 
 È una coda, ossia un ADT che inserisce elementi in fondo e li rimuove
 dall'inizio, mantenendo l'ordine di arrivo (\cref{def:fi-adt-coda}).
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-queue-fifo}
@@ -548,10 +552,11 @@ Perché in una \emph{linked-list-based queue} è utile mantenere sia \emph{head}
 sia \emph{tail}?
 \end{exercise}
 
-\texttt{head} rende costante la rimozione del primo nodo; \texttt{tail} rende
-costante l'inserimento in fondo. Senza uno dei due riferimenti, l'operazione
-corrispondente può richiedere un attraversamento
-(\cref{sec:fi-coda-concatenata}).
+\texttt{head} consente di individuare il primo nodo per \texttt{dequeue()},
+mentre \texttt{tail} permette \texttt{enqueue(e)} in \(\Theta(1)\). Senza
+\texttt{tail}, l'inserimento in fondo richiede un attraversamento;
+dal solo \texttt{tail} di una lista semplice non si può raggiungere
+la testa (\cref{sec:fi-coda-concatenata}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-queue-senza-tail}
@@ -605,6 +610,8 @@ Le operazioni di inserimento aggiungono \(e\) rispettivamente all'inizio
 Le operazioni di rimozione restituiscono l'elemento iniziale
 (\texttt{delete\_first()}) o finale (\texttt{delete\_last()}), eliminandolo
 dalla deque. Richiedono una deque non vuota (\cref{sec:fi-adt-deque}).
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-deque-traccia}
@@ -694,8 +701,9 @@ Descrivi il significato delle operazioni \texttt{get(i)}, \texttt{set(i,e)},
 \end{exercise}
 
 \texttt{get(i)} legge l'elemento \(i\); \texttt{set(i,e)} lo sostituisce con
-\(e\); \texttt{add(i,e)} inserisce \(e\) alla posizione \(i\), spostando le
-successive. \texttt{append(e)} aggiunge in fondo e \texttt{remove(i)} rimuove e
+\(e\); \texttt{add(i,e)} inserisce \(e\) alla posizione \(i\), facendo avanzare gli
+indici degli elementi successivi. \texttt{append(e)} aggiunge in fondo
+e \texttt{remove(i)} rimuove e
 restituisce l'elemento di indice \(i\) (\cref{sec:fi-adt-lista}).
 
 \begin{exercise}
@@ -704,11 +712,10 @@ Qual è la differenza tra \texttt{append(e)} e \texttt{add(i,e)}?
 \end{exercise}
 
 \texttt{append(e)} inserisce sempre in fondo, ossia nella posizione \(n\).
-\texttt{add(i,e)} permette di scegliere una posizione \(0\le i\le n\) e sposta
-gli elementi successivi: l'inserimento in fondo è il caso \(i=n\)
+\texttt{add(i,e)} permette di scegliere una posizione \(0\le i\le n\) e fa
+avanzare gli indici degli elementi successivi: l'inserimento in
+fondo è il caso \(i=n\)
 (\cref{sec:fi-adt-lista}).
-
-\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-list-traccia}

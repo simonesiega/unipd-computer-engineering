@@ -1,0 +1,22 @@
+\begin{unipdcode}[language=Java]
+public class ContoNumerato {
+    private static int lastAssignedNumber = 0;
+    private final int accountNumber;
+
+    public ContoNumerato() {
+        lastAssignedNumber++;
+        accountNumber = lastAssignedNumber;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public static void main(String[] args) {
+        ContoNumerato a = new ContoNumerato();
+        ContoNumerato b = new ContoNumerato();
+        System.out.println(a.getAccountNumber()); // 1
+        System.out.println(b.getAccountNumber()); // 2
+    }
+}
+\end{unipdcode}

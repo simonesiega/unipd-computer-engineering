@@ -122,10 +122,11 @@ Per esempio, con otto bit si rappresentano gli interi da \(0\) a
 Come funziona la rappresentazione modulo e segno?
 \end{exercise}
 
-Il bit più significativo indica il segno: \(0\) per i valori
-non negativi e \(1\) per quelli negativi. I restanti \(n-1\) bit
-rappresentano il modulo del numero, che assume quindi valore
-\((-1)^sM\). Il formato richiede almeno due bit
+Il bit più significativo indica il segno: \(0\) per il segno
+positivo e \(1\) per quello negativo. I restanti \(n-1\) bit
+rappresentano il modulo \(M\), per un valore \((-1)^sM\).
+La rappresentazione ammette due codifiche dello zero e richiede
+almeno due bit
 (\cref{sec:fi-interi-rappresentazione}).
 
 \begin{exercise}

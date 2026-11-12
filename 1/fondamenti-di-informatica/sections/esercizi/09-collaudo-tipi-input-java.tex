@@ -89,7 +89,7 @@ rispettivamente addizione e moltiplicazione di interi, sollevando
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-arithmetic-exception}
-Quali operazioni aritmetiche tra interi possono generare una
+Quali operazioni aritmetiche tra interi possono generare un'eccezione
 \texttt{ArithmeticException}?
 \end{exercise}
 
@@ -132,7 +132,7 @@ bisogna aggiungere la lettera \texttt{f}?
 \end{exercise}
 
 Un letterale decimale senza suffisso è di tipo \texttt{double}, la cui
-conversione a \texttt{float} richiede generalmente un cast esplicito.
+conversione a \texttt{float} richiede un cast esplicito.
 Il suffisso \texttt{f} specifica direttamente un letterale
 \texttt{float}, come in \texttt{float x = 30.2f;}
 (\cref{sec:fi-java-precisione,sec:fi-java-conversioni}).
@@ -147,8 +147,8 @@ Che cosa rappresentano \texttt{NaN}, \texttt{POSITIVE\_INFINITY} e
 \texttt{0.0 / 0.0}; le altre due costanti rappresentano le
 infinità positiva e negativa, che possono derivare, per esempio,
 da una divisione in virgola mobile per zero. Sono valori speciali
-dei tipi \texttt{float} e \texttt{double}
-(\cref{sec:fi-java-overflow,tab:fi-valori-speciali}).
+dei tipi \texttt{float} e \texttt{double}, disponibili come costanti delle classi \texttt{Float} e
+\texttt{Double} (\cref{sec:fi-java-overflow,tab:fi-valori-speciali}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-cast-435}
@@ -254,7 +254,7 @@ Un metodo statico appartiene alla classe ed è invocabile senza
 crearne un'istanza, come \texttt{Math.round()}. Invece,
 \texttt{println()} è un metodo dell'oggetto cui si riferisce
 \texttt{System.out}, un campo statico della classe \texttt{System}
-(\cref{sec:fi-java-math,sec:fi-java-invocazione-metodi}).
+(\cref{sec:fi-java-math,sec:fi-java-cicli-metodi-statici,sec:fi-java-invocazione-metodi}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-substring}
@@ -267,6 +267,9 @@ escluso. Per una stringa di lunghezza \(n\) si richiede
 \(0\le\texttt{startIndex}\le\texttt{endIndex}\le n\);
 la lunghezza della sottostringa è la differenza dei due indici
 (\cref{sec:fi-java-substring}).
+Nell'implementazione standard della JDK, se
+\(\texttt{startIndex}=0\) e \(\texttt{endIndex}=n\),
+viene restituito lo stesso oggetto \texttt{String}.
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-collaudo-string-index-exception}

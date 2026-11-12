@@ -4,7 +4,7 @@
 Come anticipato nella \cref{sec:fi-informatica-calcolo}, un elaboratore
 memorizza l'informazione mediante sequenze di bit. L'interpretazione
 di una sequenza dipende dalla codifica adottata: gli stessi bit possono
-rappresentare numeri, caratteri oppure altri dati.\footnote{Riferimento didattico:
+rappresentare numeri, caratteri oppure altri dati.\footnote{Materiale di riferimento:
 S. Canazza, \emph{Rappresentazione delle informazioni},
 \nolinkurl{2026_FI_01_canazza_RappresentazioneInformazioni.pdf}.}
 
@@ -13,8 +13,8 @@ S. Canazza, \emph{Rappresentazione delle informazioni},
 
 Nei sistemi di numerazione \emph{posizionali} il valore di una cifra dipende
 dalla sua posizione e dalla base. Il sistema decimale impiega le cifre da
-\(0\) a \(9\); quello binario le cifre \(0\) e \(1\). Si utilizza il punto come
-separatore della parte frazionaria e il pedice per indicare la base.
+\(0\) a \(9\); quello binario le cifre \(0\) e \(1\). Nelle scritture posizionali si usa il punto come separatore
+frazionario e il pedice per indicare la base.
 
 \begin{definition}[Valore posizionale]
 \label{def:fi-valore-posizionale}
@@ -32,6 +32,7 @@ Per \(m=0\) la seconda somma è nulla e il separatore si omette.
 \end{definition}
 
 \begin{example}[Pesi delle cifre decimali]
+Applicando il valore posizionale alle cifre decimali si ottiene
 \begin{align*}
   (753)_{10}&=7\cdot10^2+5\cdot10+3=753,\\
   (2048)_{10}&=2\cdot10^3+4\cdot10+8=2048,\\
@@ -48,6 +49,7 @@ logici. La conversione da binario a decimale si ottiene applicando la
 \cref{def:fi-valore-posizionale}.
 
 \begin{example}[Da binario a decimale]
+La somma dei pesi delle cifre binarie fornisce
 \begin{align*}
   (1101)_2&=2^3+2^2+1=13,\\
   (1.101)_2&=1+2^{-1}+2^{-3}=1.625.
@@ -74,6 +76,7 @@ quozienti si ricava
 Per \(N=0\) la rappresentazione è \(0\).
 
 \begin{example}[Conversione di cento]
+Applicando le divisioni successive a \(100\) si ottiene
 \begin{alignat*}{3}
   100&=2\cdot50+0, &\quad 50&=2\cdot25+0, &\quad25&=2\cdot12+1,\\
   12&=2\cdot6+0, & 6&=2\cdot3+0, & 3&=2\cdot1+1,\\
@@ -101,6 +104,7 @@ La conversione termina se \(f_t=0\); se una frazione residua si ripete,
 la sequenza di bit è periodica da quel punto.
 
 \begin{example}[Frazione binaria finita]
+La conversione di \(0.625\) richiede tre moltiplicazioni successive:
 \[
   0.625\cdot2=1+0.25,\qquad
   0.25\cdot2=0+0.5,\qquad
@@ -264,6 +268,8 @@ a sedici bit è
 \]
 La negazione di \(-2^{n-1}\) non è rappresentabile con \(n\)
 bit in complemento a due.
+
+\clearpage
 
 \section{Aritmetica intera e overflow}
 \label{sec:fi-aritmetica-overflow}
@@ -507,6 +513,7 @@ anziché \(435\). In binary32, invece, il prodotto arrotondato
 \end{example}
 
 \begin{example}[Allineamento degli esponenti e perdita di cifre]
+Allineando gli esponenti dei due addendi si ottiene
 \begin{align*}
   10.5+0.125
     &=(1.0101)_2\cdot2^3+(1.0)_2\cdot2^{-3}\\
@@ -535,6 +542,7 @@ partendo dal separatore: verso sinistra per la parte intera e verso
 destra per quella frazionaria.
 
 \begin{example}[Raggruppamento in base sedici]
+Raggruppando i bit in gruppi di quattro si ottiene
 \begin{align*}
   (0111\,1111)_2&=(\mathrm{7F})_{16}=127,\\
   (1011\,0110)_2&=(\mathrm{B6})_{16}=182,\\
@@ -553,6 +561,7 @@ destra per quella frazionaria.
 \clearpage
 
 \begin{example}[Raggruppamento in base otto]
+Raggruppando i bit in gruppi di tre si ottiene
 \begin{align*}
   (100010)_2&=(100\,010)_2=(42)_8=34,\\
   (11100010)_2&=(011\,100\,010)_2=(342)_8=226,\\

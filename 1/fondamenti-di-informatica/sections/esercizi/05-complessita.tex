@@ -17,7 +17,7 @@ misurazioni (\cref{sec:fi-complessita-sperimentale,sec:fi-complessita-modello}).
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-sperimentale-implementazione}
 Perché diciamo che l'analisi sperimentale misura le proprietà di
-una \emph{implementazione} e non dell'\emph{algoritmo} in quanto tale?
+un'\emph{implementazione} e non dell'\emph{algoritmo} in quanto tale?
 Elenca almeno tre fattori che influenzano i tempi misurati
 sperimentalmente.
 \end{exercise}
@@ -32,7 +32,7 @@ produrre tempi differenti (\cref{sec:fi-complessita-sperimentale}).
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-raddoppio}
 In un esperimento di scalabilità, perché conviene raddoppiare
-la dimensione dell'input a ogni prova invece di aumentarla
+la dimensione dell'ingresso a ogni prova invece di aumentarla
 di una quantità fissa?
 \end{exercise}
 
@@ -82,12 +82,11 @@ Perché l'invocazione di una funzione in generale non può essere
 considerata un'operazione primitiva?
 \end{exercise}
 
-Il costo complessivo di una chiamata comprende le operazioni
-eseguite nel corpo della funzione, il cui numero può dipendere
-dalla dimensione dell'ingresso. Per esempio, la costruzione
-di \lstinline|[0] * n| richiede tempo proporzionale a \(n\),
-anche se compare in una sola istruzione
-(\cref{sec:fi-complessita-modello}).
+Il costo di una chiamata comprende le operazioni svolte dalla
+funzione, che possono dipendere dalla dimensione dell'ingresso.
+Per esempio, \texttt{sorted(lista)} ordina gli elementi della lista:
+la sua invocazione non ha costo costante rispetto alla lunghezza
+dell'ingresso (\cref{sec:fi-complessita-modello}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-passi-contesto}

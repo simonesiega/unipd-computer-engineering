@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Java]
+public class TabellaPotenze {
+    public static void main(String[] args) {
+        for (int x = 1; x <= 4; x++) {
+            for (int y = 1; y <= 5; y++) {
+                int p = (int) Math.round(Math.pow(x, y));
+                System.out.printf("%6d", p);
+            }
+            System.out.println();
+        }
+    }
+}
+\end{unipdcode}

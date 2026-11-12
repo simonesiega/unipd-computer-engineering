@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Java]
+public class Numeric {
+    public static boolean approxEqual(double x, double y) {
+        final double ABS_TOL = 1E-14;
+        final double REL_TOL = 1E-14;
+        if (!Double.isFinite(x) || !Double.isFinite(y)) {
+            return false;
+        }
+        double scale = Math.max(Math.abs(x), Math.abs(y));
+        return Math.abs(x - y) <= ABS_TOL + REL_TOL * scale;
+    }
+}
+\end{unipdcode}

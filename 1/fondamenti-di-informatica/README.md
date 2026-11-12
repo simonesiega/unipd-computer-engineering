@@ -19,7 +19,7 @@
   - 2.2 Notazione binaria e conversioni — p. 10
   - 2.3 Numeri senza segno e modulo e segno — p. 12
   - 2.4 Complemento a due — p. 12
-  - 2.5 Aritmetica intera e overflow — p. 13
+  - 2.5 Aritmetica intera e overflow — p. 14
   - 2.6 Virgola fissa e virgola mobile — p. 14
   - 2.7 Precisione e arrotondamento — p. 16
   - 2.8 Notazione esadecimale e ottale — p. 17
@@ -27,11 +27,11 @@
 - 3 Introduzione a Python — p. 20
   - 3.1 Python e l'esecuzione dei programmi — p. 20
   - 3.2 Variabili, tipi di dato e ingresso/uscita — p. 20
-  - 3.3 Logica booleana e istruzioni condizionali — p. 21
-  - 3.4 Cicli e iterazioni — p. 22
+  - 3.3 Logica booleana e istruzioni condizionali — p. 22
+  - 3.4 Cicli e iterazioni — p. 23
   - 3.5 Liste — p. 24
-  - 3.6 Funzioni — p. 24
-  - 3.7 Gestione dei file di testo — p. 25
+  - 3.6 Funzioni — p. 25
+  - 3.7 Gestione dei file di testo — p. 26
 - 4 Ricorsione — p. 27
   - 4.1 Funzioni ricorsive e terminazione — p. 27
   - 4.2 Il fattoriale: iterazione e ricorsione — p. 27
@@ -54,11 +54,11 @@
 - 6 Ricerca e ordinamento — p. 41
   - 6.1 Ricerca lineare — p. 41
   - 6.2 Ricerca binaria — p. 41
-  - 6.3 Ricerca del massimo e del minimo — p. 42
+  - 6.3 Ricerca del massimo e del minimo — p. 43
   - 6.4 Ordinamento per selezione — p. 43
   - 6.5 Ordinamento per fusione — p. 44
   - 6.6 Ordinamento per inserimento — p. 46
-  - 6.7 Ordinamento rapido — p. 46
+  - 6.7 Ordinamento rapido — p. 47
   - 6.8 Ricorrenze e teorema maestro — p. 48
   - 6.9 Confronto degli algoritmi — p. 49
 - 7 Strutture dati e tipi di dato astratti — p. 50
@@ -77,26 +77,47 @@
   - 8.3 Uscita standard — p. 60
   - 8.4 Errori e ciclo di sviluppo — p. 61
   - 8.5 Variabili e tipi di dato — p. 61
-  - 8.6 Classi, oggetti e interfacce pubbliche — p. 63
+  - 8.6 Classi, oggetti e interfacce pubbliche — p. 62
   - 8.7 Variabili oggetto e riferimenti — p. 63
 - 9 Collaudo, tipi di dato e input in Java — p. 65
   - 9.1 Programmi di collaudo e pacchetti — p. 65
   - 9.2 Tipi fondamentali e rappresentazione numerica — p. 66
-  - 9.3 Conversioni numeriche e arrotondamento — p. 67
-  - 9.4 Costanti ed espressioni aritmetiche — p. 68
+  - 9.3 Conversioni numeriche e arrotondamento — p. 68
+  - 9.4 Costanti ed espressioni aritmetiche — p. 69
   - 9.5 La classe Math e i metodi statici — p. 70
   - 9.6 Stringhe e conversioni testuali — p. 70
-  - 9.7 Caratteri e sequenze di escape — p. 71
-  - 9.8 Formattazione dell'output — p. 72
-  - 9.9 L'ingresso standard con Scanner — p. 73
+  - 9.7 Caratteri e sequenze di escape — p. 72
+  - 9.8 Formattazione dell'output — p. 73
+  - 9.9 L'ingresso standard con Scanner — p. 74
 - 10 Realizzazione di classi in Java — p. 76
-- 1 Esercizi: Introduzione all'informatica — p. 77
-- 2 Esercizi: Rappresentazione delle informazioni — p. 80
-- 3 Esercizi: Introduzione a Python — p. 84
-- 4 Esercizi: Ricorsione — p. 88
-- 5 Esercizi: Complessità computazionale — p. 91
-- 6 Esercizi: Ricerca e ordinamento — p. 95
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 99
-- 8 Esercizi: Introduzione a Java — p. 110
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 116
+  - 10.1 Astrazione e approccio black-box — p. 76
+  - 10.2 Interfaccia pubblica e definizione dei metodi — p. 76
+  - 10.3 Costruttori e inizializzazione degli oggetti — p. 78
+  - 10.4 Sovraccarico dei metodi e dei costruttori — p. 79
+  - 10.5 Classi, oggetti e variabili di istanza — p. 80
+  - 10.6 Incapsulamento e realizzazione di BankAccount — p. 81
+  - 10.7 Documentazione dell'interfaccia con JavaDoc — p. 83
+  - 10.8 Istruzioni condizionali e confronti — p. 84
+- 11 Confronti, cicli e membri di classe in Java — p. 88
+  - 11.1 Confronto tra stringhe — p. 88
+  - 11.2 Confronto tra oggetti — p. 89
+  - 11.3 Alternative multiple e istruzione switch — p. 90
+  - 11.4 Il tipo boolean e le espressioni logiche — p. 92
+  - 11.5 Tipi enumerativi enum — p. 94
+  - 11.6 Il ciclo while — p. 95
+  - 11.7 Il ciclo for — p. 98
+  - 11.8 Metodi e variabili statiche — p. 100
+  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 102
+  - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 103
+- 1 Esercizi: Introduzione all'informatica — p. 104
+- 2 Esercizi: Rappresentazione delle informazioni — p. 107
+- 3 Esercizi: Introduzione a Python — p. 111
+- 4 Esercizi: Ricorsione — p. 115
+- 5 Esercizi: Complessità computazionale — p. 118
+- 6 Esercizi: Ricerca e ordinamento — p. 122
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 127
+- 8 Esercizi: Introduzione a Java — p. 138
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 144
+- 10 Esercizi: Realizzazione di classi in Java — p. 147
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 149
 <!-- GENERATED:END -->

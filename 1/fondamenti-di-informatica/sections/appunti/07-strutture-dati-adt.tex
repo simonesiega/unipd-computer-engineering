@@ -66,6 +66,8 @@ della \cref{sec:fi-python-liste} è realizzata, in CPython, mediante
 un array dinamico di riferimenti agli oggetti: sono contigui i
 riferimenti, non necessariamente gli oggetti stessi.
 
+\clearpage
+
 \subsection{Array statici e dinamici}
 \label{sec:fi-array-dinamici}
 
@@ -83,7 +85,8 @@ il singolo ridimensionamento costa \(\Theta(n)\).
 
 Se la capacità viene aumentata di un fattore costante maggiore di
 uno, il costo dei ridimensionamenti può essere distribuito fra
-gli inserimenti. Nel caso di raddoppio, il costo complessivo delle
+gli inserimenti. Nel caso di raddoppio, partendo da un array vuoto con
+capacità iniziale costante, il costo complessivo delle
 copie su \(m\ge1\) inserimenti in coda è limitato dalla somma
 geometrica
 \[
@@ -139,6 +142,8 @@ passaggi: considerando anche l'accesso al nodo iniziale, il costo
 L'attraversamento dei nodi mediante i riferimenti successivi è
 detto anche \emph{link hopping}.
 
+\clearpage
+
 \subsection{Inserimento, rimozione e varianti}
 \label{sec:fi-liste-concatenate-operazioni}
 
@@ -186,15 +191,15 @@ disponibili e la memoria necessaria per i riferimenti.
   \centering
   \small
   \begin{tabular}{lll}
-    \hline
+    \toprule
     Operazione & Array dinamico & Lista concatenata\\
-    \hline
+    \midrule
     Accesso all'indice \(i\) & \(\Theta(1)\) & \(\Theta(i+1)\)\\
     Inserimento in testa & \(\Theta(n+1)\) & \(\Theta(1)\)\\
     Rimozione in testa & \(\Theta(n)\) & \(\Theta(1)\)\\
     Inserimento in posizione nota & \(O(n)\) & \(\Theta(1)\)\\
     Inserimento in fondo & \(O(1)\) ammort. & \(\Theta(1)\) con \texttt{tail}\\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Costi delle principali operazioni su array dinamici
   e liste semplicemente concatenate, con \(n\) elementi
@@ -221,6 +226,8 @@ rimozione e ispezione interessano soltanto la cima, secondo la
 politica \emph{LIFO} (\emph{Last In, First Out}).
 \end{definition}
 
+\clearpage
+
 Le operazioni fondamentali sono \texttt{push(e)}, che inserisce
 l'elemento \(e\) in cima, \texttt{pop()}, che rimuove e restituisce
 la cima, e \texttt{top()}, che restituisce la cima senza rimuoverla.
@@ -232,18 +239,14 @@ specificato dall'interfaccia.
 
 \begin{figure}[htbp]
   \begin{minipage}[c]{0.54\textwidth}
-    La \cref{fig:fi-pila} mostra una pila contenente tre elementi.
-    L'unica estremità accessibile è la cima, sulla quale agiscono
-    \texttt{push}, \texttt{pop} e \texttt{top}. L'ultimo elemento
-    inserito è quindi il primo che può essere rimosso, secondo la
-    politica LIFO.
+    Nella \cref{fig:fi-pila}, \texttt{push}, \texttt{pop} e
+    \texttt{top} agiscono sulla cima: fra i tre elementi presenti,
+    l'ultimo inserito sarà il primo a essere rimosso.
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.40\textwidth}
     \centering
-    \resizebox{0.82\linewidth}{!}{%
-      \input{assets/diagrammi/strutture-dati/pila}%
-    }
+    \input{assets/diagrammi/strutture-dati/pila}
   \end{minipage}
   \caption{Rappresentazione schematica di una pila.}
   \label{fig:fi-pila}
@@ -299,10 +302,8 @@ in caso contrario deve essere specificato dall'interfaccia.
 
 \begin{figure}[htbp]
   \begin{minipage}[c]{0.54\textwidth}
-    La \cref{fig:fi-coda} mostra una coda contenente tre elementi.
-    Gli inserimenti avvengono in fondo e le rimozioni all'inizio:
-    il primo elemento inserito è quindi il primo che può essere
-    rimosso, secondo la politica FIFO.
+    La \cref{fig:fi-coda} mostra che, fra i tre elementi presenti,
+    quello inserito per primo è il prossimo a essere rimosso.
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.40\textwidth}
@@ -437,24 +438,26 @@ indici, e possono comparire più volte nella stessa lista.
 Le operazioni fondamentali sono \texttt{get(i)}, che restituisce
 l'elemento di indice \(i\), \texttt{set(i,e)}, che lo sostituisce
 con \(e\), e \texttt{add(i,e)}, che inserisce \(e\) nella posizione
-indicata, spostando gli elementi successivi. L'operazione
-\texttt{append(e)} aggiunge un elemento in fondo, mentre
-\texttt{remove(i)} rimuove e restituisce quello di indice \(i\),
-spostando a sinistra gli elementi successivi.
+indicata, conservando l'ordine relativo degli altri elementi.
+L'operazione \texttt{append(e)} aggiunge un elemento in fondo,
+mentre \texttt{remove(i)} rimuove e restituisce quello di indice
+\(i\).
 Le operazioni \texttt{is\_empty()} e \texttt{size()} verificano
 rispettivamente se la lista è vuota e quanti elementi contiene.
 Per una lista di \(n\) elementi, gli indici validi per lettura,
-aggiornamento e rimozione appartengono a \([0,n-1]\), mentre
-per l'inserimento è ammesso anche \(i=n\).
+aggiornamento e rimozione sono \(0,\ldots,n-1\); per
+l'inserimento sono ammessi \(0,\ldots,n\), compreso \(i=0\)
+quando la lista è vuota.
 
 L'ADT lista può essere realizzato mediante un array dinamico
 oppure una lista concatenata, introdotti nelle
 \cref{sec:fi-strutture-array,sec:fi-liste-concatenate}.
 La scelta dipende dalle operazioni più frequenti, come mostra
 la \cref{tab:fi-array-concatenata-costi}: l'array consente
-l'accesso diretto mediante indice, mentre una lista concatenata
-permette inserimenti e rimozioni in tempo costante quando
-sono già disponibili i riferimenti necessari.
+l'accesso diretto mediante indice, ma può richiedere spostamenti
+per inserire o rimuovere elementi; una lista concatenata permette
+inserimenti e rimozioni in tempo costante quando sono già disponibili
+i riferimenti necessari.
 
 La lista Python della \cref{sec:fi-python-liste} realizza
 queste funzionalità mediante un array dinamico, ma presenta

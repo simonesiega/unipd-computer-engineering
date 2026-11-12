@@ -1,0 +1,9 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node at (-2.8,1.25) {\textbf{Frame di metodo}};
+  \node at (2.7,1.25) {\textbf{Heap (modello logico)}};
+  \node[unipd/node,minimum width=2.5cm,minimum height=1.0cm,align=center]
+    (r) at (-2.8,0) {Variabile locale\\\texttt{b}: riferimento};
+  \node[unipd/node,minimum width=3.3cm,minimum height=1.0cm,align=center]
+    (o) at (2.7,0) {Oggetto \texttt{BankAccount}\\\texttt{balance = 100.0}};
+  \draw[unipd/directed edge] (r.east) -- (o.west);
+\end{tikzpicture}

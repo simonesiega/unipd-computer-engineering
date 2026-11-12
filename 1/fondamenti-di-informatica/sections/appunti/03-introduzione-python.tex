@@ -57,8 +57,9 @@ matematica. Il riferimento a un nome non ancora definito provoca
 \texttt{NameError}.
 
 Per scambiare i valori di due variabili senza perdere quelli originali
-si può utilizzare una variabile temporanea: \texttt{tmp = a},
-\texttt{a = b}, \texttt{b = tmp}. Python permette anche l'assegnamento
+si può utilizzare una variabile temporanea, eseguendo in sequenza
+gli assegnamenti \texttt{tmp = a}, \texttt{a = b} e \texttt{b = tmp}.
+Python permette anche l'assegnamento
 multiplo \texttt{a, b = b, a}, nel quale le espressioni a destra vengono
 valutate prima di effettuare gli assegnamenti. Nel caso di valori interi,
 lo scambio può essere realizzato anche mediante tre operazioni XOR
@@ -104,23 +105,24 @@ stringhe, \texttt{+} esegue la concatenazione, mentre la moltiplicazione
 per un intero ne ripete il contenuto. Ad esempio,
 \lstinline|"3" + "4"| produce \lstinline|"34"|, non \texttt{7};
 tentare di sommare direttamente una stringa e un intero provoca
-\texttt{TypeError}. Le funzioni \texttt{int()}, \texttt{float()},
-\texttt{str()} e \texttt{bool()} eseguono conversioni esplicite.
-In particolare, \texttt{int(3.9)} restituisce \texttt{3}, poiché
-la conversione tronca verso zero. Inoltre, \texttt{bool(0)} restituisce
-\texttt{False} e \texttt{bool(3)} restituisce \texttt{True}.
-Per i tipi qui considerati, la conversione \texttt{bool()} restituisce
-\texttt{False} anche per lo zero in virgola mobile, la stringa vuota,
-la lista vuota e \texttt{None}. Il valore speciale \texttt{None}, unico valore
-del tipo \texttt{NoneType}, rappresenta l'assenza di un valore.
-Una conversione non ammessa, come \lstinline|int("ciao")|,
-genera \texttt{ValueError}.
+\texttt{TypeError}. Le funzioni \texttt{int()}, \texttt{float()}, \texttt{str()} e
+\texttt{bool()} eseguono conversioni esplicite: \texttt{int(3.9)}
+restituisce \texttt{3} (troncamento verso zero), mentre una conversione
+impossibile, come \lstinline|int("ciao")|, genera \texttt{ValueError}.
+
+La conversione \texttt{bool()} restituisce \texttt{False} per zero,
+stringhe e liste vuote e \texttt{None}; per esempio,
+\texttt{bool(0)} è \texttt{False} e \texttt{bool(3)} è
+\texttt{True}. Il valore \texttt{None}, unico elemento del tipo
+\texttt{NoneType}, rappresenta l'assenza di un valore.
 
 La funzione \texttt{input()} legge una riga dall'ingresso standard e
 restituisce una stringa, anche se l'utente ha digitato un numero.
 Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
 \input{assets/codice/variabili/somma-input}
+
+\clearpage
 
 \section{Logica booleana e istruzioni condizionali}
 \label{sec:fi-python-condizioni}
@@ -153,6 +155,12 @@ congiunzione, disgiunzione e negazione. Nelle seguenti tabelle di verità,
   \mathrm{V} & \mathrm{F}
 \end{array}
 \]
+Le tabelle si riferiscono a operandi booleani. Più in generale, in
+Python \texttt{and} e \texttt{or} restituiscono uno degli operandi,
+non necessariamente un valore di tipo \texttt{bool}: il risultato
+dipende dal valore di verità degli operandi. L'operatore \texttt{not}
+restituisce invece sempre un valore booleano.
+
 Fra gli operatori considerati, i confronti hanno precedenza su
 \texttt{not}, che precede \texttt{and}, seguito da \texttt{or}.
 Le \emph{leggi di De Morgan} forniscono le equivalenze
@@ -164,13 +172,10 @@ Le \emph{leggi di De Morgan} forniscono le equivalenze
  \texttt{(not a) and (not b)}.
 \end{aligned}
 \]
-Gli operatori \texttt{and} e \texttt{or} valutano il secondo operando
-soltanto quando necessario (\emph{valutazione a cortocircuito}).
-
-La valutazione procede da sinistra verso destra: con \texttt{and}, il
-secondo operando viene valutato soltanto se il primo è vero; con
-\texttt{or}, soltanto se il primo è falso. Questo comportamento permette
-anche di evitare operazioni non valide: nell'espressione
+Gli operatori \texttt{and} e \texttt{or} usano la
+\emph{valutazione a cortocircuito}, da sinistra verso destra:
+il secondo operando viene valutato soltanto se il primo è
+rispettivamente vero o falso. Perciò, in
 \lstinline|x != 0 and 10 / x > 2|, la divisione non viene eseguita
 quando \texttt{x} vale zero.
 
@@ -191,6 +196,8 @@ per livello. Un rientro non valido può produrre \texttt{IndentationError};
 un rientro sintatticamente valido ma errato può invece modificare la
 logica del programma.
 
+\clearpage
+
 \section{Cicli e iterazioni}
 \label{sec:fi-python-cicli}
 
@@ -202,8 +209,6 @@ può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
 \texttt{do...while} verifica la condizione dopo l'esecuzione del corpo,
 garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
 ma può essere simulato mediante \texttt{while True} e \texttt{break}.
-
-\clearpage
 
 \input{assets/codice/cicli/validazione}
 
@@ -252,8 +257,6 @@ lo stesso risultato mediante un'espressione generatrice:
 La ricorsione fornisce un'altra forma di ripetizione del calcolo,
 trattata nella \cref{sec:fi-ricorsione-terminazione}.
 
-\clearpage
-
 \section{Liste}
 \label{sec:fi-python-liste}
 
@@ -290,19 +293,23 @@ studiati nel \cref{chap:ricerca-ordinamento}.
 
 \input{assets/codice/liste/voti}
 
-Il ciclo visita i voti e calcola la media di quelli non inferiori a
-\texttt{24}; il controllo \texttt{if conteggio > 0} evita la divisione
-per zero quando nessun valore soddisfa la condizione.
+Nell'esempio, \texttt{pop()} rimuove l'ultimo voto e
+\texttt{sorted()} crea una copia ordinata. Il ciclo calcola la media
+dei voti rimasti non inferiori a \texttt{24};
+\texttt{if conteggio > 0} evita la divisione per zero.
+
+\clearpage
 
 \section{Funzioni}
 \label{sec:fi-python-funzioni}
 
 Per organizzare operazioni riutilizzabili si impiegano le \emph{funzioni},
 che associano un nome a un blocco di istruzioni. Una funzione si definisce
-mediante \texttt{def}; la definizione non esegue il corpo, che viene
-eseguito soltanto quando la funzione è \emph{chiamata} e deve essere
-stata definita prima della chiamata, affinché il nome della
-funzione sia disponibile. I nomi dichiarati nella definizione sono i
+mediante \texttt{def}. La definizione non esegue il corpo della
+funzione: questo viene eseguito soltanto quando essa è \emph{chiamata}.
+Prima della chiamata deve essere stata eseguita la definizione,
+affinché il nome della funzione sia disponibile. I nomi dichiarati
+nella definizione sono i
 \emph{parametri}; i valori forniti alla chiamata
 sono gli \emph{argomenti}. È possibile specificare annotazioni di tipo per
 i parametri e per il valore restituito. L'intestazione di una funzione può
@@ -311,23 +318,21 @@ assumere la forma
   \text{\texttt{def somma(a: int, b: int) -> int:}}
 \]
 Le annotazioni non impongono controlli automatici sui tipi durante
-l'esecuzione.
+l'esecuzione. Una \emph{funzione annidata} è definita all'interno
+di un'altra funzione: viene creata durante l'esecuzione di quella
+esterna, ne può utilizzare le variabili locali ed è normalmente
+accessibile soltanto nel suo ambito. L'esempio seguente ne mostra
+l'impiego nel calcolo dell'area di un rettangolo.
 
 \input{assets/codice/funzioni/area}
 
-L'istruzione \texttt{return} termina la chiamata e restituisce il
-valore calcolato al chiamante. È distinta da \texttt{print()}, che
-scrive sull'uscita standard: una funzione che termina senza
-\texttt{return} restituisce \texttt{None}. I parametri e le variabili
-assegnate nel corpo della funzione sono di norma \emph{locali} alla
-chiamata. Una funzione può restituire un valore booleano, come
-nell'espressione \texttt{return numero \% 2 == 0}.
-
-Una funzione può essere definita anche all'interno di un'altra:
-si parla in questo caso di \emph{funzione annidata}. La funzione
-interna viene definita durante l'esecuzione di quella esterna,
-è normalmente accessibile soltanto nel suo ambito e può utilizzare
-i parametri e le variabili locali della funzione che la contiene.
+L'istruzione \texttt{return} termina la chiamata e restituisce un
+valore al chiamante; \texttt{print()} scrive invece sull'uscita
+standard. Una funzione che termina senza \texttt{return} restituisce
+\texttt{None}. I parametri e le variabili assegnate nel corpo sono
+di norma \emph{locali} alla chiamata. Una funzione può anche
+restituire un booleano, per esempio con
+\texttt{return numero \% 2 == 0}.
 
 Le definizioni possono essere raccolte in \emph{moduli}, ossia file
 Python importabili. Salvando la definizione di
@@ -336,21 +341,19 @@ può utilizzarla così:
 
 \input{assets/codice/funzioni/modulo}
 
-L'istruzione \texttt{import geometria} rende disponibile il modulo;
-la chiamata \texttt{geometria.area\_rettangolo(8, 5)} ne usa la funzione.
-In alternativa, \lstinline|from geometria import area_rettangolo|
-importa direttamente il nome, consentendo la chiamata
+Con \texttt{import geometria} si accede alla funzione mediante
+\texttt{geometria.area\_rettangolo(8, 5)};
+l'istruzione \lstinline|from geometria import area_rettangolo|
+rende disponibile anche la chiamata diretta
 \lstinline|area_rettangolo(8, 5)|.
-
-La parola chiave \texttt{as}
-permette di assegnare un alias al modulo o a un nome importato,
-così da poter utilizzare un identificatore alternativo nel codice,
-ad esempio \lstinline|from geometria import area_rettangolo as area|.
-
-L'estensione \texttt{.py} non compare in \texttt{import}.
+La parola \texttt{as} permette di assegnare un alias, per esempio
+\lstinline|from geometria import area_rettangolo as area|.
+Il nome del modulo si indica senza l'estensione \texttt{.py}.
 
 Le funzioni possono anche richiamare se stesse, come si vedrà
 nel \cref{chap:ricorsione}.
+
+\clearpage
 
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}
