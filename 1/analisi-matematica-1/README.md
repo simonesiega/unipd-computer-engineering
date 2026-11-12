@@ -87,15 +87,19 @@
   - 17.2 Teorema ponte — p. 88
   - 17.3 Limiti notevoli — p. 89
   - 17.4 Limiti di successioni notevoli — p. 91
-- A Tutorato — p. 92
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 92
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 95
-- B Esercizi per argomento — p. 98
-  - B.1 Limiti — p. 98
-  - B.2 Studio di funzione — p. 99
-  - B.3 Successioni — p. 100
-  - B.4 Serie numeriche — p. 101
-  - B.5 Integrali — p. 102
-  - B.6 Equazioni differenziali — p. 103
-  - B.7 Taylor e tecniche asintotiche — p. 104
+- 18 Lezione 18 --- 3 novembre 2026 — p. 92
+  - 18.1 Limiti notevoli di successioni — p. 92
+  - 18.2 Limite dell'esponenziale in un punto reale — p. 93
+  - 18.3 Insiemi simmetrici e funzioni pari e dispari — p. 95
+- A Tutorato — p. 96
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 96
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 99
+- B Esercizi per argomento — p. 102
+  - B.1 Limiti — p. 102
+  - B.2 Studio di funzione — p. 103
+  - B.3 Successioni — p. 104
+  - B.4 Serie numeriche — p. 105
+  - B.5 Integrali — p. 106
+  - B.6 Equazioni differenziali — p. 107
+  - B.7 Taylor e tecniche asintotiche — p. 108
 <!-- GENERATED:END -->

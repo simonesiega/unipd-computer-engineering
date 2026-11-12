@@ -1,0 +1,37 @@
+\begin{tikzpicture}[unipd/diagram,x=1.1cm,y=.95cm]
+  \begin{scope}
+    \draw[->,unipd-muted] (-1.8,0) -- (1.9,0)
+      node[right] {\(x\)};
+    \draw[->,unipd-muted] (0,-.45) -- (0,2.55)
+      node[above] {\(y\)};
+    \draw[very thick,unipd-primary,domain=-1.5:1.5,samples=90]
+      plot (\x,{\x*\x});
+    \draw[densely dashed,unipd-muted]
+      (-1,1) -- (1,1);
+    \fill[unipd-primary] (-1,1) circle (2pt);
+    \fill[unipd-primary] (1,1) circle (2pt);
+    \node[below] at (-1,0) {\(-1\)};
+    \node[below] at (1,0) {\(1\)};
+    \node[left=3pt] at (0,1) {\(1\)};
+    \node[above right=1pt,text=unipd-primary] at (1.18,1.35)
+      {\(f(x)=x^2\)};
+  \end{scope}
+  \begin{scope}[xshift=6.4cm]
+    \draw[->,unipd-muted] (-1.8,0) -- (1.9,0)
+      node[right] {\(x\)};
+    \draw[->,unipd-muted] (0,-2.55) -- (0,2.55)
+      node[above] {\(y\)};
+    \draw[very thick,unipd-primary,domain=-1.35:1.35,samples=90]
+      plot (\x,{\x*\x*\x});
+    \draw[densely dashed,unipd-muted]
+      (-1,-1) -- (1,1);
+    \fill[unipd-primary] (-1,-1) circle (2pt);
+    \fill[unipd-primary] (1,1) circle (2pt);
+    \node[below=2pt] at (-1,0) {\(-1\)};
+    \node[below=2pt] at (1,0) {\(1\)};
+    \node[left=3pt] at (0,1) {\(1\)};
+    \node[left=3pt] at (0,-1) {\(-1\)};
+    \node[right=2pt,text=unipd-primary] at (1.18,1.7)
+      {\(g(x)=x^3\)};
+  \end{scope}
+\end{tikzpicture}
