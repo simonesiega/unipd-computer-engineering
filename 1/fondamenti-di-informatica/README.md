@@ -107,7 +107,7 @@
   - 11.6 Il ciclo while — p. 95
   - 11.7 Il ciclo for — p. 98
   - 11.8 Metodi e variabili statiche — p. 100
-  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 101
+  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 102
   - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 103
 - 1 Esercizi: Introduzione all'informatica — p. 104
 - 2 Esercizi: Rappresentazione delle informazioni — p. 107
@@ -116,8 +116,8 @@
 - 5 Esercizi: Complessità computazionale — p. 118
 - 6 Esercizi: Ricerca e ordinamento — p. 122
 - 7 Esercizi: Strutture dati e tipi di dato astratti — p. 127
-- 8 Esercizi: Introduzione a Java — p. 139
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 145
-- 10 Esercizi: Realizzazione di classi in Java — p. 148
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 150
+- 8 Esercizi: Introduzione a Java — p. 138
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 144
+- 10 Esercizi: Realizzazione di classi in Java — p. 147
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 149
 <!-- GENERATED:END -->
