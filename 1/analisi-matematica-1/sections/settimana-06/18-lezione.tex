@@ -1,0 +1,317 @@
+\chapter[Lezione 18 --- 3 novembre 2026]{Lezione 18: limiti notevoli e funzioni pari e dispari}
+\label{chap:lezione-18}
+
+\section{Limiti notevoli di successioni}
+\label{sec:lez18-limiti-successioni}
+
+Si completano i limiti di successioni considerati nella
+\cref{sec:lez17-limiti-successioni-notevoli}.
+
+\begin{proposition}[Limite della radice \(n\)-esima di \(n\)]
+\label{prop:lez18-radice-n-di-n}
+Si ha
+\[
+  \lim_{n\to+\infty}n^{1/n}=1.
+\]
+\end{proposition}
+
+\begin{proof}
+Per ogni \(n\ge2\), si ponga
+\[
+  c_n:=n^{1/n}-1>0.
+\]
+Poiché \(n^{1/n}=1+c_n\), dal
+\cref{thm:binomio-newton} segue
+\[
+  n=(1+c_n)^n
+  =\sum_{j=0}^{n}\binom{n}{j}c_n^j.
+\]
+Tutti gli addendi sono non negativi. Considerando quelli
+con \(j=0\) e \(j=2\), si ottiene
+\[
+  n\ge1+\binom{n}{2}c_n^2
+    =1+\frac{n(n-1)}2c_n^2.
+\]
+Pertanto, essendo \(n\ge2\),
+\[
+  \frac{n(n-1)}2c_n^2\le n-1
+  \quad\Longrightarrow\quad
+  0<c_n^2\le\frac2n.
+\]
+Fissato \(\varepsilon>0\), per ogni
+\(n>2/\varepsilon^2\) si ha
+\[
+  0<c_n^2<\varepsilon^2,
+  \qquad\text{quindi}\qquad 0<c_n<\varepsilon.
+\]
+Ne segue che \(c_n\to0\) e, poiché
+\(n^{1/n}=1+c_n\), per la
+\cref{thm:lez14-limite-somma} si conclude
+\[
+  \lim_{n\to+\infty}n^{1/n}=1.
+\]
+\end{proof}
+
+\begin{proposition}[Confronto tra potenze e fattoriale]
+\label{prop:lez18-potenza-fattoriale}
+Per ogni \(a\in\R\), si ha
+\[
+  \lim_{n\to+\infty}\frac{a^n}{n!}=0.
+\]
+\end{proposition}
+
+\begin{proof}
+Se \(a=0\), il rapporto è nullo per ogni \(n\ge1\),
+e la tesi è immediata.
+
+Sia dunque \(a\ne0\). Per il
+\cref{thm:proprieta-archimedea}, si può scegliere
+\(j\in\N\setminus\{0\}\) tale che
+\[
+  j>|a|.
+\]
+Per ogni \(n\ge j\), si scriva \(n=j+m\), con
+\(m\in\N\). Dalla definizione di fattoriale si ricava
+\[
+\begin{aligned}
+  0<\frac{|a|^n}{n!}
+  &=\frac{|a|^{j+m}}{j!(j+1)(j+2)\cdots(j+m)}\\
+  &=\frac{|a|^j}{j!}\,
+    \frac{|a|^m}{(j+1)(j+2)\cdots(j+m)}.
+\end{aligned}
+\]
+Per \(m=0\), il prodotto al denominatore si intende
+uguale a \(1\). Poiché ciascuno degli \(m\) fattori è
+maggiore di \(j\), risulta
+\[
+  0<\frac{|a|^{j+m}}{(j+m)!}
+  \le\frac{|a|^j}{j!}
+    \left(\frac{|a|}{j}\right)^m.
+\]
+Posto
+\[
+  C:=\frac{|a|^j}{j!}>0,
+  \qquad q:=\frac{|a|}{j}\in(0,1),
+\]
+per il \cref{thm:lez15-limiti-esponenziale-logaritmo}
+si ha \(q^m\to0\) per \(m\to+\infty\).
+Poiché \(m=n-j\to+\infty\), dal
+\cref{thm:lez12-tre-funzioni} segue
+\[
+  \lim_{n\to+\infty}\frac{|a|^n}{n!}=0.
+\]
+Infine,
+\[
+  \left|\frac{a^n}{n!}\right|
+    =\frac{|a|^n}{n!},
+\]
+perciò anche \(a^n/n!\to0\).
+\end{proof}
+
+\section{Limite dell'esponenziale in un punto reale}
+\label{sec:lez18-limite-esponenziale}
+
+Il limite della radice \(n\)-esima dimostrato nella
+\cref{prop:lez17-radici-en} permette di studiare
+l'esponenziale in prossimità di un punto reale.
+
+\begin{theorem}[Limite dell'esponenziale]
+\label{thm:lez18-limite-esponenziale}
+Per ogni \(a>0\) e ogni \(x_0\in\R\), si ha
+\[
+  \lim_{x\to x_0}a^x=a^{x_0}.
+\]
+\end{theorem}
+
+\begin{proof}
+Si dimostra anzitutto che, per ogni \(a>0\),
+\[
+  \lim_{x\to0}a^x=1.
+\]
+
+\emph{Primo caso: \(a=1\).}
+Poiché \(a^x=1\) per ogni \(x\in\R\), la tesi
+è immediata.
+
+\emph{Secondo caso: \(a>1\).}
+Si consideri dapprima \(x\to0^+\). Per \(x\in(0,1)\),
+si ponga
+\[
+  k:=\left\lfloor\frac1x\right\rfloor\in\N\setminus\{0\}.
+\]
+Per la \cref{def:floor}, si ha
+\[
+  k\le\frac1x<k+1,
+  \qquad\text{quindi}\qquad
+  0<x\le\frac1k.
+\]
+Poiché l'esponenziale di base \(a>1\) è strettamente
+crescente, segue
+\[
+  1<a^x\le a^{1/k}.
+\]
+Per la \cref{prop:lez17-radici-en},
+\[
+  \lim_{k\to+\infty}a^{1/k}=1.
+\]
+Sia \(\varepsilon>0\). Esiste \(N_\varepsilon\in\N\),
+con \(N_\varepsilon\ge1\), tale che
+\[
+  0<a^{1/k}-1<\varepsilon
+  \qquad\forall k>N_\varepsilon.
+\]
+Se \(0<x<\delta_\varepsilon\), con
+\[
+  \delta_\varepsilon:=\frac1{N_\varepsilon+1},
+\]
+allora \(1/x>N_\varepsilon+1\) e quindi
+\[
+  k=\left\lfloor\frac1x\right\rfloor
+  \ge N_\varepsilon+1>N_\varepsilon.
+\]
+Di conseguenza,
+\[
+  0<a^x-1\le a^{1/k}-1<\varepsilon.
+\]
+Per la \cref{def:lez14-limiti-unilateri}, si ottiene
+\[
+  \lim_{x\to0^+}a^x=1.
+\]
+Per \(x<0\), posto \(t:=-x>0\), vale
+\[
+  a^x=\frac1{a^t}.
+\]
+Poiché \(t\to0^+\) per \(x\to0^-\), dal limite
+destro appena dimostrato e dal
+\cref{thm:lez14-limite-rapporto} segue
+\[
+  \lim_{x\to0^-}a^x=1.
+\]
+I due limiti unilateri coincidono e quindi, per
+il \cref{thm:lez14-limite-unilateri},
+\[
+  \lim_{x\to0}a^x=1.
+\]
+
+\emph{Terzo caso: \(0<a<1\).}
+Si ponga \(b:=1/a>1\). Per il secondo caso,
+\[
+  \lim_{x\to0}b^x=1.
+\]
+Poiché \(a^x=1/b^x\), per il
+\cref{thm:lez14-limite-rapporto} si conclude
+\[
+  \lim_{x\to0}a^x=1.
+\]
+
+Sia ora \(x_0\in\R\) arbitrario. Dall'identità
+\[
+  a^x=a^{x_0}a^{x-x_0}
+\]
+e dal limite appena stabilito, applicando il
+\cref{thm:lez16-limite-sostituzione} alla funzione
+\(x\longmapsto x-x_0\), si ha
+\[
+  \lim_{x\to x_0}a^{x-x_0}=1.
+\]
+Per il \cref{thm:lez14-limite-prodotto}, segue
+\[
+  \lim_{x\to x_0}a^x
+  =a^{x_0}\lim_{x\to x_0}a^{x-x_0}
+  =a^{x_0}.
+\]
+\end{proof}
+
+\begin{example}[Limiti del logaritmo]
+\label{ex:lez18-limiti-logaritmo}
+Per ogni \(a>0\), con \(a\ne1\), e ogni \(x_0>0\),
+si hanno
+\[
+  \lim_{x\to1}\log_a x=0,
+  \qquad
+  \lim_{x\to x_0}\log_a x=\log_a x_0.
+\]
+\end{example}
+
+Le dimostrazioni dei due limiti non vengono sviluppate
+in questa sede.
+
+\clearpage
+
+\section{Insiemi simmetrici e funzioni pari e dispari}
+\label{sec:lez18-parita}
+
+\begin{definition}[Insieme simmetrico rispetto a zero]
+\label{def:lez18-insieme-simmetrico}
+Un insieme \(A\subseteq\R\) non vuoto si dice
+\emph{simmetrico rispetto a zero} se
+\[
+  x\in A\quad\Longleftrightarrow\quad -x\in A.
+\]
+\end{definition}
+
+\begin{definition}[Funzione pari]
+\label{def:lez18-funzione-pari}
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto e simmetrico rispetto a zero.
+La funzione \(f\) si dice \emph{pari} se
+\[
+  f(-x)=f(x)\qquad\forall x\in A.
+\]
+\end{definition}
+
+\begin{definition}[Funzione dispari]
+\label{def:lez18-funzione-dispari}
+Sia \(f\colon A\longrightarrow\R\), con
+\(A\subseteq\R\) non vuoto e simmetrico rispetto a zero.
+La funzione \(f\) si dice \emph{dispari} se
+\[
+  f(-x)=-f(x)\qquad\forall x\in A.
+\]
+\end{definition}
+
+Per la \cref{def:lez07-grafico},
+se \(f\) è pari, a ogni punto \((x,f(x))\) del grafico
+corrisponde il punto \((-x,f(x))\): il grafico è
+simmetrico rispetto all'asse delle ordinate.
+Se \(f\) è dispari, al punto \((x,f(x))\) corrisponde
+\((-x,-f(x))\): il grafico è simmetrico rispetto
+all'origine degli assi.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/pari-dispari}
+  \caption{Simmetria rispetto all'asse delle ordinate
+  per la funzione pari \(f(x)=x^2\) (a sinistra)
+  e rispetto all'origine per la funzione dispari
+  \(g(x)=x^3\) (a destra).}
+  \label{fig:lez18-pari-dispari}
+\end{figure}
+
+\begin{example}[Parità della funzione \(\log|x|\)]
+\label{ex:lez18-logaritmo-valore-assoluto}
+Si consideri la funzione
+\[
+  f\colon\R\setminus\{0\}\longrightarrow\R,
+  \qquad f(x):=\log|x|.
+\]
+Il dominio è simmetrico rispetto a zero. Per ogni
+\(x\ne0\), si ha
+\[
+  f(-x)=\log|-x|=\log|x|=f(x).
+\]
+Per la \cref{def:lez18-funzione-pari},
+la funzione è pari.
+\end{example}
+
+\begin{example}[Un dominio non simmetrico]
+\label{ex:lez18-logaritmo-traslato}
+Si consideri la funzione
+\[
+  g\colon\R\setminus\{1\}\longrightarrow\R,
+  \qquad g(x):=\log|x-1|.
+\]
+Il dominio non è simmetrico rispetto a zero:
+\(-1\) vi appartiene, mentre \(1\) ne è escluso.
+Pertanto \(g\) non è né pari né dispari.
+\end{example}
