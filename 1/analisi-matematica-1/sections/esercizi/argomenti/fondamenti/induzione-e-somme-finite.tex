@@ -1,0 +1,226 @@
+\subsection{Induzione e somme finite}
+\label{sec:esercizi-fondamenti-induzione}
+
+\begin{exercise}[Somma di una progressione]
+\label{ex:fondamenti-somma-progressione}
+\difficoltaesercizio{1}
+Dimostrare che, per ogni $n\ge1$,
+\[
+  \sum_{k=1}^{n}(2k+1)=n(n+2).
+\]
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\left\{n\in\N:n\ge1\ \text{e}\
+  \sum_{k=1}^{n}(2k+1)=n(n+2)\right\}.
+\]
+
+\emph{Passo base.} Per $n=1$,
+\[
+  \sum_{k=1}^{1}(2k+1)=3=1\cdot(1+2),
+\]
+quindi $1\in A$.
+
+\emph{Passo induttivo.} Sia $n\ge1$ e si supponga $n\in A$. Allora
+\[
+\begin{aligned}
+  \sum_{k=1}^{n+1}(2k+1)
+    &=\sum_{k=1}^{n}(2k+1)+\bigl(2(n+1)+1\bigr)\\
+    &=n(n+2)+(2n+3)\\
+    &=(n+1)(n+3).
+\end{aligned}
+\]
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+\end{proof}
+
+\begin{exercise}[Somma di prodotti consecutivi]
+\label{ex:fondamenti-somma-prodotti-consecutivi}
+\difficoltaesercizio{1}
+Dimostrare che, per ogni $n\ge1$,
+\[
+  \sum_{k=1}^{n}k(k+1)=\frac{n(n+1)(n+2)}{3}.
+\]
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\left\{n\in\N:n\ge1\ \text{e}\
+    \sum_{k=1}^{n}k(k+1)=\frac{n(n+1)(n+2)}{3}\right\}.
+\]
+
+\emph{Passo base.} Per $n=1$,
+\[
+  \sum_{k=1}^{1}k(k+1)=2=\frac{1\cdot2\cdot3}{3},
+\]
+quindi $1\in A$.
+
+\emph{Passo induttivo.} Sia $n\ge1$ e si supponga $n\in A$. Allora
+\[
+\begin{aligned}
+  \sum_{k=1}^{n+1}k(k+1)
+    &=\sum_{k=1}^{n}k(k+1)+(n+1)(n+2)\\
+    &=\frac{n(n+1)(n+2)}{3}+(n+1)(n+2)\\
+    &=\frac{(n+1)(n+2)(n+3)}{3}.
+\end{aligned}
+\]
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+\end{proof}
+
+\begin{exercise}[Somma geometrica con ragione fissata]
+\label{ex:fondamenti-somma-geometrica-ragione-tre}
+\difficoltaesercizio{1}
+Dimostrare, indicando esplicitamente il passo base e il passo induttivo,
+che, per ogni $n\in\N$,
+\[
+  \sum_{k=0}^{n}3^k=\frac{3^{n+1}-1}{2}.
+\]
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\left\{n\in\N:\sum_{k=0}^{n}3^k=\frac{3^{n+1}-1}{2}\right\}.
+\]
+
+\emph{Passo base.} Per $n=0$,
+\[
+  \sum_{k=0}^{0}3^k=1=\frac{3-1}{2},
+\]
+quindi $0\in A$.
+
+\emph{Passo induttivo.} Sia $n\in\N$ e si supponga $n\in A$. Allora
+\[
+\begin{aligned}
+  \sum_{k=0}^{n+1}3^k
+    &=\sum_{k=0}^{n}3^k+3^{n+1}\\
+    &=\frac{3^{n+1}-1}{2}+3^{n+1}\\
+    &=\frac{3^{n+2}-1}{2}.
+\end{aligned}
+\]
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Contronominale e parità dei cubi]
+\label{ex:fondamenti-parita-del-cubo}
+\difficoltaesercizio{1}
+Dimostrare per contronominale che, per ogni $m\in\Z$,
+\[
+  m^3\text{ pari}\quad\Longrightarrow\quad m\text{ pari}.
+\]
+Utilizzare la rappresentazione $m=2k+1$ per gli interi dispari.
+\rimandoteoria{sec:lez01-insiemi-dimostrazioni}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si dimostra la contronominale. Sia $m$ dispari, ossia
+$m=2k+1$ per un $k\in\Z$. Allora
+\[
+\begin{aligned}
+  m^3&=(2k+1)^3\\
+     &=8k^3+12k^2+6k+1\\
+     &=2(4k^3+6k^2+3k)+1.
+\end{aligned}
+\]
+Poiché $4k^3+6k^2+3k\in\Z$, anche $m^3$ è dispari.
+La tesi segue per contronominale.
+\end{proof}
+
+\begin{exercise}[Confronto tra una potenza e l'indice]
+\label{ex:fondamenti-potenza-indice}
+\difficoltaesercizio{1}
+Dimostrare per induzione che $2^n\ge n+1$ per ogni $n\in\N$.
+Stabilire per quali $n$ si ha uguaglianza.
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\{n\in\N:2^n\ge n+1\}.
+\]
+
+\emph{Passo base.} Per $n=0$,
+\[
+  2^0=1=0+1,
+\]
+quindi $0\in A$.
+
+\emph{Passo induttivo.} Sia $n\in\N$ e si supponga $n\in A$. Allora
+\[
+  2^{n+1}=2\cdot2^n\ge2(n+1)\ge n+2.
+\]
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+
+L'uguaglianza vale per $n=0$ e $n=1$; per $n\ge2$ la disuguaglianza
+è stretta.
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Confronto tra una potenza e un polinomio]
+\label{ex:fondamenti-potenza-polinomio}
+\difficoltaesercizio{1}
+Dimostrare per induzione che, per ogni $n\in\N$,
+\[
+  3^n\ge2n^2+1.
+\]
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\{n\in\N:3^n\ge2n^2+1\}.
+\]
+
+\emph{Passo base.} Per $n=0$,
+\[
+  3^0=1=2\cdot0^2+1,
+\]
+quindi $0\in A$.
+
+\emph{Passo induttivo.} Sia $n\in\N$ e si supponga $n\in A$. Allora
+\[
+  3^{n+1}=3\cdot3^n\ge6n^2+3\ge2(n+1)^2+1,
+\]
+poiché $4n(n-1)\ge0$ per ogni $n\in\N$.
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+\end{proof}
+
+\begin{exercise}[Somma dei cubi]
+\label{ex:fondamenti-somma-dei-cubi}
+\difficoltaesercizio{1}
+Dimostrare mediante induzione che, per ogni $n\ge1$,
+\[
+  \sum_{k=1}^{n}k^3=\left(\frac{n(n+1)}{2}\right)^2.
+\]
+Esplicitare la fattorizzazione necessaria nel passo induttivo.
+\rimandoteoria{thm:principio-induzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pone
+\[
+  A:=\left\{n\in\N:n\ge1\ \text{e}\
+    \sum_{k=1}^{n}k^3=\left(\frac{n(n+1)}{2}\right)^2\right\}.
+\]
+
+\emph{Passo base.} Per $n=1$,
+\[
+  \sum_{k=1}^{1}k^3=1=\left(\frac{1\cdot2}{2}\right)^2,
+\]
+quindi $1\in A$.
+
+\emph{Passo induttivo.} Sia $n\ge1$ e si supponga $n\in A$. Allora
+\[
+\begin{aligned}
+  \sum_{k=1}^{n+1}k^3
+    &=\sum_{k=1}^{n}k^3+(n+1)^3\\
+    &=\left(\frac{n(n+1)}{2}\right)^2+(n+1)^3\\
+    &=\frac{(n+1)^2\bigl(n^2+4(n+1)\bigr)}{4}\\
+    &=\left(\frac{(n+1)(n+2)}{2}\right)^2.
+\end{aligned}
+\]
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
+\end{proof}

@@ -95,11 +95,13 @@
   - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 96
   - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 99
 - B Esercizi per argomento — p. 102
-  - B.1 Limiti — p. 102
-  - B.2 Studio di funzione — p. 103
-  - B.3 Successioni — p. 104
-  - B.4 Serie numeriche — p. 105
-  - B.5 Integrali — p. 106
-  - B.6 Equazioni differenziali — p. 107
-  - B.7 Taylor e tecniche asintotiche — p. 108
+  - Scala di difficoltà degli esercizi — p. 102
+  - B.1 Fondamenti — p. 103
+  - B.2 Limiti — p. 114
+  - B.3 Studio di funzione — p. 115
+  - B.4 Successioni — p. 116
+  - B.5 Serie numeriche — p. 117
+  - B.6 Integrali — p. 118
+  - B.7 Equazioni differenziali — p. 119
+  - B.8 Taylor e tecniche asintotiche — p. 120
 <!-- GENERATED:END -->

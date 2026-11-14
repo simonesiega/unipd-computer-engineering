@@ -1,0 +1,58 @@
+\providecommand{\stelladifficolta}[1]{%
+  \tikz[baseline=-0.60ex, x=0.48em, y=0.48em]{%
+    \path[draw=black, fill=#1, line width=0.3pt, line join=round]
+      (90:1) -- (54:0.4) -- (18:1) -- (-18:0.4) -- (-54:1)
+      -- (-90:0.4) -- (-126:1) -- (-162:0.4) -- (-198:1) -- (-234:0.4)
+      -- cycle;%
+  }%
+}
+\providecommand{\stellavalutata}[2]{%
+  \ifnum#1<#2\stelladifficolta{white}\else\stelladifficolta{black}\fi%
+}
+\providecommand{\valutazionestelle}[1]{%
+  \begingroup
+  \stellavalutata{#1}{1}%
+  \stellavalutata{#1}{2}%
+  \stellavalutata{#1}{3}%
+  \stellavalutata{#1}{4}%
+  \stellavalutata{#1}{5}%
+  \endgroup}
+\providecommand{\difficoltaesercizio}[1]{%
+  \leavevmode\unskip\hfill\valutazionestelle{#1}\par\smallskip}
+\providecommand{\rimandoteoria}[1]{%
+  \par\smallskip\noindent{\footnotesize\emph{Riferimento negli appunti:} \cref{#1}.}\par}
+
+\phantomsection
+\section*{Scala di difficoltà degli esercizi}
+\addcontentsline{toc}{section}{Scala di difficoltà degli esercizi}
+\label{sec:scala-difficolta-esercizi}
+
+La valutazione è soggettiva e riflette l'impegno richiesto e le difficoltà
+incontrate durante lo svolgimento. Non rappresenta una misura oggettiva
+della difficoltà né un'indicazione dell'importanza dell'esercizio
+nel programma e può quindi differire da quella di altri studenti.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{@{}p{0.19\linewidth}p{0.18\linewidth}p{0.55\linewidth}@{}}
+\hline
+\textbf{Stelle} & \textbf{Livello} & \textbf{Descrizione}\\
+\hline
+\valutazionestelle{0} & Immediato &
+Si risolve a prima vista, senza richiedere ragionamenti o procedimenti particolari.\\
+\valutazionestelle{1} & Elementare &
+Richiede l'applicazione diretta di conoscenze o procedimenti noti, senza particolari difficoltà.\\
+\valutazionestelle{2} & Facile &
+Richiede alcuni passaggi e un ragionamento autonomo, ma la strategia risolutiva rimane abbastanza evidente.\\
+\valutazionestelle{3} & Intermedio &
+Richiede di individuare una strategia non immediata e sviluppare un ragionamento articolato, eventualmente attraverso più tentativi.\\
+\valutazionestelle{4} & Difficile &
+Richiede un ragionamento impegnativo, una strategia poco evidente e diversi tentativi per giungere alla soluzione.\\
+\valutazionestelle{5} & Complesso &
+Richiede intuizioni particolarmente difficili e numerosi tentativi; alcuni passaggi possono risultare ostici anche dopo aver consultato la soluzione.\\
+\hline
+\end{tabular}
+\end{center}
+
+\clearpage
