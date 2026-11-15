@@ -97,11 +97,11 @@
 - B Esercizi per argomento — p. 102
   - Scala di difficoltà degli esercizi — p. 102
   - B.1 Fondamenti — p. 103
-  - B.2 Limiti — p. 114
-  - B.3 Studio di funzione — p. 115
-  - B.4 Successioni — p. 116
-  - B.5 Serie numeriche — p. 117
-  - B.6 Integrali — p. 118
-  - B.7 Equazioni differenziali — p. 119
-  - B.8 Taylor e tecniche asintotiche — p. 120
+  - B.2 Limiti — p. 118
+  - B.3 Studio di funzione — p. 119
+  - B.4 Successioni — p. 120
+  - B.5 Serie numeriche — p. 121
+  - B.6 Integrali — p. 122
+  - B.7 Equazioni differenziali — p. 123
+  - B.8 Taylor e tecniche asintotiche — p. 124
 <!-- GENERATED:END -->
