@@ -6,7 +6,252 @@ Committed changes for `1/analisi-matematica-1` and every file below it.
 
 Newest changes appear first.
 
+## 16/11/2026
+
+### [`20206f0`](https://github.com/simonesiega/unipd-computer-engineering/commit/20206f0b3bb95e082563b8e87cb273bf9ae94c16) — feat(analisi-1): add b.1 exercises (#39)
+
+- **Modified** `README.md`
+- **Modified** `sections/esercizi/argomenti.tex`
+- **Added** `sections/esercizi/argomenti/classificazione-difficolta.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/composizione-inversa-e-numerabilita.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/estremi-e-separazione.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/fattoriali-coefficienti-binomiali-e-bernoulli.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/induzione-e-somme-finite.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/intorni-e-punti-di-accumulazione.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/parte-intera-densita-e-intervalli.tex`
+- **Added** `sections/esercizi/argomenti/fondamenti/prodotti-cartesiani-e-applicazioni.tex`
+- **Modified** `sections/settimana-05/17-lezione.tex`
+- **Modified** `sections/settimana-06/18-lezione.tex`
+
+## 13/11/2026
+
+### [`82b3be5`](https://github.com/simonesiega/unipd-computer-engineering/commit/82b3be51cdede5b6f44a9c8b3c9489e0aa31e4aa) —  feat(analisi-1): add lecture 18 (#38)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/pari-dispari.tex`
+- **Modified** `main.tex`
+- **Added** `sections/settimana-06/18-lezione.tex`
+
+## 7/11/2026
+
+### [`335c35f`](https://github.com/simonesiega/unipd-computer-engineering/commit/335c35ffb9c25689de038e60594be00d131d11e3) — feat(analisi-1): add lecture until 30 (#36)
+
+- **Modified** `README.md`
+- **Modified** `assets/grafici/funzioni/ceiling.tex`
+- **Modified** `assets/grafici/funzioni/composizione-inversa.tex`
+- **Modified** `assets/grafici/funzioni/confronto-limiti-uguali.tex`
+- **Added** `assets/grafici/funzioni/esponenziale-logaritmo.tex`
+- **Modified** `assets/grafici/funzioni/floor.tex`
+- **Modified** `assets/grafici/retta-reale/caratterizzazione-inf.tex`
+- **Modified** `assets/grafici/retta-reale/caratterizzazione-sup.tex`
+- **Modified** `assets/grafici/retta-reale/densita-razionali.tex`
+- **Modified** `assets/grafici/retta-reale/intersezione-intorni-infinito.tex`
+- **Modified** `assets/grafici/retta-reale/intorni-disgiunti.tex`
+- **Modified** `assets/grafici/retta-reale/non-intervallo.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+- **Modified** `sections/settimana-02/05-lezione.tex`
+- **Modified** `sections/settimana-03/06-lezione.tex`
+- **Modified** `sections/settimana-03/07-lezione.tex`
+- **Modified** `sections/settimana-03/08-lezione.tex`
+- **Modified** `sections/settimana-03/09-lezione.tex`
+- **Modified** `sections/settimana-04/10-lezione.tex`
+- **Modified** `sections/settimana-04/11-lezione.tex`
+- **Modified** `sections/settimana-04/12-lezione.tex`
+- **Modified** `sections/settimana-04/13-lezione.tex`
+- **Modified** `sections/settimana-05/14-lezione.tex`
+- **Added** `sections/settimana-05/15-lezione.tex`
+- **Added** `sections/settimana-05/16-lezione.tex`
+- **Added** `sections/settimana-05/17-lezione.tex`
+
+### [`1aa66ae`](https://github.com/simonesiega/unipd-computer-engineering/commit/1aa66ae5e81c18540eada0d3e9f9f71c5e8e04f8) —  feat(analisi-1): add topic-based calculus exercises (#35)
+
+- **Modified** `README.md`
+- **Modified** `main.tex`
+- **Added** `sections/esercizi/argomenti.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/classificazione-equazioni.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/equazioni-a-variabili-separabili.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/equazioni-lineari-omogenee-secondo-ordine.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/equazioni-lineari-primo-ordine.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/intervallo-massimale.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/non-unicita-con-radicali.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/parametri-e-risonanza.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/problema-di-cauchy.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/radici-caratteristiche-multiple.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/separabili-con-fratti-semplici.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/soluzioni-di-equilibrio.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/termine-noto-esponenziale.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/termine-noto-polinomiale.tex`
+- **Added** `sections/esercizi/argomenti/equazioni-differenziali/verifica-delle-soluzioni.tex`
+- **Added** `sections/esercizi/argomenti/integrali/calcolo-e-convergenza.tex`
+- **Added** `sections/esercizi/argomenti/integrali/completamento-del-quadrato.tex`
+- **Added** `sections/esercizi/argomenti/integrali/confronto-asintotico-impropri.tex`
+- **Added** `sections/esercizi/argomenti/integrali/esponenziali-all-infinito.tex`
+- **Added** `sections/esercizi/argomenti/integrali/funzioni-razionali-e-fratti-semplici.tex`
+- **Added** `sections/esercizi/argomenti/integrali/identita-trigonometriche.tex`
+- **Added** `sections/esercizi/argomenti/integrali/integrali-impropri-con-parametri.tex`
+- **Added** `sections/esercizi/argomenti/integrali/integrali-modello-di-potenze.tex`
+- **Added** `sections/esercizi/argomenti/integrali/integrazione-per-parti.tex`
+- **Added** `sections/esercizi/argomenti/integrali/integrazione-per-sostituzione.tex`
+- **Added** `sections/esercizi/argomenti/integrali/primitive-immediate.tex`
+- **Added** `sections/esercizi/argomenti/integrali/riconoscere-integrali-impropri.tex`
+- **Added** `sections/esercizi/argomenti/integrali/riconoscimento-derivata-interna.tex`
+- **Added** `sections/esercizi/argomenti/integrali/simmetrie-e-parita.tex`
+- **Added** `sections/esercizi/argomenti/integrali/singolarita-logaritmiche.tex`
+- **Added** `sections/esercizi/argomenti/integrali/sostituzione-di-weierstrass.tex`
+- **Added** `sections/esercizi/argomenti/integrali/sostituzione-iperbolica.tex`
+- **Added** `sections/esercizi/argomenti/integrali/sostituzioni-con-radicali.tex`
+- **Added** `sections/esercizi/argomenti/integrali/taylor-di-funzioni-integrali.tex`
+- **Added** `sections/esercizi/argomenti/integrali/teorema-fondamentale-del-calcolo.tex`
+- **Added** `sections/esercizi/argomenti/integrali/valore-assoluto-e-suddivisione.tex`
+- **Added** `sections/esercizi/argomenti/limiti/cambio-di-variabile.tex`
+- **Added** `sections/esercizi/argomenti/limiti/de-lhopital.tex`
+- **Added** `sections/esercizi/argomenti/limiti/equivalenze-asintotiche.tex`
+- **Added** `sections/esercizi/argomenti/limiti/forme-esponenziali-e-logaritmi.tex`
+- **Added** `sections/esercizi/argomenti/limiti/identita-trigonometriche.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-all-infinito.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-con-integrali.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-con-parametri.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-di-successioni.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-notevoli.tex`
+- **Added** `sections/esercizi/argomenti/limiti/limiti-unilateri-e-dominio.tex`
+- **Added** `sections/esercizi/argomenti/limiti/razionalizzazione.tex`
+- **Added** `sections/esercizi/argomenti/limiti/semplificazioni-algebriche.tex`
+- **Added** `sections/esercizi/argomenti/limiti/sviluppi-di-taylor-e-cancellazioni.tex`
+- **Added** `sections/esercizi/argomenti/limiti/teorema-del-confronto-e-stime.tex`
+- **Added** `sections/esercizi/argomenti/serie/condizione-necessaria.tex`
+- **Added** `sections/esercizi/argomenti/serie/confronto-asintotico.tex`
+- **Added** `sections/esercizi/argomenti/serie/convergenza-assoluta-e-semplice.tex`
+- **Added** `sections/esercizi/argomenti/serie/criterio-del-confronto.tex`
+- **Added** `sections/esercizi/argomenti/serie/criterio-del-rapporto.tex`
+- **Added** `sections/esercizi/argomenti/serie/criterio-della-radice.tex`
+- **Added** `sections/esercizi/argomenti/serie/criterio-di-leibniz.tex`
+- **Added** `sections/esercizi/argomenti/serie/fattoriali-e-potenze.tex`
+- **Added** `sections/esercizi/argomenti/serie/parametri-in-logaritmi-e-basi.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-a-parametri.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-armoniche-generalizzate-e-logaritmi.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-di-potenze.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-geometriche.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-oscillanti.tex`
+- **Added** `sections/esercizi/argomenti/serie/serie-telescopiche.tex`
+- **Added** `sections/esercizi/argomenti/serie/stime-e-maggiorazioni.tex`
+- **Added** `sections/esercizi/argomenti/serie/taylor-nel-termine-generale.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/asintoti.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/continuita-e-prolungamenti.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/derivata-seconda-e-convessita.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/dominio.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/estremo-superiore-e-inferiore.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/funzioni-con-parametri.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/grafico-qualitativo.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/limiti-agli-estremi-del-dominio.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/limiti-della-derivata.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/monotonia.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/punti-critici-ed-estremi.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/punti-di-non-derivabilita.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/regole-di-derivazione.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/segno-e-zeri.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/simmetrie-e-periodicita.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/valore-assoluto-e-funzioni-a-tratti.tex`
+- **Added** `sections/esercizi/argomenti/studio-di-funzione/zeri-e-intersezioni.tex`
+- **Added** `sections/esercizi/argomenti/successioni/dalla-successione-alla-serie.tex`
+- **Added** `sections/esercizi/argomenti/successioni/differenze-logaritmiche.tex`
+- **Added** `sections/esercizi/argomenti/successioni/fattoriali-e-rapporti.tex`
+- **Added** `sections/esercizi/argomenti/successioni/limiti-e-gerarchie.tex`
+- **Added** `sections/esercizi/argomenti/successioni/monotonia-e-limitatezza.tex`
+- **Added** `sections/esercizi/argomenti/successioni/ordine-asintotico.tex`
+- **Added** `sections/esercizi/argomenti/successioni/radici-n-esime.tex`
+- **Added** `sections/esercizi/argomenti/successioni/segno-definitivo.tex`
+- **Added** `sections/esercizi/argomenti/successioni/successioni-alterne.tex`
+- **Added** `sections/esercizi/argomenti/successioni/successioni-ricorsive.tex`
+- **Added** `sections/esercizi/argomenti/successioni/taylor-in-uno-su-n.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/cancellazioni-con-parametri.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/composizione-di-sviluppi.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/confronto-di-potenze-e-logaritmi.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/notazione-o-piccolo-e-o-grande.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/ordine-della-prima-cancellazione.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/potenze-reali-e-binomiali.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/prodotti-e-quozienti.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/radici-n-esime-con-logaritmi.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/scelta-del-metodo-di-applicazione.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/segno-definitivo-dal-primo-termine.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/sviluppi-centrati-in-un-punto.tex`
+- **Added** `sections/esercizi/argomenti/taylor-e-asintotici/sviluppi-notevoli.tex`
+- **Added** `sections/esercizi/esami/.gitkeep`
+- **Added** `sections/tutorato.tex`
+- **Modified** `sections/tutorato/01-tutorato.tex`
+- **Modified** `sections/tutorato/02-tutorato.tex`
+
+## 27/10/2026
+
+### [`b8909a1`](https://github.com/simonesiega/unipd-computer-engineering/commit/b8909a121e245623cbbd79e29b41e1fbbb7c927e) —  feat(analisi-1): add lecture 14 notes (#30)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/retta-reale/accumulazione-unilaterale.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-03/06-lezione.tex`
+- **Modified** `sections/settimana-03/07-lezione.tex`
+- **Modified** `sections/settimana-03/08-lezione.tex`
+- **Added** `sections/settimana-05/14-lezione.tex`
+
+## 24/10/2026
+
+### [`91cab15`](https://github.com/simonesiega/unipd-computer-engineering/commit/91cab15e930e00ab973893d37fda8907d0b5b593) — feat(analisi-1): add lecture 11, 12, 13 + tutoring 2 notes (#29)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/confronto-limiti-uguali.tex`
+- **Added** `assets/grafici/funzioni/confronto-seno.tex`
+- **Added** `assets/grafici/funzioni/confronto-stretto-limiti-uguali.tex`
+- **Added** `assets/grafici/funzioni/limite-lineare.tex`
+- **Added** `assets/grafici/funzioni/termini-dispari.tex`
+- **Added** `assets/grafici/funzioni/termini-pari.tex`
+- **Added** `assets/grafici/funzioni/tre-funzioni-seno-inverso.tex`
+- **Added** `assets/grafici/retta-reale/intersezione-intorni-infinito.tex`
+- **Added** `assets/grafici/retta-reale/intervallo-aperto.tex`
+- **Added** `assets/grafici/retta-reale/intorni-disgiunti.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/01-lezione.tex`
+- **Modified** `sections/settimana-01/02-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+- **Modified** `sections/settimana-03/08-lezione.tex`
+- **Modified** `sections/settimana-04/10-lezione.tex`
+- **Added** `sections/settimana-04/11-lezione.tex`
+- **Added** `sections/settimana-04/12-lezione.tex`
+- **Added** `sections/settimana-04/13-lezione.tex`
+- **Added** `sections/tutorato/02-tutorato.tex`
+
+## 21/10/2026
+
+### [`56a8a38`](https://github.com/simonesiega/unipd-computer-engineering/commit/56a8a38696f128e546546f38e7f5ecbbfcafd04f) — feat(analisi-1): add lecture 10 notes (#27)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/inversa-esponenziale-logaritmo.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-02/05-lezione.tex`
+- **Modified** `sections/settimana-03/09-lezione.tex`
+- **Added** `sections/settimana-04/10-lezione.tex`
+
 ## 19/10/2026
+
+### [`3a1ebfd`](https://github.com/simonesiega/unipd-computer-engineering/commit/3a1ebfd4f7b2e8f4b12e0bfdb1182f1029db1c03) — feat(analisi-1): add lecture 9 notes (#26)
+
+- **Modified** `README.md`
+- **Added** `assets/grafici/funzioni/composizione-applicazioni.tex`
+- **Added** `assets/grafici/funzioni/composizione-inversa.tex`
+- **Added** `assets/grafici/funzioni/identita-composizione.tex`
+- **Added** `assets/grafici/funzioni/inversa-non-iniettiva.tex`
+- **Added** `assets/grafici/retta-reale/limite-razionale-infinito.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/settimana-01/03-lezione.tex`
+- **Modified** `sections/settimana-01/04-lezione.tex`
+- **Modified** `sections/settimana-02/05-lezione.tex`
+- **Modified** `sections/settimana-03/06-lezione.tex`
+- **Modified** `sections/settimana-03/07-lezione.tex`
+- **Modified** `sections/settimana-03/08-lezione.tex`
+- **Added** `sections/settimana-03/09-lezione.tex`
 
 ### [`f45d6ec`](https://github.com/simonesiega/unipd-computer-engineering/commit/f45d6ecc625e4ef70f96045a74dcdf2f067bd792) — feat(analisi-1): add lecture 8 notes (#25)
 

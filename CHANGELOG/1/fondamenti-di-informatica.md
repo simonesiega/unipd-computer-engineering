@@ -6,6 +6,162 @@ Committed changes for `1/fondamenti-di-informatica` and every file below it.
 
 Newest changes appear first.
 
+## 12/11/2026
+
+### [`c1d6eb5`](https://github.com/simonesiega/unipd-computer-engineering/commit/c1d6eb529f50b0c8d0febcec16d986ec9ced005d) — feat(fdi): add lectures 10-11 notes (#37)
+
+- **Modified** `README.md`
+- **Added** `assets/codice/java/bank-account-tester.tex`
+- **Added** `assets/codice/java/bank-account.tex`
+- **Added** `assets/codice/java/conto-numerato.tex`
+- **Added** `assets/codice/java/numeric.tex`
+- **Added** `assets/codice/java/priorita-enum.tex`
+- **Added** `assets/codice/java/simple-investment-tester.tex`
+- **Added** `assets/codice/java/somma-sentinella.tex`
+- **Added** `assets/codice/java/stagioni-switch.tex`
+- **Added** `assets/codice/java/tabella-potenze.tex`
+- **Added** `assets/diagrammi/java/bank-account-black-box.tex`
+- **Added** `assets/diagrammi/java/bank-account-istanze.tex`
+- **Added** `assets/diagrammi/java/contatore-statico.tex`
+- **Added** `assets/diagrammi/java/stringhe-riferimenti.tex`
+- **Added** `assets/diagrammi/java/variabili-heap.tex`
+- **Added** `assets/diagrammi/java/while-do-while.tex`
+- **Modified** `assets/diagrammi/strutture-dati/pila.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/appunti/01-introduzione-informatica.tex`
+- **Modified** `sections/appunti/02-rappresentazione-informazioni.tex`
+- **Modified** `sections/appunti/03-introduzione-python.tex`
+- **Modified** `sections/appunti/04-ricorsione.tex`
+- **Modified** `sections/appunti/05-complessita.tex`
+- **Modified** `sections/appunti/06-ricerca-ordinamento.tex`
+- **Modified** `sections/appunti/07-strutture-dati-adt.tex`
+- **Modified** `sections/appunti/08-introduzione-java.tex`
+- **Modified** `sections/appunti/09-collaudo-tipi-input-java.tex`
+- **Modified** `sections/appunti/10-realizzazione-classi-java.tex`
+- **Added** `sections/appunti/11-confronti-cicli-java.tex`
+- **Modified** `sections/esercizi/01-introduzione-informatica.tex`
+- **Modified** `sections/esercizi/02-rappresentazione-informazioni.tex`
+- **Modified** `sections/esercizi/05-complessita.tex`
+- **Modified** `sections/esercizi/06-ricerca-ordinamento.tex`
+- **Modified** `sections/esercizi/07-strutture-dati-adt.tex`
+- **Modified** `sections/esercizi/08-introduzione-java.tex`
+- **Modified** `sections/esercizi/09-collaudo-tipi-input-java.tex`
+- **Added** `sections/esercizi/10-realizzazione-classi-java.tex`
+- **Added** `sections/esercizi/11-confronti-cicli-java.tex`
+
+## 2/11/2026
+
+### [`b3cf541`](https://github.com/simonesiega/unipd-computer-engineering/commit/b3cf541d100862eef799b4583ddfaaa548e97b40) — feat(fdi): add exercises sections 1-9 (#34)
+
+- **Modified** `README.md`
+- **Modified** `main.tex`
+- **Renamed** `sections/01-introduzione-informatica.tex` → `sections/appunti/01-introduzione-informatica.tex`
+- **Renamed** `sections/02-rappresentazione-informazioni.tex` → `sections/appunti/02-rappresentazione-informazioni.tex`
+- **Renamed** `sections/03-introduzione-python.tex` → `sections/appunti/03-introduzione-python.tex`
+- **Renamed** `sections/04-ricorsione.tex` → `sections/appunti/04-ricorsione.tex`
+- **Renamed** `sections/05-complessita.tex` → `sections/appunti/05-complessita.tex`
+- **Renamed** `sections/06-ricerca-ordinamento.tex` → `sections/appunti/06-ricerca-ordinamento.tex`
+- **Renamed** `sections/07-strutture-dati-adt.tex` → `sections/appunti/07-strutture-dati-adt.tex`
+- **Renamed** `sections/08-introduzione-java.tex` → `sections/appunti/08-introduzione-java.tex`
+- **Renamed** `sections/09-collaudo-tipi-input-java.tex` → `sections/appunti/09-collaudo-tipi-input-java.tex`
+- **Renamed** `sections/10-realizzazione-classi-java.tex` → `sections/appunti/10-realizzazione-classi-java.tex`
+- **Added** `sections/esercizi/01-introduzione-informatica.tex`
+- **Added** `sections/esercizi/02-rappresentazione-informazioni.tex`
+- **Added** `sections/esercizi/03-introduzione-python.tex`
+- **Added** `sections/esercizi/04-ricorsione.tex`
+- **Added** `sections/esercizi/05-complessita.tex`
+- **Added** `sections/esercizi/06-ricerca-ordinamento.tex`
+- **Added** `sections/esercizi/07-strutture-dati-adt.tex`
+- **Added** `sections/esercizi/08-introduzione-java.tex`
+- **Added** `sections/esercizi/09-collaudo-tipi-input-java.tex`
+
+### [`a600ac0`](https://github.com/simonesiega/unipd-computer-engineering/commit/a600ac0bf0b4fcd1329c7f0549acfe5e69df54df) — feat(fdi): add lectures 8-9 notes (#33)
+
+- **Modified** `README.md`
+- **Added** `assets/codice/cicli/accumulo-sum.tex`
+- **Added** `assets/codice/complessita/differenza-massima.tex`
+- **Added** `assets/codice/complessita/duplicati.tex`
+- **Modified** `assets/codice/complessita/reverse-lineare.tex`
+- **Modified** `assets/codice/complessita/reverse-quadratico.tex`
+- **Added** `assets/codice/complessita/somme-prefisse.tex`
+- **Added** `assets/codice/complessita/sottostringa.tex`
+- **Modified** `assets/codice/funzioni/area.tex`
+- **Added** `assets/codice/java/big-integer.tex`
+- **Added** `assets/codice/java/coins.tex`
+- **Added** `assets/codice/java/coins5.tex`
+- **Added** `assets/codice/java/formattazione.tex`
+- **Added** `assets/codice/java/hello-tester.tex`
+- **Added** `assets/codice/java/move-tester.tex`
+- **Added** `assets/codice/java/rectangle-riferimenti.tex`
+- **Added** `assets/codice/java/scanner-coins.tex`
+- **Added** `assets/codice/java/scanner-password.tex`
+- **Deleted** `assets/codice/ordinamento/selezione-ricorsiva.tex`
+- **Modified** `assets/codice/ordinamento/selezione.tex`
+- **Modified** `assets/codice/ricerca/estremi.tex`
+- **Renamed** `assets/ricorsione/fattoriale-chiamate.tex` → `assets/codice/ricorsione/fattoriale-chiamate.tex`
+- **Added** `assets/codice/ricorsione/fattoriale-confronto.tex`
+- **Added** `assets/codice/ricorsione/fibonacci-albero.tex`
+- **Modified** `assets/codice/variabili/somma-input.tex`
+- **Modified** `assets/diagrammi/algoritmi/merge-sort-suddivisione.tex`
+- **Added** `assets/diagrammi/architettura/gerarchia-memoria.tex`
+- **Added** `assets/diagrammi/complessita/notazioni-asintotiche.tex`
+- **Added** `assets/diagrammi/informazione/trasmissione-informazione.tex`
+- **Added** `assets/diagrammi/java/ciclo-sviluppo.tex`
+- **Added** `assets/diagrammi/java/riferimenti-copia.tex`
+- **Modified** `assets/diagrammi/strutture-dati/array-lista-concatenata.tex`
+- **Added** `assets/diagrammi/strutture-dati/coda.tex`
+- **Added** `assets/diagrammi/strutture-dati/pila.tex`
+- **Deleted** `assets/ricorsione/fibonacci-albero.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/01-introduzione-informatica.tex`
+- **Modified** `sections/02-rappresentazione-informazioni.tex`
+- **Modified** `sections/03-introduzione-python.tex`
+- **Modified** `sections/04-ricorsione.tex`
+- **Modified** `sections/05-complessita.tex`
+- **Modified** `sections/06-ricerca-ordinamento.tex`
+- **Modified** `sections/07-strutture-dati-adt.tex`
+- **Added** `sections/08-introduzione-java.tex`
+- **Added** `sections/09-collaudo-tipi-input-java.tex`
+- **Added** `sections/10-realizzazione-classi-java.tex`
+
+## 22/10/2026
+
+### [`cc631c8`](https://github.com/simonesiega/unipd-computer-engineering/commit/cc631c831bd3bed1bd9517384ce8f2f01cbe7b51) — feat(fdi): add lectures 5-7 notes (#28)
+
+- **Modified** `README.md`
+- **Added** `assets/codice/cicli/sentinella.tex`
+- **Added** `assets/codice/complessita/misurazione.tex`
+- **Added** `assets/codice/complessita/reverse-lineare.tex`
+- **Added** `assets/codice/complessita/reverse-quadratico.tex`
+- **Added** `assets/codice/ordinamento/fusione.tex`
+- **Added** `assets/codice/ordinamento/inserimento.tex`
+- **Added** `assets/codice/ordinamento/rapido.tex`
+- **Added** `assets/codice/ordinamento/selezione-ricorsiva.tex`
+- **Added** `assets/codice/ordinamento/selezione.tex`
+- **Added** `assets/codice/ricerca/binaria.tex`
+- **Added** `assets/codice/ricerca/estremi.tex`
+- **Added** `assets/codice/ricerca/lineare.tex`
+- **Added** `assets/codice/strutture-dati/coda-circolare.tex`
+- **Added** `assets/codice/strutture-dati/pila-lista.tex`
+- **Added** `assets/diagrammi/algoritmi/merge-sort-suddivisione.tex`
+- **Modified** `assets/diagrammi/architettura/architettura-von-neumann.tex`
+- **Modified** `assets/diagrammi/architettura/pipeline-istruzioni.tex`
+- **Modified** `assets/diagrammi/flusso/conteggio.tex`
+- **Added** `assets/diagrammi/informazione/contenuto-informativo.tex`
+- **Modified** `assets/diagrammi/modelli-di-calcolo/macchina-di-turing.tex`
+- **Added** `assets/diagrammi/strutture-dati/array-lista-concatenata.tex`
+- **Added** `assets/diagrammi/strutture-dati/coda-circolare.tex`
+- **Modified** `assets/ricorsione/fattoriale-chiamate.tex`
+- **Modified** `assets/ricorsione/fibonacci-albero.tex`
+- **Modified** `main.tex`
+- **Modified** `sections/01-introduzione-informatica.tex`
+- **Modified** `sections/02-rappresentazione-informazioni.tex`
+- **Modified** `sections/03-introduzione-python.tex`
+- **Modified** `sections/04-ricorsione.tex`
+- **Added** `sections/05-complessita.tex`
+- **Added** `sections/06-ricerca-ordinamento.tex`
+- **Added** `sections/07-strutture-dati-adt.tex`
+
 ## 13/10/2026
 
 ### [`dfbf889`](https://github.com/simonesiega/unipd-computer-engineering/commit/dfbf8897b80618b33ef250bffc31f6cdf34babca) — docs(fdi & analisi-1): review and refine week 2 notes (#16)
