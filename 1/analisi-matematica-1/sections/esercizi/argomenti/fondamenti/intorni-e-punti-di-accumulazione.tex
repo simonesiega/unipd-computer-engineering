@@ -114,8 +114,6 @@ Essendo $A\subseteq(0,1]$, nessuno dei due punti infiniti
 è di accumulazione.
 \end{proof}
 
-\clearpage
-
 \begin{exercise}[Accumulo e numeri interi]
 \label{ex:fondamenti-accumulo-numeri-interi}
 \difficoltaesercizio{1}
@@ -153,62 +151,79 @@ Determinare $A'$ e i punti isolati, distinguendo
 accuratamente i punti di frontiera $-1$, $2$ e $3$.
 \rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,def:lez08-accumulazione-infinito}
 \end{exercise}
+
 \begin{proof}[Soluzione dell'esercizio]
 Si distinguono i casi secondo la posizione di $x_0\in\R$.
 
 \emph{Caso $x_0<-1$.} Per ogni $\varepsilon>0$,
-l'intervallo $(x_0-\varepsilon,x_0)$ è non vuoto
-e contenuto in $A$. Pertanto $x_0\in A'$.
+si ha
+\[
+  \bigl((x_0-\varepsilon,x_0+\varepsilon)\cap A\bigr)
+  \setminus\{x_0\}\ne\varnothing.
+\]
+Pertanto ogni intorno di $x_0$ contiene punti di
+$A$ diversi da $x_0$, quindi $x_0\in A'$.
 
 \emph{Caso $x_0=-1$.} Per ogni $\varepsilon>0$,
 l'intersezione
 \[
   (-1-\varepsilon,-1)\cap A\ne\varnothing.
 \]
-Pertanto $-1\in A'$.
+Pertanto ogni intorno di $-1$ contiene
+punti di $A$ diversi da $-1$, quindi $-1\in A'$.
 
-\emph{Caso $-1<x_0<0$.} L'intorno di raggio
-$\delta=\min\{x_0+1,-x_0\}/2$ non interseca $A$.
+\emph{Caso $-1<x_0<0$.} Posto
+\[
+  \delta=\frac12\min\{x_0+1,-x_0\}>0,
+\]
+l'intorno $D(x_0,\delta)$ non interseca $A$.
 
 \emph{Caso $x_0=0$.} Per $\delta=1/2$ si ha
 $D(0,\delta)\cap A=\{0\}$, quindi $0$ è isolato
 e non è un punto di accumulazione.
 
-\emph{Caso $0<x_0<2$.} L'intorno di raggio
-$\delta=\min\{x_0,2-x_0\}/2$ non interseca $A$.
+\emph{Caso $0<x_0<2$.} Posto
+\[
+  \delta=\frac12\min\{x_0,2-x_0\}>0,
+\]
+l'intorno $D(x_0,\delta)$ non interseca $A$.
 
 \emph{Caso $x_0=2$.} Per ogni $\varepsilon>0$,
 l'intersezione
 \[
-  (2,2+\varepsilon)\cap(2,3)\ne\varnothing.
+  (2,2+\varepsilon)\cap A\ne\varnothing.
 \]
-Pertanto $2\in A'$.
+Pertanto ogni intorno di $2$ contiene
+punti di $A$ diversi da $2$, quindi $2\in A'$.
 
 \emph{Caso $2<x_0<3$.} Per ogni $\varepsilon>0$,
-l'intersezione
+si ha
 \[
-  (x_0,x_0+\varepsilon)\cap(2,3)\ne\varnothing.
+  \bigl((x_0-\varepsilon,x_0+\varepsilon)\cap A\bigr)
+  \setminus\{x_0\}\ne\varnothing.
 \]
-Pertanto $x_0\in A'$.
+Pertanto ogni intorno di $x_0$ contiene punti di
+$A$ diversi da $x_0$, quindi $x_0\in A'$.
 
 \emph{Caso $x_0=3$.} Per ogni $\varepsilon>0$,
 l'intersezione
 \[
-  (3-\varepsilon,3)\cap(2,3)\ne\varnothing.
+  (3-\varepsilon,3)\cap A\ne\varnothing.
 \]
-\ne\varnothing.Pertanto $3\in A'$.
+Pertanto ogni intorno di $3$ contiene
+punti di $A$ diversi da $3$, quindi $3\in A'$.
 
 \emph{Caso $x_0>3$.} Per $\delta=(x_0-3)/2$,
 l'intorno $D(x_0,\delta)$ non interseca $A$.
 
-Pertanto
+Pertanto i punti di accumulazione reali e i punti isolati sono
 \[
   A'=(-\infty,-1]\cup[2,3],
   \qquad \operatorname{Iso}(A)=\{0\}.
 \]
-L'insieme $A$ non è inferiormente limitato, ma è
-superiormente limitato; quindi $-\infty$ è di accumulazione
-e $+\infty$ non lo è.
+Poiché $A$ non è inferiormente limitato, ma è
+superiormente limitato, $-\infty$ è un punto di
+accumulazione, mentre $+\infty$ non lo è.
 \end{proof}
 
 \begin{exercise}[Due successioni di punti]
