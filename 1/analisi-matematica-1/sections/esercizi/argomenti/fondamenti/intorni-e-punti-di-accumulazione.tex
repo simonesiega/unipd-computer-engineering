@@ -1,2 +1,327 @@
 \subsection{Intorni e punti di accumulazione}
 \label{sec:esercizi-fondamenti-intorni}
+
+\begin{exercise}[Punto isolato e intervallo]
+\label{ex:fondamenti-punto-isolato-intervallo}
+\difficoltaesercizio{0}
+Sia $A=(0,2)\cup\{4\}$. Determinare tutti i punti di
+accumulazione reali e i punti isolati di $A$.
+Stabilire se $+\infty$ o $-\infty$ siano punti di accumulazione.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,def:lez08-accumulazione-infinito}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si distinguono i casi secondo la posizione di $x_0\in\R$.
+
+\emph{Caso $x_0<0$.} Scegliendo $\delta=-x_0/2>0$,
+l'intorno $D(x_0,\delta)$ non interseca $A$.
+
+\emph{Caso $x_0=0$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (0,\varepsilon)\cap A\ne\varnothing.
+\]
+Pertanto ogni intorno di $0$ contiene
+punti di $A$ diversi da $0$, quindi $0\in A'$.
+
+\emph{Caso $0<x_0<2$.} Per ogni $\varepsilon>0$,
+si ha
+\[
+  \bigl((x_0-\varepsilon,x_0+\varepsilon)\cap A\bigr)
+  \setminus\{x_0\}\ne\varnothing.
+\]
+Pertanto ogni intorno di $x_0$ contiene punti di
+$A$ diversi da $x_0$, quindi $x_0\in A'$.
+
+\emph{Caso $x_0=2$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (2-\varepsilon,2)\cap A\ne\varnothing.
+\]
+Pertanto ogni intorno di $2$ contiene
+punti di $A$ diversi da $2$, quindi $2\in A'$.
+
+\emph{Caso $2<x_0<4$.} Posto
+\[
+  \delta=\frac12\min\{x_0-2,4-x_0\}>0,
+\]
+l'intorno $D(x_0,\delta)$ non interseca $A$.
+
+\emph{Caso $x_0=4$.} Per $\delta=1$ si ha
+$D(4,\delta)\cap A=\{4\}$, quindi $4$ è isolato
+e non è un punto di accumulazione.
+
+\emph{Caso $x_0>4$.} Per $\delta=(x_0-4)/2$,
+l'intorno $D(x_0,\delta)$ non interseca $A$.
+
+Pertanto i punti di accumulazione reali e i punti isolati sono
+\[
+  A'=[0,2],\qquad \operatorname{Iso}(A)=\{4\}.
+\]
+Poiché $A$ è limitato, né $+\infty$ né $-\infty$
+sono punti di accumulazione.
+\end{proof}
+
+\begin{exercise}[Reciproci di naturali positivi]
+\label{ex:fondamenti-reciproci-naturali-accumulazione}
+\difficoltaesercizio{1}
+Per
+\[
+  A=\left\{\frac1n:n\in\N,\ n\ge1\right\},
+\]
+determinare $A'$ e tutti i punti isolati.
+Giustificare che $0\in A'$ senza supporre $0\in A$.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,thm:proprieta-archimedea}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Caso $x_0=0$.} Per ogni $\varepsilon>0$, per la
+proprietà archimedea esiste $n>1/\varepsilon$. Pertanto
+\[
+  0<\frac1n<\varepsilon,
+\]
+quindi $0\in A'$, benché $0\notin A$.
+
+\emph{Caso $x_0=1/n$, con $n\ge1$.} Per $n=1$ si può
+scegliere $\delta=1/4$. Per $n\ge2$, si pone
+\[
+  \delta=\frac12\min\left\{
+    \frac1{n-1}-\frac1n,\,
+    \frac1n-\frac1{n+1}\right\}>0.
+\]
+In entrambi i casi $D(x_0,\delta)\cap A=\{x_0\}$,
+quindi ogni elemento di $A$ è isolato.
+
+\emph{Caso $0<x_0<1$, con $x_0\notin A$.}
+Esiste $n\ge1$ tale che
+\[
+  \frac1{n+1}<x_0<\frac1n.
+\]
+L'intorno di raggio
+\[
+  \delta=\frac12\min\left\{
+    x_0-\frac1{n+1},\,\frac1n-x_0\right\}
+\]
+non interseca $A$.
+
+\emph{Casi $x_0<0$ e $x_0>1$.} È sufficiente scegliere,
+rispettivamente, $\delta=-x_0/2$ e $\delta=(x_0-1)/2$.
+In entrambi i casi $D(x_0,\delta)\cap A=\varnothing$.
+
+Ne segue
+\[
+  A'=\{0\},\qquad \operatorname{Iso}(A)=A.
+\]
+Essendo $A\subseteq(0,1]$, nessuno dei due punti infiniti
+è di accumulazione.
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Accumulo e numeri interi]
+\label{ex:fondamenti-accumulo-numeri-interi}
+\difficoltaesercizio{1}
+Considerare $A=\Z$ come sottoinsieme di $\R$.
+Stabilire quali punti reali sono di accumulazione,
+quali elementi sono isolati e se $\pm\infty$ sono
+di accumulazione.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,def:lez08-accumulazione-infinito}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Caso $x_0\in\Z$.} Per $\delta=1/2$,
+\[
+  D(x_0,\delta)\cap\Z=\{x_0\},
+\]
+quindi ogni intero è isolato.
+
+\emph{Caso $x_0\in\R\setminus\Z$.} Esiste $n\in\Z$
+tale che $n<x_0<n+1$. Scegliendo
+\[
+  \delta=\frac12\min\{x_0-n,n+1-x_0\}>0,
+\]
+si ottiene $D(x_0,\delta)\cap\Z=\varnothing$.
+
+Pertanto $A'=\varnothing$ e $\operatorname{Iso}(A)=\Z$.
+Poiché $\Z$ non è limitato né superiormente né
+inferiormente, entrambi i punti $+\infty$ e $-\infty$
+sono di accumulazione.
+\end{proof}
+
+\begin{exercise}[Insieme con una semiretta e un punto isolato]
+\label{ex:fondamenti-accumulazione-semiretta-isolato}
+\difficoltaesercizio{1}
+Sia $A=(-\infty,-1]\cup\{0\}\cup(2,3)$.
+Determinare $A'$ e i punti isolati, distinguendo
+accuratamente i punti di frontiera $-1$, $2$ e $3$.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,def:lez08-accumulazione-infinito}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si distinguono i casi secondo la posizione di $x_0\in\R$.
+
+\emph{Caso $x_0<-1$.} Per ogni $\varepsilon>0$,
+l'intervallo $(x_0-\varepsilon,x_0)$ è non vuoto
+e contenuto in $A$. Pertanto $x_0\in A'$.
+
+\emph{Caso $x_0=-1$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (-1-\varepsilon,-1)\cap A\ne\varnothing.
+\]
+Pertanto $-1\in A'$.
+
+\emph{Caso $-1<x_0<0$.} L'intorno di raggio
+$\delta=\min\{x_0+1,-x_0\}/2$ non interseca $A$.
+
+\emph{Caso $x_0=0$.} Per $\delta=1/2$ si ha
+$D(0,\delta)\cap A=\{0\}$, quindi $0$ è isolato
+e non è un punto di accumulazione.
+
+\emph{Caso $0<x_0<2$.} L'intorno di raggio
+$\delta=\min\{x_0,2-x_0\}/2$ non interseca $A$.
+
+\emph{Caso $x_0=2$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (2,2+\varepsilon)\cap(2,3)\ne\varnothing.
+\]
+Pertanto $2\in A'$.
+
+\emph{Caso $2<x_0<3$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (x_0,x_0+\varepsilon)\cap(2,3)\ne\varnothing.
+\]
+Pertanto $x_0\in A'$.
+
+\emph{Caso $x_0=3$.} Per ogni $\varepsilon>0$,
+l'intersezione
+\[
+  (3-\varepsilon,3)\cap(2,3)\ne\varnothing.
+\]
+\ne\varnothing.Pertanto $3\in A'$.
+
+\emph{Caso $x_0>3$.} Per $\delta=(x_0-3)/2$,
+l'intorno $D(x_0,\delta)$ non interseca $A$.
+
+Pertanto
+\[
+  A'=(-\infty,-1]\cup[2,3],
+  \qquad \operatorname{Iso}(A)=\{0\}.
+\]
+L'insieme $A$ non è inferiormente limitato, ma è
+superiormente limitato; quindi $-\infty$ è di accumulazione
+e $+\infty$ non lo è.
+\end{proof}
+
+\begin{exercise}[Due successioni di punti]
+\label{ex:fondamenti-due-successioni-accumulazione}
+\difficoltaesercizio{2}
+Sia
+\[
+  A=\left\{\frac1n:n\in\N,\ n\ge1\right\}\cup
+    \left\{2-\frac1n:n\in\N,\ n\ge2\right\}.
+\]
+Dimostrare che $A'=\{0,2\}$ e che ogni elemento di $A$
+è isolato.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,thm:proprieta-archimedea}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si pongano
+\[
+  B:=\left\{\frac1n:n\in\N,\ n\ge1\right\},
+  \qquad
+  C:=\left\{2-\frac1n:n\in\N,\ n\ge2\right\}.
+\]
+\emph{Casi $x_0=0$ e $x_0=2$.} Per ogni
+$\varepsilon>0$, per la proprietà archimedea esiste
+$n\ge2$ tale che $1/n<\varepsilon$. Allora
+\[
+  0<\frac1n<\varepsilon,
+  \qquad 0<2-\left(2-\frac1n\right)<\varepsilon.
+\]
+Pertanto $0,2\in A'$.
+
+\emph{Caso $x_0\in B$.} Se $x_0=1$, si può scegliere
+$\delta=1/4$. Se $x_0=1/n$, con $n\ge2$, si pone
+\[
+  \delta=\frac12\min\left\{
+    \frac1{n-1}-\frac1n,\,
+    \frac1n-\frac1{n+1}\right\}>0.
+\]
+Poiché $B\subseteq(0,1]$ e $C\subseteq[3/2,2)$,
+si ha $D(x_0,\delta)\cap A=\{x_0\}$.
+
+\emph{Caso $x_0\in C$.} Se $x_0=3/2$, si può scegliere
+$\delta=1/12$. Se $x_0=2-1/n$, con $n\ge3$, si pone
+\[
+  \delta=\frac12\min\left\{
+    \frac1{n-1}-\frac1n,\,
+    \frac1n-\frac1{n+1}\right\}>0.
+\]
+Anche in questo caso $D(x_0,\delta)\cap A=\{x_0\}$.
+
+\emph{Caso $x_0\in(0,1)\setminus B$.} Esiste $n\ge1$
+tale che $1/(n+1)<x_0<1/n$; per
+\[
+  \delta=\frac12\min\left\{
+    x_0-\frac1{n+1},\,\frac1n-x_0\right\}>0
+\]
+si ha $D(x_0,\delta)\cap A=\varnothing$.
+
+\emph{Caso $1<x_0<3/2$.} Scegliendo
+$\delta=\min\{x_0-1,3/2-x_0\}/2>0$,
+si ha $D(x_0,\delta)\cap A=\varnothing$.
+
+\emph{Caso $x_0\in(3/2,2)\setminus C$.} Esiste $n\ge2$
+tale che
+\[
+  2-\frac1n<x_0<2-\frac1{n+1}.
+\]
+Per
+\[
+  \delta=\frac12\min\left\{
+    x_0-\left(2-\frac1n\right),\,
+    2-\frac1{n+1}-x_0\right\}>0
+\]
+si ha $D(x_0,\delta)\cap A=\varnothing$.
+
+\emph{Casi $x_0<0$ e $x_0>2$.} Si scelgono,
+rispettivamente, $\delta=-x_0/2$ e $\delta=(x_0-2)/2$.
+In entrambi i casi $D(x_0,\delta)\cap A=\varnothing$.
+
+Si conclude che
+\[
+  A'=\{0,2\},\qquad \operatorname{Iso}(A)=A.
+\]
+Poiché $A\subseteq(0,2)$, né $+\infty$ né $-\infty$
+sono di accumulazione.
+\end{proof}
+
+\begin{exercise}[Un insieme finito è fatto di punti isolati]
+\label{ex:fondamenti-insieme-finito-isolati}
+\difficoltaesercizio{1}
+Sia $A\subseteq\R$ non vuoto e finito. Dimostrare che ogni
+elemento di $A$ è isolato e che $A'=\varnothing$.
+Spiegare perché $+\infty$ e $-\infty$ non sono punti
+di accumulazione.
+\rimandoteoria{def:lez07-accumulazione,def:lez08-isolato,prop:lez08-accumulazione-limitatezza}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Caso $x_0\in A$.} Se $A=\{x_0\}$, è sufficiente
+scegliere $\delta=1$. Altrimenti, essendo $A$ finito,
+\[
+  \delta:=\frac12\min\{|x_0-a|:a\in A\setminus\{x_0\}\}>0.
+\]
+In entrambi i casi $D(x_0,\delta)\cap A=\{x_0\}$,
+quindi $x_0$ è isolato.
+
+\emph{Caso $x_0\notin A$.} Per la finitezza di $A$,
+\[
+  \delta:=\frac12\min\{|x_0-a|:a\in A\}>0.
+\]
+Pertanto $D(x_0,\delta)\cap A=\varnothing$.
+Ne segue che $A'=\varnothing$ e
+$\operatorname{Iso}(A)=A$.
+
+Infine, poiché $A$ è finito e non vuoto, ammette
+minimo e massimo: è quindi limitato e nessuno dei
+punti $+\infty$ e $-\infty$ è di accumulazione.
+\end{proof}
