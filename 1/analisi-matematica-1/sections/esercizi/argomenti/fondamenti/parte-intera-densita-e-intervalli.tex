@@ -1,0 +1,104 @@
+\subsection{Parte intera, densità e intervalli}
+\label{sec:esercizi-fondamenti-parte-intera}
+
+\begin{exercise}[Parte intera inferiore e superiore di numeri negativi]
+\label{ex:fondamenti-floor-ceiling-negativi}
+\difficoltaesercizio{0}
+Calcolare $\lfloor-7/3\rfloor$, $\lceil-7/3\rceil$,
+$\lfloor5/2\rfloor$ e $\lceil5/2\rceil$, motivando ogni
+risultato mediante le rispettive definizioni.
+\rimandoteoria{def:floor,def:ceiling}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché
+\[
+  -3<-\frac73<-2,
+  \qquad 2<\frac52<3,
+\]
+per le definizioni di floor e ceiling si ottiene
+\[
+  \lfloor-7/3\rfloor=-3,\quad
+  \lceil-7/3\rceil=-2,\quad
+  \lfloor5/2\rfloor=2,\quad
+  \lceil5/2\rceil=3.
+\]
+\end{proof}
+
+\begin{exercise}[Equazione con la parte intera inferiore]
+\label{ex:fondamenti-equazione-parte-intera}
+\difficoltaesercizio{0}
+Determinare tutti i numeri reali $x$ tali che
+\[
+  \lfloor2x-1\rfloor=3.
+\]
+Scrivere l'insieme soluzione come intervallo.
+\rimandoteoria{def:floor}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per la definizione di floor,
+\[
+  \lfloor2x-1\rfloor=3
+  \quad\Longleftrightarrow\quad
+  3\le2x-1<4
+  \quad\Longleftrightarrow\quad
+  2\le x<\frac52.
+\]
+L'insieme soluzione è quindi $[2,5/2)$.
+\end{proof}
+
+\begin{exercise}[Approssimazione razionale di un irrazionale]
+\label{ex:fondamenti-approssimazione-razionale-irrazionale}
+\difficoltaesercizio{1}
+Trovare esplicitamente un numero $q\in\Q$ tale che
+\[
+  0<\sqrt2-q<\frac1{20}.
+\]
+Verificare entrambe le disuguaglianze senza ricorrere
+ad approssimazioni decimali non giustificate.
+\rimandoteoria{thm:densita-razionali}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si sceglie $q=7/5\in\Q$. Poiché
+\[
+  \left(\frac75\right)^2=\frac{49}{25}<2
+  <\frac{841}{400}=\left(\frac{29}{20}\right)^2,
+\]
+e i numeri considerati sono positivi, segue
+\[
+  \frac75<\sqrt2<\frac{29}{20}
+  =\frac75+\frac1{20}.
+\]
+Pertanto $0<\sqrt2-q<1/20$.
+\end{proof}
+
+\begin{exercise}[Parte intera di numeri opposti]
+\label{ex:fondamenti-parte-intera-numeri-opposti}
+\difficoltaesercizio{2}
+Dimostrare che, per ogni $x\in\R$,
+\[
+  \lfloor x\rfloor+\lfloor-x\rfloor\in\{-1,0\}.
+\]
+Determinare esattamente per quali $x$ si verifica
+ciascuno dei due valori.
+\rimandoteoria{def:floor}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si ponga $n:=\lfloor x\rfloor$. Per definizione,
+\[
+  n\le x<n+1,
+  \qquad -n-1<-x\le-n.
+\]
+Se $x\in\Z$, si ha $x=n$ e $\lfloor-x\rfloor=-n$;
+pertanto la somma è nulla.
+
+Se $x\notin\Z$, risulta $n<x<n+1$ e quindi
+$-n-1<-x<-n$. Ne segue $\lfloor-x\rfloor=-n-1$,
+per cui la somma vale $-1$. In conclusione,
+\[
+  \lfloor x\rfloor+\lfloor-x\rfloor=
+  \begin{cases}
+    0,&x\in\Z,\\
+    -1,&x\in\R\setminus\Z.
+  \end{cases}
+\]
+\end{proof}

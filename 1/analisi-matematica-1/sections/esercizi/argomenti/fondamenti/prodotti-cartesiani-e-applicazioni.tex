@@ -1,0 +1,263 @@
+\clearpage
+
+\subsection{Prodotti cartesiani e applicazioni}
+\label{sec:esercizi-fondamenti-prodotti-cartesiani}
+
+\begin{exercise}[Prodotto cartesiano di insiemi finiti]
+\label{ex:fondamenti-prodotto-cartesiano-finiti}
+\difficoltaesercizio{0}
+Siano $A=\{-1,0,1\}$ e $B=\{0,2\}$. Elencare gli elementi
+di $A\times B$ e di $B\times A$ e verificare che i due prodotti
+non coincidono.
+\rimandoteoria{def:lez06-prodotto-cartesiano}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per definizione,
+\[
+\begin{aligned}
+  A\times B
+    &=\{(-1,0),(-1,2),(0,0),(0,2),(1,0),(1,2)\},\\
+  B\times A
+    &=\{(0,-1),(0,0),(0,1),(2,-1),(2,0),(2,1)\}.
+\end{aligned}
+\]
+Poiché $(-1,0)\in A\times B$ ma $(-1,0)\notin B\times A$,
+si conclude che $A\times B\ne B\times A$.
+\end{proof}
+
+\begin{exercise}[Immagine e controimmagine di una parabola]
+\label{ex:fondamenti-immagine-controimmagine-parabola}
+\difficoltaesercizio{0}
+Per $f\colon\R\longrightarrow\R$, $f(x)=x^2-1$,
+determinare $\operatorname{Im}(f)$, $f^{-1}([-1,3])$
+e $f^{-1}(\{0\})$. Interpretare $f^{-1}$ come controimmagine
+di insiemi.
+\rimandoteoria{def:lez06-immagine,def:lez06-controimmagine}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $x^2\ge0$ per ogni $x\in\R$ e ogni $y\ge-1$
+si ottiene scegliendo $x=\sqrt{y+1}$, si ha
+\[
+  \operatorname{Im}(f)=[-1,+\infty).
+\]
+Inoltre,
+\[
+\begin{aligned}
+  f^{-1}([-1,3])
+    &=\{x\in\R:-1\le x^2-1\le3\}=[-2,2],\\
+  f^{-1}(\{0\})
+    &=\{x\in\R:x^2-1=0\}=\{-1,1\}.
+\end{aligned}
+\]
+In questo esercizio, $f^{-1}(S)$ indica la controimmagine
+dell'insieme $S$, non l'applicazione inversa di $f$.
+\end{proof}
+
+\begin{exercise}[Controimmagine con valore assoluto]
+\label{ex:fondamenti-controimmagine-valore-assoluto}
+\difficoltaesercizio{0}
+Data $f\colon\R\longrightarrow\R$, $f(x)=|x-2|$,
+calcolare $\operatorname{Im}(f)$ e $f^{-1}([1,3])$.
+\rimandoteoria{def:lez06-immagine,def:lez06-controimmagine}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $|x-2|\ge0$ per ogni $x\in\R$ e ogni valore
+non negativo è assunto da $f$, si ha
+\[
+  \operatorname{Im}(f)=[0,+\infty).
+\]
+Inoltre,
+\[
+\begin{aligned}
+  1\le|x-2|\le3
+    &\quad\Longleftrightarrow\quad
+      -3\le x-2\le-1\ \text{oppure}\ 1\le x-2\le3\\
+    &\quad\Longleftrightarrow\quad
+      x\in[-1,1]\cup[3,5].
+\end{aligned}
+\]
+Pertanto $f^{-1}([1,3])=[-1,1]\cup[3,5]$.
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Immagine di una funzione razionale]
+\label{ex:fondamenti-immagine-funzione-razionale}
+\difficoltaesercizio{1}
+Sia
+\[
+  f\colon\R\setminus\{1\}\longrightarrow\R,
+  \qquad f(x)=\frac{x+1}{x-1}.
+\]
+Determinare $\operatorname{Im}(f)$ e $f^{-1}((0,2))$,
+indicando con precisione gli intervalli ottenuti.
+\rimandoteoria{def:lez06-immagine,def:lez06-controimmagine}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si osserva che
+\[
+  f(x)=1+\frac{2}{x-1}.
+\]
+La funzione è strettamente decrescente
+su ciascuno degli intervalli del dominio.
+
+\emph{Primo caso: \(x>1\).}
+Si ha
+\[
+  \lim_{x\to1^+}f(x)=+\infty,
+  \qquad
+  \lim_{x\to+\infty}f(x)=1.
+\]
+Poiché $2/(x-1)$ assume tutti i valori positivi
+per $x>1$, si ottiene
+\[
+  f((1,+\infty))=(1,+\infty).
+\]
+
+\emph{Secondo caso: \(x<1\).}
+Si ha
+\[
+  \lim_{x\to-\infty}f(x)=1,
+  \qquad
+  \lim_{x\to1^-}f(x)=-\infty.
+\]
+Poiché $2/(x-1)$ assume tutti i valori negativi
+per $x<1$, si ottiene
+\[
+  f((-\infty,1))=(-\infty,1).
+\]
+
+Unendo i due intervalli, si ottiene
+\[
+  \operatorname{Im}(f)=\R\setminus\{1\}.
+\]
+
+Il risultato si verifica anche algebricamente.
+L'equazione \(y=f(x)\) equivale, per \(y\ne1\), a
+\[
+  x=\frac{y+1}{y-1}.
+\]
+Tale valore appartiene al dominio per ogni \(y\ne1\),
+mentre \(y=1\) non è assunto dalla funzione.
+
+Per determinare la controimmagine di \((0,2)\), si risolve
+\[
+  0<\frac{x+1}{x-1}<2.
+\]
+Distinguendo i casi in base al segno del denominatore,
+si ottiene
+\[
+\begin{aligned}
+  x<1:\quad &0<f(x)<2
+    \Longleftrightarrow x<-1,\\
+  x>1:\quad &0<f(x)<2
+    \Longleftrightarrow x>3.
+\end{aligned}
+\]
+Pertanto,
+\[
+  f^{-1}((0,2))
+  =(-\infty,-1)\cup(3,+\infty).
+\]
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Verifica di iniettività e suriettività]
+\label{ex:fondamenti-iniettivita-suriettivita-finiti}
+\difficoltaesercizio{0}
+Siano $A=\{1,2,3\}$, $B=\{0,1\}$ e
+$f\colon A\longrightarrow B$ definita da
+$f(1)=0$, $f(2)=f(3)=1$. Stabilire se $f$ è
+iniettiva, suriettiva e biiettiva; calcolare $f^{-1}(\{1\})$.
+\rimandoteoria{def:lez06-iniettiva,def:lez06-suriettiva,def:lez06-biettiva}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Non è iniettiva, poiché
+\[
+  2\ne3,\qquad f(2)=f(3)=1.
+\]
+È suriettiva, poiché
+\[
+  \operatorname{Im}(f)=\{0,1\}=B.
+\]
+Non è quindi biiettiva. Inoltre,
+\[
+  f^{-1}(\{1\})=\{2,3\}.
+\]
+\end{proof}
+
+\begin{exercise}[Controimmagini e operazioni insiemistiche]
+\label{ex:fondamenti-controimmagini-operazioni-insiemistiche}
+\difficoltaesercizio{2}
+Sia $f\colon A\longrightarrow B$ una qualsiasi applicazione
+e siano $S,T\subseteq B$. Dimostrare, mediante doppia inclusione, che
+\[
+  f^{-1}(S\cap T)=f^{-1}(S)\cap f^{-1}(T),
+\]
+\[
+  f^{-1}(S\cup T)=f^{-1}(S)\cup f^{-1}(T).
+\]
+\rimandoteoria{def:lez06-controimmagine}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Prima identità.}
+Sia $x\in f^{-1}(S\cap T)$. Per definizione di controimmagine,
+\[
+\begin{aligned}
+  f(x)\in S\cap T
+    &\Longrightarrow f(x)\in S\ \text{e}\ f(x)\in T
+    \Longrightarrow x\in f^{-1}(S)\cap f^{-1}(T).
+\end{aligned}
+\]
+Pertanto
+\[
+  f^{-1}(S\cap T)\subseteq f^{-1}(S)\cap f^{-1}(T).
+\]
+Viceversa, se $x\in f^{-1}(S)\cap f^{-1}(T)$, allora
+\[
+\begin{aligned}
+  f(x)\in S\ \text{e}\ f(x)\in T
+    &\Longrightarrow f(x)\in S\cap T
+    \Longrightarrow x\in f^{-1}(S\cap T),
+\end{aligned}
+\]
+da cui
+\[
+  f^{-1}(S)\cap f^{-1}(T)\subseteq f^{-1}(S\cap T).
+\]
+Per doppia inclusione segue
+\[
+  f^{-1}(S\cap T)=f^{-1}(S)\cap f^{-1}(T).
+\]
+
+\emph{Seconda identità.}
+Sia $x\in f^{-1}(S\cup T)$. Allora
+\[
+\begin{aligned}
+  f(x)\in S\cup T
+    &\Longrightarrow f(x)\in S\ \text{oppure}\ f(x)\in T
+    \Longrightarrow x\in f^{-1}(S)\cup f^{-1}(T).
+\end{aligned}
+\]
+Pertanto
+\[
+  f^{-1}(S\cup T)\subseteq f^{-1}(S)\cup f^{-1}(T).
+\]
+Viceversa, se $x\in f^{-1}(S)\cup f^{-1}(T)$, allora
+\[
+\begin{aligned}
+  f(x)\in S\ \text{oppure}\ f(x)\in T
+    &\Longrightarrow f(x)\in S\cup T
+    \Longrightarrow x\in f^{-1}(S\cup T),
+\end{aligned}
+\]
+da cui
+\[
+  f^{-1}(S)\cup f^{-1}(T)\subseteq f^{-1}(S\cup T).
+\]
+Per doppia inclusione segue
+\[
+  f^{-1}(S\cup T)=f^{-1}(S)\cup f^{-1}(T).
+\]
+\end{proof}

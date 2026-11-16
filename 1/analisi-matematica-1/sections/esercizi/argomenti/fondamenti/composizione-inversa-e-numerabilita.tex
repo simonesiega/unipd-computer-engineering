@@ -1,0 +1,175 @@
+\subsection{Composizione, inversa e numerabilità}
+\label{sec:esercizi-fondamenti-composizione}
+
+\begin{exercise}[Inversa di una funzione affine]
+\label{ex:fondamenti-inversa-funzione-affine}
+\difficoltaesercizio{0}
+Dimostrare che $f\colon\R\longrightarrow\R$, definita da
+$f(x)=3x-5$, è biiettiva e determinarne l'applicazione inversa,
+con dominio e codominio.
+\rimandoteoria{def:lez06-iniettiva,def:lez06-suriettiva,def:lez09-inversa}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Iniettività.} Siano $x_1,x_2\in\R$. Allora
+\[
+  f(x_1)=f(x_2)
+  \quad\Longrightarrow\quad
+  3x_1-5=3x_2-5
+  \quad\Longrightarrow\quad x_1=x_2.
+\]
+
+\emph{Suriettività.} Per ogni $y\in\R$, l'equazione
+\[
+  y=3x-5
+  \quad\Longleftrightarrow\quad
+  x=\frac{y+5}{3}
+\]
+ammette una soluzione in $\R$. Pertanto $f$ è biiettiva e
+\[
+  f^{-1}\colon\R\longrightarrow\R,
+  \qquad f^{-1}(x)=\frac{x+5}{3}.
+\]
+\end{proof}
+
+\begin{exercise}[Inversa e restrizione del dominio]
+\label{ex:fondamenti-inversa-restrizione-dominio}
+\difficoltaesercizio{0}
+Per
+\[
+  f\colon[1,+\infty)\longrightarrow[0,+\infty),
+  \qquad f(x)=(x-1)^2,
+\]
+verificare l'iniettività e la suriettività e scrivere
+l'applicazione inversa.
+\rimandoteoria{def:lez06-iniettiva,def:lez06-suriettiva,def:lez09-inversa}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Iniettività.} Per $x_1,x_2\ge1$,
+\[
+  (x_1-1)^2=(x_2-1)^2
+  \quad\Longrightarrow\quad x_1=x_2,
+\]
+poiché $x_1-1,x_2-1\ge0$.
+
+\emph{Suriettività.} Per ogni $y\ge0$, l'equazione
+\[
+  y=(x-1)^2
+  \quad\Longleftrightarrow\quad x=1+\sqrt{y}
+\]
+ammette una soluzione in $[1,+\infty)$. Pertanto $f$ è
+biiettiva e
+\[
+  f^{-1}\colon[0,+\infty)\longrightarrow[1,+\infty),
+  \qquad f^{-1}(x)=1+\sqrt{x}.
+\]
+\end{proof}
+
+\begin{exercise}[Ordine delle composizioni]
+\label{ex:fondamenti-ordine-composizioni}
+\difficoltaesercizio{0}
+Siano $\varphi,\psi\colon\R\longrightarrow\R$ definite da
+$\varphi(x)=x^2+1$ e $\psi(x)=2x-3$.
+Calcolare $\varphi\circ\psi$ e $\psi\circ\varphi$ e trovare
+un valore di $x$ in cui differiscono.
+\rimandoteoria{def:lez09-composizione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per definizione di composizione,
+\[
+\begin{aligned}
+  (\varphi\circ\psi)(x)
+    &=(2x-3)^2+1=4x^2-12x+10,\\
+  (\psi\circ\varphi)(x)
+    &=2(x^2+1)-3=2x^2-1.
+\end{aligned}
+\]
+Per $x=2$ si ha
+\[
+  (\varphi\circ\psi)(2)=2,
+  \qquad (\psi\circ\varphi)(2)=7.
+\]
+Pertanto le due composizioni non coincidono.
+\end{proof}
+
+\begin{exercise}[Una nuova classe di naturali numerabile]
+\label{ex:fondamenti-classe-naturali-numerabile}
+\difficoltaesercizio{1}
+Sia
+\[
+  A=\{3n+2:n\in\N\}.
+\]
+Dimostrare che $A$ è numerabile costruendo una biezione esplicita
+$\varphi\colon\N\longrightarrow A$ e verificando separatamente
+iniettività e suriettività.
+\rimandoteoria{def:lez07-numerabilita}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si consideri l'applicazione
+\[
+  \varphi\colon\N\longrightarrow A,
+  \qquad \varphi(n)=3n+2.
+\]
+\emph{Iniettività.} Per $n_1,n_2\in\N$,
+\[
+  \varphi(n_1)=\varphi(n_2)
+  \quad\Longrightarrow\quad
+  3n_1+2=3n_2+2
+  \quad\Longrightarrow\quad n_1=n_2.
+\]
+
+\emph{Suriettività.} Per ogni $a\in A$ esiste $n\in\N$
+tale che $a=3n+2=\varphi(n)$.
+Pertanto $\varphi$ è biiettiva e $A$ è numerabile.
+\end{proof}
+
+\begin{exercise}[Inversa di un rapporto razionale]
+\label{ex:fondamenti-inversa-rapporto-razionale}
+\difficoltaesercizio{1}
+Per
+\[
+  f\colon\R\setminus\{-1\}\longrightarrow\R\setminus\{2\},
+  \qquad f(x)=\frac{2x+3}{x+1},
+\]
+dimostrare che $f$ è biiettiva, calcolare $f^{-1}$ e
+verificare entrambe le identità di composizione con l'identità.
+\rimandoteoria{def:lez09-inversa,prop:lez09-inversa-composizione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Si osserva che
+\[
+  f(x)=\frac{2x+3}{x+1}=2+\frac{1}{x+1}.
+\]
+\emph{Iniettività.} Per $x_1,x_2\ne-1$,
+\[
+  f(x_1)=f(x_2)
+  \quad\Longrightarrow\quad
+  \frac1{x_1+1}=\frac1{x_2+1}
+  \quad\Longrightarrow\quad x_1=x_2.
+\]
+
+\emph{Suriettività.} Per ogni $y\ne2$,
+\[
+  y=2+\frac1{x+1}
+  \quad\Longleftrightarrow\quad
+  x=\frac1{y-2}-1.
+\]
+Il valore ottenuto è diverso da $-1$, quindi appartiene
+al dominio. Pertanto $f$ è biiettiva e
+\[
+  f^{-1}\colon\R\setminus\{2\}\longrightarrow
+    \R\setminus\{-1\},
+  \qquad f^{-1}(x)=\frac1{x-2}-1.
+\]
+
+Infine, per ogni $x\ne-1$ e ogni $y\ne2$, si ha
+\[
+\begin{aligned}
+  (f^{-1}\circ f)(x)
+    &=\frac1{f(x)-2}-1
+     =\frac1{\frac1{x+1}}-1=x,\\
+  (f\circ f^{-1})(y)
+    &=2+\frac1{f^{-1}(y)+1}
+     =2+\frac1{\frac1{y-2}}=y.
+\end{aligned}
+\]
+\end{proof}
