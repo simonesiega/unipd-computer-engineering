@@ -58,7 +58,12 @@ jobs:
               exit 0
             fi
 
-            git add -A -- CHANGELOG 1/.gitkeep 2/.gitkeep 3/.gitkeep
+            git add -A -- CHANGELOG
+            for placeholder in 1/.gitkeep 2/.gitkeep 3/.gitkeep; do
+              if [ -e "$placeholder" ] || git ls-files --error-unmatch -- "$placeholder" >/dev/null 2>&1; then
+                git add -A -- "$placeholder"
+              fi
+            done
             git commit -m "docs(changelog): publish weekly course recap [skip ci]"
             if git push origin "HEAD:$TARGET_BRANCH"; then
               exit 0
