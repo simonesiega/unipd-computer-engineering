@@ -1,0 +1,633 @@
+\chapter{Gestione delle eccezioni e dei file in Java}
+\label{chap:eccezioni-file-java}
+
+Dopo lo studio di classi, metodi e riferimenti, si approfondiscono
+il passaggio dei parametri, i package, le eccezioni e l'accesso ai file
+di testo
+(\cref{chap:realizzazione-classi-java,chap:confronti-cicli-java}).\footnote{Materiale di riferimento:
+S. Canazza, \emph{Java: gestione delle eccezioni e lettura/scrittura
+di file}, \nolinkurl{2026_FI_11_canazza_Java_GestioneEccezioni_File.pdf}.}
+
+\section{Passaggio dei parametri per valore}
+\label{sec:fi-java-file-parametri}
+
+\begin{definition}[Passaggio per valore]
+\label{def:fi-java-file-passaggio-valore}
+In Java, ogni argomento viene passato \emph{per valore}: il parametro
+formale riceve una copia del valore dell'argomento. Assegnare un nuovo
+valore al parametro non modifica la variabile del chiamante.
+\end{definition}
+
+Per i tipi primitivi si copia il dato; per i tipi riferimento si copia
+il \emph{riferimento}, non l'oggetto
+(\cref{sec:fi-java-riferimenti}). In quest'ultimo caso i due
+riferimenti consentono di modificare lo stesso oggetto.
+
+\begin{unipdcode}[language=Java]
+public static void cambiaNumero(int n) {
+    n = 20;
+}
+
+public static void aggiungiInteressi(BankAccount conto) {
+    conto.deposit(100);
+}
+\end{unipdcode}
+
+Dopo \texttt{cambiaNumero(x)}, il valore di \texttt{x} non cambia.
+Dopo \texttt{aggiungiInteressi(account)}, invece, cambia il saldo
+dell'oggetto indicato da \texttt{account}. Riassegnare un nuovo
+\texttt{BankAccount} al parametro \texttt{conto} non cambierebbe
+il riferimento del chiamante.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/passaggio-per-valore}
+  \caption{Il parametro riceve una copia del valore; una copia di un
+  riferimento continua a individuare lo stesso oggetto.}
+  \label{fig:fi-java-file-passaggio-valore}
+\end{figure}
+
+\clearpage
+
+\begin{example}[Trasferimento fra oggetti]
+Per trasferire un importo fra due conti, il metodo deve ricevere
+il conto destinatario, non soltanto il suo saldo. Si aggiunge
+alla classe \texttt{BankAccount} il seguente metodo:
+
+\input{assets/codice/java/trasferimento-conti}
+
+\begin{unipdcode}[language=Java]
+BankAccount corrente = new BankAccount(1000);
+BankAccount risparmio = new BankAccount(200);
+corrente.transfer(150, risparmio);
+System.out.println(risparmio.getBalance()); // 350.0
+\end{unipdcode}
+
+\texttt{other.deposit(amount)} opera sull'oggetto destinatario.
+Si presuppongono i metodi \texttt{withdraw()} e \texttt{deposit()}
+introdotti nella \cref{sec:fi-java-classi-incapsulamento}.
+\end{example}
+
+\subsection{Invocazione di metodi di istanza}
+\label{sec:fi-java-file-metodi-ricevente}
+
+Un metodo di istanza richiede un \emph{ricevente}, cioè l'oggetto
+su cui opera. In un metodo statico non esiste il riferimento implicito
+\texttt{this}; per invocare un metodo di istanza occorre indicare
+un oggetto (\cref{sec:fi-java-cicli-metodi-statici}).
+
+\begin{unipdcode}[language=Java]
+public class Contatore {
+    private int valore;
+
+    public void incrementa() {
+        valore++;
+    }
+
+    public void incrementaDueVolte() {
+        incrementa();       // equivale a this.incrementa()
+        this.incrementa();
+    }
+
+    public static void main(String[] args) {
+        Contatore c = new Contatore();
+        c.incrementaDueVolte();
+        System.out.println(c.valore);  // 2
+        // incrementa(); // errore: manca il ricevente
+    }
+}
+\end{unipdcode}
+
+All'interno di \texttt{incrementaDueVolte()}, \texttt{this}
+identifica l'oggetto \texttt{c} e può essere omesso quando
+non sussistono ambiguità.
+
+\subsection{Creazione e sostituzione di oggetti}
+\label{sec:fi-java-file-ricostruire}
+
+Un costruttore non è un metodo invocabile su un oggetto esistente:
+\texttt{account.BankAccount()} non è valido. Per assegnare alla
+variabile un nuovo oggetto si esegue nuovamente \texttt{new}:
+
+\begin{unipdcode}[language=Java]
+BankAccount account = new BankAccount();
+BankAccount altroRiferimento = account;
+account.deposit(500);
+account = new BankAccount();
+System.out.println(altroRiferimento.getBalance()); // 500.0
+\end{unipdcode}
+
+L'assegnamento cambia soltanto il riferimento di \texttt{account}:
+l'oggetto precedente resta accessibile tramite \texttt{altroRiferimento}
+(\cref{sec:fi-java-cicli-memoria}).
+
+\section{I package di Java}
+\label{sec:fi-java-file-package}
+
+\begin{definition}[Package]
+\label{def:fi-java-file-package}
+Un \emph{package} è uno spazio dei nomi che raggruppa tipi Java
+correlati. Permette di organizzarli e di distinguerli anche quando
+hanno nomi semplici uguali.
+\end{definition}
+
+La dichiarazione \texttt{package} precede gli \texttt{import} e le
+dichiarazioni dei tipi. Per convenzione, i nomi sono minuscoli e
+spesso derivano da un dominio invertito:
+
+\begin{unipdcode}[language=Java]
+package com.example.conti;
+
+public class BankAccount {
+    // Definizione della classe
+}
+\end{unipdcode}
+
+Il nome completo è \texttt{com.example.conti.BankAccount}. Di
+norma, il file si trova nella directory relativa 
+\texttt{src/com/example/conti/BankAccount.java}; il corpo della
+classe è omesso e si assume l'implementazione della
+\cref{sec:fi-java-classi-incapsulamento}.
+Un sottopackage come \texttt{com.example.conti.test} è distinto.
+
+\subsection{Importazione e accessibilità}
+\label{sec:fi-java-file-package-struttura}
+
+La dichiarazione \texttt{import} consente di usare un tipo senza
+ripeterne ogni volta il nome completo:
+
+\begin{unipdcode}[language=Java]
+package com.example.app;
+import com.example.conti.BankAccount;
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount conto = new BankAccount();
+        System.out.println(conto.getBalance());
+    }
+}
+\end{unipdcode}
+
+\texttt{import com.example.conti.*;} rende disponibili i nomi dei
+tipi accessibili del package, ma non importa i suoi sottopackage.
+\texttt{java.lang} è importato implicitamente. L'importazione non
+modifica l'accessibilità: senza modificatore, un membro è visibile
+soltanto nello stesso package (\emph{package-private});
+\texttt{protected} aggiunge specifiche possibilità di accesso per
+le sottoclassi.
+
+In assenza di dichiarazione \texttt{package}, il tipo appartiene al
+\emph{package senza nome} (\emph{default package}). È adatto a
+esempi isolati, non a progetti con più package: i tipi del package
+senza nome non sono importabili da package con nome.
+
+\subsection{Percorsi e compilazione}
+\label{sec:fi-java-file-package-compilazione}
+
+I percorsi possono essere \emph{assoluti} (dalla radice del
+filesystem) oppure \emph{relativi} (dalla directory corrente).
+L'opzione \texttt{-d} di \texttt{javac} indica la directory in cui
+collocare i file \texttt{.class}, conservando l'organizzazione
+prevista dai package:
+
+\begin{unipdterminal}
+$ mkdir -p bin
+$ javac -d bin src/com/example/conti/BankAccount.java src/com/example/app/Main.java
+$ java -cp bin com.example.app.Main
+\end{unipdterminal}
+
+L'esempio usa comandi di una shell Unix; su Windows può cambiare
+la creazione delle directory. \texttt{-cp bin} indica la radice
+delle classi compilate, mentre il nome dopo \texttt{java} è
+qualificato con il package.
+
+\section{Gestione delle eccezioni}
+\label{sec:fi-java-file-eccezioni}
+
+\subsection{Precondizioni e asserzioni}
+\label{sec:fi-java-file-precondizioni}
+
+\begin{definition}[Precondizione]
+\label{def:fi-java-file-precondizione}
+Una \emph{precondizione} è una condizione che deve valere prima
+di un'operazione affinché ne sia garantito il comportamento
+specificato.
+\end{definition}
+
+Il compilatore verifica i tipi degli argomenti, non vincoli come
+la positività di un importo. Una precondizione può essere
+specificata e verificata a esecuzione: la sua violazione può
+essere segnalata con un'eccezione. Per esempio, una versione
+controllata del metodo \texttt{BankAccount.deposit()} è:
+
+\begin{unipdcode}[language=Java]
+public void deposit(double amount) {
+    if (!(amount > 0) || !Double.isFinite(amount)) {
+        throw new IllegalArgumentException("Importo non valido");
+    }
+    balance += amount;
+}
+\end{unipdcode}
+
+\texttt{System.exit(1)} termina il processo senza consentire
+al chiamante di recuperare: per convenzione, \texttt{0} indica
+successo e un codice non nullo un errore. L'istruzione
+\texttt{assert condizione;} verifica invece un'assunzione interna;
+la forma \texttt{assert condizione : messaggio;} aggiunge un
+messaggio diagnostico. Le asserzioni sono disabilitate per impostazione
+predefinita (abilitabili con \texttt{java -ea}): non devono
+contenere operazioni con effetti collaterali e non sostituiscono
+i controlli su input esterni.
+
+\subsection{Lancio e gestione: \texttt{throw}, \texttt{try}, \texttt{catch}}
+\label{sec:fi-java-file-throw-try-catch}
+
+\begin{definition}[Eccezione]
+\label{def:fi-java-file-eccezione}
+Un'\emph{eccezione} è un oggetto di tipo \texttt{Exception},
+o di una sua sottoclasse, che segnala una condizione anomala.
+Anche gli oggetti di tipo \texttt{Error} possono essere lanciati:
+entrambe le classi derivano da \texttt{Throwable}. L'istruzione
+\texttt{throw} interrompe il normale flusso di esecuzione e
+trasferisce il controllo a un gestore compatibile, eventualmente
+in un metodo chiamante.
+\end{definition}
+
+\texttt{throw new IllegalArgumentException();} genera un'eccezione.
+Se non viene intercettata localmente, si \emph{propaga} lungo la
+catena delle chiamate.
+
+\begin{definition}[Costrutto \texttt{try}/\texttt{catch}]
+\label{def:fi-java-file-try-catch}
+Il blocco \texttt{try} delimita le istruzioni protette; un blocco
+\texttt{catch} gestisce un'eccezione il cui tipo è compatibile
+con quello dichiarato. Dopo la cattura, l'esecuzione non riprende
+nel punto in cui è stata lanciata l'eccezione.
+\end{definition}
+
+Data una stringa \texttt{riga}, la conversione può essere
+gestita nel seguente modo:
+
+\begin{unipdcode}[language=Java]
+try {
+    int n = Integer.parseInt(riga);
+    System.out.println(n);
+} catch (NumberFormatException e) {
+    System.err.println("Intero non valido");
+}
+\end{unipdcode}
+
+I blocchi \texttt{catch} possono essere più di uno: il primo tipo
+compatibile viene selezionato, quindi quelli più specifici vanno
+prima dei più generali. Se nessun gestore intercetta l'eccezione,
+questa si propaga; nel thread principale può determinare una
+terminazione anomala.
+
+\begin{example}[Richiesta di un intero]
+Il programma richiede un numero intero e ripete la lettura
+finché non riceve un valore valido o termina il flusso di input.
+\input{assets/codice/java/lettura-intero-eccezioni}
+
+Una conversione non valida genera \texttt{NumberFormatException}
+e consente di chiedere nuovamente il valore. Il controllo
+\texttt{hasNextLine()} riconosce la fine del flusso.
+\end{example}
+
+L'oggetto eccezione espone, tra gli altri, \texttt{getMessage()}
+e \texttt{printStackTrace()}. Quest'ultimo stampa normalmente
+sullo \emph{standard error} la \emph{stack trace}, ossia la
+sequenza delle chiamate che hanno condotto al lancio.
+Una regola pratica è \emph{lanciare presto, catturare tardi}:
+intercettare soltanto dove è possibile gestire il problema,
+senza nasconderlo con blocchi \texttt{catch} vuoti.
+
+\subsection{Eccezioni controllate e non controllate}
+\label{sec:fi-java-file-checked}
+
+Le eccezioni appartengono alla gerarchia di \texttt{Throwable}.
+Le sottoclassi di \texttt{Exception} includono
+\texttt{RuntimeException} e \texttt{IOException}:
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/gerarchia-eccezioni}
+  \caption{Gerarchia parziale delle classi derivate da
+  \texttt{Throwable}; i rami \texttt{Error} e
+  \texttt{RuntimeException} non sono controllati.}
+  \label{fig:fi-java-file-gerarchia-eccezioni}
+\end{figure}
+
+\begin{definition}[Eccezioni checked e unchecked]
+\label{def:fi-java-file-checked}
+Le eccezioni \emph{controllate} (\emph{checked}) devono essere
+intercettate oppure dichiarate con \texttt{throws}. Quelle
+\emph{non controllate} (\emph{unchecked}) sono le istanze di
+\texttt{RuntimeException} e \texttt{Error}, e delle rispettive
+sottoclassi: il compilatore non ne impone la gestione.
+\end{definition}
+
+\texttt{IOException} è controllata;
+\texttt{IllegalArgumentException} e \texttt{NumberFormatException}
+non lo sono. La classificazione determina un obbligo di
+compilazione, non la gravità del problema.
+
+\clearpage
+
+\subsection{Eccezioni di I/O e propagazione con \texttt{throws}}
+\label{sec:fi-java-file-io-throws}
+
+L'apertura di un file può lanciare \texttt{FileNotFoundException},
+sottoclasse di \texttt{IOException}. Un metodo che può produrre
+un'eccezione controllata deve gestirla o dichiararla:
+
+\begin{unipdcode}[language=Java]
+import java.io.FileReader;
+import java.io.IOException;
+
+public class PrimoCarattere {
+    public static void main(String[] args) throws IOException {
+        try (FileReader in = new FileReader("input.txt")) {
+            System.out.println(in.read());
+        }
+    }
+}
+\end{unipdcode}
+
+\texttt{throws IOException} dichiara una possibile propagazione,
+mentre \texttt{throw} esegue un lancio. È possibile dichiarare
+più tipi con \texttt{throws}, separandoli mediante virgole.
+Usare \texttt{throws} anche in \texttt{main()} è lecito,
+ma non gestisce l'errore.
+\texttt{Scanner} appartiene a \texttt{java.util} e i suoi metodi
+possono lanciare eccezioni non controllate, come
+\texttt{InputMismatchException} (\cref{sec:fi-java-scanner}).
+
+\subsection{La clausola \texttt{finally}}
+\label{sec:fi-java-file-finally}
+
+Il blocco \texttt{finally} viene eseguito normalmente sia dopo
+un \texttt{try} completato, sia prima della propagazione di
+un'eccezione. È utile per il rilascio delle risorse:
+
+\begin{unipdcode}[language=Java]
+FileReader in = new FileReader("input.txt");
+try {
+    System.out.println(in.read());
+} finally {
+    in.close();
+}
+\end{unipdcode}
+
+L'esempio richiede la gestione o dichiarazione di
+\texttt{IOException}. Un'eccezione prodotta dalla chiusura può
+mascherare quella precedente; per i file si preferisce quindi
+\texttt{try-with-resources} (\cref{sec:fi-java-file-try-resources}).
+\texttt{finally} non è garantito in caso di terminazione forzata
+della JVM.
+
+\section{Lettura e scrittura di file di testo}
+\label{sec:fi-java-file-testo}
+
+I file conservano dati oltre la terminazione del programma
+(\cref{sec:fi-memoria-archiviazione}). Un file di testo memorizza
+byte interpretati come caratteri secondo una codifica, per esempio
+UTF-8 (\cref{sec:fi-caratteri}).
+
+\subsection{Le API \texttt{java.io} e \texttt{java.nio}}
+\label{sec:fi-java-file-io-nio}
+
+\texttt{java.io} fornisce le classi tradizionali per i flussi di
+byte e caratteri. \texttt{java.nio} e \texttt{java.nio.file}
+offrono buffer, canali e operazioni moderne su percorsi e file.
+Le API sono complementari; qui si utilizzano soprattutto i
+lettori e gli scrittori di \texttt{java.io}.
+
+\subsection{La classe \texttt{File}}
+\label{sec:fi-java-file-classe-file}
+
+Un oggetto \texttt{File} rappresenta un \emph{percorso}, non il
+contenuto di un file aperto. Il diagramma indica i principali
+metodi pubblici; \texttt{+} è la notazione UML per \emph{public}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/file-uml}
+  \caption{Principali metodi di \texttt{java.io.File};
+  notazione UML semplificata.}
+  \label{fig:fi-java-file-uml-file}
+\end{figure}
+
+\begin{unipdcode}[language=Java]
+File file = new File("dati.txt");
+if (file.isFile()) {
+    System.out.println(file.length()); // dimensione in byte
+}
+\end{unipdcode}
+
+\texttt{createNewFile()} può lanciare \texttt{IOException};
+\texttt{delete()} restituisce un \texttt{boolean} che indica
+l'esito. I percorsi relativi si risolvono dalla directory di
+lavoro del programma, non dalla posizione del sorgente.
+
+\subsection{\texttt{FileReader}, \texttt{FileWriter} e buffer}
+\label{sec:fi-java-file-classi-flussi}
+
+\texttt{FileReader} legge caratteri, \texttt{FileWriter} li
+scrive. \texttt{BufferedReader} e \texttt{BufferedWriter}
+avvolgono tali flussi e aggiungono un buffer; il primo offre
+\texttt{readLine()}, il secondo \texttt{newLine()}.
+\texttt{PrintWriter} fornisce \texttt{print()}, \texttt{println()}
+e \texttt{printf()} per scrivere testo formattato.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/flussi-uml}
+  \caption{Metodi essenziali e composizione dei flussi di testo.
+  Le frecce indicano l'utilizzo di un flusso sottostante,
+  non l'ereditarietà.}
+  \label{fig:fi-java-file-uml-flussi}
+\end{figure}
+
+\texttt{read()} restituisce un \texttt{int} oppure \(-1\)
+a fine flusso. \texttt{readLine()} restituisce una riga senza
+il terminatore oppure \texttt{null} a fine file; una riga vuota
+produce invece \texttt{""}. Il buffering riduce gli accessi
+al flusso sottostante.
+
+\subsection{Lettura di un file}
+\label{sec:fi-java-file-lettura}
+
+Il programma legge \texttt{input.txt} riga per riga,
+specificando la codifica UTF-8:
+
+\input{assets/codice/java/lettura-file-buffer}
+
+In alternativa si può collegare \texttt{Scanner} a un
+\texttt{FileReader} e usare \texttt{hasNextLine()} e
+\texttt{nextLine()} (\cref{sec:fi-java-scanner}).
+
+\subsection{Scrittura di un file}
+\label{sec:fi-java-file-scrittura}
+
+Il programma crea \texttt{risultati.txt}, oppure ne
+sovrascrive il contenuto, usando un buffer:
+
+\input{assets/codice/java/scrittura-file-buffer}
+
+\texttt{write()} non aggiunge una nuova riga; per questo si
+invoca \texttt{newLine()}.
+
+\clearpage
+
+\begin{example}[Numerazione delle righe]
+\label{ex:fi-java-file-righe-numerate}
+Il seguente programma combina \texttt{BufferedReader} e
+\texttt{PrintWriter} per numerare le righe di un file:
+
+\input{assets/codice/java/file-righe-numerate}
+
+Se \texttt{input.txt} contiene le righe \texttt{alfa} e
+\texttt{beta}, l'output in \texttt{numerate.txt} è:
+\begin{unipdterminal}
+1: alfa
+2: beta
+\end{unipdterminal}
+\end{example}
+
+\begin{warning}[Errori di \texttt{PrintWriter}]
+\texttt{PrintWriter} non propaga normalmente le
+\texttt{IOException} di scrittura: \texttt{checkError()} verifica
+l'eventuale stato d'errore. Anche \texttt{close()} non dichiara
+\texttt{IOException}.
+\end{warning}
+
+\subsection{Chiusura automatica con \texttt{try-with-resources}}
+\label{sec:fi-java-file-try-resources}
+
+Il costrutto \texttt{try-with-resources} chiude automaticamente
+le risorse dichiarate nell'intestazione che implementano
+l'interfaccia \texttt{AutoCloseable}, anche in presenza di eccezioni:
+
+\begin{unipdcode}[language=Java]
+try (FileReader in = new FileReader("input.txt")) {
+    System.out.println(in.read());
+} catch (IOException e) {
+    System.err.println(e.getMessage());
+}
+\end{unipdcode}
+
+Più risorse, separate da \texttt{;}, sono chiuse nell'ordine
+inverso rispetto alla dichiarazione. Se la chiusura fallisce
+mentre è già presente un'altra eccezione, quella di chiusura
+viene registrata come \emph{eccezione soppressa}.
+
+\subsection{Sovrascrittura, aggiunta e codifica}
+\label{sec:fi-java-file-append}
+
+\texttt{FileWriter} sovrascrive per impostazione predefinita.
+Passando \texttt{true} nel costruttore, il contenuto viene invece
+\emph{aggiunto} (\emph{append}):
+
+\begin{unipdcode}[language=Java]
+try (FileWriter out = new FileWriter(
+        "log.txt", StandardCharsets.UTF_8, true)) {
+    out.write("Nuova registrazione\n");
+}
+\end{unipdcode}
+
+\texttt{StandardCharsets.UTF\_8} (da importare mediante
+\texttt{java.nio.charset.StandardCharsets}) fissa la codifica.
+In lettura e scrittura occorre usare codifiche coerenti.
+
+\subsection{Operazioni su file e directory}
+\label{sec:fi-java-file-operazioni-avanzate}
+
+Alcune operazioni sono disponibili tramite \texttt{File}; altre
+tramite la classe \texttt{Files} di \texttt{java.nio.file}:
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabular}{@{}p{0.43\linewidth}p{0.49\linewidth}@{}}
+    \toprule
+    Metodo & Operazione \\
+    \midrule
+    \texttt{File.exists()} & Verifica che il percorso esista. \\
+    \texttt{File.isDirectory()} & Verifica che sia una directory. \\
+    \texttt{File.length()} & Dimensione del file in byte. \\
+    \texttt{File.createNewFile()} & Crea un file se assente. \\
+    \texttt{File.delete()} & Tenta di eliminare un file. \\
+    \texttt{File.renameTo(File)} & Tenta di rinominare o spostare. \\
+    \texttt{Files.copy(Path, Path, ...)} & Copia un file. \\
+    \texttt{Files.move(Path, Path, ...)} & Sposta o rinomina un file. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Operazioni rappresentative sul filesystem.}
+  \label{tab:fi-java-file-operazioni}
+\end{table}
+
+Le operazioni possono fallire per mancanza di permessi o
+modifiche concorrenti al filesystem. Un controllo preventivo
+con \texttt{exists()} non elimina la necessità di gestire
+l'errore dell'operazione effettiva.
+
+\subsection{Fine dell'input e tokenizzazione}
+\label{sec:fi-java-file-eof-token}
+
+L'acquisizione può terminare tramite una \emph{sentinella}
+(un dato convenzionale, come \texttt{"Q"}) oppure raggiungendo
+la \emph{fine del flusso} (EOF). Con \texttt{Scanner},
+\texttt{hasNextLine()} restituisce \texttt{false} in quest'ultimo
+caso. Da console, l'EOF è generalmente segnalato da
+\texttt{Ctrl+D} sui terminali Unix e da \texttt{Ctrl+Z} seguito
+da Invio su Windows.
+
+Un \emph{token} è una parte del testo separata da delimitatori.
+\texttt{Scanner} usa normalmente gli spazi bianchi; il metodo
+\texttt{useDelimiter()} permette di impostare un'espressione
+regolare differente.
+
+\clearpage
+
+\input{assets/codice/java/scanner-token}
+
+Per separare, per esempio, le parti di
+\texttt{"Anna/Rossi/18"}, si può usare:
+
+\begin{unipdcode}[language=Java]
+Scanner parti = new Scanner("Anna/Rossi/18");
+parti.useDelimiter("/");
+\end{unipdcode}
+
+\subsection{Reindirizzamento, pipe e flussi standard}
+\label{sec:fi-java-file-redirezione}
+
+Java espone tre flussi standard: \texttt{System.in} (ingresso),
+\texttt{System.out} (risultati) e \texttt{System.err}
+(diagnostica). Gli ultimi due sono di tipo \texttt{PrintStream}.
+La shell può collegarli a file senza modificare il programma:
+
+\input{assets/codice/java/pappagallo}
+
+\begin{unipdterminal}
+$ javac Pappagallo.java
+$ java Pappagallo < testo.txt > parole.txt
+$ java Pappagallo < testo.txt > parole.txt 2> errori.txt
+\end{unipdterminal}
+
+\texttt{<} reindirizza l'ingresso, \texttt{>} l'uscita e
+\texttt{2>} il flusso di errore. \texttt{>} crea o sovrascrive
+il file, mentre \texttt{>>} aggiunge in fondo. Una \emph{pipe}
+(\texttt{|})
+collega l'uscita standard di un programma all'ingresso di un altro:
+
+\begin{unipdterminal}
+$ java Pappagallo < testo.txt | sort > ordinato.txt
+$ java Pappagallo < testo.txt | sort -fu | wc -l
+\end{unipdterminal}
+
+Il secondo esempio usa le utilità Unix \texttt{sort} e \texttt{wc}
+per contare le righe distinte ignorando le maiuscole. La sintassi
+precisa dipende dalla shell. Separare \texttt{System.err} da
+\texttt{System.out} evita di includere i messaggi diagnostici
+nei dati trasferiti attraverso una pipe.

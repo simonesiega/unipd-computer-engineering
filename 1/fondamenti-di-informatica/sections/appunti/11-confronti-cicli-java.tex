@@ -767,8 +767,9 @@ La chiamata \texttt{Financial.percentOf(5, 200)} restituisce
 Le classi che raccolgono metodi di questo tipo sono spesso dette
 \emph{classi di utilità}; \texttt{Math} è un esempio della
 libreria standard (\cref{sec:fi-java-math}). Un metodo statico
-non può utilizzare direttamente \texttt{this} né leggere un
-campo di istanza senza disporre di un riferimento a un oggetto.
+non può utilizzare direttamente \texttt{this} né accedere a un
+campo di istanza senza un riferimento a un oggetto
+(\cref{sec:fi-java-file-metodi-ricevente}).
 
 \subsection{Variabili di classe e costanti}
 \label{sec:fi-java-cicli-campi-statici}
@@ -843,10 +844,11 @@ Statica & Membri della classe, secondo i modificatori di accesso & Legato all'in
 Una variabile locale dichiarata dentro un blocco \texttt{if}
 non è visibile dopo la sua chiusura; una variabile dichiarata
 prima del blocco continua invece a essere accessibile al suo
-termine. La visibilità è indipendente dalle regole di
-assegnazione delle variabili locali e di inizializzazione
-automatica dei campi, illustrate rispettivamente nelle
-\cref{sec:fi-java-variabili,sec:fi-java-classi-costruttore-predefinito}.
+termine. Le regole di assegnazione delle variabili locali e i
+valori iniziali automatici dei campi, distinti dall'ambito
+di visibilità, sono già stati descritti nella
+\cref{sec:fi-java-variabili} e nella
+\cref{sec:fi-java-classi-costruttore-predefinito}.
 
 \subsection{Oggetti, stack, heap e raccolta della memoria}
 \label{sec:fi-java-cicli-memoria}

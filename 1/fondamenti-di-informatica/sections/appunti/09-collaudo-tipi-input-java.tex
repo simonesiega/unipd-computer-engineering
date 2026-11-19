@@ -38,7 +38,9 @@ della classe, ma non comporta la creazione di oggetti.
 Le classi del pacchetto \texttt{java.lang}, tra cui
 \texttt{System}, \texttt{String}, \texttt{Math} e
 \texttt{Integer}, sono invece accessibili senza
-importazioni esplicite.
+importazioni esplicite. L'organizzazione dei package e la
+compilazione di classi appartenenti a package diversi
+sono approfondite nella \cref{sec:fi-java-file-package}.
 
 \begin{example}[Collaudo della classe \texttt{Rectangle}]
 Il seguente programma crea un rettangolo, ne modifica
@@ -564,7 +566,9 @@ e \texttt{Double.parseDouble()}, che restituiscono
 rispettivamente un \texttt{int} e un \texttt{double}.
 Se il testo non rappresenta un valore valido
 per la conversione richiesta, viene generata
-\texttt{NumberFormatException}.
+\texttt{NumberFormatException}. La gestione di questa
+eccezione mediante \texttt{try} e \texttt{catch} è trattata
+nella \cref{sec:fi-java-file-throw-try-catch}.
 
 \begin{unipdcode}[language=Java]
 String testo = "28";
@@ -839,4 +843,7 @@ e che l'età sia rappresentata da un intero valido.
 
 La scelta tra lettura per token e per riga
 dipende pertanto dal formato previsto per
-i dati in ingresso.
+i dati in ingresso. L'impiego di \texttt{Scanner} per leggere
+file, riconoscere la fine dell'input e suddividere il testo
+in token è approfondito nelle
+\cref{sec:fi-java-file-lettura,sec:fi-java-file-eof-token}.

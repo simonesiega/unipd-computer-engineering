@@ -94,30 +94,36 @@
   - 10.2 Interfaccia pubblica e definizione dei metodi — p. 76
   - 10.3 Costruttori e inizializzazione degli oggetti — p. 78
   - 10.4 Sovraccarico dei metodi e dei costruttori — p. 79
-  - 10.5 Classi, oggetti e variabili di istanza — p. 80
-  - 10.6 Incapsulamento e realizzazione di BankAccount — p. 81
-  - 10.7 Documentazione dell'interfaccia con JavaDoc — p. 83
-  - 10.8 Istruzioni condizionali e confronti — p. 84
-- 11 Confronti, cicli e membri di classe in Java — p. 88
-  - 11.1 Confronto tra stringhe — p. 88
-  - 11.2 Confronto tra oggetti — p. 89
-  - 11.3 Alternative multiple e istruzione switch — p. 90
-  - 11.4 Il tipo boolean e le espressioni logiche — p. 92
-  - 11.5 Tipi enumerativi enum — p. 94
-  - 11.6 Il ciclo while — p. 95
-  - 11.7 Il ciclo for — p. 98
-  - 11.8 Metodi e variabili statiche — p. 100
-  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 102
-  - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 103
-- 1 Esercizi: Introduzione all'informatica — p. 104
-- 2 Esercizi: Rappresentazione delle informazioni — p. 107
-- 3 Esercizi: Introduzione a Python — p. 111
-- 4 Esercizi: Ricorsione — p. 115
-- 5 Esercizi: Complessità computazionale — p. 118
-- 6 Esercizi: Ricerca e ordinamento — p. 122
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 127
-- 8 Esercizi: Introduzione a Java — p. 138
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 144
-- 10 Esercizi: Realizzazione di classi in Java — p. 147
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 149
+  - 10.5 Classi, oggetti e variabili di istanza — p. 81
+  - 10.6 Incapsulamento e realizzazione di BankAccount — p. 82
+  - 10.7 Documentazione dell'interfaccia con JavaDoc — p. 84
+  - 10.8 Istruzioni condizionali e confronti — p. 85
+- 11 Confronti, cicli e membri di classe in Java — p. 89
+  - 11.1 Confronto tra stringhe — p. 89
+  - 11.2 Confronto tra oggetti — p. 90
+  - 11.3 Alternative multiple e istruzione switch — p. 91
+  - 11.4 Il tipo boolean e le espressioni logiche — p. 93
+  - 11.5 Tipi enumerativi enum — p. 95
+  - 11.6 Il ciclo while — p. 96
+  - 11.7 Il ciclo for — p. 99
+  - 11.8 Metodi e variabili statiche — p. 101
+  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 103
+  - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 104
+- 12 Gestione delle eccezioni e dei file in Java — p. 105
+  - 12.1 Passaggio dei parametri per valore — p. 105
+  - 12.2 I package di Java — p. 107
+  - 12.3 Gestione delle eccezioni — p. 108
+  - 12.4 Lettura e scrittura di file di testo — p. 111
+- 1 Esercizi: Introduzione all'informatica — p. 118
+- 2 Esercizi: Rappresentazione delle informazioni — p. 121
+- 3 Esercizi: Introduzione a Python — p. 125
+- 4 Esercizi: Ricorsione — p. 129
+- 5 Esercizi: Complessità computazionale — p. 132
+- 6 Esercizi: Ricerca e ordinamento — p. 136
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 141
+- 8 Esercizi: Introduzione a Java — p. 152
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 158
+- 10 Esercizi: Realizzazione di classi in Java — p. 161
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 163
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 168
 <!-- GENERATED:END -->

@@ -1,0 +1,20 @@
+\begin{unipdcode}[language=Java]
+import java.util.Scanner;
+
+public class ContaToken {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int conteggio = 0;
+        while (in.hasNextLine()) {
+            String riga = in.nextLine();
+            try (Scanner parole = new Scanner(riga)) {
+                while (parole.hasNext()) {
+                    parole.next();
+                    conteggio++;
+                }
+            }
+        }
+        System.out.println("Token: " + conteggio);
+    }
+}
+\end{unipdcode}

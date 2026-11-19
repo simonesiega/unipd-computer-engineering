@@ -1,0 +1,24 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \tikzset{fi/exception/.style={unipd/node,align=center,
+    minimum width=2.95cm,minimum height=0.64cm,
+    inner xsep=4pt,inner ysep=5pt,font=\scriptsize}}
+  \node[fi/exception] (thr)  at (0,4.75) {\texttt{Throwable}};
+  \node[fi/exception] (err)  at (-3.875,3.45) {\texttt{Error}};
+  \node[fi/exception] (exc)  at ( 3.875,3.45) {\texttt{Exception}};
+  \node[fi/exception] (stack) at (-5.8,2.15) {\texttt{StackOverflowError}};
+  \node[fi/exception] (memory)at (-1.95,2.15) {\texttt{OutOfMemoryError}};
+  \node[fi/exception] (io)   at ( 1.95,2.15) {\texttt{IOException}};
+  \node[fi/exception] (run)  at ( 5.8,2.15) {\texttt{RuntimeException}};
+  \node[fi/exception] (file) at ( 1.95,0.85) {\texttt{FileNotFoundException}};
+  \node[fi/exception] (arg)  at ( 5.8,0.85) {\texttt{IllegalArgumentException}};
+  \node[fi/exception] (num)  at ( 5.8,-0.45) {\texttt{NumberFormatException}};
+  \draw[unipd/directed edge] (err.north) -- (thr.south west);
+  \draw[unipd/directed edge] (exc.north) -- (thr.south east);
+  \draw[unipd/directed edge] (stack.north) -- (err.south west);
+  \draw[unipd/directed edge] (memory.north) -- (err.south east);
+  \draw[unipd/directed edge] (io.north) -- (exc.south west);
+  \draw[unipd/directed edge] (run.north) -- (exc.south east);
+  \draw[unipd/directed edge] (file.north) -- (io.south);
+  \draw[unipd/directed edge] (arg.north) -- (run.south);
+  \draw[unipd/directed edge] (num.north) -- (arg.south);
+\end{tikzpicture}

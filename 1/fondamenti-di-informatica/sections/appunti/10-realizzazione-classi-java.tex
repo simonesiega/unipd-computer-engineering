@@ -59,7 +59,8 @@ l'accesso alla sua realizzazione. La
 Si consideri una classe \texttt{BankAccount} destinata a
 rappresentare un conto corrente. Le operazioni essenziali del modello
 sono il versamento di una somma, il prelievo e la consultazione del
-saldo. le seguenti dichiarazioni, che ne omettono il corpo e non
+saldo. Le operazioni possono essere descritte schematicamente mediante
+le seguenti dichiarazioni, che ne omettono il corpo e non
 costituiscono, da sole, definizioni valide di metodi in una
 classe concreta:
 
@@ -169,7 +170,9 @@ compatibile con il tipo dichiarato; un metodo \texttt{void} può
 usare \texttt{return;} per terminare anticipatamente oppure
 raggiungere la fine del corpo. Un metodo con un tipo di ritorno
 diverso da \texttt{void} deve invece restituire un valore lungo
-ogni percorso che termina normalmente.
+ogni percorso che termina normalmente. Il passaggio degli
+argomenti ai parametri formali è approfondito nella
+\cref{sec:fi-java-file-parametri}.
 
 \section{Costruttori e inizializzazione degli oggetti}
 \label{sec:fi-java-classi-costruttori}
@@ -218,7 +221,9 @@ non è il costruttore a restituirlo. La dichiarazione
 \texttt{public void BankAccount()} non definirebbe invece un
 costruttore, ma un metodo ordinario con lo stesso nome della
 classe; una sua invocazione non inizializzerebbe automaticamente
-un nuovo oggetto.
+un nuovo oggetto. La sostituzione del riferimento a un oggetto
+già esistente è trattata nella
+\cref{sec:fi-java-file-ricostruire}.
 
 \subsection{Costruttore predefinito e valori iniziali}
 \label{sec:fi-java-classi-costruttore-predefinito}
@@ -437,7 +442,9 @@ al campo dall'esterno, ma non garantisce da solo la validità
 dello stato. Inoltre, l'uso di \texttt{double} per gli importi
 monetari è una semplificazione didattica, soggetta agli
 errori di rappresentazione descritti nella
-\cref{sec:fi-java-precisione}.
+\cref{sec:fi-java-precisione}. La gestione di argomenti che
+non rispettano le precondizioni di un metodo è trattata nella
+\cref{sec:fi-java-file-precondizioni}.
 \end{warning}
 
 \subsection{Collaudo della classe}

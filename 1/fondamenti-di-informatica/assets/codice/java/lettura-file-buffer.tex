@@ -1,0 +1,20 @@
+\begin{unipdcode}[language=Java]
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class LetturaFile {
+    public static void main(String[] args) {
+        try (BufferedReader in = new BufferedReader(
+                new FileReader("input.txt", StandardCharsets.UTF_8))) {
+            String riga;
+            while ((riga = in.readLine()) != null) {
+                System.out.println(riga);
+            }
+        } catch (IOException e) {
+            System.err.println("Lettura fallita: " + e.getMessage());
+        }
+    }
+}
+\end{unipdcode}

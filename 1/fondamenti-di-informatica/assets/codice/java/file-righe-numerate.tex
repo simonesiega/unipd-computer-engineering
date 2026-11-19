@@ -1,0 +1,27 @@
+\begin{unipdcode}[language=Java]
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+
+public class RigheNumerate {
+    public static void main(String[] args) {
+        try (BufferedReader in = new BufferedReader(
+                new FileReader("input.txt", StandardCharsets.UTF_8));
+             PrintWriter out = new PrintWriter(
+                "numerate.txt", StandardCharsets.UTF_8)) {
+            String riga;
+            int numero = 1;
+            while ((riga = in.readLine()) != null) {
+                out.printf("%d: %s%n", numero++, riga);
+            }
+            if (out.checkError()) {
+                System.err.println("Errore nella scrittura.");
+            }
+        } catch (IOException e) {
+            System.err.println("Errore di I/O: " + e.getMessage());
+        }
+    }
+}
+\end{unipdcode}
