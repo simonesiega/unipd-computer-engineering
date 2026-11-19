@@ -61,12 +61,9 @@ nuova compilazione, purché siano disponibili una JVM compatibile
 e le risorse richieste dal programma. La portabilità non
 implica pertanto l'indipendenza completa dall'ambiente.
 
-Compilazione e interpretazione non sono modalità esclusive
-(\cref{sec:fi-linguaggi-esecuzione}): Java compila esplicitamente
-il sorgente in bytecode, mentre CPython gestisce normalmente
-questa traduzione in modo automatico
-(\cref{sec:fi-python-esecuzione}). In entrambi i casi,
-le prestazioni dipendono dall'implementazione e dall'ambiente.
+L'esecuzione di bytecode, anche mediante compilazione JIT,
+illustra la coesistenza di compilazione e interpretazione già
+discussa nella \cref{sec:fi-linguaggi-esecuzione}.
 
 \clearpage
 
@@ -408,11 +405,10 @@ classe \texttt{String} presenta l'intestazione
 \end{center}
 dove \texttt{public} indica l'accessibilità, \texttt{String}
 il tipo restituito e \texttt{CharSequence} il tipo dei
-due parametri. La \emph{firma} di un metodo comprende il
-nome e i tipi dei parametri, ma non il tipo restituito né
-i modificatori di accesso. I dettagli dei metodi, compresi
-parametri, risultati ed eventuali eccezioni, sono disponibili
-nella documentazione ufficiale della
+due parametri. La distinzione tecnica fra intestazione e firma di un metodo
+sarà precisata nella \cref{sec:fi-java-classi-firma}.
+I dettagli dei metodi, compresi parametri, risultati ed eventuali
+eccezioni, sono disponibili nella documentazione ufficiale della
 \href{https://docs.oracle.com/en/java/javase/21/docs/api/index.html}
 {\emph{Java Platform API}}.
 

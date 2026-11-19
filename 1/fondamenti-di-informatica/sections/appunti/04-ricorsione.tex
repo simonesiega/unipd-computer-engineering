@@ -3,9 +3,8 @@
 
 Le funzioni introdotte nella \cref{sec:fi-python-funzioni} possono
 richiamare se stesse per risolvere un problema attraverso sottoproblemi
-della stessa natura. Questa tecnica prende il nome di \emph{ricorsione}
-e richiede di individuare un caso base e di ricavare la soluzione dai
-risultati delle chiamate ricorsive.\footnote{Materiale
+della stessa natura. Il capitolo esamina questa tecnica, le sue condizioni
+di terminazione e il confronto con l'iterazione.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Ricorsione}, file
 \nolinkurl{2026_FI_03_canazza_Ricorsione.pdf}.}
 
@@ -226,15 +225,10 @@ mentre la pila contiene soltanto quelle ancora attive.
 I numeri sulle frecce indicano l'ordine in cui le chiamate ricorsive
 vengono effettuate durante l'esecuzione di \texttt{fib(5)}.
 
-Indicando con \(C_n\) il numero di invocazioni complessive, si ha
-\[
-  C_1=C_2=1,\qquad C_n=1+C_{n-1}+C_{n-2}\quad(n>2).
-\]
-Dalle due relazioni segue per induzione \(C_n=2F_n-1\).
-Poiché \(F_{n+2}\ge2F_n\), il numero di chiamate cresce
-esponenzialmente con \(n\), a causa del ricalcolo degli stessi
-sottoproblemi. La profondità massima della pila cresce invece
-linearmente. La stima dei costi temporali e spaziali è ripresa nella
+Il ricalcolo degli stessi sottoproblemi fa crescere esponenzialmente
+il numero delle invocazioni, mentre la profondità massima della pila
+cresce linearmente. Il conteggio preciso delle chiamate e l'analisi
+dei costi sono sviluppati nella
 \cref{sec:fi-complessita-fibonacci}.
 
 \clearpage

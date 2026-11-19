@@ -498,8 +498,17 @@ essere impraticabile per dimensioni moderate.
 \label{sec:fi-complessita-fibonacci}
 
 Le due implementazioni di Fibonacci sono presentate nella
-\cref{sec:fi-fibonacci}, dove si è stabilito che il numero complessivo
-delle invocazioni ricorsive è \(C_n=2F_n-1\).
+\cref{sec:fi-fibonacci}. Indicando con \(C_n\) il numero complessivo
+delle invocazioni della versione ricorsiva, si ha
+\[
+  C_1=C_2=1,\qquad C_n=1+C_{n-1}+C_{n-2}\quad(n>2).
+\]
+Dalla ricorrenza dei numeri di Fibonacci segue per induzione
+\(C_n=2F_n-1\): l'identità vale nei due casi base e, assumendola
+per \(n-1\) e \(n-2\), si ottiene
+\[
+  C_n=1+(2F_{n-1}-1)+(2F_{n-2}-1)=2F_n-1.
+\]
 Nel modello a costo unitario, ogni invocazione compie un numero
 costante di operazioni, escluse quelle delle chiamate interne.
 La complessità temporale della versione ricorsiva è pertanto

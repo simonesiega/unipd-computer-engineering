@@ -59,8 +59,9 @@ l'accesso alla sua realizzazione. La
 Si consideri una classe \texttt{BankAccount} destinata a
 rappresentare un conto corrente. Le operazioni essenziali del modello
 sono il versamento di una somma, il prelievo e la consultazione del
-saldo. Le operazioni possono essere descritte schematicamente mediante
-le seguenti dichiarazioni, che ne omettono il corpo:
+saldo. le seguenti dichiarazioni, che ne omettono il corpo e non
+costituiscono, da sole, definizioni valide di metodi in una
+classe concreta:
 
 \begin{unipdcode}[language=Java]
 public void deposit(double amount);
@@ -70,9 +71,7 @@ public double getBalance();
 
 \clearpage
 
-Le dichiarazioni riportate descrivono le operazioni disponibili,
-ma non costituiscono una definizione completa dei metodi in una
-classe concreta. I metodi
+I metodi
 \texttt{deposit()} e \texttt{withdraw()} ricevono l'importo da
 elaborare e non restituiscono un valore; \texttt{getBalance()}
 restituisce invece un \texttt{double} e non richiede argomenti.

@@ -54,9 +54,9 @@ le nuove coordinate:
 
 La traslazione incrementa di \(15\) la coordinata iniziale
 \(x=5\) e di \(25\) la coordinata iniziale \(y=10\).
-I metodi \texttt{getX()} e \texttt{getY()} restituiscono
-valori di tipo \texttt{double}, visualizzati quindi
-con la parte decimale.
+I risultati comprendono la parte decimale perché i metodi
+\texttt{getX()} e \texttt{getY()} restituiscono \texttt{double},
+come già osservato nella \cref{sec:fi-java-riferimenti}.
 \end{example}
 
 \clearpage
@@ -220,9 +220,7 @@ Come già esaminato nel
 decimali non ammettono una rappresentazione binaria finita.
 I valori vengono quindi approssimati, e gli errori di
 arrotondamento possono influenzare il risultato delle
-operazioni. Per esempio, l'espressione
-\texttt{4.35 * 100} produce
-\texttt{434.99999999999994} anziché \texttt{435.0}.
+operazioni (come si vedrá nella \cref{sec:fi-java-conversioni}).
 
 La distanza tra numeri rappresentabili consecutivi dipende
 dall'ordine di grandezza: rimane costante all'interno di

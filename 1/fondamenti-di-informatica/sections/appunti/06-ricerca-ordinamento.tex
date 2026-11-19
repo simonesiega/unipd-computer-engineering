@@ -120,12 +120,11 @@ elemento rispettivamente maggiore o minore.
 
 \input{assets/codice/ricerca/estremi}
 
-Dopo aver esaminato i primi \(i\) elementi, la variabile
-\texttt{massimo}, rispettivamente \texttt{minimo}, contiene
-l'estremo degli elementi visitati. Ogni confronto conserva
-questa proprietà, aggiornando il candidato quando necessario.
-Al termine della scansione, la funzione restituisce quindi
-il massimo oppure il minimo dell'intera lista.
+A ogni passo il candidato conserva l'estremo fra gli elementi
+già visitati; terminata la scansione, è quindi l'estremo
+dell'intera lista. Lo stesso principio è stato impiegato per
+ottenere la soluzione lineare al problema della massima differenza
+nella \cref{sec:fi-complessita-differenza}.
 
 In entrambi gli algoritmi, per \(n\ge1\), vengono eseguiti
 esattamente \(n-1\) confronti, indipendentemente dai valori

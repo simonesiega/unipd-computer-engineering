@@ -106,11 +106,11 @@ non sono necessari per i confronti introdotti qui.
 \section{Confronto tra oggetti}
 \label{sec:fi-java-cicli-oggetti}
 
-La distinzione vista per le stringhe vale per tutti i riferimenti:
-\texttt{a == b} verifica se i due riferimenti identificano lo stesso
-oggetto (oppure sono entrambi \texttt{null}). Il metodo
-\texttt{equals()} è disponibile per gli oggetti perché è dichiarato
-nella classe \texttt{Object}, dalla quale derivano le classi Java.
+Il confronto fra riferimenti mediante \texttt{==} è già stato
+introdotto nella \cref{sec:fi-java-classi-confronti}.
+Per confrontare oggetti secondo un criterio definito dalla classe
+si può utilizzare \texttt{equals()}, dichiarato nella classe
+\texttt{Object}, dalla quale derivano le classi Java.
 Nella sua implementazione di base, esso verifica l'identità. Una
 classe può \emph{ridefinirlo} per esprimere un'uguaglianza basata
 su caratteristiche significative degli oggetti, come avviene per
@@ -740,21 +740,19 @@ non sostituiscono il ragionamento sulla terminazione.
 \section{Metodi e variabili statiche}
 \label{sec:fi-java-cicli-static}
 
-Il metodo \texttt{main}, incontrato fin dal primo programma
-(\cref{sec:fi-java-primo-programma}), è dichiarato
-\texttt{static}: appartiene alla classe, non a un suo oggetto.
-In generale, i membri statici sono associati alla classe,
-quelli non statici alle singole istanze.
+Il modificatore \texttt{static}, incontrato nel metodo
+\texttt{main} (\cref{sec:fi-java-primo-programma}), distingue
+i membri associati alla classe da quelli appartenenti alle
+singole istanze. Si esaminano ora le conseguenze per i metodi
+e per lo stato condiviso.
 
 \subsection{Metodi statici e parametro implicito}
 \label{sec:fi-java-cicli-metodi-statici}
 
-Un metodo di istanza riceve implicitamente l'oggetto sul quale
-opera; al suo interno tale riferimento è indicato da
-\texttt{this}, come descritto nella
-\cref{sec:fi-java-classi-parametri}. Un metodo statico, invece,
-non possiede un parametro implicito e può essere invocato
-attraverso il nome della classe.
+A differenza dei metodi di istanza, che dispongono del riferimento
+implicito \texttt{this} (\cref{sec:fi-java-classi-parametri}),
+un metodo statico non ha un oggetto ricevente e si invoca
+normalmente attraverso il nome della classe.
 
 \begin{unipdcode}[language=Java]
 public class Financial {
@@ -845,14 +843,10 @@ Statica & Membri della classe, secondo i modificatori di accesso & Legato all'in
 Una variabile locale dichiarata dentro un blocco \texttt{if}
 non è visibile dopo la sua chiusura; una variabile dichiarata
 prima del blocco continua invece a essere accessibile al suo
-termine. Il compilatore Java verifica inoltre che una
-variabile locale sia \emph{definitivamente assegnata} prima
-di essere letta: una dichiarazione come \texttt{int n;}
-è valida, ma utilizzare \texttt{n} senza averle assegnato
-un valore causa un errore di compilazione. I campi di istanza
-e quelli statici, al contrario, ricevono automaticamente
-valori iniziali predefiniti
-(\cref{sec:fi-java-classi-costruttore-predefinito}).
+termine. La visibilità è indipendente dalle regole di
+assegnazione delle variabili locali e di inizializzazione
+automatica dei campi, illustrate rispettivamente nelle
+\cref{sec:fi-java-variabili,sec:fi-java-classi-costruttore-predefinito}.
 
 \subsection{Oggetti, stack, heap e raccolta della memoria}
 \label{sec:fi-java-cicli-memoria}
@@ -887,11 +881,12 @@ I raccoglitori differiscono nel compromesso tra
 \emph{throughput} (lavoro svolto nell'unità di tempo) e
 \emph{latenza} (durata delle pause). \emph{Serial GC},
 \emph{Parallel GC}, \emph{G1}, \emph{ZGC} e
-\emph{Shenandoah} adottano strategie differenti; in HotSpot,
-G1 è predefinito da Java 9, mentre CMS è stato rimosso in
-Java 14. La disponibilità dipende dalla distribuzione e dalla
-versione della JVM. Il GC non recupera gli oggetti ancora
-raggiungibili a causa di riferimenti inutilmente conservati.
+\emph{Shenandoah} adottano strategie differenti; G1 è in
+genere il raccoglitore predefinito nelle configurazioni comuni
+di HotSpot da Java 9. La disponibilità dipende dalla
+distribuzione e dalla versione della JVM. Il GC non recupera
+gli oggetti ancora raggiungibili a causa di riferimenti inutilmente
+conservati.
 
 \section{Visibilità dei membri e sovrapposizione dei nomi}
 \label{sec:fi-java-cicli-shadowing}
