@@ -1,11 +1,10 @@
 \chapter{Introduzione a Python}
 \label{chap:introduzione-python}
 
-Un algoritmo può essere tradotto in un programma mediante un linguaggio di
-programmazione (\cref{sec:fi-algoritmi,sec:fi-linguaggi-esecuzione}). In questo
-capitolo si considera Python 3, non pienamente compatibile con Python 2,
-e se ne introducono le istruzioni fondamentali per gestire i dati,
-controllare il flusso di esecuzione e organizzare il codice.\footnote{Materiale
+Un algoritmo può essere implementato mediante un programma scritto in un
+linguaggio di programmazione. Si introducono le istruzioni fondamentali di
+Python 3 per gestire i dati, controllare il flusso di esecuzione e
+organizzare il codice.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Python},
 \nolinkurl{2026_FI_02_canazza_Python.pdf}.}
 
@@ -61,19 +60,14 @@ si può utilizzare una variabile temporanea, eseguendo in sequenza
 gli assegnamenti \texttt{tmp = a}, \texttt{a = b} e \texttt{b = tmp}.
 Python permette anche l'assegnamento
 multiplo \texttt{a, b = b, a}, nel quale le espressioni a destra vengono
-valutate prima di effettuare gli assegnamenti. Nel caso di valori interi,
-lo scambio può essere realizzato anche mediante tre operazioni XOR
-bit a bit: \verb|a ^= b|, \verb|b ^= a|, \verb|a ^= b|,
-sfruttando la proprietà \(x \oplus x = 0\).
+valutate prima di effettuare gli assegnamenti.
 
 I nomi delle variabili, detti \emph{identificatori}, possono contenere
 lettere, cifre e il carattere \texttt{\_}, ma non iniziare con una cifra.
 Distinguono maiuscole e minuscole e non possono coincidere con parole
 riservate, come \texttt{if} e \texttt{for}. Per i nomi composti si adotta
 generalmente la convenzione \emph{snake\_case}, ad esempio
-\texttt{prezzo\_unitario} (un'altra convenzione è \emph{camelCase},
-utilizzata generalmente in Java per variabili e metodi;
-\cref{sec:fi-java-identificatori}).
+\texttt{prezzo\_unitario}.
 
 In Python il tipo appartiene al valore, non al nome: un nome può essere
 riassegnato a valori di tipi diversi. I tipi fondamentali sono
@@ -110,8 +104,8 @@ tentare di sommare direttamente una stringa e un intero provoca
 restituisce \texttt{3} (troncamento verso zero), mentre una conversione
 impossibile, come \lstinline|int("ciao")|, genera \texttt{ValueError}.
 
-La conversione \texttt{bool()} restituisce \texttt{False} per zero,
-stringhe e liste vuote e \texttt{None}; per esempio,
+La conversione \texttt{bool()} restituisce \texttt{False} per il valore
+zero, le stringhe e le liste vuote e \texttt{None}; per esempio,
 \texttt{bool(0)} è \texttt{False} e \texttt{bool(3)} è
 \texttt{True}. Il valore \texttt{None}, unico elemento del tipo
 \texttt{NoneType}, rappresenta l'assenza di un valore.
@@ -194,8 +188,9 @@ per livello. Un rientro non valido può produrre \texttt{IndentationError};
 un rientro sintatticamente valido ma errato può invece modificare la
 logica del programma.
 
-L'istruzione \texttt{match}, disponibile da Python 3.10, seleziona
-il primo \texttt{case} applicabile senza richiedere \texttt{break}.
+L'istruzione \texttt{match}, disponibile da Python 3.10,
+confronta un valore con i pattern delle clausole \texttt{case}
+ed esegue il primo caso applicabile, senza richiedere \texttt{break}.
 
 \clearpage
 
@@ -278,7 +273,9 @@ Il metodo \texttt{append(valore)} aggiunge un elemento in fondo,
 \texttt{pop(i)} rimuove e restituisce l'elemento nella posizione
 indicata oppure l'ultimo se l'indice è omesso, mentre
 \texttt{remove(valore)} rimuove la prima occorrenza del valore
-specificato. L'operatore \texttt{in} verifica la presenza di un valore.
+specificato. \texttt{remove()} solleva \texttt{ValueError} se il valore
+è assente; \texttt{pop()} su una lista vuota solleva \texttt{IndexError}.
+L'operatore \texttt{in} verifica la presenza di un valore.
 
 Lo \emph{slicing} \texttt{lista[i:j]} estrae una nuova lista con estremo
 iniziale incluso e finale escluso. Se l'estremo iniziale è omesso,
@@ -361,10 +358,8 @@ nel \cref{chap:ricorsione}.
 \section{Gestione dei file di testo}
 \label{sec:fi-python-file}
 
-Oltre al codice organizzato in moduli, un programma può utilizzare file
-per conservare dati tra esecuzioni successive. I file sono memorizzati
-nella memoria di massa (\cref{sec:fi-memoria-archiviazione}). In un
-\emph{file di testo}, i byte vengono interpretati come caratteri
+Un programma può utilizzare file per conservare dati tra esecuzioni
+successive. In un \emph{file di testo}, i byte vengono interpretati come caratteri
 secondo una codifica, come UTF-8 (\cref{sec:fi-caratteri}); un
 \emph{file binario} viene invece trattato come una sequenza di byte,
 senza decodifica testuale automatica. In Python si distinguono le modalità
@@ -393,8 +388,9 @@ contenente tre interi, uno per riga. La prima apertura in modalità
 \lstinline|"w"| sovrascrive eventuali dati precedenti; la seconda,
 in modalità \lstinline|"a"|, aggiunge l'ultima riga.
 
-Il metodo \texttt{read()} restituisce l'intero contenuto del file
-come stringa. In alternativa, un ciclo \texttt{for} permette di leggerlo
+Il metodo \texttt{read()} legge il contenuto dalla posizione corrente
+fino alla fine del file e lo restituisce come stringa. In alternativa,
+un ciclo \texttt{for} permette di leggerlo
 \emph{riga per riga}; ogni riga contiene normalmente anche il
 carattere di fine riga. \texttt{strip()} rimuove spazi bianchi iniziali
 e finali, compresi i terminatori di riga. Un numero letto da un file

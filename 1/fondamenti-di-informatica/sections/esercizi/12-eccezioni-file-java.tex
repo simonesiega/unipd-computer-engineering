@@ -53,8 +53,8 @@ L'espressione indicata tenta di individuare un metodo denominato
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-file-ricostruire}
-Qual è il modo corretto per riportare una variabile oggetto a un
-nuovo stato iniziale?
+Come si può fare in modo che una variabile faccia riferimento a
+un nuovo oggetto nello stato iniziale?
 \end{exercise}
 
 Si può creare un nuovo oggetto e assegnarne il riferimento alla
@@ -82,8 +82,8 @@ progetti reali?
 
 È il package senza nome a cui appartengono le classi prive di una
 dichiarazione \texttt{package}. È adatto a esempi isolati ma
-ostacola la modularità: le classi appartenenti a package con nome
-non possono importarne i tipi
+ostacola la modularità: i tipi del package senza nome non
+sono importabili da package con nome
 (\cref{sec:fi-java-file-package-struttura}).
 
 \clearpage
@@ -247,9 +247,9 @@ l'uso, e che cosa può accadere se un'eccezione interviene
 prima dell'invocazione di \texttt{close()}?
 \end{exercise}
 
-La chiusura libera risorse del sistema operativo e completa
-le eventuali scritture ancora presenti nei buffer. Se un'eccezione
-impedisce di eseguire \texttt{close()}, il programma può lasciare
+La chiusura libera risorse del sistema operativo e consente
+di completare le eventuali scritture ancora presenti nei buffer.
+Se un'eccezione impedisce di eseguire \texttt{close()}, il programma può lasciare
 risorse aperte o dati non scritti. \texttt{try-with-resources}
 esegue automaticamente la chiusura anche quando un'operazione
 fallisce
@@ -258,9 +258,9 @@ fallisce
 \begin{exercise}
 \label{ex:fi-esercizi-java-file-sentinella-eof}
 Qual è la differenza tra terminare l'input con un valore
-sentinella e terminarlo comunicando al sistema operativo la
-fine del flusso, per esempio con \texttt{Ctrl+D} o
-\texttt{Ctrl+Z}?
+sentinella e raggiungere la fine del flusso (EOF), per esempio
+con \texttt{Ctrl+D} su Unix o \texttt{Ctrl+Z} seguito da Invio
+su Windows?
 \end{exercise}
 
 La sentinella è un dato ordinario cui il programma attribuisce

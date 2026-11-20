@@ -4,11 +4,9 @@
 Dopo aver introdotto la programmazione in Python nel
 \cref{chap:introduzione-python}, si considera Java, un linguaggio
 che permette di organizzare i programmi mediante classi e oggetti.
-La distinzione tra comportamento e implementazione, esaminata nel
-\cref{chap:strutture-dati-adt}, trova applicazione anche nella
-programmazione orientata agli oggetti. Si introducono il processo
-di compilazione ed esecuzione, la struttura di un programma Java
-e i principali costrutti del linguaggio.\footnote{Materiale
+Si introducono il processo di compilazione ed esecuzione,
+la struttura di un programma Java e i principali costrutti
+del linguaggio.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Java}, slide del corso di
 Fondamenti di Informatica,
 \nolinkurl{2026_FI_07_canazza_Java.pdf}.}
@@ -81,7 +79,7 @@ indica la dichiarazione di una classe, mentre \texttt{public} è uno
 \emph{specificatore di accesso}. Il nome di una classe pubblica
 di primo livello deve coincidere esattamente con quello del file
 sorgente che la contiene, senza l'estensione. Un file sorgente
-può contenere al più una classe pubblica di primo livello.
+può contenere al più un tipo pubblico di primo livello.
 
 Il corpo della classe è racchiuso tra parentesi graffe. Al suo
 interno si trova il \emph{metodo} \texttt{main}, che nella forma
@@ -97,8 +95,8 @@ non restituisce alcun valore. Il parametro \texttt{String[] args}
 può ricevere gli argomenti forniti all'avvio del programma,
 sotto forma di array di stringhe. Negli esempi introduttivi
 può rimanere inutilizzato.
-Il significato degli indici e degli argomenti è approfondito nelle
-\cref{sec:fi-java-array-costruzione,sec:fi-java-array-argomenti}.
+L'utilizzo degli argomenti della riga di comando è approfondito
+nella \cref{sec:fi-java-array-argomenti}.
 
 Le parole riservate del linguaggio, tra cui \texttt{public},
 \texttt{class}, \texttt{static} e \texttt{void}, hanno un
@@ -204,8 +202,6 @@ Le istruzioni devono trovarsi nel corpo di un metodo, come
 \emph{stringa letterale}, delimitata da virgolette doppie.
 I metodi di stampa possono ricevere anche valori numerici
 o risultati di espressioni, come nell'esempio precedente.
-Il flusso di errore standard e il reindirizzamento dei flussi
-sono trattati nella \cref{sec:fi-java-file-redirezione}.
 
 \clearpage
 
@@ -351,13 +347,12 @@ Mentre i tipi primitivi rappresentano valori elementari, una
 \emph{classe} definisce la struttura e il comportamento di oggetti
 mediante campi e metodi. Un \emph{oggetto} è un'\emph{istanza}
 di una classe, dotata di un proprio stato e delle operazioni
-previste dalla classe stessa (\cref{chap:realizzazione-classi-java}).
+previste dalla classe stessa.
 
 L'insieme delle operazioni accessibili dall'esterno costituisce
 l'\emph{interfaccia pubblica} della classe. In questa fase si
 considera principalmente l'utilizzo di classi già disponibili,
-attraverso l'invocazione dei loro metodi
-(\cref{sec:fi-java-invocazione-metodi}).
+attraverso l'invocazione dei loro metodi.
 
 \subsection{Parametri, risultati e metodi di \texttt{String}}
 \label{sec:fi-java-metodi-string}
@@ -409,9 +404,7 @@ classe \texttt{String} presenta l'intestazione
 \end{center}
 dove \texttt{public} indica l'accessibilità, \texttt{String}
 il tipo restituito e \texttt{CharSequence} il tipo dei
-due parametri. La distinzione tecnica fra intestazione e firma di un metodo
-sarà precisata nella \cref{sec:fi-java-classi-firma}.
-I dettagli dei metodi, compresi parametri, risultati ed eventuali
+due parametri. I dettagli dei metodi, compresi parametri, risultati ed eventuali
 eccezioni, sono disponibili nella documentazione ufficiale della
 \href{https://docs.oracle.com/en/java/javase/21/docs/api/index.html}
 {\emph{Java Platform API}}.
@@ -420,8 +413,9 @@ eccezioni, sono disponibili nella documentazione ufficiale della
 \label{sec:fi-java-riferimenti}
 
 Una variabile di tipo primitivo contiene direttamente un valore,
-mentre una variabile di \emph{tipo riferimento} contiene un
-\emph{riferimento} a un oggetto. La dichiarazione
+mentre una variabile di \emph{tipo riferimento} può contenere un
+\emph{riferimento} a un oggetto oppure \texttt{null}, che indica
+l'assenza di un oggetto. La dichiarazione
 \texttt{Rectangle box;} introduce una variabile locale, ma non
 crea alcun rettangolo: prima di utilizzarla occorre assegnarle
 un valore. L'espressione \texttt{new Rectangle(5, 10, 20, 30)}
@@ -432,6 +426,8 @@ L'esempio utilizza la classe \texttt{java.awt.Rectangle}, che
 rappresenta un rettangolo mediante coordinate, larghezza e
 altezza. L'istruzione \texttt{import java.awt.Rectangle;}
 permette di utilizzare il nome semplice \texttt{Rectangle}.
+
+\clearpage
 
 \input{assets/codice/java/rectangle-riferimenti}
 
@@ -463,7 +459,6 @@ anche se le coordinate del rettangolo sono memorizzate come
 interi: un valore intero come \(7\) viene quindi visualizzato
 come \texttt{7.0}.
 
-Il collaudo delle classi mediante la creazione di oggetti e
-l'invocazione dei loro metodi è trattato nella
-\cref{sec:fi-java-collaudo}. Il passaggio dei parametri di tipo riferimento è approfondito
-nella \cref{sec:fi-java-file-parametri}.
+La distinzione tra copia di un valore primitivo e copia di un
+riferimento è importante anche nel passaggio dei parametri ai
+metodi (\cref{sec:fi-java-file-parametri}).

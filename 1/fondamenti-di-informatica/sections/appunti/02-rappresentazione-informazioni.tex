@@ -1,9 +1,8 @@
 \chapter{Rappresentazione delle informazioni}
 \label{chap:rappresentazione-informazioni}
 
-Come anticipato nella \cref{sec:fi-informatica-calcolo}, un elaboratore
-memorizza l'informazione mediante sequenze di bit. L'interpretazione
-di una sequenza dipende dalla codifica adottata: gli stessi bit possono
+Un elaboratore memorizza l'informazione mediante sequenze di bit.
+L'interpretazione di una sequenza dipende dalla codifica adottata: gli stessi bit possono
 rappresentare numeri, caratteri oppure altri dati.\footnote{Materiale di riferimento:
 S. Canazza, \emph{Rappresentazione delle informazioni},
 \nolinkurl{2026_FI_01_canazza_RappresentazioneInformazioni.pdf}.}
@@ -174,12 +173,12 @@ rispettivamente \(+12\) e \(-12\). L'intervallo dei valori è
 \]
 Le configurazioni sono \(2^n\), ma i valori distinti sono \(2^n-1\):
 \(00\cdots0\) e \(10\cdots0\) rappresentano entrambe zero.
-Inoltre, la somma richiede di distinguere operandi con segno uguale,
-per i quali si sommano i moduli mantenendo il segno comune, e con
-segno opposto, per i quali si sottrae il modulo minore da quello
-maggiore, attribuendo al risultato il segno dell'operando di
-modulo maggiore. Se i moduli sono uguali e i segni opposti,
-il risultato è zero.
+Nella somma si distinguono operandi con lo stesso segno, di cui si
+sommano i moduli mantenendo il segno comune, e operandi con segno
+opposto, di cui si sottrae il modulo minore da quello maggiore.
+In quest'ultimo caso il risultato assume il segno dell'operando
+di modulo maggiore, oppure è zero se i moduli coincidono.
+Il valore ottenuto deve comunque essere rappresentabile su \(n\) bit.
 
 \section{Complemento a due}
 \label{sec:fi-complemento-due}
@@ -340,13 +339,15 @@ separatore è prestabilita. Usando \(n\) bit senza segno, di cui
 \(0\le U\le2^n-1\), distanziati di \(2^{-m}\).
 
 Nella rappresentazione in \emph{virgola mobile} un numero finito non
-nullo è espresso nella forma
+nullo può essere espresso nella forma
 \[
   x=(-1)^sM\,b^E,
 \]
 dove \(s\) indica il segno, \(M\) è il \emph{significando} (o
-\emph{mantissa}) ed \(E\) l'esponente. La \emph{normalizzazione}
-richiede \(1\le M<b\). In base due, per esempio,
+\emph{mantissa}), \(b\) la base ed \(E\) l'esponente. Nella
+rappresentazione \emph{normalizzata} si richiede \(1\le M<b\);
+i valori subnormali, descritti in seguito, fanno eccezione.
+In base due, per esempio,
 \[
   (10.5)_{10}=(1010.1)_2=(1.0101)_2\cdot2^3.
 \]

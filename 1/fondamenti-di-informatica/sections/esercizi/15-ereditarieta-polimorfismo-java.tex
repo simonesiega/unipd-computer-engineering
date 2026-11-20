@@ -94,16 +94,20 @@ Quali condizioni deve rispettare un metodo per sovrascriverne uno della
 superclasse?
 \end{exercise}
 
-Deve essere un metodo di istanza sovrascrivibile, con firma corrispondente e
-tipo di ritorno compatibile. \texttt{@Override} consente al compilatore di
-verificare la sovrascrittura (\cref{def:fi-java-ereditarieta-override}).
+Deve essere un metodo di istanza sovrascrivibile, con firma corrispondente,
+tipo di ritorno compatibile e accessibilità non più restrittiva.
+\texttt{@Override} consente al compilatore di verificare la sovrascrittura
+(\cref{def:fi-java-ereditarieta-override}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-ereditarieta-this-super}
 Qual è la differenza tra \texttt{this} e \texttt{super}?
 \end{exercise}
 
-\texttt{this} denota l’istanza corrente; \texttt{super} permette di selezionare un membro ereditato della superclasse, per esempio l’implementazione di un metodo sovrascritto. Non rappresentano due oggetti diversi (\cref{sec:fi-java-ereditarieta-metodi}).
+\texttt{this} denota l'istanza corrente; \texttt{super} permette di
+selezionare un membro della superclasse accessibile alla sottoclasse,
+per esempio l'implementazione di un metodo sovrascritto. Entrambi
+operano sulla stessa istanza (\cref{sec:fi-java-ereditarieta-metodi}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-ereditarieta-upcast}
@@ -148,9 +152,10 @@ l’implementazione in base al tipo effettivo dell’oggetto
 Come si distinguono selezione anticipata e selezione dinamica dei metodi?
 \end{exercise}
 
-La risoluzione dei sovraccarichi usa i tipi statici in compilazione (early
-binding); per i metodi di istanza sovrascritti, l’implementazione viene
-scelta in base all’oggetto durante l’esecuzione (late binding)
+La risoluzione dei sovraccarichi usa i tipi statici in compilazione
+(\emph{early binding}); per i metodi di istanza sovrascritti,
+l'implementazione viene scelta in base al tipo effettivo dell'oggetto
+durante l'esecuzione (\emph{late binding})
 (\cref{sec:fi-java-ereditarieta-polimorfismo}).
 
 \begin{exercise}
@@ -160,10 +165,13 @@ Scrivi un esempio in cui \texttt{instanceof} protegge il cast verso
 \end{exercise}
 
 \begin{unipdcode}[language=Java]
-if (conto instanceof SavingsAccount) {
-    SavingsAccount s = (SavingsAccount) conto;
-    s.addInterest();
+public static void accreditaInteressi(BankAccount conto) {
+    if (conto instanceof SavingsAccount) {
+        SavingsAccount s = (SavingsAccount) conto;
+        s.addInterest();
+    }
 }
 \end{unipdcode}
-Il cast viene eseguito soltanto quando l’oggetto è compatibile
-(\cref{sec:fi-java-ereditarieta-instanceof}).
+Il metodo, da dichiarare in una classe, accetta anche un conto che non
+sia di risparmio: il cast viene eseguito soltanto quando l'oggetto è
+compatibile (\cref{sec:fi-java-ereditarieta-instanceof}).

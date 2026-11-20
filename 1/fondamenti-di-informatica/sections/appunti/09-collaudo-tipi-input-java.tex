@@ -1,9 +1,8 @@
 \chapter{Collaudo, tipi di dato e input in Java}
 \label{chap:collaudo-tipi-input-java}
 
-A partire dalle nozioni introdotte nel \cref{chap:introduzione-java},
-si approfondiscono il collaudo delle classi, i tipi di dato e le
-relative operazioni, la manipolazione delle stringhe e
+Il capitolo approfondisce il collaudo delle classi, i tipi di dato
+e le relative operazioni, la manipolazione delle stringhe e
 l'acquisizione di dati dall'ingresso standard.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Collaudare una classe; tipi di
 dati e input}, slide del corso di Fondamenti di Informatica,
@@ -57,8 +56,7 @@ le nuove coordinate:
 La traslazione incrementa di \(15\) la coordinata iniziale
 \(x=5\) e di \(25\) la coordinata iniziale \(y=10\).
 I risultati comprendono la parte decimale perché i metodi
-\texttt{getX()} e \texttt{getY()} restituiscono \texttt{double},
-come già osservato nella \cref{sec:fi-java-riferimenti}.
+\texttt{getX()} e \texttt{getY()} restituiscono \texttt{double}.
 \end{example}
 
 \clearpage
@@ -217,12 +215,10 @@ Un letterale decimale senza suffisso è normalmente di tipo
 si utilizza il suffisso \texttt{f}, come in
 \texttt{float x = 30.2f;}.
 
-Come già esaminato nel
-\cref{chap:rappresentazione-informazioni}, molti numeri
-decimali non ammettono una rappresentazione binaria finita.
-I valori vengono quindi approssimati, e gli errori di
-arrotondamento possono influenzare il risultato delle
-operazioni (come si vedrá nella \cref{sec:fi-java-conversioni}).
+Molti numeri decimali non ammettono una rappresentazione
+binaria finita. I valori vengono quindi approssimati, e gli
+errori di arrotondamento possono influenzare il risultato
+delle operazioni.
 
 La distanza tra numeri rappresentabili consecutivi dipende
 dall'ordine di grandezza: rimane costante all'interno di
@@ -323,8 +319,7 @@ viene scelto quello maggiore: per esempio,
 \texttt{Math.round(2.5)} restituisce \(3\).
 L'arrotondamento non è quindi simmetrico rispetto allo zero.
 
-Gli errori di rappresentazione descritti nella
-\cref{sec:fi-java-precisione} possono influire anche sulle
+Gli errori di rappresentazione possono influire anche sulle
 conversioni. Per esempio, l'espressione
 \texttt{(int) (100 * 4.35)} produce \texttt{434},
 poiché il risultato della moltiplicazione è leggermente
@@ -394,8 +389,7 @@ per separare gli euro interi dai centesimi di un importo:
 \end{unipdterminal}
 
 Il valore iniziale viene convertito in un numero intero
-di centesimi mediante \texttt{Math.round()}, già introdotto
-nella \cref{sec:fi-java-conversioni}. Il quoziente della
+di centesimi mediante \texttt{Math.round()}. Il quoziente della
 divisione per \(100\) fornisce gli euro interi, mentre
 il resto rappresenta i centesimi residui.
 
@@ -438,8 +432,7 @@ a disposizione le costanti \texttt{Math.PI} e
 
 I metodi di \texttt{Math} sono \emph{statici}: vengono
 invocati mediante il nome della classe, senza creare
-un oggetto, secondo la sintassi introdotta nella
-\cref{sec:fi-java-invocazione-metodi}.
+un oggetto.
 
 \begin{example}[Utilizzo della classe \texttt{Math}]
 Il seguente esempio calcola l'area di un cerchio
@@ -547,12 +540,8 @@ Hello
 Le parentesi nell'espressione \texttt{(3 + 4)}
 permettono di eseguire l'addizione prima della
 concatenazione: senza di esse si otterrebbe
-\texttt{"Totale: 34"}. La stringa \texttt{s}
-rimane invariata, coerentemente con
-l'immutabilità degli oggetti \texttt{String}
-già esaminata nella \cref{sec:fi-java-metodi-string}.
-Il confronto tra stringhe è trattato nella
-\cref{sec:fi-java-cicli-stringhe}.
+\texttt{"Totale: 34"}. La stringa \texttt{s} rimane invariata,
+coerentemente con l'immutabilità degli oggetti \texttt{String}.
 
 \subsection{Conversione tra stringhe e numeri}
 \label{sec:fi-java-parsing}
@@ -604,10 +593,8 @@ A differenza di una \texttt{String}, un valore
 \texttt{char} non richiede la creazione di un oggetto.
 
 Il metodo \texttt{charAt(i)} della classe \texttt{String}
-restituisce il valore \texttt{char} alla posizione \(i\),
-utilizzando l'indicizzazione introdotta nella
-\cref{sec:fi-java-substring}. Gli indici si riferiscono
-alle unità di codice UTF-16: un punto di codice Unicode
+restituisce il valore \texttt{char} alla posizione \(i\).
+Gli indici si riferiscono alle unità di codice UTF-16: un punto di codice Unicode
 rappresentato da una coppia di surrogati occupa quindi
 due posizioni (\cref{sec:fi-caratteri}).
 Un indice esterno all'intervallo valido genera
@@ -617,20 +604,11 @@ Un indice esterno all'intervallo valido genera
 String nome = "John";
 char lettera = nome.charAt(2);
 System.out.println(lettera);
-
-for (int i = 0; i < nome.length(); i++) {
-    System.out.print(nome.charAt(i));
-}
-System.out.println();
 \end{unipdcode}
 
 \begin{unipdterminal}
 h
-John
 \end{unipdterminal}
-
-Il ciclo \texttt{for} permette di visitare in ordine
-tutte le unità di codice della stringa.
 
 Nelle espressioni aritmetiche, i valori \texttt{char}
 vengono generalmente convertiti in \texttt{int}.
@@ -754,6 +732,8 @@ A differenza di \texttt{println()},
 un ritorno a capo.
 \end{example}
 
+\clearpage
+
 \section{L'ingresso standard con \texttt{Scanner}}
 \label{sec:fi-java-scanner}
 
@@ -843,7 +823,4 @@ e che l'età sia rappresentata da un intero valido.
 
 La scelta tra lettura per token e per riga
 dipende pertanto dal formato previsto per
-i dati in ingresso. L'impiego di \texttt{Scanner} per leggere
-file, riconoscere la fine dell'input e suddividere il testo
-in token è approfondito nelle
-\cref{sec:fi-java-file-lettura,sec:fi-java-file-eof-token}.
+i dati in ingresso.

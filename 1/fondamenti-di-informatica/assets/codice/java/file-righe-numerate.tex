@@ -16,9 +16,7 @@ public class RigheNumerate {
             while ((riga = in.readLine()) != null) {
                 out.printf("%d: %s%n", numero++, riga);
             }
-            if (out.checkError()) {
-                System.err.println("Errore nella scrittura.");
-            }
+            if (out.checkError()) System.err.println("Errore nella scrittura.");
         } catch (IOException e) {
             System.err.println("Errore di I/O: " + e.getMessage());
         }

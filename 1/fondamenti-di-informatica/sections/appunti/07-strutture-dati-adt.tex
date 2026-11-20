@@ -1,11 +1,10 @@
 \chapter{Strutture dati e tipi di dato astratti}
 \label{chap:strutture-dati-adt}
 
-Gli algoritmi di ricerca e ordinamento del \cref{chap:ricerca-ordinamento}
-operano su collezioni di dati. La scelta di come organizzarle dipende
-sia dalle operazioni richieste dal problema, sia dal costo della loro
-esecuzione, studiato nel \cref{chap:complessita}. Si distinguono pertanto
-il comportamento del contenitore e la sua rappresentazione interna.\footnote{Materiale
+Gli algoritmi operano spesso su collezioni di dati, la cui organizzazione
+dipende dalle operazioni richieste e dal costo della loro esecuzione.
+Occorre quindi distinguere il comportamento di una collezione dalla
+sua rappresentazione interna.\footnote{Materiale
 di riferimento: G. Baruzzo, \emph{Strutture dati e tipi di dati astratti},
 dispense del corso di Fondamenti di Informatica.}
 
@@ -60,12 +59,10 @@ della \cref{sec:fi-complessita-modello}. Un array di \(n\) celle
 occupa \(ns\) byte per gli elementi, ai quali si aggiungono le
 informazioni di gestione.
 
-L'organizzazione contigua favorisce la località spaziale descritta
-nella \cref{sec:fi-memoria-archiviazione}. La \emph{lista} di Python
-della \cref{sec:fi-python-liste} è realizzata, in CPython, mediante
-un array dinamico di riferimenti agli oggetti: sono contigui i
-riferimenti, non necessariamente gli oggetti stessi.
-L'uso concreto degli array Java è trattato nel \cref{chap:array-java}.
+L'organizzazione contigua favorisce la località spaziale.
+La \emph{lista} di Python (\cref{sec:fi-python-liste}) è realizzata,
+in CPython, mediante un array dinamico di riferimenti agli oggetti:
+sono contigui i riferimenti, non necessariamente gli oggetti stessi.
 
 \clearpage
 
@@ -214,8 +211,8 @@ l'indice di inserimento, mentre per la lista concatenata
 Le liste concatenate sono adatte a inserimenti e rimozioni
 presso nodi già individuati, mentre gli array sono preferibili
 quando prevalgono gli accessi per indice. La scelta deve
-considerare anche la memoria aggiuntiva per i riferimenti
-e la località spaziale della \cref{sec:fi-memoria-archiviazione}.
+considerare anche la memoria aggiuntiva per i riferimenti e
+la località spaziale.
 
 \section{Pila: politica LIFO}
 \label{sec:fi-adt-pila}
@@ -262,13 +259,12 @@ precedenti durante una navigazione.
 \label{sec:fi-adt-pila-implementazione-array}
 
 Con un array dinamico, la cima coincide con l'ultimo elemento
-presente. Si può conservarne esplicitamente l'indice
-\texttt{topIdx}, inizialmente \(-1\) nella pila vuota e aggiornato
-a ogni inserimento o rimozione. L'operazione \texttt{push}
-aggiunge in fondo, mentre \texttt{pop} rimuove l'ultimo elemento:
-entrambe richiedono \(O(1)\) tempo ammortizzato.
-Le operazioni \texttt{top()}, \texttt{is\_empty()} e
-\texttt{size()} richiedono \(\Theta(1)\).
+presente, di indice \(n-1\) quando la pila contiene \(n>0\)
+elementi. L'operazione \texttt{push} aggiunge in fondo, mentre
+\texttt{pop} rimuove l'ultimo elemento: entrambe richiedono
+\(O(1)\) tempo ammortizzato. Le operazioni \texttt{top()},
+\texttt{is\_empty()} e \texttt{size()} richiedono \(\Theta(1)\)
+tempo.
 
 Una realizzazione in Python utilizza direttamente queste operazioni
 sulla lista:
@@ -406,10 +402,9 @@ i rispettivi elementi senza rimuoverli, mentre
 e ispezione richiedono una coda non vuota: il comportamento
 in caso contrario deve essere specificato dall'interfaccia.
 
-La coda doppia generalizza la pila e la coda delle
-\cref{sec:fi-adt-pila,sec:fi-adt-coda}. Limitando le operazioni
-a una sola estremità si ottiene la politica LIFO, mentre
-inserendo in fondo e rimuovendo all'inizio si ottiene
+La coda doppia generalizza la pila e la coda: limitando le
+operazioni a una sola estremità si ottiene la politica LIFO,
+mentre inserendo in fondo e rimuovendo all'inizio si ottiene
 la politica FIFO.
 
 Una coda doppia può essere realizzata mediante un array circolare
@@ -451,14 +446,12 @@ l'inserimento sono ammessi \(0,\ldots,n\), compreso \(i=0\)
 quando la lista è vuota.
 
 L'ADT lista può essere realizzato mediante un array dinamico
-oppure una lista concatenata, introdotti nelle
-\cref{sec:fi-strutture-array,sec:fi-liste-concatenate}.
-La scelta dipende dalle operazioni più frequenti, come mostra
-la \cref{tab:fi-array-concatenata-costi}: l'array consente
-l'accesso diretto mediante indice, ma può richiedere spostamenti
-per inserire o rimuovere elementi; una lista concatenata permette
-inserimenti e rimozioni in tempo costante quando sono già disponibili
-i riferimenti necessari.
+oppure una lista concatenata. La scelta dipende dalle operazioni
+più frequenti, come mostra la \cref{tab:fi-array-concatenata-costi}:
+l'array consente l'accesso diretto mediante indice, ma può richiedere
+spostamenti per inserire o rimuovere elementi; una lista concatenata
+permette inserimenti e rimozioni in tempo costante quando sono già
+disponibili i riferimenti necessari.
 
 La lista Python della \cref{sec:fi-python-liste} realizza
 queste funzionalità mediante un array dinamico, ma presenta
@@ -532,8 +525,8 @@ e differenza:
 che restituiscono rispettivamente gli elementi presenti in almeno
 uno dei due insiemi, in entrambi oppure soltanto nel primo.
 La verifica di inclusione \(A\subseteq B\) può essere esposta
-mediante \texttt{is\_subset(T)}, che controlla se tutti gli
-elementi dell'insieme appartengono anche a \texttt{T}.
+mediante \texttt{is\_subset(B)}, invocata su \(A\): controlla
+se ogni elemento di \(A\) appartiene anche a \(B\).
 Completano l'interfaccia la consultazione degli elementi e le
 operazioni \texttt{is\_empty()} e \texttt{size()}, che verificano
 se l'insieme è vuoto e quanti elementi contiene.
@@ -547,9 +540,9 @@ intersezione e differenza permettono inoltre di combinare risultati
 di ricerca in base alla presenza di determinati termini.
 \end{example}
 
-L'ADT insieme si distingue dalla mappa della
-\cref{sec:fi-adt-mappa}: nel primo gli elementi sono unici,
-nella seconda lo sono le chiavi, ma non necessariamente i valori.
+L'ADT insieme si distingue dalla mappa: nel primo gli elementi
+sono unici, nella seconda lo sono le chiavi, ma non necessariamente
+i valori.
 In Python, il tipo \texttt{set} fornisce un'implementazione
 di questo comportamento. Le complessità delle operazioni
 dipendono dalla struttura dati adottata, non dalla specifica

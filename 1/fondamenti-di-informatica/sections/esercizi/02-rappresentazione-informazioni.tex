@@ -204,8 +204,8 @@ hanno lo stesso segno e il risultato ha segno opposto
 
 \begin{exercise}
 \label{ex:fi-rappresentazione-reali-approssimati}
-Perché i numeri reali devono essere rappresentati in modo
-approssimato nei computer?
+Perché non tutti i numeri reali possono essere rappresentati
+esattamente nei computer?
 \end{exercise}
 
 Un formato di lunghezza finita ammette soltanto un numero finito
@@ -295,9 +295,9 @@ Perché il numero 4.35 può causare errori di arrotondamento in binario?
 
 La frazione \(0.35=7/20\) non ha una rappresentazione binaria
 finita, perché il denominatore ridotto non è una potenza di due.
-Il valore \(4.35\) viene quindi approssimato: in binary64 la sua
-moltiplicazione per \(100\), arrotondata nel medesimo formato,
-può produrre \(434.99999999999994\) anziché \(435\)
+Il valore \(4.35\) viene quindi approssimato: in binary64, con
+arrotondamento al più vicino, il prodotto per \(100\) restituisce
+\(434.99999999999994\) anziché \(435\)
 (\cref{prop:fi-frazione-binaria-finita,ex:fi-arrotondamento-prodotto}).
 
 \begin{exercise}
@@ -341,10 +341,10 @@ Come vengono rappresentati i caratteri in un computer?
 \end{exercise}
 
 Una codifica associa valori numerici ai caratteri di un repertorio.
-Un \emph{punto di codice} identifica un carattere, mentre il
-\emph{formato di codifica} stabilisce come rappresentare il punto
-di codice mediante byte. Lo stesso carattere può quindi occupare
-sequenze di byte differenti secondo il formato
+In Unicode, un \emph{punto di codice} è un valore numerico che può
+essere assegnato a un carattere; il \emph{formato di codifica}
+stabilisce come rappresentarlo mediante byte. Lo stesso carattere
+può quindi occupare sequenze di byte differenti secondo il formato
 (\cref{sec:fi-caratteri}).
 
 \begin{exercise}

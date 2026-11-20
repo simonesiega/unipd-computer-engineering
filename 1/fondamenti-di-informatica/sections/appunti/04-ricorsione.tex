@@ -49,8 +49,7 @@ Per \(n\in\N\), il \emph{fattoriale} è definito dal prodotto
 
 La definizione precedente si traduce nelle due implementazioni
 seguenti, che calcolano lo stesso risultato per un intero non negativo:
-la prima utilizza un ciclo (\cref{sec:fi-python-cicli}), la seconda
-una chiamata ricorsiva.
+la prima utilizza un ciclo, la seconda una chiamata ricorsiva.
 
 \input{assets/codice/ricorsione/fattoriale-confronto}
 
@@ -194,8 +193,8 @@ può richiamare ricorsivamente la funzione più di una volta. Un esempio
   \label{eq:fi-fibonacci}
 \end{equation}
 
-La traduzione diretta dell'\cref{eq:fi-fibonacci} richiede due casi
-base e due chiamate ricorsive:
+La traduzione diretta della definizione richiede due casi base e
+due chiamate ricorsive:
 
 \begin{unipdcode}[language=Python]
 def fib(n):
@@ -305,5 +304,4 @@ def conto_rovescia(n):
 Per \(n=3\) vengono stampati \(3,2,1,0\), uno per riga:
 la misura \(n\) raggiunge il caso base. A differenza della
 funzione precedente, questa produce output anziché un valore;
-restituisce \texttt{None} e la chiamata è in coda
-(\cref{sec:fi-ricorsione-coda}).
+restituisce \texttt{None} e la chiamata è in coda.

@@ -23,7 +23,7 @@ La funzione \texttt{print()} scrive i valori ricevuti sull'uscita standard.
 Le parentesi fanno parte della sintassi di chiamata di una funzione e
 racchiudono gli eventuali argomenti: per esempio,
 \lstinline|print("Ciao")| stampa il messaggio \texttt{Ciao}
-(\cref{sec:fi-python-esecuzione,sec:fi-python-funzioni}).
+(\cref{sec:fi-python-esecuzione}).
 
 \begin{exercise}
 \label{ex:fi-python-stringa}
@@ -102,8 +102,9 @@ differenza c'è tra \texttt{/} e \lstinline|//|?
 
 Gli operatori \texttt{+}, \texttt{-}, \texttt{*} e \texttt{**}
 rappresentano rispettivamente addizione, sottrazione, moltiplicazione
-e potenza. L'operatore \texttt{/} esegue la divisione ordinaria e
-restituisce un \texttt{float} per operandi numerici ordinari, mentre
+e potenza. L'operatore \texttt{\%} calcola il resto della divisione.
+L'operatore \texttt{/} esegue la divisione ordinaria e restituisce un
+\texttt{float} per operandi numerici ordinari, mentre
 \lstinline|//| arrotonda il quoziente verso \(-\infty\): per esempio,
 \texttt{17 / 5} vale \texttt{3.4} e \lstinline|17 // 5| vale
 \texttt{3} (\cref{sec:fi-python-variabili}).
@@ -118,7 +119,7 @@ L'operatore \texttt{\%} restituisce il resto della divisione:
 \lstinline|17 % 5| vale \texttt{2}. È utile, per esempio, per
 verificare se un intero è pari mediante \lstinline|n % 2 == 0| o
 per distinguere i multipli di un intero positivo
-(\cref{sec:fi-python-variabili,sec:fi-python-funzioni}).
+(\cref{sec:fi-python-variabili}).
 
 \begin{exercise}
 \label{ex:fi-python-tipi-elementari}
@@ -190,6 +191,8 @@ logici degli operandi e il risultato dell'operazione considerata.
 Per due variabili booleane comprende quattro combinazioni; nella
 \cref{sec:fi-python-condizioni} sono riportate le tabelle di
 \texttt{and}, \texttt{or} e \texttt{not}.
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-python-sintassi-if}
@@ -278,6 +281,8 @@ di interi definita da estremi e, facoltativamente, da un passo,
 senza aggiornare manualmente un contatore
 (\cref{sec:fi-python-cicli}).
 
+\clearpage
+
 \begin{exercise}
 \label{ex:fi-python-range-esempi}
 Come funzionano \texttt{range(5)}, \texttt{range(1, 6)} e
@@ -344,9 +349,9 @@ Che differenza c'è tra leggere un file con \texttt{read()} e
 leggerlo riga per riga con un ciclo \texttt{for}?
 \end{exercise}
 
-\texttt{read()} senza argomenti restituisce l'intero contenuto
-del file di testo come un'unica stringa; un ciclo \texttt{for}
-lo visita invece una riga alla volta. Quest'ultima modalità è
+\texttt{read()} senza argomenti restituisce il contenuto del file di
+testo dalla posizione corrente fino alla fine, come un'unica stringa;
+un ciclo \texttt{for} lo visita invece una riga alla volta. Quest'ultima modalità è
 preferibile per file grandi quando non è necessario caricare
 tutto il contenuto in memoria (\cref{sec:fi-python-file}).
 

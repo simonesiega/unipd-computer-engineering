@@ -34,11 +34,12 @@ stima non costituisce, da sola, una dimostrazione della complessità.
 
 In Python, il modulo \texttt{time} offre \texttt{time.time()}, che
 restituisce un istante espresso in secondi. Per misurare intervalli di
-tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene sottraendo le letture effettuate prima e
-dopo l'esecuzione. Per confrontare più dimensioni si possono registrare
-i risultati in formato CSV, utilizzando i file di testo introdotti
-nella \cref{sec:fi-python-file}. Un esempio completo di misurazione
-sarà presentato dopo le due implementazioni di \texttt{reverse} (\cref{sec:fi-complessita-reverse-lineare}).
+tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene
+sottraendo le letture effettuate prima e dopo l'esecuzione. Per
+confrontare più dimensioni si possono registrare i risultati in
+formato CSV, utilizzando i file di testo introdotti nella
+\cref{sec:fi-python-file}. Un esempio di misurazione è riportato
+nella \cref{sec:fi-complessita-reverse-lineare}.
 
 Il tempo misurato dipende anche dai valori dei dati, dall'hardware,
 dall'interprete o compilatore, dal linguaggio, dall'implementazione e
@@ -214,8 +215,8 @@ della lista di ingresso. Il ciclo interno li sposta di una posizione;
 l'assegnamento successivo inserisce \texttt{lista[i]} in posizione
 zero. Dopo \(n\) iterazioni si ottiene quindi la lista invertita.
 
-Per determinare il costo si adotta un conteggio semplificato, secondo
-il modello della \cref{sec:fi-complessita-modello}. L'istruzione
+Per determinare il costo si adotta un conteggio semplificato.
+L'istruzione
 \texttt{n = len(lista)} e gli assegnamenti semplici valgono un passo
 ciascuno, mentre la costruzione di \texttt{[0] * n} costa \(n\) passi,
 oltre all'assegnamento a \texttt{output}. Si trascurano i controlli
@@ -396,9 +397,10 @@ Nella seconda versione, l'ordinamento colloca gli eventuali valori
 duplicati in posizioni adiacenti. Il ciclo verifica ciascuna coppia
 di elementi consecutivi e restituisce \texttt{True} quando trova
 un'uguaglianza. Se la scansione termina senza individuarne, tutti
-gli elementi sono distinti. L'ordinamento mediante \texttt{sorted()}
-richiede \(O(n\log n)\) tempo nel caso peggiore, mentre la scansione
-richiede \(O(n)\). La complessità temporale complessiva è quindi
+gli elementi sono distinti. Assumendo confronti a costo costante,
+l'ordinamento mediante \texttt{sorted()} richiede \(O(n\log n)\) tempo nel caso peggiore,
+mentre la scansione richiede \(O(n)\). La complessità temporale
+complessiva è quindi
 \[
   T_{\mathrm{ordinamento}}(n)\in O(n\log n).
 \]
@@ -432,6 +434,8 @@ del modello coincidono e la funzione restituisce \(i\).
 Poiché le posizioni vengono esaminate in ordine crescente,
 l'indice restituito è quello della prima occorrenza.
 Se nessuna posizione soddisfa la condizione, viene restituito \(-1\).
+Il ciclo interno esamina tutti i \(m\) caratteri del modello, anche
+quando incontra una differenza.
 
 Per \(1\le m\le n\), nel caso peggiore vengono esaminate tutte
 le \(n-m+1\) posizioni candidate, confrontando \(m\) caratteri
@@ -517,7 +521,8 @@ La complessità temporale della versione ricorsiva è pertanto
 \]
 Dalla ricorrenza e dalla monotonia della successione seguono
 \(F_{n+2}\ge2F_n\) e \(F_{n+1}\le2F_n\) per \(n\ge2\).
-Queste disuguaglianze permettono di ricavare le stime
+Queste disuguaglianze permettono di ricavare, per \(n\ge2\),
+le stime
 \[
   2^{\lfloor(n-1)/2\rfloor}\le F_n\le2^{n-2},
 \]

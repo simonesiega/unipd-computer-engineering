@@ -322,7 +322,7 @@ Per ogni iterazione del ciclo esterno viene eseguito il ciclo
 interno secondo i suoi limiti. Sono adatti, per esempio, a
 elaborare righe e colonne di una tabella; il costo complessivo
 dipende dal numero di iterazioni di entrambi
-(\cref{sec:fi-java-cicli-for-annidati,chap:complessita}).
+(\cref{sec:fi-java-cicli-for-annidati}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-cicli-sentinella}
@@ -387,14 +387,14 @@ e può accedere direttamente ai suoi campi
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-cicli-static-campi}
-Perché un contatore progressivo comune a tutti gli oggetti
-deve essere dichiarato \texttt{static}?
+Perché, nell'esempio di \texttt{ContoNumerato}, il contatore
+progressivo è dichiarato \texttt{static}?
 \end{exercise}
 
-Un campo di istanza ha una copia distinta per ogni oggetto:
-inizializzandolo a zero nel costruttore, ogni oggetto ripartirebbe
-dallo stesso numero. Il campo statico possiede invece una copia
-condivisa, aggiornata da ogni nuova costruzione
+In questa implementazione, un campo di istanza avrebbe una copia
+distinta per ogni oggetto: inizializzandolo a zero nel costruttore,
+ogni nuovo conto ripartirebbe dallo stesso numero. Il campo
+\texttt{static} è invece condiviso tra tutte le istanze
 (\cref{sec:fi-java-cicli-campi-statici}).
 
 \begin{exercise}
@@ -408,7 +408,7 @@ il ciclo di vita riguarda il tempo per cui il relativo dato
 esiste durante l'esecuzione. Per esempio, un campo statico
 può permanere per tutta la vita della classe anche quando
 non viene utilizzato da un determinato metodo
-(\cref{sec:fi-java-cicli-scope,tab:fi-java-cicli-variabili}).
+(\cref{sec:fi-java-cicli-scope}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-cicli-gc}

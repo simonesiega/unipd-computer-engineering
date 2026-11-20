@@ -1,9 +1,9 @@
 \chapter{Realizzazione di classi in Java}
 \label{chap:realizzazione-classi-java}
 
-Nei \cref{chap:introduzione-java,chap:collaudo-tipi-input-java}
-sono state utilizzate classi già disponibili. Per realizzarne una
-occorre definirne operazioni, stato e comportamento, distinguendo
+Nei capitoli precedenti sono state utilizzate classi già disponibili.
+Per realizzarne una occorre definirne operazioni, stato e comportamento,
+distinguendo
 interfaccia e implementazione come per gli ADT
 (\cref{sec:fi-adt-strutture}). Si utilizzerà come modello
 una classe per la gestione di un conto bancario.\footnote{Materiale di riferimento: S. Canazza,
@@ -118,11 +118,10 @@ rimane vuoto, come in \texttt{getBalance()}.
 
 La \emph{firma} di un metodo Java, in senso tecnico, comprende il
 nome e i tipi dei parametri, considerandone anche l'ordine; non
-comprende il tipo restituito né i modificatori di accesso. Questa
-distinzione è importante nella risoluzione dei metodi sovraccarichi,
-trattata nella \cref{sec:fi-java-classi-overloading}. Per gli
-esempi di invocazione si rimanda anche alla
-\cref{sec:fi-java-invocazione-metodi}.
+comprende il tipo restituito né i modificatori di accesso.
+Questa distinzione è rilevante per il sovraccarico dei metodi,
+poiché il solo tipo restituito non permette di distinguere
+due dichiarazioni.
 
 \begin{definition}[Metodi di accesso e modificatori]
 \label{def:fi-java-classi-accessori}
@@ -188,8 +187,7 @@ BankAccount account = new BankAccount();
 \end{unipdcode}
 
 Il riferimento viene assegnato alla variabile \texttt{account};
-la variabile e l'oggetto non sono la stessa entità, come chiarito
-nella \cref{sec:fi-java-riferimenti}.
+la variabile e l'oggetto non sono la stessa entità.
 
 \begin{definition}[Costruttore]
 \label{def:fi-java-classi-costruttore}
@@ -221,9 +219,7 @@ non è il costruttore a restituirlo. La dichiarazione
 \texttt{public void BankAccount()} non definirebbe invece un
 costruttore, ma un metodo ordinario con lo stesso nome della
 classe; una sua invocazione non inizializzerebbe automaticamente
-un nuovo oggetto. La sostituzione del riferimento a un oggetto
-già esistente è trattata nella
-\cref{sec:fi-java-file-ricostruire}.
+un nuovo oggetto.
 
 \subsection{Costruttore predefinito e valori iniziali}
 \label{sec:fi-java-classi-costruttore-predefinito}
@@ -325,9 +321,6 @@ Ogni oggetto possiede una propria copia di tali campi, mentre
 le definizioni dei metodi di istanza sono comuni alla classe.
 \end{definition}
 
-Questa distinzione approfondisce quanto introdotto nella
-\cref{sec:fi-java-classi-oggetti}.
-
 Nel conto bancario è sufficiente rappresentare il saldo con
 un campo di tipo \texttt{double}, dichiarato all'interno
 della classe:
@@ -378,9 +371,9 @@ BankAccount account = null;
 la variabile è inizializzata, ma non si riferisce ad
 alcun conto bancario. Invocare su di essa un metodo
 di istanza, come \texttt{account.getBalance()}, provoca
-una \texttt{NullPointerException}. Se tale eccezione
-non viene gestita, l'esecuzione del programma può
-interrompersi (\cref{sec:fi-java-errori}).
+una \texttt{NullPointerException} durante l'esecuzione.
+
+\clearpage
 
 \begin{example}[Stringa vuota e riferimento nullo]
 Si considerino i seguenti riferimenti a oggetti
@@ -424,9 +417,6 @@ Esporre un metodo generico
 \texttt{setBalance()} permetterebbe invece di modificare
 il saldo senza passare attraverso le operazioni lecite
 di versamento e prelievo.
-
-La classe sarà estesa mediante ereditarietà nella
-\cref{sec:fi-java-ereditarieta-conti}.
 
 Una prima implementazione di \texttt{BankAccount} è la seguente.
 I costruttori inizializzano il saldo, \texttt{deposit()} lo
@@ -502,9 +492,8 @@ eventuali eccezioni. A questo scopo Java mette a
 disposizione \emph{JavaDoc}, uno strumento che genera
 pagine HTML a partire da appositi commenti nel sorgente.
 Un commento di documentazione inizia con
-\lstinline|/**| e termina con \lstinline|*/|, a
-differenza dei commenti ordinari introdotti nella
-\cref{sec:fi-java-sintassi}.
+\lstinline|/**| e termina con \lstinline|*/|,
+distinguendosi dai commenti ordinari.
 
 \begin{example}[Documentazione di un metodo]
 Il metodo di accesso al saldo può essere documentato con
@@ -570,8 +559,8 @@ public static int somma(int a, int b) {
     return Math.addExact(a, b);
 }
 \end{unipdcode}
-Il metodo è statico (\cref{sec:fi-java-math}); il commento
-ne documenta il contratto, compresa l'eccezione.
+Il commento documenta il contratto del metodo statico,
+compresa l'eccezione.
 \end{example}
 
 I tag \lstinline|{@inheritDoc}| e \texttt{@hidden} permettono,
@@ -598,9 +587,7 @@ un'operazione a una condizione si utilizza l'istruzione
 \texttt{if}. A differenza di Python, dove i blocchi
 sono individuati dall'indentazione, Java impiega
 parentesi tonde per la condizione e, quando necessari,
-blocchi delimitati da graffe. Il collegamento con le
-istruzioni condizionali già incontrate in Python è
-richiamato nella \cref{sec:fi-python-condizioni}.
+blocchi delimitati da graffe.
 
 \subsection{La struttura \texttt{if}/\texttt{else}}
 \label{sec:fi-java-classi-if-else}
@@ -688,10 +675,6 @@ sono entrambi \texttt{null}); non confronta generalmente
 i contenuti. Per confrontare il contenuto delle stringhe
 si usa invece
 \texttt{equals()}, che richiede un riferimento ricevente non nullo.
-La differenza fra copia di un riferimento e creazione di un nuovo
-oggetto è illustrata nella \cref{sec:fi-java-riferimenti};
-il caso del riferimento nullo è discusso nella
-\cref{sec:fi-java-classi-null}.
 
 \clearpage
 
@@ -701,7 +684,7 @@ il caso del riferimento nullo è discusso nella
 La rappresentazione in virgola mobile ha precisione
 finita: valori decimali e risultati di calcoli possono
 subire approssimazioni
-(\cref{sec:fi-virgola-mobile,sec:fi-java-precisione}).
+(\cref{sec:fi-java-precisione}).
 Per esempio, l'espressione \texttt{0.1 + 0.2} non
 produce in \texttt{double} lo stesso valore
 rappresentato dal letterale \texttt{0.3}. Un confronto

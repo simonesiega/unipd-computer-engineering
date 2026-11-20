@@ -75,6 +75,8 @@ Che cos'è un \emph{array}?
 posizioni contigue, accessibili direttamente tramite indice
 (\cref{def:fi-array}).
 
+\clearpage
+
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-array-accesso-diretto}
 Perché un array consente accesso diretto a un elemento tramite indice? Perché
@@ -125,8 +127,9 @@ tempo?
 \end{exercise}
 
 Per inserire all'indice \(i\) occorre spostare a destra i \(n-i\) elementi
-successivi, dopo aver eventualmente aumentato la capacità. Il costo è \(O(n)\) e
-può raggiungere \(\Theta(n)\) (\cref{sec:fi-array-dinamici}).
+a partire da quella posizione, dopo aver eventualmente aumentato la capacità.
+Il costo è \(O(n)\) e può raggiungere \(\Theta(n)\)
+(\cref{sec:fi-array-dinamici}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-array-cancellazione-shift}
@@ -345,13 +348,12 @@ Come può essere implementato uno \emph{stack} usando un \emph{dynamic array} e
 un indice \texttt{topIdx}?
 \end{exercise}
 
-La cima coincide con l'ultimo elemento presente. L'indice \texttt{topIdx} vale
-inizialmente \(-1\); \texttt{push(e)} aggiunge l'elemento in fondo e lo
-incrementa, mentre \texttt{pop()} restituisce l'ultima cella occupata e lo
-decrementa. \texttt{top()} legge la cella senza modificarla
+La cima coincide con l'ultimo elemento presente. Se si mantiene
+esplicitamente un indice \texttt{topIdx}, questo vale inizialmente \(-1\):
+\texttt{push(e)} aggiunge l'elemento in fondo e incrementa l'indice;
+\texttt{pop()} rimuove e restituisce l'elemento in cima, quindi decrementa
+l'indice. \texttt{top()} legge l'elemento senza rimuoverlo
 (\cref{sec:fi-adt-pila-implementazione-array}).
-
-\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-push-resize}
@@ -406,7 +408,7 @@ implementation}?
 
 \texttt{push(e)}, \texttt{pop()}, \texttt{top()} e \texttt{is\_empty()} sono
 \(\Theta(1)\) con la cima in \texttt{head}. Anche \texttt{size()} è
-\(\Theta(1)\) se si mantiene un contatore aggiornato (\cref{sec:fi-adt-pila,sec:fi-liste-concatenate}).
+\(\Theta(1)\) se si mantiene un contatore aggiornato (\cref{sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-size-lineare}
@@ -416,7 +418,7 @@ mantiene una variabile aggiuntiva?
 
 Senza un contatore, per conoscere la lunghezza è necessario attraversare tutti
 gli \(n\) nodi. Il costo è \(\Theta(n)\); un contatore mantenuto dalle
-operazioni di modifica lo riduce a \(\Theta(1)\) (\cref{sec:fi-liste-concatenate,sec:fi-adt-pila}).
+operazioni di modifica lo riduce a \(\Theta(1)\) (\cref{sec:fi-adt-pila}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-stack-array-vs-linked}
@@ -821,7 +823,7 @@ Perché in una \emph{map} le \emph{key} devono essere uniche?
 
 Una chiave deve identificare senza ambiguità una sola associazione. Ripetere la
 stessa chiave con un valore diverso non introduce una seconda associazione: ne
-aggiorna il valore (\cref{def:fi-adt-mappa,sec:fi-adt-mappa}).
+aggiorna il valore (\cref{def:fi-adt-mappa}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-strutture-dati-map-valori-ripetuti}

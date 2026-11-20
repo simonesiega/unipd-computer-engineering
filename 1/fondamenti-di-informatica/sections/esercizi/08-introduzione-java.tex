@@ -34,10 +34,10 @@ piattaforma ospitante (\cref{def:fi-java-jvm,sec:fi-linguaggi-esecuzione}).
 Che cos'è la Java Platform API?
 \end{exercise}
 
-È l'interfaccia documentata delle classi e dei metodi forniti dalla piattaforma
-Java: descrive le operazioni disponibili, i parametri, i risultati e, quando
-pertinenti, le eccezioni
-(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-metodi-string}).
+La \emph{Java Platform API} è l'insieme delle interfacce pubbliche
+delle librerie della piattaforma Java. La relativa documentazione
+specifica classi, metodi, parametri, risultati ed eventuali eccezioni
+(\cref{sec:fi-java-invocazione-metodi}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-libreria-standard}
@@ -46,7 +46,7 @@ Perché la libreria standard di Java è importante per il programmatore?
 
 Fornisce classi e metodi già disponibili per operazioni comuni, evitando di
 doverle implementare nuovamente. Per utilizzarli occorre conoscere la relativa
-interfaccia pubblica (\cref{sec:fi-java-classi-oggetti,sec:fi-java-classi-black-box}).
+interfaccia pubblica (\cref{sec:fi-java-classi-oggetti}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-sorgente-libreria}
@@ -56,7 +56,7 @@ Perché non è necessario conoscere il codice sorgente delle classi standard di 
 È sufficiente conoscerne il contratto pubblico: metodi accessibili, parametri,
 risultati e comportamento previsto. I dettagli interni di implementazione non
 sono necessari all'invocazione dei metodi
-(\cref{sec:fi-java-classi-black-box,def:fi-java-classi-interfaccia}).
+(\cref{sec:fi-java-classi-oggetti}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-jdk}
@@ -285,7 +285,7 @@ Che cosa indica la parola chiave \texttt{public}?
 È un modificatore di accesso che rende una classe o un suo membro accessibile nei
 contesti consentiti dal linguaggio; nella dichiarazione dell'esempio
 qualifica la classe e il metodo \texttt{main}
-(\cref{sec:fi-java-primo-programma,sec:fi-java-cicli-shadowing}).
+(\cref{sec:fi-java-primo-programma}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-class}
@@ -324,7 +324,7 @@ Che cosa significa \texttt{static} nella dichiarazione del metodo \texttt{main}?
 Indica che il metodo appartiene alla classe e può essere invocato senza creare
 prima un oggetto della classe. Ciò permette di avviare il programma
 dal suo punto di ingresso
-(\cref{sec:fi-java-primo-programma,sec:fi-java-cicli-metodi-statici}).
+(\cref{sec:fi-java-primo-programma}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-void-main}
@@ -384,9 +384,9 @@ oggetto \texttt{PrintStream} associato all'uscita standard
 Che cosa fa il metodo \texttt{println()}?
 \end{exercise}
 
-Scrive il valore ricevuto sull'uscita standard e termina la riga. Una successiva
-operazione di stampa inizia quindi dalla riga seguente
-(\cref{sec:fi-java-uscita-standard}).
+Scrive la rappresentazione dell'argomento, se presente, sull'uscita standard
+e aggiunge un terminatore di riga. Senza argomenti produce soltanto
+il terminatore di riga (\cref{sec:fi-java-uscita-standard}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-print-vs-println}
@@ -433,7 +433,9 @@ Come si separano più argomenti in una chiamata di metodo?
 Nella chiamata si forniscono gli \emph{argomenti}, separandoli con virgole
 all'interno delle parentesi tonde, per esempio \texttt{Math.max(3, 7)}.
 I \emph{parametri} sono invece dichiarati nell'intestazione del metodo
-(\cref{sec:fi-java-invocazione-metodi,sec:fi-java-classi-firma}).
+(\cref{sec:fi-java-invocazione-metodi}).
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-formato-libero}
@@ -506,9 +508,10 @@ nell'uso di \texttt{Integer.parseInt}
 Che cos'è una variabile in Java?
 \end{exercise}
 
-È un identificatore associato a un valore di un tipo dichiarato. Per un tipo
-primitivo la variabile contiene il valore; per un tipo riferimento contiene un
-riferimento a un oggetto (\cref{sec:fi-java-variabili,sec:fi-java-riferimenti}).
+È una posizione di memorizzazione identificata da un nome e caratterizzata
+da un tipo dichiarato. Per un tipo primitivo contiene un valore di quel tipo;
+per un tipo riferimento contiene un riferimento a un oggetto oppure
+\texttt{null} (\cref{sec:fi-java-variabili,sec:fi-java-riferimenti}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-introduzione-java-dichiarazione}

@@ -1,10 +1,10 @@
 \chapter{Interfacce, classi astratte e generici in Java}
 \label{chap:interfacce-generici-java}
 
-Dopo l'ereditarietà e il polimorfismo, si approfondiscono i
-comportamenti comuni agli oggetti, il controllo di accesso e le
-interfacce. Si introducono inoltre le classi astratte e i tipi
-generici (\cref{chap:realizzazione-classi-java,chap:ereditarieta-polimorfismo-java}).%
+Dopo lo studio dell'ereditarietà e del polimorfismo, si
+esaminano i principali metodi della superclasse \texttt{Object},
+il controllo di accesso e le interfacce. Si introducono inoltre
+le classi astratte e i tipi generici.%
 \footnote{Materiale di riferimento: S. Canazza,
 \emph{Java: Interfacce},
 \nolinkurl{2026_FI_15_canazza_Java_Interfacce.key.pdf}.}
@@ -42,11 +42,12 @@ progettate in modo inadeguato.
 \section{La superclasse \texttt{Object}}
 \label{sec:fi-java-interfacce-object}
 
-Ogni classe Java deriva direttamente o indirettamente da
-\texttt{Object} (\cref{def:fi-java-ereditarieta-object}).
-Anche \texttt{println(Object)} può quindi ricevere un
-riferimento a un oggetto e produrne una descrizione testuale
-tramite \texttt{toString()}.
+\texttt{Object} è la radice della gerarchia delle classi Java:
+ogni altra classe la estende direttamente o indirettamente
+(\cref{def:fi-java-ereditarieta-object}).
+Il metodo \texttt{println(Object)} può ricevere un riferimento
+a un oggetto e produrne una descrizione testuale tramite
+\texttt{toString()}.
 
 \subsection{Il metodo \texttt{toString()}}
 \label{sec:fi-java-interfacce-tostring}
@@ -58,8 +59,7 @@ necessariamente l'indirizzo di memoria dell'oggetto. Una classe
 può sovrascrivere il metodo per produrre una descrizione utile.
 
 \begin{example}[Descrizione di \texttt{BankAccount}]
-Si aggiunge il seguente metodo alla classe già utilizzata
-nella \cref{sec:fi-java-ereditarieta-conti}:
+Si aggiunge il seguente metodo alla classe \texttt{BankAccount}:
 
 \input{assets/codice/java/bank-account-tostring}
 
@@ -110,14 +110,14 @@ codice hash. Due hash uguali non implicano invece l'uguaglianza
 degli oggetti.
 \end{example}
 
+\clearpage
+
 \section{Controllo di accesso e \texttt{final}}
 \label{sec:fi-java-interfacce-accesso}
 
 Ai modificatori \texttt{public} e \texttt{private} già trattati
 nella \cref{sec:fi-java-classi-incapsulamento} si aggiungono
 \texttt{protected} e l'accesso di package:
-
-\clearpage
 
 \begin{table}[htbp]
 \centering
@@ -186,6 +186,8 @@ metodi \texttt{default} e \texttt{static} con implementazione.
 L'interfaccia specifica una misura e fornisce un confronto
 predefinito e una funzione statica di aggregazione:
 
+\clearpage
+
 \noindent
 \begin{minipage}{\linewidth}
 \input{assets/codice/java/measurable-interfaccia}
@@ -211,6 +213,8 @@ Una classe può implementare più interfacce, pur estendendo una
 sola classe. Un'interfaccia può estendere più interfacce.
 L'implementazione di un contratto è distinta dall'ereditarietà
 della rappresentazione di una classe.
+
+\clearpage
 
 \subsection{Riferimenti, conversioni e polimorfismo}
 \label{sec:fi-java-interfacce-riferimenti}
@@ -276,7 +280,7 @@ utilizza l'ordinamento lessicografico introdotto nella
 \section{La classe \texttt{ArrayAlgs} con \texttt{Comparable}}
 \label{sec:fi-java-interfacce-arrayalgs}
 
-Gli algoritmi della \cref{chap:ricerca-ordinamento-java} restano
+Gli algoritmi del \cref{chap:ricerca-ordinamento-java} restano
 validi per oggetti confrontabili. Cambiano il tipo dell'array
 e il confronto, non la logica dell'algoritmo:
 
@@ -343,8 +347,10 @@ conservando l'ordinamento iniziale come precondizione.
 L'uso non parametrizzato di \texttt{Comparable[]} presuppone
 che gli elementi siano non nulli e reciprocamente confrontabili:
 un confronto incompatibile può generare
-\texttt{ClassCastException}. I tipi generici possono rendere
-questo vincolo più esplicito al compilatore.
+\texttt{ClassCastException}. Il tipo non parametrizzato può
+inoltre produrre avvisi di compilazione per confronti non verificati.
+I tipi generici permettono di esprimere più precisamente il vincolo
+sui tipi degli elementi.
 
 \section{Classi e metodi astratti}
 \label{sec:fi-java-interfacce-astratte}
@@ -383,8 +389,9 @@ istanza e costruttori.
 \begin{definition}[Parametrizzazione dei tipi]
 \label{def:fi-java-interfacce-generici}
 Una \emph{classe generica} dichiara uno o più parametri di tipo
-tra parentesi angolari. Un utilizzo della classe specifica un
-tipo concreto, controllato durante la compilazione.
+tra parentesi angolari. Nell'uso parametrizzato della classe,
+la compatibilità degli argomenti di tipo viene controllata
+durante la compilazione.
 \end{definition}
 
 \lstinline|class Box<T>| dichiara un parametro \texttt{T};
@@ -422,9 +429,12 @@ Il recupero tramite \texttt{get()} non richiede cast.
 \label{sec:fi-java-interfacce-metodi-generici}
 
 Un metodo generico dichiara i parametri di tipo prima del tipo
-di ritorno:
+di ritorno. Il seguente metodo può essere dichiarato all'interno
+di una classe:
 
 \input{assets/codice/java/stampa-array-generico}
+
+Da un altro metodo della stessa classe può essere invocato così:
 
 \begin{unipdcode}[language=Java]
 printArray(new String[] {"A", "B"});

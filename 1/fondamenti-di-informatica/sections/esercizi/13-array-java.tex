@@ -72,7 +72,7 @@ se il parametro vale \texttt{null}?
 
 Un riferimento nullo non individua un array.
 L'accesso a \texttt{v.length} in questo caso provoca
-\texttt{NullPointerException}. Una precondizione esplicita
+\texttt{NullPointerException}. Un controllo esplicito
 consente di segnalare l'argomento non valido (\cref{sec:fi-java-array-parametri}).
 
 \begin{exercise}
@@ -122,8 +122,9 @@ compatibili (\cref{sec:fi-java-array-parametri}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-array-clone}
-Perché il metodo \texttt{clone} può essere usato per copiare
-un array, e perché è necessario effettuare un cast?
+Che cosa restituisce \texttt{clone()} quando viene invocato su
+un array Java? È necessario un cast per assegnare il risultato
+a una variabile dello stesso tipo array?
 \end{exercise}
 
 \texttt{clone()} crea un nuovo array con gli stessi elementi.
@@ -167,8 +168,8 @@ L'array originario non cambia dimensione
 
 \begin{exercise}
 \label{ex:fi-esercizi-array-stampa}
-Perché stampare direttamente un array con
-\texttt{System.out.println(a)} non mostra il contenuto dell'array?
+Perché stampare direttamente un array di \texttt{int} con
+\texttt{System.out.println(a)} non mostra i suoi elementi?
 \end{exercise}
 
 L'array non ridefinisce una rappresentazione testuale dei propri
@@ -180,7 +181,7 @@ un metodo che li converta in testo
 \begin{exercise}
 \label{ex:fi-esercizi-array-inserimento}
 Perché nell'inserimento di un elemento in mezzo a un array
-gli spostamenti devono essere eseguiti dal basso verso l'alto?
+gli spostamenti devono iniziare dall'ultimo elemento?
 \end{exercise}
 
 Si parte dall'ultimo elemento e si procede verso il punto di

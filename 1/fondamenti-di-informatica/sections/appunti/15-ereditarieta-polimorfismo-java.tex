@@ -1,11 +1,10 @@
 \chapter{Ereditarietà e polimorfismo in Java}
 \label{chap:ereditarieta-polimorfismo-java}
 
-Dopo la realizzazione di classi e degli algoritmi su array, si
+In questo capitolo si
 introducono l'ereditarietà, le conversioni tra riferimenti e il
-polimorfismo. Questi meccanismi permettono di riutilizzare e
-specializzare comportamenti già definiti
-(\cref{chap:realizzazione-classi-java,chap:ricerca-ordinamento-java}).%
+polimorfismo. Questi meccanismi consentono di riutilizzare e
+specializzare i comportamenti delle classi esistenti.%
 \footnote{Materiale di riferimento: S. Canazza,
 \emph{Java: Ereditarietà},
 \nolinkurl{2026_FI_14_canazza_Java_Ereditarieta.key.pdf}.}
@@ -13,24 +12,25 @@ specializzare comportamenti già definiti
 \section{Ordinamento di oggetti}
 \label{sec:fi-java-ereditarieta-ordinamento-oggetti}
 
-Gli algoritmi di ordinamento della
+Gli algoritmi di ordinamento del
 \cref{chap:ricerca-ordinamento-java} si applicano anche a oggetti,
 quando è disponibile un criterio di confronto. A differenza dei
 numeri, l'ordine tra oggetti dipende dal tipo e dall'operazione
-definita dalla classe (\cref{sec:fi-java-cicli-oggetti}).
+definita dalla classe.
 
 Per esempio, \texttt{String.compareTo()} confronta due stringhe
 secondo l'ordinamento lessicografico dei valori UTF-16. Restituisce
 un intero negativo, nullo o positivo quando la prima stringa
 precede, equivale o segue la seconda secondo tale criterio.
-Per ordinare stringhe mediante \texttt{selectionSort()},
-il confronto numerico \lstinline|v[i] < min| viene sostituito da
-\lstinline|v[i].compareTo(min) < 0|. Il procedimento e il numero di confronti restano invariati;
-per le stringhe, tuttavia, il costo di ciascun confronto
-dipende dalla loro lunghezza.
+Per adattare \texttt{selectionSort()} a un array di stringhe
+non nulle, occorre modificare il tipo degli elementi e sostituire
+il confronto \lstinline|v[i] < v[pos]| con
+\lstinline|v[i].compareTo(v[pos]) < 0|. Il procedimento e il numero
+di confronti restano invariati; per le stringhe, tuttavia, il
+costo di ciascun confronto dipende dalla loro lunghezza.
 
 Per altri oggetti, come \texttt{BankAccount}, occorre stabilire
-quale proprietà usare per il confronto. L\'interfaccia
+quale proprietà usare per il confronto. L'interfaccia
 \texttt{Comparable} è approfondita nella
 \cref{sec:fi-java-interfacce-comparable}. La possibilità di
 riutilizzare comportamenti comuni fra classi conduce
@@ -63,9 +63,13 @@ interessi:
 
 \input{assets/codice/java/savings-account-ereditarieta}
 
+Il parametro del costruttore rappresenta il tasso di interesse
+percentuale, non il saldo iniziale. Poiché il costruttore non
+richiama esplicitamente quello della superclasse, Java inserisce
+una chiamata a \texttt{super()}, che inizializza il saldo a zero.
 \texttt{addInterest()} usa \texttt{getBalance()} e \texttt{deposit()}
-della superclasse. Il campo \texttt{balance} resta privato e non è
-accessibile direttamente dalla sottoclasse. La classe aggiunta
+ereditati dalla superclasse. Il campo \texttt{balance} resta privato
+e non è accessibile direttamente dalla sottoclasse. La classe aggiunta
 non duplica l'implementazione del conto bancario.
 \end{example}
 
@@ -117,12 +121,15 @@ ereditato.
 \begin{definition}[Sovrascrittura di un metodo]
 \label{def:fi-java-ereditarieta-override}
 Si ha \emph{sovrascrittura} quando una sottoclasse fornisce una
-nuova implementazione di un metodo di istanza ereditato, con
-firma compatibile e tipo di ritorno ammesso dalle regole di Java.
-L'annotazione \texttt{@Override} permette al compilatore di
-verificare che il metodo sovrascriva effettivamente un metodo
-ereditato.
+nuova implementazione di un metodo di istanza ereditato, mantenendo
+il nome e i tipi dei parametri e rispettando le regole di Java
+sul tipo di ritorno e sull'accessibilità. Cambiare i tipi dei
+parametri definirebbe invece un sovraccarico. L'annotazione
+\texttt{@Override} permette al compilatore di verificare che
+il metodo sovrascriva effettivamente un metodo ereditato.
 \end{definition}
+
+\clearpage
 
 Per applicare una commissione fissa ai versamenti,
 \texttt{SavingsAccount} può sovrascrivere \texttt{deposit()}.
@@ -137,7 +144,9 @@ accredita l'importo senza richiamare il metodo sovrascritto.
 La successiva \texttt{super.withdraw(FEE)} addebita la commissione.
 Una chiamata non qualificata a \texttt{deposit(amount)}
 all'interno di quel metodo richiamerebbe invece se stessa,
-provocando una ricorsione senza caso base.
+provocando una ricorsione senza caso base. Dopo la sovrascrittura,
+anche la chiamata a \texttt{deposit()} in \texttt{addInterest()}
+applica la commissione.
 
 \texttt{super.nomeMetodo(argomenti)} non costruisce un altro
 oggetto: seleziona il metodo della superclasse per l'istanza
@@ -151,6 +160,8 @@ istanza. I metodi ereditati possono accedere ai campi
 \texttt{private} dichiarati nella propria classe, mentre i metodi
 della sottoclasse non possono accedervi direttamente
 (\cref{sec:fi-java-classi-incapsulamento}).
+
+\clearpage
 
 \section{Conversioni tra riferimenti}
 \label{sec:fi-java-ereditarieta-conversioni}
@@ -207,6 +218,7 @@ esplicito ed è valida soltanto se l'oggetto è un'istanza del tipo
 richiesto o di una sua sottoclasse:
 
 \begin{unipdcode}[language=Java]
+BankAccount conto = new SavingsAccount(10);
 SavingsAccount altro = (SavingsAccount) conto;
 altro.addInterest();
 \end{unipdcode}
@@ -216,6 +228,7 @@ riferimento indica un oggetto incompatibile, l'esecuzione
 provoca \texttt{ClassCastException}, un'eccezione non controllata
 (\cref{sec:fi-java-file-checked}).
 
+\clearpage
 
 \section{Polimorfismo}
 \label{sec:fi-java-ereditarieta-polimorfismo}

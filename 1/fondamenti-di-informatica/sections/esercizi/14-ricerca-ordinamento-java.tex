@@ -39,7 +39,8 @@ temporale asintotico, ma un diverso costo spaziale?
 Entrambe dimezzano l'intervallo a ogni passo, richiedendo
 \(O(\log n)\) tempo nel caso peggiore. La versione iterativa
 conserva soltanto gli indici, quindi usa \(\Theta(1)\) spazio;
-quella ricorsiva mantiene fino a \(O(\log n)\) chiamate
+quella ricorsiva richiede una pila di chiamate di profondità
+\(O(\log n)\)
 (\cref{sec:fi-java-alg-binaria-iterativa,sec:fi-java-alg-binaria-ricorsiva}).
 
 \begin{exercise}
@@ -48,8 +49,8 @@ La ricerca binaria restituisce sempre la prima occorrenza di un
 valore ripetuto?
 \end{exercise}
 
-No. Restituisce l'indice di un elemento uguale al valore cercato,
-non necessariamente quello minimo
+No. Restituisce un indice in cui compare il valore cercato,
+non necessariamente quello della prima occorrenza
 (\cref{sec:fi-java-alg-binaria}).
 
 \begin{exercise}
@@ -119,9 +120,9 @@ rimanenti dopo il primo ciclo?
 \end{exercise}
 
 Il primo ciclo termina quando una delle due metà ordinate è
-esaurita. Gli elementi rimanenti dell'altra sono già ordinati
-e possono essere copiati direttamente
-(\cref{sec:fi-java-alg-fusione}).
+esaurita. Gli elementi residui dell'altra metà sono già ordinati
+e non precedono quelli copiati: possono quindi essere trasferiti
+direttamente (\cref{sec:fi-java-alg-fusione}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-alg-merge-costi}
@@ -172,5 +173,4 @@ stabili nelle rispettive implementazioni?
 \end{exercise}
 
 Insertion Sort e MergeSort. Selection Sort e QuickSort non
-garantiscono la stabilità
-(\cref{sec:fi-java-alg-selezione,sec:fi-java-alg-inserimento,sec:fi-java-alg-fusione,sec:fi-java-alg-rapido}).
+garantiscono la stabilità (\cref{chap:ricerca-ordinamento-java}).

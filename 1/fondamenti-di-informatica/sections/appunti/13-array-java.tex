@@ -1,10 +1,9 @@
 \chapter{Array in Java}
 \label{chap:array-java}
 
-Dopo le strutture dati e i riferimenti introdotti nei
-\cref{chap:strutture-dati-adt,chap:introduzione-java}, si esamina
-l'uso degli array in Java: accesso agli elementi, elaborazione tramite
-metodi, array bidimensionali e organizzazione di dati correlati.\footnote{Materiale
+Il capitolo esamina gli array in Java: costruzione e accesso agli
+elementi, elaborazione mediante metodi, array bidimensionali e
+organizzazione di dati correlati.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Java: Arrays},
 \nolinkurl{2026_FI_12_canazza_Java_Array.key.pdf}.}
 
@@ -41,8 +40,7 @@ double elemento = valori[3];
 ammessi appartengono all'intervallo
 \(0\le i<\texttt{valori.length}\). Un indice negativo o non inferiore
 alla lunghezza provoca \texttt{ArrayIndexOutOfBoundsException},
-un'eccezione non controllata
-(\cref{sec:fi-java-file-checked}).
+un'eccezione non controllata.
 La lunghezza richiesta a \texttt{new} non può essere negativa:
 in tal caso viene lanciata \texttt{NegativeArraySizeException}.
 
@@ -142,15 +140,13 @@ for (int voto : voti) {
 System.out.println(somma);  // 81
 \end{unipdcode}
 
-Ad ogni iterazione, \texttt{voto} riceve il valore dell'elemento
-corrente. Assegnare un nuovo valore a \texttt{voto} non modifica
-la cella originaria. Per accedere agli indici, sostituire gli
-elementi o visitare soltanto determinate posizioni, è preferibile
-il \texttt{for} tradizionale
-(\cref{sec:fi-java-cicli-for}).
-Il \texttt{for-each} è utilizzabile anche sulle collezioni che
-implementano \texttt{Iterable}; gli array non devono implementare
-tale interfaccia per essere visitati in questa forma.
+A ogni iterazione, \texttt{voto} riceve una copia del valore
+dell'elemento corrente. Assegnare un nuovo valore a \texttt{voto}
+non modifica la cella originaria. Se gli elementi sono riferimenti
+a oggetti modificabili, è invece possibile modificarne lo stato
+attraverso tali riferimenti.
+Per accedere agli indici, sostituire gli elementi o visitare soltanto
+determinate posizioni, si utilizza il \texttt{for} tradizionale.
 
 \section{Ridimensionamento mediante copia}
 \label{sec:fi-java-array-resize}
@@ -158,8 +154,7 @@ tale interfaccia per essere visitati in questa forma.
 La lunghezza di un array non è modificabile. Per ottenere una
 lunghezza diversa si costruisce un nuovo array, si trasferiscono
 i dati da conservare e si restituisce il nuovo riferimento.
-Il metodo statico seguente è usato anche nella
-\cref{sec:fi-java-array-algoritmi}:
+Una possibile implementazione è la seguente:
 
 \input{assets/codice/java/array-algs-resize}
 
@@ -167,9 +162,9 @@ Il numero di elementi conservati è
 \(\min(\texttt{original.length},\texttt{nuovaLunghezza})\).
 Se il nuovo array è più lungo, le celle aggiuntive mantengono
 l'inizializzazione predefinita; se è più corto, gli elementi
-finali vengono scartati. Il chiamante deve usare il riferimento restituito; gli altri
-eventuali riferimenti all'array originale continuano a indicare
-l'oggetto precedente:
+finali vengono scartati. Per adottare il nuovo array, il chiamante
+deve assegnare il riferimento restituito; gli altri riferimenti
+all'array originale continuano a indicare l'oggetto precedente:
 
 \begin{unipdcode}[language=Java]
 int[] valori = {1, 3, 7};
@@ -182,8 +177,7 @@ valori = ArrayAlgs.resize(valori, 5);  // [1, 3, 7, 0, 0]
 \label{sec:fi-java-array-algoritmi}
 
 La classe di utilità \texttt{ArrayAlgs} raccoglie metodi
-\texttt{static} per elaborare array di interi
-(\cref{sec:fi-java-cicli-metodi-statici}). Ogni listato seguente
+\texttt{static} per elaborare array di interi. Ogni listato seguente
 mostra un singolo metodo della stessa classe; non ne viene
 ripetuta la dichiarazione. Le operazioni che cambiano la lunghezza
 restituiscono un nuovo array.
@@ -192,16 +186,17 @@ restituiscono un nuovo array.
 \label{sec:fi-java-array-casuale}
 
 \texttt{Math.random()} restituisce un valore \texttt{double}
-pseudocasuale nell'intervallo \([0,1)\). Il metodo costruisce un
-array di lunghezza \texttt{length} con interi nell'intervallo
-\emph{inclusivo} \([\texttt{min},\texttt{max}]\):
+pseudocasuale nell'intervallo \([0,1)\). Il seguente metodo
+\texttt{randomIntArray()} costruisce un array di lunghezza
+\texttt{length} con interi nell'intervallo inclusivo
+\([\texttt{min},\texttt{max}]\):
 
 \input{assets/codice/java/array-algs-casuale}
 
-La differenza viene calcolata con \texttt{long} per evitare
-l'overflow nell'estensione dell'intervallo; i valori restituiti
-restano di tipo \texttt{int}. Lunghezze negative e intervalli
-invertiti non sono ammessi.
+Il numero di valori possibili è calcolato usando \texttt{long},
+per evitare l'overflow di \texttt{max - min + 1}; gli elementi
+restituiti restano di tipo \texttt{int}. Lunghezze negative e
+intervalli invertiti non sono ammessi.
 
 \subsection{Rappresentazione testuale}
 \label{sec:fi-java-array-stampa}
@@ -288,8 +283,6 @@ corrispondente, oppure \(-1\) se il valore non è presente:
 Nel caso peggiore vengono effettuati \(n\) confronti:
 complessità temporale \(\Theta(n)\) e spazio ausiliario
 \(\Theta(1)\).
-La realizzazione dei metodi di ricerca e ordinamento è proseguita
-nel \cref{chap:ricerca-ordinamento-java}.
 
 \subsection{Ricerca del massimo e del minimo}
 \label{sec:fi-java-array-estremi}
@@ -314,17 +307,16 @@ quando si trova un valore maggiore o minore:
 \end{minipage}
 
 Il caso vuoto viene rifiutato perché non possiede un massimo
-né un minimo. Entrambi i metodi hanno costo \(\Theta(n)\) e
-utilizzano \(\Theta(1)\) spazio ausiliario, secondo la
-\cref{sec:fi-ricerca-estremi}.
+né un minimo. Entrambi i metodi hanno costo temporale \(\Theta(n)\) e
+utilizzano \(\Theta(1)\) spazio ausiliario.
 
 \section{Array bidimensionali}
 \label{sec:fi-java-array-bidimensionali}
 
 Un array bidimensionale in Java è un \emph{array di array}.
 L'espressione \texttt{v[i][j]} seleziona l'elemento in posizione
-\texttt{j} della riga \texttt{i}; la prima lunghezza è
-\texttt{v.length}, quella della riga \texttt{i} è
+\texttt{j} della riga \texttt{i}; la lunghezza dell'array
+esterno è \texttt{v.length}, quella della riga \texttt{i} è
 \texttt{v[i].length}.
 
 \begin{unipdcode}[language=Java]
@@ -339,9 +331,8 @@ System.out.println(potenze[2][3]);  // 81, ossia 3^4
 
 \clearpage
 
-La scansione utilizza i cicli annidati della
-\cref{sec:fi-java-cicli-for-annidati}. In questo caso gli indici
-di riga sono \(0,\ldots,3\) e quelli di colonna \(0,\ldots,4\). L'accesso a una riga o
+In questo caso gli indici di riga sono \(0,\ldots,3\) e quelli
+di colonna \(0,\ldots,4\). L'accesso a una riga o
 a una sua cella con indice non valido provoca un'eccezione.
 Le righe possono avere lunghezze differenti:
 
@@ -385,13 +376,10 @@ Hello
 
 Per convertire una stringa numerica si può usare
 \texttt{Integer.parseInt()}, che può lanciare
-\texttt{NumberFormatException}
-(\cref{sec:fi-java-file-checked}). Le opzioni possono essere
+\texttt{NumberFormatException}. Le opzioni possono essere
 riconosciute convenzionalmente dal prefisso \texttt{-}, per
 esempio mediante \texttt{arg.startsWith("-")}; la sintassi
 concreta delle opzioni è stabilita dal programma.
-
-\clearpage
 
 \section{Array paralleli e array di oggetti}
 \label{sec:fi-java-array-paralleli}
@@ -405,6 +393,8 @@ double[] scritti = {26, 28};
 double[] orali = {30, 27};
 double media = (scritti[0] + orali[0]) / 2; // 28.0
 \end{unipdcode}
+
+\clearpage
 
 L'associazione dipende dall'indice. Inserimenti, eliminazioni
 e riordinamenti devono essere coordinati fra tutti gli array;

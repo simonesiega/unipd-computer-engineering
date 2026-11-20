@@ -6,14 +6,14 @@
 Qual è la differenza tra information hiding e modularità?
 \end{exercise}
 
-Il primo nasconde l'implementazione di un componente; la seconda divide il programma in unità funzionali (\cref{sec:fi-java-interfacce-progettazione}).
+L'\emph{information hiding} nasconde i dettagli interni di un componente; la modularità organizza il programma in unità funzionali (\cref{sec:fi-java-interfacce-progettazione}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-object}
 Quali sono gli scopi di \texttt{toString()} e \texttt{equals()} di \texttt{Object}?
 \end{exercise}
 
-Il primo genera una rappresentazione testuale; il secondo definisce l'uguaglianza, inizialmente basata sull'identità (\cref{sec:fi-java-interfacce-object}).
+\texttt{toString()} fornisce una rappresentazione testuale dell'oggetto; \texttt{equals()} ne verifica l'uguaglianza, che nell'implementazione di \texttt{Object} coincide con l'identità (\cref{sec:fi-java-interfacce-object}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-tostring}
@@ -34,21 +34,21 @@ In particolare nella stampa di un oggetto tramite \texttt{println(Object)} e nel
 Qual è la differenza tra \texttt{==} ed \texttt{equals()}?
 \end{exercise}
 
-Il primo confronta l'identità dei riferimenti; il secondo applica il criterio di uguaglianza definito dalla classe (\cref{sec:fi-java-interfacce-equals}).
+Applicato a due riferimenti, \texttt{==} verifica se indicano lo stesso oggetto; \texttt{equals()} applica il criterio di uguaglianza definito dalla classe (\cref{sec:fi-java-interfacce-equals}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-class}
 Che cosa restituiscono \texttt{getClass()} e \texttt{getName()}?
 \end{exercise}
 
-\texttt{getClass()} restituisce la descrizione \texttt{Class} del tipo effettivo; \texttt{getName()} ne fornisce il nome completo (\cref{sec:fi-java-interfacce-tostring}).
+\texttt{getClass()} restituisce un oggetto \texttt{Class} che rappresenta la classe effettiva dell'istanza; \texttt{getName()}, invocato su tale oggetto, ne restituisce il nome completo, comprensivo dell'eventuale package (\cref{sec:fi-java-interfacce-tostring}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-accesso}
 Quali sono gli ambiti di visibilità di \texttt{private}, \texttt{protected}, package e \texttt{public}?
 \end{exercise}
 
-Rispettivamente classe dichiarante, stesso package o sottoclassi con restrizioni, stesso package e accesso generale (\cref{tab:fi-java-interfacce-accesso}).
+Rispettivamente la classe dichiarante; le classi dello stesso package e le sottoclassi secondo le regole di Java; le classi dello stesso package; ogni classe che possa accedere alla classe dichiarante (\cref{tab:fi-java-interfacce-accesso}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-protected}
@@ -99,7 +99,7 @@ La variabile è ammessa e può indicare un oggetto di una classe che implementa 
 Quali metodi sono utilizzabili attraverso un riferimento a un'interfaccia?
 \end{exercise}
 
-I membri resi accessibili dal contratto e i metodi di \texttt{Object} disponibili secondo Java, non direttamente i metodi propri della classe concreta (\cref{sec:fi-java-interfacce-riferimenti}).
+I metodi di istanza accessibili dichiarati o ereditati dall'interfaccia e i metodi pubblici di \texttt{Object}, ma non i metodi specifici della classe concreta non previsti dal tipo dichiarato (\cref{sec:fi-java-interfacce-riferimenti}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-polimorfismo}
@@ -162,12 +162,11 @@ Il metodo \texttt{set()} richiede un \texttt{String}, e il controllo del tipo av
 Come si dichiara un metodo generico?
 \end{exercise}
 
-Il parametro di tipo \lstinline|<T>| precede \texttt{void} nella dichiarazione del metodo \texttt{printArray()} (\cref{sec:fi-java-interfacce-metodi-generici}).
+Si dichiara il parametro di tipo \lstinline|<T>| prima del tipo di ritorno, per esempio in \lstinline|static <T> void printArray(T[] elementi)| (\cref{sec:fi-java-interfacce-metodi-generici}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-interfacce-array-algs}
 Come si adatta \texttt{selectionSort()} a oggetti confrontabili?
 \end{exercise}
 
-Gli elementi diventano \texttt{Comparable}; il confronto numerico è sostituito dal controllo del segno di \texttt{compareTo()} (\cref{sec:fi-java-interfacce-selection}).
-
+Si utilizzano elementi confrontabili tramite \texttt{Comparable}; il confronto numerico è sostituito dal controllo del segno restituito da \texttt{compareTo()}, senza modificare la logica dell'algoritmo (\cref{sec:fi-java-interfacce-selection}).

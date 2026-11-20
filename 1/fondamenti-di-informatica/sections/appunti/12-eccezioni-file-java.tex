@@ -1,13 +1,11 @@
 \chapter{Gestione delle eccezioni e dei file in Java}
 \label{chap:eccezioni-file-java}
 
-Dopo lo studio di classi, metodi e riferimenti, si approfondiscono
-il passaggio dei parametri e l'organizzazione delle classi in package.
-Si introducono inoltre i meccanismi di gestione delle eccezioni,
-utilizzati per segnalare e trattare condizioni anomale durante
-l'esecuzione, e le operazioni di lettura e scrittura dei file di testo,
-che consentono la memorizzazione persistente dei dati
-(\cref{chap:realizzazione-classi-java,chap:confronti-cicli-java}).%
+Il capitolo approfondisce il passaggio dei parametri e
+l'organizzazione delle classi in package. Introduce inoltre le
+eccezioni, utilizzate per segnalare e gestire condizioni anomale,
+e le operazioni di lettura e scrittura dei file di testo, che
+consentono di conservare i dati tra esecuzioni successive.%
 \footnote{Materiale di riferimento:
 S. Canazza, \emph{Java: gestione delle eccezioni e lettura/scrittura
 di file}, \nolinkurl{2026_FI_11_canazza_Java_GestioneEccezioni_File.pdf}.}
@@ -41,7 +39,8 @@ Dopo \texttt{cambiaNumero(x)}, il valore di \texttt{x} non cambia.
 Dopo \texttt{aggiungiInteressi(account)}, invece, cambia il saldo
 dell'oggetto indicato da \texttt{account}. Riassegnare un nuovo
 \texttt{BankAccount} al parametro \texttt{conto} non cambierebbe
-il riferimento del chiamante.
+il riferimento del chiamante: il metodo modifica lo stato
+condiviso dell'oggetto, non la variabile che contiene il riferimento.
 
 \begin{figure}[htbp]
   \centering
@@ -68,10 +67,11 @@ System.out.println(risparmio.getBalance()); // 350.0
 \end{unipdcode}
 
 \texttt{other.deposit(amount)} opera sull'oggetto destinatario.
-Si presuppongono i metodi \texttt{withdraw()} e \texttt{deposit()}
-introdotti nella \cref{sec:fi-java-classi-incapsulamento}.
-L'eccezione \texttt{IllegalArgumentException} è trattata nella
-\cref{sec:fi-java-file-eccezioni}.
+Il metodo utilizza \texttt{withdraw()} e \texttt{deposit()}
+introdotti nella \cref{sec:fi-java-classi-incapsulamento} e segnala
+con \texttt{IllegalArgumentException} un importo non valido,
+un saldo insufficiente o un destinatario nullo. Il lancio delle
+eccezioni è approfondito nella \cref{sec:fi-java-file-eccezioni}.
 \end{example}
 
 \subsection{Invocazione di metodi di istanza}
@@ -124,8 +124,7 @@ System.out.println(altroRiferimento.getBalance()); // 500.0
 \end{unipdcode}
 
 L'assegnamento cambia soltanto il riferimento di \texttt{account}:
-l'oggetto precedente resta accessibile tramite \texttt{altroRiferimento}
-(\cref{sec:fi-java-cicli-memoria}).
+l'oggetto precedente resta accessibile tramite \texttt{altroRiferimento}.
 
 \section{I package di Java}
 \label{sec:fi-java-file-package}
@@ -150,7 +149,7 @@ public class BankAccount {
 \end{unipdcode}
 
 Il nome completo è \texttt{com.example.conti.BankAccount}. Di
-norma, il file si trova nella directory relativa 
+norma, il file si trova nella directory relativa
 \texttt{src/com/example/conti/BankAccount.java}; il corpo della
 classe è omesso e si assume l'implementazione della
 \cref{sec:fi-java-classi-incapsulamento}.
@@ -250,10 +249,10 @@ i controlli su input esterni.
 
 \begin{definition}[Eccezione]
 \label{def:fi-java-file-eccezione}
-Un'\emph{eccezione} è un oggetto di tipo \texttt{Exception},
-o di una sua sottoclasse, che segnala una condizione anomala.
-Anche gli oggetti di tipo \texttt{Error} possono essere lanciati:
-entrambe le classi derivano da \texttt{Throwable}. L'istruzione
+Un'\emph{eccezione} è un oggetto appartenente alla gerarchia
+di \texttt{Throwable}, utilizzato per segnalare una condizione
+anomala. Le classi \texttt{Exception} ed \texttt{Error} ne
+costituiscono due rami principali. L'istruzione
 \texttt{throw} interrompe il normale flusso di esecuzione e
 trasferisce il controllo a un gestore compatibile, eventualmente
 in un metodo chiamante.
@@ -327,16 +326,16 @@ Le classi delle eccezioni appartengono alla gerarchia di
 
 \begin{definition}[Eccezioni checked e unchecked]
 \label{def:fi-java-file-checked}
-Le eccezioni \emph{*controllate*} (\emph{*checked*}) sono
-le istanze di \texttt{Exception} e delle sue sottoclassi,
-escluse quelle derivate da \texttt{RuntimeException}.
-Devono essere intercettate mediante \texttt{catch} oppure
-dichiarate con \texttt{throws}.
+Le eccezioni \emph{controllate} (\emph{checked}) appartengono
+a \texttt{Throwable} o a sue sottoclassi che non derivano da
+\texttt{RuntimeException} né da \texttt{Error}. Il compilatore
+impone di intercettarle mediante \texttt{catch} oppure di
+dichiararle con \texttt{throws}.
 
-I tipi \emph{*non controllati*} (\emph{*unchecked*})
-comprendono \texttt{RuntimeException}, \texttt{Error}
-e le rispettive sottoclassi: il compilatore non impone
-di intercettarli o dichiararli.
+Le eccezioni \emph{non controllate} (\emph{unchecked})
+appartengono invece a \texttt{RuntimeException}, a \texttt{Error}
+o alle rispettive sottoclassi: il compilatore non impone
+di intercettarle o dichiararle.
 \end{definition}
 
 Le eccezioni controllate rappresentano generalmente condizioni
@@ -364,24 +363,32 @@ un'eccezione controllata deve gestirla o dichiararla:
 \begin{unipdcode}[language=Java]
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class PrimoCarattere {
     public static void main(String[] args) throws IOException {
-        try (FileReader in = new FileReader("input.txt")) {
-            System.out.println(in.read());
+        try (FileReader in = new FileReader(
+                "input.txt", StandardCharsets.UTF_8)) {
+            int valore = in.read();
+            if (valore != -1) {
+                System.out.println((char) valore);
+            }
         }
     }
 }
 \end{unipdcode}
 
-\texttt{throws IOException} dichiara una possibile propagazione,
-mentre \texttt{throw} esegue un lancio. È possibile dichiarare
+\texttt{read()} restituisce il valore numerico di un'unità
+\texttt{char} oppure \texttt{-1} a fine flusso: per questo il
+programma verifica il risultato prima di convertirlo in
+\texttt{char}. \texttt{throws IOException} dichiara una possibile
+propagazione, mentre \texttt{throw} esegue un lancio. È possibile dichiarare
 più tipi con \texttt{throws}, separandoli mediante virgole.
 Usare \texttt{throws} anche in \texttt{main()} è lecito,
 ma non gestisce l'errore.
 \texttt{Scanner} appartiene a \texttt{java.util} e i suoi metodi
 possono lanciare eccezioni non controllate, come
-\texttt{InputMismatchException} (\cref{sec:fi-java-scanner}).
+\texttt{InputMismatchException}.
 
 \subsection{La clausola \texttt{finally}}
 \label{sec:fi-java-file-finally}
@@ -406,14 +413,15 @@ mascherare quella precedente; per i file si preferisce quindi
 \texttt{finally} non è garantito in caso di terminazione forzata
 della JVM.
 
+\clearpage
+
 \section{Lettura e scrittura di file di testo}
 \label{sec:fi-java-file-testo}
 
-I file conservano dati oltre la terminazione del programma
-(\cref{sec:fi-memoria-archiviazione}). Un file di testo memorizza
-byte interpretati come caratteri secondo una codifica, per esempio
-UTF-8 (\cref{sec:fi-caratteri}). Le operazioni analoghe in Python
-sono introdotte nella \cref{sec:fi-python-file}.
+I file conservano dati oltre la terminazione del programma.
+Un file di testo memorizza byte interpretati come caratteri
+secondo una codifica, per esempio UTF-8
+(\cref{sec:fi-caratteri}).
 
 \subsection{Le API \texttt{java.io} e \texttt{java.nio}}
 \label{sec:fi-java-file-io-nio}
@@ -461,6 +469,8 @@ avvolgono tali flussi e aggiungono un buffer; il primo offre
 \texttt{PrintWriter} fornisce \texttt{print()}, \texttt{println()}
 e \texttt{printf()} per scrivere testo formattato.
 
+\clearpage
+
 \begin{figure}[htbp]
   \centering
   \input{assets/diagrammi/java/flussi-uml}
@@ -494,12 +504,12 @@ In alternativa si può collegare \texttt{Scanner} a un
 Il programma crea \texttt{risultati.txt}, oppure ne
 sovrascrive il contenuto, usando un buffer:
 
+\clearpage
+
 \input{assets/codice/java/scrittura-file-buffer}
 
 \texttt{write()} non aggiunge una nuova riga; per questo si
 invoca \texttt{newLine()}.
-
-\clearpage
 
 \begin{example}[Numerazione delle righe]
 \label{ex:fi-java-file-righe-numerate}
@@ -561,7 +571,9 @@ try (FileWriter out = new FileWriter(
 
 \texttt{StandardCharsets.UTF\_8} (da importare mediante
 \texttt{java.nio.charset.StandardCharsets}) fissa la codifica.
-In lettura e scrittura occorre usare codifiche coerenti.
+L'operazione richiede la gestione o la dichiarazione di
+\texttt{IOException}. In lettura e scrittura occorre usare
+codifiche coerenti.
 
 \subsection{Operazioni su file e directory}
 \label{sec:fi-java-file-operazioni-avanzate}
@@ -611,8 +623,6 @@ Un \emph{token} è una parte del testo separata da delimitatori.
 \texttt{useDelimiter()} permette di impostare un'espressione
 regolare differente.
 
-\clearpage
-
 \input{assets/codice/java/scanner-token}
 
 Per separare, per esempio, le parti di
@@ -622,6 +632,8 @@ Per separare, per esempio, le parti di
 Scanner parti = new Scanner("Anna/Rossi/18");
 parti.useDelimiter("/");
 \end{unipdcode}
+
+\clearpage
 
 \subsection{Reindirizzamento, pipe e flussi standard}
 \label{sec:fi-java-file-redirezione}

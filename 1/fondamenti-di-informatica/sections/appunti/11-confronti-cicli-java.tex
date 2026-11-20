@@ -67,8 +67,7 @@ risultare veri alcuni confronti fra letterali: non bisogna affidarsi
 a questo comportamento per confrontare contenuti.
 \end{warning}
 
-Un riferimento può contenere il valore \texttt{null}
-(\cref{sec:fi-java-classi-null}). L'espressione
+Un riferimento può contenere il valore \texttt{null}. L'espressione
 \texttt{s == null} è un confronto appropriato; invocare
 un metodo su un riferimento nullo provoca invece un errore
 durante l'esecuzione. Quando il primo testo è una costante,
@@ -106,15 +105,12 @@ non sono necessari per i confronti introdotti qui.
 \section{Confronto tra oggetti}
 \label{sec:fi-java-cicli-oggetti}
 
-Il confronto fra riferimenti mediante \texttt{==} è già stato
-introdotto nella \cref{sec:fi-java-classi-confronti}.
-Per confrontare oggetti secondo un criterio definito dalla classe
-si può utilizzare \texttt{equals()}, dichiarato nella classe
-\texttt{Object}, dalla quale derivano le classi Java
-(\cref{def:fi-java-ereditarieta-object}).
-Nella sua implementazione di base, esso verifica l'identità. Una
-classe può \emph{ridefinirlo} per esprimere un'uguaglianza basata
-su caratteristiche significative degli oggetti, come avviene per
+Come per le stringhe, l'operatore \texttt{==} confronta l'identità
+dei riferimenti. Per verificare l'uguaglianza secondo un criterio
+definito dalla classe si può utilizzare \texttt{equals()}, ereditato
+da \texttt{Object}. La sua implementazione di base verifica
+l'identità; una classe può sovrascriverlo per confrontare
+caratteristiche significative degli oggetti, come avviene per
 \texttt{String}.
 
 \begin{definition}[Uguaglianza per identità e per valore]
@@ -222,8 +218,7 @@ Le etichette \texttt{case} rappresentano valori compatibili con il
 tipo dell'espressione. Lo \texttt{switch} tradizionale accetta, fra
 gli altri, \texttt{byte}, \texttt{short}, \texttt{char},
 \texttt{int}, le corrispondenti classi involucro, \texttt{String}
-(a partire da Java 7) e i tipi enumerativi introdotti nella
-\cref{sec:fi-java-cicli-enum}. Non supporta direttamente
+(a partire da Java 7) e i tipi enumerativi. Non supporta direttamente
 \texttt{long} o \texttt{double} come selettori.
 
 \begin{warning}[Caduta tra i casi]
@@ -302,9 +297,7 @@ per eseguire azioni, dalla versione \emph{espressione}, impiegata
 per calcolare un risultato. Le etichette con freccia possono essere
 usate anche in istruzioni \texttt{switch} nelle versioni moderne
 di Java. Quando il selettore è un \texttt{enum}, i casi possono
-indicare direttamente le costanti senza ripetere il nome del tipo;
-la definizione e l'esempio completo sono nella
-\cref{sec:fi-java-cicli-enum}.
+indicare direttamente le costanti senza ripetere il nome del tipo.
 
 \section{Il tipo \texttt{boolean} e le espressioni logiche}
 \label{sec:fi-java-cicli-boolean}
@@ -333,7 +326,7 @@ Una variabile booleana usata per controllare il flusso è detta
 \emph{predicati}, spesso denominati con \texttt{is} o \texttt{has}:
 \texttt{Character.isDigit(ch)} riconosce una cifra e
 \texttt{scanner.hasNextInt()} verifica la disponibilità di un
-\texttt{int} nell'ingresso (\cref{sec:fi-java-scanner-numeri}).
+\texttt{int} nell'ingresso.
 
 \subsection{Operatori logici e cortocircuito}
 \label{sec:fi-java-cicli-logici}
@@ -438,10 +431,7 @@ if (x > 0 && y > 0) {
 L'espressione \texttt{0 <= x} produce un valore booleano, che
 non può essere confrontato numericamente con \texttt{1}; inoltre,
 \texttt{\&\&} richiede due operandi booleani. Questi errori
-vengono individuati dal compilatore. Il confronto fra due
-numeri in virgola mobile presenta un problema differente,
-relativo alla precisione, già trattato nella
-\cref{sec:fi-java-classi-floating}.
+vengono individuati dal compilatore.
 
 \section{Tipi enumerativi \texttt{enum}}
 \label{sec:fi-java-cicli-enum}
@@ -500,8 +490,7 @@ significativi e integrazione con \texttt{switch}, evitando
 l'ambiguità dei codici numerici. L'insieme delle costanti è
 però fissato nel codice: cambiarlo richiede una modifica del
 programma, e la conversione da testi esterni deve gestire
-valori non riconosciuti. Per insiemi dinamici servono invece
-strutture dati (\cref{sec:fi-adt-strutture}).
+valori non riconosciuti.
 
 \section{Il ciclo \texttt{while}}
 \label{sec:fi-java-cicli-while}
@@ -521,9 +510,9 @@ while (condizione) {
 
 La condizione deve avere tipo \texttt{boolean}, e il corpo può
 essere un singolo enunciato o un blocco. La
-\cref{fig:fi-java-cicli-controllo} mette a confronto questo
-schema con quello del ciclo \texttt{do}/\texttt{while},
-introdotto nella \cref{sec:fi-java-cicli-do-while}.
+\cref{fig:fi-java-cicli-controllo} confronta questo schema
+con il ciclo \texttt{do}/\texttt{while}, che verifica la
+condizione dopo il corpo.
 
 \clearpage
 
@@ -600,7 +589,7 @@ riga il ciclo interno non eseguirebbe ulteriori iterazioni.
 
 Una situazione ricorrente è la lettura di una quantità non nota di
 dati, terminata da un \emph{valore sentinella}. La sentinella
-segnala la fine dell'ingresso e non appartiene ai dati da elaborare.
+segnala la fine dell'ingresso e viene esclusa dall'elaborazione.
 Il seguente programma somma i numeri inseriti fino allo zero, che
 non viene conteggiato.
 
@@ -611,7 +600,7 @@ viene modificata dopo la lettura, impedendo di dover duplicare
 l'operazione prima e dentro il ciclo. Lo stesso schema funziona
 con una sentinella testuale come \texttt{"Q"}; il confronto deve
 allora utilizzare \texttt{equals()} oppure
-\texttt{equalsIgnoreCase()} (\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+\texttt{equalsIgnoreCase()}.
 Questa struttura viene talvolta chiamata \emph{ciclo e mezzo},
 perché la decisione di proseguire avviene fra acquisizione ed
 elaborazione del dato.
@@ -679,9 +668,8 @@ il flusso, come \texttt{continue}: in un \texttt{for},
 \texttt{continue} passa prima alla fase di aggiornamento.
 L'incremento non deve necessariamente essere di un'unità;
 può essere negativo e la variabile di controllo può avere anche
-tipo \texttt{double}, benché in quest'ultimo caso gli errori
-di arrotondamento richiedano particolare attenzione
-(\cref{sec:fi-java-classi-floating}).
+tipo \texttt{double}, benché gli errori di arrotondamento possano
+compromettere i confronti di arresto.
 
 Una variabile dichiarata nell'inizializzazione del \texttt{for}
 è visibile nell'intestazione e nel corpo, ma non dopo il ciclo.
@@ -703,11 +691,9 @@ controllata all'intero, oppure un prodotto ripetuto.
 
 \input{assets/codice/java/tabella-potenze}
 
-Il programma produce quattro righe e cinque colonne. La stampa
-con \texttt{printf()} mantiene le colonne allineate, come già
-illustrato nella \cref{sec:fi-java-printf}. Un ulteriore ciclo
-interno potrebbe costruire gli spazi di riempimento, ma non
-sarebbe necessario se si utilizza la formattazione disponibile.
+Il programma produce quattro righe e cinque colonne;
+\texttt{printf()} allinea i valori mediante una larghezza di campo
+fissata, senza richiedere un ciclo aggiuntivo per gli spazi.
 
 \subsection{Errori di controllo e leggibilità}
 \label{sec:fi-java-cicli-errori}
@@ -741,6 +727,8 @@ rendendo difficile prevedere le iterazioni effettive.
 Le prove sui casi limite aiutano a trovare tali errori, ma
 non sostituiscono il ragionamento sulla terminazione.
 
+\clearpage
+
 \section{Metodi e variabili statiche}
 \label{sec:fi-java-cicli-static}
 
@@ -770,10 +758,9 @@ La chiamata \texttt{Financial.percentOf(5, 200)} restituisce
 \texttt{10.0}, senza richiedere un oggetto \texttt{Financial}.
 Le classi che raccolgono metodi di questo tipo sono spesso dette
 \emph{classi di utilità}; \texttt{Math} è un esempio della
-libreria standard (\cref{sec:fi-java-math}). Un metodo statico
-non può utilizzare direttamente \texttt{this} né accedere a un
-campo di istanza senza un riferimento a un oggetto
-(\cref{sec:fi-java-file-metodi-ricevente}).
+libreria standard. Un metodo statico non può utilizzare
+direttamente \texttt{this} né accedere a un campo di istanza
+senza un riferimento a un oggetto.
 
 \subsection{Variabili di classe e costanti}
 \label{sec:fi-java-cicli-campi-statici}
@@ -848,11 +835,9 @@ Statica & Membri della classe, secondo i modificatori di accesso & Legato all'in
 Una variabile locale dichiarata dentro un blocco \texttt{if}
 non è visibile dopo la sua chiusura; una variabile dichiarata
 prima del blocco continua invece a essere accessibile al suo
-termine. Le regole di assegnazione delle variabili locali e i
-valori iniziali automatici dei campi, distinti dall'ambito
-di visibilità, sono già stati descritti nella
-\cref{sec:fi-java-variabili} e nella
-\cref{sec:fi-java-classi-costruttore-predefinito}.
+termine. Le regole di assegnazione delle variabili locali e i valori
+iniziali automatici dei campi sono questioni distinte
+dall'ambito di visibilità.
 
 \subsection{Oggetti, stack, heap e raccolta della memoria}
 \label{sec:fi-java-cicli-memoria}

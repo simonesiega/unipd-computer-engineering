@@ -87,76 +87,76 @@
   - 9.5 La classe Math e i metodi statici — p. 70
   - 9.6 Stringhe e conversioni testuali — p. 70
   - 9.7 Caratteri e sequenze di escape — p. 72
-  - 9.8 Formattazione dell'output — p. 73
+  - 9.8 Formattazione dell'output — p. 72
   - 9.9 L'ingresso standard con Scanner — p. 74
 - 10 Realizzazione di classi in Java — p. 76
   - 10.1 Astrazione e approccio black-box — p. 76
   - 10.2 Interfaccia pubblica e definizione dei metodi — p. 76
   - 10.3 Costruttori e inizializzazione degli oggetti — p. 78
   - 10.4 Sovraccarico dei metodi e dei costruttori — p. 79
-  - 10.5 Classi, oggetti e variabili di istanza — p. 81
-  - 10.6 Incapsulamento e realizzazione di BankAccount — p. 82
-  - 10.7 Documentazione dell'interfaccia con JavaDoc — p. 84
-  - 10.8 Istruzioni condizionali e confronti — p. 85
-- 11 Confronti, cicli e membri di classe in Java — p. 89
-  - 11.1 Confronto tra stringhe — p. 89
-  - 11.2 Confronto tra oggetti — p. 90
-  - 11.3 Alternative multiple e istruzione switch — p. 91
-  - 11.4 Il tipo boolean e le espressioni logiche — p. 93
-  - 11.5 Tipi enumerativi enum — p. 95
-  - 11.6 Il ciclo while — p. 96
-  - 11.7 Il ciclo for — p. 99
-  - 11.8 Metodi e variabili statiche — p. 101
-  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 103
-  - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 104
-- 12 Gestione delle eccezioni e dei file in Java — p. 105
-  - 12.1 Passaggio dei parametri per valore — p. 105
-  - 12.2 I package di Java — p. 107
-  - 12.3 Gestione delle eccezioni — p. 108
+  - 10.5 Classi, oggetti e variabili di istanza — p. 80
+  - 10.6 Incapsulamento e realizzazione di BankAccount — p. 81
+  - 10.7 Documentazione dell'interfaccia con JavaDoc — p. 83
+  - 10.8 Istruzioni condizionali e confronti — p. 84
+- 11 Confronti, cicli e membri di classe in Java — p. 88
+  - 11.1 Confronto tra stringhe — p. 88
+  - 11.2 Confronto tra oggetti — p. 89
+  - 11.3 Alternative multiple e istruzione switch — p. 90
+  - 11.4 Il tipo boolean e le espressioni logiche — p. 92
+  - 11.5 Tipi enumerativi enum — p. 94
+  - 11.6 Il ciclo while — p. 95
+  - 11.7 Il ciclo for — p. 98
+  - 11.8 Metodi e variabili statiche — p. 100
+  - 11.9 Ambito di visibilità, ciclo di vita e memoria — p. 102
+  - 11.10 Visibilità dei membri e sovrapposizione dei nomi — p. 103
+- 12 Gestione delle eccezioni e dei file in Java — p. 104
+  - 12.1 Passaggio dei parametri per valore — p. 104
+  - 12.2 I package di Java — p. 106
+  - 12.3 Gestione delle eccezioni — p. 107
   - 12.4 Lettura e scrittura di file di testo — p. 111
-- 13 Array in Java — p. 118
-  - 13.1 Struttura, costruzione e accesso agli array — p. 118
-  - 13.2 Il ciclo for-each — p. 120
-  - 13.3 Ridimensionamento mediante copia — p. 120
-  - 13.4 Algoritmi su array: la classe ArrayAlgs — p. 121
-  - 13.5 Array bidimensionali — p. 123
-  - 13.6 Argomenti della riga di comando — p. 124
-  - 13.7 Array paralleli e array di oggetti — p. 125
-- 14 Ricerca e ordinamento su array in Java — p. 126
-  - 14.1 Ricerca lineare — p. 126
-  - 14.2 Ricerca binaria — p. 126
-  - 14.3 Ordinamento per selezione — p. 127
-  - 14.4 Ordinamento per inserimento — p. 128
-  - 14.5 Ordinamento per fusione — p. 129
+- 13 Array in Java — p. 117
+  - 13.1 Struttura, costruzione e accesso agli array — p. 117
+  - 13.2 Il ciclo for-each — p. 119
+  - 13.3 Ridimensionamento mediante copia — p. 119
+  - 13.4 Algoritmi su array: la classe ArrayAlgs — p. 120
+  - 13.5 Array bidimensionali — p. 122
+  - 13.6 Argomenti della riga di comando — p. 123
+  - 13.7 Array paralleli e array di oggetti — p. 123
+- 14 Ricerca e ordinamento su array in Java — p. 125
+  - 14.1 Ricerca lineare — p. 125
+  - 14.2 Ricerca binaria — p. 125
+  - 14.3 Ordinamento per selezione — p. 126
+  - 14.4 Ordinamento per inserimento — p. 127
+  - 14.5 Ordinamento per fusione — p. 128
   - 14.6 Ordinamento rapido — p. 129
-- 15 Ereditarietà e polimorfismo in Java — p. 131
-  - 15.1 Ordinamento di oggetti — p. 131
-  - 15.2 Ereditarietà tra classi — p. 131
+- 15 Ereditarietà e polimorfismo in Java — p. 130
+  - 15.1 Ordinamento di oggetti — p. 130
+  - 15.2 Ereditarietà tra classi — p. 130
   - 15.3 Conversioni tra riferimenti — p. 133
   - 15.4 Polimorfismo — p. 134
-- 16 Interfacce, classi astratte e generici in Java — p. 136
-  - 16.1 Obiettivi e principi della programmazione a oggetti — p. 136
-  - 16.2 La superclasse Object — p. 136
+- 16 Interfacce, classi astratte e generici in Java — p. 135
+  - 16.1 Obiettivi e principi della programmazione a oggetti — p. 135
+  - 16.2 La superclasse Object — p. 135
   - 16.3 Controllo di accesso e final — p. 137
-  - 16.4 Interfacce e astrazione — p. 138
-  - 16.5 L'interfaccia Comparable — p. 140
-  - 16.6 La classe ArrayAlgs con Comparable — p. 140
-  - 16.7 Classi e metodi astratti — p. 142
+  - 16.4 Interfacce e astrazione — p. 137
+  - 16.5 L'interfaccia Comparable — p. 139
+  - 16.6 La classe ArrayAlgs con Comparable — p. 139
+  - 16.7 Classi e metodi astratti — p. 141
   - 16.8 Introduzione alle classi generiche — p. 142
 - 1 Esercizi: Introduzione all'informatica — p. 144
 - 2 Esercizi: Rappresentazione delle informazioni — p. 147
 - 3 Esercizi: Introduzione a Python — p. 151
 - 4 Esercizi: Ricorsione — p. 155
-- 5 Esercizi: Complessità computazionale — p. 158
-- 6 Esercizi: Ricerca e ordinamento — p. 162
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 167
-- 8 Esercizi: Introduzione a Java — p. 178
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 184
-- 10 Esercizi: Realizzazione di classi in Java — p. 187
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 189
-- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 194
-- 13 Esercizi: Array in Java — p. 197
-- 14 Esercizi: Ricerca e ordinamento in Java — p. 200
-- 15 Esercizi: Ereditarietà e polimorfismo in Java — p. 202
-- 16 Esercizi: Interfacce e generici in Java — p. 204
+- 5 Esercizi: Complessità computazionale — p. 159
+- 6 Esercizi: Ricerca e ordinamento — p. 163
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 168
+- 8 Esercizi: Introduzione a Java — p. 179
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 185
+- 10 Esercizi: Realizzazione di classi in Java — p. 188
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 190
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 195
+- 13 Esercizi: Array in Java — p. 198
+- 14 Esercizi: Ricerca e ordinamento in Java — p. 201
+- 15 Esercizi: Ereditarietà e polimorfismo in Java — p. 203
+- 16 Esercizi: Interfacce e generici in Java — p. 205
 <!-- GENERATED:END -->
