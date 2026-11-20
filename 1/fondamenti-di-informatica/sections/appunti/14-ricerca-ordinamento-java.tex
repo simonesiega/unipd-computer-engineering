@@ -1,0 +1,224 @@
+\chapter{Ricerca e ordinamento su array in Java}
+\label{chap:ricerca-ordinamento-java}
+
+Gli algoritmi introdotti nel \cref{chap:ricerca-ordinamento} vengono
+realizzati su array di \texttt{int} mediante i metodi statici della
+classe \texttt{ArrayAlgs} (\cref{sec:fi-java-array-algoritmi}).
+Si elaborano tutti gli elementi dell'array, senza un parametro
+separato per la lunghezza. Le analisi assumono il modello di costo
+unitario della \cref{sec:fi-complessita-modello}.\footnote{Materiale
+di riferimento: S. Canazza, \emph{Java: Ricerca e Ordinamento},
+\nolinkurl{2026_FI_13_canazza_Java__RicercaOrdinamento.key.pdf}.}
+
+\section{Ricerca lineare}
+\label{sec:fi-java-alg-lineare}
+
+\texttt{linearSearch()} visita l'array dall'indice zero e restituisce
+la posizione della prima occorrenza del valore cercato, oppure
+\(-1\) se il valore è assente. Non richiede che l'array sia ordinato
+(\cref{sec:fi-ricerca-lineare}):
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-linear-search}
+\end{minipage}
+
+Prima dell'iterazione di indice \(i\), nessuna posizione precedente
+contiene il valore richiesto; il primo confronto riuscito individua
+quindi la prima occorrenza. Per \(n\ge1\), il caso migliore richiede
+\(\Theta(1)\) tempo e il peggiore \(\Theta(n)\); il costo medio è
+\(\Theta(n)\) assumendo una prima occorrenza uniformemente
+distribuita fra le posizioni. Lo spazio ausiliario è
+\(\Theta(1)\). Con un array vuoto il metodo restituisce \(-1\).
+
+\section{Ricerca binaria}
+\label{sec:fi-java-alg-binaria}
+
+La ricerca binaria richiede un array ordinato in senso
+\emph{non decrescente}. A ogni passo confronta il valore cercato
+con l'elemento centrale dell'intervallo candidato ed esclude la
+metà incompatibile con l'ordinamento
+(\cref{sec:fi-ricerca-binaria}).
+
+\subsection{Versione iterativa}
+\label{sec:fi-java-alg-binaria-iterativa}
+
+\texttt{binarySearch()} mantiene due indici, \texttt{left} e
+\texttt{right}, che delimitano l'intervallo ancora da esaminare:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-binary-search-iterativo}
+\end{minipage}
+
+Se \texttt{v[mid]} è minore del valore cercato, si aggiorna
+\texttt{left}; in caso contrario si riduce \texttt{right}.
+L'intervallo si restringe a ogni iterazione e diventa vuoto
+quando \lstinline|left > right|, condizione che determina il ritorno
+di \(-1\).
+
+\subsection{Versione ricorsiva}
+\label{sec:fi-java-alg-binaria-ricorsiva}
+
+La versione ricorsiva passa gli estremi dell'intervallo inclusivo
+al metodo ausiliario \texttt{binSearch()}:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-binary-search-ricorsivo}
+\end{minipage}
+
+Ogni chiamata ricorsiva conserva soltanto una delle due metà.
+Il caso base corrisponde a un intervallo vuoto o a un elemento
+uguale al valore cercato. Entrambe le versioni restituiscono
+un indice valido oppure \(-1\); in presenza di duplicati non
+è garantita la prima occorrenza.
+
+Per \(n\ge2\), il tempo è \(\Theta(1)\) nel caso migliore e
+\(\Theta(\log n)\) nel caso peggiore. Con valori distinti e ricerca
+riuscita uniformemente distribuita, anche il caso medio è
+\(\Theta(\log n)\). La versione iterativa occupa
+\(\Theta(1)\) spazio ausiliario, quella ricorsiva
+\(O(\log n)\) per la pila delle chiamate. L'ordinamento iniziale
+rimane una precondizione per entrambe.
+
+\section{Ordinamento per selezione}
+\label{sec:fi-java-alg-selezione}
+
+\texttt{selectionSort()} cerca la posizione del minimo nel tratto
+ancora da ordinare e lo scambia con il primo elemento di tale
+tratto. Si usano i metodi ausiliari \texttt{findMinPos()} e
+\texttt{swap()}:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-selection-sort}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-selection-supporto}
+\end{minipage}
+
+Sul suffisso di lunghezza \(n-i\), \texttt{findMinPos()} richiede
+\(\Theta(n-i)\) tempo e \(\Theta(1)\) spazio; \texttt{swap()}
+richiede \(\Theta(1)\) per entrambe le risorse.
+
+Prima dell'iterazione di indice \(i\), i primi \(i\) elementi sono
+ordinati e contengono i valori minori dell'array; la ricerca
+del minimo nella parte rimanente mantiene questa proprietà.
+Le scansioni eseguono in totale
+\[
+  (n-1)+(n-2)+\cdots+1=\frac{n(n-1)}{2}
+\]
+confronti: il tempo è \(\Theta(n^2)\) nel caso migliore, medio e
+peggiore. Il metodo ordina l'array ricevuto, usa \(\Theta(1)\)
+spazio ausiliario e non garantisce la stabilità
+(\cref{sec:fi-ordinamento-selezione}).
+
+\section{Ordinamento per inserimento}
+\label{sec:fi-java-alg-inserimento}
+
+\texttt{insertionSort()} mantiene ordinato un prefisso e inserisce
+ciascun elemento nella posizione corretta, spostando verso destra
+i valori maggiori:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-insertion-sort}
+\end{minipage}
+
+All'inizio dell'iterazione di indice \(i\), il prefisso di
+lunghezza \(i\) è ordinato. Il ciclo interno sposta i valori maggiori
+di \texttt{temp}; l'inserimento completa il prefisso ordinato di
+lunghezza \(i+1\). Se l'array è già ordinato, il tempo è
+\(\Theta(n)\). Nel caso peggiore, gli spostamenti sono
+\(n(n-1)/2\), quindi il tempo è \(\Theta(n^2)\); lo stesso ordine
+vale in media per permutazioni uniformi di valori distinti.
+Lo spazio ausiliario è \(\Theta(1)\). Il confronto stretto
+\lstinline|>| evita di spostare elementi uguali: il metodo è stabile
+(\cref{sec:fi-ordinamento-inserimento}).
+
+\section{Ordinamento per fusione}
+\label{sec:fi-java-alg-fusione}
+
+\texttt{mergeSort()} divide l'array in due parti, ordina entrambe
+ricorsivamente e fonde i risultati. La suddivisione è mostrata
+nella \cref{fig:fi-merge-sort-suddivisione}.
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-merge-sort}
+\end{minipage}
+
+Il metodo ausiliario \texttt{merge()} copia nell'array di
+destinazione, in ordine, il minore fra i primi elementi non ancora
+consumati delle due parti. Terminata una parte, copia gli
+elementi residui dell'altra:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-merge}
+\end{minipage}
+
+Il metodo \texttt{merge()} trasferisce complessivamente \(n\) elementi:
+richiede \(\Theta(n)\) tempo e \(\Theta(1)\) spazio ausiliario
+proprio, escludendo gli array ricevuti.
+La fusione conserva un prefisso ordinato contenente gli elementi
+minori già elaborati. Le chiamate ricorsive ordinano le due metà;
+la fusione produce quindi l'intero array ordinato. Il confronto
+\lstinline|<=| sceglie per primo un elemento della metà sinistra
+in caso di uguaglianza, conservando la stabilità.
+
+La suddivisione e la fusione richiedono \(\Theta(n)\) operazioni
+non ricorsive per ogni livello. La relazione
+\(T(n)=2T(n/2)+\Theta(n)\), a meno degli arrotondamenti,
+fornisce tempo \(\Theta(n\log n)\) in tutti i casi
+(\cref{sec:fi-teorema-maestro}). Le copie temporanee occupano
+\(\Theta(n)\) spazio ausiliario al picco, oltre alla pila di
+profondità \(\Theta(\log n)\); il costo spaziale complessivo
+resta \(\Theta(n)\).
+
+\clearpage
+
+\section{Ordinamento rapido}
+\label{sec:fi-java-alg-rapido}
+
+\texttt{quickSort()} ordina ricorsivamente i due intervalli
+ottenuti mediante \texttt{partition()}. Il pivot è l'ultimo
+elemento dell'intervallo considerato
+(\cref{sec:fi-ordinamento-rapido}).
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-quick-sort}
+\end{minipage}
+
+Durante la partizione, l'indice \texttt{i} delimita gli elementi
+non maggiori del pivot. Ogni elemento che soddisfa tale condizione
+viene collocato nella parte sinistra mediante \texttt{swap()},
+introdotto nella \cref{sec:fi-java-alg-selezione}. Lo scambio
+finale colloca il pivot nella posizione definitiva:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-partition}
+\end{minipage}
+
+A partizione conclusa, i valori a sinistra del pivot non lo
+superano e quelli a destra sono maggiori. Le due chiamate
+ricorsive operano su intervalli strettamente più piccoli e
+completano l'ordinamento.
+
+La partizione costa \(\Theta(n)\). Con divisioni bilanciate il
+tempo è \(\Theta(n\log n)\); nel caso medio, per permutazioni
+uniformi di elementi distinti, è ancora \(\Theta(n\log n)\).
+Con partizioni ripetutamente sbilanciate, per esempio su un
+array già ordinato o con tutti gli elementi uguali, scegliendo
+l'ultimo elemento come pivot, il tempo diventa \(\Theta(n^2)\).
+
+\texttt{partition()} richiede \(\Theta(1)\) spazio aggiuntivo.
+La pila ricorsiva occupa \(O(\log n)\) spazio con partizioni
+bilanciate e in media nelle ipotesi precedenti, fino a
+\(O(n)\) nel caso peggiore. Il metodo modifica l'array
+ricevuto e non è stabile.

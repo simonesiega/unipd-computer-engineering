@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Java]
+public static void quickSort(int[] v) {
+    if (v == null) throw new IllegalArgumentException();
+    quickSort(v, 0, v.length - 1);
+}
+
+private static void quickSort(int[] v, int left, int right) {
+    if (left >= right) return;
+    int pivotPos = partition(v, left, right);
+    quickSort(v, left, pivotPos - 1);
+    quickSort(v, pivotPos + 1, right);
+}
+\end{unipdcode}

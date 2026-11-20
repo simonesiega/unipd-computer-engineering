@@ -1,0 +1,176 @@
+\chapter{Esercizi: Ricerca e ordinamento in Java}
+\label{chap:esercizi-ricerca-ordinamento-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-linear-prima}
+Che cosa restituisce \texttt{linearSearch()} se il valore compare
+più volte o non compare nell'array?
+\end{exercise}
+
+Restituisce l'indice della prima occorrenza, oppure \(-1\) se il
+valore è assente (\cref{sec:fi-java-alg-lineare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-linear-costi}
+Quali sono la complessità temporale migliore e peggiore e lo
+spazio ausiliario della ricerca lineare?
+\end{exercise}
+
+Per \(n\ge1\), il caso migliore richiede \(\Theta(1)\), il peggiore
+\(\Theta(n)\). Lo spazio ausiliario è \(\Theta(1)\)
+(\cref{sec:fi-java-alg-lineare}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-binaria-precondizione}
+Quale precondizione deve rispettare l'array passato ai metodi
+di ricerca binaria?
+\end{exercise}
+
+L'array deve essere ordinato in senso non decrescente; altrimenti
+l'esclusione di metà dell'intervallo può eliminare il valore
+cercato (\cref{sec:fi-java-alg-binaria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-binaria-spazio}
+Perché le due versioni di ricerca binaria hanno lo stesso costo
+temporale asintotico, ma un diverso costo spaziale?
+\end{exercise}
+
+Entrambe dimezzano l'intervallo a ogni passo, richiedendo
+\(O(\log n)\) tempo nel caso peggiore. La versione iterativa
+conserva soltanto gli indici, quindi usa \(\Theta(1)\) spazio;
+quella ricorsiva mantiene fino a \(O(\log n)\) chiamate
+(\cref{sec:fi-java-alg-binaria-iterativa,sec:fi-java-alg-binaria-ricorsiva}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-binaria-duplicati}
+La ricerca binaria restituisce sempre la prima occorrenza di un
+valore ripetuto?
+\end{exercise}
+
+No. Restituisce l'indice di un elemento uguale al valore cercato,
+non necessariamente quello minimo
+(\cref{sec:fi-java-alg-binaria}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-selezione-supporto}
+A che cosa servono i metodi \texttt{findMinPos()} e \texttt{swap()}
+nell'ordinamento per selezione?
+\end{exercise}
+
+Il primo individua la posizione del minimo nel tratto non
+ordinato; il secondo scambia tale elemento con quello iniziale
+del tratto (\cref{sec:fi-java-alg-selezione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-selezione-confronti}
+Perché \texttt{selectionSort()} richiede tempo quadratico anche
+quando l'array è già ordinato?
+\end{exercise}
+
+Continua a cercare il minimo in ogni suffisso e svolge
+\(n(n-1)/2\) confronti, indipendentemente dall'ordine iniziale
+(\cref{sec:fi-java-alg-selezione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-inserimento-invariante}
+Quale proprietà mantiene \texttt{insertionSort()} all'inizio
+di ogni iterazione esterna?
+\end{exercise}
+
+Il prefisso che precede l'elemento corrente è già ordinato.
+L'elemento viene inserito nella posizione corretta conservando
+questa proprietà (\cref{sec:fi-java-alg-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-inserimento-casi}
+Quando \texttt{insertionSort()} ha costo lineare e quando
+quadratico?
+\end{exercise}
+
+Se l'array è ordinato, non servono spostamenti e il tempo è
+\(\Theta(n)\). In ordine strettamente decrescente occorrono
+\(n(n-1)/2\) spostamenti, quindi \(\Theta(n^2)\)
+(\cref{sec:fi-java-alg-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-inserimento-stabile}
+Perché l'ordinamento per inserimento è stabile?
+\end{exercise}
+
+Il ciclo interno sposta soltanto elementi strettamente maggiori
+di quello da inserire; gli elementi uguali conservano l'ordine
+relativo (\cref{sec:fi-java-alg-inserimento}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-merge-caso-base}
+Qual è il caso base di \texttt{mergeSort()} e perché garantisce
+la terminazione?
+\end{exercise}
+
+Un array di lunghezza zero o uno è già ordinato. Ogni invocazione
+ricorsiva riceve una metà strettamente più piccola, perciò
+raggiunge il caso base (\cref{sec:fi-java-alg-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-merge-residui}
+Perché \texttt{merge()} copia separatamente gli elementi
+rimanenti dopo il primo ciclo?
+\end{exercise}
+
+Il primo ciclo termina quando una delle due metà ordinate è
+esaurita. Gli elementi rimanenti dell'altra sono già ordinati
+e possono essere copiati direttamente
+(\cref{sec:fi-java-alg-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-merge-costi}
+Quali sono i costi temporale e spaziale dell'implementazione
+Java di MergeSort?
+\end{exercise}
+
+Il tempo è \(\Theta(n\log n)\) in tutti i casi; le copie
+temporanee richiedono \(\Theta(n)\) spazio ausiliario
+complessivo al picco (\cref{sec:fi-java-alg-fusione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-quick-partizione}
+Che cosa garantisce \texttt{partition()} quando restituisce
+l'indice del pivot?
+\end{exercise}
+
+Il pivot si trova nella posizione definitiva; tutti gli elementi
+a sinistra non lo superano e quelli a destra sono maggiori
+(\cref{sec:fi-java-alg-rapido}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-quick-peggiore}
+Perché scegliere l'ultimo elemento come pivot può produrre
+un costo quadratico per QuickSort?
+\end{exercise}
+
+Con input già ordinato, la partizione può produrre un intervallo
+vuoto e uno di lunghezza \(n-1\). Ripetendo tale squilibrio,
+la somma dei costi lineari delle partizioni è \(\Theta(n^2)\)
+(\cref{sec:fi-java-alg-rapido}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-quick-spazio}
+Perché lo spazio ausiliario di QuickSort dipende dalle
+partizioni, pur effettuando gli scambi nello stesso array?
+\end{exercise}
+
+La partizione usa \(\Theta(1)\) spazio, ma le chiamate ricorsive
+rimangono sulla pila. La profondità è \(O(\log n)\) con
+partizioni bilanciate e può raggiungere \(O(n)\) nel caso
+peggiore (\cref{sec:fi-java-alg-rapido}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-alg-stabilita}
+Quali algoritmi tra i quattro ordinamenti presentati sono
+stabili nelle rispettive implementazioni?
+\end{exercise}
+
+Insertion Sort e MergeSort. Selection Sort e QuickSort non
+garantiscono la stabilità
+(\cref{sec:fi-java-alg-selezione,sec:fi-java-alg-inserimento,sec:fi-java-alg-fusione,sec:fi-java-alg-rapido}).

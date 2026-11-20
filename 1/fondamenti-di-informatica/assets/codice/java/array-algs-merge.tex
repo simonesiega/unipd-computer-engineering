@@ -1,0 +1,11 @@
+\begin{unipdcode}[language=Java]
+private static void merge(int[] v, int[] left, int[] right) {
+    int i = 0, l = 0, r = 0;
+    while (l < left.length && r < right.length) {
+        if (left[l] <= right[r]) v[i++] = left[l++];
+        else v[i++] = right[r++];
+    }
+    while (l < left.length) v[i++] = left[l++];
+    while (r < right.length) v[i++] = right[r++];
+}
+\end{unipdcode}

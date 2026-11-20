@@ -122,17 +122,25 @@
   - 13.5 Array bidimensionali — p. 123
   - 13.6 Argomenti della riga di comando — p. 124
   - 13.7 Array paralleli e array di oggetti — p. 125
-- 1 Esercizi: Introduzione all'informatica — p. 126
-- 2 Esercizi: Rappresentazione delle informazioni — p. 129
-- 3 Esercizi: Introduzione a Python — p. 133
-- 4 Esercizi: Ricorsione — p. 137
-- 5 Esercizi: Complessità computazionale — p. 140
-- 6 Esercizi: Ricerca e ordinamento — p. 144
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 149
-- 8 Esercizi: Introduzione a Java — p. 160
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 166
-- 10 Esercizi: Realizzazione di classi in Java — p. 169
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 171
-- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 176
-- 13 Esercizi: Array in Java — p. 179
+- 14 Ricerca e ordinamento su array in Java — p. 126
+  - 14.1 Ricerca lineare — p. 126
+  - 14.2 Ricerca binaria — p. 126
+  - 14.3 Ordinamento per selezione — p. 127
+  - 14.4 Ordinamento per inserimento — p. 128
+  - 14.5 Ordinamento per fusione — p. 129
+  - 14.6 Ordinamento rapido — p. 130
+- 1 Esercizi: Introduzione all'informatica — p. 131
+- 2 Esercizi: Rappresentazione delle informazioni — p. 134
+- 3 Esercizi: Introduzione a Python — p. 138
+- 4 Esercizi: Ricorsione — p. 142
+- 5 Esercizi: Complessità computazionale — p. 145
+- 6 Esercizi: Ricerca e ordinamento — p. 149
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 154
+- 8 Esercizi: Introduzione a Java — p. 165
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 171
+- 10 Esercizi: Realizzazione di classi in Java — p. 174
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 176
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 181
+- 13 Esercizi: Array in Java — p. 184
+- 14 Esercizi: Ricerca e ordinamento in Java — p. 187
 <!-- GENERATED:END -->
