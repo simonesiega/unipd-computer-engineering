@@ -1,0 +1,15 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \tikzset{fi/ref/.style={unipd/node,align=center,
+    minimum width=2.4cm,minimum height=0.6cm,
+    inner xsep=4pt,inner ysep=4pt,font=\scriptsize}}
+  \node[fi/ref] (a) at (-3.0,1.15) {\texttt{risparmio}};
+  \node[fi/ref] (b) at (-3.0,0.15) {\texttt{conto}};
+  \node[fi/ref] (c) at (-3.0,-0.85) {\texttt{oggetto}};
+  \node[unipd/node,align=center,minimum width=3.1cm,
+    minimum height=1.25cm,font=\scriptsize]
+    (inst) at (1.1,0.15) {Istanza di \texttt{SavingsAccount}\\
+      \texttt{balance = 0}\\\texttt{interestRate = 10}};
+  \draw[unipd/directed edge] (a.east) -- (inst.north west);
+  \draw[unipd/directed edge] (b.east) -- (inst.west);
+  \draw[unipd/directed edge] (c.east) -- (inst.south west);
+\end{tikzpicture}

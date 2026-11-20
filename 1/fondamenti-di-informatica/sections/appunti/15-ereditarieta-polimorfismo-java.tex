@@ -1,0 +1,294 @@
+\chapter{Ereditarietà e polimorfismo in Java}
+\label{chap:ereditarieta-polimorfismo-java}
+
+Dopo la realizzazione di classi e degli algoritmi su array, si
+introducono l'ereditarietà, le conversioni tra riferimenti e il
+polimorfismo. Questi meccanismi permettono di riutilizzare e
+specializzare comportamenti già definiti
+(\cref{chap:realizzazione-classi-java,chap:ricerca-ordinamento-java}).%
+\footnote{Materiale di riferimento: S. Canazza,
+\emph{Java: Ereditarietà},
+\nolinkurl{2026_FI_14_canazza_Java_Ereditarieta.key.pdf}.}
+
+\section{Ordinamento di oggetti}
+\label{sec:fi-java-ereditarieta-ordinamento-oggetti}
+
+Gli algoritmi di ordinamento della
+\cref{chap:ricerca-ordinamento-java} si applicano anche a oggetti,
+quando è disponibile un criterio di confronto. A differenza dei
+numeri, l'ordine tra oggetti dipende dal tipo e dall'operazione
+definita dalla classe (\cref{sec:fi-java-cicli-oggetti}).
+
+Per esempio, \texttt{String.compareTo()} confronta due stringhe
+secondo l'ordinamento lessicografico dei valori UTF-16. Restituisce
+un intero negativo, nullo o positivo quando la prima stringa
+precede, equivale o segue la seconda secondo tale criterio.
+Per ordinare stringhe mediante \texttt{selectionSort()},
+il confronto numerico \lstinline|v[i] < min| viene sostituito da
+\lstinline|v[i].compareTo(min) < 0|. Il procedimento e il numero di confronti restano invariati;
+per le stringhe, tuttavia, il costo di ciascun confronto
+dipende dalla loro lunghezza.
+
+Per altri oggetti, come \texttt{BankAccount}, occorre stabilire
+quale proprietà usare per il confronto. La possibilità di
+riutilizzare comportamenti comuni fra classi conduce
+all'ereditarietà.
+
+\section{Ereditarietà tra classi}
+\label{sec:fi-java-ereditarieta}
+
+\begin{definition}[Ereditarietà]
+\label{def:fi-java-ereditarieta}
+L'\emph{ereditarietà} permette di definire una classe più
+specializzata a partire da una classe esistente. La nuova classe,
+detta \emph{sottoclasse}, riutilizza i comportamenti accessibili della
+\emph{superclasse} e può aggiungere o ridefinire membri.
+\end{definition}
+
+\subsection{Superclasse e sottoclasse}
+\label{sec:fi-java-ereditarieta-conti}
+
+La classe \texttt{BankAccount} della
+\cref{sec:fi-java-classi-incapsulamento} gestisce il saldo con
+\texttt{deposit()}, \texttt{withdraw()} e \texttt{getBalance()}.
+Un conto di risparmio usa le stesse operazioni e aggiunge
+\texttt{addInterest()} per accreditare gli interessi.
+
+\begin{example}[Conto di risparmio]
+La classe \texttt{SavingsAccount} estende \texttt{BankAccount}
+introducendo il tasso annuo e il metodo per accreditare gli
+interessi:
+
+\input{assets/codice/java/savings-account-ereditarieta}
+
+\texttt{addInterest()} usa \texttt{getBalance()} e \texttt{deposit()}
+della superclasse. Il campo \texttt{balance} resta privato e non è
+accessibile direttamente dalla sottoclasse. La classe aggiunta
+non duplica l'implementazione del conto bancario.
+\end{example}
+
+La sottoclasse rappresenta un caso particolare della superclasse:
+ogni \texttt{SavingsAccount} è un \texttt{BankAccount}, mentre
+non vale il contrario. La relazione descrive i tipi degli oggetti,
+non il numero dei loro membri.
+
+\subsection{Sintassi e gerarchie di ereditarietà}
+\label{sec:fi-java-ereditarieta-sintassi}
+
+La dichiarazione
+\lstinline|class Sottoclasse extends Superclasse| stabilisce
+l'ereditarietà. Una classe Java può estendere direttamente una
+sola classe; in assenza di \texttt{extends}, la superclasse
+implicita è \texttt{java.lang.Object}, ad eccezione di
+\texttt{Object} stessa.
+
+\begin{definition}[Superclasse universale \texttt{Object}]
+\label{def:fi-java-ereditarieta-object}
+\texttt{java.lang.Object} è la radice della gerarchia delle classi
+Java. Le classi ne ereditano, direttamente o indirettamente,
+i metodi accessibili, tra cui \texttt{toString()} ed
+\texttt{equals()}, salvo eventuali sovrascritture.
+\end{definition}
+
+La \cref{fig:fi-java-ereditarieta-gerarchia} rappresenta
+l'ereditarietà diretta e indiretta. Nei diagrammi UML la freccia
+con triangolo vuoto è diretta verso la superclasse.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/gerarchia-conti}
+  \caption{Gerarchia di ereditarietà delle classi
+  \texttt{Object}, \texttt{BankAccount} e \texttt{SavingsAccount}.}
+  \label{fig:fi-java-ereditarieta-gerarchia}
+\end{figure}
+
+\subsection{Metodi nuovi, ereditati e sovrascritti}
+\label{sec:fi-java-ereditarieta-metodi}
+
+Una sottoclasse può introdurre nuovi metodi, ereditare quelli
+della superclasse oppure \emph{sovrascriverli}
+(\emph{overriding}). In \texttt{SavingsAccount},
+\texttt{addInterest()} è nuovo e \texttt{getBalance()} è
+ereditato.
+
+\begin{definition}[Sovrascrittura di un metodo]
+\label{def:fi-java-ereditarieta-override}
+Si ha \emph{sovrascrittura} quando una sottoclasse fornisce una
+nuova implementazione di un metodo di istanza ereditato, con
+firma compatibile e tipo di ritorno ammesso dalle regole di Java.
+L'annotazione \texttt{@Override} permette al compilatore di
+verificare che il metodo sovrascriva effettivamente un metodo
+ereditato.
+\end{definition}
+
+Per applicare una commissione fissa ai versamenti,
+\texttt{SavingsAccount} può sovrascrivere \texttt{deposit()}.
+I membri seguenti si aggiungono alla classe dell'esempio
+precedente:
+
+\input{assets/codice/java/savings-account-override}
+
+La parola \texttt{super} permette di invocare l'implementazione
+del metodo nella superclasse: \texttt{super.deposit(amount)}
+accredita l'importo senza richiamare il metodo sovrascritto.
+La successiva \texttt{super.withdraw(FEE)} addebita la commissione.
+Una chiamata non qualificata a \texttt{deposit(amount)}
+all'interno di quel metodo richiamerebbe invece se stessa,
+provocando una ricorsione senza caso base.
+
+\texttt{super.nomeMetodo(argomenti)} non costruisce un altro
+oggetto: seleziona il metodo della superclasse per l'istanza
+corrente. Un metodo ereditato può comunque essere invocato
+normalmente attraverso un riferimento alla sottoclasse.
+
+Nei metodi di istanza, \texttt{this} indica l'oggetto corrente;
+\texttt{super} permette di richiamare i membri della superclasse
+accessibili alla sottoclasse. Entrambi operano sulla stessa
+istanza. I metodi ereditati possono accedere ai campi
+\texttt{private} dichiarati nella propria classe, mentre i metodi
+della sottoclasse non possono accedervi direttamente
+(\cref{sec:fi-java-classi-incapsulamento}).
+
+\section{Conversioni tra riferimenti}
+\label{sec:fi-java-ereditarieta-conversioni}
+
+Un riferimento a una sottoclasse può essere assegnato a una
+variabile del tipo di una sua superclasse (\emph{upcasting}).
+La conversione è implicita e non modifica né copia l'oggetto:
+
+\begin{unipdcode}[language=Java]
+SavingsAccount risparmio = new SavingsAccount(10);
+BankAccount conto = risparmio;
+Object oggetto = risparmio;
+\end{unipdcode}
+
+Le tre variabili contengono riferimenti alla stessa istanza,
+come mostra la \cref{fig:fi-java-ereditarieta-riferimenti}.
+Il tipo dichiarato del riferimento limita i membri accessibili
+in compilazione: \texttt{conto.deposit(100)} è valido, mentre
+\texttt{conto.addInterest()} non lo è, perché
+\texttt{addInterest()} non è dichiarato in \texttt{BankAccount}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/riferimenti-ereditarieta}
+  \caption{Tre riferimenti di tipo diverso alla medesima
+  istanza di \texttt{SavingsAccount}.}
+  \label{fig:fi-java-ereditarieta-riferimenti}
+\end{figure}
+
+\begin{example}[Sostituibilità nei parametri]
+Un metodo con parametro di tipo \texttt{BankAccount} può
+ricevere un oggetto di qualunque sua sottoclasse:
+
+\begin{unipdcode}[language=Java]
+public static void accredita(BankAccount conto, double importo) {
+    conto.deposit(importo);
+}
+
+public static void esempio() {
+    SavingsAccount risparmio = new SavingsAccount(10);
+    accredita(risparmio, 100);
+}
+\end{unipdcode}
+
+Il parametro \texttt{conto} riceve per valore una copia del
+riferimento, non un nuovo oggetto
+(\cref{sec:fi-java-file-parametri}). Se
+\texttt{deposit()} è sovrascritto, viene eseguita la versione
+della classe effettiva dell'oggetto.
+\end{example}
+
+La conversione inversa (\emph{downcasting}) richiede un cast
+esplicito ed è valida soltanto se l'oggetto è un'istanza del tipo
+richiesto o di una sua sottoclasse:
+
+\begin{unipdcode}[language=Java]
+SavingsAccount altro = (SavingsAccount) conto;
+altro.addInterest();
+\end{unipdcode}
+
+Il cast non modifica il tipo effettivo dell'oggetto. Se il
+riferimento indica un oggetto incompatibile, l'esecuzione
+provoca \texttt{ClassCastException}, un'eccezione non controllata
+(\cref{sec:fi-java-file-checked}).
+
+
+\section{Polimorfismo}
+\label{sec:fi-java-ereditarieta-polimorfismo}
+
+\begin{definition}[Polimorfismo per sottotipi]
+\label{def:fi-java-ereditarieta-polimorfismo}
+Il \emph{polimorfismo per sottotipi} permette di utilizzare
+oggetti di classi derivate attraverso riferimenti al tipo della
+superclasse. Per un metodo di istanza sovrascritto, l'implementazione
+eseguita dipende dal tipo effettivo dell'oggetto.
+\end{definition}
+
+\begin{example}[Selezione dinamica dei metodi]
+Si considerino \texttt{BankAccount} e \texttt{SavingsAccount},
+che sovrascrive \texttt{deposit()} applicando una commissione
+di \texttt{2.58} a ogni versamento.
+
+\begin{unipdcode}[language=Java]
+BankAccount[] conti = {
+    new BankAccount(),
+    new SavingsAccount(10)
+};
+
+for (BankAccount conto : conti) {
+    conto.deposit(100);
+    System.out.println(conto.getBalance());
+}
+\end{unipdcode}
+
+\begin{unipdterminal}
+100.0
+97.42
+\end{unipdterminal}
+
+In entrambe le iterazioni, \texttt{conto} ha tipo dichiarato
+\texttt{BankAccount}, ma si riferisce a oggetti di classi
+differenti. La stessa invocazione \texttt{deposit(100)}
+esegue quindi due implementazioni diverse: quella della
+superclasse nel primo caso e quella sovrascritta nella
+sottoclasse nel secondo.
+
+La selezione avviene durante l'esecuzione, senza richiedere
+conversioni esplicite o controlli sul tipo dell'oggetto.
+\end{example}
+
+Il \emph{tipo statico} del riferimento determina quali metodi
+possono essere invocati; il \emph{tipo dinamico} dell'oggetto
+determina quale implementazione di un metodo sovrascritto viene
+eseguita. Questo meccanismo è detto \emph{late binding}
+(selezione dinamica). Si distingue dall'\emph{early binding}
+dei metodi sovraccarichi
+(\cref{sec:fi-java-classi-overloading}), per i quali il compilatore
+sceglie la firma applicabile in base ai tipi statici degli argomenti.
+
+La selezione dinamica descritta riguarda i metodi di istanza
+sovrascrivibili; non si applica allo stesso modo ai metodi
+\texttt{static}, ai campi o ai costruttori.
+
+\subsection{Verifica del tipo con \texttt{instanceof}}
+\label{sec:fi-java-ereditarieta-instanceof}
+
+L'operatore \texttt{instanceof} restituisce \texttt{true} se
+l'oggetto indicato dal riferimento è compatibile con il tipo
+specificato. Il risultato dipende dal tipo effettivo dell'oggetto,
+non dal solo tipo dichiarato del riferimento; per \texttt{null}
+è sempre \texttt{false}.
+
+\begin{unipdcode}[language=Java]
+BankAccount conto = new SavingsAccount(10);
+if (conto instanceof SavingsAccount) {
+    SavingsAccount risparmio = (SavingsAccount) conto;
+    risparmio.addInterest();
+}
+\end{unipdcode}
+
+Il controllo protegge il cast verso \texttt{SavingsAccount}:
+quando la condizione è vera, la conversione non provoca
+\texttt{ClassCastException}. Evita inoltre di assumere che ogni
+\texttt{BankAccount} sia un conto di risparmio.

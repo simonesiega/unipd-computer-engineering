@@ -128,19 +128,25 @@
   - 14.3 Ordinamento per selezione — p. 127
   - 14.4 Ordinamento per inserimento — p. 128
   - 14.5 Ordinamento per fusione — p. 129
-  - 14.6 Ordinamento rapido — p. 130
-- 1 Esercizi: Introduzione all'informatica — p. 131
-- 2 Esercizi: Rappresentazione delle informazioni — p. 134
-- 3 Esercizi: Introduzione a Python — p. 138
-- 4 Esercizi: Ricorsione — p. 142
-- 5 Esercizi: Complessità computazionale — p. 145
-- 6 Esercizi: Ricerca e ordinamento — p. 149
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 154
-- 8 Esercizi: Introduzione a Java — p. 165
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 171
-- 10 Esercizi: Realizzazione di classi in Java — p. 174
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 176
-- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 181
-- 13 Esercizi: Array in Java — p. 184
-- 14 Esercizi: Ricerca e ordinamento in Java — p. 187
+  - 14.6 Ordinamento rapido — p. 129
+- 15 Ereditarietà e polimorfismo in Java — p. 131
+  - 15.1 Ordinamento di oggetti — p. 131
+  - 15.2 Ereditarietà tra classi — p. 131
+  - 15.3 Conversioni tra riferimenti — p. 133
+  - 15.4 Polimorfismo — p. 134
+- 1 Esercizi: Introduzione all'informatica — p. 136
+- 2 Esercizi: Rappresentazione delle informazioni — p. 139
+- 3 Esercizi: Introduzione a Python — p. 143
+- 4 Esercizi: Ricorsione — p. 147
+- 5 Esercizi: Complessità computazionale — p. 150
+- 6 Esercizi: Ricerca e ordinamento — p. 154
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 159
+- 8 Esercizi: Introduzione a Java — p. 170
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 176
+- 10 Esercizi: Realizzazione di classi in Java — p. 179
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 181
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 186
+- 13 Esercizi: Array in Java — p. 189
+- 14 Esercizi: Ricerca e ordinamento in Java — p. 192
+- 15 Esercizi: Ereditarietà e polimorfismo in Java — p. 194
 <!-- GENERATED:END -->

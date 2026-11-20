@@ -1,0 +1,169 @@
+\chapter{Esercizi: Ereditarietà e polimorfismo in Java}
+\label{chap:esercizi-ereditarieta-polimorfismo-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-ordinamento-confronto}
+Perché il confronto tra oggetti richiede un criterio definito dal loro tipo?
+\end{exercise}
+
+A differenza dell’ordine numerico, l’ordine tra oggetti non è universale:
+dipende dalle proprietà scelte dalla classe. Solo oggetti confrontabili
+secondo un criterio possono essere ordinati
+(\cref{sec:fi-java-ereditarieta-ordinamento-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-compareto}
+Quale significato ha il risultato di \texttt{String.compareTo()}?
+\end{exercise}
+
+Un valore negativo indica che la prima stringa precede la seconda, zero che
+risultano equivalenti nel confronto e un valore positivo che la segue
+(\cref{sec:fi-java-ereditarieta-ordinamento-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-selection-stringhe}
+Come cambia \texttt{selectionSort()} passando da un array di interi a uno di
+stringhe?
+\end{exercise}
+
+Si usa un array di \texttt{String} e si sostituisce il confronto numerico
+con \texttt{compareTo()} a risultato negativo. La logica di ricerca del
+minimo non cambia (\cref{sec:fi-java-ereditarieta-ordinamento-oggetti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-subclass}
+Che cosa significa che \texttt{SavingsAccount} è sottoclasse di
+\texttt{BankAccount}?
+\end{exercise}
+
+Ogni istanza di \texttt{SavingsAccount} è anche un \texttt{BankAccount}; ne
+riutilizza i comportamenti accessibili e può introdurre membri specifici
+(\cref{def:fi-java-ereditarieta}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-eredita}
+Che cosa può ereditare una sottoclasse?
+\end{exercise}
+
+Può utilizzare i membri accessibili della superclasse e sovrascrivere i
+metodi di istanza che lo consentono. I campi \texttt{private} non sono
+accessibili direttamente dalla sottoclasse
+(\cref{sec:fi-java-ereditarieta-conti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-object}
+Perché \texttt{Object} è detta superclasse universale?
+\end{exercise}
+
+Perché è la radice della gerarchia delle classi Java: una classe che non
+dichiara una superclasse deriva implicitamente da \texttt{Object}
+(\cref{def:fi-java-ereditarieta-object}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-duplicazione}
+Perché non conviene copiare il codice di \texttt{BankAccount} in
+\texttt{SavingsAccount}?
+\end{exercise}
+
+Si duplicano comportamento e responsabilità di manutenzione. L’ereditarietà
+permette alla sottoclasse di utilizzare la stessa implementazione, senza
+replicarla (\cref{sec:fi-java-ereditarieta-conti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-addinterest}
+Perché \texttt{addInterest()} invoca \texttt{getBalance()} e
+\texttt{deposit()} invece di modificare \texttt{balance}?
+\end{exercise}
+
+Il campo \texttt{balance} è \texttt{private} in \texttt{BankAccount}. I
+metodi pubblici permettono alla sottoclasse di operare sul saldo
+rispettandone l’incapsulamento (\cref{sec:fi-java-ereditarieta-conti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-metodi-tipi}
+Che differenza c’è tra un metodo nuovo, ereditato e sovrascritto?
+\end{exercise}
+
+Un metodo nuovo compare soltanto nella sottoclasse; uno ereditato conserva
+l’implementazione della superclasse; uno sovrascritto ne fornisce una nuova
+implementazione (\cref{sec:fi-java-ereditarieta-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-override-firma}
+Quali condizioni deve rispettare un metodo per sovrascriverne uno della
+superclasse?
+\end{exercise}
+
+Deve essere un metodo di istanza sovrascrivibile, con firma corrispondente e
+tipo di ritorno compatibile. \texttt{@Override} consente al compilatore di
+verificare la sovrascrittura (\cref{def:fi-java-ereditarieta-override}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-this-super}
+Qual è la differenza tra \texttt{this} e \texttt{super}?
+\end{exercise}
+
+\texttt{this} denota l’istanza corrente; \texttt{super} permette di selezionare un membro ereditato della superclasse, per esempio l’implementazione di un metodo sovrascritto. Non rappresentano due oggetti diversi (\cref{sec:fi-java-ereditarieta-metodi}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-upcast}
+Perché una variabile di tipo \texttt{BankAccount} può indicare un oggetto
+\texttt{SavingsAccount}?
+\end{exercise}
+
+Perché il tipo della sottoclasse è compatibile con quello della superclasse.
+L’upcasting copia soltanto il riferimento; l’oggetto non viene convertito né
+duplicato (\cref{sec:fi-java-ereditarieta-conversioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-instanceof}
+A che cosa serve \texttt{instanceof}?
+\end{exercise}
+
+Verifica durante l’esecuzione se l’oggetto indicato è compatibile con il
+tipo specificato, permettendo fra l’altro di proteggere un cast verso una
+sottoclasse (\cref{sec:fi-java-ereditarieta-instanceof}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-instanceof-tipo}
+Il risultato di \texttt{instanceof} dipende dal tipo dichiarato o dal tipo
+effettivo dell’oggetto?
+\end{exercise}
+
+Dipende dal tipo effettivo dell’oggetto; applicato a \texttt{null}
+restituisce \texttt{false} (\cref{sec:fi-java-ereditarieta-instanceof}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-polimorfismo}
+Che cosa significa polimorfismo per sottotipi in Java?
+\end{exercise}
+
+Un riferimento al tipo della superclasse può indicare istanze di sottoclassi
+diverse; l’esecuzione di un metodo di istanza sovrascritto seleziona
+l’implementazione in base al tipo effettivo dell’oggetto
+(\cref{def:fi-java-ereditarieta-polimorfismo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-binding}
+Come si distinguono selezione anticipata e selezione dinamica dei metodi?
+\end{exercise}
+
+La risoluzione dei sovraccarichi usa i tipi statici in compilazione (early
+binding); per i metodi di istanza sovrascritti, l’implementazione viene
+scelta in base all’oggetto durante l’esecuzione (late binding)
+(\cref{sec:fi-java-ereditarieta-polimorfismo}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-ereditarieta-cast-sicuro}
+Scrivi un esempio in cui \texttt{instanceof} protegge il cast verso
+\texttt{SavingsAccount}.
+\end{exercise}
+
+\begin{unipdcode}[language=Java]
+if (conto instanceof SavingsAccount) {
+    SavingsAccount s = (SavingsAccount) conto;
+    s.addInterest();
+}
+\end{unipdcode}
+Il cast viene eseguito soltanto quando l’oggetto è compatibile
+(\cref{sec:fi-java-ereditarieta-instanceof}).
