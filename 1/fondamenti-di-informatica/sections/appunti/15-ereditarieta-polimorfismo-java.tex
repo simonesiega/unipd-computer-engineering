@@ -30,7 +30,9 @@ per le stringhe, tuttavia, il costo di ciascun confronto
 dipende dalla loro lunghezza.
 
 Per altri oggetti, come \texttt{BankAccount}, occorre stabilire
-quale proprietà usare per il confronto. La possibilità di
+quale proprietà usare per il confronto. L\'interfaccia
+\texttt{Comparable} è approfondita nella
+\cref{sec:fi-java-interfacce-comparable}. La possibilità di
 riutilizzare comportamenti comuni fra classi conduce
 all'ereditarietà.
 
@@ -87,7 +89,8 @@ implicita è \texttt{java.lang.Object}, ad eccezione di
 \texttt{java.lang.Object} è la radice della gerarchia delle classi
 Java. Le classi ne ereditano, direttamente o indirettamente,
 i metodi accessibili, tra cui \texttt{toString()} ed
-\texttt{equals()}, salvo eventuali sovrascritture.
+\texttt{equals()}, salvo eventuali sovrascritture. Il loro comportamento è
+approfondito nella \cref{sec:fi-java-interfacce-object}.
 \end{definition}
 
 La \cref{fig:fi-java-ereditarieta-gerarchia} rappresenta

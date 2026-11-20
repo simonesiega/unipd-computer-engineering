@@ -1,0 +1,436 @@
+\chapter{Interfacce, classi astratte e generici in Java}
+\label{chap:interfacce-generici-java}
+
+Dopo l'ereditarietà e il polimorfismo, si approfondiscono i
+comportamenti comuni agli oggetti, il controllo di accesso e le
+interfacce. Si introducono inoltre le classi astratte e i tipi
+generici (\cref{chap:realizzazione-classi-java,chap:ereditarieta-polimorfismo-java}).%
+\footnote{Materiale di riferimento: S. Canazza,
+\emph{Java: Interfacce},
+\nolinkurl{2026_FI_15_canazza_Java_Interfacce.key.pdf}.}
+
+\section{Obiettivi e principi della programmazione a oggetti}
+\label{sec:fi-java-interfacce-progettazione}
+
+La programmazione orientata agli oggetti organizza stato e
+comportamento in componenti con responsabilità definite.
+Incapsulamento, ereditarietà e polimorfismo, già introdotti nei
+capitoli precedenti, contribuiscono a tre obiettivi:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{2.7cm}p{9.2cm}}
+\toprule
+Obiettivo & Significato \\
+\midrule
+Robustezza & Contenere le conseguenze di errori e condizioni inattese. \\
+Adattabilità & Facilitare modifiche, estensioni e portabilità. \\
+Riusabilità & Utilizzare componenti in programmi differenti senza duplicarne la logica. \\
+\bottomrule
+\end{tabular}
+\caption{Obiettivi principali della progettazione orientata agli oggetti.}
+\label{tab:fi-java-interfacce-obiettivi}
+\end{table}
+
+L'\emph{astrazione} individua gli aspetti rilevanti di un sistema;
+l'\emph{information hiding} nasconde la rappresentazione interna
+esponendo le operazioni necessarie; la \emph{modularità} separa il
+software in unità funzionali. Questi principi favoriscono la
+manutenzione, ma non eliminano i costi di gerarchie o dipendenze
+progettate in modo inadeguato.
+
+\section{La superclasse \texttt{Object}}
+\label{sec:fi-java-interfacce-object}
+
+Ogni classe Java deriva direttamente o indirettamente da
+\texttt{Object} (\cref{def:fi-java-ereditarieta-object}).
+Anche \texttt{println(Object)} può quindi ricevere un
+riferimento a un oggetto e produrne una descrizione testuale
+tramite \texttt{toString()}.
+
+\subsection{Il metodo \texttt{toString()}}
+\label{sec:fi-java-interfacce-tostring}
+
+L'implementazione ereditata da \texttt{Object} restituisce
+normalmente il nome della classe, il carattere \texttt{@} e un
+codice hash in forma esadecimale. Tale codice non è
+necessariamente l'indirizzo di memoria dell'oggetto. Una classe
+può sovrascrivere il metodo per produrre una descrizione utile.
+
+\begin{example}[Descrizione di \texttt{BankAccount}]
+Si aggiunge il seguente metodo alla classe già utilizzata
+nella \cref{sec:fi-java-ereditarieta-conti}:
+
+\input{assets/codice/java/bank-account-tostring}
+
+\begin{unipdcode}[language=Java]
+BankAccount conto = new BankAccount(1000);
+System.out.println(conto);
+String descrizione = "Conto: " + conto;
+\end{unipdcode}
+
+\begin{unipdterminal}
+BankAccount[balance=1000.0]
+\end{unipdterminal}
+
+La concatenazione antepone \texttt{"Conto: "} alla stessa
+descrizione dell'oggetto.
+\texttt{getClass()} restituisce un oggetto \texttt{Class}
+relativo alla classe effettiva; \texttt{getSimpleName()} ne
+restituisce il nome semplice, mentre \texttt{getName()} fornisce
+il nome completo, comprensivo dell'eventuale package.
+\end{example}
+
+Una sottoclasse con stato aggiuntivo può sovrascrivere
+\texttt{toString()}. Per riutilizzare la descrizione ereditata
+può invocare \texttt{super.toString()}.
+Le informazioni riservate non devono essere incluse
+indiscriminatamente nella descrizione.
+
+\subsection{Il metodo \texttt{equals()}}
+\label{sec:fi-java-interfacce-equals}
+
+L'implementazione di \texttt{Object.equals(Object)}
+confronta l'identità dei riferimenti. Una sovrascrittura può
+stabilire un'uguaglianza logica diversa da \texttt{==}
+(\cref{def:fi-java-cicli-uguaglianza-oggetti}). Il parametro
+deve avere tipo \texttt{Object}: dichiarare soltanto
+\lstinline|equals(BankAccount other)| definirebbe un nuovo
+sovraccarico e non sovrascriverebbe il metodo originale.
+
+\begin{example}[Uguaglianza per classe e saldo]
+I seguenti metodi, aggiunti a \texttt{BankAccount}, definiscono
+l'uguaglianza quando classe effettiva e saldo coincidono:
+
+\input{assets/codice/java/bank-account-equals-hashcode}
+
+La sovrascrittura di \texttt{equals()} richiede coerenza con
+\texttt{hashCode()}: due oggetti uguali devono avere lo stesso
+codice hash. Due hash uguali non implicano invece l'uguaglianza
+degli oggetti.
+\end{example}
+
+\section{Controllo di accesso e \texttt{final}}
+\label{sec:fi-java-interfacce-accesso}
+
+Ai modificatori \texttt{public} e \texttt{private} già trattati
+nella \cref{sec:fi-java-classi-incapsulamento} si aggiungono
+\texttt{protected} e l'accesso di package:
+
+\clearpage
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{3.0cm}p{9.0cm}}
+\toprule
+Modificatore & Visibilità dei membri \\
+\midrule
+\texttt{public} & Da ogni classe che possa accedere alla classe dichiarante. \\
+\texttt{protected} & Dalle classi del medesimo package e dalle sottoclassi, secondo le regole di Java. \\
+Nessuno (package) & Dalle sole classi dello stesso package. \\
+\texttt{private} & All'interno della classe dichiarante. \\
+\bottomrule
+\end{tabular}
+\caption{Controllo di accesso ai membri di una classe.}
+\label{tab:fi-java-interfacce-accesso}
+\end{table}
+
+Una sottoclasse posta in un altro package non può usare un
+membro \texttt{protected} tramite un riferimento arbitrario alla
+superclasse. Per una classe di primo livello sono consentiti solo
+\texttt{public} e l'accesso di package. Esporre direttamente
+campi \texttt{protected} può creare dipendenze dalla rappresentazione
+interna e rendere più difficili le modifiche successive.
+
+\texttt{final} produce effetti diversi secondo la dichiarazione:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{2.6cm}p{6.5cm}p{3.0cm}}
+\toprule
+Dichiarazione & Effetto & Esempio \\
+\midrule
+Variabile & Impedisce successive assegnazioni. & \texttt{final int N = 4;} \\
+Metodo & Impedisce la sovrascrittura. & \texttt{final void run()} \\
+Classe & Impedisce la creazione di sottoclassi. & \texttt{final class C} \\
+\bottomrule
+\end{tabular}
+\caption{Utilizzi principali del modificatore \texttt{final}.}
+\label{tab:fi-java-interfacce-final}
+\end{table}
+
+Un riferimento \texttt{final} non può essere riassegnato, ma
+l'oggetto referenziato può rimanere modificabile. La classe
+\texttt{String} è \texttt{final} e i suoi oggetti sono immutabili:
+si tratta di proprietà distinte.
+
+\section{Interfacce e astrazione}
+\label{sec:fi-java-interfacce-astrazione}
+
+\begin{definition}[Interfaccia Java]
+\label{def:fi-java-interfaccia}
+Un'\emph{interfaccia} definisce un contratto di comportamento
+comune a più classi. Si dichiara con \texttt{interface}; una
+classe indica i contratti realizzati mediante \texttt{implements}.
+\end{definition}
+
+Un'interfaccia non ha costruttori o campi di istanza. I suoi
+metodi astratti sono implicitamente \texttt{public}, mentre le
+costanti sono \texttt{public static final}. Può contenere
+metodi \texttt{default} e \texttt{static} con implementazione.
+
+\subsection{Dichiarazione, implementazione e metodi \texttt{default}}
+\label{sec:fi-java-interfacce-implementazione}
+
+\begin{example}[Interfaccia \texttt{Measurable}]
+L'interfaccia specifica una misura e fornisce un confronto
+predefinito e una funzione statica di aggregazione:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/measurable-interfaccia}
+\end{minipage}
+
+Una classe che implementa \texttt{Measurable} deve fornire
+\texttt{getMeasure()}, mentre può ereditare \texttt{smallerThan()}:
+
+\input{assets/codice/java/measurable-implementazione}
+
+\begin{unipdcode}[language=Java]
+Measurable[] items = {new MeasuredItem(2), new MeasuredItem(4)};
+double media = Measurable.average(items); // 3.0
+boolean minore = items[0].smallerThan(items[1]); // true
+\end{unipdcode}
+
+\texttt{Measurable.average(array)} si invoca attraverso il
+nome dell'interfaccia; richiede un array non vuoto e non nullo,
+con elementi non nulli.
+\end{example}
+
+Una classe può implementare più interfacce, pur estendendo una
+sola classe. Un'interfaccia può estendere più interfacce.
+L'implementazione di un contratto è distinta dall'ereditarietà
+della rappresentazione di una classe.
+
+\subsection{Riferimenti, conversioni e polimorfismo}
+\label{sec:fi-java-interfacce-riferimenti}
+
+Un riferimento può avere come tipo dichiarato un'interfaccia;
+non è però possibile costruire un oggetto mediante
+\lstinline|new Measurable()|. L'assegnazione dal tipo di una
+classe che la implementa al tipo dell'interfaccia è implicita:
+
+\begin{unipdcode}[language=Java]
+Measurable misura = new MeasuredItem(12);
+System.out.println(misura.getMeasure());
+\end{unipdcode}
+
+Tramite \texttt{misura} si possono invocare i metodi disponibili
+dal contratto, non i metodi specifici di \texttt{MeasuredItem}.
+La conversione inversa richiede un cast valido per l'oggetto
+effettivo; un controllo con \texttt{instanceof} può prevenirne
+l'errore (\cref{sec:fi-java-ereditarieta-instanceof}).
+
+Classi differenti possono fornire implementazioni diverse di
+\texttt{getMeasure()}. La chiamata attraverso un riferimento
+\texttt{Measurable} seleziona durante l'esecuzione il metodo
+della classe effettiva, secondo il polimorfismo già studiato
+nella \cref{sec:fi-java-ereditarieta-polimorfismo}.
+
+\section{L'interfaccia \texttt{Comparable}}
+\label{sec:fi-java-interfacce-comparable}
+
+\begin{definition}[Ordinamento naturale]
+\label{def:fi-java-interfacce-comparable}
+\texttt{Comparable<T>} è l'interfaccia di \texttt{java.lang}
+che dichiara \texttt{int compareTo(T other)} per stabilire
+l'ordinamento naturale fra oggetti confrontabili. Il valore
+restituito è negativo, nullo o positivo se l'oggetto corrente
+precede, equivale o segue l'argomento nell'ordine.
+\end{definition}
+
+Non è corretto verificare \lstinline|compareTo(...) == -1|:
+il risultato negativo non è necessariamente \(-1\).
+Il criterio deve rispettare le proprietà di un ordinamento
+coerente, tra cui riflessività e transitività della relazione
+non stretta e compatibilità dei segni dei confronti inversi.
+È raccomandabile, ma non obbligatorio, che
+\texttt{compareTo(other) == 0} coincida con \texttt{equals(other)}.
+
+\begin{example}[Confronto dei conti per saldo]
+Alla dichiarazione di \texttt{BankAccount} si aggiunge
+\lstinline|implements Comparable<BankAccount>| e si introduce:
+
+\input{assets/codice/java/bank-account-compareto}
+
+\texttt{Double.compare()} confronta anche i valori particolari
+di \texttt{double}. Questo criterio usa esclusivamente il saldo:
+può quindi considerare equivalenti nell'ordine oggetti che
+\texttt{equals()} distingue in base alla classe effettiva.
+\end{example}
+
+\texttt{String} implementa \texttt{Comparable<String>} e
+utilizza l'ordinamento lessicografico introdotto nella
+\cref{sec:fi-java-ereditarieta-ordinamento-oggetti}.
+
+\section{La classe \texttt{ArrayAlgs} con \texttt{Comparable}}
+\label{sec:fi-java-interfacce-arrayalgs}
+
+Gli algoritmi della \cref{chap:ricerca-ordinamento-java} restano
+validi per oggetti confrontabili. Cambiano il tipo dell'array
+e il confronto, non la logica dell'algoritmo:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{4.0cm}p{4.4cm}p{3.8cm}}
+\toprule
+Relazione & Array di \texttt{int} & Array di \texttt{Comparable} \\
+\midrule
+Precedenza & \lstinline|a < b| & \lstinline|a.compareTo(b) < 0| \\
+Posteriorità & \lstinline|a > b| & \lstinline|a.compareTo(b) > 0| \\
+Equivalenza nell'ordine & \lstinline|a == b| & \lstinline|a.compareTo(b) == 0| \\
+\bottomrule
+\end{tabular}
+\caption{Adattamento dei confronti numerici agli oggetti.}
+\label{tab:fi-java-interfacce-confronti}
+\end{table}
+
+\subsection{Ordinamento per selezione}
+\label{sec:fi-java-interfacce-selection}
+
+La versione seguente mostra solo il metodo e i suoi ausiliari:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/array-algs-selection-comparable}
+\end{minipage}
+
+\begin{example}[Riutilizzo del metodo su tipi diversi]
+La stessa implementazione ordina un array di stringhe o di conti
+che implementino \texttt{Comparable}:
+
+\begin{unipdcode}[language=Java]
+String[] parole = {"Zoe", "Anna", "Luca"};
+ArrayAlgs.selectionSort(parole);
+
+BankAccount[] conti = {
+    new BankAccount(200), new BankAccount(50)
+};
+ArrayAlgs.selectionSort(conti);
+\end{unipdcode}
+
+Le stringhe risultano in ordine lessicografico e i conti in
+ordine crescente di saldo.
+\end{example}
+
+\texttt{findMinPos()} cerca il minimo con \texttt{compareTo()},
+mentre \texttt{swap()} scambia i riferimenti. Assumendo
+confronti a costo costante, il tempo resta \(\Theta(n^2)\)
+e lo spazio ausiliario \(\Theta(1)\). Se confrontare gli
+elementi è costoso, il tempo totale deve includere tale costo.
+
+\subsection{Adattamento degli altri algoritmi}
+\label{sec:fi-java-interfacce-altri-algoritmi}
+
+In \texttt{insertionSort()}, la condizione di spostamento diventa
+\lstinline|temp.compareTo(v[j-1]) < 0|. In \texttt{mergeSort()},
+la fusione può confrontare
+\lstinline|left[i].compareTo(right[j]) <= 0|, conservando la
+stabilità a parità di confronto. In \texttt{binarySearch()},
+si esamina il segno di \lstinline|v[mid].compareTo(value)|,
+conservando l'ordinamento iniziale come precondizione.
+
+L'uso non parametrizzato di \texttt{Comparable[]} presuppone
+che gli elementi siano non nulli e reciprocamente confrontabili:
+un confronto incompatibile può generare
+\texttt{ClassCastException}. I tipi generici possono rendere
+questo vincolo più esplicito al compilatore.
+
+\section{Classi e metodi astratti}
+\label{sec:fi-java-interfacce-astratte}
+
+\begin{definition}[Classe e metodo astratti]
+\label{def:fi-java-interfacce-astratte}
+Una \emph{classe astratta}, dichiarata con \texttt{abstract},
+non è direttamente istanziabile e può contenere metodi
+implementati e metodi astratti. Un \emph{metodo astratto}
+dichiara un'operazione senza fornirne il corpo.
+\end{definition}
+
+\begin{example}[Calcolo dell'area]
+\texttt{Poligono} specifica il calcolo dell'area e realizza il
+confronto in base a tale misura:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/poligono-astratto}
+\end{minipage}
+
+\texttt{Poligono} non può essere istanziata; la sottoclasse
+concreta \texttt{Rettangolo} implementa \texttt{area()}.
+Si assumono lati non negativi.
+\end{example}
+
+Una classe astratta può estendere un'altra classe astratta senza
+realizzare subito tutti i metodi astratti; una sottoclasse
+concreta deve invece implementarli. A differenza di
+un'interfaccia, una classe astratta può avere campi di
+istanza e costruttori.
+
+\section{Introduzione alle classi generiche}
+\label{sec:fi-java-interfacce-generici}
+
+\begin{definition}[Parametrizzazione dei tipi]
+\label{def:fi-java-interfacce-generici}
+Una \emph{classe generica} dichiara uno o più parametri di tipo
+tra parentesi angolari. Un utilizzo della classe specifica un
+tipo concreto, controllato durante la compilazione.
+\end{definition}
+
+\lstinline|class Box<T>| dichiara un parametro \texttt{T};
+\lstinline|Box<String>| e \lstinline|Box<Integer>| sono due
+tipi parametrizzati. Le lettere \texttt{T}, \texttt{E},
+\texttt{K}, \texttt{V}, \texttt{N} sono convenzioni rispettivamente
+per tipo, elemento, chiave, valore e tipo numerico. I parametri
+di tipo richiedono tipi riferimento, quindi si usa
+\texttt{Integer} al posto di \texttt{int}.
+
+\begin{example}[Contenitore \texttt{Box<T>}]
+La classe conserva un oggetto del tipo indicato dal parametro:
+
+\noindent
+\begin{minipage}{\linewidth}
+\input{assets/codice/java/box-generico}
+\end{minipage}
+
+\begin{unipdcode}[language=Java]
+Box<String> parole = new Box<>();
+parole.set("ciao");
+String s = parole.get();
+
+Box<Integer> numeri = new Box<>();
+numeri.set(42);
+Integer n = numeri.get();
+\end{unipdcode}
+
+La chiamata \texttt{parole.set(42)} non è valida: un
+\texttt{Integer} non soddisfa il parametro \texttt{String}.
+Il recupero tramite \texttt{get()} non richiede cast.
+\end{example}
+
+\subsection{Metodi generici}
+\label{sec:fi-java-interfacce-metodi-generici}
+
+Un metodo generico dichiara i parametri di tipo prima del tipo
+di ritorno:
+
+\input{assets/codice/java/stampa-array-generico}
+
+\begin{unipdcode}[language=Java]
+printArray(new String[] {"A", "B"});
+printArray(new Integer[] {1, 2, 3});
+\end{unipdcode}
+
+Il compilatore deduce \texttt{T} dall'argomento. La stessa
+implementazione può quindi operare su array di tipi riferimento
+diversi, conservando i controlli statici sui tipi.

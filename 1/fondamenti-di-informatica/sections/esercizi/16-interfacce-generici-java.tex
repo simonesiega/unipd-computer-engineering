@@ -1,0 +1,173 @@
+\chapter{Esercizi: Interfacce e generici in Java}
+\label{chap:esercizi-interfacce-generici-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-design}
+Qual è la differenza tra information hiding e modularità?
+\end{exercise}
+
+Il primo nasconde l'implementazione di un componente; la seconda divide il programma in unità funzionali (\cref{sec:fi-java-interfacce-progettazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-object}
+Quali sono gli scopi di \texttt{toString()} e \texttt{equals()} di \texttt{Object}?
+\end{exercise}
+
+Il primo genera una rappresentazione testuale; il secondo definisce l'uguaglianza, inizialmente basata sull'identità (\cref{sec:fi-java-interfacce-object}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-tostring}
+Perché può essere opportuno sovrascrivere \texttt{toString()}?
+\end{exercise}
+
+Per ottenere una descrizione comprensibile delle informazioni significative, anziché la rappresentazione di base (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-stampa}
+Quando si utilizza implicitamente \texttt{toString()}?
+\end{exercise}
+
+In particolare nella stampa di un oggetto tramite \texttt{println(Object)} e nella concatenazione con una stringa (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-equals}
+Qual è la differenza tra \texttt{==} ed \texttt{equals()}?
+\end{exercise}
+
+Il primo confronta l'identità dei riferimenti; il secondo applica il criterio di uguaglianza definito dalla classe (\cref{sec:fi-java-interfacce-equals}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-class}
+Che cosa restituiscono \texttt{getClass()} e \texttt{getName()}?
+\end{exercise}
+
+\texttt{getClass()} restituisce la descrizione \texttt{Class} del tipo effettivo; \texttt{getName()} ne fornisce il nome completo (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-accesso}
+Quali sono gli ambiti di visibilità di \texttt{private}, \texttt{protected}, package e \texttt{public}?
+\end{exercise}
+
+Rispettivamente classe dichiarante, stesso package o sottoclassi con restrizioni, stesso package e accesso generale (\cref{tab:fi-java-interfacce-accesso}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-protected}
+Perché un campo \texttt{protected} può compromettere l'incapsulamento?
+\end{exercise}
+
+Le sottoclassi e le classi del package possono dipendere direttamente dalla rappresentazione interna (\cref{sec:fi-java-interfacce-accesso}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-final}
+Che cosa impedisce \texttt{final} applicato a metodi e classi?
+\end{exercise}
+
+La sovrascrittura del metodo e, rispettivamente, l'estensione della classe (\cref{tab:fi-java-interfacce-final}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-interfaccia}
+Che cosa rappresenta un'interfaccia Java e come differisce da una classe?
+\end{exercise}
+
+Specifica un contratto comune senza costruttori o stato di istanza; una classe può contenere stato e consentire la costruzione di oggetti (\cref{def:fi-java-interfaccia}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-implements}
+Come si implementa un'interfaccia?
+\end{exercise}
+
+Si dichiara \texttt{implements}; una classe concreta deve fornire i metodi astratti richiesti non già implementati (\cref{sec:fi-java-interfacce-implementazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-tipi-metodi}
+Qual è la differenza tra metodi astratti, \texttt{static} e \texttt{default}?
+\end{exercise}
+
+I primi non hanno corpo; quelli \texttt{static} appartengono all'interfaccia; i \texttt{default} offrono una realizzazione di istanza ereditabile (\cref{sec:fi-java-interfacce-implementazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-variabile}
+Si può dichiarare una variabile di tipo interfaccia e costruirne direttamente un oggetto?
+\end{exercise}
+
+La variabile è ammessa e può indicare un oggetto di una classe che implementa l'interfaccia, ma non è valido \texttt{new NomeInterfaccia()} (\cref{sec:fi-java-interfacce-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-metodi-disponibili}
+Quali metodi sono utilizzabili attraverso un riferimento a un'interfaccia?
+\end{exercise}
+
+I membri resi accessibili dal contratto e i metodi di \texttt{Object} disponibili secondo Java, non direttamente i metodi propri della classe concreta (\cref{sec:fi-java-interfacce-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-polimorfismo}
+Come si manifesta il polimorfismo con \texttt{Comparable}?
+\end{exercise}
+
+Il tipo statico abilita \texttt{compareTo()}, mentre il metodo eseguito dipende dall'oggetto effettivamente referenziato (\cref{sec:fi-java-interfacce-riferimenti,sec:fi-java-interfacce-comparable}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-risultato-compareto}
+Quali valori può restituire \texttt{compareTo()}?
+\end{exercise}
+
+Un valore negativo se precede, zero se equivalente nell'ordine e positivo se segue; non necessariamente \(-1\) e \(1\) (\cref{def:fi-java-interfacce-comparable}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-generici}
+Che cosa si intende per programmazione generica?
+\end{exercise}
+
+La definizione di classi e metodi che usano parametri di tipo specializzati dal contesto o dall'utilizzo (\cref{def:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-vantaggi}
+Quali vantaggi hanno i generici rispetto a \texttt{Object} e ai cast?
+\end{exercise}
+
+Permettono di riusare codice con verifica statica dei tipi e riducono i cast espliciti al recupero dei dati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-sintassi}
+Come si dichiara una classe generica con parametro \texttt{T}?
+\end{exercise}
+
+Con \lstinline|class Box<T> { ... }|, dove \texttt{T} è utilizzabile nei tipi dei campi, dei parametri e dei risultati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-lettere}
+Che cosa indicano per convenzione \texttt{T}, \texttt{E}, \texttt{K}, \texttt{V} e \texttt{N}?
+\end{exercise}
+
+Tipo, elemento, chiave, valore e tipo numerico. Sono convenzioni e non identificatori riservati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-box-param}
+Che differenza c'è tra \lstinline|Box<T>| e \lstinline|Box<String>|?
+\end{exercise}
+
+Il primo usa il parametro di tipo della dichiarazione; il secondo specifica un tipo concreto in un utilizzo (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-box-string}
+Perché \lstinline|Box<String>| non può ricevere un \texttt{Integer}?
+\end{exercise}
+
+Il metodo \texttt{set()} richiede un \texttt{String}, e il controllo del tipo avviene in compilazione (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-metodo-generico}
+Come si dichiara un metodo generico?
+\end{exercise}
+
+Il parametro di tipo \lstinline|<T>| precede \texttt{void} nella dichiarazione del metodo \texttt{printArray()} (\cref{sec:fi-java-interfacce-metodi-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-array-algs}
+Come si adatta \texttt{selectionSort()} a oggetti confrontabili?
+\end{exercise}
+
+Gli elementi diventano \texttt{Comparable}; il confronto numerico è sostituito dal controllo del segno di \texttt{compareTo()} (\cref{sec:fi-java-interfacce-selection}).
+

@@ -1,0 +1,18 @@
+\begin{unipdcode}[language=Java]
+public interface Measurable {
+    double getMeasure();
+
+    default boolean smallerThan(Measurable other) {
+        return getMeasure() < other.getMeasure();
+    }
+
+    static double average(Measurable[] values) {
+        if (values.length == 0)
+            throw new IllegalArgumentException("Array vuoto");
+        double sum = 0;
+        for (Measurable item : values)
+            sum += item.getMeasure();
+        return sum / values.length;
+    }
+}
+\end{unipdcode}

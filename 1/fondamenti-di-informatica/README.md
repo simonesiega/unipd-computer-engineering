@@ -134,19 +134,29 @@
   - 15.2 Ereditarietà tra classi — p. 131
   - 15.3 Conversioni tra riferimenti — p. 133
   - 15.4 Polimorfismo — p. 134
-- 1 Esercizi: Introduzione all'informatica — p. 136
-- 2 Esercizi: Rappresentazione delle informazioni — p. 139
-- 3 Esercizi: Introduzione a Python — p. 143
-- 4 Esercizi: Ricorsione — p. 147
-- 5 Esercizi: Complessità computazionale — p. 150
-- 6 Esercizi: Ricerca e ordinamento — p. 154
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 159
-- 8 Esercizi: Introduzione a Java — p. 170
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 176
-- 10 Esercizi: Realizzazione di classi in Java — p. 179
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 181
-- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 186
-- 13 Esercizi: Array in Java — p. 189
-- 14 Esercizi: Ricerca e ordinamento in Java — p. 192
-- 15 Esercizi: Ereditarietà e polimorfismo in Java — p. 194
+- 16 Interfacce, classi astratte e generici in Java — p. 136
+  - 16.1 Obiettivi e principi della programmazione a oggetti — p. 136
+  - 16.2 La superclasse Object — p. 136
+  - 16.3 Controllo di accesso e final — p. 137
+  - 16.4 Interfacce e astrazione — p. 138
+  - 16.5 L'interfaccia Comparable — p. 140
+  - 16.6 La classe ArrayAlgs con Comparable — p. 140
+  - 16.7 Classi e metodi astratti — p. 142
+  - 16.8 Introduzione alle classi generiche — p. 142
+- 1 Esercizi: Introduzione all'informatica — p. 144
+- 2 Esercizi: Rappresentazione delle informazioni — p. 147
+- 3 Esercizi: Introduzione a Python — p. 151
+- 4 Esercizi: Ricorsione — p. 155
+- 5 Esercizi: Complessità computazionale — p. 158
+- 6 Esercizi: Ricerca e ordinamento — p. 162
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 167
+- 8 Esercizi: Introduzione a Java — p. 178
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 184
+- 10 Esercizi: Realizzazione di classi in Java — p. 187
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 189
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 194
+- 13 Esercizi: Array in Java — p. 197
+- 14 Esercizi: Ricerca e ordinamento in Java — p. 200
+- 15 Esercizi: Ereditarietà e polimorfismo in Java — p. 202
+- 16 Esercizi: Interfacce e generici in Java — p. 204
 <!-- GENERATED:END -->
