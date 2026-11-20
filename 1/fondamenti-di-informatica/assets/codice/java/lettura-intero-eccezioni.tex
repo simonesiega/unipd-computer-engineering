@@ -4,23 +4,16 @@ import java.util.Scanner;
 public class LetturaIntero {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        boolean valido = false;
-        int numero = 0;
-        while (!valido) {
+        while (true) {
             System.out.print("Inserisci un intero: ");
-            if (!in.hasNextLine()) {
-                break;
-            }
-            String riga = in.nextLine();
+            if (!in.hasNextLine()) return;
             try {
-                numero = Integer.parseInt(riga);
-                valido = true;
+                int numero = Integer.parseInt(in.nextLine());
+                System.out.println("Hai inserito: " + numero);
+                return;
             } catch (NumberFormatException e) {
                 System.err.println("Valore non valido.");
             }
-        }
-        if (valido) {
-            System.out.println("Hai inserito: " + numero);
         }
     }
 }

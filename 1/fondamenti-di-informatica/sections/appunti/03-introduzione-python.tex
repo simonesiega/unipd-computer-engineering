@@ -182,9 +182,7 @@ quando \texttt{x} vale zero.
 L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 \texttt{elif} introduce condizioni successive e \texttt{else} il caso
 residuo. In una catena condizionale viene eseguito soltanto il blocco
-associato alla prima condizione soddisfatta. Analogamente, \texttt{match},
-disponibile da Python 3.10, seleziona il primo \texttt{case} applicabile,
-senza richiedere \texttt{break}.
+associato alla prima condizione soddisfatta.
 
 \input{assets/codice/condizioni/esito}
 
@@ -195,6 +193,9 @@ all'indentazione precedente. La convenzione è utilizzare quattro spazi
 per livello. Un rientro non valido può produrre \texttt{IndentationError};
 un rientro sintatticamente valido ma errato può invece modificare la
 logica del programma.
+
+L'istruzione \texttt{match}, disponibile da Python 3.10, seleziona
+il primo \texttt{case} applicabile senza richiedere \texttt{break}.
 
 \clearpage
 
@@ -318,13 +319,7 @@ assumere la forma
   \text{\texttt{def somma(a: int, b: int) -> int:}}
 \]
 Le annotazioni non impongono controlli automatici sui tipi durante
-l'esecuzione. Una \emph{funzione annidata} è definita all'interno
-di un'altra funzione: viene creata durante l'esecuzione di quella
-esterna, ne può utilizzare le variabili locali ed è normalmente
-accessibile soltanto nel suo ambito. L'esempio seguente ne mostra
-l'impiego nel calcolo dell'area di un rettangolo.
-
-\input{assets/codice/funzioni/area}
+l'esecuzione.
 
 L'istruzione \texttt{return} termina la chiamata e restituisce un
 valore al chiamante; \texttt{print()} scrive invece sull'uscita
@@ -333,6 +328,14 @@ standard. Una funzione che termina senza \texttt{return} restituisce
 di norma \emph{locali} alla chiamata. Una funzione può anche
 restituire un booleano, per esempio con
 \texttt{return numero \% 2 == 0}.
+
+Una \emph{funzione annidata} è definita all'interno
+di un'altra funzione: viene creata durante l'esecuzione di quella
+esterna, ne può utilizzare le variabili locali ed è normalmente
+accessibile soltanto nel suo ambito. L'esempio seguente ne mostra
+l'impiego nel calcolo dell'area di un rettangolo.
+
+\input{assets/codice/funzioni/area}
 
 Le definizioni possono essere raccolte in \emph{moduli}, ossia file
 Python importabili. Salvando la definizione di

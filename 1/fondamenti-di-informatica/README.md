@@ -114,16 +114,25 @@
   - 12.2 I package di Java — p. 107
   - 12.3 Gestione delle eccezioni — p. 108
   - 12.4 Lettura e scrittura di file di testo — p. 111
-- 1 Esercizi: Introduzione all'informatica — p. 118
-- 2 Esercizi: Rappresentazione delle informazioni — p. 121
-- 3 Esercizi: Introduzione a Python — p. 125
-- 4 Esercizi: Ricorsione — p. 129
-- 5 Esercizi: Complessità computazionale — p. 132
-- 6 Esercizi: Ricerca e ordinamento — p. 136
-- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 141
-- 8 Esercizi: Introduzione a Java — p. 152
-- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 158
-- 10 Esercizi: Realizzazione di classi in Java — p. 161
-- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 163
-- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 168
+- 13 Array in Java — p. 118
+  - 13.1 Struttura, costruzione e accesso agli array — p. 118
+  - 13.2 Il ciclo for-each — p. 120
+  - 13.3 Ridimensionamento mediante copia — p. 120
+  - 13.4 Algoritmi su array: la classe ArrayAlgs — p. 121
+  - 13.5 Array bidimensionali — p. 123
+  - 13.6 Argomenti della riga di comando — p. 124
+  - 13.7 Array paralleli e array di oggetti — p. 125
+- 1 Esercizi: Introduzione all'informatica — p. 126
+- 2 Esercizi: Rappresentazione delle informazioni — p. 129
+- 3 Esercizi: Introduzione a Python — p. 133
+- 4 Esercizi: Ricorsione — p. 137
+- 5 Esercizi: Complessità computazionale — p. 140
+- 6 Esercizi: Ricerca e ordinamento — p. 144
+- 7 Esercizi: Strutture dati e tipi di dato astratti — p. 149
+- 8 Esercizi: Introduzione a Java — p. 160
+- 9 Esercizi: Collaudo, tipi di dato e input in Java — p. 166
+- 10 Esercizi: Realizzazione di classi in Java — p. 169
+- 11 Esercizi: Confronti, cicli e membri di classe in Java — p. 171
+- 12 Esercizi: Gestione delle eccezioni e dei file in Java — p. 176
+- 13 Esercizi: Array in Java — p. 179
 <!-- GENERATED:END -->

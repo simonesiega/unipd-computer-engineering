@@ -1,0 +1,13 @@
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize, numbers=none,
+  xleftmargin=0.6em, xrightmargin=0.6em,
+  framexleftmargin=0.2em]
+public static int findMin(int[] v) {
+    if (v == null || v.length == 0)
+        throw new IllegalArgumentException();
+    int min = v[0];
+    for (int i = 1; i < v.length; i++)
+        if (v[i] < min) min = v[i];
+    return min;
+}
+\end{unipdcode}

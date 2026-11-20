@@ -2,9 +2,13 @@
 \label{chap:eccezioni-file-java}
 
 Dopo lo studio di classi, metodi e riferimenti, si approfondiscono
-il passaggio dei parametri, i package, le eccezioni e l'accesso ai file
-di testo
-(\cref{chap:realizzazione-classi-java,chap:confronti-cicli-java}).\footnote{Materiale di riferimento:
+il passaggio dei parametri e l'organizzazione delle classi in package.
+Si introducono inoltre i meccanismi di gestione delle eccezioni,
+utilizzati per segnalare e trattare condizioni anomale durante
+l'esecuzione, e le operazioni di lettura e scrittura dei file di testo,
+che consentono la memorizzazione persistente dei dati
+(\cref{chap:realizzazione-classi-java,chap:confronti-cicli-java}).%
+\footnote{Materiale di riferimento:
 S. Canazza, \emph{Java: gestione delle eccezioni e lettura/scrittura
 di file}, \nolinkurl{2026_FI_11_canazza_Java_GestioneEccezioni_File.pdf}.}
 
@@ -66,6 +70,8 @@ System.out.println(risparmio.getBalance()); // 350.0
 \texttt{other.deposit(amount)} opera sull'oggetto destinatario.
 Si presuppongono i metodi \texttt{withdraw()} e \texttt{deposit()}
 introdotti nella \cref{sec:fi-java-classi-incapsulamento}.
+L'eccezione \texttt{IllegalArgumentException} è trattata nella
+\cref{sec:fi-java-file-eccezioni}.
 \end{example}
 
 \subsection{Invocazione di metodi di istanza}
@@ -286,6 +292,7 @@ terminazione anomala.
 \begin{example}[Richiesta di un intero]
 Il programma richiede un numero intero e ripete la lettura
 finché non riceve un valore valido o termina il flusso di input.
+
 \input{assets/codice/java/lettura-intero-eccezioni}
 
 Una conversione non valida genera \texttt{NumberFormatException}
@@ -304,8 +311,9 @@ senza nasconderlo con blocchi \texttt{catch} vuoti.
 \subsection{Eccezioni controllate e non controllate}
 \label{sec:fi-java-file-checked}
 
-Le eccezioni appartengono alla gerarchia di \texttt{Throwable}.
-Le sottoclassi di \texttt{Exception} includono
+Le classi delle eccezioni appartengono alla gerarchia di
+\texttt{Throwable}, da cui derivano \texttt{Error} ed
+\texttt{Exception}. Quest'ultima comprende, tra le altre,
 \texttt{RuntimeException} e \texttt{IOException}:
 
 \begin{figure}[htbp]
@@ -319,16 +327,29 @@ Le sottoclassi di \texttt{Exception} includono
 
 \begin{definition}[Eccezioni checked e unchecked]
 \label{def:fi-java-file-checked}
-Le eccezioni \emph{controllate} (\emph{checked}) devono essere
-intercettate oppure dichiarate con \texttt{throws}. Quelle
-\emph{non controllate} (\emph{unchecked}) sono le istanze di
-\texttt{RuntimeException} e \texttt{Error}, e delle rispettive
-sottoclassi: il compilatore non ne impone la gestione.
+Le eccezioni \emph{*controllate*} (\emph{*checked*}) sono
+le istanze di \texttt{Exception} e delle sue sottoclassi,
+escluse quelle derivate da \texttt{RuntimeException}.
+Devono essere intercettate mediante \texttt{catch} oppure
+dichiarate con \texttt{throws}.
+
+I tipi \emph{*non controllati*} (\emph{*unchecked*})
+comprendono \texttt{RuntimeException}, \texttt{Error}
+e le rispettive sottoclassi: il compilatore non impone
+di intercettarli o dichiararli.
 \end{definition}
 
-\texttt{IOException} è controllata;
-\texttt{IllegalArgumentException} e \texttt{NumberFormatException}
-non lo sono. La classificazione determina un obbligo di
+Le eccezioni controllate rappresentano generalmente condizioni
+di errore che il programma può essere chiamato a gestire,
+come problemi di accesso ai file. Quelle non controllate
+comprendono errori di programmazione e condizioni anomale
+dell'ambiente di esecuzione.
+
+\texttt{IOException} è controllata; \texttt{IllegalArgumentException}
+e \texttt{NumberFormatException} non lo sono.
+La dichiarazione \texttt{throws} consente di propagare
+un'eccezione al chiamante senza intercettarla.
+La classificazione determina quindi un obbligo di
 compilazione, non la gravità del problema.
 
 \clearpage
@@ -391,7 +412,8 @@ della JVM.
 I file conservano dati oltre la terminazione del programma
 (\cref{sec:fi-memoria-archiviazione}). Un file di testo memorizza
 byte interpretati come caratteri secondo una codifica, per esempio
-UTF-8 (\cref{sec:fi-caratteri}).
+UTF-8 (\cref{sec:fi-caratteri}). Le operazioni analoghe in Python
+sono introdotte nella \cref{sec:fi-python-file}.
 
 \subsection{Le API \texttt{java.io} e \texttt{java.nio}}
 \label{sec:fi-java-file-io-nio}
@@ -516,6 +538,8 @@ try (FileReader in = new FileReader("input.txt")) {
 }
 \end{unipdcode}
 
+L'esempio riguarda la chiusura automatica e lascia implicita la
+codifica; nelle operazioni effettive è opportuno specificarla.
 Più risorse, separate da \texttt{;}, sono chiuse nell'ordine
 inverso rispetto alla dichiarazione. Se la chiusura fallisce
 mentre è già presente un'altra eccezione, quella di chiusura
@@ -617,7 +641,7 @@ $ java Pappagallo < testo.txt > parole.txt 2> errori.txt
 
 \texttt{<} reindirizza l'ingresso, \texttt{>} l'uscita e
 \texttt{2>} il flusso di errore. \texttt{>} crea o sovrascrive
-il file, mentre \texttt{>>} aggiunge in fondo. Una \emph{pipe}
+il file, mentre \verb|>>| aggiunge in fondo. Una \emph{pipe}
 (\texttt{|})
 collega l'uscita standard di un programma all'ingresso di un altro:
 
