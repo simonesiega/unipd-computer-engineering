@@ -1,0 +1,439 @@
+\chapter[Lezione 19 --- 17 novembre 2026]{Lezione 19: parità, asintoti e limiti notevoli}
+\label{chap:lezione-19}
+
+\section{Parità e limiti unilateri}
+\label{sec:lez19-parita-limiti}
+
+\begin{proposition}[Limiti unilateri di una funzione pari(\cref{def:lez18-funzione-pari})]
+\label{prop:lez19-limiti-funzione-pari}
+Sia \(a>0\), si ponga
+\[
+  A:=(-a,a)\setminus\{0\},
+\]
+e sia \(f\colon A\longrightarrow\R\) pari.
+Per ogni \(\ell\in\overline{\R}\), si ha
+\[
+  \lim_{x\to0^-}f(x)=\ell
+  \quad\Longleftrightarrow\quad
+  \lim_{x\to0^+}f(x)=\ell.
+\]
+\end{proposition}
+
+\begin{proof}
+Si supponga che
+\[
+  \lim_{x\to0^-}f(x)=\ell.
+\]
+Per \(x\to0^+\), posto \(u:=-x\), si ha \(u\to0^-\).
+Poiché \(f\) è pari, per la
+\cref{def:lez18-funzione-pari} risulta
+\[
+  f(x)=f(-u)=f(u).
+\]
+Applicando il \cref{thm:lez16-limite-sostituzione},
+si ottiene
+\[
+  \lim_{x\to0^+}f(x)
+  =\lim_{u\to0^-}f(u)=\ell.
+\]
+L'implicazione inversa si dimostra scambiando
+il limite destro con quello sinistro.
+\end{proof}
+
+\begin{proposition}[Limiti unilateri di una funzione dispari(\cref{def:lez18-funzione-dispari})]
+\label{prop:lez19-limiti-funzione-dispari}
+Sia \(a>0\), si ponga
+\[
+  A:=(-a,a)\setminus\{0\},
+\]
+e sia \(f\colon A\longrightarrow\R\) dispari.
+Per ogni \(\ell\in\overline{\R}\), con la convenzione
+\(-(+\infty)=-\infty\) e \(-(-\infty)=+\infty\), vale
+\[
+  \lim_{x\to0^-}f(x)=\ell
+  \quad\Longleftrightarrow\quad
+  \lim_{x\to0^+}f(x)=-\ell.
+\]
+\end{proposition}
+
+\begin{proof}
+Si supponga che
+\[
+  \lim_{x\to0^-}f(x)=\ell.
+\]
+Per \(x\to0^+\), posto \(u:=-x\), si ha \(u\to0^-\).
+Poiché \(f\) è dispari, per la
+\cref{def:lez18-funzione-dispari} risulta
+\[
+  f(x)=f(-u)=-f(u).
+\]
+Applicando il \cref{thm:lez16-limite-sostituzione}
+e il \cref{thm:lez14-limite-prodotto},
+si ottiene
+\[
+  \lim_{x\to0^+}f(x)
+  =-\lim_{u\to0^-}f(u)=-\ell.
+\]
+L'implicazione inversa si dimostra scambiando
+il limite destro con quello sinistro.
+\end{proof}
+
+Per il \cref{thm:lez14-limite-unilateri},
+se \(f\) è pari ed esiste uno dei due limiti unilateri,
+esiste anche il limite bilatero con lo stesso valore.
+Se \(f\) è dispari ed entrambi i limiti unilateri sono
+finiti, il limite bilatero esiste se e solo se sono
+entrambi nulli.
+
+\section{Parità e coefficienti degli asintoti}
+\label{sec:lez19-parita-asintoti}
+
+La simmetria rispetto all'asse delle ordinate o
+all'origine consente di confrontare le rette
+asintotiche ai due estremi del dominio.
+
+\begin{exercise}[Coefficienti asintotici di funzioni pari e dispari]
+\label{ex:lez19-coefficienti-asintotici}
+Sia \(A\subseteq\R\) non limitato superiormente e
+inferiormente, simmetrico rispetto a zero, e sia
+\(f\colon A\longrightarrow\R\) pari oppure dispari.
+Si supponga che esistano finiti i limiti
+\[
+  m_+:=\lim_{x\to+\infty}\frac{f(x)}x,
+  \qquad
+  m_-:=\lim_{x\to-\infty}\frac{f(x)}x,
+\]
+\[
+  q_+:=\lim_{x\to+\infty}\bigl(f(x)-m_+x\bigr),
+  \qquad
+  q_-:=\lim_{x\to-\infty}\bigl(f(x)-m_-x\bigr),
+\]
+con i limiti intesi per \(x\in A\).
+Determinare le relazioni tra \(m_+,m_-\) e tra
+\(q_+,q_-\), distinguendo i due casi.
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+\emph{Primo caso: \(f\) pari.}
+Ponendo \(u:=-x\), per \(x\to-\infty\) si ha
+\(u\to+\infty\). Dalla parità segue
+\[
+\begin{aligned}
+  m_-
+  &=\lim_{u\to+\infty}\frac{f(-u)}{-u}
+   =-\lim_{u\to+\infty}\frac{f(u)}u
+   =-m_+,\\
+  q_-
+  &=\lim_{u\to+\infty}\bigl(f(-u)+m_+(-u)\bigr)
+   =\lim_{u\to+\infty}\bigl(f(u)-m_+u\bigr)
+   =q_+.
+\end{aligned}
+\]
+
+\emph{Secondo caso: \(f\) dispari.}
+Ponendo \(u:=-x\), per \(x\to-\infty\) si ha
+\(u\to+\infty\). Dalla disparità segue
+\[
+\begin{aligned}
+  m_-
+  &=\lim_{u\to+\infty}\frac{f(-u)}{-u}
+   =-\lim_{u\to+\infty}\frac{-f(u)}u
+   =m_+,\\
+  q_-
+  &=\lim_{u\to+\infty}\bigl(f(-u)+m_+u\bigr)
+   =-\lim_{u\to+\infty}\bigl(f(u)-m_+u\bigr)
+   =-q_+.
+\end{aligned}
+\]
+Pertanto, per una funzione pari,
+\[
+  m_-=-m_+ ,\qquad q_-=q_+,
+\]
+mentre, per una funzione dispari,
+\[
+  m_-=m_+ ,\qquad q_-=-q_+.
+\]
+\end{proof}
+
+Quando questi limiti esistono, le rette
+\(y=m_+x+q_+\) e \(y=m_-x+q_-\) descrivono
+il comportamento asintotico della funzione,
+rispettivamente per \(x\to+\infty\) e \(x\to-\infty\).
+
+\clearpage
+
+\section{Limiti notevoli derivati dal numero di Nepero}
+\label{sec:lez19-limiti-nepero}
+
+Si sviluppano alcune dimostrazioni dei limiti enunciati
+nel \cref{thm:lez17-limiti-notevoli}, a partire dal
+\cref{thm:lez17-numero-nepero}.
+
+Per le potenze con esponente reale e base variabile
+positiva si utilizza l'identità
+\[
+  f(x)^{g(x)}=e^{g(x)\log f(x)},
+\]
+valida nel dominio
+\[
+  D=(D_f\cap D_g)\cap\{x\in\R:f(x)>0\}.
+\]
+
+\begin{proposition}[Limite di Nepero per \(x\to\pm\infty\)]
+\label{prop:lez19-nepero-infinito}
+Si ha
+\[
+  \lim_{x\to+\infty}\left(1+\frac1x\right)^x=e,
+  \qquad
+  \lim_{x\to-\infty}\left(1+\frac1x\right)^x=e.
+\]
+Il dominio della funzione è
+\[
+  D=(-\infty,-1)\cup(0,+\infty).
+\]
+\end{proposition}
+
+\begin{proof}
+La base deve essere positiva e \(x\ne0\); pertanto
+\[
+  1+\frac1x>0
+  \quad\Longleftrightarrow\quad
+  x\in(-\infty,-1)\cup(0,+\infty).
+\]
+
+\emph{Primo caso: \(x\to+\infty\).}
+Per \(x>1\), si ponga \(k:=\lfloor x\rfloor\).
+Per la \cref{def:floor},
+\[
+  1\le k\le x<k+1,
+\]
+da cui
+\[
+  1+\frac1{k+1}<1+\frac1x\le1+\frac1k.
+\]
+Poiché le basi sono maggiori di \(1\), si ottiene
+\[
+  \left(1+\frac1{k+1}\right)^k
+  \le\left(1+\frac1{k+1}\right)^x
+  <\left(1+\frac1x\right)^x
+  \le\left(1+\frac1k\right)^x
+  <\left(1+\frac1k\right)^{k+1}.
+\]
+Per \(x\to+\infty\) si ha \(k\to+\infty\).
+Osservando che
+\[
+\begin{aligned}
+  \left(1+\frac1{k+1}\right)^k
+    &=\frac{\left(1+\frac1{k+1}\right)^{k+1}}
+            {1+\frac1{k+1}},\\[4pt]
+  \left(1+\frac1k\right)^{k+1}
+    &=\left(1+\frac1k\right)^k
+      \left(1+\frac1k\right),
+\end{aligned}
+\]
+per il \cref{thm:lez17-numero-nepero} e i
+\cref{thm:lez14-limite-prodotto,thm:lez14-limite-rapporto}
+entrambi gli estremi tendono a \(e\).
+Dal \cref{thm:lez12-tre-funzioni} segue
+\[
+  \lim_{x\to+\infty}\left(1+\frac1x\right)^x=e.
+\]
+
+\emph{Secondo caso: \(x\to-\infty\).}
+Posto \(t:=-x\), si ha \(t\to+\infty\) e, per \(t>1\),
+\[
+\begin{aligned}
+  \left(1+\frac1x\right)^x
+  &=\left(1-\frac1t\right)^{-t}
+   =\left(\frac{t}{t-1}\right)^t\\
+  &=\left(1+\frac1{t-1}\right)^{t-1}
+    \left(1+\frac1{t-1}\right).
+\end{aligned}
+\]
+Il primo fattore tende a \(e\) per il limite
+appena dimostrato, mentre il secondo tende a \(1\).
+Per il \cref{thm:lez14-limite-prodotto},
+si conclude
+\[
+  \lim_{x\to-\infty}\left(1+\frac1x\right)^x=e.
+\]
+\end{proof}
+
+\begin{proposition}[Limite di Nepero in zero]
+\label{prop:lez19-nepero-zero}
+Si ha
+\[
+  \lim_{x\to0}(1+x)^{1/x}=e.
+\]
+\end{proposition}
+
+\begin{proof}
+Si distinguono i limiti unilateri.
+Per \(x\to0^+\), posto \(t:=1/x\), si ha
+\(t\to+\infty\); quindi, per la
+\cref{prop:lez19-nepero-infinito},
+\[
+  \lim_{x\to0^+}(1+x)^{1/x}
+  =\lim_{t\to+\infty}\left(1+\frac1t\right)^t=e.
+\]
+Per \(x\to0^-\), si ha invece \(t\to-\infty\) e
+\[
+  \lim_{x\to0^-}(1+x)^{1/x}
+  =\lim_{t\to-\infty}\left(1+\frac1t\right)^t=e.
+\]
+I due limiti coincidono; per il
+\cref{thm:lez14-limite-unilateri}, segue la tesi.
+\end{proof}
+
+\begin{exercise}[Limiti esponenziali con parametro]
+\label{ex:lez19-limiti-parametro}
+Dimostrare mediante sostituzione che, per ogni
+\(\alpha\in\R\),
+\begin{enumerate}
+  \item
+  \[
+    \lim_{n\to+\infty}
+      \left(1+\frac\alpha n\right)^n=e^\alpha;
+  \]
+  \item
+  \[
+    \lim_{x\to+\infty}
+      \left(1+\frac\alpha x\right)^x=e^\alpha;
+  \]
+  \item
+  \[
+    \lim_{x\to-\infty}
+      \left(1+\frac\alpha x\right)^x=e^\alpha.
+  \]
+\end{enumerate}
+Le espressioni sono considerate nei rispettivi domini,
+nei quali la base è positiva.
+\end{exercise}
+
+
+\begin{proof}[Soluzione dell'esercizio]
+Se \(\alpha=0\), tutte le espressioni sono
+identicamente uguali a \(1=e^0\).
+
+Sia dunque \(\alpha\ne0\). Per ogni \(u>0\), si ha
+\[
+  u^\alpha=e^{\alpha\log u}.
+\]
+Poiché \(\lim_{u\to e}\log u=1\) per
+l'\cref{ex:lez18-limiti-logaritmo}, dal
+\cref{thm:lez18-limite-esponenziale} e dai teoremi
+sulle operazioni dei limiti segue
+\[
+  \lim_{u\to e}u^\alpha=e^\alpha.
+\]
+
+\emph{Primo e secondo punto.}
+Le due espressioni hanno la stessa forma: il primo
+limite è la restrizione del secondo ai valori
+naturali \(x=n\). È quindi sufficiente dimostrare
+il secondo limite.
+
+Ponendo \(t:=x/\alpha\), per \(x\to+\infty\)
+si ha \(t\to+\infty\) se \(\alpha>0\),
+mentre \(t\to-\infty\) se \(\alpha<0\).
+Poiché \(x=\alpha t\), segue
+\[
+  \left(1+\frac\alpha x\right)^x
+  =\left[\left(1+\frac1t\right)^t\right]^\alpha.
+\]
+Per la \cref{prop:lez19-nepero-infinito},
+l'espressione tra parentesi quadre tende a \(e\)
+in entrambi i casi. Pertanto
+\[
+  \lim_{x\to+\infty}
+    \left(1+\frac\alpha x\right)^x=e^\alpha.
+\]
+Restringendo \(x\) ai valori \(n\in\N\), per il
+\cref{thm:lez17-teorema-ponte} si ottiene anche
+\[
+  \lim_{n\to+\infty}
+    \left(1+\frac\alpha n\right)^n=e^\alpha.
+\]
+
+\emph{Terzo punto.}
+Ponendo nuovamente \(t:=x/\alpha\), per
+\(x\to-\infty\) si ha \(t\to-\infty\) se
+\(\alpha>0\), mentre \(t\to+\infty\) se
+\(\alpha<0\). Poiché \(x=\alpha t\), segue
+\[
+  \left(1+\frac\alpha x\right)^x
+  =\left[\left(1+\frac1t\right)^t\right]^\alpha.
+\]
+Per la \cref{prop:lez19-nepero-infinito},
+l'espressione tra parentesi quadre tende a \(e\)
+in entrambi i casi. Pertanto
+\[
+  \lim_{x\to-\infty}
+    \left(1+\frac\alpha x\right)^x=e^\alpha.
+\]
+\end{proof}
+
+\section{Limite notevole delle potenze in zero}
+\label{sec:lez19-limite-potenze}
+
+Si dimostra ora il sesto punto del
+\cref{thm:lez17-limiti-notevoli}, utilizzando
+il limite del logaritmo già stabilito nello stesso teorema.
+
+\begin{proposition}[Limite notevole delle potenze]
+\label{prop:lez19-limite-potenze}
+Per ogni \(\alpha\in\R\), si ha
+\[
+  \lim_{x\to0}\frac{(1+x)^\alpha-1}{x}=\alpha.
+\]
+\end{proposition}
+
+\begin{proof}
+La potenza reale \((1+x)^\alpha\) è considerata
+per \(x>-1\).
+
+\emph{Primo caso: \(\alpha=0\).}
+Il numeratore è nullo per ogni \(x>-1\),
+perciò il limite vale \(0=\alpha\).
+
+\emph{Secondo caso: \(\alpha\ne0\).}
+Si ponga
+\[
+  t:=(1+x)^\alpha-1.
+\]
+Poiché
+\[
+  (1+x)^\alpha=e^{\alpha\log(1+x)},
+\]
+per i limiti del logaritmo
+(\cref{ex:lez18-limiti-logaritmo})
+e dell'esponenziale (\cref{thm:lez18-limite-esponenziale})
+si ha \(t\to0\) per \(x\to0\).
+Inoltre, per \(x\ne0\) sufficientemente vicino a \(0\),
+si ha \(t\ne0\) e
+\[
+  \log(1+t)=\alpha\log(1+x).
+\]
+Pertanto
+\[
+\begin{aligned}
+  \frac{(1+x)^\alpha-1}{x}
+  &=\frac{t}{\log(1+t)}
+    \cdot\frac{\alpha\log(1+x)}{x}.
+\end{aligned}
+\]
+Dal quarto punto del \cref{thm:lez17-limiti-notevoli},
+applicato alla base \(e\), segue
+\[
+  \lim_{z\to0}\frac{\log(1+z)}z=1,
+  \qquad
+  \lim_{z\to0}\frac{z}{\log(1+z)}=1.
+\]
+Applicando il \cref{thm:lez16-limite-sostituzione}
+alla funzione \(t=(1+x)^\alpha-1\) e il
+\cref{thm:lez14-limite-prodotto}, si conclude
+\[
+  \lim_{x\to0}\frac{(1+x)^\alpha-1}{x}
+  =1\cdot\alpha=\alpha.
+\]
+\end{proof}

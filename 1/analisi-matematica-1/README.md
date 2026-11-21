@@ -91,17 +91,22 @@
   - 18.1 Limiti notevoli di successioni — p. 92
   - 18.2 Limite dell'esponenziale in un punto reale — p. 93
   - 18.3 Insiemi simmetrici e funzioni pari e dispari — p. 95
-- A Tutorato — p. 96
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 96
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 99
-- B Esercizi per argomento — p. 102
-  - Scala di difficoltà degli esercizi — p. 102
-  - B.1 Fondamenti — p. 103
-  - B.2 Limiti — p. 124
-  - B.3 Studio di funzione — p. 125
-  - B.4 Successioni — p. 126
-  - B.5 Serie numeriche — p. 127
-  - B.6 Integrali — p. 128
-  - B.7 Equazioni differenziali — p. 129
-  - B.8 Taylor e tecniche asintotiche — p. 130
+- 19 Lezione 19 --- 17 novembre 2026 — p. 96
+  - 19.1 Parità e limiti unilateri — p. 96
+  - 19.2 Parità e coefficienti degli asintoti — p. 97
+  - 19.3 Limiti notevoli derivati dal numero di Nepero — p. 98
+  - 19.4 Limite notevole delle potenze in zero — p. 100
+- A Tutorato — p. 101
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 101
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 104
+- B Esercizi per argomento — p. 107
+  - Scala di difficoltà degli esercizi — p. 107
+  - B.1 Fondamenti — p. 108
+  - B.2 Limiti — p. 129
+  - B.3 Studio di funzione — p. 130
+  - B.4 Successioni — p. 131
+  - B.5 Serie numeriche — p. 132
+  - B.6 Integrali — p. 133
+  - B.7 Equazioni differenziali — p. 134
+  - B.8 Taylor e tecniche asintotiche — p. 135
 <!-- GENERATED:END -->
