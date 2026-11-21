@@ -96,17 +96,22 @@
   - 19.2 Parità e coefficienti degli asintoti — p. 97
   - 19.3 Limiti notevoli derivati dal numero di Nepero — p. 98
   - 19.4 Limite notevole delle potenze in zero — p. 100
-- A Tutorato — p. 101
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 101
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 104
-- B Esercizi per argomento — p. 107
-  - Scala di difficoltà degli esercizi — p. 107
-  - B.1 Fondamenti — p. 108
-  - B.2 Limiti — p. 129
-  - B.3 Studio di funzione — p. 130
-  - B.4 Successioni — p. 131
-  - B.5 Serie numeriche — p. 132
-  - B.6 Integrali — p. 133
-  - B.7 Equazioni differenziali — p. 134
-  - B.8 Taylor e tecniche asintotiche — p. 135
+- 20 Lezione 20 --- 18 novembre 2026 — p. 101
+  - 20.1 Disuguaglianze trigonometriche — p. 101
+  - 20.2 Limiti delle funzioni trigonometriche — p. 102
+  - 20.3 Limiti notevoli trigonometrici — p. 103
+  - 20.4 Limiti delle funzioni logaritmiche — p. 104
+- A Tutorato — p. 106
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 106
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 109
+- B Esercizi per argomento — p. 112
+  - Scala di difficoltà degli esercizi — p. 112
+  - B.1 Fondamenti — p. 113
+  - B.2 Limiti — p. 134
+  - B.3 Studio di funzione — p. 135
+  - B.4 Successioni — p. 136
+  - B.5 Serie numeriche — p. 137
+  - B.6 Integrali — p. 138
+  - B.7 Equazioni differenziali — p. 139
+  - B.8 Taylor e tecniche asintotiche — p. 140
 <!-- GENERATED:END -->
