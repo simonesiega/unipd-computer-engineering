@@ -1,0 +1,61 @@
+\begin{tikzpicture}[unipd/diagram,x=1.36cm,y=1.10cm]
+  \pgfmathsetmacro{\xzero}{0.70}
+  \pgfmathsetmacro{\xval}{2.45}
+  \pgfmathsetmacro{\yzero}{.21*\xzero*\xzero+.25*\xzero+.85}
+  \pgfmathsetmacro{\yval}{.21*\xval*\xval+.25*\xval+.85}
+  \pgfmathsetmacro{\msec}{(\yval-\yzero)/(\xval-\xzero)}
+  \pgfmathsetmacro{\mtan}{.42*\xzero+.25}
+
+  % Assi
+  \draw[->,draw=unipd-muted] (-.46,0)--(3.22,0)
+    node[right] {$x$};
+  \draw[->,draw=unipd-muted] (0,-.18)--(0,3.58)
+    node[above] {$y$};
+
+  % Funzione
+  \draw[very thick,draw=unipd-accent,domain=-.30:2.89,samples=100]
+    plot (\x,{.21*\x*\x+.25*\x+.85});
+
+  % Secante
+  \draw[thick,draw=unipd-primary]
+    (-.08,{\yzero+\msec*(-.08-\xzero)})--
+    (2.93,{\yzero+\msec*(2.93-\xzero)});
+
+  % Tangente
+  \draw[thin,draw=unipd-muted]
+    (-.05,{\yzero+\mtan*(-.05-\xzero)})--
+    (2.94,{\yzero+\mtan*(2.94-\xzero)});
+
+  % Proiezioni sui due assi
+  \draw[densely dashed,draw=unipd-muted,opacity=.65]
+    (\xzero,0)--(\xzero,\yzero)
+    (\xval,0)--(\xval,\yval)
+    (0,\yzero)--(\xzero,\yzero)
+    (0,\yval)--(\xval,\yval);
+
+  % Punti
+  \fill[fill=unipd-accent] (\xzero,\yzero) circle (2.1pt);
+  \fill[fill=unipd-accent] (\xval,\yval) circle (2.1pt);
+
+  % Etichette sugli assi
+  \node[below=4pt] at (\xzero,0) {$x_0$};
+  \node[below=4pt] at (\xval,0) {$x$};
+  \node[left=5pt] at (0,\yzero) {$f(x_0)$};
+  \node[left=5pt] at (0,\yval) {$f(x)$};
+
+  % Legenda esterna
+  \draw[very thick,draw=unipd-accent]
+    (3.30,3.44)--(3.59,3.44);
+  \node[anchor=west,font=\sffamily\footnotesize,text=unipd-accent]
+    at (3.70,3.44) {funzione};
+
+  \draw[thick,draw=unipd-primary]
+    (3.30,3.04)--(3.59,3.04);
+  \node[anchor=west,font=\sffamily\footnotesize,text=unipd-primary]
+    at (3.70,3.04) {secante};
+
+  \draw[thin,draw=unipd-muted]
+    (3.30,2.64)--(3.59,2.64);
+  \node[anchor=west,font=\sffamily\footnotesize,text=unipd-muted]
+    at (3.70,2.64) {tangente};
+\end{tikzpicture}

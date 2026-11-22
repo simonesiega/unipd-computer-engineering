@@ -1,0 +1,25 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=.95cm]
+  % Stesse dimensioni e assi per entrambi i grafici.
+  \begin{scope}[shift={(0,0)}]
+    \draw[->,unipd-muted] (-1.65,0)--(1.65,0) node[right] {$x$};
+    \draw[->,unipd-muted] (0,-.18)--(0,2.05) node[above] {$y$};
+    \draw[very thick,unipd-primary]
+      (-1.35,1.35)--(0,0)--(1.35,1.35);
+    \fill[unipd-primary] (0,0) circle (1.7pt);
+    \node[below left] at (0,-.12) {$0$};
+    \node[align=center,font=\sffamily\footnotesize]
+      at (0,-.95) {Punto angoloso\\$f(x)=|x|$};
+  \end{scope}
+  \begin{scope}[shift={(4.70,0)}]
+    \draw[->,unipd-muted] (-1.65,0)--(1.65,0) node[right] {$x$};
+    \draw[->,unipd-muted] (0,-.18)--(0,2.05) node[above] {$y$};
+    \draw[very thick,unipd-primary,domain=0:1.5,samples=80]
+      plot (\x,{1.3*sqrt(\x)});
+    \draw[very thick,unipd-primary,domain=-1.5:0,samples=80]
+      plot (\x,{1.3*sqrt(-\x)});
+    \fill[unipd-primary] (0,0) circle (1.7pt);
+    \node[below left] at (0,-.12) {$0$};
+    \node[align=center,font=\sffamily\footnotesize]
+      at (0,-.95) {Punto cuspidale\\$g(x)=\sqrt{|x|}$};
+  \end{scope}
+\end{tikzpicture}

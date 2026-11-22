@@ -109,17 +109,24 @@
   - 21.5 Operazioni con funzioni continue — p. 110
   - 21.6 Continuità della funzione composta — p. 111
   - 21.7 Continuità dell'applicazione inversa — p. 111
-- A Tutorato — p. 113
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 113
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 116
-- B Esercizi per argomento — p. 119
-  - Scala di difficoltà degli esercizi — p. 119
-  - B.1 Fondamenti — p. 120
-  - B.2 Limiti — p. 141
-  - B.3 Studio di funzione — p. 142
-  - B.4 Successioni — p. 143
-  - B.5 Serie numeriche — p. 144
-  - B.6 Integrali — p. 145
-  - B.7 Equazioni differenziali — p. 146
-  - B.8 Taylor e tecniche asintotiche — p. 147
+- 22 Lezione 22 --- 20 novembre 2026 — p. 113
+  - 22.1 Rapporto incrementale e derivabilità — p. 113
+  - 22.2 Derivabilità e continuità — p. 114
+  - 22.3 Punti di non derivabilità — p. 114
+  - 22.4 Insiemi di continuità e derivabilità — p. 115
+  - 22.5 Funzione derivata prima — p. 115
+  - 22.6 Derivate delle funzioni fondamentali — p. 116
+- A Tutorato — p. 119
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 119
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 122
+- B Esercizi per argomento — p. 125
+  - Scala di difficoltà degli esercizi — p. 125
+  - B.1 Fondamenti — p. 126
+  - B.2 Limiti — p. 147
+  - B.3 Studio di funzione — p. 148
+  - B.4 Successioni — p. 149
+  - B.5 Serie numeriche — p. 150
+  - B.6 Integrali — p. 151
+  - B.7 Equazioni differenziali — p. 152
+  - B.8 Taylor e tecniche asintotiche — p. 153
 <!-- GENERATED:END -->

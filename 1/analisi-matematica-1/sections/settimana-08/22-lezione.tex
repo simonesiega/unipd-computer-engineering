@@ -1,0 +1,412 @@
+\chapter[Lezione 22 --- 20 novembre 2026]{Lezione 22: derivabilità e derivate delle funzioni fondamentali}
+\label{chap:lezione-22}
+
+\section{Rapporto incrementale e derivabilità}
+\label{sec:lez22-derivabilita}
+
+Sia \(f\colon I\longrightarrow\R\), con \(I\subseteq\R\)
+intervallo, e sia \(x_0\) un punto interno a \(I\)
+(ossia esiste \(\delta>0\) tale che
+\(D(x_0,\delta)\subseteq I\)).
+Per ogni \(x\in I\setminus\{x_0\}\), si considera
+la variazione della funzione rispetto alla variazione
+della variabile indipendente.
+
+\begin{definition}[Rapporto incrementale]
+\label{def:lez22-rapporto-incrementale}
+Il \emph{rapporto incrementale} di \(f\) in \(x_0\)
+è l'espressione
+\[
+  \frac{f(x)-f(x_0)}{x-x_0},
+  \qquad x\in I\setminus\{x_0\}.
+\]
+\end{definition}
+
+Il rapporto incrementale è il coefficiente angolare della
+retta secante al grafico di \(f\) nei punti
+\((x_0,f(x_0))\) e \((x,f(x))\).
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/rapporto-incrementale}
+  \caption{Il rapporto incrementale rappresenta la pendenza
+  della secante. Al tendere di \(x\) a \(x_0\), se il limite
+  è finito, la secante tende alla retta tangente.}
+  \label{fig:lez22-rapporto-incrementale}
+\end{figure}
+
+\begin{definition}[Derivabilità in un punto]
+\label{def:lez22-derivabilita}
+La funzione \(f\) si dice \emph{derivabile in \(x_0\)}
+se esiste ed è finito il limite
+\[
+  f'(x_0):=\lim_{x\to x_0}
+    \frac{f(x)-f(x_0)}{x-x_0}\in\R.
+\]
+Il numero \(f'(x_0)\) è detto \emph{derivata prima}
+di \(f\) in \(x_0\).
+\end{definition}
+
+Equivalentemente, posto \(h:=x-x_0\), si ha
+\[
+  f'(x_0)=\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}h.
+\]
+
+Se \(f\) è derivabile in \(x_0\), il coefficiente
+angolare della retta tangente al grafico in
+\((x_0,f(x_0))\) è \(f'(x_0)\); la sua equazione è
+\[
+  y-f(x_0)=f'(x_0)(x-x_0).
+\]
+Un rapporto incrementale che tenda a \(+\infty\)
+o \(-\infty\) non definisce una derivata finita:
+può indicare una tangente verticale, ma non la
+derivabilità nel senso della \cref{def:lez22-derivabilita}.
+
+\section{Derivabilità e continuità}
+\label{sec:lez22-derivabilita-continuita}
+
+\begin{theorem}[La derivabilità implica la continuità]
+\label{thm:lez22-derivabilita-continuita}
+Sia \(f\colon I\longrightarrow\R\), con \(I\)
+intervallo, e sia \(x_0\) interno a \(I\).
+Se \(f\) è derivabile in \(x_0\), allora è continua
+in \(x_0\).
+\end{theorem}
+
+\begin{proof}
+Per ogni \(x\ne x_0\), si ha
+\[
+  f(x)-f(x_0)
+  =\frac{f(x)-f(x_0)}{x-x_0}(x-x_0).
+\]
+Per la \cref{def:lez22-derivabilita}, il primo fattore
+tende a \(f'(x_0)\in\R\), mentre il secondo tende
+a \(0\). Dal \cref{thm:lez14-limite-prodotto} segue
+\[
+  \lim_{x\to x_0}\bigl(f(x)-f(x_0)\bigr)
+  =f'(x_0)\cdot0=0.
+\]
+Pertanto \(\lim_{x\to x_0}f(x)=f(x_0)\) e, per
+la \cref{def:lez21-continuita}, \(f\) è continua
+in \(x_0\).
+\end{proof}
+
+Il viceversa è falso, come mostra il seguente esempio.
+
+\begin{example}[Continuità senza derivabilità]
+\label{ex:lez22-valore-assoluto}
+La funzione \(f(x)=|x|\) è continua su \(\R\),
+ma non è derivabile in \(0\). Infatti,
+\[
+  \lim_{x\to0^+}\frac{|x|-|0|}{x-0}=1,
+  \qquad
+  \lim_{x\to0^-}\frac{|x|-|0|}{x-0}=-1.
+\]
+Poiché i limiti unilateri del rapporto incrementale
+sono diversi, la derivata in \(0\) non esiste.
+\end{example}
+
+\section{Punti di non derivabilità}
+\label{sec:lez22-punti-non-derivabilita}
+
+I limiti unilateri del rapporto incrementale
+permettono di distinguere alcuni comportamenti
+nei punti in cui la derivata non esiste.
+
+\begin{definition}[Punto angoloso]
+\label{def:lez22-punto-angoloso}
+Sia \(f\colon I\longrightarrow\R\), con \(x_0\)
+interno a \(I\). Il punto \(x_0\) si dice
+\emph{punto angoloso} se i due limiti unilateri
+\[
+  \lim_{x\to x_0^-}\frac{f(x)-f(x_0)}{x-x_0},
+  \qquad
+  \lim_{x\to x_0^+}\frac{f(x)-f(x_0)}{x-x_0}
+\]
+esistono finiti, ma sono diversi.
+\end{definition}
+
+\begin{definition}[Punto cuspidale]
+\label{def:lez22-punto-cuspidale}
+Sia \(f\colon I\longrightarrow\R\), con \(x_0\)
+interno a \(I\). Il punto \(x_0\) si dice
+\emph{punto cuspidale} se i due limiti unilateri
+\[
+  \lim_{x\to x_0^-}\frac{f(x)-f(x_0)}{x-x_0},
+  \qquad
+  \lim_{x\to x_0^+}\frac{f(x)-f(x_0)}{x-x_0}
+\]
+sono infiniti di segno opposto.
+\end{definition}
+
+In entrambi i casi la funzione non è derivabile in
+\(x_0\), poiché non esiste un limite bilatero finito.
+Anche un rapporto incrementale con un solo limite
+unilaterale infinito esclude la derivabilità, senza
+necessariamente individuare una cuspide.
+
+\clearpage
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/grafici/funzioni/punti-non-derivabilita}
+  \caption{Punto angoloso per \(f(x)=|x|\) (a sinistra)
+  e punto cuspidale per \(g(x)=\sqrt{|x|}\) (a destra),
+  entrambi nell'origine.}
+  \label{fig:lez22-punti-non-derivabilita}
+\end{figure}
+
+\begin{example}[Un punto cuspidale]
+\label{ex:lez22-radice-valore-assoluto}
+Si consideri \(g(x)=\sqrt{|x|}\), continua in \(0\).
+Poiché \(g(0)=0\), si ha
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\frac{g(x)-g(0)}{x}
+    &=\lim_{x\to0^+}\frac{1}{\sqrt{x}}=+\infty,\\
+  \lim_{x\to0^-}\frac{g(x)-g(0)}{x}
+    &=-\lim_{x\to0^-}\frac{1}{\sqrt{-x}}=-\infty.
+\end{aligned}
+\]
+Per la \cref{def:lez22-punto-cuspidale},
+\(0\) è un punto cuspidale di \(g\).
+\end{example}
+
+\section{Insiemi di continuità e derivabilità}
+\label{sec:lez22-insiemi-derivabilita}
+
+\begin{definition}[Insiemi di continuità e derivabilità]
+\label{def:lez22-insiemi-continuita-derivabilita}
+Sia \(f\colon I\longrightarrow\R\), con \(I\)
+intervallo. Si definiscono
+\[
+  D_{\mathrm{cont}}(f)
+  :=\{x\in I:f\text{ è continua in }x\},
+\]
+\[
+  D_{\mathrm{der}}(f)
+  :=\{x\in\operatorname{int}(I):f\text{ è derivabile in }x\}.
+\]
+\end{definition}
+
+Per il \cref{thm:lez22-derivabilita-continuita}, vale
+\[
+  D_{\mathrm{der}}(f)\subseteq D_{\mathrm{cont}}(f)
+  \subseteq I.
+\]
+L'inclusione inversa non vale in generale, come
+mostra l'\cref{ex:lez22-valore-assoluto}.
+
+\section{Funzione derivata prima}
+\label{sec:lez22-funzione-derivata}
+
+\begin{definition}[Funzione derivata prima]
+\label{def:lez22-funzione-derivata}
+Sia \(f\colon I\longrightarrow\R\). La
+\emph{funzione derivata prima} di \(f\) è
+l'applicazione
+\[
+  f'\colon D_{\mathrm{der}}(f)\longrightarrow\R,
+  \qquad x\longmapsto f'(x).
+\]
+La derivata si indica anche con \(f^{(1)}\) oppure
+con \(\frac{d}{dx}f\).
+\end{definition}
+
+Se \(f\) è derivabile in ogni punto interno a \(I\),
+allora \(D_{\mathrm{der}}(f)=\operatorname{int}(I)\).
+In particolare, se \(I\) è aperto, la derivata è
+definita sull'intero intervallo \(I\).
+
+\section{Derivate delle funzioni fondamentali}
+\label{sec:lez22-derivate-fondamentali}
+
+I limiti notevoli delle
+\cref{sec:lez17-limiti-notevoli,sec:lez19-limite-potenze,sec:lez20-limiti-notevoli-trigonometrici}
+permettono di calcolare le derivate delle principali
+funzioni elementari.
+
+\begin{proposition}[Derivate delle funzioni fondamentali]
+\label{prop:lez22-derivate-fondamentali}
+Valgono le seguenti formule:
+\begin{enumerate}
+  \item per ogni \(c\in\R\),
+  \[
+    f(x)=c\quad\Longrightarrow\quad f'(x)=0
+    \qquad\forall x\in\R;
+  \]
+  \item per ogni \(n\in\N\setminus\{0\}\),
+  \[
+    f(x)=x^n\quad\Longrightarrow\quad f'(x)=nx^{n-1}
+    \qquad\forall x\in\R;
+  \]
+  \item per ogni \(\alpha\in\R\),
+  \[
+    f(x)=x^\alpha\quad\Longrightarrow\quad
+    f'(x)=\alpha x^{\alpha-1}
+    \qquad\forall x>0;
+  \]
+  \item per ogni \(a>0\),
+  \[
+    f(x)=a^x\quad\Longrightarrow\quad
+    f'(x)=a^x\log a
+    \qquad\forall x\in\R;
+  \]
+  \item
+  \[
+    f(x)=e^x\quad\Longrightarrow\quad f'(x)=e^x
+    \qquad\forall x\in\R;
+  \]
+  \item
+  \[
+    f(x)=\sin x\quad\Longrightarrow\quad
+    f'(x)=\cos x
+    \qquad\forall x\in\R;
+  \]
+  \item
+  \[
+    f(x)=\cos x\quad\Longrightarrow\quad
+    f'(x)=-\sin x
+    \qquad\forall x\in\R;
+  \]
+  \item per ogni \(a>0\), con \(a\ne1\),
+  \[
+    f(x)=\log_a x\quad\Longrightarrow\quad
+    f'(x)=\frac{\log_a e}{x}
+    \qquad\forall x>0.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Dimostrazione del primo punto]
+Per \(f(x)=c\), per ogni \(x\in\R\) e \(h\ne0\),
+si ha
+\[
+  \frac{f(x+h)-f(x)}h=\frac{c-c}{h}=0.
+\]
+Pertanto \(f'(x)=0\) per ogni \(x\in\R\).
+\end{proof}
+
+\begin{proof}[Dimostrazione del secondo punto]
+\emph{Primo caso: \(n=1\).}
+Poiché \(f(x)=x\), per ogni \(h\ne0\),
+\[
+  \frac{f(x+h)-f(x)}h=\frac{(x+h)-x}{h}=1,
+\]
+e quindi \(f'(x)=1\).
+
+\emph{Secondo caso: \(n\ge2\).}
+Per \(x\ne0\), posto \(t:=h/x\), si ottiene
+\[
+\begin{aligned}
+  f'(x)
+  &=\lim_{h\to0}\frac{(x+h)^n-x^n}{h}\\
+  &=x^{n-1}\lim_{t\to0}\frac{(1+t)^n-1}{t}
+   =nx^{n-1},
+\end{aligned}
+\]
+per la \cref{prop:lez19-limite-potenze}.
+Per \(x=0\), invece,
+\[
+  f'(0)=\lim_{h\to0}\frac{h^n}{h}
+  =\lim_{h\to0}h^{n-1}=0.
+\]
+Pertanto \(f'(x)=nx^{n-1}\) per ogni \(x\in\R\)
+e ogni \(n\ge1\).
+\end{proof}
+
+\begin{proof}[Dimostrazione del terzo punto]
+Siano \(\alpha\in\R\) e \(x>0\). Per \(h\)
+sufficientemente piccolo si ha \(x+h>0\). Ponendo
+\(t:=h/x\), per la
+\cref{prop:lez19-limite-potenze} si ottiene
+\[
+\begin{aligned}
+  f'(x)
+  &=\lim_{h\to0}\frac{(x+h)^\alpha-x^\alpha}{h}\\
+  &=x^{\alpha-1}
+    \lim_{t\to0}\frac{(1+t)^\alpha-1}{t}\\
+  &=\alpha x^{\alpha-1}.
+\end{aligned}
+\]
+\end{proof}
+
+\begin{proof}[Dimostrazione del quarto punto]
+Siano \(a>0\) e \(x\in\R\). Per ogni \(h\ne0\),
+\[
+  \frac{a^{x+h}-a^x}{h}
+  =a^x\frac{a^h-1}{h}.
+\]
+Per il quinto punto del
+\cref{thm:lez17-limiti-notevoli}, segue
+\[
+  f'(x)=a^x\lim_{h\to0}\frac{a^h-1}{h}
+  =a^x\log a.
+\]
+Per \(a=1\), il risultato è \(0\), come per
+le funzioni costanti.
+\end{proof}
+
+\begin{proof}[Dimostrazione del quinto punto]
+Ponendo \(a=e\) nel quarto punto e ricordando che
+\(\log e=1\), si ha
+\[
+  \frac{d}{dx}e^x=e^x\log e=e^x.
+\]
+\end{proof}
+
+\begin{proof}[Dimostrazione del sesto punto]
+Per le formule di prostaferesi,
+\[
+\begin{aligned}
+  \frac{\sin(x+h)-\sin x}{h}
+  &=\frac{2\sin(h/2)\cos(x+h/2)}{h}\\
+  &=\frac{\sin(h/2)}{h/2}\cos\left(x+\frac h2\right).
+\end{aligned}
+\]
+Ponendo \(u:=h/2\), dal
+\cref{thm:lez20-limite-seno} e dalla
+\cref{prop:lez20-limiti-trigonometrici} segue
+\[
+  f'(x)=\lim_{u\to0}\frac{\sin u}{u}
+    \cos(x+u)=\cos x.
+\]
+\end{proof}
+
+\begin{proof}[Dimostrazione del settimo punto]
+Per le formule di prostaferesi,
+\[
+\begin{aligned}
+  \frac{\cos(x+h)-\cos x}{h}
+  &=-\frac{2\sin(x+h/2)\sin(h/2)}{h}\\
+  &=-\frac{\sin(h/2)}{h/2}\sin\left(x+\frac h2\right).
+\end{aligned}
+\]
+Ponendo \(u:=h/2\), dal
+\cref{thm:lez20-limite-seno} e dalla
+\cref{prop:lez20-limiti-trigonometrici} segue
+\[
+  f'(x)=-\lim_{u\to0}\frac{\sin u}{u}
+    \sin(x+u)=-\sin x.
+\]
+\end{proof}
+
+\begin{proof}[Dimostrazione dell'ottavo punto]
+Siano \(a>0\), con \(a\ne1\), e \(x>0\).
+Per \(h\) sufficientemente piccolo,
+\(1+h/x>0\), e dalle proprietà dei logaritmi segue
+\[
+\begin{aligned}
+  \frac{\log_a(x+h)-\log_a x}{h}
+  &=\frac{\log_a(1+h/x)}{h}\\
+  &=\frac1x\,\frac{\log_a(1+h/x)}{h/x}.
+\end{aligned}
+\]
+Posto \(t:=h/x\), per il quarto punto del
+\cref{thm:lez17-limiti-notevoli}, si ottiene
+\[
+  f'(x)=\frac1x\lim_{t\to0}
+    \frac{\log_a(1+t)}t=\frac{\log_a e}{x}.
+\]
+\end{proof}
