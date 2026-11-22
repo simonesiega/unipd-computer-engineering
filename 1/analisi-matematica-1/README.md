@@ -101,17 +101,25 @@
   - 20.2 Limiti delle funzioni trigonometriche — p. 102
   - 20.3 Limiti notevoli trigonometrici — p. 103
   - 20.4 Limiti delle funzioni logaritmiche — p. 104
-- A Tutorato — p. 106
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 106
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 109
-- B Esercizi per argomento — p. 112
-  - Scala di difficoltà degli esercizi — p. 112
-  - B.1 Fondamenti — p. 113
-  - B.2 Limiti — p. 134
-  - B.3 Studio di funzione — p. 135
-  - B.4 Successioni — p. 136
-  - B.5 Serie numeriche — p. 137
-  - B.6 Integrali — p. 138
-  - B.7 Equazioni differenziali — p. 139
-  - B.8 Taylor e tecniche asintotiche — p. 140
+- 21 Lezione 21 --- 19 novembre 2026 — p. 106
+  - 21.1 Continuità in un punto — p. 106
+  - 21.2 Continuità delle funzioni elementari — p. 106
+  - 21.3 Continuità unilaterale — p. 108
+  - 21.4 Classificazione delle discontinuità — p. 109
+  - 21.5 Operazioni con funzioni continue — p. 110
+  - 21.6 Continuità della funzione composta — p. 111
+  - 21.7 Continuità dell'applicazione inversa — p. 111
+- A Tutorato — p. 113
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 113
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 116
+- B Esercizi per argomento — p. 119
+  - Scala di difficoltà degli esercizi — p. 119
+  - B.1 Fondamenti — p. 120
+  - B.2 Limiti — p. 141
+  - B.3 Studio di funzione — p. 142
+  - B.4 Successioni — p. 143
+  - B.5 Serie numeriche — p. 144
+  - B.6 Integrali — p. 145
+  - B.7 Equazioni differenziali — p. 146
+  - B.8 Taylor e tecniche asintotiche — p. 147
 <!-- GENERATED:END -->
