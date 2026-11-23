@@ -1,2 +1,126 @@
 \subsection{Limiti unilateri e vincoli di dominio}
 \label{sec:esercizi-limiti-limiti-unilateri-e-dominio}
+
+\begin{exercise}[Limiti unilateri con polo semplice]
+\label{ex:limiti-foglio-2311-07}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to1}\frac{x^2-6x+5}{x^2-2x+1}.
+\]
+\rimandoteoria{def:lez14-limiti-unilateri}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per $x\ne1$, fattorizzando e semplificando si ottiene
+\[
+  \frac{x^2-6x+5}{x^2-2x+1}
+  =\frac{(x-1)(x-5)}{(x-1)^2}
+  =\frac{x-5}{x-1}.
+\]
+Poiché $x-5\to-4<0$ per $x\to1$ e $x-1$ cambia segno,
+\[
+  \lim_{x\to1^-}\frac{x-5}{x-1}=+\infty,
+  \qquad
+  \lim_{x\to1^+}\frac{x-5}{x-1}=-\infty.
+\]
+I limiti unilateri sono diversi, quindi il limite bilatero non esiste.
+\end{proof}
+
+\begin{exercise}[Fattore ripetuto al denominatore]
+\label{ex:limiti-foglio-2311-09}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to4}\frac{x^2-10x+24}{(x-4)^2}.
+\]
+\rimandoteoria{def:lez14-limiti-unilateri}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per $x\ne4$, fattorizzando e semplificando si ottiene
+\[
+  \frac{x^2-10x+24}{(x-4)^2}
+  =\frac{(x-4)(x-6)}{(x-4)^2}
+  =\frac{x-6}{x-4}.
+\]
+Poiché $x-6\to-2<0$ per $x\to4$ e $x-4$ cambia segno,
+\[
+  \lim_{x\to4^-}\frac{x-6}{x-4}=+\infty,
+  \qquad
+  \lim_{x\to4^+}\frac{x-6}{x-4}=-\infty.
+\]
+I limiti unilateri sono diversi, quindi il limite bilatero non esiste.
+\end{proof}
+
+\begin{exercise}[Sostituzione in un quoziente con radice]
+\label{ex:limiti-foglio-2311-10}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to1}\frac1{\sqrt{x}-2}.
+\]
+\rimandoteoria{thm:lez16-limite-sostituzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $\sqrt{x}-2\to-1\ne0$ per $x\to1$,
+per le proprietà dei limiti si ha
+\[
+  \lim_{x\to1}\frac1{\sqrt{x}-2}
+  =\frac1{1-2}=-1.
+\]
+\end{proof}
+
+\begin{exercise}[Denominatore quadratico di segno positivo]
+\label{ex:limiti-foglio-2311-11}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to1}\frac2{(x-1)^2}.
+\]
+\rimandoteoria{def:lez14-limiti-unilateri}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per $x\ne1$ si ha $(x-1)^2>0$ e $(x-1)^2\to0$ per $x\to1$.
+Pertanto
+\[
+  \lim_{x\to1^-}\frac2{(x-1)^2}
+  =\lim_{x\to1^+}\frac2{(x-1)^2}=+\infty.
+\]
+Il limite bilatero è quindi $+\infty$.
+\end{proof}
+
+\begin{exercise}[Segno di un quoziente presso zero]
+\label{ex:limiti-foglio-2311-15}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{2x-5}{x^2}.
+\]
+\rimandoteoria{def:lez14-limiti-unilateri}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $2x-5\to-5<0$ e $x^2\to0^+$ per $x\to0$,
+si ha
+\[
+  \lim_{x\to0^-}\frac{2x-5}{x^2}
+  =\lim_{x\to0^+}\frac{2x-5}{x^2}=-\infty.
+\]
+Il limite bilatero è quindi $-\infty$.
+\end{proof}
+
+\begin{exercise}[Denominatore non nullo nel punto]
+\label{ex:limiti-foglio-2311-22}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin x}{x-\pi}.
+\]
+\rimandoteoria{thm:lez14-limite-rapporto}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $\sin x\to0$ e $x-\pi\to-\pi\ne0$ per $x\to0$,
+per le proprietà dei limiti si ha
+\[
+  \lim_{x\to0}\frac{\sin x}{x-\pi}
+  =\frac0{-\pi}=0.
+\]
+\end{proof}

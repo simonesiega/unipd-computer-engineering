@@ -14,18 +14,18 @@ Si consideri la funzione \(f\colon\R\longrightarrow\R\) definita da
     -1, & x\in\Q.
   \end{cases}
 \]
-Si ha \(f(0)=-1\), ma \(f\) non ammette limite per \(x\to0\).
+In particolare, \(f(0)=-1\), ma \(f\) non ammette limite per \(x\to0\).
 \end{example}
 
 \begin{proof}
-Il dominio è \(A=\R\). Per ogni \(\delta>0\), il punto
+Il dominio della funzione è \(A=\R\). Per ogni \(\delta>0\), il punto
 \(a=\delta/2\) appartiene ad \(A\) e soddisfa
 \[
   0<|a|=\frac{\delta}{2}<\delta.
 \]
 Pertanto \(0\) è punto di accumulazione per \(A\).
 
-Si supponga anzitutto che
+Si supponga, per assurdo, che
 \[
   \lim_{x\to0}f(x)=\ell\in\R.
 \]
@@ -50,7 +50,7 @@ Per la disuguaglianza triangolare, ne segue
 \]
 una contraddizione.
 
-Neppure \(+\infty\) e \(-\infty\) possono essere limiti.
+Si escludono anche \(+\infty\) e \(-\infty\) come possibili limiti.
 Infatti, poiché \(-1\le f(x)\le1\) per ogni \(x\in\R\),
 la \cref{def:lez08-limite} non è soddisfatta scegliendo
 rispettivamente le soglie \(K=2\) e \(K=-2\).
@@ -64,7 +64,7 @@ Pertanto \(f\) non ammette limite per \(x\to0\).
 \label{prop:lez13-proprieta-limiti}
 Sia \(f\colon A\longrightarrow\R\), con \(A\subseteq\R\)
 non vuoto, e sia \(x_0\in\overline{\R}\) un punto di
-accumulazione per \(A\). Allora:
+accumulazione per \(A\). Valgono le seguenti proprietà:
 \begin{enumerate}
   \item per ogni \(\ell\in\R\),
   \[
@@ -99,8 +99,8 @@ Per ogni \(x\in A\) e \(\ell\in\R\),
 \[
   |(f(x)-\ell)-0|=|f(x)-\ell|.
 \]
-Le due condizioni della \cref{def:lez08-limite}
-coincidono, quindi vale l'equivalenza.
+Le condizioni della \cref{def:lez08-limite}
+coincidono, da cui segue l'equivalenza.
 
 \emph{Secondo punto.}
 Per ogni \(x\in A\),
@@ -129,7 +129,7 @@ Per gli stessi \(x\) si ha
 e quindi \(\lim_{x\to x_0}|f(x)|=|\ell|\).
 
 \emph{Quarto punto.}
-Si dimostrano separatamente le due implicazioni.
+Si verificano separatamente le due implicazioni.
 
 \emph{Prima implicazione \((\Rightarrow)\).}
 Si supponga \(f(x)\to0\) per \(x\to x_0\).

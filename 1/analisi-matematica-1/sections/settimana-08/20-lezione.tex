@@ -1,0 +1,397 @@
+\chapter[Lezione 20 --- 18 novembre 2026]{Lezione 20: limiti trigonometrici e logaritmici}
+\label{chap:lezione-20}
+
+\section{Disuguaglianze trigonometriche}
+\label{sec:lez20-disuguaglianze-trigonometriche}
+
+Il confronto geometrico sulla circonferenza unitaria
+fornisce le stime necessarie ai limiti trigonometrici.
+
+\begin{proposition}[Disuguaglianze per il seno]
+\label{prop:lez20-disuguaglianze-seno}
+Per ogni \(x\in(0,\pi/2)\), si ha
+\[
+  0<\sin x<x<\tan x.
+\]
+Inoltre, per ogni \(x\in\R\), vale
+\[
+  |\sin x|\le|x|.
+\]
+\end{proposition}
+
+\begin{proof}
+\emph{Primo punto.}
+Si consideri la circonferenza goniometrica e si indichino
+con \(O\) il centro, \(B=(1,0)\), \(C=(\cos x,\sin x)\)
+e \(D=(1,\tan x)\). Per \(0<x<\pi/2\), il triangolo
+\(OCB\) è contenuto nel settore circolare \(OCB\),
+a sua volta contenuto nel triangolo \(OBD\).
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[unipd/diagram,scale=2.8]
+    \def\ang{40}
+    \coordinate (O) at (0,0);
+    \coordinate (B) at (1,0);
+    \coordinate (C) at ({cos(\ang)},{sin(\ang)});
+    \coordinate (A) at ({cos(\ang)},0);
+    \coordinate (D) at (1,{tan(\ang)});
+    \draw[->,unipd-muted] (-0.10,0)--(1.32,0) node[right] {$x$};
+    \draw[->,unipd-muted] (0,-0.10)--(0,1.10) node[above] {$y$};
+    \fill[unipd-primary,opacity=.10]
+      (O)--(B) arc[start angle=0,end angle=\ang,radius=1]--cycle;
+    \draw[unipd-primary,very thick]
+      (B) arc[start angle=0,end angle=\ang,radius=1];
+    \draw[unipd-primary,line width=.8pt] (O)--(C)--(B);
+    \draw[unipd-muted,densely dashed] (C)--(A);
+    \draw[unipd-muted,line width=.8pt] (B)--(D);
+    \draw[unipd-primary,line width=.8pt] (O)--(D);
+    \draw[unipd-muted] (0.20,0) arc[start angle=0,end angle=\ang,radius=.20];
+    \node[below left] at (O) {$O$};
+    \node[below] at (A) {$A$};
+    \node[below] at (B) {$B$};
+    \node[above left] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node at (.29,.11) {$x$};
+  \end{tikzpicture}
+  \caption{Confronto tra il triangolo \(OCB\), il settore
+  circolare \(OCB\) e il triangolo \(OBD\) nella
+  circonferenza di raggio unitario.}
+  \label{fig:lez20-confronto-aree}
+\end{figure}
+
+Poiché il raggio è unitario, le rispettive aree sono
+\[
+\begin{aligned}
+  \operatorname{area}(\triangle OCB)&=\frac{\sin x}{2},\\
+  \operatorname{area}(\text{settore }OCB)&=\frac{x}{2},\\
+  \operatorname{area}(\triangle OBD)&=\frac{\tan x}{2}.
+\end{aligned}
+\]
+Dall'inclusione stretta tra le tre regioni segue
+\[
+  \frac{\sin x}{2}<\frac{x}{2}<\frac{\tan x}{2}.
+\]
+Poiché \(\sin x>0\), si conclude
+\[
+  0<\sin x<x<\tan x.
+\]
+
+\emph{Secondo punto.}
+Per \(0<x<\pi/2\), dal primo punto segue
+\(|\sin x|<|x|\). Se \(x\ge\pi/2\), invece,
+\[
+  |\sin x|\le1<\frac\pi2\le x.
+\]
+Per \(x<0\), posto \(u:=-x>0\),
+la disparità del seno dà
+\[
+  |\sin x|=|\sin u|\le u=|x|.
+\]
+Per \(x=0\) si ha \(|\sin0|=0\).
+Pertanto la disuguaglianza vale per ogni \(x\in\R\).
+\end{proof}
+
+\section{Limiti delle funzioni trigonometriche}
+\label{sec:lez20-limiti-trigonometrici}
+
+\begin{proposition}[Limiti di seno, coseno, tangente e cotangente]
+\label{prop:lez20-limiti-trigonometrici}
+Per ogni \(x_0\in\R\), si ha
+\[
+  \lim_{x\to x_0}\sin x=\sin x_0,
+  \qquad
+  \lim_{x\to x_0}\cos x=\cos x_0.
+\]
+Inoltre,
+\begin{enumerate}
+  \item se \(x_0\ne\pi/2+k\pi\) per ogni \(k\in\Z\),
+  \[
+    \lim_{x\to x_0}\tan x=\tan x_0;
+  \]
+  \item se \(x_0\ne k\pi\) per ogni \(k\in\Z\),
+  \[
+    \lim_{x\to x_0}\cot x=\cot x_0.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Primo punto: seno.}
+Per le formule di prostaferesi e la
+\cref{prop:lez20-disuguaglianze-seno}, si ha
+\[
+  |\sin x-\sin x_0|
+  =2\left|\cos\frac{x+x_0}{2}\right|
+    \left|\sin\frac{x-x_0}{2}\right|
+  \le2\left|\frac{x-x_0}{2}\right|
+  =|x-x_0|.
+\]
+Poiché \(|x-x_0|\to0\) per \(x\to x_0\), dal
+\cref{thm:lez12-tre-funzioni} segue
+\[
+  \lim_{x\to x_0}|\sin x-\sin x_0|=0,
+\]
+e quindi \(\lim_{x\to x_0}\sin x=\sin x_0\).
+
+\emph{Secondo punto: coseno.}
+Per le formule di prostaferesi e la
+\cref{prop:lez20-disuguaglianze-seno}, si ha
+\[
+  |\cos x-\cos x_0|
+  =2\left|\sin\frac{x+x_0}{2}\right|
+    \left|\sin\frac{x-x_0}{2}\right|
+  \le2\left|\frac{x-x_0}{2}\right|
+  =|x-x_0|.
+\]
+Poiché \(|x-x_0|\to0\) per \(x\to x_0\), dal
+\cref{thm:lez12-tre-funzioni} segue
+\[
+  \lim_{x\to x_0}|\cos x-\cos x_0|=0,
+\]
+e quindi \(\lim_{x\to x_0}\cos x=\cos x_0\).
+
+\emph{Terzo e quarto punto.}
+Per ogni \(x\) nei rispettivi domini,
+\[
+  \tan x=\frac{\sin x}{\cos x},
+  \qquad
+  \cot x=\frac{\cos x}{\sin x}.
+\]
+Se \(\cos x_0\ne0\), rispettivamente
+\(\sin x_0\ne0\), i limiti precedenti
+e il \cref{thm:lez14-limite-rapporto} danno
+\[
+  \lim_{x\to x_0}\tan x
+    =\frac{\sin x_0}{\cos x_0}=\tan x_0,
+  \qquad
+  \lim_{x\to x_0}\cot x
+    =\frac{\cos x_0}{\sin x_0}=\cot x_0,
+\]
+con ciascuna uguaglianza intesa nel proprio dominio.
+\end{proof}
+
+\clearpage
+
+\section{Limiti notevoli trigonometrici}
+\label{sec:lez20-limiti-notevoli-trigonometrici}
+
+Si dimostrano il settimo e l'ottavo punto del
+\cref{thm:lez17-limiti-notevoli}, utilizzando
+le disuguaglianze e i limiti precedenti.
+
+\begin{theorem}[Limite notevole del seno]
+\label{thm:lez20-limite-seno}
+Si ha
+\[
+  \lim_{x\to0}\frac{\sin x}{x}=1.
+\]
+\end{theorem}
+
+\begin{proof}
+Si consideri dapprima \(x\to0^+\).
+Per \(x\in(0,\pi/2)\), dalla
+\cref{prop:lez20-disuguaglianze-seno} segue
+\[
+  0<\sin x<x<\frac{\sin x}{\cos x}.
+\]
+Dividendo per \(\sin x>0\), si ottiene
+\[
+  1<\frac{x}{\sin x}<\frac1{\cos x}.
+\]
+Per la \cref{prop:lez20-limiti-trigonometrici},
+\[
+  \lim_{x\to0^+}\cos x=1.
+\]
+Dal \cref{thm:lez12-tre-funzioni} si ricava
+\[
+  \lim_{x\to0^+}\frac{x}{\sin x}=1,
+\]
+e dal \cref{thm:lez14-limite-rapporto} segue
+\[
+  \lim_{x\to0^+}\frac{\sin x}{x}=1.
+\]
+La funzione \(x\mapsto\sin x/x\) è pari nel
+suo dominio, poiché sia il seno sia la funzione
+\(x\mapsto x\) sono dispari:
+\[
+  \frac{\sin(-x)}{-x}
+  =\frac{-\sin x}{-x}
+  =\frac{\sin x}{x}.
+\]
+Per la \cref{prop:lez19-limiti-funzione-pari},
+anche il limite sinistro vale \(1\). I due limiti
+unilateri coincidono, quindi per il
+\cref{thm:lez14-limite-unilateri} si conclude
+\[
+  \lim_{x\to0}\frac{\sin x}{x}=1.
+\]
+\end{proof}
+
+Il limite mostra che, in prossimità di zero,
+\(\sin x\) e \(x\) sono asintoticamente equivalenti:
+il loro rapporto tende a \(1\). Pertanto, nel
+calcolo dei limiti, possono essere sostituiti
+l'uno con l'altro nei prodotti e nei quozienti.
+
+\begin{proposition}[Limite notevole del coseno]
+\label{prop:lez20-limite-coseno}
+Si ha
+\[
+  \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12.
+\]
+\end{proposition}
+
+\begin{proof}
+Per \(x\in(-\pi,\pi)\setminus\{0\}\),
+si moltiplicano numeratore e denominatore
+per \(1+\cos x\):
+\[
+\begin{aligned}
+  \frac{1-\cos x}{x^2}
+  &=\frac{1-\cos^2 x}{x^2(1+\cos x)}
+  &=\left(\frac{\sin x}{x}\right)^2
+    \frac1{1+\cos x}.
+\end{aligned}
+\]
+Per il \cref{thm:lez20-limite-seno}
+e la \cref{prop:lez20-limiti-trigonometrici},
+applicando i \cref{thm:lez14-limite-prodotto,thm:lez14-limite-rapporto},
+si ottiene
+\[
+  \lim_{x\to0}\frac{1-\cos x}{x^2}
+  =1^2\cdot\frac1{1+1}=\frac12.
+\]
+\end{proof}
+
+\clearpage
+
+\section{Limiti delle funzioni logaritmiche}
+\label{sec:lez20-limiti-logaritmo}
+
+\begin{proposition}[Limiti del logaritmo]
+\label{prop:lez20-limiti-logaritmo}
+Siano \(a>0\), con \(a\ne1\), e \(x_0>0\). Allora
+\[
+  \lim_{x\to1}\log_a x=0,
+  \qquad
+  \lim_{x\to x_0}\log_a x=\log_a x_0.
+\]
+\end{proposition}
+
+\begin{proof}
+Si considera dapprima il caso \(x_0=1\).
+Sia \(\varepsilon>0\).
+
+\emph{Primo caso: \(a>1\).}
+Poiché il logaritmo di base \(a\) è strettamente
+crescente, per l'\cref{ex:lez10-logaritmo-monotono}
+si ha
+\[
+\begin{aligned}
+  |\log_a x|<\varepsilon
+  &\quad\Longleftrightarrow\quad
+    -\varepsilon<\log_a x<\varepsilon
+  &\quad\Longleftrightarrow\quad
+    a^{-\varepsilon}<x<a^\varepsilon.
+\end{aligned}
+\]
+Poiché \(a^{-\varepsilon}<1<a^\varepsilon\),
+si scelga
+\[
+  \delta_\varepsilon
+  :=\min\{1-a^{-\varepsilon},a^\varepsilon-1\}>0.
+\]
+Per ogni \(x>0\) con \(|x-1|<\delta_\varepsilon\),
+risulta \(a^{-\varepsilon}<x<a^\varepsilon\),
+e quindi \(|\log_a x|<\varepsilon\).
+
+\emph{Secondo caso: \(0<a<1\).}
+Ponendo \(b:=1/a>1\), per la formula di cambiamento
+di base si ha \(\log_a x=-\log_b x\).
+Il logaritmo di base \(a\) è quindi strettamente
+decrescente. Pertanto
+\[
+\begin{aligned}
+  |\log_a x|<\varepsilon
+  &\quad\Longleftrightarrow\quad
+    -\varepsilon<\log_a x<\varepsilon
+  &\quad\Longleftrightarrow\quad
+    a^\varepsilon<x<a^{-\varepsilon}.
+\end{aligned}
+\]
+Poiché \(a^\varepsilon<1<a^{-\varepsilon}\),
+si scelga
+\[
+  \delta_\varepsilon
+  :=\min\{1-a^\varepsilon,a^{-\varepsilon}-1\}>0.
+\]
+Per ogni \(x>0\) con \(|x-1|<\delta_\varepsilon\),
+anche in questo caso si ha
+\(|\log_a x|<\varepsilon\).
+Per la \cref{def:lez08-limite}, in entrambi i casi
+segue
+\[
+  \lim_{x\to1}\log_a x=0.
+\]
+
+Si consideri ora \(x_0>0\) arbitrario. Ponendo
+\(t:=x/x_0\), per \(x\to x_0\) si ha \(t\to1\);
+inoltre, se \(x\ne x_0\), allora \(t\ne1\).
+Dalle proprietà dei logaritmi segue
+\[
+  \log_a x=\log_a\left(\frac{x}{x_0}\right)
+          +\log_a x_0.
+\]
+Per il \cref{thm:lez16-limite-sostituzione},
+applicato al limite appena dimostrato, e per il
+\cref{thm:lez14-limite-somma}, si conclude
+\[
+  \lim_{x\to x_0}\log_a x
+  =0+\log_a x_0=\log_a x_0.
+\]
+\end{proof}
+
+\begin{exercise}[Un limite con funzioni trigonometriche composte]
+\label{ex:lez20-coseno-seno-rapporto}
+Studiare il limite
+\[
+  \lim_{x\to0}\frac{1-\cos(\sin x)}{x^3}.
+\]
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+Per \(x\ne0\) sufficientemente vicino a zero,
+si può scrivere
+\[
+  \frac{1-\cos(\sin x)}{x^3}
+  =\frac{1-\cos(\sin x)}{(\sin x)^2}
+   \left(\frac{\sin x}{x}\right)^2\frac1x.
+\]
+Ponendo \(t:=\sin x\), per \(x\to0\)
+si ha \(t\to0\), per la
+\cref{prop:lez20-limiti-trigonometrici}. Inoltre,
+per \(x\ne0\) vicino a zero si ha \(t\ne0\).
+Per il \cref{thm:lez16-limite-sostituzione}
+e la \cref{prop:lez20-limite-coseno},
+\[
+  \lim_{x\to0}
+  \frac{1-\cos(\sin x)}{(\sin x)^2}=\frac12.
+\]
+Dal \cref{thm:lez20-limite-seno} segue anche
+\[
+  \lim_{x\to0}\left(\frac{\sin x}{x}\right)^2=1.
+\]
+Il prodotto dei primi due fattori tende quindi a
+\(1/2>0\). Poiché \(1/x\to+\infty\) per
+\(x\to0^+\) e \(1/x\to-\infty\) per \(x\to0^-\),
+per il \cref{thm:lez14-limite-prodotto} si ottiene
+\[
+  \lim_{x\to0^+}\frac{1-\cos(\sin x)}{x^3}=+\infty,
+  \qquad
+  \lim_{x\to0^-}\frac{1-\cos(\sin x)}{x^3}=-\infty.
+\]
+I due limiti unilateri hanno segno opposto; pertanto,
+per il \cref{thm:lez14-limite-unilateri},
+il limite richiesto non esiste.
+\end{proof}

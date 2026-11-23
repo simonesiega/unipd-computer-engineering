@@ -1,2 +1,61 @@
 \subsection{Cambio di variabile nei limiti}
 \label{sec:esercizi-limiti-cambio-di-variabile}
+
+\begin{exercise}[Argomento trigonometrico tendente a uno]
+\label{ex:limiti-foglio-2311-21}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin(\cos x)}{\cos x}.
+\]
+\rimandoteoria{prop:lez20-limiti-trigonometrici}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Posto $t:=\cos x$, si ha $t\to1$ per $x\to0$.
+Per continuità,
+\[
+  \lim_{x\to0}\frac{\sin(\cos x)}{\cos x}
+  =\lim_{t\to1}\frac{\sin t}{t}
+  =\sin1.
+\]
+\end{proof}
+
+\begin{exercise}[Seno di un reciproco a infinito]
+\label{ex:limiti-foglio-2311-23}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to+\infty}x\sin\left(\frac1x\right).
+\]
+\rimandoteoria{thm:lez20-limite-seno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Posto $t:=1/x$, si ha $t\to0^+$ per $x\to+\infty$.
+Per il limite notevole del seno,
+\[
+  \lim_{x\to+\infty}x\sin\left(\frac1x\right)
+  =\lim_{t\to0^+}\frac{\sin t}{t}
+  =1.
+\]
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Seno di un polinomio vicino a uno]
+\label{ex:limiti-foglio-2311-26}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to1}\frac{\sin(x^2-1)}{x-1}.
+\]
+\rimandoteoria{thm:lez20-limite-seno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Posto $t:=x-1$, si ha $t\to0$ per $x\to1$ e
+$x^2-1=t(t+2)$. Per il limite notevole del seno,
+\[
+  \lim_{x\to1}\frac{\sin(x^2-1)}{x-1}
+  =\lim_{t\to0}\frac{\sin(t(t+2))}{t(t+2)}(t+2)
+  =1\cdot2=2.
+\]
+\end{proof}

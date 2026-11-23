@@ -1,11 +1,50 @@
+% Insiemi numerici
 \newcourseterm{naturali}{\ensuremath{\N}}{Insieme dei numeri naturali, con $0\in\N$}
 \newcourseterm{interi}{\ensuremath{\Z}}{Insieme dei numeri interi}
 \newcourseterm{razionali}{\ensuremath{\Q}}{Insieme dei numeri razionali}
 \newcourseterm{reali}{\ensuremath{\R}}{Insieme dei numeri reali}
 \newcourseterm{reali-estesi}{\ensuremath{\overline{\R}}}{Insieme dei numeri reali estesi}
 
+% Logica e insiemi
+\newcourseterm{per-ogni}{\ensuremath{\forall}}{Per ogni}
+\newcourseterm{esiste}{\ensuremath{\exists}}{Esiste}
 \newcourseterm{esiste-unico}{\ensuremath{\exists!}}{Esiste ed è unico}
 \newcourseterm{inclusione}{\ensuremath{\subseteq}}{Inclusione tra insiemi, con uguaglianza ammessa}
+\newcourseterm{insieme-vuoto}{\ensuremath{\emptyset}}{Insieme vuoto}
+\newcourseterm{unione}{\ensuremath{A\cup B}}{Unione degli insiemi $A$ e $B$}
+\newcourseterm{intersezione}{\ensuremath{A\cap B}}{Intersezione degli insiemi $A$ e $B$}
+\newcourseterm{differenza-insiemi}{\ensuremath{A\setminus B}}{Elementi di $A$ che non appartengono a $B$}
+\newcourseterm{insieme-parti}{\ensuremath{\mathcal P(A)}}{Insieme delle parti di $A$}
 
+% Numeri e ordinamento
 \newcourseterm{parte-intera-inferiore}{\ensuremath{\lfloor x\rfloor}}{Parte intera inferiore di $x$}
 \newcourseterm{parte-intera-superiore}{\ensuremath{\lceil x\rceil}}{Parte intera superiore di $x$}
+\newcourseterm{fattoriale}{\ensuremath{n!}}{Fattoriale del numero naturale $n$}
+\newcourseterm{coefficiente-binomiale}{\ensuremath{\binom{n}{k}}}{Coefficiente binomiale di $n$ e $k$}
+\newcourseterm{estremo-superiore}{\ensuremath{\sup A}}{Estremo superiore dell'insieme $A$}
+\newcourseterm{estremo-inferiore}{\ensuremath{\inf A}}{Estremo inferiore dell'insieme $A$}
+
+% Applicazioni e funzioni
+\newcourseterm{dominio-funzione}{\ensuremath{D(f)}}{Dominio della funzione $f$}
+\newcourseterm{codominio-funzione}{\ensuremath{C(f)}}{Codominio della funzione $f$}
+\newcourseterm{immagine-funzione}{\ensuremath{\operatorname{Im}(f)}}{Immagine della funzione $f$}
+\newcourseterm{grafico-funzione}{\ensuremath{G(f)}}{Grafico della funzione $f$}
+\newcourseterm{controimmagine}{\ensuremath{f^{-1}(S)}}{Controimmagine di $S$ mediante $f$, anche se $f$ non è invertibile}
+\newcourseterm{funzione-inversa}{\ensuremath{f^{-1}}}{Funzione inversa di $f$, quando esiste}
+\newcourseterm{composizione-funzioni}{\ensuremath{g\circ f}}{Composizione di funzioni: $(g\circ f)(x)=g(f(x))$}
+\newcourseterm{funzione-identita}{\ensuremath{\operatorname{id}_A}}{Applicazione identità sull'insieme $A$}
+
+% Intorni, accumulazione e limiti
+\newcourseterm{intorno-circolare}{\ensuremath{D(x_0,\delta)}}{Intorno circolare di centro $x_0$ e raggio $\delta>0$}
+\newcourseterm{insieme-derivato}{\ensuremath{A'}}{Insieme dei punti di accumulazione di $A$}
+\newcourseterm{interno-insieme}{\ensuremath{\operatorname{int}(I)}}{Insieme dei punti interni a $I$}
+\newcourseterm{limite-funzione}{\ensuremath{\lim_{x\to x_0}f(x)}}{Limite di $f(x)$ per $x$ tendente a $x_0$}
+\newcourseterm{limiti-unilateri}{\ensuremath{\lim_{x\to x_0^\pm}f(x)}}{Limite destro ($+$) o sinistro ($-$) in $x_0$}
+
+% Continuità e derivabilità
+\newcourseterm{insieme-continuita}{\ensuremath{D_{\mathrm{cont}}(f)}}{Insieme dei punti di continuità di $f$}
+\newcourseterm{insieme-derivabilita}{\ensuremath{D_{\mathrm{der}}(f)}}{Insieme dei punti di derivabilità di $f$}
+\newcourseterm{derivata-prima}{\ensuremath{f'(x)}}{Derivata prima della funzione $f$}
+\newcourseterm{derivata-operatore}{\ensuremath{\frac{d}{dx}f(x)}}{Derivata di $f$ rispetto alla variabile $x$}
+\newcourseterm{derivata-in-un-punto}{\ensuremath{\left.\frac{df}{dx}\right|_{x=x_0}}}{Derivata di $f$ calcolata nel punto $x_0$}
+\newcourseterm{derivata-prima-alternativa}{\ensuremath{f^{(1)}(x)}}{Notazione alternativa per la derivata prima di $f$}

@@ -4,8 +4,8 @@
 \section{Coefficienti binomiali}
 \label{sec:lez03-coefficienti-binomiali}
 
-Il fattoriale, introdotto nella \cref{def:fattoriale},
-permette di definire i coefficienti binomiali per ogni coppia di
+A partire dal fattoriale, introdotto nella \cref{def:fattoriale},
+si definiscono i coefficienti binomiali per ogni coppia di
 numeri naturali.
 
 \begin{definition}[Coefficiente binomiale]
@@ -21,7 +21,7 @@ Siano \(n,k\in\N\). Il \emph{coefficiente binomiale} è definito da
 \]
 \end{definition}
 
-Dalla \cref{def:coefficiente-binomiale} si ricavano alcuni casi
+Dalla \cref{def:coefficiente-binomiale} seguono alcuni casi
 particolari. Per ogni \(n\in\N\), poiché \(0!=1\), si ha
 \[
   \binom{n}{0}=\frac{n!}{0!\,n!}=1,
@@ -66,7 +66,7 @@ Per ogni \(n,k\in\N\) con \(n\ge1\) e \(1\le k\le n\) vale
 
 \begin{proof}
 Si considera anzitutto il caso \(1\le k\le n-1\).
-Per la \cref{def:fattoriale} si ha
+Dalla \cref{def:fattoriale} si ha
 \[
   k!=k(k-1)!,
   \qquad
@@ -101,7 +101,7 @@ numero naturale:
   \binom{n}{k}\in\N
   \qquad\forall n,k\in\N.
 \]
-Questa proprietà viene qui enunciata senza dimostrazione.
+La proprietà viene qui enunciata senza dimostrazione.
 
 \section{Numeri reali}
 \label{sec:lez03-numeri-reali}
@@ -109,7 +109,7 @@ Questa proprietà viene qui enunciata senza dimostrazione.
 Come mostrato nel \cref{thm:irrazionalita-radice-due},
 l'equazione \(x^2=2\) non ammette soluzioni razionali.
 Si introduce quindi l'insieme dei numeri reali \(\R\),
-per il quale vale la catena di inclusioni
+con la seguente catena di inclusioni
 \[
   \N\subseteq\Z\subseteq\Q\subseteq\R.
 \]
@@ -117,7 +117,7 @@ L'esistenza in \(\R\) di un numero non negativo il cui quadrato
 sia \(2\) sarà ripresa nella
 \cref{sec:lez03-completezza-radice-due}.
 
-La completezza di \(\R\) viene formulata mediante
+La completezza di \(\R\) si esprime qui mediante
 l'assioma di separazione.
 
 Siano \(A,B\subseteq\R\) due insiemi non vuoti.
@@ -145,7 +145,7 @@ di \(A\) e \(B\).
 \section{Proprietà archimedea}
 \label{sec:lez03-proprieta-archimedea}
 
-L'\hyperref[ass:assioma-separazione]{assioma di separazione}
+L'\cref{ass:assioma-separazione}
 permette di dimostrare che l'insieme dei numeri naturali non è
 superiormente limitato in \(\R\).
 
@@ -178,7 +178,7 @@ quindi anche \(B\) è non vuoto. Inoltre,
   \qquad\forall n\in A=\N,\ \forall y\in B.
 \]
 Gli insiemi \(A\) e \(B\) sono pertanto separati.
-Per l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+Per l'\cref{ass:assioma-separazione}
 esiste \(\lambda\in\R\) tale che
 \[
   n\le\lambda\le y
@@ -207,8 +207,8 @@ tale che \(n>x\).
 \label{sec:lez03-parte-intera}
 
 Il \cref{thm:proprieta-archimedea} conduce alla seguente
-proprietà, che permette di individuare la posizione di ogni
-numero reale rispetto a due interi consecutivi.
+proprietà, che colloca ogni numero reale tra due interi
+consecutivi.
 
 \begin{proposition}[Proprietà della parte intera]
 \label{prop:parte-intera}
@@ -223,7 +223,7 @@ sviluppata in questa sede.
 
 \clearpage
 
-L'unico intero individuato dalla \cref{prop:parte-intera}
+L'unico intero della \cref{prop:parte-intera}
 è detto \emph{parte intera} di \(x\).
 
 \begin{definition}[Funzione floor]
@@ -333,7 +333,7 @@ per ogni \(m\in\Z\) si ha
 Si riprende l'equazione \(x^2=2\), che per il
 \cref{thm:irrazionalita-radice-due} non ammette soluzioni
 razionali, per esaminare il ruolo
-dell'\hyperref[ass:assioma-separazione]{assioma di separazione}
+dell'\cref{ass:assioma-separazione}
 nell'esistenza di una soluzione reale non negativa.
 
 Si considerino gli insiemi
@@ -352,7 +352,7 @@ Inoltre, per ogni \(a\in A\) e \(b\in B\), si ha
   a<b.
 \]
 Gli insiemi \(A\) e \(B\) sono quindi separati. Per
-l'\hyperref[ass:assioma-separazione]{assioma di separazione}
+l'\cref{ass:assioma-separazione}
 esiste \(\lambda\in\R\) tale che
 \[
   a\le\lambda\le b

@@ -4,7 +4,7 @@
 \section{Dominio, immagine e grafico dell'applicazione inversa}
 \label{sec:lez10-proprieta-inversa}
 
-La \cref{def:lez09-inversa} permette di precisare il rapporto
+Dalla \cref{def:lez09-inversa} seguono le relazioni
 tra dominio e immagine di un'applicazione iniettiva e della sua inversa.
 
 \begin{proposition}[Dominio e immagine dell'applicazione inversa]
@@ -41,7 +41,7 @@ Pertanto
 \[
   D(\varphi)\subseteq\operatorname{Im}(\varphi^{-1}).
 \]
-Dalla doppia inclusione si conclude
+Dalle due inclusioni segue
 \[
   \operatorname{Im}(\varphi^{-1})=D(\varphi).
 \]
@@ -49,8 +49,8 @@ Dalla doppia inclusione si conclude
 
 \begin{example}[Esponenziale e logaritmo]
 \label{ex:lez10-dominio-immagine-logaritmo}
-Per l'applicazione esponenziale \(\varphi\) e la sua inversa
-considerate nell'\cref{ex:lez09-inversa-esponenziale},
+Per l'esponenziale \(\varphi\) e la sua inversa,
+considerati nell'\cref{ex:lez09-inversa-esponenziale},
 la \cref{prop:lez10-dominio-immagine-inversa} fornisce
 \[
   D(\varphi^{-1})=(0,+\infty),
@@ -74,8 +74,8 @@ Infatti, per la \cref{def:lez07-grafico},
 
 \clearpage
 
-I due grafici sono quindi simmetrici rispetto alla retta
-\(y=x\), rappresentata nella \cref{fig:lez10-grafico-inversa}.
+I due grafici risultano quindi simmetrici rispetto alla retta
+\(y=x\), come illustrato nella \cref{fig:lez10-grafico-inversa}.
 
 \begin{figure}[htbp]
   \centering
@@ -90,9 +90,8 @@ I due grafici sono quindi simmetrici rispetto alla retta
 
 Siano \(A\subseteq\R\) e \(S\subseteq A\) insiemi
 non vuoti, e sia \(\varphi\colon A\longrightarrow\R\).
-Le definizioni seguenti si applicano, in particolare,
-quando \(S=I\) è un intervallo, nel senso della
-\cref{def:intervallo-retta-reale}.
+In particolare, le definizioni valgono quando \(S=I\)
+è un intervallo, secondo la \cref{def:intervallo-retta-reale}.
 
 \begin{definition}[Crescenza, decrescenza e monotonia]
 \label{def:lez10-monotonia}
@@ -120,7 +119,7 @@ L'insieme
 \[
   J=(1,2)\cup(2,4)
 \]
-non è un intervallo, benché sia unione di due intervalli.
+non è un intervallo, pur essendo unione di due intervalli.
 Infatti, scegliendo
 \[
   x_1=\frac32\in J,
@@ -166,8 +165,8 @@ con lo stesso procedimento si ottiene
 \]
 Pertanto \(-\varphi\) è debolmente crescente.
 
-Se le disuguaglianze iniziali sono strette,
-restano strette anche quelle ottenute moltiplicando per \(-1\).
+Le disuguaglianze strette restano tali anche
+dopo la moltiplicazione per \(-1\).
 \end{proof}
 
 \begin{proposition}[Monotonia del prodotto per una costante]
@@ -193,7 +192,7 @@ Se \(\varphi\) è debolmente crescente, allora
   c\varphi(x_1)\le c\varphi(x_2),
 \]
 quindi \(c\varphi\) è debolmente crescente.
-Se \(\varphi\) è debolmente decrescente, analogamente
+Se \(\varphi\) è debolmente decrescente, si ha analogamente
 \[
   \varphi(x_1)\ge\varphi(x_2)
   \quad\Longrightarrow\quad
@@ -314,7 +313,7 @@ quindi \(\varphi\psi\) è debolmente decrescente.
 
 Quando una funzione è crescente e l'altra decrescente,
 non si può dedurre, in generale, la monotonia del prodotto.
-Ad esempio, su \(I=[0,1]\) le funzioni non negative
+Per esempio, su \(I=[0,1]\) le funzioni non negative
 \(\varphi(x)=x\) e \(\psi(x)=1-x\) sono rispettivamente
 crescenti e decrescenti, ma
 \[
@@ -355,8 +354,8 @@ dunque \(\varphi\) è iniettiva per la
 \cref{def:lez06-iniettiva}.
 \end{proof}
 
-La seconda affermazione della
-\cref{prop:lez10-monotonia-inversa} è enunciata senza dimostrazione.
+Il secondo punto della \cref{prop:lez10-monotonia-inversa}
+è enunciato senza dimostrazione.
 
 \begin{example}[Monotonia del logaritmo e dell'esponenziale]
 \label{ex:lez10-logaritmo-monotono}
@@ -371,6 +370,7 @@ La sua applicazione inversa è la funzione esponenziale
   \qquad x\longmapsto a^x,
 \]
 che è strettamente crescente su \(\R\).
-Per la \cref{prop:lez10-monotonia-inversa}, anche
-\(\varphi\) è strettamente crescente su \((0,+\infty)\).
+Applicando la \cref{prop:lez10-monotonia-inversa}
+all'esponenziale, anche \(\varphi\) è strettamente
+crescente su \((0,+\infty)\).
 \end{example}

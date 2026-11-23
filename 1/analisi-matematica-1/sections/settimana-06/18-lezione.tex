@@ -4,7 +4,7 @@
 \section{Limiti notevoli di successioni}
 \label{sec:lez18-limiti-successioni}
 
-Si completano i limiti di successioni considerati nella
+Si completano i limiti notevoli delle successioni introdotti nella
 \cref{sec:lez17-limiti-successioni-notevoli}.
 
 \begin{proposition}[Limite della radice \(n\)-esima di \(n\)]
@@ -26,13 +26,13 @@ Poiché \(n^{1/n}=1+c_n\), dal
   n=(1+c_n)^n
   =\sum_{j=0}^{n}\binom{n}{j}c_n^j.
 \]
-Tutti gli addendi sono non negativi. Considerando quelli
-con \(j=0\) e \(j=2\), si ottiene
+Poiché tutti gli addendi sono non negativi, considerando
+quelli con \(j=0\) e \(j=2\) si ottiene
 \[
   n\ge1+\binom{n}{2}c_n^2
     =1+\frac{n(n-1)}2c_n^2.
 \]
-Pertanto, essendo \(n\ge2\),
+Poiché \(n\ge2\),
 \[
   \frac{n(n-1)}2c_n^2\le n-1
   \quad\Longrightarrow\quad
@@ -62,16 +62,16 @@ Per ogni \(a\in\R\), si ha
 
 \begin{proof}
 Se \(a=0\), il rapporto è nullo per ogni \(n\ge1\),
-e la tesi è immediata.
+quindi la tesi è immediata.
 
-Sia dunque \(a\ne0\). Per il
+Sia ora \(a\ne0\). Per il
 \cref{thm:proprieta-archimedea}, si può scegliere
 \(j\in\N\setminus\{0\}\) tale che
 \[
   j>|a|.
 \]
-Per ogni \(n\ge j\), si scriva \(n=j+m\), con
-\(m\in\N\). Dalla definizione di fattoriale si ricava
+Per \(n\ge j\), si scriva \(n=j+m\), con \(m\in\N\).
+Dalla definizione di fattoriale si ricava
 \[
 \begin{aligned}
   0<\frac{|a|^n}{n!}
@@ -111,7 +111,7 @@ perciò anche \(a^n/n!\to0\).
 \section{Limite dell'esponenziale in un punto reale}
 \label{sec:lez18-limite-esponenziale}
 
-Il limite della radice \(n\)-esima dimostrato nella
+Il limite delle radici \(n\)-esime della
 \cref{prop:lez17-radici-en} permette di studiare
 l'esponenziale in prossimità di un punto reale.
 
@@ -204,7 +204,7 @@ Poiché \(a^x=1/b^x\), per il
   \lim_{x\to0}a^x=1.
 \]
 
-Sia ora \(x_0\in\R\) arbitrario. Dall'identità
+Fissato \(x_0\in\R\), dall'identità
 \[
   a^x=a^{x_0}a^{x-x_0}
 \]
@@ -295,13 +295,13 @@ Si consideri la funzione
   f\colon\R\setminus\{0\}\longrightarrow\R,
   \qquad f(x):=\log|x|.
 \]
-Il dominio è simmetrico rispetto a zero. Per ogni
+Il dominio è simmetrico rispetto a zero e, per ogni
 \(x\ne0\), si ha
 \[
   f(-x)=\log|-x|=\log|x|=f(x).
 \]
 Per la \cref{def:lez18-funzione-pari},
-la funzione è pari.
+si conclude che la funzione è pari.
 \end{example}
 
 \begin{example}[Un dominio non simmetrico]

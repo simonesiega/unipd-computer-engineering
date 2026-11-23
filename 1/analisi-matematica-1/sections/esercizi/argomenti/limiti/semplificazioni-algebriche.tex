@@ -1,2 +1,96 @@
 \subsection{Semplificazioni algebriche}
 \label{sec:esercizi-limiti-semplificazioni-algebriche}
+
+\begin{exercise}[Fattorizzazione di una forma indeterminata]
+\label{ex:limiti-foglio-2311-04}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to2}\frac{x^2-3x+2}{x^2+2-6}.
+\]
+\rimandoteoria{thm:lez14-limite-rapporto}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per ogni $x$ nel dominio, fattorizzando e semplificando si ottiene
+\[
+  \frac{x^2-3x+2}{x^2+2-6}
+  =\frac{(x-1)(x-2)}{(x-2)(x+2)}
+  =\frac{x-1}{x+2}.
+\]
+Pertanto
+\[
+  \lim_{x\to2}\frac{x^2-3x+2}{x^2+2-6}
+  =\lim_{x\to2}\frac{x-1}{x+2}
+  =\frac14.
+\]
+\end{proof}
+
+\begin{exercise}[Semplificazione di un fattore comune]
+\label{ex:limiti-foglio-2311-05}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{x^2+3x}{x}.
+\]
+\rimandoteoria{thm:lez14-limite-somma}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per ogni $x$ nel dominio, raccogliendo $x$ e semplificando si ottiene
+\[
+  \frac{x^2+3x}{x}=x+3.
+\]
+Pertanto
+\[
+  \lim_{x\to0}\frac{x^2+3x}{x}
+  =\lim_{x\to0}(x+3)=3.
+\]
+\end{proof}
+
+\begin{exercise}[Semplificazione di due trinomi]
+\label{ex:limiti-foglio-2311-06}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to3}\frac{x^2-8x+15}{x^2-10x+21}.
+\]
+\rimandoteoria{thm:lez14-limite-rapporto}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per ogni $x$ nel dominio, fattorizzando e semplificando si ottiene
+\[
+  \frac{x^2-8x+15}{x^2-10x+21}
+  =\frac{(x-3)(x-5)}{(x-3)(x-7)}
+  =\frac{x-5}{x-7}.
+\]
+Pertanto
+\[
+  \lim_{x\to3}\frac{x^2-8x+15}{x^2-10x+21}
+  =\lim_{x\to3}\frac{x-5}{x-7}
+  =\frac{-2}{-4}=\frac12.
+\]
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Semplificazione di una differenza di quadrati]
+\label{ex:limiti-foglio-2311-08}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to2}\frac{x^2-4}{x^2-3x+2}.
+\]
+\rimandoteoria{thm:lez14-limite-rapporto}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per ogni $x$ nel dominio, fattorizzando e semplificando si ottiene
+\[
+  \frac{x^2-4}{x^2-3x+2}
+  =\frac{(x-2)(x+2)}{(x-2)(x-1)}
+  =\frac{x+2}{x-1}.
+\]
+Pertanto
+\[
+  \lim_{x\to2}\frac{x^2-4}{x^2-3x+2}
+  =\lim_{x\to2}\frac{x+2}{x-1}=4.
+\]
+\end{proof}

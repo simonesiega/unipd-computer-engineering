@@ -91,17 +91,48 @@
   - 18.1 Limiti notevoli di successioni — p. 92
   - 18.2 Limite dell'esponenziale in un punto reale — p. 93
   - 18.3 Insiemi simmetrici e funzioni pari e dispari — p. 95
-- A Tutorato — p. 96
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 96
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 99
-- B Esercizi per argomento — p. 102
-  - Scala di difficoltà degli esercizi — p. 102
-  - B.1 Fondamenti — p. 103
-  - B.2 Limiti — p. 124
-  - B.3 Studio di funzione — p. 125
-  - B.4 Successioni — p. 126
-  - B.5 Serie numeriche — p. 127
-  - B.6 Integrali — p. 128
-  - B.7 Equazioni differenziali — p. 129
-  - B.8 Taylor e tecniche asintotiche — p. 130
+- 19 Lezione 19 --- 17 novembre 2026 — p. 96
+  - 19.1 Parità e limiti unilateri — p. 96
+  - 19.2 Parità e coefficienti degli asintoti — p. 97
+  - 19.3 Limiti notevoli derivati dal numero di Nepero — p. 98
+  - 19.4 Limite notevole delle potenze in zero — p. 100
+- 20 Lezione 20 --- 18 novembre 2026 — p. 101
+  - 20.1 Disuguaglianze trigonometriche — p. 101
+  - 20.2 Limiti delle funzioni trigonometriche — p. 102
+  - 20.3 Limiti notevoli trigonometrici — p. 103
+  - 20.4 Limiti delle funzioni logaritmiche — p. 104
+- 21 Lezione 21 --- 19 novembre 2026 — p. 106
+  - 21.1 Continuità in un punto — p. 106
+  - 21.2 Continuità delle funzioni elementari — p. 106
+  - 21.3 Continuità unilaterale — p. 108
+  - 21.4 Classificazione delle discontinuità — p. 109
+  - 21.5 Operazioni con funzioni continue — p. 110
+  - 21.6 Continuità della funzione composta — p. 111
+  - 21.7 Continuità dell'applicazione inversa — p. 111
+- 22 Lezione 22 --- 20 novembre 2026 — p. 113
+  - 22.1 Rapporto incrementale e derivabilità — p. 113
+  - 22.2 Derivabilità e continuità — p. 114
+  - 22.3 Punti di non derivabilità — p. 114
+  - 22.4 Insiemi di continuità e derivabilità — p. 115
+  - 22.5 Funzione derivata prima — p. 115
+  - 22.6 Derivate delle funzioni fondamentali — p. 116
+- 23 Lezione 23 --- 21 novembre 2026 — p. 119
+  - 23.1 Teorema di Bernoulli--de l'Hôpital — p. 119
+  - 23.2 Esempi nella forma \(0/0\) — p. 119
+  - 23.3 Forme del teorema agli estremi e all'infinito — p. 121
+  - 23.4 Confronti di crescita — p. 122
+  - 23.5 Esercizio su continuità e derivabilità — p. 123
+- A Tutorato — p. 125
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 125
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 128
+- B Esercizi per argomento — p. 131
+  - Scala di difficoltà degli esercizi — p. 131
+  - B.1 Fondamenti — p. 132
+  - B.2 Limiti — p. 153
+  - B.3 Studio di funzione — p. 162
+  - B.4 Successioni — p. 163
+  - B.5 Serie numeriche — p. 164
+  - B.6 Integrali — p. 165
+  - B.7 Equazioni differenziali — p. 166
+  - B.8 Taylor e tecniche asintotiche — p. 167
 <!-- GENERATED:END -->

@@ -1,2 +1,155 @@
 \subsection{Confronto dei termini nei limiti all'infinito}
 \label{sec:esercizi-limiti-limiti-all-infinito}
+
+\begin{exercise}[Rapporto di polinomi dello stesso grado]
+\label{ex:limiti-foglio-2311-01}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to+\infty}\frac{3x^2-x+5}{2x^2+4x+1}.
+\]
+\rimandoteoria{sec:lez09-limite-infinito}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Dividendo numeratore e denominatore per $x^2$, si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to+\infty}\frac{3x^2-x+5}{2x^2+4x+1}
+    &=\lim_{x\to+\infty}
+      \frac{3-\frac1x+\frac5{x^2}}{2+\frac4x+\frac1{x^2}}\\
+    &=\frac32.
+\end{aligned}
+\]
+\end{proof}
+
+\begin{exercise}[Denominatore di grado maggiore]
+\label{ex:limiti-foglio-2311-02}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to+\infty}\frac{x^2+2x+5}{2x^3-3x^2+9}.
+\]
+\rimandoteoria{sec:lez09-limite-infinito}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Dividendo numeratore e denominatore per $x^3$, si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to+\infty}\frac{x^2+2x+5}{2x^3-3x^2+9}
+    &=\lim_{x\to+\infty}
+      \frac{\frac1x+\frac2{x^2}+\frac5{x^3}}{2-\frac3x+\frac9{x^3}}\\
+    &=0.
+\end{aligned}
+\]
+Il rapporto tende a $0$ da valori positivi.
+\end{proof}
+
+\begin{exercise}[Quoziente polinomiale a meno infinito]
+\label{ex:limiti-foglio-2311-03}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to-\infty}\frac{x^2-2}{x}.
+\]
+\rimandoteoria{sec:lez08-limite-casi}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Semplificando il rapporto, si ottiene
+\[
+  \lim_{x\to-\infty}\frac{x^2-2}{x}
+  =\lim_{x\to-\infty}\left(x-\frac2x\right)
+  =-\infty.
+\]
+\end{proof}
+
+\begin{exercise}[Logaritmo di un polinomio]
+\label{ex:limiti-foglio-2311-12}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to+\infty}\log_{10}(x^2-3).
+\]
+\rimandoteoria{thm:lez15-limiti-esponenziale-logaritmo}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $x^2-3\to+\infty$ per $x\to+\infty$ e $10>1$,
+per il limite del logaritmo segue
+\[
+  \lim_{x\to+\infty}\log_{10}(x^2-3)=+\infty.
+\]
+\end{proof}
+
+\begin{exercise}[Radicale con termine infinitesimo]
+\label{ex:limiti-foglio-2311-13}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to+\infty}\sqrt{1+\frac4x}.
+\]
+\rimandoteoria{thm:lez16-limite-sostituzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $1+4/x\to1$ per $x\to+\infty$,
+per continuità della radice quadrata si ha
+\[
+  \lim_{x\to+\infty}\sqrt{1+\frac4x}=1.
+\]
+\end{proof}
+
+\begin{exercise}[Radicale con quoziente a meno infinito]
+\label{ex:limiti-foglio-2311-14}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to-\infty}\sqrt{\frac{1-x}{x^2}}.
+\]
+\rimandoteoria{thm:lez16-limite-sostituzione}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Per $x<0$ il radicando è positivo e
+\[
+  \lim_{x\to-\infty}\frac{1-x}{x^2}
+  =\lim_{x\to-\infty}\left(\frac1{x^2}-\frac1x\right)=0.
+\]
+Per continuità della radice quadrata segue
+\[
+  \lim_{x\to-\infty}\sqrt{\frac{1-x}{x^2}}=0.
+\]
+\end{proof}
+
+\begin{exercise}[Radice cubica di una quantità divergente]
+\label{ex:limiti-foglio-2311-16}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to-\infty}\sqrt[3]{2-x}.
+\]
+\rimandoteoria{sec:lez08-limite-casi}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $2-x\to+\infty$ per $x\to-\infty$,
+segue
+\[
+  \lim_{x\to-\infty}\sqrt[3]{2-x}=+\infty.
+\]
+\end{proof}
+
+\begin{exercise}[Prodotto con un radicale convergente]
+\label{ex:limiti-foglio-2311-17}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to-\infty}x\sqrt{3+\frac5x}.
+\]
+\rimandoteoria{thm:lez14-limite-prodotto}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché
+\[
+  \lim_{x\to-\infty}\sqrt{3+\frac5x}=\sqrt3>0,
+\]
+e $x\to-\infty$, il prodotto diverge negativamente:
+\[
+  \lim_{x\to-\infty}x\sqrt{3+\frac5x}=-\infty.
+\]
+\end{proof}

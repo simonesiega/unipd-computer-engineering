@@ -1,0 +1,442 @@
+\chapter[Lezione 23 --- 21 novembre 2026]{Lezione 23: teorema di Bernoulli--de l'Hôpital e applicazioni}
+\label{chap:lezione-23}
+
+\section{Teorema di Bernoulli--de l'Hôpital}
+\label{sec:lez23-hopital}
+
+Il teorema di Bernoulli--de l'Hôpital permette di ricondurre
+il limite di un rapporto indeterminato al limite del rapporto
+tra le derivate, purché siano verificate le sue ipotesi.
+
+\begin{theorem}[Teorema di Bernoulli--de l'Hôpital: forma \(0/0\)]
+\label{thm:lez23-hopital-zero}
+Siano \(a,b\in\R\), con \(a<b\), e siano
+\(f,g\colon(a,b)\longrightarrow\R\) derivabili su \((a,b)\),
+con \(g'(x)\ne0\) per ogni \(x\in(a,b)\).
+Si supponga che
+\[
+  \lim_{x\to a^+}f(x)=\lim_{x\to a^+}g(x)=0
+\]
+e che esista finito il limite
+\[
+  \lim_{x\to a^+}\frac{f'(x)}{g'(x)}=\ell\in\R.
+\]
+Allora
+\[
+  \lim_{x\to a^+}\frac{f(x)}{g(x)}=\ell.
+\]
+\end{theorem}
+
+L'enunciato vale anche per \(x\to b^-\) e per i limiti
+unilateri in un punto interno al dominio, assumendo
+le stesse ipotesi nell'intervallo da cui si tende al punto.
+Se le ipotesi valgono da entrambi i lati e il rapporto
+tra le derivate ammette lo stesso limite, il risultato
+vale anche per il limite bilatero.
+La dimostrazione del teorema non viene sviluppata in questa sede.
+
+\begin{remark}[Condizioni di applicabilità]
+\label{rem:lez23-hopital-condizioni}
+Prima di applicare il \cref{thm:lez23-hopital-zero}
+è necessario verificare che il rapporto sia della forma
+indeterminata \(0/0\), che il denominatore derivato non
+si annulli e che esista il limite del rapporto tra le derivate.
+Se quest'ultimo limite non esiste, il teorema non permette
+di concludere che non esista neppure il limite iniziale.
+Inoltre non si può usare il teorema per dimostrare un limite
+da cui dipende la formula di derivazione impiegata:
+per esempio, non è lecito dedurre
+\(\lim_{x\to0}\sin x/x=1\) utilizzando
+\((\sin x)'=\cos x\), poiché tale formula è stata
+ricavata proprio da quel limite nel
+\cref{thm:lez20-limite-seno}.
+\end{remark}
+
+\section{Esempi nella forma \(0/0\)}
+\label{sec:lez23-esempi-zero}
+
+\begin{example}[Limite di \((x-\sin x)/x^3\)]
+\label{ex:lez23-seno-cubico}
+Si consideri
+\[
+  \lim_{x\to0^+}\frac{x-\sin x}{x^3}.
+\]
+Il numeratore e il denominatore tendono a \(0\).
+Per \(x>0\), posto \(f(x):=x-\sin x\) e
+\(g(x):=x^3\), si ha
+\[
+  f'(x)=1-\cos x,
+  \qquad g'(x)=3x^2\ne0.
+\]
+Per la \cref{prop:lez20-limite-coseno},
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\frac{f'(x)}{g'(x)}
+  &=\frac13\lim_{x\to0^+}\frac{1-\cos x}{x^2}\\
+  &=\frac13\cdot\frac12=\frac16.
+\end{aligned}
+\]
+Pertanto, per il \cref{thm:lez23-hopital-zero},
+\[
+  \lim_{x\to0^+}\frac{x-\sin x}{x^3}=\frac16.
+\]
+\end{example}
+
+\begin{example}[Il limite del rapporto può esistere senza il limite delle derivate]
+\label{ex:lez23-hopital-non-applicabile}
+Si consideri
+\[
+  \lim_{x\to0^+}\frac{x^2\sin(1/x)}{2x+\sin x}.
+\]
+Posti \(f(x):=x^2\sin(1/x)\) e
+\(g(x):=2x+\sin x\), entrambi i termini tendono
+a \(0\) per \(x\to0^+\). Inoltre, per \(x>0\),
+\[
+  f'(x)=2x\sin(1/x)-\cos(1/x),
+  \qquad g'(x)=2+\cos x\ge1.
+\]
+Tuttavia il limite di \(f'(x)/g'(x)\) non esiste.
+Infatti, scegliendo
+\[
+  a_n:=\frac1{2\pi n},
+  \qquad b_n:=\frac1{(2n+1)\pi},
+  \qquad n\ge1,
+\]
+si ottiene
+\[
+  \lim_{n\to+\infty}\frac{f'(a_n)}{g'(a_n)}=-\frac13,
+  \qquad
+  \lim_{n\to+\infty}\frac{f'(b_n)}{g'(b_n)}=\frac13.
+\]
+Il teorema non è quindi applicabile. Il limite richiesto,
+però, esiste: per \(x>0\) si può scrivere
+\[
+  \frac{x^2\sin(1/x)}{2x+\sin x}
+  =\frac{x\sin(1/x)}{2+\dfrac{\sin x}{x}}.
+\]
+Poiché \(|x\sin(1/x)|\le x\to0\) e,
+per il \cref{thm:lez20-limite-seno},
+\(2+\sin x/x\to3\), si conclude
+\[
+  \lim_{x\to0^+}\frac{x^2\sin(1/x)}{2x+\sin x}=0.
+\]
+\end{example}
+
+\begin{example}[Limite esponenziale con parametro]
+\label{ex:lez23-esponenziale-parametro}
+Sia \(\alpha>0\). Si determini
+\[
+  \lim_{x\to0^+}
+  \frac{e^x-1-x-\frac{x^2}{2}}{x^\alpha}.
+\]
+Si consideri dapprima il caso \(\alpha=3\).
+Applicando tre volte il \cref{thm:lez23-hopital-zero}
+si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\frac{e^x-1-x-\frac{x^2}{2}}{x^3}
+  &=\lim_{x\to0^+}\frac{e^x-1-x}{3x^2}\\
+  &=\lim_{x\to0^+}\frac{e^x-1}{6x}\\
+  &=\lim_{x\to0^+}\frac{e^x}{6}=\frac16.
+\end{aligned}
+\]
+Posto
+\[
+  A(x):=\frac{e^x-1-x-\frac{x^2}{2}}{x^3},
+\]
+si ha quindi \(A(x)\to1/6>0\) e
+\[
+  \frac{e^x-1-x-\frac{x^2}{2}}{x^\alpha}
+  =A(x)x^{3-\alpha}.
+\]
+Distinguendo i casi,
+\[
+  \lim_{x\to0^+}
+  \frac{e^x-1-x-\frac{x^2}{2}}{x^\alpha}
+  =\begin{cases}
+    0, & 0<\alpha<3,\\[2pt]
+    \dfrac16, & \alpha=3,\\[4pt]
+    +\infty, & \alpha>3.
+  \end{cases}
+\]
+\end{example}
+
+\begin{corollary}[Criterio di derivabilità mediante la derivata]
+\label{cor:lez23-limite-derivata}
+Sia \(f\colon I\longrightarrow\R\), con \(I\)
+intervallo e \(x_0\) interno a \(I\). Si supponga
+che \(f\) sia continua in \(x_0\), derivabile
+in un intorno bucato di \(x_0\) e che
+\[
+  \lim_{x\to x_0}f'(x)=\ell\in\R.
+\]
+Allora \(f\) è derivabile in \(x_0\) e
+\[
+  f'(x_0)=\ell.
+\]
+La conclusione vale anche per una sola derivata
+unilaterale, assumendo le ipotesi sul lato corrispondente.
+\end{corollary}
+
+\begin{proof}
+Per la continuità di \(f\) in \(x_0\),
+\(f(x)-f(x_0)\to0\) per \(x\to x_0\).
+Applicando il \cref{thm:lez23-hopital-zero}
+separatamente ai due limiti unilateri, con
+\(g(x):=x-x_0\) e \(g'(x)=1\), si ha
+\[
+  \lim_{x\to x_0^\pm}
+  \frac{f(x)-f(x_0)}{x-x_0}
+  =\lim_{x\to x_0^\pm}f'(x)=\ell.
+\]
+I due limiti coincidono; per la
+\cref{def:lez22-derivabilita} segue la tesi.
+\end{proof}
+
+\section{Forme del teorema agli estremi e all'infinito}
+\label{sec:lez23-hopital-infinito}
+
+Il teorema ammette versioni analoghe per i limiti
+all'infinito e per la forma indeterminata
+\(\infty/\infty\).
+
+\begin{theorem}[Forma \(0/0\) per \(x\to+\infty\)]
+\label{thm:lez23-hopital-zero-infinito}
+Siano \(a\in\R\) e \(f,g\colon(a,+\infty)\longrightarrow\R\)
+derivabili, con \(g'(x)\ne0\) per ogni \(x>a\).
+Se
+\[
+  \lim_{x\to+\infty}f(x)
+  =\lim_{x\to+\infty}g(x)=0,
+  \qquad
+  \lim_{x\to+\infty}\frac{f'(x)}{g'(x)}=\ell\in\R,
+\]
+allora
+\[
+  \lim_{x\to+\infty}\frac{f(x)}{g(x)}=\ell.
+\]
+\end{theorem}
+
+\clearpage
+
+\begin{theorem}[Forma \(\infty/\infty\) a un estremo finito]
+\label{thm:lez23-hopital-infinito-estremo}
+Siano \(a,b\in\R\), con \(a<b\), e siano
+\(f,g\colon(a,b)\longrightarrow\R\) derivabili,
+con \(g'(x)\ne0\) per ogni \(x\in(a,b)\).
+Se
+\[
+  \lim_{x\to a^+}f(x)
+  =\lim_{x\to a^+}g(x)=+\infty,
+  \qquad
+  \lim_{x\to a^+}\frac{f'(x)}{g'(x)}=\ell\in\R,
+\]
+allora
+\[
+  \lim_{x\to a^+}\frac{f(x)}{g(x)}=\ell.
+\]
+\end{theorem}
+
+\begin{theorem}[Forma \(\infty/\infty\) per \(x\to+\infty\)]
+\label{thm:lez23-hopital-infinito}
+Siano \(a\in\R\) e \(f,g\colon(a,+\infty)\longrightarrow\R\)
+derivabili, con \(g'(x)\ne0\) per ogni \(x>a\).
+Se
+\[
+  \lim_{x\to+\infty}f(x)
+  =\lim_{x\to+\infty}g(x)=+\infty,
+  \qquad
+  \lim_{x\to+\infty}\frac{f'(x)}{g'(x)}=\ell\in\R,
+\]
+allora
+\[
+  \lim_{x\to+\infty}\frac{f(x)}{g(x)}=\ell.
+\]
+\end{theorem}
+
+Per le forme precedenti valgono versioni analoghe
+per \(x\to-\infty\), per \(x\to b^-\) e, nel caso
+di un estremo finito, per limiti unilateri in un
+punto interno. Le dimostrazioni non vengono
+sviluppate in questa sede.
+
+\section{Confronti di crescita}
+\label{sec:lez23-confronti-crescita}
+
+\begin{proposition}[Il logaritmo cresce meno di ogni potenza]
+\label{prop:lez23-logaritmo-potenza}
+Per ogni \(\varepsilon>0\),
+\[
+  \lim_{x\to0^+}x^\varepsilon\log x=0.
+\]
+\end{proposition}
+
+\begin{proof}
+Poiché \(-\log x\to+\infty\) e
+\(x^{-\varepsilon}\to+\infty\), si scriva
+\[
+  x^\varepsilon\log x
+  =-\frac{-\log x}{x^{-\varepsilon}}.
+\]
+Per \(x>0\), il denominatore derivato è
+\(-\varepsilon x^{-\varepsilon-1}\ne0\).
+Dal \cref{thm:lez23-hopital-infinito-estremo} segue
+\[
+\begin{aligned}
+  \lim_{x\to0^+}\frac{-\log x}{x^{-\varepsilon}}
+  &=\lim_{x\to0^+}
+    \frac{-1/x}{-\varepsilon x^{-\varepsilon-1}}\\
+  &=\frac1\varepsilon\lim_{x\to0^+}x^\varepsilon=0.
+\end{aligned}
+\]
+Pertanto anche \(x^\varepsilon\log x\to0\).
+\end{proof}
+
+\begin{proposition}[L'esponenziale cresce più di ogni potenza]
+\label{prop:lez23-esponenziale-potenza}
+Per ogni \(\alpha>0\),
+\[
+  \lim_{x\to+\infty}\frac{e^x}{x^\alpha}=+\infty.
+\]
+\end{proposition}
+
+\begin{proof}
+Si scelga \(k:=\lfloor\alpha\rfloor+1\in\N\),
+così che \(k>\alpha\).
+
+Per \(k\ge2\), le derivate successive di \(x^k\)
+sono
+\[
+\begin{aligned}
+  (x^k)' &= kx^{k-1},\\
+  (x^k)'' &= k(k-1)x^{k-2},\\
+  &\ \vdots\\
+  (x^k)^{(k)} &= k(k-1)\cdots2\cdot1=k!.
+\end{aligned}
+\]
+La formula finale vale anche per \(k=1\).
+
+Poiché ogni derivata di \(e^x\) coincide con
+\(e^x\), applicando \(k\) volte il
+\cref{thm:lez23-hopital-infinito} si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to+\infty}\frac{x^k}{e^x}
+  &=\lim_{x\to+\infty}\frac{kx^{k-1}}{e^x}\\
+  &=\cdots
+  =\lim_{x\to+\infty}\frac{k!}{e^x}=0.
+\end{aligned}
+\]
+Ne segue, essendo i rapporti positivi,
+\[
+  \lim_{x\to+\infty}\frac{e^x}{x^k}=+\infty.
+\]
+Infine, poiché \(k-\alpha>0\),
+\[
+  \frac{e^x}{x^\alpha}
+  =\frac{e^x}{x^k}\,x^{k-\alpha}
+  \longrightarrow+\infty.
+\]
+\end{proof}
+
+\section{Esercizio su continuità e derivabilità}
+\label{sec:lez23-esercizio-tratti}
+
+\begin{exercise}[Funzione definita a tratti con tre parametri]
+\label{ex:lez23-continuita-derivabilita-tratti}
+Siano \(a,b,c\in\R\), con \(b\ne0\) e \(c\ge0\).
+Si consideri la funzione
+\[
+  f(x):=
+  \begin{cases}
+    \dfrac{\log(x-1)}{b(x-2)}, & x>2,\\[6pt]
+    a, & x=2,\\[4pt]
+    \arctan\!\left(\dfrac{c}{x-2}\right), & x<2.
+  \end{cases}
+\]
+Determinare per quali valori dei parametri
+\(f\) è continua e derivabile su \(\R\).
+\end{exercise}
+
+\begin{proof}[Soluzione dell'esercizio]
+La funzione è continua nei due intervalli
+\((-\infty,2)\) e \((2,+\infty)\).
+Resta da studiare il comportamento in \(x_0=2\).
+
+\emph{Primo punto: continuità.}
+Per il limite notevole del logaritmo,
+posto \(t:=x-2\), si ha
+\[
+\begin{aligned}
+  \lim_{x\to2^+}f(x)
+  &=\frac1b\lim_{t\to0^+}\frac{\log(1+t)}t
+   =\frac1b.
+\end{aligned}
+\]
+Dal lato sinistro, invece,
+\[
+  \lim_{x\to2^-}f(x)
+  =\begin{cases}
+    0, & c=0,\\[2pt]
+    -\dfrac\pi2, & c>0.
+  \end{cases}
+\]
+Poiché \(b\ne0\), il limite destro \(1/b\)
+non può essere nullo. Pertanto la continuità
+in \(2\) è possibile soltanto quando \(c>0\)
+e
+\[
+  \frac1b=a=-\frac\pi2.
+\]
+Si conclude che
+\[
+  f\text{ è continua su }\R
+  \quad\Longleftrightarrow\quad
+  a=-\frac\pi2,\qquad b=-\frac2\pi,\qquad c>0.
+\]
+
+\emph{Secondo punto: derivabilità.}
+Per il \cref{thm:lez22-derivabilita-continuita},
+la continuità è necessaria alla derivabilità.
+Si assumano dunque \(a=-\pi/2\), \(b=-2/\pi\)
+e \(c>0\), e si calcolino le derivate unilaterali
+in \(2\).
+
+Da destra, usando ancora \(t:=x-2\),
+\[
+\begin{aligned}
+  \lim_{x\to2^+}\frac{f(x)-f(2)}{x-2}
+  &=\frac\pi2\lim_{t\to0^+}
+    \frac{t-\log(1+t)}{t^2}\\
+  &=\frac\pi2\lim_{t\to0^+}
+    \frac{1-\frac1{1+t}}{2t}\\
+  &=\frac\pi4\lim_{t\to0^+}\frac1{1+t}
+   =\frac\pi4.
+\end{aligned}
+\]
+Nel secondo passaggio si è applicato il
+\cref{thm:lez23-hopital-zero}.
+
+Da sinistra, per \(c>0\), si ha una forma \(0/0\).
+Poiché
+\[
+  \frac{d}{dx}\arctan\!\left(\frac{c}{x-2}\right)
+  =-\frac{c}{(x-2)^2+c^2},
+\]
+dal \cref{thm:lez23-hopital-zero} segue
+\[
+\begin{aligned}
+  \lim_{x\to2^-}\frac{f(x)-f(2)}{x-2}
+  &=\lim_{x\to2^-}
+    \frac{\arctan\!\left(\frac{c}{x-2}\right)+\frac\pi2}
+         {x-2}\\
+  &=\lim_{x\to2^-}\frac{-c}{(x-2)^2+c^2}
+   =-\frac1c<0.
+\end{aligned}
+\]
+Le due derivate unilaterali non coincidono, poiché
+\(\pi/4>0\) e \(-1/c<0\). Pertanto \(f\)
+non è derivabile in \(2\) per nessun valore
+ammissibile dei parametri e, di conseguenza,
+non è mai derivabile su tutto \(\R\).
+\end{proof}

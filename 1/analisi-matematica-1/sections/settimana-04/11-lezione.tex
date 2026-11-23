@@ -5,7 +5,7 @@
 \label{sec:lez11-intersezione-intorni}
 
 Sia \(x_0\in\overline{\R}\). L'intersezione di due intorni di
-\(x_0\) è ancora un intorno di \(x_0\).
+\(x_0\) è a sua volta un intorno di \(x_0\).
 
 Se \(x_0\in\R\), ogni intorno di \(x_0\) contiene un intorno
 circolare con lo stesso centro. Inoltre, per la
@@ -16,7 +16,7 @@ si ha
   =D\bigl(x_0,\min\{\delta_1,\delta_2\}\bigr).
 \]
 Pertanto, l'intersezione di due intorni di \(x_0\)
-contiene un intorno circolare ed è essa stessa un intorno
+contiene un intorno circolare ed è un intorno
 di \(x_0\), per la \cref{def:lez07-intorno-generale}.
 
 Se \(x_0=+\infty\), per la \cref{def:lez07-intorni-infinito},
@@ -30,7 +30,7 @@ Analogamente, se \(x_0=-\infty\),
   (-\infty,k_1)\cap(-\infty,k_2)
   =(-\infty,\min\{k_1,k_2\}).
 \]
-Per iterazione, la proprietà vale per ogni intersezione finita
+Per iterazione, la proprietà si estende a ogni intersezione finita
 di intorni di \(x_0\).
 
 \begin{figure}[htbp]
@@ -42,7 +42,7 @@ di intorni di \(x_0\).
   \label{fig:lez11-intersezione-intorni-infinito}
 \end{figure}
 
-La proprietà non vale, in generale, per le intersezioni infinite.
+Per le intersezioni infinite, invece, la proprietà può non valere.
 
 \begin{example}[Intersezione di infiniti intorni]
 \label{ex:lez11-intersezione-infinita}
@@ -55,7 +55,7 @@ Allora
 \[
   B:=\bigcap_{n=1}^{\infty}A_n=\{0\}.
 \]
-L'insieme \(B\) non è quindi un intorno di \(0\), benché
+L'insieme \(B\) non è un intorno di \(0\), benché
 ciascun \(A_n\) lo sia.
 \end{example}
 
@@ -124,7 +124,7 @@ con \(\ell_1,\ell_2\in\overline{\R}\), allora
 \end{theorem}
 
 \begin{proof}
-Si procede per assurdo, supponendo
+Si procede per assurdo, supponendo che
 \(\ell_1\ne\ell_2\).
 
 Esistono due intorni \(V_{\ell_1}\) e \(V_{\ell_2}\) dei
@@ -142,8 +142,9 @@ senza perdita di generalità, \(\ell_1<\ell_2\) e porre
   V_{\ell_2}:=D(\ell_2,\delta).
 \]
 I due intorni sono disgiunti, come illustrato nella
-\cref{fig:lez11-intorni-disgiunti}. I casi con limiti infiniti
-sono trattati nell'\cref{ex:lez11-intorni-disgiunti}.
+\cref{fig:lez11-intorni-disgiunti}. I casi in cui almeno
+un limite è infinito sono trattati
+nell'\cref{ex:lez11-intorni-disgiunti}.
 
 Per la \cref{def:lez08-limite}, esistono intorni
 \(U_{x_0}\) e \(U'_{x_0}\) di \(x_0\) tali che
@@ -155,7 +156,7 @@ Per la \cref{def:lez08-limite}, esistono intorni
   f(x)\in V_{\ell_2}
   \quad\forall x\in(U'_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Per quanto stabilito nella \cref{sec:lez11-intersezione-intorni},
+Per la \cref{sec:lez11-intersezione-intorni},
 \(W_{x_0}:=U_{x_0}\cap U'_{x_0}\) è ancora un intorno
 di \(x_0\). Poiché \(x_0\) è di accumulazione per
 \(A\), esiste
@@ -209,7 +210,7 @@ Si scelgano gli intorni
   \qquad
   V_{\ell_2}:=(0,+\infty).
 \]
-In ciascun caso \(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
+In tutti i casi, \(V_{\ell_1}\cap V_{\ell_2}=\varnothing\).
 Scambiando gli indici si ottengono i casi rimanenti.
 \end{proof}
 
@@ -277,7 +278,7 @@ e quindi
 La tesi è verificata ponendo \(k=\ell/2\).
 \end{proof}
 
-Il secondo punto si dimostra analogamente, considerando
+Il secondo punto si dimostra analogamente nei casi
 \(\ell=-\infty\) e \(\ell\in(-\infty,0)\);
 la dimostrazione non viene riportata.
 

@@ -29,7 +29,7 @@ ha dominio
 \]
 Poiché \(A\) non è superiormente limitato,
 \(+\infty\) è un punto di accumulazione per \(A\)
-in virtù della \cref{prop:lez08-accumulazione-limitatezza}.
+per la \cref{prop:lez08-accumulazione-limitatezza}.
 
 \emph{Verifica della definizione.}
 Fissato \(\varepsilon>0\), occorre trovare
@@ -44,7 +44,8 @@ Per ogni \(x\in A\), si ha
   =\left|\frac{-7}{x+2}\right|
   =\frac7{|x+2|}.
 \]
-Se \(x>-2\), allora \(|x+2|=x+2\), e la condizione
+Per \(x>-2\), si ha \(|x+2|=x+2\) e la
+disuguaglianza richiesta equivale a
 \[
   \frac7{x+2}<\varepsilon
   \quad\Longleftrightarrow\quad
@@ -97,9 +98,8 @@ e \(\psi\) l'applicazione
 \]
 \end{definition}
 
-L'ordine della composizione è indicato nella
-\cref{fig:lez09-composizione}: si applica prima \(\varphi\)
-e successivamente \(\psi\).
+Come illustrato nella \cref{fig:lez09-composizione},
+si applica prima \(\varphi\) e poi \(\psi\).
 
 \begin{figure}[htbp]
   \centering
@@ -135,8 +135,8 @@ Pertanto \(\psi\circ\varphi\ne\varphi\circ\psi\):
 la composizione non è, in generale, commutativa.
 \end{example}
 
-L'esistenza delle due composizioni richiede inoltre
-condizioni distinte, come mostra l'esempio seguente.
+Le due composizioni richiedono condizioni di definizione
+distinte, come mostra l'esempio seguente.
 
 \clearpage
 
@@ -176,8 +176,8 @@ Sia \(A\) un insieme non vuoto. Si chiama
 \]
 \end{definition}
 
-Per \(A=\R\), il grafico definito nella
-\cref{def:lez07-grafico} è
+Per \(A=\R\), il grafico dell'identità, secondo la
+\cref{def:lez07-grafico}, è
 \[
   G(\operatorname{id}_{\R})
   =\{(a,a):a\in\R\}.
@@ -206,7 +206,7 @@ Per ogni \(a\in A\), dalle
   =\operatorname{id}_B(\varphi(a))=\varphi(a).
 \]
 Entrambe le composizioni hanno dominio \(A\) e codominio
-\(B\), come \(\varphi\). Si concludono quindi le due identità.
+\(B\), come \(\varphi\); seguono quindi le due identità.
 \end{proof}
 
 Considerando la stessa legge di \(\varphi\) con codominio
@@ -251,8 +251,7 @@ La \cref{def:lez06-controimmagine} fornisce
   \varphi^{-1}(\{1\})=\{-1,1\}.
 \]
 Il valore \(1\) possiede quindi due antecedenti distinti.
-Non è pertanto possibile definire un'applicazione
-inversa di \(\varphi\).
+Pertanto \(\varphi\) non ammette un'applicazione inversa.
 \end{example}
 
 \begin{figure}[htbp]
@@ -279,7 +278,7 @@ dove \(a\in A\) è l'unico elemento tale che
 \end{definition}
 
 L'esistenza di \(a\) segue dalla
-\cref{def:lez06-immagine}, mentre l'unicità segue dalla
+\cref{def:lez06-immagine}; l'unicità, dalla
 \cref{def:lez06-iniettiva}. In particolare,
 \(D(\varphi^{-1})=\operatorname{Im}(\varphi)\) e
 \(C(\varphi^{-1})=A\).

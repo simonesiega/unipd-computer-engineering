@@ -4,8 +4,9 @@
 \section{Teoremi sulle operazioni dei limiti}
 \label{sec:lez14-operazioni-limiti}
 
-Si considerano i limiti delle operazioni tra funzioni
-introdotte nella \cref{sec:lez07-operazioni}.
+Si studiano i limiti di somme, prodotti e rapporti di
+funzioni, riprendendo le operazioni della
+\cref{sec:lez07-operazioni}.
 
 \subsection{Limite della somma}
 \label{sec:lez14-limite-somma}
@@ -89,7 +90,7 @@ Per \(x\to+\infty\), si considerino tre coppie di funzioni:
 \end{aligned}
 \]
 In tutti e tre i casi \(f(x)\to+\infty\) e
-\(g(x)\to-\infty\), mentre la somma tende rispettivamente
+\(g(x)\to-\infty\); la somma tende invece rispettivamente
 a \(0\), \(+\infty\) e \(-\infty\).
 \end{example}
 
@@ -131,15 +132,15 @@ non viene sviluppata in questa sede.
 \label{ex:lez14-somma-seno}
 La funzione \(\sin x\) è limitata su \(\R\), poiché
 \(-1\le\sin x\le1\) per ogni \(x\in\R\).
-La limitatezza sull'intero dominio implica sia la
-limitatezza inferiore sia quella superiore in ogni intorno.
+Essendo limitata su tutto il dominio, la funzione è
+limitata superiormente e inferiormente in ogni intorno.
 Per il \cref{cor:lez14-somma-localmente-limitata}, si ottiene
 \[
   \lim_{x\to+\infty}(x+\sin x)=+\infty,
   \qquad
   \lim_{x\to-\infty}(x+\sin x)=-\infty.
 \]
-Entrambi i limiti sono stati verificati anche mediante confronto
+Gli stessi limiti sono stati ottenuti per confronto
 nell'\cref{ex:lez12-limite-x-seno}.
 \end{example}
 
@@ -197,8 +198,8 @@ Per \(x\to+\infty\), si considerino tre coppie di funzioni:
     &\quad\Longrightarrow\quad (fg)(x)=x.
 \end{aligned}
 \]
-In tutti e tre i casi \(f(x)\to0\) e \(g(x)\to+\infty\),
-mentre il prodotto tende rispettivamente a \(1\), \(0\)
+In tutti e tre i casi \(f(x)\to0\) e \(g(x)\to+\infty\);
+il prodotto tende invece rispettivamente a \(1\), \(0\)
 e \(+\infty\).
 \end{example}
 
@@ -311,9 +312,9 @@ rispettivamente con \(f(x)\to\ell^+\) e
 \(f(x)\to\ell^-\) per \(x\to x_0\).
 \end{definition}
 
-Le scritture \(\ell^+\) e \(\ell^-\) specificano il verso
-di avvicinamento al valore \(\ell\): non rappresentano
-ulteriori numeri ai quali applicare le regole algebriche
+Le scritture \(\ell^+\) e \(\ell^-\) precisano il verso
+di avvicinamento al valore \(\ell\), senza rappresentare
+nuovi numeri ai quali applicare le regole algebriche
 dei limiti.
 
 \begin{example}[Verso di avvicinamento di una somma]
@@ -323,14 +324,14 @@ Siano
   f(x):=3-x^2,
   \qquad g(x):=2+x^4.
 \]
-Per \(x\to0\), si ha \(f(x)\to3\) dal basso e
+Per \(x\to0\), si ha \(f(x)\to3\) dal basso, mentre
 \(g(x)\to2\) dall'alto. Tuttavia,
 \[
   (f+g)(x)=5+x^4-x^2<5
   \qquad\text{se }0<|x|<1.
 \]
 Per il \cref{thm:lez14-limite-somma}, la somma tende
-a \(5\) dal basso: il verso di avvicinamento non si
+a \(5\) dal basso. Il verso di avvicinamento non si
 determina sommando formalmente i simboli \(3^-\) e \(2^+\).
 \end{example}
 
@@ -427,7 +428,7 @@ Per ogni \(\ell\in\overline{\R}\), vale
 \end{theorem}
 
 \begin{proof}
-Si dimostrano separatamente le due implicazioni.
+Si dimostrano entrambe le implicazioni.
 
 \emph{Prima implicazione \((\Leftarrow)\).}
 Si supponga che
