@@ -1,2 +1,83 @@
 \subsection{Riconduzione ai limiti notevoli}
 \label{sec:esercizi-limiti-limiti-notevoli}
+
+\begin{exercise}[Seno di un multiplo dell'argomento]
+\label{ex:limiti-foglio-2311-18}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin(\pi x)}{\pi x}.
+\]
+\rimandoteoria{thm:lez20-limite-seno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Posto $t:=\pi x$, si ha $t\to0$ per $x\to0$.
+Per il limite notevole del seno,
+\[
+  \lim_{x\to0}\frac{\sin(\pi x)}{\pi x}
+  =\lim_{t\to0}\frac{\sin t}{t}=1.
+\]
+\end{proof}
+
+\begin{exercise}[Seno della tangente]
+\label{ex:limiti-foglio-2311-19}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin(\tan x)}{\sin x}.
+\]
+\rimandoteoria{thm:lez20-limite-seno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Poiché $\tan x\to0$ per $x\to0$, per il limite notevole
+del seno e la continuità del coseno si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to0}\frac{\sin(\tan x)}{\sin x}
+    &=\lim_{x\to0}\frac{\sin(\tan x)}{\tan x}\cdot\frac1{\cos x}\\
+    &=1.
+\end{aligned}
+\]
+\end{proof}
+
+\begin{exercise}[Differenza di seni divisa per la variabile]
+\label{ex:limiti-foglio-2311-20}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin(5x)-\sin(3x)}{x}.
+\]
+\rimandoteoria{thm:lez20-limite-seno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Riscrivendo i due addendi e applicando il limite notevole del seno,
+\[
+\begin{aligned}
+  \lim_{x\to0}\frac{\sin(5x)-\sin(3x)}{x}
+    &=\lim_{x\to0}\left(5\frac{\sin(5x)}{5x}
+      -3\frac{\sin(3x)}{3x}\right)\\
+    &=5-3=2.
+\end{aligned}
+\]
+\end{proof}
+
+\clearpage
+
+\begin{exercise}[Coseno di un multiplo dell'argomento]
+\label{ex:limiti-foglio-2311-24}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{1-\cos(2x)}{x^2}.
+\]
+\rimandoteoria{prop:lez20-limite-coseno}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Posto $t:=2x$, si ha $t\to0$ per $x\to0$.
+Per il limite notevole del coseno,
+\[
+  \lim_{x\to0}\frac{1-\cos(2x)}{x^2}
+  =4\lim_{t\to0}\frac{1-\cos t}{t^2}
+  =4\cdot\frac12=2.
+\]
+\end{proof}

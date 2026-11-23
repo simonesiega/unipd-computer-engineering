@@ -129,10 +129,10 @@
   - Scala di difficoltà degli esercizi — p. 131
   - B.1 Fondamenti — p. 132
   - B.2 Limiti — p. 153
-  - B.3 Studio di funzione — p. 154
-  - B.4 Successioni — p. 155
-  - B.5 Serie numeriche — p. 156
-  - B.6 Integrali — p. 157
-  - B.7 Equazioni differenziali — p. 158
-  - B.8 Taylor e tecniche asintotiche — p. 159
+  - B.3 Studio di funzione — p. 162
+  - B.4 Successioni — p. 163
+  - B.5 Serie numeriche — p. 164
+  - B.6 Integrali — p. 165
+  - B.7 Equazioni differenziali — p. 166
+  - B.8 Taylor e tecniche asintotiche — p. 167
 <!-- GENERATED:END -->

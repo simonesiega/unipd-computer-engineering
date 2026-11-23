@@ -57,7 +57,7 @@ Per $n=4$,
 \[
   \sum_{k=0}^{4}\binom{4}{k}=1+4+6+4+1=16.
 \]
-Per il caso generale si applica il binomio di Newton con $a=b=1$:
+Per il caso generale, si applica il binomio di Newton con $a=b=1$:
 \[
   \sum_{k=0}^{n}\binom{n}{k}
     =\sum_{k=0}^{n}\binom{n}{k}1^k1^{n-k}
@@ -113,15 +113,15 @@ anche termini positivi, quindi la disuguaglianza è stretta.
 \begin{exercise}[Confronto tra fattoriali e potenze]
 \label{ex:fondamenti-fattoriali-potenze}
 \difficoltaesercizio{1}
-Dimostrare per induzione che, per ogni \(n\ge5\),
+Dimostrare per induzione che, per ogni $n\ge5$,
 \[
   n!\ge3^{n-1}.
 \]
-Verificare inoltre perché l'enunciato sarebbe falso per \(n\ge4\).
+Mostrare inoltre che l'analogo enunciato per $n\ge4$ è falso.
 \rimandoteoria{thm:principio-induzione}
 \end{exercise}
 \begin{proof}[Soluzione dell'esercizio]
-Per \(n=0,1,2,3,4\) si ha
+Per $n=0,1,2,3,4$ si ha
 \[
 \begin{aligned}
   0!&=1>\frac13=3^{-1},\\
@@ -131,9 +131,9 @@ Per \(n=0,1,2,3,4\) si ha
   4!&=24<27=3^3.
 \end{aligned}
 \]
-Pertanto la disuguaglianza vale per \(n=0,1\),
-ma non per \(n=2,3,4\). In particolare,
-l'enunciato con \(n\ge4\) è falso.
+Pertanto la disuguaglianza vale per $n=0,1$,
+ma non per $n=2,3,4$. In particolare,
+l'enunciato con $n\ge4$ è falso.
 
 Si pone
 \[
@@ -141,13 +141,13 @@ Si pone
   n!\ge3^{n-1}\right\}.
 \]
 
-\emph{Passo base.} Per \(n=5\),
+\emph{Passo base.} Per $n=5$,
 \[
   5!=120\ge81=3^4,
 \]
-quindi \(5\in A\).
+quindi $5\in A$.
 
-\emph{Passo induttivo.} Sia \(n\ge5\) e si supponga \(n\in A\). Allora
+\emph{Passo induttivo.} Sia $n\ge5$ e si supponga $n\in A$. Allora
 \[
 \begin{aligned}
   (n+1)!
@@ -157,7 +157,7 @@ quindi \(5\in A\).
     &=3^n,
 \end{aligned}
 \]
-poiché \(n+1\ge6>3\).
+poiché $n+1\ge6>3$.
 
-Pertanto \(n\in A\Rightarrow n+1\in A\) e la tesi segue per induzione.
+Pertanto $n\in A\Rightarrow n+1\in A$ e la tesi segue per induzione.
 \end{proof}

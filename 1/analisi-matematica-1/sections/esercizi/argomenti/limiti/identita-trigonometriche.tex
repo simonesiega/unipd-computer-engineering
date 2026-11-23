@@ -1,2 +1,24 @@
 \subsection{Trasformazioni mediante identità trigonometriche}
 \label{sec:esercizi-limiti-identita-trigonometriche}
+
+\begin{exercise}[Rapporto tra seno e tangente di angoli multipli]
+\label{ex:limiti-foglio-2311-25}
+\difficoltaesercizio{0}
+Calcolare il limite
+\[
+  \lim_{x\to0}\frac{\sin(6x)}{\tan(3x)}.
+\]
+\rimandoteoria{prop:lez20-limiti-trigonometrici}
+\end{exercise}
+\begin{proof}[Soluzione dell'esercizio]
+Usando la formula di duplicazione del seno e la definizione di tangente,
+per $x\ne0$ sufficientemente vicino a $0$ si ottiene
+\[
+\begin{aligned}
+  \lim_{x\to0}\frac{\sin(6x)}{\tan(3x)}
+    &=\lim_{x\to0}
+      \frac{2\sin(3x)\cos(3x)}{\sin(3x)/\cos(3x)}\\
+    &=\lim_{x\to0}2\cos^2(3x)=2.
+\end{aligned}
+\]
+\end{proof}
