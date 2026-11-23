@@ -4,15 +4,14 @@
 \section{Limiti delle funzioni monotone}
 \label{sec:lez15-limiti-monotone}
 
-La monotonia introdotta nella \cref{def:lez10-monotonia}
-permette di determinare i limiti agli estremi di un intervallo
-mediante gli estremi dell'immagine della funzione.
+La monotonia, introdotta nella \cref{def:lez10-monotonia},
+permette di determinare i limiti di una funzione monotona
+agli estremi di un intervallo mediante gli estremi della sua immagine.
 
 \begin{theorem}[Limiti delle funzioni monotone]
 \label{thm:lez15-limiti-monotone}
 Siano \(a,b\in\overline{\R}\), con \(a<b\), e sia
-\(I=(a,b)\subseteq\R\). Si consideri una funzione
-\(f\colon I\longrightarrow\R\). Allora:
+\(I=(a,b)\subseteq\R\). Sia \(f\colon I\longrightarrow\R\). Allora:
 \begin{enumerate}
   \item se \(f\) è debolmente crescente su \(I\), si ha
   \[
@@ -30,10 +29,10 @@ Siano \(a,b\in\overline{\R}\), con \(a<b\), e sia
 Se \(a=-\infty\) o \(b=+\infty\), le rispettive scritture
 \(x\to a^+\) e \(x\to b^-\) indicano i limiti per
 \(x\to-\infty\) e \(x\to+\infty\).
-Gli estremi dell'immagine sono intesi nella retta reale estesa.
+Gli estremi dell'immagine si intendono nella retta reale estesa.
 \end{theorem}
 
-È essenziale considerare l'immagine dell'intervallo aperto
+Occorre considerare l'immagine dell'intervallo aperto
 \(I=(a,b)\). Se la funzione è definita anche in \(a\),
 il suo valore in tale punto non influisce sul limite destro,
 ma può modificare l'estremo inferiore dell'immagine.
@@ -44,7 +43,7 @@ Ad esempio, per una funzione debolmente crescente su
   <\inf\{f(x):x\in(a,b)\}
   =\lim_{x\to a^+}f(x),
 \]
-come illustrato nella \cref{fig:lez15-estremo-incluso}.
+come mostra la \cref{fig:lez15-estremo-incluso}.
 
 \begin{figure}[htbp]
   \centering
@@ -91,8 +90,8 @@ Sia \(\varepsilon>0\). Per il
 \[
   \lambda-\varepsilon<f(x_\varepsilon)\le\lambda.
 \]
-Per ogni \(x\in(x_\varepsilon,b)\), dalla monotonia di
-\(f\) e dalla definizione di estremo superiore segue
+Dalla monotonia di \(f\) e dalla definizione di estremo
+superiore, per ogni \(x\in(x_\varepsilon,b)\) segue
 \[
   \lambda-\varepsilon<f(x_\varepsilon)
   \le f(x)\le\lambda<\lambda+\varepsilon.
@@ -154,7 +153,7 @@ Per ogni \(K\in\R\), esiste quindi \(x_K\in I\) tale che
 \[
   f(x_K)>K.
 \]
-Per ogni \(x\in(x_K,b)\), dalla monotonia di \(f\)
+Per la monotonia di \(f\), per ogni \(x\in(x_K,b)\)
 segue
 \[
   f(x)\ge f(x_K)>K.
@@ -198,10 +197,17 @@ Per la \cref{def:lez14-limiti-unilateri}, si ottiene
 \[
   \lim_{x\to b^-}f(x)=+\infty.
 \]
+
+Per \(b=+\infty\), valgono le stesse stime, sostituendo
+agli intorni sinistri di \(b\) gli intervalli
+\((M,+\infty)\). I limiti per \(x\to a^+\)
+si ricavano applicando quanto dimostrato alla funzione
+\(t\mapsto-f(-t)\), debolmente crescente su
+\((-b,-a)\).
 \end{proof}
 
 Il secondo punto del \cref{thm:lez15-limiti-monotone}
-si riconduce al primo. Infatti, se \(f\) è debolmente
+segue dal primo. Infatti, se \(f\) è debolmente
 decrescente, allora \(-f\) è debolmente crescente
 per la \cref{prop:lez10-monotonia-opposta}. Applicando
 il primo punto a \(-f\), si ha
@@ -231,7 +237,7 @@ due uguaglianze del secondo punto.
   \centering
   \input{assets/grafici/funzioni/esponenziale-logaritmo}
   \caption{Grafici rappresentativi delle funzioni esponenziali e logaritmiche
-  nei casi \(a>1\) e \(0<a<1\). In figura sono scelte le basi
+  nei casi \(a>1\) e \(0<a<1\). Sono rappresentate le basi
   \(a=2\) e \(a=\frac12\), che illustrano i comportamenti descritti
   nel \cref{thm:lez15-limiti-esponenziale-logaritmo}.}
   \label{fig:lez15-esponenziale-logaritmo}
@@ -269,7 +275,7 @@ Sia \(a>0\), con \(a\ne1\). Allora:
   \]
 \end{enumerate}
 La scrittura \(0^+\) indica che i valori della funzione
-tendono a zero dall'alto, nel senso della
+tendono a zero da valori positivi, nel senso della
 \cref{def:lez14-avvicinamento-valore}.
 Per \(a=1\), escluso dalle ipotesi, si ha
 \(a^x=1\) per ogni \(x\in\R\).
@@ -301,7 +307,7 @@ per il \cref{thm:lez12-confronto-secondo} si ottiene
 \[
   \lim_{n\to+\infty}a^n=+\infty.
 \]
-L'insieme \(\{a^n:n\in\N\}\) non è quindi
+L'insieme \(\{a^n:n\in\N\}\) non è dunque
 superiormente limitato. Poiché
 \[
   \{a^n:n\in\N\}\subseteq\{a^x:x\in\R\},

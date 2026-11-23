@@ -4,7 +4,7 @@
 \section{Numeri interi}
 \label{sec:lez02-numeri-interi}
 
-Dato un insieme numerico \(A\), si indica con \(-A\) l'insieme degli
+Per un insieme numerico \(A\), si indica con \(-A\) l'insieme degli
 opposti dei suoi elementi:
 \[
   -A:=\{-a:a\in A\}.
@@ -25,8 +25,8 @@ Si assume l'\emph{assioma di esistenza e unicità dell'opposto}: per ogni
 \]
 Tale elemento si indica con \(-m\) ed è detto \emph{opposto} di \(m\).
 
-L'ordinamento della \cref{sec:lez01-ordine-naturali} si estende
-a \(\Z\), con la seguente compatibilità rispetto al prodotto.
+L'ordinamento introdotto nella \cref{sec:lez01-ordine-naturali}
+si estende a \(\Z\), con la seguente proprietà rispetto al prodotto.
 
 \begin{proposition}[Compatibilità dell'ordine in \(\Z\)]
 \label{prop:compatibilita-ordine-interi}
@@ -47,8 +47,7 @@ Un intero \(b\) è detto \emph{inverso moltiplicativo} di
   ab=1.
 \]
 Quando esiste, tale elemento si indica con \(a^{-1}\).
-Negli interi, tuttavia, non ogni elemento ammette
-un inverso moltiplicativo.
+Non tutti gli interi, tuttavia, ammettono un inverso moltiplicativo.
 
 \begin{proposition}[Inversi moltiplicativi in \(\Z\)]
 \label{prop:inversi-interi}
@@ -71,8 +70,8 @@ Se \(a,b>0\), essendo \(a,b\ge1\) e \(ab=1\), segue
 Se \(a,b<0\), gli interi positivi \(-a\) e \(-b\)
 soddisfano \((-a)(-b)=1\), da cui \(a=b=-1\).
 
-Viceversa, \(1\cdot1=1\) e \((-1)(-1)=1\), quindi entrambi gli
-interi indicati ammettono un inverso moltiplicativo in \(\Z\).
+Viceversa, \(1\cdot1=1\) e \((-1)(-1)=1\), quindi entrambi
+gli interi indicati ammettono un inverso moltiplicativo in \(\Z\).
 \end{proof}
 
 \clearpage
@@ -92,13 +91,13 @@ L'insieme dei \emph{numeri razionali} è
 \]
 \end{definition}
 
-Si ottiene così la catena di inclusioni
+Segue la catena di inclusioni
 \[
   \N\subseteq\Z\subseteq\Q.
 \]
 
-Il denominatore è scelto positivo, riportando l'eventuale segno
-negativo al numeratore. Uno stesso razionale ammette infinite
+Il denominatore è scelto positivo; l'eventuale segno negativo
+si riporta al numeratore. Uno stesso razionale ammette infinite
 rappresentazioni frazionarie, per esempio
 \(\frac12=\frac24=\frac36=\cdots\). Riducendo
 una frazione ai minimi termini si ottiene una rappresentazione
@@ -106,7 +105,7 @@ una frazione ai minimi termini si ottiene una rappresentazione
   \frac{m}{n},\qquad \operatorname{mcd}(m,n)=1,
 \]
 dove il massimo comune divisore è quello positivo di \(|m|\) e \(n\).
-Con \(n>0\), la rappresentazione ridotta è unica; in particolare,
+Con \(n>0\), la rappresentazione ridotta è unica. In particolare,
 lo zero si rappresenta mediante \(\frac01\).
 
 In \(\Q\) si assume l'\emph{assioma dell'inverso moltiplicativo}:
@@ -123,8 +122,8 @@ L'inverso moltiplicativo \(a^{-1}\) è detto anche
 \section[Irrazionalità della radice quadrata di 2]{Irrazionalità di \(\sqrt{2}\)}
 \label{sec:lez02-irrazionalita-radice-due}
 
-L'insieme dei razionali non è sufficiente a risolvere tutte le
-equazioni polinomiali. Si consideri, per esempio, il polinomio
+Non tutte le equazioni polinomiali ammettono soluzioni razionali.
+Si consideri, per esempio, il polinomio
 \[
   p(x)=x^2-2,
   \qquad p\in\Q[x],
@@ -161,7 +160,7 @@ Per ogni \(m\in\Z\), se \(m^2\) è pari, allora \(m\) è pari.
 \end{lemma}
 
 \begin{proof}
-Si dimostra la contronominale, secondo lo schema introdotto nella
+Si dimostra la contronominale, come introdotto nella
 \cref{sec:lez01-insiemi-dimostrazioni}. Sia \(m\) dispari. Per la
 \cref{def:lez02-pari-dispari}, esiste \(k\in\Z\) tale che
 \[
@@ -225,16 +224,16 @@ Sostituendo nell'uguaglianza precedente,
 Anche \(n^2\) è pari e, applicando nuovamente il
 \cref{lem:quadrato-pari}, si conclude che \(n\) è pari.
 
-Gli interi \(m\) e \(n\) sono dunque entrambi divisibili per \(2\),
-in contraddizione con \(\operatorname{mcd}(m,n)=1\).
+Poiché \(m\) e \(n\) sono entrambi divisibili per \(2\),
+si contraddice \(\operatorname{mcd}(m,n)=1\).
 L'ipotesi iniziale è falsa: l'equazione \(x^2-2=0\) non ammette
 soluzioni razionali.
 \end{proof}
 
 \clearpage
 
-Per enunciare una generalizzazione del risultato precedente,
-si introduce la nozione di numero primo.
+Per generalizzare il risultato precedente, si introduce
+la nozione di numero primo.
 
 \begin{definition}[Numero primo]
 \label{def:numero-primo}
@@ -281,7 +280,7 @@ equivale al prodotto
 
 \begin{proposition}[Una disuguaglianza per il fattoriale]
 \label{prop:fattoriale-maggiore-n}
-Per ogni \(n\in\N\) vale
+Per ogni \(n\in\N\) si ha
 \[
   n!\ge n.
 \]

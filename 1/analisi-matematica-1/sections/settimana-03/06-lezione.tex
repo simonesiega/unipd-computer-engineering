@@ -104,8 +104,8 @@ si conclude
 \section{Esercizio sugli insiemi separati}
 \label{sec:lez06-insiemi-separati}
 
-La separazione introdotta nella \cref{sec:lez03-numeri-reali}
-si può esprimere mediante gli estremi della
+La proprietà di separazione della \cref{sec:lez03-numeri-reali}
+si può formulare mediante gli estremi introdotti nella
 \cref{sec:lez04-estremi}.
 
 \begin{exercise}[Estremi di insiemi separati]
@@ -143,8 +143,7 @@ Per la \cref{def:estremo-inferiore}, si conclude
 \label{sec:lez06-applicazioni}
 
 Per descrivere una corrispondenza tra due insiemi
-si considerano le coppie ordinate formate dai
-rispettivi elementi.
+si utilizzano coppie ordinate dei rispettivi elementi.
 
 \begin{definition}[Prodotto cartesiano]
 \label{def:lez06-prodotto-cartesiano}
@@ -157,9 +156,8 @@ Siano \(A\) e \(B\) due insiemi. Il loro
 
 Un sottoinsieme \(\Phi\subseteq A\times B\)
 descrive una corrispondenza tra gli elementi
-di \(A\) e quelli di \(B\). Non ogni insieme
-di coppie ordinate definisce tuttavia
-un'applicazione.
+di \(A\) e quelli di \(B\). Tuttavia, non ogni insieme
+di coppie ordinate definisce un'applicazione.
 
 \begin{definition}[Applicazione]
 \label{def:lez06-applicazione}
@@ -201,10 +199,9 @@ L'insieme \(\Phi\) costituisce quindi il
 \end{figure}
 
 Per una corrispondenza rappresentata nel piano,
-il \emph{test della retta verticale} permette
-di verificare l'unicità del valore associato:
-nessuna retta verticale deve intersecare il
-grafico in più di un punto. Nella
+il \emph{test della retta verticale} verifica
+l'unicità del valore associato: ogni retta verticale
+interseca il grafico in al più un punto. Nella
 \cref{fig:lez06-test-verticale}, la parabola
 \(y=x^2\), sul dominio rappresentato \([-1,1]\),
 soddisfa tale condizione, mentre la curva
@@ -251,7 +248,7 @@ Si considerino, per esempio, le applicazioni
   \end{aligned}
 \]
 Le tre applicazioni hanno la stessa espressione
-algebrica: \(f\) e \(g\) differiscono per il codominio,
+algebrica, ma \(f\) e \(g\) differiscono per il codominio,
 \(g\) e \(h\) per il dominio.
 
 \begin{definition}[Immagine di un'applicazione]
@@ -376,16 +373,15 @@ l'esistenza di un'applicazione inversa
 \begin{definition}[Suriettività]
 \label{def:lez06-suriettiva}
 Un'applicazione \(f\colon A\longrightarrow B\)
-si dice \emph{suriettiva} se
-\(\operatorname{Im}(f)=B\), ossia se
+è \emph{suriettiva} se \(\operatorname{Im}(f)=B\), ossia se
 \[
   \forall b\in B\;\exists a\in A:
   f(a)=b.
 \]
 \end{definition}
 
-La suriettività dipende dal codominio, come illustrato
-nell'\cref{ex:lez06-quadrato-proprieta}. Per la
+La suriettività dipende dal codominio, come mostra
+l'\cref{ex:lez06-quadrato-proprieta}. Per la
 \cref{def:lez06-controimmagine}, la controimmagine di
 \(\{b\}\) è non vuota per ogni \(b\in B\) se e solo se
 \(f\) è suriettiva.
@@ -511,8 +507,9 @@ In particolare, per ogni \(a\ge0\),
 \]
 \end{example}
 
-Per \(h\) esiste anche l'\emph{applicazione inversa},
-formalizzata nella \cref{def:lez09-inversa}:
+Poiché \(h\) è biiettiva, esiste anche
+l'\emph{applicazione inversa}, formalizzata nella
+\cref{def:lez09-inversa}:
 \[
   h^{-1}\colon[0,+\infty)\longrightarrow[0,+\infty),
   \qquad y\longmapsto\sqrt y.

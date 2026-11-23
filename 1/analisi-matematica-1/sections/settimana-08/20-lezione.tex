@@ -4,6 +4,9 @@
 \section{Disuguaglianze trigonometriche}
 \label{sec:lez20-disuguaglianze-trigonometriche}
 
+Il confronto geometrico sulla circonferenza unitaria
+fornisce le stime necessarie ai limiti trigonometrici.
+
 \begin{proposition}[Disuguaglianze per il seno]
 \label{prop:lez20-disuguaglianze-seno}
 Per ogni \(x\in(0,\pi/2)\), si ha
@@ -65,7 +68,7 @@ Poiché il raggio è unitario, le rispettive aree sono
   \operatorname{area}(\triangle OBD)&=\frac{\tan x}{2}.
 \end{aligned}
 \]
-Dalla stretta inclusione tra le tre regioni segue
+Dall'inclusione stretta tra le tre regioni segue
 \[
   \frac{\sin x}{2}<\frac{x}{2}<\frac{\tan x}{2}.
 \]
@@ -81,11 +84,11 @@ Per \(0<x<\pi/2\), dal primo punto segue
   |\sin x|\le1<\frac\pi2\le x.
 \]
 Per \(x<0\), posto \(u:=-x>0\),
-dalla disparità del seno segue
+la disparità del seno dà
 \[
   |\sin x|=|\sin u|\le u=|x|.
 \]
-Infine per \(x=0\) si ha \(|\sin0|=0\).
+Per \(x=0\) si ha \(|\sin0|=0\).
 Pertanto la disuguaglianza vale per ogni \(x\in\R\).
 \end{proof}
 
@@ -156,7 +159,7 @@ Per ogni \(x\) nei rispettivi domini,
   \cot x=\frac{\cos x}{\sin x}.
 \]
 Se \(\cos x_0\ne0\), rispettivamente
-\(\sin x_0\ne0\), i limiti appena dimostrati
+\(\sin x_0\ne0\), i limiti precedenti
 e il \cref{thm:lez14-limite-rapporto} danno
 \[
   \lim_{x\to x_0}\tan x
@@ -225,7 +228,7 @@ unilateri coincidono, quindi per il
 \]
 \end{proof}
 
-Il limite afferma che, in prossimità di zero,
+Il limite mostra che, in prossimità di zero,
 \(\sin x\) e \(x\) sono asintoticamente equivalenti:
 il loro rapporto tende a \(1\). Pertanto, nel
 calcolo dei limiti, possono essere sostituiti
@@ -277,12 +280,12 @@ Siano \(a>0\), con \(a\ne1\), e \(x_0>0\). Allora
 \end{proposition}
 
 \begin{proof}
-Si dimostra anzitutto il limite in \(x_0=1\).
+Si considera dapprima il caso \(x_0=1\).
 Sia \(\varepsilon>0\).
 
 \emph{Primo caso: \(a>1\).}
 Poiché il logaritmo di base \(a\) è strettamente
-crescente, per la \cref{ex:lez10-logaritmo-monotono}
+crescente, per l'\cref{ex:lez10-logaritmo-monotono}
 si ha
 \[
 \begin{aligned}
@@ -324,7 +327,7 @@ si scelga
   :=\min\{1-a^\varepsilon,a^{-\varepsilon}-1\}>0.
 \]
 Per ogni \(x>0\) con \(|x-1|<\delta_\varepsilon\),
-si ha anche in questo caso
+anche in questo caso si ha
 \(|\log_a x|<\varepsilon\).
 Per la \cref{def:lez08-limite}, in entrambi i casi
 segue
@@ -332,7 +335,7 @@ segue
   \lim_{x\to1}\log_a x=0.
 \]
 
-Sia ora \(x_0>0\) arbitrario. Ponendo
+Si consideri ora \(x_0>0\) arbitrario. Ponendo
 \(t:=x/x_0\), per \(x\to x_0\) si ha \(t\to1\);
 inoltre, se \(x\ne x_0\), allora \(t\ne1\).
 Dalle proprietà dei logaritmi segue
@@ -388,7 +391,7 @@ per il \cref{thm:lez14-limite-prodotto} si ottiene
   \qquad
   \lim_{x\to0^-}\frac{1-\cos(\sin x)}{x^3}=-\infty.
 \]
-I due limiti unilateri sono distinti; pertanto,
+I due limiti unilateri hanno segno opposto; pertanto,
 per il \cref{thm:lez14-limite-unilateri},
 il limite richiesto non esiste.
 \end{proof}

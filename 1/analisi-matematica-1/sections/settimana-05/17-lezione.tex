@@ -4,6 +4,9 @@
 \section{Successioni}
 \label{sec:lez17-successioni}
 
+Le successioni descrivono valori reali indicizzati dai numeri
+naturali e consentono di studiarne il comportamento all'infinito.
+
 \begin{definition}[Successione reale]
 \label{def:lez17-successione}
 Sia \(A\subseteq\N\) non vuoto. Una \emph{successione reale}
@@ -12,7 +15,7 @@ Sia \(A\subseteq\N\) non vuoto. Una \emph{successione reale}
   a\colon A\longrightarrow\R,
   \qquad n\longmapsto a(n).
 \]
-Il valore \(a(n)\) si indica anche con \(a_n\), e la successione
+Il valore \(a(n)\) si indica anche con \(a_n\); la successione
 si denota con \((a_n)_{n\in A}\) oppure con
 \(\{a_n\}_{n\in A}\).
 \end{definition}
@@ -34,8 +37,8 @@ esiste \(\delta>0\) tale che
   ((x_0-\delta,x_0+\delta)\cap\N)\setminus\{x_0\}
   =\varnothing.
 \]
-Inoltre, \(\N\) è inferiormente limitato e non è
-superiormente limitato. Pertanto, nella retta reale estesa,
+L'insieme \(\N\) è inoltre limitato inferiormente, ma non
+superiormente. Pertanto, nella retta reale estesa,
 l'unico suo punto di accumulazione è \(+\infty\).
 Lo stesso vale per \(\N\setminus\{0\}\).
 
@@ -62,7 +65,7 @@ Scegliendo \(K_\varepsilon:=1/\varepsilon\), risulta
   \qquad\forall n\in(K_\varepsilon,+\infty)
   \cap(\N\setminus\{0\}).
 \]
-Per la \cref{def:lez08-limite}, segue la tesi.
+Per la \cref{def:lez08-limite} segue la tesi.
 \end{example}
 
 \clearpage
@@ -70,9 +73,9 @@ Per la \cref{def:lez08-limite}, segue la tesi.
 \section{Teorema ponte}
 \label{sec:lez17-teorema-ponte}
 
-Il limite di una funzione può essere caratterizzato
-mediante i valori assunti lungo successioni di punti
-del suo dominio che tendono al punto considerato.
+Il limite di una funzione si caratterizza anche mediante
+successioni di punti del dominio che tendono al punto
+considerato.
 
 \begin{theorem}[Teorema ponte o criterio successionale per i limiti]
 \label{thm:lez17-teorema-ponte}
@@ -113,8 +116,8 @@ Pertanto
 La dimostrazione dell'implicazione \((\Leftarrow)\)
 non viene sviluppata in questa sede.
 
-Il \cref{thm:lez17-teorema-ponte} permette, in particolare,
-di escludere l'esistenza di un limite trovando due successioni
+Il \cref{thm:lez17-teorema-ponte} permette inoltre di
+escludere l'esistenza di un limite individuando due successioni
 che tendono allo stesso punto, ma lungo le quali la funzione
 ammette limiti distinti.
 
@@ -229,17 +232,17 @@ Per il terzo punto del \cref{thm:lez17-limiti-notevoli},
 \[
   \lim_{x\to0}(1+x)^{1/x}=e.
 \]
-Si può applicare il \cref{thm:lez16-limite-sostituzione},
-considerando il logaritmo in \(e\). Si verifica infatti che
+Per applicare il \cref{thm:lez16-limite-sostituzione}
+al logaritmo nel punto \(e\), si verifica che
 \[
   \lim_{u\to e}\log_a u=\log_a e.
 \]
-Per giustificare quest'ultima uguaglianza, fissato
+Per giustificare il limite, fissato
 \(\varepsilon>0\), si considerino i due numeri
 \(a^{\log_a e-\varepsilon}\) e
-\(a^{\log_a e+\varepsilon}\), che si trovano da parti
-opposte rispetto a \(e\). Esiste quindi un intorno
-di \(e\) contenuto nell'intervallo avente tali estremi.
+\(a^{\log_a e+\varepsilon}\), situati ai lati di
+\(e\). Esiste quindi un intorno di \(e\) contenuto
+nell'intervallo determinato da tali estremi.
 Per la monotonia del logaritmo, in questo intorno
 \[
   \log_a e-\varepsilon<\log_a u
@@ -292,9 +295,9 @@ si conclude
 \]
 \end{proof}
 
-Le dimostrazioni degli altri limiti del
+Le dimostrazioni dei restanti limiti del
 \cref{thm:lez17-limiti-notevoli} saranno sviluppate
-successivamente nel corso.
+nelle lezioni successive.
 
 \clearpage
 

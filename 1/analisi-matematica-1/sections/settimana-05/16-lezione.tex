@@ -4,6 +4,10 @@
 \section{Teorema sui limiti per sostituzione}
 \label{sec:lez16-limiti-sostituzione}
 
+La composizione introdotta nella \cref{def:lez09-composizione}
+permette di ricavare limiti di funzioni composte,
+sotto le ipotesi del teorema seguente.
+
 \begin{theorem}[Limite per sostituzione]
 \label{thm:lez16-limite-sostituzione}
 Sia \(f\colon A\longrightarrow\R\), con
@@ -20,7 +24,7 @@ tale che
 \[
   \lim_{t\to t_0}\varphi(t)=x_0.
 \]
-Se vale almeno una delle seguenti condizioni:
+Se è soddisfatta almeno una delle seguenti condizioni:
 \begin{enumerate}
   \item \(\varphi(t)\ne x_0\) per ogni
   \(t\in B\setminus\{t_0\}\);
@@ -33,7 +37,7 @@ allora
 \end{theorem}
 
 \begin{proof}
-Si supponga anzitutto che \(\ell\in\R\).
+Si consideri anzitutto il caso \(\ell\in\R\).
 Sia \(\varepsilon>0\). Per la \cref{def:lez08-limite},
 esiste un intorno \(U_{x_0}\) di \(x_0\) tale che
 \[
@@ -41,13 +45,13 @@ esiste un intorno \(U_{x_0}\) di \(x_0\) tale che
   \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
 \]
 Poiché \(\varphi(t)\to x_0\) per \(t\to t_0\),
-per la stessa definizione esiste un intorno \(W_{t_0}\)
+la stessa definizione garantisce un intorno \(W_{t_0}\)
 di \(t_0\) tale che
 \[
   \varphi(t)\in U_{x_0}
   \qquad\forall t\in(W_{t_0}\cap B)\setminus\{t_0\}.
 \]
-Essendo \(\varphi(B)\subseteq A\), ne segue che
+Poiché \(\varphi(B)\subseteq A\), si ottiene
 \[
   \varphi(t)\in U_{x_0}\cap A
   \qquad\forall t\in(W_{t_0}\cap B)\setminus\{t_0\}.
@@ -88,7 +92,7 @@ e quindi
   \lim_{t\to t_0}f(\varphi(t))=\ell.
 \]
 
-Si consideri ora \(\ell=+\infty\). In questo caso
+Si consideri il caso \(\ell=+\infty\). In questo caso
 la seconda condizione è esclusa, poiché richiede
 \(\ell\in\R\); deve quindi valere la prima.
 Sia \(K\in\R\). Per la \cref{def:lez08-limite},
@@ -97,7 +101,7 @@ esiste un intorno \(U_{x_0}\) tale che
   f(x)>K
   \qquad\forall x\in(U_{x_0}\cap A)\setminus\{x_0\}.
 \]
-Dal limite di \(\varphi\) si ricava un intorno
+Dal limite di \(\varphi\) si ottiene un intorno
 \(W_{t_0}\) tale che
 \[
   \varphi(t)\in U_{x_0}\cap A
@@ -115,7 +119,7 @@ da cui
   \lim_{t\to t_0}f(\varphi(t))=+\infty.
 \]
 
-Infine, se \(\ell=-\infty\), vale necessariamente
+Infine, per \(\ell=-\infty\), vale necessariamente
 la prima condizione. Fissato \(K\in\R\), esiste
 un intorno \(U_{x_0}\) tale che
 \[
@@ -156,7 +160,7 @@ e
   \varphi\colon\R\longrightarrow\R,
   \qquad \varphi(t):=0.
 \]
-Ponendo \(x_0=t_0=0\), si ha
+Posto \(x_0=t_0=0\), si ha
 \[
   \lim_{x\to0}f(x)=0,
   \qquad
@@ -212,7 +216,7 @@ La seconda condizione del
 mentre la prima è soddisfatta poiché
 \(\varphi(t)\in\R\) per ogni \(t\ne0\), e quindi
 \(\varphi(t)\ne+\infty\).
-Per il medesimo teorema, si conclude
+Applicando il teorema, si conclude
 \[
   \lim_{t\to0}2^{1/t^2}
   =\lim_{x\to+\infty}2^x=+\infty.

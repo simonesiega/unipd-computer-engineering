@@ -4,8 +4,9 @@
 \section{Punti isolati e accumulazione all'infinito}
 \label{sec:lez08-accumulazione-infinito}
 
-La \cref{def:lez07-accumulazione} si completa introducendo
-i punti isolati e l'accumulazione nei punti infiniti della
+Alla nozione di punto di accumulazione della
+\cref{def:lez07-accumulazione} si affiancano quella di punto
+isolato e l'accumulazione nei punti infiniti della
 \cref{def:lez07-retta-estesa}.
 
 \subsection{Punti isolati}
@@ -21,8 +22,8 @@ tale che
 \]
 \end{definition}
 
-Negando la condizione della \cref{def:lez07-accumulazione},
-per ogni \(x_0\in\R\) si ottiene
+La negazione della \cref{def:lez07-accumulazione}
+fornisce, per ogni \(x_0\in\R\),
 \[
   x_0\notin A'
   \quad\Longleftrightarrow\quad
@@ -30,7 +31,7 @@ per ogni \(x_0\in\R\) si ottiene
   \bigl(D(x_0,\delta)\cap A\bigr)
   \setminus\{x_0\}=\varnothing.
 \]
-Se \(x_0\in A\), questa condizione equivale alla
+Se \(x_0\in A\), la condizione equivale alla
 \cref{def:lez08-isolato}, poiché il centro appartiene
 a ogni suo intorno circolare. Per ogni \(x_0\in A\) si ha quindi
 \[
@@ -68,8 +69,8 @@ di \(A\) se
 
 \clearpage
 
-Il collegamento con la \cref{def:limitatezza-superiore-inferiore}
-è dato dalla seguente proposizione.
+La seguente proposizione collega i punti di accumulazione
+infiniti alla \cref{def:limitatezza-superiore-inferiore}.
 
 \begin{proposition}[Punti di accumulazione infiniti e limitatezza]
 \label{prop:lez08-accumulazione-limitatezza}
@@ -160,10 +161,10 @@ l'esistenza di massimi o minimi: ad esempio,
 \section{Definizione generale di limite}
 \label{sec:lez08-limiti-definizione}
 
-Gli intorni della \cref{sec:lez07-intorni} e le nozioni di
-accumulazione introdotte nelle
+Gli intorni della \cref{sec:lez07-intorni} e le definizioni
+di punto di accumulazione delle
 \cref{def:lez07-accumulazione,def:lez08-accumulazione-infinito}
-permettono ora di definire il limite di una funzione.
+permettono di definire il limite di una funzione.
 
 \begin{definition}[Limite di una funzione]
 \label{def:lez08-limite}
@@ -183,7 +184,7 @@ se, per ogni intorno \(V_\ell\) di \(\ell\), esiste un intorno
 \]
 \end{definition}
 
-Non è necessario che \(x_0\in A\); anche quando
+Non è necessario che \(x_0\in A\). Anche quando
 \(x_0\in A\), il valore \(f(x_0)\) non influisce sul limite.
 Per \(x_0=\pm\infty\), l'esclusione del centro è superflua
 poiché \(A\subseteq\R\).
@@ -191,8 +192,8 @@ poiché \(A\subseteq\R\).
 L'ordine dei quantificatori è essenziale: per \emph{ogni}
 intorno del valore limite deve esistere un intorno di
 \(x_0\) nel quale \emph{tutti} i valori di \(f\) nei
-punti ammessi del dominio, distinti da \(x_0\),
-appartengano all'intorno assegnato.
+punti del dominio distinti da \(x_0\) appartengano
+all'intorno assegnato.
 
 Il limite, quando esiste, è unico, come si dimostrerà nel
 \cref{thm:lez11-unicita-limite}.
@@ -240,7 +241,7 @@ nell'\cref{ex:lez08-razionale-finito}.
 \label{sec:lez08-limite-casi}
 
 Poiché \(x_0,\ell\in\overline{\R}\), la
-\cref{def:lez08-limite} comprende nove casi, secondo che
+\cref{def:lez08-limite} comprende nove casi, a seconda che
 ciascuno dei due elementi sia reale, \(+\infty\) o
 \(-\infty\). Il caso \(x_0,\ell\in\R\) è stato
 esplicitato nella \cref{sec:lez08-limite-finito};
@@ -325,7 +326,7 @@ Quando \(x_0\in\R\), il punto \(x=x_0\) deve essere escluso.
 \section{Esercizi sulla definizione di limite}
 \label{sec:lez08-esercizi-limiti}
 
-Nelle verifiche della \cref{def:lez08-limite} occorre
+Per verificare la \cref{def:lez08-limite} occorre
 anzitutto controllare il dominio e la condizione
 di accumulazione.
 
@@ -357,7 +358,7 @@ Il suo dominio è quindi
 Essendo \(A\) inferiormente limitato, per la
 \cref{prop:lez08-accumulazione-limitatezza} il punto
 \(-\infty\) non è di accumulazione per \(A\).
-Non essendo soddisfatta un'ipotesi della
+Poiché non è soddisfatta un'ipotesi della
 \cref{def:lez08-limite}, il limite richiesto
 non può essere considerato secondo tale definizione.
 \end{proof}

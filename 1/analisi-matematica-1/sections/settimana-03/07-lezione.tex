@@ -6,7 +6,7 @@
 
 La nozione di applicazione biiettiva, introdotta nella
 \cref{def:lez06-biettiva}, permette di confrontare insiemi
-anche quando contengono infiniti elementi. Due insiemi
+anche nel caso di insiemi infiniti. Due insiemi
 hanno la stessa \emph{cardinalità} se esiste una biiezione
 tra essi.
 
@@ -56,7 +56,7 @@ Per la \cref{def:lez06-suriettiva}, \(\varphi\)
 è suriettiva e quindi biiettiva.
 \end{proof}
 
-Analogamente, l'insieme dei naturali dispari
+Anche l'insieme dei naturali dispari
 \[
   D:=\{2m+1:m\in\N\}
 \]
@@ -85,8 +85,8 @@ mentre \(\R\) non è numerabile.
 \end{proposition}
 
 Per \(\N\) è sufficiente considerare l'applicazione
-identità. La numerabilità di \(\Z\) e \(\Q\) e la
-non numerabilità di \(\R\) sono qui enunciate
+identità. La numerabilità di \(\Z\) e \(\Q\), così come la
+non numerabilità di \(\R\), sono enunciate
 senza dimostrazione. Quest'ultimo risultato
 è dovuto a Cantor.
 
@@ -97,8 +97,8 @@ denso in \(\R\), come stabilito nel
 
 \begin{example}[Albergo di Hilbert]
 \label{ex:lez07-hilbert}
-Si consideri un albergo con infinite camere,
-numerate mediante i numeri naturali, tutte occupate.
+Si consideri un albergo con infinite camere, tutte
+occupate e numerate mediante i numeri naturali.
 
 Sebbene non vi siano camere libere, è possibile
 accogliere un nuovo ospite trasferendo
@@ -137,8 +137,8 @@ Si considerino due funzioni a valori reali
   \varphi\colon B\longrightarrow\R,
   \qquad A,B\subseteq\R.
 \]
-Le operazioni puntuali richiedono che entrambe le funzioni
-siano definite: il dominio comune è \(A\cap B\).
+Le operazioni puntuali si definiscono nei punti in cui
+entrambe le funzioni sono definite, ossia su \(A\cap B\).
 
 \begin{definition}[Somma di funzioni]
 \label{def:lez07-somma}
@@ -242,8 +242,9 @@ nella \cref{sec:lez14-operazioni-limiti}.
 \section{Grafici e trasformazioni delle funzioni}
 \label{sec:lez07-trasformazioni}
 
-Si specializza alle funzioni reali di variabile reale
-il grafico introdotto nella \cref{sec:lez06-applicazioni}.
+La nozione di grafico introdotta nella
+\cref{sec:lez06-applicazioni} si specializza alle funzioni
+reali di variabile reale.
 
 \begin{definition}[Grafico di una funzione]
 \label{def:lez07-grafico}
@@ -277,8 +278,8 @@ corrisponde quindi il punto
   (t,\varphi(t)+c)
   =(t,\varphi(t))+(0,c).
 \]
-Si ottiene una \emph{traslazione rigida} verticale
-secondo il vettore \((0,c)\).
+Il grafico subisce quindi una \emph{traslazione rigida}
+verticale secondo il vettore \((0,c)\).
 
 Per \(c>0\) il grafico si sposta verso l'alto,
 per \(c<0\) verso il basso; lo spostamento ha
@@ -301,7 +302,7 @@ tra i grafici è
 \[
   (x,\varphi(x))\longmapsto(x,b\varphi(x)).
 \]
-La distanza di un punto dall'asse delle ascisse
+La distanza dall'asse delle ascisse
 passa da \(|\varphi(x)|\) a
 \[
   |b\varphi(x)|=|b|\,|\varphi(x)|.
@@ -378,8 +379,8 @@ corrisponde quindi il punto
   (t-c,\varphi(t))
   =(t,\varphi(t))+(-c,0).
 \]
-Si ottiene una \emph{traslazione rigida} orizzontale
-secondo il vettore \((-c,0)\).
+Il grafico subisce quindi una \emph{traslazione rigida}
+orizzontale secondo il vettore \((-c,0)\).
 
 Per \(c>0\) il grafico si sposta verso sinistra,
 per \(c<0\) verso destra; lo spostamento ha
@@ -528,7 +529,7 @@ introdotte nella \cref{sec:lez04-estremi}, si ha
 \]
 
 Nessuno dei due intervalli ammette massimo o minimo:
-\(a\) è escluso e l'estremo opposto è infinito
+\(a\) è escluso e l'altro estremo è infinito
 (\cref{def:lez07-retta-estesa}).
 \end{example}
 
@@ -583,7 +584,7 @@ L'insieme dei suoi punti di accumulazione è
 \end{example}
 
 \begin{proof}
-Si dimostra anzitutto che ogni punto di
+Si verifica anzitutto che ogni punto di
 \([1,2]\) è di accumulazione.
 
 Sia \(x_0\in(1,2)\). Per ogni \(\delta>0\),
@@ -629,7 +630,7 @@ Pertanto
   [1,2]\subseteq A'.
 \]
 
-Si dimostra ora che nessun punto esterno
+Si verifica ora che nessun punto esterno
 a \([1,2]\) è di accumulazione.
 
 Se \(x_0<1\), scegliendo

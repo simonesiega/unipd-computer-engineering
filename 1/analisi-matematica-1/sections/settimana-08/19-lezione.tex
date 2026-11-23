@@ -4,9 +4,12 @@
 \section{Parità e limiti unilateri}
 \label{sec:lez19-parita-limiti}
 
-\begin{proposition}[Limiti unilateri di una funzione pari(\cref{def:lez18-funzione-pari})]
+La parità introdotta nella \cref{sec:lez18-parita} permette
+di collegare i limiti unilateri nell'origine.
+
+\begin{proposition}[Limiti unilateri di una funzione pari]
 \label{prop:lez19-limiti-funzione-pari}
-Sia \(a>0\), si ponga
+Sia \(a>0\) e si ponga
 \[
   A:=(-a,a)\setminus\{0\},
 \]
@@ -36,13 +39,13 @@ si ottiene
   \lim_{x\to0^+}f(x)
   =\lim_{u\to0^-}f(u)=\ell.
 \]
-L'implicazione inversa si dimostra scambiando
-il limite destro con quello sinistro.
+L'implicazione inversa segue con lo stesso argomento,
+scambiando i limiti unilateri.
 \end{proof}
 
-\begin{proposition}[Limiti unilateri di una funzione dispari(\cref{def:lez18-funzione-dispari})]
+\begin{proposition}[Limiti unilateri di una funzione dispari]
 \label{prop:lez19-limiti-funzione-dispari}
-Sia \(a>0\), si ponga
+Sia \(a>0\) e si ponga
 \[
   A:=(-a,a)\setminus\{0\},
 \]
@@ -74,8 +77,8 @@ si ottiene
   \lim_{x\to0^+}f(x)
   =-\lim_{u\to0^-}f(u)=-\ell.
 \]
-L'implicazione inversa si dimostra scambiando
-il limite destro con quello sinistro.
+L'implicazione inversa segue con lo stesso argomento,
+scambiando i limiti unilateri.
 \end{proof}
 
 Per il \cref{thm:lez14-limite-unilateri},
@@ -155,7 +158,7 @@ mentre, per una funzione dispari,
 \]
 \end{proof}
 
-Quando questi limiti esistono, le rette
+Quando i limiti indicati esistono, le rette
 \(y=m_+x+q_+\) e \(y=m_-x+q_-\) descrivono
 il comportamento asintotico della funzione,
 rispettivamente per \(x\to+\infty\) e \(x\to-\infty\).
@@ -165,12 +168,12 @@ rispettivamente per \(x\to+\infty\) e \(x\to-\infty\).
 \section{Limiti notevoli derivati dal numero di Nepero}
 \label{sec:lez19-limiti-nepero}
 
-Si sviluppano alcune dimostrazioni dei limiti enunciati
-nel \cref{thm:lez17-limiti-notevoli}, a partire dal
+Si dimostrano alcuni dei limiti enunciati nel
+\cref{thm:lez17-limiti-notevoli}, a partire dal
 \cref{thm:lez17-numero-nepero}.
 
-Per le potenze con esponente reale e base variabile
-positiva si utilizza l'identità
+Per le potenze a base variabile positiva ed esponente
+reale si utilizza l'identità
 \[
   f(x)^{g(x)}=e^{g(x)\log f(x)},
 \]
@@ -233,7 +236,7 @@ Osservando che
 \]
 per il \cref{thm:lez17-numero-nepero} e i
 \cref{thm:lez14-limite-prodotto,thm:lez14-limite-rapporto}
-entrambi gli estremi tendono a \(e\).
+i due estremi tendono a \(e\).
 Dal \cref{thm:lez12-tre-funzioni} segue
 \[
   \lim_{x\to+\infty}\left(1+\frac1x\right)^x=e.
@@ -328,9 +331,8 @@ sulle operazioni dei limiti segue
 \]
 
 \emph{Primo e secondo punto.}
-Le due espressioni hanno la stessa forma: il primo
-limite è la restrizione del secondo ai valori
-naturali \(x=n\). È quindi sufficiente dimostrare
+Il primo limite è la restrizione del secondo ai
+valori naturali \(x=n\). È quindi sufficiente dimostrare
 il secondo limite.
 
 Ponendo \(t:=x/\alpha\), per \(x\to+\infty\)
@@ -389,8 +391,8 @@ Per ogni \(\alpha\in\R\), si ha
 \end{proposition}
 
 \begin{proof}
-La potenza reale \((1+x)^\alpha\) è considerata
-per \(x>-1\).
+Si considera la potenza reale \((1+x)^\alpha\)
+nel dominio \(x>-1\).
 
 \emph{Primo caso: \(\alpha=0\).}
 Il numeratore è nullo per ogni \(x>-1\),
