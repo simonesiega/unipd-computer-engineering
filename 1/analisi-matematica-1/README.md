@@ -116,17 +116,23 @@
   - 22.4 Insiemi di continuità e derivabilità — p. 115
   - 22.5 Funzione derivata prima — p. 115
   - 22.6 Derivate delle funzioni fondamentali — p. 116
-- A Tutorato — p. 119
-  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 119
-  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 122
-- B Esercizi per argomento — p. 125
-  - Scala di difficoltà degli esercizi — p. 125
-  - B.1 Fondamenti — p. 126
-  - B.2 Limiti — p. 147
-  - B.3 Studio di funzione — p. 148
-  - B.4 Successioni — p. 149
-  - B.5 Serie numeriche — p. 150
-  - B.6 Integrali — p. 151
-  - B.7 Equazioni differenziali — p. 152
-  - B.8 Taylor e tecniche asintotiche — p. 153
+- 23 Lezione 23 --- 21 novembre 2026 — p. 119
+  - 23.1 Teorema di Bernoulli--de l'Hôpital — p. 119
+  - 23.2 Esempi nella forma \(0/0\) — p. 119
+  - 23.3 Forme del teorema agli estremi e all'infinito — p. 121
+  - 23.4 Confronti di crescita — p. 122
+  - 23.5 Esercizio su continuità e derivabilità — p. 123
+- A Tutorato — p. 125
+  - A.1 Tutorato 1 --- 8 ottobre 2026 — p. 125
+  - A.2 Tutorato 2 --- 22 ottobre 2026 — p. 128
+- B Esercizi per argomento — p. 131
+  - Scala di difficoltà degli esercizi — p. 131
+  - B.1 Fondamenti — p. 132
+  - B.2 Limiti — p. 153
+  - B.3 Studio di funzione — p. 154
+  - B.4 Successioni — p. 155
+  - B.5 Serie numeriche — p. 156
+  - B.6 Integrali — p. 157
+  - B.7 Equazioni differenziali — p. 158
+  - B.8 Taylor e tecniche asintotiche — p. 159
 <!-- GENERATED:END -->
