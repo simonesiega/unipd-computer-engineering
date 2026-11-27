@@ -44,7 +44,7 @@ condiviso dell'oggetto, non la variabile che contiene il riferimento.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/passaggio-per-valore}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/passaggio-per-valore}
   \caption{Il parametro riceve una copia del valore; una copia di un
   riferimento continua a individuare lo stesso oggetto.}
   \label{fig:fi-java-file-passaggio-valore}
@@ -57,7 +57,7 @@ Per trasferire un importo fra due conti, il metodo deve ricevere
 il conto destinatario, non soltanto il suo saldo. Si aggiunge
 alla classe \texttt{BankAccount} il seguente metodo:
 
-\input{assets/codice/java/trasferimento-conti}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/conti-bancari/trasferimento-conti}
 
 \begin{unipdcode}[language=Java]
 BankAccount corrente = new BankAccount(1000);
@@ -292,7 +292,7 @@ terminazione anomala.
 Il programma richiede un numero intero e ripete la lettura
 finché non riceve un valore valido o termina il flusso di input.
 
-\input{assets/codice/java/lettura-intero-eccezioni}
+\input{assets/codice/java/eccezioni-e-file/eccezioni/lettura-intero-eccezioni}
 
 Una conversione non valida genera \texttt{NumberFormatException}
 e consente di chiedere nuovamente il valore. Il controllo
@@ -317,7 +317,7 @@ Le classi delle eccezioni appartengono alla gerarchia di
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/gerarchia-eccezioni}
+  \input{assets/diagrammi/java/eccezioni-e-file/eccezioni/gerarchia-eccezioni}
   \caption{Gerarchia parziale delle classi derivate da
   \texttt{Throwable}; i rami \texttt{Error} e
   \texttt{RuntimeException} non sono controllati.}
@@ -441,7 +441,7 @@ metodi pubblici; \texttt{+} è la notazione UML per \emph{public}.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/file-uml}
+  \input{assets/diagrammi/java/eccezioni-e-file/file/file-uml}
   \caption{Principali metodi di \texttt{java.io.File};
   notazione UML semplificata.}
   \label{fig:fi-java-file-uml-file}
@@ -473,7 +473,7 @@ e \texttt{printf()} per scrivere testo formattato.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/flussi-uml}
+  \input{assets/diagrammi/java/eccezioni-e-file/file/flussi-uml}
   \caption{Metodi essenziali e composizione dei flussi di testo.
   Le frecce indicano l'utilizzo di un flusso sottostante,
   non l'ereditarietà.}
@@ -492,7 +492,7 @@ al flusso sottostante.
 Il programma legge \texttt{input.txt} riga per riga,
 specificando la codifica UTF-8:
 
-\input{assets/codice/java/lettura-file-buffer}
+\input{assets/codice/java/eccezioni-e-file/file/lettura-file-buffer}
 
 In alternativa si può collegare \texttt{Scanner} a un
 \texttt{FileReader} e usare \texttt{hasNextLine()} e
@@ -506,7 +506,7 @@ sovrascrive il contenuto, usando un buffer:
 
 \clearpage
 
-\input{assets/codice/java/scrittura-file-buffer}
+\input{assets/codice/java/eccezioni-e-file/file/scrittura-file-buffer}
 
 \texttt{write()} non aggiunge una nuova riga; per questo si
 invoca \texttt{newLine()}.
@@ -516,7 +516,7 @@ invoca \texttt{newLine()}.
 Il seguente programma combina \texttt{BufferedReader} e
 \texttt{PrintWriter} per numerare le righe di un file:
 
-\input{assets/codice/java/file-righe-numerate}
+\input{assets/codice/java/eccezioni-e-file/file/file-righe-numerate}
 
 Se \texttt{input.txt} contiene le righe \texttt{alfa} e
 \texttt{beta}, l'output in \texttt{numerate.txt} è:
@@ -623,7 +623,7 @@ Un \emph{token} è una parte del testo separata da delimitatori.
 \texttt{useDelimiter()} permette di impostare un'espressione
 regolare differente.
 
-\input{assets/codice/java/scanner-token}
+\input{assets/codice/java/fondamenti/input-output/scanner-token}
 
 Per separare, per esempio, le parti di
 \texttt{"Anna/Rossi/18"}, si può usare:
@@ -643,7 +643,7 @@ Java espone tre flussi standard: \texttt{System.in} (ingresso),
 (diagnostica). Gli ultimi due sono di tipo \texttt{PrintStream}.
 La shell può collegarli a file senza modificare il programma:
 
-\input{assets/codice/java/pappagallo}
+\input{assets/codice/java/fondamenti/input-output/pappagallo}
 
 \begin{unipdterminal}
 $ javac Pappagallo.java

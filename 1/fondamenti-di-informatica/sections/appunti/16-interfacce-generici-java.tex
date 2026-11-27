@@ -61,7 +61,7 @@ può sovrascrivere il metodo per produrre una descrizione utile.
 \begin{example}[Descrizione di \texttt{BankAccount}]
 Si aggiunge il seguente metodo alla classe \texttt{BankAccount}:
 
-\input{assets/codice/java/bank-account-tostring}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/metodi-object/bank-account-tostring}
 
 \begin{unipdcode}[language=Java]
 BankAccount conto = new BankAccount(1000);
@@ -102,7 +102,7 @@ sovraccarico e non sovrascriverebbe il metodo originale.
 I seguenti metodi, aggiunti a \texttt{BankAccount}, definiscono
 l'uguaglianza quando classe effettiva e saldo coincidono:
 
-\input{assets/codice/java/bank-account-equals-hashcode}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/metodi-object/bank-account-equals-hashcode}
 
 La sovrascrittura di \texttt{equals()} richiede coerenza con
 \texttt{hashCode()}: due oggetti uguali devono avere lo stesso
@@ -190,13 +190,13 @@ predefinito e una funzione statica di aggregazione:
 
 \noindent
 \begin{minipage}{\linewidth}
-\input{assets/codice/java/measurable-interfaccia}
+\input{assets/codice/java/programmazione-a-oggetti/interfacce/measurable-interfaccia}
 \end{minipage}
 
 Una classe che implementa \texttt{Measurable} deve fornire
 \texttt{getMeasure()}, mentre può ereditare \texttt{smallerThan()}:
 
-\input{assets/codice/java/measurable-implementazione}
+\input{assets/codice/java/programmazione-a-oggetti/interfacce/measurable-implementazione}
 
 \begin{unipdcode}[language=Java]
 Measurable[] items = {new MeasuredItem(2), new MeasuredItem(4)};
@@ -265,7 +265,7 @@ non stretta e compatibilità dei segni dei confronti inversi.
 Alla dichiarazione di \texttt{BankAccount} si aggiunge
 \lstinline|implements Comparable<BankAccount>| e si introduce:
 
-\input{assets/codice/java/bank-account-compareto}
+\input{assets/codice/java/programmazione-a-oggetti/interfacce/bank-account-compareto}
 
 \texttt{Double.compare()} confronta anche i valori particolari
 di \texttt{double}. Questo criterio usa esclusivamente il saldo:
@@ -306,7 +306,7 @@ La versione seguente mostra solo il metodo e i suoi ausiliari:
 
 \noindent
 \begin{minipage}{\linewidth}
-\input{assets/codice/java/array-algs-selection-comparable}
+\input{assets/codice/java/programmazione-a-oggetti/interfacce/array-algs-selection-comparable}
 \end{minipage}
 
 \begin{example}[Riutilizzo del metodo su tipi diversi]
@@ -369,7 +369,7 @@ confronto in base a tale misura:
 
 \noindent
 \begin{minipage}{\linewidth}
-\input{assets/codice/java/poligono-astratto}
+\input{assets/codice/java/programmazione-a-oggetti/ereditarieta/poligono-astratto}
 \end{minipage}
 
 \texttt{Poligono} non può essere istanziata; la sottoclasse
@@ -407,7 +407,7 @@ La classe conserva un oggetto del tipo indicato dal parametro:
 
 \noindent
 \begin{minipage}{\linewidth}
-\input{assets/codice/java/box-generico}
+\input{assets/codice/java/programmazione-a-oggetti/generici/box-generico}
 \end{minipage}
 
 \begin{unipdcode}[language=Java]
@@ -432,7 +432,7 @@ Un metodo generico dichiara i parametri di tipo prima del tipo
 di ritorno. Il seguente metodo può essere dichiarato all'interno
 di una classe:
 
-\input{assets/codice/java/stampa-array-generico}
+\input{assets/codice/java/programmazione-a-oggetti/generici/stampa-array-generico}
 
 Da un altro metodo della stessa classe può essere invocato così:
 

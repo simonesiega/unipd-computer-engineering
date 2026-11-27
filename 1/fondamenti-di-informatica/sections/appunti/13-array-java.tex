@@ -117,7 +117,7 @@ per un array di oggetti, copiano i riferimenti, non gli oggetti.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/array-riferimenti-copie}
+  \input{assets/diagrammi/java/algoritmi-e-strutture-dati/array/array-riferimenti-copie}
   \caption{Due variabili possono riferirsi allo stesso array;
   la copia degli elementi produce un oggetto distinto.}
   \label{fig:fi-java-array-copie}
@@ -156,7 +156,7 @@ lunghezza diversa si costruisce un nuovo array, si trasferiscono
 i dati da conservare e si restituisce il nuovo riferimento.
 Una possibile implementazione è la seguente:
 
-\input{assets/codice/java/array-algs-resize}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-resize}
 
 Il numero di elementi conservati è
 \(\min(\texttt{original.length},\texttt{nuovaLunghezza})\).
@@ -191,7 +191,7 @@ pseudocasuale nell'intervallo \([0,1)\). Il seguente metodo
 \texttt{length} con interi nell'intervallo inclusivo
 \([\texttt{min},\texttt{max}]\):
 
-\input{assets/codice/java/array-algs-casuale}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-casuale}
 
 Il numero di valori possibili è calcolato usando \texttt{long},
 per evitare l'overflow di \texttt{max - min + 1}; gli elementi
@@ -205,7 +205,7 @@ Stampare direttamente un riferimento a un array con
 \texttt{System.out.println(v)} non ne elenca gli elementi.
 Il metodo seguente costruisce una rappresentazione testuale:
 
-\input{assets/codice/java/array-algs-stampa}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-stampa}
 
 \begin{unipdcode}[language=Java]
 int[] v = {2, 3, 5};
@@ -226,14 +226,14 @@ successivi devono conservare l'ordine relativo.
 \vspace{0pt}
 \textbf{Senza conservare l'ordine}
 
-\input{assets/codice/java/array-algs-remove}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-remove}
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.48\linewidth}
 \vspace{0pt}
 \textbf{Conservando l'ordine}
 
-\input{assets/codice/java/array-algs-remove-sorted}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-remove-sorted}
 \end{minipage}
 
 \begin{unipdcode}[language=Java]
@@ -258,7 +258,7 @@ cella aggiuntiva. Gli elementi da \texttt{index} in poi vengono spostati verso
 indici maggiori, procedendo dall'ultimo verso il primo per
 non sovrascrivere valori ancora necessari:
 
-\input{assets/codice/java/array-algs-insert}
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-insert}
 
 \begin{unipdcode}[language=Java]
 int[] v = {1, 2, 3, 4, 5};
@@ -278,7 +278,7 @@ La ricerca lineare già studiata nella \cref{sec:fi-ricerca-lineare}
 esamina gli elementi nell'ordine e restituisce il primo indice
 corrispondente, oppure \(-1\) se il valore non è presente:
 
-\input{assets/codice/java/array-algs-linear-search}
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/lineare/array-algs-linear-search}
 
 Nel caso peggiore vengono effettuati \(n\) confronti:
 complessità temporale \(\Theta(n)\) e spazio ausiliario
@@ -296,14 +296,14 @@ quando si trova un valore maggiore o minore:
 \vspace{0pt}
 \textbf{Massimo}
 
-\input{assets/codice/java/array-algs-find-max}
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/estremi/array-algs-find-max}
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.48\linewidth}
 \vspace{0pt}
 \textbf{Minimo}
 
-\input{assets/codice/java/array-algs-find-min}
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/estremi/array-algs-find-min}
 \end{minipage}
 
 Il caso vuoto viene rifiutato perché non possiede un massimo

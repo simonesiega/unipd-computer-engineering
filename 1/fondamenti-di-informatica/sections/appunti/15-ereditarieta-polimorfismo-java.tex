@@ -61,7 +61,7 @@ La classe \texttt{SavingsAccount} estende \texttt{BankAccount}
 introducendo il tasso annuo e il metodo per accreditare gli
 interessi:
 
-\input{assets/codice/java/savings-account-ereditarieta}
+\input{assets/codice/java/programmazione-a-oggetti/ereditarieta/savings-account-ereditarieta}
 
 Il parametro del costruttore rappresenta il tasso di interesse
 percentuale, non il saldo iniziale. Poiché il costruttore non
@@ -103,7 +103,7 @@ con triangolo vuoto è diretta verso la superclasse.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/gerarchia-conti}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/ereditarieta/gerarchia-conti}
   \caption{Gerarchia di ereditarietà delle classi
   \texttt{Object}, \texttt{BankAccount} e \texttt{SavingsAccount}.}
   \label{fig:fi-java-ereditarieta-gerarchia}
@@ -136,7 +136,7 @@ Per applicare una commissione fissa ai versamenti,
 I membri seguenti si aggiungono alla classe dell'esempio
 precedente:
 
-\input{assets/codice/java/savings-account-override}
+\input{assets/codice/java/programmazione-a-oggetti/ereditarieta/savings-account-override}
 
 La parola \texttt{super} permette di invocare l'implementazione
 del metodo nella superclasse: \texttt{super.deposit(amount)}
@@ -185,7 +185,7 @@ in compilazione: \texttt{conto.deposit(100)} è valido, mentre
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/riferimenti-ereditarieta}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/ereditarieta/riferimenti-ereditarieta}
   \caption{Tre riferimenti di tipo diverso alla medesima
   istanza di \texttt{SavingsAccount}.}
   \label{fig:fi-java-ereditarieta-riferimenti}

@@ -47,7 +47,7 @@ l'accesso alla sua realizzazione. La
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/bank-account-black-box}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/conti-bancari/bank-account-black-box}
   \caption{Utilizzo di un oggetto attraverso l'interfaccia pubblica,
   senza accesso diretto alla rappresentazione interna.}
   \label{fig:fi-java-classi-black-box}
@@ -344,7 +344,7 @@ saldo non cambia quello del secondo.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/bank-account-istanze}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/conti-bancari/bank-account-istanze}
   \caption{Due variabili riferite a istanze distinte, ciascuna
   con il proprio campo \texttt{balance}.}
   \label{fig:fi-java-classi-istanze}
@@ -423,7 +423,7 @@ I costruttori inizializzano il saldo, \texttt{deposit()} lo
 incrementa, \texttt{withdraw()} lo decrementa e
 \texttt{getBalance()} ne restituisce il valore corrente.
 
-\input{assets/codice/java/bank-account}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/conti-bancari/bank-account}
 
 \begin{warning}[Limiti dell'implementazione essenziale]
 \label{warn:fi-java-classi-bank-limiti}
@@ -455,7 +455,7 @@ e accredita un interesse annuo del \(5\%\) per due anni,
 senza prelievi o ulteriori versamenti. Gli interessi
 vengono aggiunti al saldo alla fine di ciascun anno.
 
-\input{assets/codice/java/bank-account-tester}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/conti-bancari/bank-account-tester}
 
 Per riprodurre l'esempio, i file \texttt{BankAccount.java}
 e \texttt{BankAccountTester.java} devono contenere le
@@ -722,7 +722,7 @@ dal significato del confronto. La classe seguente
 illustra l'implementazione di tale criterio, escludendo
 i valori non finiti.
 
-\input{assets/codice/java/numeric}
+\input{assets/codice/java/controllo-di-flusso/confronti-e-condizioni/numeric}
 
 \begin{example}[Confronto dopo un calcolo approssimato]
 Si consideri il quadrato di una radice calcolata in virgola mobile:

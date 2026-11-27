@@ -53,7 +53,7 @@ la situazione dopo le assegnazioni.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/stringhe-riferimenti}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/stringhe-riferimenti}
   \caption{Confronto fra identità dei riferimenti e uguaglianza del
   contenuto delle stringhe.}
   \label{fig:fi-java-cicli-stringhe-riferimenti}
@@ -465,7 +465,7 @@ Il seguente esempio seleziona una costante di tipo
 \texttt{Stagione} mediante \texttt{switch}. Le etichette
 \texttt{case} utilizzano direttamente i nomi delle costanti,
 senza qualificarli con il tipo \texttt{Stagione}.
-\input{assets/codice/java/stagioni-switch}
+\input{assets/codice/java/controllo-di-flusso/confronti-e-condizioni/stagioni-switch}
 \end{example}
 
 Un tipo enumerativo può anche dichiarare campi, costruttori e
@@ -482,7 +482,7 @@ Nella seguente enumerazione ogni valore possiede una descrizione,
 assegnata al momento della costruzione delle costanti e restituita
 da un metodo di istanza. Si tratta di un esempio ridotto del
 meccanismo utilizzato per associare proprietà a categorie fisse.
-\input{assets/codice/java/priorita-enum}
+\input{assets/codice/java/fondamenti/tipi-e-variabili/priorita-enum}
 \end{example}
 
 Le enumerazioni offrono \emph{sicurezza del tipo}, nomi
@@ -518,7 +518,7 @@ condizione dopo il corpo.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/while-do-while}
+  \input{assets/diagrammi/java/controllo-di-flusso/cicli/while-do-while}
   \caption{Verifica preliminare nel ciclo \texttt{while} e
   verifica successiva nel ciclo \texttt{do}/\texttt{while}.}
   \label{fig:fi-java-cicli-controllo}
@@ -540,7 +540,7 @@ accredita gli interessi. La sua realizzazione può utilizzare
 \texttt{BankAccount}, già definita nella
 \cref{sec:fi-java-classi-incapsulamento}:
 
-\input{assets/codice/java/simple-investment-tester}
+\input{assets/codice/java/controllo-di-flusso/cicli/simple-investment-tester}
 
 All'inizio di ciascuna verifica della condizione, il contatore
 \texttt{years} è il numero di capitalizzazioni già effettuate e
@@ -593,7 +593,7 @@ segnala la fine dell'ingresso e viene esclusa dall'elaborazione.
 Il seguente programma somma i numeri inseriti fino allo zero, che
 non viene conteggiato.
 
-\input{assets/codice/java/somma-sentinella}
+\input{assets/codice/java/controllo-di-flusso/cicli/somma-sentinella}
 
 La variabile booleana \texttt{continua} è un flag: la condizione
 viene modificata dopo la lettura, impedendo di dover duplicare
@@ -689,7 +689,7 @@ calcola i valori delle colonne. Per valori piccoli, interi e
 non negativi, si può usare \texttt{Math.pow()} con conversione
 controllata all'intero, oppure un prodotto ripetuto.
 
-\input{assets/codice/java/tabella-potenze}
+\input{assets/codice/java/controllo-di-flusso/cicli/tabella-potenze}
 
 Il programma produce quattro righe e cinque colonne;
 \texttt{printf()} allinea i valori mediante una larghezza di campo
@@ -774,7 +774,7 @@ unica del contatore dai numeri assegnati alle singole istanze.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/contatore-statico}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/membri-statici/contatore-statico}
   \caption{Un campo statico condiviso e due campi di istanza,
   ciascuno appartenente a un oggetto distinto.}
   \label{fig:fi-java-cicli-statici-istanze}
@@ -782,7 +782,7 @@ unica del contatore dai numeri assegnati alle singole istanze.
 
 \clearpage
 
-\input{assets/codice/java/conto-numerato}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/membri-statici/conto-numerato}
 
 Dopo due costruzioni consecutive, gli oggetti ricevono
 rispettivamente i numeri \(1\) e \(2\). Se
@@ -852,7 +852,7 @@ a un oggetto, non l'oggetto stesso. La
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/variabili-heap}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/variabili-heap}
   \caption{Modello concettuale di un riferimento locale a un oggetto
   contenente campi di istanza.}
   \label{fig:fi-java-cicli-memoria}

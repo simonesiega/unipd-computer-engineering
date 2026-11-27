@@ -207,7 +207,7 @@ operazioni sulle liste sono descritti nella \cref{sec:fi-python-liste}.
 La seguente implementazione inserisce ogni elemento all'inizio della
 lista di uscita, spostando verso destra quelli già inseriti.
 
-\input{assets/codice/complessita/reverse-quadratico}
+\input{assets/codice/python/complessita/reverse-quadratico}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
 \texttt{output} contengono, in ordine inverso, i primi \(i\) elementi
@@ -250,7 +250,7 @@ direttamente nella propria posizione definitiva. Visitando gli indici
 in ordine crescente, si copia l'elemento di indice \(n-1-i\) nella
 posizione \(i\) della lista di uscita.
 
-\input{assets/codice/complessita/reverse-lineare}
+\input{assets/codice/python/complessita/reverse-lineare}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
 \texttt{output} contengono, in ordine inverso, gli ultimi \(i\) elementi
@@ -272,7 +272,7 @@ Per confrontarle sperimentalmente, il seguente programma registra in
 \texttt{tempi.csv} la durata delle esecuzioni su liste di dimensione
 crescente. Si assumono definite le due funzioni precedenti.
 
-\input{assets/codice/complessita/misurazione}
+\input{assets/codice/python/complessita/misurazione}
 
 Il file risultante contiene, per ogni misura, il nome dell'algoritmo,
 la dimensione dell'ingresso e il tempo in secondi. Le misure
@@ -292,7 +292,7 @@ Per esempio, da \([3,1,4,1,5]\) si ottiene
 \([3,4,8,9,14]\). Una prima soluzione ricalcola per ogni indice
 la somma dall'inizio; una seconda conserva la somma già raggiunta.
 
-\input{assets/codice/complessita/somme-prefisse}
+\input{assets/codice/python/complessita/somme-prefisse}
 
 Nella prima versione, a ogni iterazione di indice \(i\) viene
 calcolata la somma dei primi \(i+1\) elementi della lista di ingresso,
@@ -335,7 +335,7 @@ sfrutta la relazione
 \]
 È quindi sufficiente individuare il minimo e il massimo della lista.
 
-\input{assets/codice/complessita/differenza-massima}
+\input{assets/codice/python/complessita/differenza-massima}
 
 Nella prima versione, la variabile \texttt{massimo} conserva la
 maggiore differenza fra quelle già esaminate e zero. Il valore
@@ -374,7 +374,7 @@ se contiene elementi duplicati, ossia se esistono indici distinti
 elemento con quelli successivi; una seconda ordina una copia della
 lista e verifica la presenza di elementi consecutivi uguali.
 
-\input{assets/codice/complessita/duplicati}
+\input{assets/codice/python/complessita/duplicati}
 
 Nella prima versione, il ciclo interno confronta l'elemento di indice
 \(i\) con tutti quelli di indice maggiore. Ogni coppia di indici
@@ -425,7 +425,7 @@ indici iniziali sono \(0,\ldots,n-m\), purché \(m\le n\).
 La ricerca diretta confronta i caratteri del modello con quelli
 del testo per ogni posizione candidata.
 
-\input{assets/codice/complessita/sottostringa}
+\input{assets/codice/python/complessita/sottostringa}
 
 Per ogni posizione iniziale \(i\), la variabile
 \texttt{coincidenze} conta i caratteri corrispondenti nelle due

@@ -23,12 +23,12 @@ La funzione \texttt{print()} scrive sull'uscita standard. Una \emph{stringa}
 il carattere \texttt{\#}, fuori dalle stringhe, introduce un commento fino
 al termine della riga.
 
-\input{assets/codice/esecuzione/saluto}
+\input{assets/codice/python/esecuzione/saluto}
 
 Salvato il sorgente come \texttt{saluto.py}, lo si può eseguire dal
 terminale:
 
-\input{assets/codice/esecuzione/terminale}
+\input{assets/codice/python/esecuzione/terminale}
 
 Il nome del comando può essere \texttt{python} oppure
 \texttt{python3}, a seconda dell'ambiente;
@@ -114,7 +114,7 @@ La funzione \texttt{input()} legge una riga dall'ingresso standard e
 restituisce una stringa, anche se l'utente ha digitato un numero.
 Per eseguire calcoli occorre quindi convertire i valori acquisiti.
 
-\input{assets/codice/variabili/somma-input}
+\input{assets/codice/python/variabili/somma-input}
 
 \clearpage
 
@@ -178,7 +178,7 @@ L'istruzione \texttt{if} esegue un blocco quando la condizione è vera;
 residuo. In una catena condizionale viene eseguito soltanto il blocco
 associato alla prima condizione soddisfatta.
 
-\input{assets/codice/condizioni/esito}
+\input{assets/codice/python/condizioni/esito}
 
 L'\emph{indentazione} identifica i blocchi di istruzioni ed è parte
 della sintassi di Python. Dopo i due punti, le istruzioni del blocco
@@ -206,7 +206,7 @@ può quindi non essere eseguito neppure una volta. Diversamente, il ciclo
 garantendo almeno un'iterazione. Quest'ultimo non è previsto direttamente in Python,
 ma può essere simulato mediante \texttt{while True} e \texttt{break}.
 
-\input{assets/codice/cicli/validazione}
+\input{assets/codice/python/cicli/validazione}
 
 L'esempio richiede nuovamente l'età finché il valore è negativo. La
 terminazione dipende dall'inserimento di un intero non negativo; una
@@ -219,7 +219,7 @@ condizione e aggiornamento. L'istruzione \texttt{n += 1} abbrevia
 prestabilito segnala la fine dell'acquisizione e non viene elaborato come
 dato.
 
-\input{assets/codice/cicli/sentinella}
+\input{assets/codice/python/cicli/sentinella}
 
 L'inserimento di zero termina il ciclo senza contribuire alla somma;
 se è il primo valore, la somma resta nulla.
@@ -240,7 +240,7 @@ Con tre argomenti \texttt{range(inizio, fine, passo)}, il passo può
 essere negativo, ma non nullo. Il ciclo \texttt{for} non richiede
 l'aggiornamento manuale della variabile di iterazione.
 
-\input{assets/codice/cicli/accumulo}
+\input{assets/codice/python/cicli/accumulo}
 
 La variabile \texttt{totale} è un \emph{accumulatore}: contiene la somma
 parziale e viene aggiornata a ogni iterazione. In questo caso il ciclo
@@ -248,7 +248,7 @@ somma gli interi da uno a cinque, individuati da \texttt{range(1, 6)},
 ottenendo \texttt{15}. La funzione \texttt{sum()} permette di ottenere
 lo stesso risultato mediante un'espressione generatrice:
 
-\input{assets/codice/cicli/accumulo-sum}
+\input{assets/codice/python/cicli/accumulo-sum}
 
 La ricorsione fornisce un'altra forma di ripetizione del calcolo,
 trattata nella \cref{sec:fi-ricorsione-terminazione}.
@@ -289,7 +289,7 @@ modificare quella originale, se gli elementi sono confrontabili;
 \texttt{None}. Gli algoritmi impiegati per ordinare i dati sono
 studiati nel \cref{chap:ricerca-ordinamento}.
 
-\input{assets/codice/liste/voti}
+\input{assets/codice/python/liste/voti}
 
 Nell'esempio, \texttt{pop()} rimuove l'ultimo voto e
 \texttt{sorted()} crea una copia ordinata. Il ciclo calcola la media
@@ -332,14 +332,14 @@ esterna, ne può utilizzare le variabili locali ed è normalmente
 accessibile soltanto nel suo ambito. L'esempio seguente ne mostra
 l'impiego nel calcolo dell'area di un rettangolo.
 
-\input{assets/codice/funzioni/area}
+\input{assets/codice/python/funzioni/area}
 
 Le definizioni possono essere raccolte in \emph{moduli}, ossia file
 Python importabili. Salvando la definizione di
 \texttt{area\_rettangolo} in \texttt{geometria.py}, un secondo file
 può utilizzarla così:
 
-\input{assets/codice/funzioni/modulo}
+\input{assets/codice/python/funzioni/modulo}
 
 Con \texttt{import geometria} si accede alla funzione mediante
 \texttt{geometria.area\_rettangolo(8, 5)};
@@ -379,7 +379,7 @@ Il costrutto \texttt{with open(...) as file:} chiude il file
 all'uscita dal blocco, anche se si verifica un errore. È opportuno
 specificare la codifica UTF-8 mediante il parametro \texttt{encoding}.
 
-\input{assets/codice/file/scrittura}
+\input{assets/codice/python/file/scrittura}
 
 Il metodo \texttt{write()} scrive una stringa senza aggiungere
 automaticamente un fine riga; la sequenza \lstinline|"\n"| rappresenta
@@ -397,7 +397,7 @@ e finali, compresi i terminatori di riga. Un numero letto da un file
 rimane testo finché non viene convertito con \texttt{int()} o
 \texttt{float()}.
 
-\input{assets/codice/file/lettura}
+\input{assets/codice/python/file/lettura}
 
 Il programma stampa \texttt{Somma: 81} se il file contiene i tre
 valori dell'esempio precedente. La clausola

@@ -21,7 +21,7 @@ non compare, restituisce \(-1\). In questo contesto \(-1\) è un valore
 convenzionale che segnala l'insuccesso, non un indice da utilizzare
 per accedere alla lista.
 
-\input{assets/codice/ricerca/lineare}
+\input{assets/codice/python/ricerca/lineare}
 
 Prima di esaminare l'indice \(i\), nessuno degli elementi nelle
 posizioni da \(0\) a \(i-1\) è uguale a \(x\). Se il confronto riesce,
@@ -63,7 +63,7 @@ e restituisce un indice contenente \(x\), oppure \(-1\) se il valore
 
 \clearpage
 
-\input{assets/codice/ricerca/binaria}
+\input{assets/codice/python/ricerca/binaria}
 
 La procedura ricorsiva mantiene un intervallo di indici
 \([\ell,r]\) nel quale deve trovarsi il valore cercato, se presente.
@@ -118,7 +118,7 @@ ordinata, occorre esaminare tutti gli elementi. La ricerca assume
 il primo valore come candidato e lo aggiorna quando incontra un
 elemento rispettivamente maggiore o minore.
 
-\input{assets/codice/ricerca/estremi}
+\input{assets/codice/python/ricerca/estremi}
 
 A ogni passo il candidato conserva l'estremo fra gli elementi
 già visitati; terminata la scansione, è quindi l'estremo
@@ -153,7 +153,7 @@ intervallo di indici. La strategia ammette sia un'implementazione
 iterativa sia una ricorsiva: nella seconda, dopo aver collocato
 il minimo, si ordina la parte rimanente.
 
-\input{assets/codice/ordinamento/selezione}
+\input{assets/codice/python/ordinamento/selezione}
 
 Nella versione iterativa, all'inizio dell'iterazione di indice \(i\),
 i primi \(i\) elementi sono ordinati e contengono gli \(i\) valori
@@ -215,7 +215,7 @@ una delle due parti è esaurita, copia gli elementi residui dell'altra.
 
 \clearpage
 
-\input{assets/codice/ordinamento/fusione}
+\input{assets/codice/python/ordinamento/fusione}
 
 Durante la fusione, la parte di destinazione già scritta contiene,
 in ordine, gli elementi più piccoli delle due sottoliste.
@@ -274,7 +274,7 @@ iniziale della lista. A ogni iterazione conserva temporaneamente
 l'elemento da inserire e sposta verso destra quelli maggiori,
 fino a individuare la posizione corretta.
 
-\input{assets/codice/ordinamento/inserimento}
+\input{assets/codice/python/ordinamento/inserimento}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi
 sono ordinati. Il ciclo interno sposta soltanto gli elementi maggiori
@@ -320,7 +320,7 @@ Il pivot viene quindi collocato nella sua posizione definitiva e
 il procedimento prosegue ricorsivamente sui due intervalli rimanenti.
 Una parte di lunghezza minore di due costituisce il caso base.
 
-\input{assets/codice/ordinamento/rapido}
+\input{assets/codice/python/ordinamento/rapido}
 
 Per ordinare l'intera lista, la chiamata iniziale è
 \texttt{quicksort(a, 0, len(a) - 1)}, poiché gli estremi
