@@ -1,0 +1,20 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,align=center,text width=4.1cm,inner sep=5pt]
+    (fr) at (-2.95,2.2) {\textbf{\texttt{FileReader}}\\[-1pt]
+    \rule{3.7cm}{0.25pt}\\[-2pt]\texttt{read(): int}};
+  \node[unipd/node,align=center,text width=4.1cm,inner sep=5pt]
+    (fw) at (2.95,2.2) {\textbf{\texttt{FileWriter}}\\[-1pt]
+    \rule{3.7cm}{0.25pt}\\[-2pt]\texttt{write(String): void}};
+  \node[unipd/node,align=center,text width=4.1cm,inner sep=5pt]
+    (br) at (-2.95,0) {\textbf{\texttt{BufferedReader}}\\[-1pt]
+    \rule{3.7cm}{0.25pt}\\[-2pt]\texttt{readLine(): String}};
+  \node[unipd/node,align=center,text width=4.1cm,inner sep=5pt]
+    (bw) at (2.95,0) {\textbf{\texttt{BufferedWriter}}\\[-1pt]
+    \rule{3.7cm}{0.25pt}\\[-2pt]\texttt{newLine(): void}};
+  \node[unipd/node,align=center,text width=4.1cm,inner sep=5pt]
+    (pw) at (2.95,-2.75) {\textbf{\texttt{PrintWriter}}\\[-1pt]
+    \rule{3.7cm}{0.25pt}\\[-2pt]\texttt{print(), println(), printf()}};
+  \draw[unipd/directed edge] (br.north) -- node[right,font=\scriptsize]{usa} (fr.south);
+  \draw[unipd/directed edge] (bw.north) -- node[right,font=\scriptsize]{usa} (fw.south);
+  \draw[unipd/directed edge] (pw.north) -- node[right,font=\scriptsize]{può usare} (bw.south);
+\end{tikzpicture}

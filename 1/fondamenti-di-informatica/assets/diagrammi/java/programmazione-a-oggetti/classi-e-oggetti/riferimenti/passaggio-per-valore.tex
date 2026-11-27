@@ -1,0 +1,17 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,align=center,minimum width=2.6cm]
+    (v) at (-3.3,1.15) {Chiamante\\\texttt{x = 10}};
+  \node[unipd/node,align=center,minimum width=2.6cm]
+    (p) at (0.2,1.15) {Parametro\\\texttt{n = 10}};
+  \draw[unipd/directed edge] (v.east) -- node[above,font=\scriptsize]{copia} (p.west);
+  \node[unipd/node,align=center,minimum width=2.6cm]
+    (r) at (-3.3,-0.8) {Chiamante\\\texttt{account: rif.}};
+  \node[unipd/node,align=center,minimum width=2.6cm]
+    (q) at (0.2,-0.8) {Parametro\\\texttt{conto: rif.}};
+  \node[unipd/node,align=center,minimum width=2.45cm]
+    (o) at (4.1,-0.8) {\texttt{BankAccount}\\\texttt{balance = 100}};
+  \draw[unipd/directed edge] (r.east) -- node[above,font=\scriptsize]{copia} (q.west);
+  \draw[unipd/directed edge] (q.east) -- (o.west);
+  \draw[unipd/directed edge,densely dashed] (r.south) -- ++(0,-0.6)
+    -| (o.south);
+\end{tikzpicture}

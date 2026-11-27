@@ -1,0 +1,8 @@
+\begin{unipdcode}[language=Java]
+public class SavingsAccount extends BankAccount {
+    private final double interestRate;
+
+    public SavingsAccount(double rate) { interestRate = rate; }
+    public void addInterest() { deposit(getBalance() * interestRate / 100); }
+}
+\end{unipdcode}

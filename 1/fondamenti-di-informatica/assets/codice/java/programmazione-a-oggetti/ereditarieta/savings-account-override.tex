@@ -1,0 +1,9 @@
+\begin{unipdcode}[language=Java]
+@Override
+public void deposit(double amount) {
+    super.deposit(amount);
+    super.withdraw(FEE);
+}
+
+private static final double FEE = 2.58;
+\end{unipdcode}

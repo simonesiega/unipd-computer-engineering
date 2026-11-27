@@ -1,0 +1,12 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \tikzset{fi/inheritance/.style={unipd/node,align=center,
+    minimum width=3.1cm,minimum height=0.68cm,
+    inner xsep=5pt,inner ysep=4pt,font=\small}}
+  \node[fi/inheritance] (obj) at (0,2.6) {\texttt{Object}};
+  \node[fi/inheritance] (bank) at (0,1.3) {\texttt{BankAccount}};
+  \node[fi/inheritance] (save) at (0,0) {\texttt{SavingsAccount}};
+  \draw[thick] (bank.north) -- (0,2.14);
+  \draw[thick,fill=white] (-0.14,2.14) -- (0,2.26) -- (0.14,2.14) -- cycle;
+  \draw[thick] (save.north) -- (0,0.84);
+  \draw[thick,fill=white] (-0.14,0.84) -- (0,0.96) -- (0.14,0.84) -- cycle;
+\end{tikzpicture}

@@ -204,9 +204,10 @@ rilevante per il tempo effettivo su ingressi concreti
 
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-cicli-quadrati}
-Considera il seguente frammento di codice Python. Qual è
-la sua complessità in funzione di \(n\)? Deriva il numero
-di operazioni eseguite dall'istruzione più interna.
+Considera il seguente frammento di codice Python, con \(n\)
+intero non negativo. Qual è la sua complessità in funzione
+di \(n\)? Deriva il numero di operazioni eseguite
+dall'istruzione più interna.
 \end{exercise}
 
 \begin{unipdcode}[language=Python]
@@ -265,8 +266,7 @@ Il numero complessivo degli spostamenti è
 Nel modello di conteggio degli appunti si ottiene
 \(T(n)=\frac32n^2+\frac52n+3\). Il costo quadratico dipende
 quindi dagli \emph{spostamenti ripetuti}, non dal semplice
-numero di iterazioni del ciclo esterno
-(\cref{sec:fi-complessita-reverse-quadratico}).
+numero di iterazioni del ciclo esterno.
 
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-reverse-lineare}
@@ -280,8 +280,7 @@ Ogni elemento viene copiato direttamente nella sua
 posizione definitiva della lista invertita: all'indice \(i\)
 si scrive l'elemento di indice \(n-1-i\) dell'ingresso.
 Si evitano così gli spostamenti degli elementi già copiati.
-Il costo è \(T(n)=5n+2\) nel modello degli appunti
-(\cref{sec:fi-complessita-reverse-lineare}).
+Il costo è \(T(n)=5n+2\) nel modello degli appunti.
 
 \begin{exercise}
 \label{ex:fi-esercizi-complessita-rapporto-reverse}
@@ -293,8 +292,9 @@ al crescere di \(n\), oppure cambia? Perché?
 Il rapporto non rimane costante. I costi dei due algoritmi
 sono rispettivamente \(\Theta(n^2)\) e \(\Theta(n)\), quindi,
 a parità di modello, il rapporto fra il costo quadratico e
-quello lineare cresce come \(\Theta(n)\). Raddoppiando \(n\),
-il rapporto tende approssimativamente a raddoppiare.
+quello lineare cresce come \(\Theta(n)\). Per dimensioni grandi,
+raddoppiando \(n\) il rapporto fra i tempi tende quindi
+a raddoppiare, se i tempi seguono i rispettivi termini dominanti.
 Il valore 12\,800 è un dato del quesito e non si ricava
 dalle sole classi asintotiche: i tempi effettivi dipendono
 anche dall'implementazione e dall'ambiente
@@ -307,10 +307,10 @@ diventa preferibile a quello lineare.'' Questa affermazione
 è corretta? Discuti.
 \end{exercise}
 
-No, non in generale. Un computer più veloce può diminuire
-i tempi di entrambi gli algoritmi, ma non modifica il
-loro ordine di crescita. Per ingressi sufficientemente
-grandi, la crescita quadratica rende il primo algoritmo
+No, non in generale. Su uno stesso computer, un aumento
+della velocità può ridurre i tempi di entrambi gli algoritmi,
+ma non ne modifica l'ordine di crescita. Per ingressi
+sufficientemente grandi, la crescita quadratica rende il primo algoritmo
 asintoticamente meno efficiente di quello lineare.
 Per dimensioni concrete possono contare le costanti e
 i dettagli dell'implementazione, che non cambiano però

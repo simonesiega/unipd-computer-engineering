@@ -1,0 +1,15 @@
+\begin{unipdcode}[language=Java]
+public static int binarySearchRecursive(int[] v, int value) {
+    if (v == null) throw new IllegalArgumentException();
+    return binSearch(v, 0, v.length - 1, value);
+}
+
+private static int binSearch(int[] v, int from, int to, int value) {
+    if (from > to) return -1;
+    int mid = from + (to - from) / 2;
+    if (v[mid] == value) return mid;
+    if (v[mid] < value)
+        return binSearch(v, mid + 1, to, value);
+    return binSearch(v, from, mid - 1, value);
+}
+\end{unipdcode}

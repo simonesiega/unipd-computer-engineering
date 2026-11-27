@@ -41,7 +41,7 @@ Nel calcolo del fattoriale, qual è il caso base?
 
 Il caso base è \(n=0\), per il quale \(0!=1\): la funzione
 restituisce \(1\) senza effettuare altre chiamate ricorsive
-(\cref{eq:fi-fattoriale,sec:fi-fattoriale}).
+(\cref{eq:fi-fattoriale}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricorsione-fattoriale-passo}
@@ -77,7 +77,7 @@ Le chiamate potrebbero continuare senza raggiungere una condizione
 di arresto. In CPython, l'accumulo dei frame oltre il limite di
 profondità provoca generalmente \texttt{RecursionError}; ciò non
 costituisce una terminazione corretta dell'algoritmo
-(\cref{sec:fi-ricorsione-terminazione,sec:fi-ricorsione-coda}).
+(\cref{sec:fi-ricorsione-terminazione}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricorsione-base-insufficiente}
@@ -150,9 +150,9 @@ Perché una funzione ricorsiva può essere meno efficiente di un
 ciclo equivalente?
 \end{exercise}
 
-Ogni chiamata comporta un costo di invocazione e mantiene un
-frame nella pila: per il fattoriale, la versione ricorsiva richiede
-spazio ausiliario \(\Theta(n)\), mentre quella iterativa richiede
+Ogni chiamata comporta un costo di invocazione e aggiunge un
+frame alla pila delle chiamate: per il fattoriale, la versione
+ricorsiva richiede spazio ausiliario \(\Theta(n)\), mentre quella iterativa richiede
 \(\Theta(1)\), nel modello di costo adottato. Alcune ricorsioni
 ricalcolano inoltre sottoproblemi già risolti, come nel caso di
 Fibonacci (\cref{sec:fi-pila-ricorsione,sec:fi-fibonacci}).
@@ -167,6 +167,8 @@ non deve eseguire ulteriori operazioni dopo il suo ritorno. In
 particolare, \texttt{return fattoriale\_coda(n - 1, acc * n)}
 è in coda, mentre \texttt{return n * fattoriale(n - 1)}
 non lo è (\cref{sec:fi-ricorsione-coda}).
+
+\clearpage
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricorsione-coda-ciclo}
@@ -198,8 +200,8 @@ Perché l'algoritmo ricorsivo per Fibonacci è molto inefficiente?
 
 La traduzione diretta della ricorrenza ricalcola più volte gli stessi
 termini, producendo un numero esponenziale di invocazioni. Nel
-modello a costo unitario, il tempo è \(\Theta(F_n)\), mentre la
-versione iterativa richiede \(\Theta(n)\) operazioni
+modello a costo unitario, per \(n\ge1\) il tempo è
+\(\Theta(F_n)\), mentre la versione iterativa richiede \(\Theta(n)\) operazioni
 (\cref{sec:fi-fibonacci,sec:fi-complessita-fibonacci}).
 
 \begin{exercise}

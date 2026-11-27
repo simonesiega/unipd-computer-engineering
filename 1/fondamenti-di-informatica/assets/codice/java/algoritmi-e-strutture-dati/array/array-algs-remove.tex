@@ -1,0 +1,15 @@
+\begin{unipdcode}[language=Java,
+  basicstyle=\ttfamily\scriptsize, numbers=none,
+  xleftmargin=0.6em, xrightmargin=0.6em,
+  framexleftmargin=0.2em]
+public static int[] remove(
+        int[] v, int index) {
+    if (v == null || index < 0
+            || index >= v.length)
+        throw new IllegalArgumentException();
+    int[] out = resize(v, v.length - 1);
+    if (index < out.length)
+        out[index] = v[v.length - 1];
+    return out;
+}
+\end{unipdcode}

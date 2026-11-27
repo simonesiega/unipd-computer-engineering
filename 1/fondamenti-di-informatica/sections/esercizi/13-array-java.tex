@@ -1,0 +1,201 @@
+\chapter{Esercizi: Array in Java}
+\label{chap:esercizi-array-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-funzione}
+Che problema risolve un array quando si deve memorizzare una sequenza
+di molti valori dello stesso tipo?
+\end{exercise}
+
+Permette di accedere ai valori mediante un riferimento e un indice,
+senza dichiarare una variabile distinta per ciascun elemento
+(\cref{def:fi-java-array}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-default}
+Quali valori iniziali assumono automaticamente gli elementi di un
+array di \texttt{int}, di \texttt{boolean} e di riferimenti a oggetti?
+\end{exercise}
+
+Rispettivamente \texttt{0}, \texttt{false} e \texttt{null}
+(\cref{sec:fi-java-array-inizializzazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-indici}
+Che cosa succede se si accede a un array con un indice negativo
+oppure con un indice uguale alla lunghezza dell'array?
+\end{exercise}
+
+L'accesso provoca \texttt{ArrayIndexOutOfBoundsException}:
+gli indici validi vanno da zero a \texttt{length - 1}
+(\cref{sec:fi-java-array-costruzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-length}
+Perché \texttt{values.length} non è un metodo, e perché non è
+possibile assegnare un nuovo valore a \texttt{values.length}?
+\end{exercise}
+
+\texttt{length} è un campo pubblico e \texttt{final} dell'oggetto
+array, non un metodo. La lunghezza è fissata alla costruzione
+e l'assegnamento al campo è vietato dal compilatore
+(\cref{sec:fi-java-array-inizializzazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-validazione}
+Come si può controllare che un indice inserito dall'utente sia
+valido prima di usare \texttt{values[index]}?
+\end{exercise}
+
+Si verifica \texttt{index >= 0 \&\& index < values.length},
+dopo aver accertato che \texttt{values} non sia \texttt{null}
+(\cref{sec:fi-java-array-costruzione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-inizializzazione}
+Quali sono i tre modi mostrati nelle slide per inizializzare un array
+con i valori \texttt{2}, \texttt{3}, \texttt{5}, e quale forma è
+preferibile quando i valori sono già noti?
+\end{exercise}
+
+Si possono costruire tre celle con \texttt{new int[3]} e assegnare
+singolarmente gli elementi; usare \texttt{int[] a = \{2, 3, 5\};};
+oppure \texttt{int[] a = new int[] \{2, 3, 5\};}.
+Nella dichiarazione, la seconda forma è la più concisa
+(\cref{sec:fi-java-array-inizializzazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-null}
+Perché un metodo che riceve un array dovrebbe spesso controllare
+se il parametro vale \texttt{null}?
+\end{exercise}
+
+Un riferimento nullo non individua un array.
+L'accesso a \texttt{v.length} in questo caso provoca
+\texttt{NullPointerException}. Un controllo esplicito
+consente di segnalare l'argomento non valido (\cref{sec:fi-java-array-parametri}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-ritorno}
+Come può un metodo restituire un array come valore di ritorno,
+per esempio nel caso di un metodo \texttt{resize}?
+\end{exercise}
+
+Dichiara un tipo di ritorno array, come \texttt{int[]}, e
+restituisce il riferimento all'array costruito. Il chiamante può
+assegnare quel riferimento alla propria variabile
+(\cref{sec:fi-java-array-resize}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-alias}
+Perché l'assegnazione \texttt{double[] y = x;} non copia il
+contenuto dell'array, ma solo il riferimento allo stesso oggetto?
+\end{exercise}
+
+Le variabili di tipo array contengono riferimenti. L'assegnamento
+copia il valore del riferimento, quindi entrambe le variabili
+individuano lo stesso array
+(\cref{sec:fi-java-array-parametri}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-copia}
+Quali passi sono necessari per ottenere una vera copia
+indipendente di un array?
+\end{exercise}
+
+Si costruisce un secondo array e si copiano gli elementi, usando
+un ciclo, \texttt{System.arraycopy()} o \texttt{clone()}.
+Se gli elementi sono riferimenti, gli oggetti indicati
+rimangono condivisi (\cref{sec:fi-java-array-parametri}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-arraycopy}
+A che cosa serve \texttt{System.arraycopy} e quale significato
+hanno i parametri \texttt{from}, \texttt{fromStart}, \texttt{to},
+\texttt{toStart} e \texttt{count}?
+\end{exercise}
+
+Copia \texttt{count} elementi dall'array \texttt{from}, a partire
+da \texttt{fromStart}, nell'array \texttt{to}, a partire da
+\texttt{toStart}. Gli intervalli devono essere validi e i tipi
+compatibili (\cref{sec:fi-java-array-parametri}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-clone}
+Che cosa restituisce \texttt{clone()} quando viene invocato su
+un array Java? È necessario un cast per assegnare il risultato
+a una variabile dello stesso tipo array?
+\end{exercise}
+
+\texttt{clone()} crea un nuovo array con gli stessi elementi.
+Per gli array Java il cast non è necessario: il tipo restituito
+è quello dell'array, ad esempio \texttt{double[]}, anche se
+\texttt{Object.clone()} in generale restituisce \texttt{Object}.
+La copia rimane superficiale
+(\cref{sec:fi-java-array-parametri}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-foreach}
+Che cos'è il ciclo \texttt{for-each} e perché riduce il rischio
+di errori legati agli indici?
+\end{exercise}
+
+Visita direttamente gli elementi di un array o di una collezione,
+senza controllare esplicitamente gli indici; evita quindi errori
+nelle condizioni di avanzamento
+(\cref{sec:fi-java-array-for-each}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-foreach-limiti}
+In quale situazione un ciclo \texttt{for-each} è meno adatto
+di un ciclo \texttt{for} tradizionale?
+\end{exercise}
+
+Quando occorre conoscere l'indice, visitare solo alcune posizioni
+o sostituire le celle dell'array durante la scansione
+(\cref{sec:fi-java-array-for-each}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-ridimensionamento}
+Come funziona il metodo \texttt{resize} usato per creare un
+array più grande?
+\end{exercise}
+
+Costruisce un nuovo array della lunghezza richiesta, copia
+gli elementi conservabili e restituisce il nuovo riferimento.
+L'array originario non cambia dimensione
+(\cref{sec:fi-java-array-resize}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-stampa}
+Perché stampare direttamente un array di \texttt{int} con
+\texttt{System.out.println(a)} non mostra i suoi elementi?
+\end{exercise}
+
+L'array non ridefinisce una rappresentazione testuale dei propri
+elementi. La stampa usa la rappresentazione dell'oggetto;
+per mostrare i valori occorre elaborarli oppure utilizzare
+un metodo che li converta in testo
+(\cref{sec:fi-java-array-stampa}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-inserimento}
+Perché nell'inserimento di un elemento in mezzo a un array
+gli spostamenti devono iniziare dall'ultimo elemento?
+\end{exercise}
+
+Si parte dall'ultimo elemento e si procede verso il punto di
+inserimento. In questo modo ciascun valore viene spostato
+nell'indice successivo prima che la sua posizione originale
+sia sovrascritta (\cref{sec:fi-java-array-insert}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-array-paralleli}
+Perché è preferibile sostituire gli array paralleli con un
+array di oggetti?
+\end{exercise}
+
+Una classe raccoglie le proprietà dello stesso elemento logico.
+L'aggiunta o la modifica di un dato non impone la gestione
+coordinata di più array o l'estensione delle firme di numerosi
+metodi (\cref{sec:fi-java-array-paralleli}).

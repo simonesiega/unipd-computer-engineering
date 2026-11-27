@@ -1,0 +1,27 @@
+\begin{tikzpicture}[unipd/diagram,x=1cm,y=1cm]
+  \node[unipd/node,minimum width=1.5cm]
+    (x) at (-3.4,0.45) {\texttt{x}};
+  \node[unipd/node,minimum width=1.5cm]
+    (y) at (-3.4,-0.45) {\texttt{y}};
+
+  \node[unipd/node,minimum width=3cm,
+    minimum height=1.5cm,align=center]
+    (a) at (0,0) {Array originale\\\texttt{[2, 3, 5]}};
+
+  \node[unipd/node,minimum width=1.5cm]
+    (z) at (3.4,-2.65) {\texttt{z}};
+  \node[unipd/node,minimum width=3cm,align=center]
+    (b) at (0,-2.65) {Copia indipendente\\\texttt{[2, 3, 5]}};
+
+  \draw[unipd/directed edge]
+    (x.east) -- ([yshift=0.45cm]a.west);
+  \draw[unipd/directed edge]
+    (y.east) -- ([yshift=-0.45cm]a.west);
+  \draw[unipd/directed edge]
+    (z.west) -- (b.east);
+
+  \draw[unipd/directed edge,densely dashed]
+    (a.south) -- node[midway,right=6pt,
+      font=\scriptsize,fill=white,inner sep=2pt]
+      {copia degli elementi} (b.north);
+\end{tikzpicture}

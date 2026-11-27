@@ -20,7 +20,7 @@ La classe è la definizione di un tipo, mentre un oggetto è una sua
 istanza concreta, creata durante l'esecuzione. Per esempio,
 \texttt{BankAccount} è la classe, mentre
 \texttt{new BankAccount()} crea un oggetto di quel tipo
-(\cref{sec:fi-java-classi-stato,sec:fi-java-classi-costruttori}).
+(\cref{def:fi-java-classi-classe-oggetto}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-classi-collaudo-scopo}
@@ -31,7 +31,7 @@ Serve a verificarne il comportamento mediante la costruzione di
 oggetti e l'invocazione dei loro metodi, confrontando i risultati
 ottenuti con quelli attesi. Può individuare errori, ma il superamento
 di alcuni test non dimostra la correttezza generale
-(\cref{sec:fi-java-collaudo,sec:fi-java-classi-collaudo}).
+(\cref{sec:fi-java-classi-collaudo}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-classi-collaudo-passi}
@@ -60,10 +60,11 @@ dettagli della sua implementazione interna
 Che cosa si intende per interfaccia pubblica di una classe?
 \end{exercise}
 
-È l'insieme dei membri accessibili ai suoi utilizzatori, con le
-modalità e le condizioni del loro impiego. Comprende, in particolare,
-i costruttori e i metodi pubblici, i relativi parametri, i risultati
-e il comportamento previsto (\cref{def:fi-java-classi-interfaccia}).
+L'interfaccia pubblica specifica come utilizzare una classe e i
+suoi oggetti senza dipendere dai dettagli dell'implementazione.
+Comprende, in particolare, i costruttori e i metodi pubblici,
+i relativi parametri, i risultati e il comportamento previsto
+(\cref{def:fi-java-classi-interfaccia}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-classi-intestazione-metodo}
@@ -92,17 +93,17 @@ Perché \texttt{getBalance()} è un metodo di accesso?
 
 Restituisce il saldo memorizzato nell'oggetto
 \texttt{BankAccount} senza modificarne il campo
-\texttt{balance} (\cref{def:fi-java-classi-accessori,sec:fi-java-classi-incapsulamento}).
+\texttt{balance} (\cref{def:fi-java-classi-accessori}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-classi-deposit-withdraw}
 Perché \texttt{deposit()} e \texttt{withdraw()} sono metodi modificatori?
 \end{exercise}
 
-Entrambi cambiano il campo \texttt{balance}: il primo aumenta
-il saldo dell'importo versato e il secondo lo diminuisce
-dell'importo prelevato
-(\cref{def:fi-java-classi-accessori,sec:fi-java-classi-incapsulamento}).
+Entrambi possono modificare il campo \texttt{balance}:
+\texttt{deposit()} vi somma l'importo ricevuto, mentre
+\texttt{withdraw()} lo sottrae
+(\cref{def:fi-java-classi-accessori}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-java-classi-costruttore}
@@ -170,4 +171,4 @@ al saldo attraverso i metodi pubblici previsti. Questa separazione
 realizza l'incapsulamento e permette di controllare la validità
 dello stato, purché i costruttori e i metodi modificatori effettuino
 le verifiche necessarie
-(\cref{sec:fi-java-classi-incapsulamento,warn:fi-java-classi-bank-limiti,sec:fi-java-cicli-shadowing}).
+(\cref{sec:fi-java-classi-incapsulamento,warn:fi-java-classi-bank-limiti}).

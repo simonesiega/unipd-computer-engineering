@@ -1,0 +1,14 @@
+\begin{unipdcode}[language=Java]
+private static int findMinPos(int[] v, int from) {
+    int pos = from;
+    for (int i = from + 1; i < v.length; i++)
+        if (v[i] < v[pos]) pos = i;
+    return pos;
+}
+
+private static void swap(int[] v, int i, int j) {
+    int temp = v[i];
+    v[i] = v[j];
+    v[j] = temp;
+}
+\end{unipdcode}

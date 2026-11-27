@@ -53,8 +53,8 @@ attraverso canali soggetti a \emph{rumore}, che può alterare i dati
 trasmessi. L'introduzione di \emph{ridondanza} mediante opportune
 codifiche permette di rilevare e, in determinati casi, correggere
 gli errori. La \emph{compressione} affronta invece il problema di
-rappresentare l'informazione utilizzando meno simboli, sfruttando
-le caratteristiche della sorgente.
+ridurre la quantità di dati necessaria a rappresentare un messaggio,
+sfruttando le caratteristiche della sorgente.
 
 La \cref{fig:fi-trasmissione-informazione} schematizza il percorso
 del messaggio dalla sorgente alla destinazione, evidenziando
@@ -83,10 +83,8 @@ ambienti, spesso collegati in rete: questa diffusione prende il nome di
 Un \emph{problema di calcolo} specifica gli ingressi ammissibili e il
 risultato richiesto. Una particolare scelta dei dati di ingresso
 costituisce un'\emph{istanza} del problema. Un \emph{algoritmo}
-(\cref{def:fi-algoritmo}) descrive un procedimento risolutivo, mentre
-un \emph{programma} ne costituisce un'implementazione in un linguaggio
-di programmazione (ad esempio, Python e Java, trattati rispettivamente
-nei \cref{chap:introduzione-python,chap:introduzione-java}).
+descrive un procedimento risolutivo, mentre un \emph{programma}
+ne costituisce un'implementazione in un linguaggio di programmazione.
 La \emph{programmazione} comprende la progettazione, la scrittura e la
 verifica del programma rispetto alle specifiche del problema.
 
@@ -318,9 +316,9 @@ I \emph{bus} permettono lo scambio di informazioni fra le componenti.
 Si distinguono, in base alla funzione, il \emph{bus dei dati}, che
 trasferisce valori e istruzioni, il \emph{bus degli indirizzi}, che
 identifica le locazioni interessate, e il \emph{bus di controllo},
-che coordina le operazioni. Un collegamento condiviso semplifica
-l'organizzazione e l'espansione del sistema, ma richiede di arbitrare
-gli accessi e può costituire un \emph{collo di bottiglia} fra CPU e memoria.
+che coordina le operazioni. Un collegamento condiviso riduce il numero
+di connessioni necessarie, ma richiede di arbitrare gli accessi e può
+costituire un \emph{collo di bottiglia} fra CPU e memoria.
 
 \clearpage
 
@@ -335,8 +333,7 @@ prelevata. In un modello semplificato, l'esecuzione comprende quattro fasi:
 \end{enumerate}
 Il PC viene normalmente aggiornato all'indirizzo dell'istruzione
 successiva; le istruzioni di salto possono invece modificarne il
-contenuto, permettendo di realizzare condizioni e cicli nei programmi
-(\cref{sec:fi-python-condizioni,sec:fi-python-cicli}).
+contenuto, permettendo di realizzare condizioni e cicli nei programmi.
 
 Il \emph{clock} scandisce le operazioni delle componenti sincrone.
 Per un segnale di periodo \(T\), la frequenza è \(f=1/T\) e si misura
@@ -597,7 +594,7 @@ ammesse, mentre la \emph{semantica} ne determina il significato.
 Le regole sintattiche rigorose riducono le ambiguità che un traduttore
 non potrebbe risolvere in modo affidabile interpretando le intenzioni
 del programmatore. La correttezza sintattica non implica la
-correttezza rispetto al problema (\cref{def:fi-algoritmo}).
+correttezza rispetto al problema.
 
 Un \emph{compilatore} traduce il codice sorgente in codice macchina
 o in un \emph{codice intermedio}; durante questa fase può segnalare

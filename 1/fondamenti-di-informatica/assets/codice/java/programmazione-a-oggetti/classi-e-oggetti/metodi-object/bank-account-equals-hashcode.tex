@@ -1,0 +1,15 @@
+\begin{unipdcode}[language=Java]
+@Override
+public boolean equals(Object other) {
+    if (this == other) return true;
+    if (other == null || getClass() != other.getClass())
+        return false;
+    BankAccount conto = (BankAccount) other;
+    return Double.compare(getBalance(), conto.getBalance()) == 0;
+}
+
+@Override
+public int hashCode() {
+    return Double.hashCode(getBalance());
+}
+\end{unipdcode}

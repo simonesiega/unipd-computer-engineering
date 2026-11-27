@@ -1,0 +1,14 @@
+\begin{unipdcode}[language=Java]
+public static void insertionSort(int[] v) {
+    if (v == null) throw new IllegalArgumentException();
+    for (int i = 1; i < v.length; i++) {
+        int temp = v[i];
+        int j = i;
+        while (j > 0 && v[j - 1] > temp) {
+            v[j] = v[j - 1];
+            j--;
+        }
+        v[j] = temp;
+    }
+}
+\end{unipdcode}

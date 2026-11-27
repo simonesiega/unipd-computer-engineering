@@ -1,0 +1,272 @@
+\chapter{Esercizi: Gestione delle eccezioni e dei file in Java}
+\label{chap:esercizi-eccezioni-file-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-passaggio-valore}
+Che cosa significa dire che in Java il passaggio dei parametri è
+sempre per valore?
+\end{exercise}
+
+Il metodo riceve una copia del valore dell'argomento. Per un tipo
+primitivo la copia contiene il dato stesso; per un tipo riferimento
+contiene un riferimento allo stesso oggetto. Modificare un parametro
+non modifica la variabile del chiamante, ma attraverso un riferimento
+copiato si può modificare lo stato dell'oggetto condiviso
+(\cref{def:fi-java-file-passaggio-valore}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-metodo-non-statico}
+Perché un metodo non statico come \texttt{deposit()} non può essere
+invocato direttamente da \texttt{main()} senza indicare l'oggetto
+su cui applicarlo?
+\end{exercise}
+
+\texttt{main()} è statico e non possiede un ricevente implicito
+\texttt{this}. Il metodo \texttt{deposit()} opera invece sullo
+stato di un oggetto specifico. Si deve quindi indicarne il
+riferimento, come in \texttt{account.deposit(500)}
+(\cref{sec:fi-java-file-metodi-ricevente}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-this}
+Che cosa significa dire che \texttt{this} è il parametro implicito
+di un metodo non statico?
+\end{exercise}
+
+\texttt{this} individua l'oggetto ricevente sul quale è stata
+invocata l'operazione. Consente di accedere ai campi e ai metodi
+di istanza di quello stesso oggetto, anche quando il riferimento
+non compare esplicitamente davanti al nome del membro
+(\cref{sec:fi-java-file-metodi-ricevente}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-costruttore-richiamo}
+Perché non è possibile richiamare un costruttore su un oggetto
+già esistente scrivendo \texttt{account.BankAccount()}?
+\end{exercise}
+
+Un costruttore è eseguito durante la creazione di un'istanza e
+non è un metodo ordinario invocabile su un oggetto esistente.
+L'espressione indicata tenta di individuare un metodo denominato
+\texttt{BankAccount}, che non è definito
+(\cref{sec:fi-java-file-ricostruire}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-ricostruire}
+Come si può fare in modo che una variabile faccia riferimento a
+un nuovo oggetto nello stato iniziale?
+\end{exercise}
+
+Si può creare un nuovo oggetto e assegnarne il riferimento alla
+variabile, per esempio con \texttt{account = new BankAccount();}.
+L'oggetto precedentemente indicato non viene azzerato: resta
+raggiungibile se ne esistono altri riferimenti
+(\cref{sec:fi-java-file-ricostruire}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-package}
+A che cosa servono i package in Java?
+\end{exercise}
+
+I package raggruppano tipi correlati in spazi dei nomi distinti,
+facilitando l'organizzazione di programmi composti da più classi
+e riducendo i conflitti fra nomi. Contribuiscono anche alle
+regole di accessibilità
+(\cref{def:fi-java-file-package}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-package-default}
+Che cos'è il package default e perché non è consigliato nei
+progetti reali?
+\end{exercise}
+
+È il package senza nome a cui appartengono le classi prive di una
+dichiarazione \texttt{package}. È adatto a esempi isolati ma
+ostacola la modularità: i tipi del package senza nome non
+sono importabili da package con nome
+(\cref{sec:fi-java-file-package-struttura}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-opzione-d}
+A che cosa serve l'opzione \texttt{-d} del comando \texttt{javac}?
+\end{exercise}
+
+Specifica la directory di destinazione dei file \texttt{.class}
+compilati. Il compilatore vi organizza i risultati nella struttura
+corrispondente ai package; ciò consente di separare i sorgenti
+dai prodotti della compilazione
+(\cref{sec:fi-java-file-package-compilazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-precondizioni}
+Che cosa sono le precondizioni di un metodo e perché il
+compilatore non può sempre verificarle?
+\end{exercise}
+
+Sono condizioni che gli argomenti e lo stato devono soddisfare
+prima dell'operazione perché ne sia garantito il comportamento.
+Il compilatore controlla le regole statiche di tipo, ma non
+può stabilire in generale se, durante l'esecuzione, un importo
+sia positivo o un indice appartenga all'intervallo ammesso
+(\cref{def:fi-java-file-precondizione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-argomenti-inattesi}
+Quali sono i possibili modi per reagire a un argomento inatteso,
+e perché lanciare un'eccezione è spesso la soluzione migliore?
+\end{exercise}
+
+Il metodo potrebbe ignorare il valore, terminare il programma,
+verificare un'asserzione oppure lanciare un'eccezione. Ignorare
+l'errore può nasconderlo; terminare il programma impedisce al
+chiamante di recuperare; un'asserzione può essere disabilitata.
+L'eccezione segnala invece esplicitamente la condizione anomala
+e lascia al chiamante la possibilità di gestirla
+(\cref{sec:fi-java-file-precondizioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-assert}
+A che cosa serve un'asserzione in Java e perché non deve
+sostituire la gestione delle eccezioni?
+\end{exercise}
+
+\texttt{assert} verifica condizioni che il programmatore ritiene
+debbano essere vere, prevalentemente per individuare errori
+interni durante sviluppo e collaudo. Le asserzioni sono normalmente
+disabilitate e non possono quindi garantire la validazione degli
+input né il recupero dagli errori
+(\cref{sec:fi-java-file-precondizioni}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-throw-propagazione}
+Che cosa succede quando un metodo esegue \texttt{throw} e
+l'eccezione non viene catturata nello stesso metodo?
+\end{exercise}
+
+La normale esecuzione del metodo viene interrotta; l'eccezione
+si propaga al metodo chiamante e, se non viene intercettata,
+prosegue lungo la catena delle chiamate. Un'eccezione non gestita
+nel thread principale conduce normalmente alla sua terminazione
+anomala con diagnostica
+(\cref{def:fi-java-file-eccezione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-checked-unchecked}
+Qual è la differenza tra eccezioni controllate e non
+controllate in Java?
+\end{exercise}
+
+Per le eccezioni controllate il compilatore impone la gestione
+mediante \texttt{catch} oppure la dichiarazione di propagazione
+mediante \texttt{throws}. Questa prescrizione non vale per
+\texttt{RuntimeException} e \texttt{Error}, né per le loro
+sottoclassi
+(\cref{def:fi-java-file-checked}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-io-checked}
+Perché \texttt{IOException} è un esempio tipico di eccezione
+controllata?
+\end{exercise}
+
+Rappresenta fallimenti di ingresso/uscita, come problemi di
+lettura, di scrittura o di accesso a risorse esterne, che possono
+verificarsi anche quando il programma rispetta correttamente
+la propria logica. Il compilatore richiede dunque che un metodo
+capace di generarla la gestisca o ne dichiari la propagazione
+(\cref{sec:fi-java-file-io-throws}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-runtime-unchecked}
+Perché \texttt{RuntimeException} e sue sottoclassi, come
+\texttt{NumberFormatException}, sono eccezioni non controllate?
+\end{exercise}
+
+Java non impone al compilatore di verificare che siano
+intercettate o dichiarate. Una conversione non valida può quindi
+propagarsi senza una clausola \texttt{throws}; ciò non impedisce
+al programmatore di intercettarla quando può gestire il dato
+non valido
+(\cref{def:fi-java-file-checked,sec:fi-java-file-throw-try-catch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-try}
+A che cosa serve un blocco \texttt{try}?
+\end{exercise}
+
+Delimita le istruzioni eseguite in un contesto in cui è possibile
+intercettare eccezioni mediante clausole \texttt{catch}, oppure
+eseguire una chiusura o un'operazione di ripristino mediante
+\texttt{finally}. Se viene lanciata un'eccezione, le istruzioni
+successive dello stesso blocco non vengono eseguite normalmente
+(\cref{def:fi-java-file-try-catch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-catch}
+A che cosa serve una clausola \texttt{catch}?
+\end{exercise}
+
+Intercetta un'eccezione compatibile con il tipo dichiarato e
+ne esegue il gestore. Permette, per esempio, di segnalare un
+input non valido e riprovare, evitando che l'eccezione si
+propaghi senza controllo
+(\cref{sec:fi-java-file-throw-try-catch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-lanciare-catturare}
+Che cosa significa il principio «lanciare presto, catturare tardi»?
+\end{exercise}
+
+Un metodo deve segnalare un problema quando lo rileva se non può
+risolverlo correttamente. L'eccezione va intercettata soltanto
+a un livello che disponga delle informazioni per recuperare
+o comunicare il fallimento senza nasconderlo
+(\cref{sec:fi-java-file-throw-try-catch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-parseint}
+Perché un errore rilevato in \texttt{Integer.parseInt()} può
+dover essere gestito in un punto diverso del programma?
+\end{exercise}
+
+Il metodo di conversione può stabilire che la stringa non
+rappresenta un intero, ma non conosce il significato di quel dato
+nel programma chiamante. Quest'ultimo può decidere se chiedere un
+nuovo valore, segnalare un errore all'utente o interrompere
+un'elaborazione
+(\cref{sec:fi-java-file-throw-try-catch}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-close}
+Perché i flussi di ingresso e uscita devono essere chiusi dopo
+l'uso, e che cosa può accadere se un'eccezione interviene
+prima dell'invocazione di \texttt{close()}?
+\end{exercise}
+
+La chiusura libera risorse del sistema operativo e consente
+di completare le eventuali scritture ancora presenti nei buffer.
+Se un'eccezione impedisce di eseguire \texttt{close()}, il programma può lasciare
+risorse aperte o dati non scritti. \texttt{try-with-resources}
+esegue automaticamente la chiusura anche quando un'operazione
+fallisce
+(\cref{sec:fi-java-file-try-resources}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-file-sentinella-eof}
+Qual è la differenza tra terminare l'input con un valore
+sentinella e raggiungere la fine del flusso (EOF), per esempio
+con \texttt{Ctrl+D} su Unix o \texttt{Ctrl+Z} seguito da Invio
+su Windows?
+\end{exercise}
+
+La sentinella è un dato ordinario cui il programma attribuisce
+il significato convenzionale di fine acquisizione. La fine del
+flusso, invece, è una condizione segnalata dal sistema di I/O;
+non richiede l'inserimento di un token speciale. Il metodo
+\texttt{hasNextLine()} permette di rilevarla, restituendo
+\texttt{false}
+(\cref{sec:fi-java-file-eof-token}).

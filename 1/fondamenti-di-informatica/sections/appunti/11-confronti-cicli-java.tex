@@ -53,7 +53,7 @@ la situazione dopo le assegnazioni.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/stringhe-riferimenti}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/stringhe-riferimenti}
   \caption{Confronto fra identità dei riferimenti e uguaglianza del
   contenuto delle stringhe.}
   \label{fig:fi-java-cicli-stringhe-riferimenti}
@@ -67,8 +67,7 @@ risultare veri alcuni confronti fra letterali: non bisogna affidarsi
 a questo comportamento per confrontare contenuti.
 \end{warning}
 
-Un riferimento può contenere il valore \texttt{null}
-(\cref{sec:fi-java-classi-null}). L'espressione
+Un riferimento può contenere il valore \texttt{null}. L'espressione
 \texttt{s == null} è un confronto appropriato; invocare
 un metodo su un riferimento nullo provoca invece un errore
 durante l'esecuzione. Quando il primo testo è una costante,
@@ -106,14 +105,12 @@ non sono necessari per i confronti introdotti qui.
 \section{Confronto tra oggetti}
 \label{sec:fi-java-cicli-oggetti}
 
-La distinzione vista per le stringhe vale per tutti i riferimenti:
-\texttt{a == b} verifica se i due riferimenti identificano lo stesso
-oggetto (oppure sono entrambi \texttt{null}). Il metodo
-\texttt{equals()} è disponibile per gli oggetti perché è dichiarato
-nella classe \texttt{Object}, dalla quale derivano le classi Java.
-Nella sua implementazione di base, esso verifica l'identità. Una
-classe può \emph{ridefinirlo} per esprimere un'uguaglianza basata
-su caratteristiche significative degli oggetti, come avviene per
+Come per le stringhe, l'operatore \texttt{==} confronta l'identità
+dei riferimenti. Per verificare l'uguaglianza secondo un criterio
+definito dalla classe si può utilizzare \texttt{equals()}, ereditato
+da \texttt{Object}. La sua implementazione di base verifica
+l'identità; una classe può sovrascriverlo per confrontare
+caratteristiche significative degli oggetti, come avviene per
 \texttt{String}.
 
 \begin{definition}[Uguaglianza per identità e per valore]
@@ -221,8 +218,7 @@ Le etichette \texttt{case} rappresentano valori compatibili con il
 tipo dell'espressione. Lo \texttt{switch} tradizionale accetta, fra
 gli altri, \texttt{byte}, \texttt{short}, \texttt{char},
 \texttt{int}, le corrispondenti classi involucro, \texttt{String}
-(a partire da Java 7) e i tipi enumerativi introdotti nella
-\cref{sec:fi-java-cicli-enum}. Non supporta direttamente
+(a partire da Java 7) e i tipi enumerativi. Non supporta direttamente
 \texttt{long} o \texttt{double} come selettori.
 
 \begin{warning}[Caduta tra i casi]
@@ -301,9 +297,7 @@ per eseguire azioni, dalla versione \emph{espressione}, impiegata
 per calcolare un risultato. Le etichette con freccia possono essere
 usate anche in istruzioni \texttt{switch} nelle versioni moderne
 di Java. Quando il selettore è un \texttt{enum}, i casi possono
-indicare direttamente le costanti senza ripetere il nome del tipo;
-la definizione e l'esempio completo sono nella
-\cref{sec:fi-java-cicli-enum}.
+indicare direttamente le costanti senza ripetere il nome del tipo.
 
 \section{Il tipo \texttt{boolean} e le espressioni logiche}
 \label{sec:fi-java-cicli-boolean}
@@ -332,7 +326,7 @@ Una variabile booleana usata per controllare il flusso è detta
 \emph{predicati}, spesso denominati con \texttt{is} o \texttt{has}:
 \texttt{Character.isDigit(ch)} riconosce una cifra e
 \texttt{scanner.hasNextInt()} verifica la disponibilità di un
-\texttt{int} nell'ingresso (\cref{sec:fi-java-scanner-numeri}).
+\texttt{int} nell'ingresso.
 
 \subsection{Operatori logici e cortocircuito}
 \label{sec:fi-java-cicli-logici}
@@ -437,10 +431,7 @@ if (x > 0 && y > 0) {
 L'espressione \texttt{0 <= x} produce un valore booleano, che
 non può essere confrontato numericamente con \texttt{1}; inoltre,
 \texttt{\&\&} richiede due operandi booleani. Questi errori
-vengono individuati dal compilatore. Il confronto fra due
-numeri in virgola mobile presenta un problema differente,
-relativo alla precisione, già trattato nella
-\cref{sec:fi-java-classi-floating}.
+vengono individuati dal compilatore.
 
 \section{Tipi enumerativi \texttt{enum}}
 \label{sec:fi-java-cicli-enum}
@@ -474,7 +465,7 @@ Il seguente esempio seleziona una costante di tipo
 \texttt{Stagione} mediante \texttt{switch}. Le etichette
 \texttt{case} utilizzano direttamente i nomi delle costanti,
 senza qualificarli con il tipo \texttt{Stagione}.
-\input{assets/codice/java/stagioni-switch}
+\input{assets/codice/java/controllo-di-flusso/confronti-e-condizioni/stagioni-switch}
 \end{example}
 
 Un tipo enumerativo può anche dichiarare campi, costruttori e
@@ -491,7 +482,7 @@ Nella seguente enumerazione ogni valore possiede una descrizione,
 assegnata al momento della costruzione delle costanti e restituita
 da un metodo di istanza. Si tratta di un esempio ridotto del
 meccanismo utilizzato per associare proprietà a categorie fisse.
-\input{assets/codice/java/priorita-enum}
+\input{assets/codice/java/fondamenti/tipi-e-variabili/priorita-enum}
 \end{example}
 
 Le enumerazioni offrono \emph{sicurezza del tipo}, nomi
@@ -499,13 +490,13 @@ significativi e integrazione con \texttt{switch}, evitando
 l'ambiguità dei codici numerici. L'insieme delle costanti è
 però fissato nel codice: cambiarlo richiede una modifica del
 programma, e la conversione da testi esterni deve gestire
-valori non riconosciuti. Per insiemi dinamici servono invece
-strutture dati (\cref{sec:fi-adt-strutture}).
+valori non riconosciuti.
 
 \section{Il ciclo \texttt{while}}
 \label{sec:fi-java-cicli-while}
 
-Le strutture iterative eseguono più volte un corpo di istruzioni.
+Le strutture iterative eseguono più volte un corpo di istruzioni,
+come già visto in Python (\cref{sec:fi-python-cicli}).
 Nel ciclo \texttt{while} la condizione viene verificata
 \emph{prima} di ogni iterazione. Se è falsa fin dall'inizio,
 il corpo non viene eseguito neppure una volta. La sua forma
@@ -519,15 +510,15 @@ while (condizione) {
 
 La condizione deve avere tipo \texttt{boolean}, e il corpo può
 essere un singolo enunciato o un blocco. La
-\cref{fig:fi-java-cicli-controllo} mette a confronto questo
-schema con quello del ciclo \texttt{do}/\texttt{while},
-introdotto nella \cref{sec:fi-java-cicli-do-while}.
+\cref{fig:fi-java-cicli-controllo} confronta questo schema
+con il ciclo \texttt{do}/\texttt{while}, che verifica la
+condizione dopo il corpo.
 
 \clearpage
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/while-do-while}
+  \input{assets/diagrammi/java/controllo-di-flusso/cicli/while-do-while}
   \caption{Verifica preliminare nel ciclo \texttt{while} e
   verifica successiva nel ciclo \texttt{do}/\texttt{while}.}
   \label{fig:fi-java-cicli-controllo}
@@ -549,7 +540,7 @@ accredita gli interessi. La sua realizzazione può utilizzare
 \texttt{BankAccount}, già definita nella
 \cref{sec:fi-java-classi-incapsulamento}:
 
-\input{assets/codice/java/simple-investment-tester}
+\input{assets/codice/java/controllo-di-flusso/cicli/simple-investment-tester}
 
 All'inizio di ciascuna verifica della condizione, il contatore
 \texttt{years} è il numero di capitalizzazioni già effettuate e
@@ -598,18 +589,18 @@ riga il ciclo interno non eseguirebbe ulteriori iterazioni.
 
 Una situazione ricorrente è la lettura di una quantità non nota di
 dati, terminata da un \emph{valore sentinella}. La sentinella
-segnala la fine dell'ingresso e non appartiene ai dati da elaborare.
+segnala la fine dell'ingresso e viene esclusa dall'elaborazione.
 Il seguente programma somma i numeri inseriti fino allo zero, che
 non viene conteggiato.
 
-\input{assets/codice/java/somma-sentinella}
+\input{assets/codice/java/controllo-di-flusso/cicli/somma-sentinella}
 
 La variabile booleana \texttt{continua} è un flag: la condizione
 viene modificata dopo la lettura, impedendo di dover duplicare
 l'operazione prima e dentro il ciclo. Lo stesso schema funziona
 con una sentinella testuale come \texttt{"Q"}; il confronto deve
 allora utilizzare \texttt{equals()} oppure
-\texttt{equalsIgnoreCase()} (\cref{sec:fi-java-cicli-stringhe-uguaglianza}).
+\texttt{equalsIgnoreCase()}.
 Questa struttura viene talvolta chiamata \emph{ciclo e mezzo},
 perché la decisione di proseguire avviene fra acquisizione ed
 elaborazione del dato.
@@ -677,15 +668,16 @@ il flusso, come \texttt{continue}: in un \texttt{for},
 \texttt{continue} passa prima alla fase di aggiornamento.
 L'incremento non deve necessariamente essere di un'unità;
 può essere negativo e la variabile di controllo può avere anche
-tipo \texttt{double}, benché in quest'ultimo caso gli errori
-di arrotondamento richiedano particolare attenzione
-(\cref{sec:fi-java-classi-floating}).
+tipo \texttt{double}, benché gli errori di arrotondamento possano
+compromettere i confronti di arresto.
 
 Una variabile dichiarata nell'inizializzazione del \texttt{for}
 è visibile nell'intestazione e nel corpo, ma non dopo il ciclo.
 Se il suo valore finale serve successivamente, va dichiarata
 prima dell'enunciato \texttt{for}. Le regole generali di
 visibilità sono precisate nella \cref{sec:fi-java-cicli-scope}.
+Il \texttt{for-each} sugli array, senza indici espliciti, è
+introdotto nella \cref{sec:fi-java-array-for-each}.
 
 \subsection{Cicli \texttt{for} annidati}
 \label{sec:fi-java-cicli-for-annidati}
@@ -697,13 +689,11 @@ calcola i valori delle colonne. Per valori piccoli, interi e
 non negativi, si può usare \texttt{Math.pow()} con conversione
 controllata all'intero, oppure un prodotto ripetuto.
 
-\input{assets/codice/java/tabella-potenze}
+\input{assets/codice/java/controllo-di-flusso/cicli/tabella-potenze}
 
-Il programma produce quattro righe e cinque colonne. La stampa
-con \texttt{printf()} mantiene le colonne allineate, come già
-illustrato nella \cref{sec:fi-java-printf}. Un ulteriore ciclo
-interno potrebbe costruire gli spazi di riempimento, ma non
-sarebbe necessario se si utilizza la formattazione disponibile.
+Il programma produce quattro righe e cinque colonne;
+\texttt{printf()} allinea i valori mediante una larghezza di campo
+fissata, senza richiedere un ciclo aggiuntivo per gli spazi.
 
 \subsection{Errori di controllo e leggibilità}
 \label{sec:fi-java-cicli-errori}
@@ -737,24 +727,24 @@ rendendo difficile prevedere le iterazioni effettive.
 Le prove sui casi limite aiutano a trovare tali errori, ma
 non sostituiscono il ragionamento sulla terminazione.
 
+\clearpage
+
 \section{Metodi e variabili statiche}
 \label{sec:fi-java-cicli-static}
 
-Il metodo \texttt{main}, incontrato fin dal primo programma
-(\cref{sec:fi-java-primo-programma}), è dichiarato
-\texttt{static}: appartiene alla classe, non a un suo oggetto.
-In generale, i membri statici sono associati alla classe,
-quelli non statici alle singole istanze.
+Il modificatore \texttt{static}, incontrato nel metodo
+\texttt{main} (\cref{sec:fi-java-primo-programma}), distingue
+i membri associati alla classe da quelli appartenenti alle
+singole istanze. Si esaminano ora le conseguenze per i metodi
+e per lo stato condiviso.
 
 \subsection{Metodi statici e parametro implicito}
 \label{sec:fi-java-cicli-metodi-statici}
 
-Un metodo di istanza riceve implicitamente l'oggetto sul quale
-opera; al suo interno tale riferimento è indicato da
-\texttt{this}, come descritto nella
-\cref{sec:fi-java-classi-parametri}. Un metodo statico, invece,
-non possiede un parametro implicito e può essere invocato
-attraverso il nome della classe.
+A differenza dei metodi di istanza, che dispongono del riferimento
+implicito \texttt{this} (\cref{sec:fi-java-classi-parametri}),
+un metodo statico non ha un oggetto ricevente e si invoca
+normalmente attraverso il nome della classe.
 
 \begin{unipdcode}[language=Java]
 public class Financial {
@@ -768,9 +758,9 @@ La chiamata \texttt{Financial.percentOf(5, 200)} restituisce
 \texttt{10.0}, senza richiedere un oggetto \texttt{Financial}.
 Le classi che raccolgono metodi di questo tipo sono spesso dette
 \emph{classi di utilità}; \texttt{Math} è un esempio della
-libreria standard (\cref{sec:fi-java-math}). Un metodo statico
-non può utilizzare direttamente \texttt{this} né leggere un
-campo di istanza senza disporre di un riferimento a un oggetto.
+libreria standard. Un metodo statico non può utilizzare
+direttamente \texttt{this} né accedere a un campo di istanza
+senza un riferimento a un oggetto.
 
 \subsection{Variabili di classe e costanti}
 \label{sec:fi-java-cicli-campi-statici}
@@ -784,7 +774,7 @@ unica del contatore dai numeri assegnati alle singole istanze.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/contatore-statico}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/membri-statici/contatore-statico}
   \caption{Un campo statico condiviso e due campi di istanza,
   ciascuno appartenente a un oggetto distinto.}
   \label{fig:fi-java-cicli-statici-istanze}
@@ -792,7 +782,7 @@ unica del contatore dai numeri assegnati alle singole istanze.
 
 \clearpage
 
-\input{assets/codice/java/conto-numerato}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/membri-statici/conto-numerato}
 
 Dopo due costruzioni consecutive, gli oggetti ricevono
 rispettivamente i numeri \(1\) e \(2\). Se
@@ -845,14 +835,9 @@ Statica & Membri della classe, secondo i modificatori di accesso & Legato all'in
 Una variabile locale dichiarata dentro un blocco \texttt{if}
 non è visibile dopo la sua chiusura; una variabile dichiarata
 prima del blocco continua invece a essere accessibile al suo
-termine. Il compilatore Java verifica inoltre che una
-variabile locale sia \emph{definitivamente assegnata} prima
-di essere letta: una dichiarazione come \texttt{int n;}
-è valida, ma utilizzare \texttt{n} senza averle assegnato
-un valore causa un errore di compilazione. I campi di istanza
-e quelli statici, al contrario, ricevono automaticamente
-valori iniziali predefiniti
-(\cref{sec:fi-java-classi-costruttore-predefinito}).
+termine. Le regole di assegnazione delle variabili locali e i valori
+iniziali automatici dei campi sono questioni distinte
+dall'ambito di visibilità.
 
 \subsection{Oggetti, stack, heap e raccolta della memoria}
 \label{sec:fi-java-cicli-memoria}
@@ -867,7 +852,7 @@ a un oggetto, non l'oggetto stesso. La
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/diagrammi/java/variabili-heap}
+  \input{assets/diagrammi/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/variabili-heap}
   \caption{Modello concettuale di un riferimento locale a un oggetto
   contenente campi di istanza.}
   \label{fig:fi-java-cicli-memoria}
@@ -887,11 +872,12 @@ I raccoglitori differiscono nel compromesso tra
 \emph{throughput} (lavoro svolto nell'unità di tempo) e
 \emph{latenza} (durata delle pause). \emph{Serial GC},
 \emph{Parallel GC}, \emph{G1}, \emph{ZGC} e
-\emph{Shenandoah} adottano strategie differenti; in HotSpot,
-G1 è predefinito da Java 9, mentre CMS è stato rimosso in
-Java 14. La disponibilità dipende dalla distribuzione e dalla
-versione della JVM. Il GC non recupera gli oggetti ancora
-raggiungibili a causa di riferimenti inutilmente conservati.
+\emph{Shenandoah} adottano strategie differenti; G1 è in
+genere il raccoglitore predefinito nelle configurazioni comuni
+di HotSpot da Java 9. La disponibilità dipende dalla
+distribuzione e dalla versione della JVM. Il GC non recupera
+gli oggetti ancora raggiungibili a causa di riferimenti inutilmente
+conservati.
 
 \section{Visibilità dei membri e sovrapposizione dei nomi}
 \label{sec:fi-java-cicli-shadowing}

@@ -1,0 +1,172 @@
+\chapter{Esercizi: Interfacce e generici in Java}
+\label{chap:esercizi-interfacce-generici-java}
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-design}
+Qual è la differenza tra information hiding e modularità?
+\end{exercise}
+
+L'\emph{information hiding} nasconde i dettagli interni di un componente; la modularità organizza il programma in unità funzionali (\cref{sec:fi-java-interfacce-progettazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-object}
+Quali sono gli scopi di \texttt{toString()} e \texttt{equals()} di \texttt{Object}?
+\end{exercise}
+
+\texttt{toString()} fornisce una rappresentazione testuale dell'oggetto; \texttt{equals()} ne verifica l'uguaglianza, che nell'implementazione di \texttt{Object} coincide con l'identità (\cref{sec:fi-java-interfacce-object}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-tostring}
+Perché può essere opportuno sovrascrivere \texttt{toString()}?
+\end{exercise}
+
+Per ottenere una descrizione comprensibile delle informazioni significative, anziché la rappresentazione di base (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-stampa}
+Quando si utilizza implicitamente \texttt{toString()}?
+\end{exercise}
+
+In particolare nella stampa di un oggetto tramite \texttt{println(Object)} e nella concatenazione con una stringa (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-equals}
+Qual è la differenza tra \texttt{==} ed \texttt{equals()}?
+\end{exercise}
+
+Applicato a due riferimenti, \texttt{==} verifica se indicano lo stesso oggetto; \texttt{equals()} applica il criterio di uguaglianza definito dalla classe (\cref{sec:fi-java-interfacce-equals}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-class}
+Che cosa restituiscono \texttt{getClass()} e \texttt{getName()}?
+\end{exercise}
+
+\texttt{getClass()} restituisce un oggetto \texttt{Class} che rappresenta la classe effettiva dell'istanza; \texttt{getName()}, invocato su tale oggetto, ne restituisce il nome completo, comprensivo dell'eventuale package (\cref{sec:fi-java-interfacce-tostring}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-accesso}
+Quali sono gli ambiti di visibilità di \texttt{private}, \texttt{protected}, package e \texttt{public}?
+\end{exercise}
+
+Rispettivamente la classe dichiarante; le classi dello stesso package e le sottoclassi secondo le regole di Java; le classi dello stesso package; ogni classe che possa accedere alla classe dichiarante (\cref{tab:fi-java-interfacce-accesso}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-protected}
+Perché un campo \texttt{protected} può compromettere l'incapsulamento?
+\end{exercise}
+
+Le sottoclassi e le classi del package possono dipendere direttamente dalla rappresentazione interna (\cref{sec:fi-java-interfacce-accesso}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-final}
+Che cosa impedisce \texttt{final} applicato a metodi e classi?
+\end{exercise}
+
+La sovrascrittura del metodo e, rispettivamente, l'estensione della classe (\cref{tab:fi-java-interfacce-final}).
+
+\clearpage
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-interfaccia}
+Che cosa rappresenta un'interfaccia Java e come differisce da una classe?
+\end{exercise}
+
+Specifica un contratto comune senza costruttori o stato di istanza; una classe può contenere stato e consentire la costruzione di oggetti (\cref{def:fi-java-interfaccia}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-implements}
+Come si implementa un'interfaccia?
+\end{exercise}
+
+Si dichiara \texttt{implements}; una classe concreta deve fornire i metodi astratti richiesti non già implementati (\cref{sec:fi-java-interfacce-implementazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-tipi-metodi}
+Qual è la differenza tra metodi astratti, \texttt{static} e \texttt{default}?
+\end{exercise}
+
+I primi non hanno corpo; quelli \texttt{static} appartengono all'interfaccia; i \texttt{default} offrono una realizzazione di istanza ereditabile (\cref{sec:fi-java-interfacce-implementazione}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-variabile}
+Si può dichiarare una variabile di tipo interfaccia e costruirne direttamente un oggetto?
+\end{exercise}
+
+La variabile è ammessa e può indicare un oggetto di una classe che implementa l'interfaccia, ma non è valido \texttt{new NomeInterfaccia()} (\cref{sec:fi-java-interfacce-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-metodi-disponibili}
+Quali metodi sono utilizzabili attraverso un riferimento a un'interfaccia?
+\end{exercise}
+
+I metodi di istanza accessibili dichiarati o ereditati dall'interfaccia e i metodi pubblici di \texttt{Object}, ma non i metodi specifici della classe concreta non previsti dal tipo dichiarato (\cref{sec:fi-java-interfacce-riferimenti}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-polimorfismo}
+Come si manifesta il polimorfismo con \texttt{Comparable}?
+\end{exercise}
+
+Il tipo statico abilita \texttt{compareTo()}, mentre il metodo eseguito dipende dall'oggetto effettivamente referenziato (\cref{sec:fi-java-interfacce-riferimenti,sec:fi-java-interfacce-comparable}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-risultato-compareto}
+Quali valori può restituire \texttt{compareTo()}?
+\end{exercise}
+
+Un valore negativo se precede, zero se equivalente nell'ordine e positivo se segue; non necessariamente \(-1\) e \(1\) (\cref{def:fi-java-interfacce-comparable}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-generici}
+Che cosa si intende per programmazione generica?
+\end{exercise}
+
+La definizione di classi e metodi che usano parametri di tipo specializzati dal contesto o dall'utilizzo (\cref{def:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-vantaggi}
+Quali vantaggi hanno i generici rispetto a \texttt{Object} e ai cast?
+\end{exercise}
+
+Permettono di riusare codice con verifica statica dei tipi e riducono i cast espliciti al recupero dei dati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-sintassi}
+Come si dichiara una classe generica con parametro \texttt{T}?
+\end{exercise}
+
+Con \lstinline|class Box<T> { ... }|, dove \texttt{T} è utilizzabile nei tipi dei campi, dei parametri e dei risultati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-lettere}
+Che cosa indicano per convenzione \texttt{T}, \texttt{E}, \texttt{K}, \texttt{V} e \texttt{N}?
+\end{exercise}
+
+Tipo, elemento, chiave, valore e tipo numerico. Sono convenzioni e non identificatori riservati (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-box-param}
+Che differenza c'è tra \lstinline|Box<T>| e \lstinline|Box<String>|?
+\end{exercise}
+
+Il primo usa il parametro di tipo della dichiarazione; il secondo specifica un tipo concreto in un utilizzo (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-box-string}
+Perché \lstinline|Box<String>| non può ricevere un \texttt{Integer}?
+\end{exercise}
+
+Il metodo \texttt{set()} richiede un \texttt{String}, e il controllo del tipo avviene in compilazione (\cref{sec:fi-java-interfacce-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-metodo-generico}
+Come si dichiara un metodo generico?
+\end{exercise}
+
+Si dichiara il parametro di tipo \lstinline|<T>| prima del tipo di ritorno, per esempio in \lstinline|static <T> void printArray(T[] elementi)| (\cref{sec:fi-java-interfacce-metodi-generici}).
+
+\begin{exercise}
+\label{ex:fi-esercizi-java-interfacce-array-algs}
+Come si adatta \texttt{selectionSort()} a oggetti confrontabili?
+\end{exercise}
+
+Si utilizzano elementi confrontabili tramite \texttt{Comparable}; il confronto numerico è sostituito dal controllo del segno restituito da \texttt{compareTo()}, senza modificare la logica dell'algoritmo (\cref{sec:fi-java-interfacce-selection}).

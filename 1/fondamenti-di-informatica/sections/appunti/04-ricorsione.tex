@@ -3,9 +3,8 @@
 
 Le funzioni introdotte nella \cref{sec:fi-python-funzioni} possono
 richiamare se stesse per risolvere un problema attraverso sottoproblemi
-della stessa natura. Questa tecnica prende il nome di \emph{ricorsione}
-e richiede di individuare un caso base e di ricavare la soluzione dai
-risultati delle chiamate ricorsive.\footnote{Materiale
+della stessa natura. Il capitolo esamina questa tecnica, le sue condizioni
+di terminazione e il confronto con l'iterazione.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Ricorsione}, file
 \nolinkurl{2026_FI_03_canazza_Ricorsione.pdf}.}
 
@@ -50,10 +49,9 @@ Per \(n\in\N\), il \emph{fattoriale} è definito dal prodotto
 
 La definizione precedente si traduce nelle due implementazioni
 seguenti, che calcolano lo stesso risultato per un intero non negativo:
-la prima utilizza un ciclo (\cref{sec:fi-python-cicli}), la seconda
-una chiamata ricorsiva.
+la prima utilizza un ciclo, la seconda una chiamata ricorsiva.
 
-\input{assets/codice/ricorsione/fattoriale-confronto}
+\input{assets/codice/python/ricorsione/fattoriale-confronto}
 
 Nella prima funzione, dopo l'iterazione di indice \(i\), la variabile
 \texttt{risultato} vale \(i!\). Nella seconda, il caso base restituisce
@@ -105,7 +103,7 @@ uno. Le chiamate riprendono quindi in ordine inverso:
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/codice/ricorsione/fattoriale-chiamate}
+  \input{assets/diagrammi/ricorsione/fattoriale-chiamate}
   \caption{Invocazioni e ritorni nella valutazione di
   \texttt{fattoriale(4)}.}
   \label{fig:fi-fattoriale-chiamate}
@@ -195,8 +193,8 @@ può richiamare ricorsivamente la funzione più di una volta. Un esempio
   \label{eq:fi-fibonacci}
 \end{equation}
 
-La traduzione diretta dell'\cref{eq:fi-fibonacci} richiede due casi
-base e due chiamate ricorsive:
+La traduzione diretta della definizione richiede due casi base e
+due chiamate ricorsive:
 
 \begin{unipdcode}[language=Python]
 def fib(n):
@@ -213,7 +211,7 @@ L'esecuzione delle due chiamate è sequenziale, non parallela.
 
 \begin{figure}[htbp]
   \centering
-  \input{assets/codice/ricorsione/fibonacci-albero}
+  \input{assets/diagrammi/ricorsione/fibonacci-albero}
   \caption{Albero delle nove invocazioni effettuate da
   \texttt{fib(5)}.}
   \label{fig:fi-fibonacci-albero}
@@ -226,15 +224,10 @@ mentre la pila contiene soltanto quelle ancora attive.
 I numeri sulle frecce indicano l'ordine in cui le chiamate ricorsive
 vengono effettuate durante l'esecuzione di \texttt{fib(5)}.
 
-Indicando con \(C_n\) il numero di invocazioni complessive, si ha
-\[
-  C_1=C_2=1,\qquad C_n=1+C_{n-1}+C_{n-2}\quad(n>2).
-\]
-Dalle due relazioni segue per induzione \(C_n=2F_n-1\).
-Poiché \(F_{n+2}\ge2F_n\), il numero di chiamate cresce
-esponenzialmente con \(n\), a causa del ricalcolo degli stessi
-sottoproblemi. La profondità massima della pila cresce invece
-linearmente. La stima dei costi temporali e spaziali è ripresa nella
+Il ricalcolo degli stessi sottoproblemi fa crescere esponenzialmente
+il numero delle invocazioni, mentre la profondità massima della pila
+cresce linearmente. Il conteggio preciso delle chiamate e l'analisi
+dei costi sono sviluppati nella
 \cref{sec:fi-complessita-fibonacci}.
 
 \clearpage
@@ -311,5 +304,4 @@ def conto_rovescia(n):
 Per \(n=3\) vengono stampati \(3,2,1,0\), uno per riga:
 la misura \(n\) raggiunge il caso base. A differenza della
 funzione precedente, questa produce output anziché un valore;
-restituisce \texttt{None} e la chiamata è in coda
-(\cref{sec:fi-ricorsione-coda}).
+restituisce \texttt{None} e la chiamata è in coda.

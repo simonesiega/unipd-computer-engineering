@@ -1,0 +1,10 @@
+\begin{unipdcode}[language=Java]
+public static int[] resize(int[] original, int nuovaLunghezza) {
+    if (original == null || nuovaLunghezza < 0)
+        throw new IllegalArgumentException();
+    int[] copia = new int[nuovaLunghezza];
+    System.arraycopy(original, 0, copia, 0,
+                     Math.min(original.length, nuovaLunghezza));
+    return copia;
+}
+\end{unipdcode}

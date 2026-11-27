@@ -1,0 +1,14 @@
+\begin{unipdcode}[language=Java]
+public static void mergeSort(int[] v) {
+    if (v == null) throw new IllegalArgumentException();
+    if (v.length < 2) return;
+    int mid = v.length / 2;
+    int[] left = new int[mid];
+    int[] right = new int[v.length - mid];
+    System.arraycopy(v, 0, left, 0, mid);
+    System.arraycopy(v, mid, right, 0, right.length);
+    mergeSort(left);
+    mergeSort(right);
+    merge(v, left, right);
+}
+\end{unipdcode}

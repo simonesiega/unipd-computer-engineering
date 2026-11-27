@@ -3,13 +3,11 @@
 
 La ricerca individua un elemento che soddisfa una condizione, mentre
 l'ordinamento dispone gli elementi secondo una relazione prestabilita.
-Questi problemi permettono di confrontare strategie con costi differenti,
-utilizzando le notazioni della \cref{sec:fi-complessita-asintotica}.
-Si considerano liste Python di interi, già introdotte nella
-\cref{sec:fi-python-liste}, e si indica con \(n\) la loro lunghezza.
-Nei programmi il parametro \texttt{v\_size} coincide con \texttt{len(v)}.
-Si assume accesso per indice in tempo costante, come per gli array
-della \cref{sec:fi-strutture-array}.\footnote{Materiale
+Si considerano liste Python di interi, indicando con \(n\) la loro
+lunghezza. Nei programmi che lo prevedono, il parametro
+\texttt{v\_size} coincide con \texttt{len(v)}. I confronti e gli
+accessi per indice si assumono di costo costante, secondo il modello
+della \cref{sec:fi-complessita-modello}.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Ricerca e Ordinamento}, dispense del
 corso di Fondamenti di Informatica.}
 
@@ -23,7 +21,7 @@ non compare, restituisce \(-1\). In questo contesto \(-1\) è un valore
 convenzionale che segnala l'insuccesso, non un indice da utilizzare
 per accedere alla lista.
 
-\input{assets/codice/ricerca/lineare}
+\input{assets/codice/python/ricerca/lineare}
 
 Prima di esaminare l'indice \(i\), nessuno degli elementi nelle
 posizioni da \(0\) a \(i-1\) è uguale a \(x\). Se il confronto riesce,
@@ -63,7 +61,9 @@ L'implementazione seguente assume un ordinamento crescente
 e restituisce un indice contenente \(x\), oppure \(-1\) se il valore
 è assente.
 
-\input{assets/codice/ricerca/binaria}
+\clearpage
+
+\input{assets/codice/python/ricerca/binaria}
 
 La procedura ricorsiva mantiene un intervallo di indici
 \([\ell,r]\) nel quale deve trovarsi il valore cercato, se presente.
@@ -118,14 +118,13 @@ ordinata, occorre esaminare tutti gli elementi. La ricerca assume
 il primo valore come candidato e lo aggiorna quando incontra un
 elemento rispettivamente maggiore o minore.
 
-\input{assets/codice/ricerca/estremi}
+\input{assets/codice/python/ricerca/estremi}
 
-Dopo aver esaminato i primi \(i\) elementi, la variabile
-\texttt{massimo}, rispettivamente \texttt{minimo}, contiene
-l'estremo degli elementi visitati. Ogni confronto conserva
-questa proprietà, aggiornando il candidato quando necessario.
-Al termine della scansione, la funzione restituisce quindi
-il massimo oppure il minimo dell'intera lista.
+A ogni passo il candidato conserva l'estremo fra gli elementi
+già visitati; terminata la scansione, è quindi l'estremo
+dell'intera lista. Lo stesso principio è stato impiegato per
+ottenere la soluzione lineare al problema della massima differenza
+nella \cref{sec:fi-complessita-differenza}.
 
 In entrambi gli algoritmi, per \(n\ge1\), vengono eseguiti
 esattamente \(n-1\) confronti, indipendentemente dai valori
@@ -154,7 +153,7 @@ intervallo di indici. La strategia ammette sia un'implementazione
 iterativa sia una ricorsiva: nella seconda, dopo aver collocato
 il minimo, si ordina la parte rimanente.
 
-\input{assets/codice/ordinamento/selezione}
+\input{assets/codice/python/ordinamento/selezione}
 
 Nella versione iterativa, all'inizio dell'iterazione di indice \(i\),
 i primi \(i\) elementi sono ordinati e contengono gli \(i\) valori
@@ -216,7 +215,7 @@ una delle due parti è esaurita, copia gli elementi residui dell'altra.
 
 \clearpage
 
-\input{assets/codice/ordinamento/fusione}
+\input{assets/codice/python/ordinamento/fusione}
 
 Durante la fusione, la parte di destinazione già scritta contiene,
 in ordine, gli elementi più piccoli delle due sottoliste.
@@ -249,9 +248,6 @@ i primi \(\lfloor\log_2 n\rfloor\) livelli richiedono ciascuno
 \(\Theta(n)\) lavoro, mentre gli eventuali livelli rimanenti
 richiedono complessivamente \(O(n)\) operazioni.
 
-Per \(n=2^k\), la stessa stima si ottiene anche applicando
-il teorema maestro della \cref{sec:fi-teorema-maestro}.
-
 Le complessità temporali nei tre casi sono quindi
 \[
   T_{\mathrm{best}}(n)\in\Theta(n\log n),\qquad
@@ -278,7 +274,7 @@ iniziale della lista. A ogni iterazione conserva temporaneamente
 l'elemento da inserire e sposta verso destra quelli maggiori,
 fino a individuare la posizione corretta.
 
-\input{assets/codice/ordinamento/inserimento}
+\input{assets/codice/python/ordinamento/inserimento}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi
 sono ordinati. Il ciclo interno sposta soltanto gli elementi maggiori
@@ -324,7 +320,7 @@ Il pivot viene quindi collocato nella sua posizione definitiva e
 il procedimento prosegue ricorsivamente sui due intervalli rimanenti.
 Una parte di lunghezza minore di due costituisce il caso base.
 
-\input{assets/codice/ordinamento/rapido}
+\input{assets/codice/python/ordinamento/rapido}
 
 Per ordinare l'intera lista, la chiamata iniziale è
 \texttt{quicksort(a, 0, len(a) - 1)}, poiché gli estremi
@@ -496,9 +492,11 @@ costante, secondo il modello di costo della
 
 Le stime del caso medio per Insertion Sort e QuickSort assumono
 una distribuzione uniforme delle permutazioni di valori distinti.
-Per QuickSort, la scelta casuale del pivot permette di ottenere
-un costo atteso \(\Theta(n\log n)\) indipendentemente dalla
-disposizione iniziale, senza escludere il caso peggiore.
+Per QuickSort, se i valori sono distinti, la scelta casuale
+del pivot dà un costo atteso \(\Theta(n\log n)\) indipendentemente
+dalla disposizione iniziale. Con molti valori uguali, invece,
+la partizione a due vie mostrata può richiedere
+\(\Theta(n^2)\) operazioni anche scegliendo il pivot a caso.
 
 Un'ulteriore distinzione riguarda la \emph{stabilità}:
 Insertion Sort e MergeSort conservano l'ordine relativo degli
@@ -510,3 +508,6 @@ possiedono più chiavi di ordinamento.
 La scelta dell'algoritmo deve quindi considerare anche le
 caratteristiche dei dati, i requisiti di stabilità e il costo
 delle operazioni effettivamente eseguite.
+
+Le implementazioni per array di interi in Java sono sviluppate
+nel \cref{chap:ricerca-ordinamento-java}.

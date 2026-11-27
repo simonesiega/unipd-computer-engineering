@@ -34,11 +34,12 @@ stima non costituisce, da sola, una dimostrazione della complessità.
 
 In Python, il modulo \texttt{time} offre \texttt{time.time()}, che
 restituisce un istante espresso in secondi. Per misurare intervalli di
-tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene sottraendo le letture effettuate prima e
-dopo l'esecuzione. Per confrontare più dimensioni si possono registrare
-i risultati in formato CSV, utilizzando i file di testo introdotti
-nella \cref{sec:fi-python-file}. Un esempio completo di misurazione
-sarà presentato dopo le due implementazioni di \texttt{reverse} (\cref{sec:fi-complessita-reverse-lineare}).
+tempo è adatto \texttt{time.perf\_counter()}. La durata si ottiene
+sottraendo le letture effettuate prima e dopo l'esecuzione. Per
+confrontare più dimensioni si possono registrare i risultati in
+formato CSV, utilizzando i file di testo introdotti nella
+\cref{sec:fi-python-file}. Un esempio di misurazione è riportato
+nella \cref{sec:fi-complessita-reverse-lineare}.
 
 Il tempo misurato dipende anche dai valori dei dati, dall'hardware,
 dall'interprete o compilatore, dal linguaggio, dall'implementazione e
@@ -206,7 +207,7 @@ operazioni sulle liste sono descritti nella \cref{sec:fi-python-liste}.
 La seguente implementazione inserisce ogni elemento all'inizio della
 lista di uscita, spostando verso destra quelli già inseriti.
 
-\input{assets/codice/complessita/reverse-quadratico}
+\input{assets/codice/python/complessita/reverse-quadratico}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
 \texttt{output} contengono, in ordine inverso, i primi \(i\) elementi
@@ -214,8 +215,8 @@ della lista di ingresso. Il ciclo interno li sposta di una posizione;
 l'assegnamento successivo inserisce \texttt{lista[i]} in posizione
 zero. Dopo \(n\) iterazioni si ottiene quindi la lista invertita.
 
-Per determinare il costo si adotta un conteggio semplificato, secondo
-il modello della \cref{sec:fi-complessita-modello}. L'istruzione
+Per determinare il costo si adotta un conteggio semplificato.
+L'istruzione
 \texttt{n = len(lista)} e gli assegnamenti semplici valgono un passo
 ciascuno, mentre la costruzione di \texttt{[0] * n} costa \(n\) passi,
 oltre all'assegnamento a \texttt{output}. Si trascurano i controlli
@@ -249,7 +250,7 @@ direttamente nella propria posizione definitiva. Visitando gli indici
 in ordine crescente, si copia l'elemento di indice \(n-1-i\) nella
 posizione \(i\) della lista di uscita.
 
-\input{assets/codice/complessita/reverse-lineare}
+\input{assets/codice/python/complessita/reverse-lineare}
 
 All'inizio dell'iterazione di indice \(i\), i primi \(i\) elementi di
 \texttt{output} contengono, in ordine inverso, gli ultimi \(i\) elementi
@@ -271,7 +272,7 @@ Per confrontarle sperimentalmente, il seguente programma registra in
 \texttt{tempi.csv} la durata delle esecuzioni su liste di dimensione
 crescente. Si assumono definite le due funzioni precedenti.
 
-\input{assets/codice/complessita/misurazione}
+\input{assets/codice/python/complessita/misurazione}
 
 Il file risultante contiene, per ogni misura, il nome dell'algoritmo,
 la dimensione dell'ingresso e il tempo in secondi. Le misure
@@ -291,7 +292,7 @@ Per esempio, da \([3,1,4,1,5]\) si ottiene
 \([3,4,8,9,14]\). Una prima soluzione ricalcola per ogni indice
 la somma dall'inizio; una seconda conserva la somma già raggiunta.
 
-\input{assets/codice/complessita/somme-prefisse}
+\input{assets/codice/python/complessita/somme-prefisse}
 
 Nella prima versione, a ogni iterazione di indice \(i\) viene
 calcolata la somma dei primi \(i+1\) elementi della lista di ingresso,
@@ -334,7 +335,7 @@ sfrutta la relazione
 \]
 È quindi sufficiente individuare il minimo e il massimo della lista.
 
-\input{assets/codice/complessita/differenza-massima}
+\input{assets/codice/python/complessita/differenza-massima}
 
 Nella prima versione, la variabile \texttt{massimo} conserva la
 maggiore differenza fra quelle già esaminate e zero. Il valore
@@ -373,7 +374,7 @@ se contiene elementi duplicati, ossia se esistono indici distinti
 elemento con quelli successivi; una seconda ordina una copia della
 lista e verifica la presenza di elementi consecutivi uguali.
 
-\input{assets/codice/complessita/duplicati}
+\input{assets/codice/python/complessita/duplicati}
 
 Nella prima versione, il ciclo interno confronta l'elemento di indice
 \(i\) con tutti quelli di indice maggiore. Ogni coppia di indici
@@ -396,9 +397,10 @@ Nella seconda versione, l'ordinamento colloca gli eventuali valori
 duplicati in posizioni adiacenti. Il ciclo verifica ciascuna coppia
 di elementi consecutivi e restituisce \texttt{True} quando trova
 un'uguaglianza. Se la scansione termina senza individuarne, tutti
-gli elementi sono distinti. L'ordinamento mediante \texttt{sorted()}
-richiede \(O(n\log n)\) tempo nel caso peggiore, mentre la scansione
-richiede \(O(n)\). La complessità temporale complessiva è quindi
+gli elementi sono distinti. Assumendo confronti a costo costante,
+l'ordinamento mediante \texttt{sorted()} richiede \(O(n\log n)\) tempo nel caso peggiore,
+mentre la scansione richiede \(O(n)\). La complessità temporale
+complessiva è quindi
 \[
   T_{\mathrm{ordinamento}}(n)\in O(n\log n).
 \]
@@ -423,7 +425,7 @@ indici iniziali sono \(0,\ldots,n-m\), purché \(m\le n\).
 La ricerca diretta confronta i caratteri del modello con quelli
 del testo per ogni posizione candidata.
 
-\input{assets/codice/complessita/sottostringa}
+\input{assets/codice/python/complessita/sottostringa}
 
 Per ogni posizione iniziale \(i\), la variabile
 \texttt{coincidenze} conta i caratteri corrispondenti nelle due
@@ -432,6 +434,8 @@ del modello coincidono e la funzione restituisce \(i\).
 Poiché le posizioni vengono esaminate in ordine crescente,
 l'indice restituito è quello della prima occorrenza.
 Se nessuna posizione soddisfa la condizione, viene restituito \(-1\).
+Il ciclo interno esamina tutti i \(m\) caratteri del modello, anche
+quando incontra una differenza.
 
 Per \(1\le m\le n\), nel caso peggiore vengono esaminate tutte
 le \(n-m+1\) posizioni candidate, confrontando \(m\) caratteri
@@ -498,8 +502,17 @@ essere impraticabile per dimensioni moderate.
 \label{sec:fi-complessita-fibonacci}
 
 Le due implementazioni di Fibonacci sono presentate nella
-\cref{sec:fi-fibonacci}, dove si è stabilito che il numero complessivo
-delle invocazioni ricorsive è \(C_n=2F_n-1\).
+\cref{sec:fi-fibonacci}. Indicando con \(C_n\) il numero complessivo
+delle invocazioni della versione ricorsiva, si ha
+\[
+  C_1=C_2=1,\qquad C_n=1+C_{n-1}+C_{n-2}\quad(n>2).
+\]
+Dalla ricorrenza dei numeri di Fibonacci segue per induzione
+\(C_n=2F_n-1\): l'identità vale nei due casi base e, assumendola
+per \(n-1\) e \(n-2\), si ottiene
+\[
+  C_n=1+(2F_{n-1}-1)+(2F_{n-2}-1)=2F_n-1.
+\]
 Nel modello a costo unitario, ogni invocazione compie un numero
 costante di operazioni, escluse quelle delle chiamate interne.
 La complessità temporale della versione ricorsiva è pertanto
@@ -508,7 +521,8 @@ La complessità temporale della versione ricorsiva è pertanto
 \]
 Dalla ricorrenza e dalla monotonia della successione seguono
 \(F_{n+2}\ge2F_n\) e \(F_{n+1}\le2F_n\) per \(n\ge2\).
-Queste disuguaglianze permettono di ricavare le stime
+Queste disuguaglianze permettono di ricavare, per \(n\ge2\),
+le stime
 \[
   2^{\lfloor(n-1)/2\rfloor}\le F_n\le2^{n-2},
 \]

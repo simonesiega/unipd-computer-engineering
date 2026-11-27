@@ -1,0 +1,11 @@
+\begin{unipdcode}[language=Java]
+public static int[] insert(int[] v, int index, int value) {
+    if (v == null || index < 0 || index > v.length)
+        throw new IllegalArgumentException();
+    int[] out = resize(v, v.length + 1);
+    for (int i = v.length; i > index; i--)
+        out[i] = out[i - 1];
+    out[index] = value;
+    return out;
+}
+\end{unipdcode}

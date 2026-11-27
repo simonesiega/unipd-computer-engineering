@@ -9,9 +9,9 @@ nell'elaborazione dell'informazione?
 
 Disporre i dati secondo un criterio prestabilito ne facilita
 la consultazione, il confronto e alcune successive elaborazioni.
-In particolare, l'ordinamento costituisce la precondizione della
-ricerca binaria, che evita di esaminare tutti gli elementi
-(\cref{chap:ricerca-ordinamento,sec:fi-ricerca-binaria}).
+In particolare, una lista ordinata consente di applicare la
+ricerca binaria, che riduce il numero di elementi da esaminare
+(\cref{sec:fi-ricerca-binaria}).
 
 \begin{exercise}
 \label{ex:fi-esercizi-ricerca-ordinamento-ricerca-lineare}
@@ -199,7 +199,7 @@ con costo costante per il caso base
 \begin{exercise}
 \label{ex:fi-esercizi-ricerca-ordinamento-merge-confronto-costi}
 Perché MergeSort ha complessità \(O(n\log n)\), mentre
-Selection Sort e il caso medio/peggiore di Insertion Sort
+Selection Sort e i casi medio e peggiore di Insertion Sort
 hanno complessità \(O(n^2)\)?
 \end{exercise}
 
@@ -246,8 +246,8 @@ il tempo di esecuzione di un algoritmo ricorsivo?
 
 Si espande ripetutamente la ricorrenza sostituendo il costo
 dei sottoproblemi con la stessa espressione, fino a raggiungere
-il caso base. Per MergeSort, assumendo \(n=2^k\) e lavoro
-non ricorsivo \(cn\), si ottiene
+il caso base. Per MergeSort, assumendo \(n=2^k\) e un costo
+non ricorsivo \(cn\), con \(c>0\) costante, si ottiene
 \[
   T(n)=2T(n/2)+cn
       =2^kT(1)+kcn
@@ -387,8 +387,8 @@ Perché il Fibonacci ricorsivo ha complessità esponenziale?
 
 La versione ricorsiva diretta calcola più volte gli stessi
 sottoproblemi: ogni chiamata non di base genera due chiamate.
-Il loro numero complessivo è \(C_n=2F_n-1\), che cresce
-esponenzialmente con \(n\); nel modello a costo unitario,
+Il loro numero complessivo è \(C_n=2F_n-1\) per \(n\ge1\),
+e cresce esponenzialmente con \(n\); nel modello a costo unitario,
 anche il tempo è \(\Theta(F_n)\)
 (\cref{sec:fi-fibonacci,sec:fi-complessita-fibonacci}).
 

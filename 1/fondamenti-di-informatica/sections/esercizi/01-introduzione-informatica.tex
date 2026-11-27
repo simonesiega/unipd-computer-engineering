@@ -50,7 +50,7 @@ non ambigue ed eseguibili, che termina per ogni ingresso ammissibile.
 La progettazione precede l'implementazione perché occorre definire
 il problema, individuare un procedimento risolutivo e verificarne la
 correttezza. Un programma traduce tale procedimento in un linguaggio
-di programmazione (\cref{def:fi-algoritmo,sec:fi-algoritmi}).
+di programmazione (\cref{sec:fi-algoritmi}).
 
 \begin{exercise}
 \label{ex:fi-intro-problema-decisione}
@@ -84,10 +84,11 @@ Da quali elementi è composta una macchina di Turing e quali
 operazioni fondamentali può eseguire?
 \end{exercise}
 
-Il nastro, la testina e il controllo a stati finiti sono descritti
-nell'\cref{ex:fi-intro-turing-definizione}. A ogni passo la macchina
-legge il simbolo della cella corrente e, secondo la regola di transizione,
-scrive un simbolo, sposta la testina e aggiorna lo stato.
+Una macchina di Turing comprende un nastro teoricamente illimitato,
+una testina di lettura e scrittura e un controllo con un numero finito
+di stati. A ogni passo legge il simbolo della cella corrente e, secondo
+la regola di transizione, scrive un simbolo, sposta la testina e
+aggiorna lo stato.
 Una \emph{configurazione} comprende contenuto del nastro, posizione
 della testina e stato del controllo; l'esecuzione può arrestarsi oppure
 proseguire indefinitamente (\cref{sec:fi-macchina-turing}).
@@ -112,7 +113,7 @@ cosa rappresenta 1 bit?
 \end{exercise}
 
 Shannon introdusse una misura quantitativa dell'informazione legata
-alla probabilità degli eventi. Un evento di probabilità \(p\) fornisce
+alla probabilità degli eventi. Un evento di probabilità \(0<p\le1\) fornisce
 \(I(p)=-\log_2 p\) bit; un esito fra due alternative equiprobabili
 fornisce quindi un bit. L'\emph{entropia} misura il contenuto informativo
 medio di una sorgente. Il bit come unità di informazione va distinto
@@ -128,7 +129,7 @@ L'informatica studia i metodi per rappresentare, memorizzare,
 elaborare e trasmettere l'informazione mediante procedimenti
 automatici. Il trattamento è \emph{automatico} quando l'elaborazione
 segue istruzioni definite ed eseguibili da un calcolatore
-(\cref{chap:introduzione-informatica,sec:fi-informatica-calcolo}).
+(\cref{sec:fi-informatica-calcolo}).
 
 \begin{exercise}
 \label{ex:fi-intro-calcolatore}

@@ -1,0 +1,432 @@
+\chapter{Array in Java}
+\label{chap:array-java}
+
+Il capitolo esamina gli array in Java: costruzione e accesso agli
+elementi, elaborazione mediante metodi, array bidimensionali e
+organizzazione di dati correlati.\footnote{Materiale
+di riferimento: S. Canazza, \emph{Java: Arrays},
+\nolinkurl{2026_FI_12_canazza_Java_Array.key.pdf}.}
+
+\section{Struttura, costruzione e accesso agli array}
+\label{sec:fi-java-array-fondamenti}
+
+\begin{definition}[Array in Java]
+\label{def:fi-java-array}
+Un \emph{array} è un oggetto che contiene una sequenza di elementi
+omogenei, individuati mediante indici interi consecutivi.
+La sua lunghezza è stabilita alla costruzione e non può cambiare.
+\end{definition}
+
+Il concetto astratto e le proprietà dell'accesso diretto sono già
+stati esaminati nella \cref{sec:fi-strutture-array}.
+In Java un array può contenere valori primitivi oppure riferimenti
+a oggetti; gli oggetti indicati da tali riferimenti sono distinti
+dall'array che li contiene.
+
+\subsection{Dichiarazione, costruzione e indici}
+\label{sec:fi-java-array-costruzione}
+
+Si dichiara una variabile di tipo \texttt{double[]} e si costruisce
+un array di dieci elementi mediante \texttt{new}:
+
+\begin{unipdcode}[language=Java]
+double[] valori = new double[10];
+valori[3] = 2.5;
+double elemento = valori[3];
+\end{unipdcode}
+
+\texttt{valori} contiene un riferimento all'array;
+\texttt{valori[3]} ne individua il quarto elemento. Gli indici
+ammessi appartengono all'intervallo
+\(0\le i<\texttt{valori.length}\). Un indice negativo o non inferiore
+alla lunghezza provoca \texttt{ArrayIndexOutOfBoundsException},
+un'eccezione non controllata.
+La lunghezza richiesta a \texttt{new} non può essere negativa:
+in tal caso viene lanciata \texttt{NegativeArraySizeException}.
+
+\subsection{Lunghezza e inizializzazione}
+\label{sec:fi-java-array-inizializzazione}
+
+\texttt{length} è un campo \texttt{public final}, non un metodo:
+\texttt{valori.length} restituisce il numero di elementi,
+mentre assegnargli un nuovo valore è un errore di compilazione.
+La lunghezza può essere zero. Gli elementi di un array costruito
+con \texttt{new} assumono i valori iniziali previsti dal tipo:
+zero per i tipi numerici, \texttt{false} per \texttt{boolean},
+\texttt{\textbackslash u0000} per \texttt{char} e \texttt{null} per i riferimenti.
+
+\begin{unipdcode}[language=Java]
+int[] a = new int[3];
+a[0] = 2; a[1] = 3; a[2] = 5;
+int[] b = {2, 3, 5};
+int[] c = new int[] {2, 3, 5};
+\end{unipdcode}
+
+Le tre costruzioni producono array distinti con lo stesso contenuto.
+La forma abbreviata con le sole graffe è ammessa nella dichiarazione
+con inizializzazione, non in un assegnamento ordinario successivo.
+Per un array di riferimenti, l'inizializzazione delle celle a
+\texttt{null} non costruisce automaticamente gli oggetti indicati.
+
+\subsection{Parametri, valori di ritorno e copia}
+\label{sec:fi-java-array-parametri}
+
+Un parametro di tipo \texttt{int[]} riceve una copia del riferimento,
+secondo il passaggio per valore della
+\cref{def:fi-java-file-passaggio-valore}. Il metodo può modificare
+le celle dell'array ricevuto, ma riassegnare il parametro non cambia
+la variabile del chiamante. Un metodo può anche restituire un
+riferimento a un array:
+
+\begin{unipdcode}[language=Java]
+public static int somma(int[] v) {
+    if (v == null) throw new IllegalArgumentException();
+    int totale = 0;
+    for (int i = 0; i < v.length; i++) totale += v[i];
+    return totale;
+}
+
+public static int[] primiTre() {
+    return new int[] {2, 3, 5};
+}
+\end{unipdcode}
+
+L'assegnamento \texttt{int[] y = x;} copia il riferimento, non
+l'array: modificare \texttt{y[0]} modifica anche \texttt{x[0]}.
+Per ottenere un array indipendente occorre copiarne gli elementi.
+Si possono usare un ciclo, \texttt{System.arraycopy()} oppure
+\texttt{clone()}:
+
+\begin{unipdcode}[language=Java]
+int[] x = {2, 3, 5};
+int[] y = x;                       // stesso array
+int[] z = x.clone();               // nuovo array
+int[] w = new int[x.length];
+System.arraycopy(x, 0, w, 0, x.length);
+\end{unipdcode}
+
+I cinque parametri di \texttt{System.arraycopy()} identificano
+array sorgente e indice iniziale, array destinazione e indice
+iniziale, e numero di elementi da copiare. Gli
+intervalli devono essere validi e i tipi compatibili; il metodo
+gestisce anche intervalli sovrapposti nello stesso array.
+Il metodo \texttt{clone()} degli array restituisce un riferimento
+del tipo array appropriato, senza richiedere un cast esplicito.
+Entrambe le operazioni effettuano una \emph{copia superficiale}:
+per un array di oggetti, copiano i riferimenti, non gli oggetti.
+
+\begin{figure}[htbp]
+  \centering
+  \input{assets/diagrammi/java/algoritmi-e-strutture-dati/array/array-riferimenti-copie}
+  \caption{Due variabili possono riferirsi allo stesso array;
+  la copia degli elementi produce un oggetto distinto.}
+  \label{fig:fi-java-array-copie}
+\end{figure}
+
+\clearpage
+
+\section{Il ciclo \texttt{for-each}}
+\label{sec:fi-java-array-for-each}
+
+Il \emph{for-each}, o \emph{enhanced for}, visita gli elementi
+di un array in ordine senza utilizzare un indice esplicito:
+
+\begin{unipdcode}[language=Java]
+int[] voti = {24, 27, 30};
+int somma = 0;
+for (int voto : voti) {
+    somma += voto;
+}
+System.out.println(somma);  // 81
+\end{unipdcode}
+
+A ogni iterazione, \texttt{voto} riceve una copia del valore
+dell'elemento corrente. Assegnare un nuovo valore a \texttt{voto}
+non modifica la cella originaria. Se gli elementi sono riferimenti
+a oggetti modificabili, è invece possibile modificarne lo stato
+attraverso tali riferimenti.
+Per accedere agli indici, sostituire gli elementi o visitare soltanto
+determinate posizioni, si utilizza il \texttt{for} tradizionale.
+
+\section{Ridimensionamento mediante copia}
+\label{sec:fi-java-array-resize}
+
+La lunghezza di un array non è modificabile. Per ottenere una
+lunghezza diversa si costruisce un nuovo array, si trasferiscono
+i dati da conservare e si restituisce il nuovo riferimento.
+Una possibile implementazione è la seguente:
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-resize}
+
+Il numero di elementi conservati è
+\(\min(\texttt{original.length},\texttt{nuovaLunghezza})\).
+Se il nuovo array è più lungo, le celle aggiuntive mantengono
+l'inizializzazione predefinita; se è più corto, gli elementi
+finali vengono scartati. Per adottare il nuovo array, il chiamante
+deve assegnare il riferimento restituito; gli altri riferimenti
+all'array originale continuano a indicare l'oggetto precedente:
+
+\begin{unipdcode}[language=Java]
+int[] valori = {1, 3, 7};
+valori = ArrayAlgs.resize(valori, 5);  // [1, 3, 7, 0, 0]
+\end{unipdcode}
+
+\clearpage
+
+\section{Algoritmi su array: la classe \texttt{ArrayAlgs}}
+\label{sec:fi-java-array-algoritmi}
+
+La classe di utilità \texttt{ArrayAlgs} raccoglie metodi
+\texttt{static} per elaborare array di interi. Ogni listato seguente
+mostra un singolo metodo della stessa classe; non ne viene
+ripetuta la dichiarazione. Le operazioni che cambiano la lunghezza
+restituiscono un nuovo array.
+
+\subsection{Generazione di numeri pseudocasuali}
+\label{sec:fi-java-array-casuale}
+
+\texttt{Math.random()} restituisce un valore \texttt{double}
+pseudocasuale nell'intervallo \([0,1)\). Il seguente metodo
+\texttt{randomIntArray()} costruisce un array di lunghezza
+\texttt{length} con interi nell'intervallo inclusivo
+\([\texttt{min},\texttt{max}]\):
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-casuale}
+
+Il numero di valori possibili è calcolato usando \texttt{long},
+per evitare l'overflow di \texttt{max - min + 1}; gli elementi
+restituiti restano di tipo \texttt{int}. Lunghezze negative e
+intervalli invertiti non sono ammessi.
+
+\subsection{Rappresentazione testuale}
+\label{sec:fi-java-array-stampa}
+
+Stampare direttamente un riferimento a un array con
+\texttt{System.out.println(v)} non ne elenca gli elementi.
+Il metodo seguente costruisce una rappresentazione testuale:
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-stampa}
+
+\begin{unipdcode}[language=Java]
+int[] v = {2, 3, 5};
+System.out.println(ArrayAlgs.printArray(v)); // [2, 3, 5]
+\end{unipdcode}
+
+\clearpage
+
+\subsection{Rimozione con e senza conservazione dell'ordine}
+\label{sec:fi-java-array-remove}
+
+La rimozione restituisce un array con un elemento in meno. Se l'ordine non è rilevante, l'elemento rimosso
+può essere sostituito dall'ultimo; altrimenti gli elementi
+successivi devono conservare l'ordine relativo.
+
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Senza conservare l'ordine}
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-remove}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Conservando l'ordine}
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-remove-sorted}
+\end{minipage}
+
+\begin{unipdcode}[language=Java]
+int[] v = {1, 2, 3, 4, 5};
+int[] a = ArrayAlgs.remove(v, 1);        // [1, 5, 3, 4]
+int[] b = ArrayAlgs.removeSorted(v, 1);  // [1, 3, 4, 5]
+\end{unipdcode}
+
+\texttt{removeSorted()} conserva l'ordine originario, ma non
+esegue un ordinamento. Entrambi i metodi restituiscono un nuovo
+array: la copia richiede \(\Theta(n)\) tempo e spazio per \(n\)
+elementi. La differenza riguarda i movimenti necessari dopo la
+rimozione: una sostituzione con l'ultimo elemento, oppure lo
+scorrimento della parte successiva della sequenza.
+
+\subsection{Inserimento in una posizione}
+\label{sec:fi-java-array-insert}
+
+Per inserire un elemento all'indice \texttt{index}, compreso
+fra zero e la lunghezza originaria, si crea un array con una
+cella aggiuntiva. Gli elementi da \texttt{index} in poi vengono spostati verso
+indici maggiori, procedendo dall'ultimo verso il primo per
+non sovrascrivere valori ancora necessari:
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/array/array-algs-insert}
+
+\begin{unipdcode}[language=Java]
+int[] v = {1, 2, 3, 4, 5};
+v = ArrayAlgs.insert(v, 2, 7);  // [1, 2, 7, 3, 4, 5]
+\end{unipdcode}
+
+Gli elementi vengono trasferiti verso \emph{indici maggiori},
+ma sono elaborati a partire dall'ultimo. Il costo temporale
+e lo spazio aggiuntivo sono \(\Theta(n)\).
+
+\clearpage
+
+\subsection{Ricerca lineare}
+\label{sec:fi-java-array-linear-search}
+
+La ricerca lineare già studiata nella \cref{sec:fi-ricerca-lineare}
+esamina gli elementi nell'ordine e restituisce il primo indice
+corrispondente, oppure \(-1\) se il valore non è presente:
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/lineare/array-algs-linear-search}
+
+Nel caso peggiore vengono effettuati \(n\) confronti:
+complessità temporale \(\Theta(n)\) e spazio ausiliario
+\(\Theta(1)\).
+
+\subsection{Ricerca del massimo e del minimo}
+\label{sec:fi-java-array-estremi}
+
+Per un array non vuoto, il primo elemento costituisce il
+candidato iniziale. I successivi aggiornano il candidato
+quando si trova un valore maggiore o minore:
+
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Massimo}
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/estremi/array-algs-find-max}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\textbf{Minimo}
+
+\input{assets/codice/java/algoritmi-e-strutture-dati/ricerca/estremi/array-algs-find-min}
+\end{minipage}
+
+Il caso vuoto viene rifiutato perché non possiede un massimo
+né un minimo. Entrambi i metodi hanno costo temporale \(\Theta(n)\) e
+utilizzano \(\Theta(1)\) spazio ausiliario.
+
+\section{Array bidimensionali}
+\label{sec:fi-java-array-bidimensionali}
+
+Un array bidimensionale in Java è un \emph{array di array}.
+L'espressione \texttt{v[i][j]} seleziona l'elemento in posizione
+\texttt{j} della riga \texttt{i}; la lunghezza dell'array
+esterno è \texttt{v.length}, quella della riga \texttt{i} è
+\texttt{v[i].length}.
+
+\begin{unipdcode}[language=Java]
+int[][] potenze = new int[4][5];
+for (int i = 0; i < potenze.length; i++) {
+    for (int j = 0; j < potenze[i].length; j++) {
+        potenze[i][j] = (int) Math.pow(i + 1, j + 1);
+    }
+}
+System.out.println(potenze[2][3]);  // 81, ossia 3^4
+\end{unipdcode}
+
+\clearpage
+
+In questo caso gli indici di riga sono \(0,\ldots,3\) e quelli
+di colonna \(0,\ldots,4\). L'accesso a una riga o
+a una sua cella con indice non valido provoca un'eccezione.
+Le righe possono avere lunghezze differenti:
+
+\begin{unipdcode}[language=Java]
+int[][] righe = {{1, 2, 3}, {4}, {5, 6}};
+System.out.println(righe[0].length); // 3
+System.out.println(righe[1].length); // 1
+\end{unipdcode}
+
+Non esiste quindi, in generale, un unico numero di colonne.
+Prima di usare \texttt{v[0].length} occorre verificare che
+l'array esterno non sia vuoto; una riga nulla non può
+essere indicizzata. Le scansioni utilizzano pertanto
+\texttt{v[i].length}, non la lunghezza della prima riga.
+
+\section{Argomenti della riga di comando}
+\label{sec:fi-java-array-argomenti}
+
+Il parametro \texttt{String[] args} di \texttt{main}, introdotto
+nella \cref{sec:fi-java-primo-programma}, contiene gli argomenti
+passati dopo il nome della classe, senza includerlo.
+Gli argomenti sono stringhe, anche quando rappresentano numeri:
+
+\begin{unipdcode}[language=Java]
+public class Argomenti {
+    public static void main(String[] args) {
+        System.out.println("Argomenti: " + args.length);
+        for (String arg : args)
+            System.out.println(arg);
+    }
+}
+\end{unipdcode}
+
+\begin{unipdterminal}
+$ java Argomenti 2 33 Hello
+Argomenti: 3
+2
+33
+Hello
+\end{unipdterminal}
+
+Per convertire una stringa numerica si può usare
+\texttt{Integer.parseInt()}, che può lanciare
+\texttt{NumberFormatException}. Le opzioni possono essere
+riconosciute convenzionalmente dal prefisso \texttt{-}, per
+esempio mediante \texttt{arg.startsWith("-")}; la sintassi
+concreta delle opzioni è stabilita dal programma.
+
+\section{Array paralleli e array di oggetti}
+\label{sec:fi-java-array-paralleli}
+
+Si parla di \emph{array paralleli} quando elementi allo stesso
+indice, in array diversi, descrivono lo stesso dato logico:
+
+\begin{unipdcode}[language=Java]
+String[] cognomi = {"Rossi", "Bianchi"};
+double[] scritti = {26, 28};
+double[] orali = {30, 27};
+double media = (scritti[0] + orali[0]) / 2; // 28.0
+\end{unipdcode}
+
+\clearpage
+
+L'associazione dipende dall'indice. Inserimenti, eliminazioni
+e riordinamenti devono essere coordinati fra tutti gli array;
+i metodi richiedono inoltre più parametri per elaborare i
+dati dello stesso studente. Una rappresentazione orientata
+agli oggetti riunisce invece le proprietà correlate in
+un'unica classe (\cref{sec:fi-java-classi-incapsulamento}):
+
+\begin{unipdcode}[language=Java]
+class Studente {
+    private final String cognome;
+    private final double scritto, orale;
+
+    public Studente(String cognome, double scritto, double orale) {
+        this.cognome = cognome;
+        this.scritto = scritto;
+        this.orale = orale;
+    }
+
+    public double media() { return (scritto + orale) / 2; }
+}
+\end{unipdcode}
+
+\begin{unipdcode}[language=Java]
+Studente[] studenti = {
+    new Studente("Rossi", 26, 30),
+    new Studente("Bianchi", 28, 27)
+};
+System.out.println(studenti[0].media());  // 28.0
+\end{unipdcode}
+
+Un nuovo dato riferito allo studente può essere aggiunto alla
+classe senza introdurre un ulteriore array da sincronizzare.
+L'array di oggetti mantiene l'ordine degli studenti, mentre
+ogni oggetto conserva in modo unitario le proprie informazioni.

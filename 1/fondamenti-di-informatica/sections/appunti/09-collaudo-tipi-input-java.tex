@@ -1,9 +1,8 @@
 \chapter{Collaudo, tipi di dato e input in Java}
 \label{chap:collaudo-tipi-input-java}
 
-A partire dalle nozioni introdotte nel \cref{chap:introduzione-java},
-si approfondiscono il collaudo delle classi, i tipi di dato e le
-relative operazioni, la manipolazione delle stringhe e
+Il capitolo approfondisce il collaudo delle classi, i tipi di dato
+e le relative operazioni, la manipolazione delle stringhe e
 l'acquisizione di dati dall'ingresso standard.\footnote{Materiale
 di riferimento: S. Canazza, \emph{Collaudare una classe; tipi di
 dati e input}, slide del corso di Fondamenti di Informatica,
@@ -38,14 +37,16 @@ della classe, ma non comporta la creazione di oggetti.
 Le classi del pacchetto \texttt{java.lang}, tra cui
 \texttt{System}, \texttt{String}, \texttt{Math} e
 \texttt{Integer}, sono invece accessibili senza
-importazioni esplicite.
+importazioni esplicite. L'organizzazione dei package e la
+compilazione di classi appartenenti a package diversi
+sono approfondite nella \cref{sec:fi-java-file-package}.
 
 \begin{example}[Collaudo della classe \texttt{Rectangle}]
 Il seguente programma crea un rettangolo, ne modifica
 la posizione mediante \texttt{translate()} e visualizza
 le nuove coordinate:
 
-\input{assets/codice/java/move-tester}
+\input{assets/codice/java/programmazione-a-oggetti/classi-e-oggetti/riferimenti/move-tester}
 
 \begin{unipdterminal}
 20.0
@@ -54,9 +55,8 @@ le nuove coordinate:
 
 La traslazione incrementa di \(15\) la coordinata iniziale
 \(x=5\) e di \(25\) la coordinata iniziale \(y=10\).
-I metodi \texttt{getX()} e \texttt{getY()} restituiscono
-valori di tipo \texttt{double}, visualizzati quindi
-con la parte decimale.
+I risultati comprendono la parte decimale perché i metodi
+\texttt{getX()} e \texttt{getY()} restituiscono \texttt{double}.
 \end{example}
 
 \clearpage
@@ -215,14 +215,10 @@ Un letterale decimale senza suffisso è normalmente di tipo
 si utilizza il suffisso \texttt{f}, come in
 \texttt{float x = 30.2f;}.
 
-Come già esaminato nel
-\cref{chap:rappresentazione-informazioni}, molti numeri
-decimali non ammettono una rappresentazione binaria finita.
-I valori vengono quindi approssimati, e gli errori di
-arrotondamento possono influenzare il risultato delle
-operazioni. Per esempio, l'espressione
-\texttt{4.35 * 100} produce
-\texttt{434.99999999999994} anziché \texttt{435.0}.
+Molti numeri decimali non ammettono una rappresentazione
+binaria finita. I valori vengono quindi approssimati, e gli
+errori di arrotondamento possono influenzare il risultato
+delle operazioni.
 
 La distanza tra numeri rappresentabili consecutivi dipende
 dall'ordine di grandezza: rimane costante all'interno di
@@ -323,8 +319,7 @@ viene scelto quello maggiore: per esempio,
 \texttt{Math.round(2.5)} restituisce \(3\).
 L'arrotondamento non è quindi simmetrico rispetto allo zero.
 
-Gli errori di rappresentazione descritti nella
-\cref{sec:fi-java-precisione} possono influire anche sulle
+Gli errori di rappresentazione possono influire anche sulle
 conversioni. Per esempio, l'espressione
 \texttt{(int) (100 * 4.35)} produce \texttt{434},
 poiché il risultato della moltiplicazione è leggermente
@@ -345,7 +340,7 @@ Il seguente programma utilizza il metodo
 \texttt{multiply()} per moltiplicare due oggetti
 \texttt{BigInteger}:
 
-\input{assets/codice/java/big-integer}
+\input{assets/codice/java/fondamenti/tipi-e-variabili/big-integer}
 
 \begin{unipdterminal}
 121932631112635269
@@ -387,15 +382,14 @@ di ottenere rispettivamente il quoziente e il resto
 di una divisione intera. Possono quindi essere utilizzati
 per separare gli euro interi dai centesimi di un importo:
 
-\input{assets/codice/java/coins5}
+\input{assets/codice/java/fondamenti/tipi-e-variabili/coins5}
 
 \begin{unipdterminal}
 2 euro e 35 centesimi
 \end{unipdterminal}
 
 Il valore iniziale viene convertito in un numero intero
-di centesimi mediante \texttt{Math.round()}, già introdotto
-nella \cref{sec:fi-java-conversioni}. Il quoziente della
+di centesimi mediante \texttt{Math.round()}. Il quoziente della
 divisione per \(100\) fornisce gli euro interi, mentre
 il resto rappresenta i centesimi residui.
 
@@ -438,8 +432,7 @@ a disposizione le costanti \texttt{Math.PI} e
 
 I metodi di \texttt{Math} sono \emph{statici}: vengono
 invocati mediante il nome della classe, senza creare
-un oggetto, secondo la sintassi introdotta nella
-\cref{sec:fi-java-invocazione-metodi}.
+un oggetto.
 
 \begin{example}[Utilizzo della classe \texttt{Math}]
 Il seguente esempio calcola l'area di un cerchio
@@ -547,12 +540,8 @@ Hello
 Le parentesi nell'espressione \texttt{(3 + 4)}
 permettono di eseguire l'addizione prima della
 concatenazione: senza di esse si otterrebbe
-\texttt{"Totale: 34"}. La stringa \texttt{s}
-rimane invariata, coerentemente con
-l'immutabilità degli oggetti \texttt{String}
-già esaminata nella \cref{sec:fi-java-metodi-string}.
-Il confronto tra stringhe è trattato nella
-\cref{sec:fi-java-cicli-stringhe}.
+\texttt{"Totale: 34"}. La stringa \texttt{s} rimane invariata,
+coerentemente con l'immutabilità degli oggetti \texttt{String}.
 
 \subsection{Conversione tra stringhe e numeri}
 \label{sec:fi-java-parsing}
@@ -566,7 +555,9 @@ e \texttt{Double.parseDouble()}, che restituiscono
 rispettivamente un \texttt{int} e un \texttt{double}.
 Se il testo non rappresenta un valore valido
 per la conversione richiesta, viene generata
-\texttt{NumberFormatException}.
+\texttt{NumberFormatException}. La gestione di questa
+eccezione mediante \texttt{try} e \texttt{catch} è trattata
+nella \cref{sec:fi-java-file-throw-try-catch}.
 
 \begin{unipdcode}[language=Java]
 String testo = "28";
@@ -602,10 +593,8 @@ A differenza di una \texttt{String}, un valore
 \texttt{char} non richiede la creazione di un oggetto.
 
 Il metodo \texttt{charAt(i)} della classe \texttt{String}
-restituisce il valore \texttt{char} alla posizione \(i\),
-utilizzando l'indicizzazione introdotta nella
-\cref{sec:fi-java-substring}. Gli indici si riferiscono
-alle unità di codice UTF-16: un punto di codice Unicode
+restituisce il valore \texttt{char} alla posizione \(i\).
+Gli indici si riferiscono alle unità di codice UTF-16: un punto di codice Unicode
 rappresentato da una coppia di surrogati occupa quindi
 due posizioni (\cref{sec:fi-caratteri}).
 Un indice esterno all'intervallo valido genera
@@ -615,20 +604,11 @@ Un indice esterno all'intervallo valido genera
 String nome = "John";
 char lettera = nome.charAt(2);
 System.out.println(lettera);
-
-for (int i = 0; i < nome.length(); i++) {
-    System.out.print(nome.charAt(i));
-}
-System.out.println();
 \end{unipdcode}
 
 \begin{unipdterminal}
 h
-John
 \end{unipdterminal}
-
-Il ciclo \texttt{for} permette di visitare in ordine
-tutte le unità di codice della stringa.
 
 Nelle espressioni aritmetiche, i valori \texttt{char}
 vengono generalmente convertiti in \texttt{int}.
@@ -737,7 +717,7 @@ specificare \texttt{Locale.US}, importando la classe
 Il seguente programma visualizza due importi con
 due cifre decimali e le relative colonne allineate:
 
-\input{assets/codice/java/formattazione}
+\input{assets/codice/java/fondamenti/input-output/formattazione}
 
 \begin{unipdterminal}
 Total: 3.50
@@ -751,6 +731,8 @@ A differenza di \texttt{println()},
 \texttt{printf()} non aggiunge automaticamente
 un ritorno a capo.
 \end{example}
+
+\clearpage
 
 \section{L'ingresso standard con \texttt{Scanner}}
 \label{sec:fi-java-scanner}
@@ -793,7 +775,7 @@ viene riconosciuto come separatore decimale.
 Il seguente programma acquisisce una quantità di lire
 e una somma di euro, calcolandone il valore complessivo:
 
-\input{assets/codice/java/scanner-coins}
+\input{assets/codice/java/fondamenti/input-output/scanner-coins}
 
 Con gli input \texttt{15000} e \texttt{2.35},
 il programma visualizza un totale di \texttt{10.10}
@@ -831,7 +813,7 @@ righe distinte e costruisce una stringa concatenando
 le iniziali minuscole del nome e del cognome con
 l'età:
 
-\input{assets/codice/java/scanner-password}
+\input{assets/codice/java/fondamenti/input-output/scanner-password}
 
 Inserendo \texttt{Anna}, \texttt{Bianchi} e
 \texttt{28}, il programma produce \texttt{ab28}.
